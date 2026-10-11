@@ -1,0 +1,853 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "82",
+  "cap": 82,
+  "boosts": [
+   {
+    "on": "club",
+    "id": 69,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   },
+   {
+    "on": "club",
+    "id": 22,
+    "att": 0,
+    "ctl": 2,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id247789",
+     "name": "Frohms",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      32,
+      25,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      27,
+      85
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id208333",
+     "name": "Can",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      73,
+      71,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      75,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50553308",
+     "name": "Lindelöf",
+     "rating": 82,
+     "color": "squad_foundations",
+     "position": "CB",
+     "nationId": 46,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      67,
+      74,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      76,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50568180",
+     "name": "Koch",
+     "rating": 82,
+     "color": "squad_foundations",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      62,
+      66,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      68,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id206517",
+     "name": "Grealish",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 10,
+     "card": [
+      80,
+      83,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      85,
+      56
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id253109",
+     "name": "Veerman",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      76,
+      81,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      85,
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50522413",
+     "name": "Groß",
+     "rating": 81,
+     "color": "totw_gold",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      79,
+      83,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      85,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      80
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id220697",
+     "name": "Maddison",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      81,
+      84,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      86,
+      57
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id259334",
+     "name": "Nerea Eizagirre",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 457,
+     "card": [
+      82,
+      80,
+      63
+     ],
+     "chem": 2,
+     "eff": [
+      83,
+      81,
+      64
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50416920",
+     "name": "Schröder",
+     "rating": 82,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 46,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      84,
+      74,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      38
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 85.2,
+    "attack": 83.6,
+    "defence": 84.0,
+    "control_cards": [
+     86,
+     85,
+     85,
+     85,
+     85
+    ],
+    "attack_cards": [
+     86,
+     84,
+     83,
+     83,
+     82
+    ],
+    "defence_cards": [
+     85,
+     84,
+     84,
+     83
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id247789",
+     "name": "Frohms",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      32,
+      25,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      27,
+      85
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50553308",
+     "name": "Lindelöf",
+     "rating": 82,
+     "color": "squad_foundations",
+     "position": "CB",
+     "nationId": 46,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      67,
+      74,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      76,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id208333",
+     "name": "Can",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      73,
+      71,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      75,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50568180",
+     "name": "Koch",
+     "rating": 82,
+     "color": "squad_foundations",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      62,
+      66,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      68,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50522413",
+     "name": "Groß",
+     "rating": 81,
+     "color": "totw_gold",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      79,
+      83,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      85,
+      77
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id206517",
+     "name": "Grealish",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 10,
+     "card": [
+      80,
+      83,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      85,
+      56
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id220697",
+     "name": "Maddison",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      81,
+      84,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      86,
+      57
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id253109",
+     "name": "Veerman",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      76,
+      81,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      85,
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      80
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id259334",
+     "name": "Nerea Eizagirre",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 457,
+     "card": [
+      82,
+      80,
+      63
+     ],
+     "chem": 2,
+     "eff": [
+      83,
+      81,
+      64
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50416920",
+     "name": "Schröder",
+     "rating": 82,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 46,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      84,
+      74,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      38
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 85.2,
+    "attack": 83.75,
+    "defence": 82.6,
+    "control_cards": [
+     86,
+     85,
+     85,
+     85,
+     85
+    ],
+    "attack_cards": [
+     86,
+     84,
+     83,
+     82
+    ],
+    "defence_cards": [
+     85,
+     84,
+     84,
+     83,
+     77
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id247789",
+     "name": "Frohms",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      32,
+      25,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      27,
+      85
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50568180",
+     "name": "Koch",
+     "rating": 82,
+     "color": "squad_foundations",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      62,
+      66,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      68,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id208333",
+     "name": "Can",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      73,
+      71,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      75,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50553308",
+     "name": "Lindelöf",
+     "rating": 82,
+     "color": "squad_foundations",
+     "position": "CB",
+     "nationId": 46,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      67,
+      74,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      76,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50522413",
+     "name": "Groß",
+     "rating": 81,
+     "color": "totw_gold",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      79,
+      83,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      85,
+      77
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id253109",
+     "name": "Veerman",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      76,
+      81,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      85,
+      68
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id206517",
+     "name": "Grealish",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 10,
+     "card": [
+      80,
+      83,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      85,
+      56
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id220697",
+     "name": "Maddison",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      81,
+      84,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      86,
+      57
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      80
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id259334",
+     "name": "Nerea Eizagirre",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 457,
+     "card": [
+      82,
+      80,
+      63
+     ],
+     "chem": 2,
+     "eff": [
+      83,
+      81,
+      64
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50416920",
+     "name": "Schröder",
+     "rating": 82,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 46,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      84,
+      74,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      38
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 85.2,
+    "attack": 83.6,
+    "defence": 80.17,
+    "control_cards": [
+     86,
+     85,
+     85,
+     85,
+     85
+    ],
+    "attack_cards": [
+     86,
+     84,
+     83,
+     83,
+     82
+    ],
+    "defence_cards": [
+     85,
+     84,
+     84,
+     83,
+     77,
+     68
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0
+   }
+  }
+ ],
+ "built": "2026-10-11 17:53 UTC"
+}

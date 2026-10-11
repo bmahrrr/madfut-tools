@@ -1,0 +1,853 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "89",
+  "cap": 89,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 13,
+    "att": 2,
+    "ctl": 1,
+    "def": 0
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "types",
+    "min": 5,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      52,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id77676",
+     "name": "Jones",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      72,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      65,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Can_89",
+     "name": "Can",
+     "rating": 89,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      80,
+      89,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      92,
+      93
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id266801",
+     "name": "Kewell",
+     "rating": 87,
+     "color": "hero",
+     "position": "LW",
+     "nationId": 195,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      86,
+      87,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      91,
+      57
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id212198",
+     "name": "Bruno Fernandes",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 38,
+     "leagueId": 13,
+     "clubId": 11,
+     "card": [
+      85,
+      88,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      92,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id162895",
+     "name": "Cesc Fàbregas",
+     "rating": 88,
+     "color": "hero",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      83,
+      88,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      92,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id227102",
+     "name": "Graham Hansen",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 36,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      87,
+      88,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      91,
+      54
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id167134",
+     "name": "Papin",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      75,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      78,
+      52
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id241846",
+     "name": "Pajor",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      90,
+      74,
+      29
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      77,
+      32
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 91.6,
+    "attack": 91.75,
+    "defence": 92.8,
+    "control_cards": [
+     92,
+     92,
+     92,
+     91,
+     91
+    ],
+    "attack_cards": [
+     93,
+     93,
+     91,
+     90
+    ],
+    "defence_cards": [
+     93,
+     93,
+     93,
+     93,
+     92
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      52,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      65,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id77676",
+     "name": "Jones",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      72,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Can_89",
+     "name": "Can",
+     "rating": 89,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      80,
+      89,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      92,
+      93
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id266801",
+     "name": "Kewell",
+     "rating": 87,
+     "color": "hero",
+     "position": "LW",
+     "nationId": 195,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      86,
+      87,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      91,
+      57
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id162895",
+     "name": "Cesc Fàbregas",
+     "rating": 88,
+     "color": "hero",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      83,
+      88,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      92,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id212198",
+     "name": "Bruno Fernandes",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 38,
+     "leagueId": 13,
+     "clubId": 11,
+     "card": [
+      85,
+      88,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      92,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id227102",
+     "name": "Graham Hansen",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 36,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      87,
+      88,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      91,
+      54
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id167134",
+     "name": "Papin",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      75,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      78,
+      52
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id241846",
+     "name": "Pajor",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      90,
+      74,
+      29
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      77,
+      32
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 91.6,
+    "attack": 91.75,
+    "defence": 92.8,
+    "control_cards": [
+     92,
+     92,
+     92,
+     91,
+     91
+    ],
+    "attack_cards": [
+     93,
+     93,
+     91,
+     90
+    ],
+    "defence_cards": [
+     93,
+     93,
+     93,
+     93,
+     92
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      52,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id77676",
+     "name": "Jones",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      72,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      65,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id266801",
+     "name": "Kewell",
+     "rating": 87,
+     "color": "hero",
+     "position": "LW",
+     "nationId": 195,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      86,
+      87,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      91,
+      57
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evo_Can_89",
+     "name": "Can",
+     "rating": 89,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      80,
+      89,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      92,
+      93
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id162895",
+     "name": "Cesc Fàbregas",
+     "rating": 88,
+     "color": "hero",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      83,
+      88,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      92,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id227102",
+     "name": "Graham Hansen",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 36,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      87,
+      88,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      91,
+      54
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id212198",
+     "name": "Bruno Fernandes",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 38,
+     "leagueId": 13,
+     "clubId": 11,
+     "card": [
+      85,
+      88,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      92,
+      71
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id241846",
+     "name": "Pajor",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      90,
+      74,
+      29
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      77,
+      32
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id167134",
+     "name": "Papin",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      75,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      78,
+      52
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 91.6,
+    "attack": 91.4,
+    "defence": 92.75,
+    "control_cards": [
+     92,
+     92,
+     92,
+     91,
+     91
+    ],
+    "attack_cards": [
+     93,
+     93,
+     91,
+     90,
+     90
+    ],
+    "defence_cards": [
+     93,
+     93,
+     93,
+     92
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  }
+ ],
+ "built": "2026-10-11 18:20 UTC"
+}

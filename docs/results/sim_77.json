@@ -1,0 +1,855 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "77",
+  "cap": 77,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 19,
+    "att": 0,
+    "ctl": 1,
+    "def": 1
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "clubs",
+    "min": 11,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id268428",
+     "name": "Backhaus",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 25,
+     "card": [
+      28,
+      28,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      31,
+      32,
+      82
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id258432",
+     "name": "Matsima",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 19,
+     "clubId": 100409,
+     "card": [
+      55,
+      54,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      58,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246836",
+     "name": "Pieper",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      49,
+      53,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      52,
+      57,
+      82
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246885",
+     "name": "Capaldo",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      72,
+      70,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      74,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id236786",
+     "name": "Terrier",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      77,
+      75,
+      42
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      79,
+      46
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id260823",
+     "name": "Fagioli",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 110374,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      74
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id230658",
+     "name": "Arthur",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      74
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      83,
+      78
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id192318",
+     "name": "Götze",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      76,
+      80,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      84,
+      58
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id277327",
+     "name": "Esposito",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 131682,
+     "card": [
+      77,
+      71,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      74,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id216816",
+     "name": "Simeone",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      78,
+      67,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      70,
+      49
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 82.0,
+    "attack": 79.6,
+    "defence": 81.0,
+    "control_cards": [
+     84,
+     83,
+     82,
+     82,
+     79
+    ],
+    "attack_cards": [
+     81,
+     80,
+     80,
+     79,
+     78
+    ],
+    "defence_cards": [
+     82,
+     82,
+     81,
+     79
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id224251",
+     "name": "Zentner",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      32,
+      22,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      35,
+      26,
+      82
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id246885",
+     "name": "Capaldo",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      72,
+      70,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      74,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246836",
+     "name": "Pieper",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      49,
+      53,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      52,
+      57,
+      82
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id258432",
+     "name": "Matsima",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 19,
+     "clubId": 100409,
+     "card": [
+      55,
+      54,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      58,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id260823",
+     "name": "Fagioli",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 110374,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id236786",
+     "name": "Terrier",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      77,
+      75,
+      42
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      79,
+      46
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id192318",
+     "name": "Götze",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      76,
+      80,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      84,
+      58
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id230658",
+     "name": "Arthur",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      74
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      83,
+      78
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id277327",
+     "name": "Esposito",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 131682,
+     "card": [
+      77,
+      71,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      74,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id216816",
+     "name": "Simeone",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      78,
+      67,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      70,
+      49
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 82.0,
+    "attack": 79.75,
+    "defence": 79.6,
+    "control_cards": [
+     84,
+     83,
+     82,
+     82,
+     79
+    ],
+    "attack_cards": [
+     81,
+     80,
+     80,
+     78
+    ],
+    "defence_cards": [
+     82,
+     82,
+     81,
+     79,
+     74
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id268428",
+     "name": "Backhaus",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 25,
+     "card": [
+      28,
+      28,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      31,
+      32,
+      82
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id258432",
+     "name": "Matsima",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 19,
+     "clubId": 100409,
+     "card": [
+      55,
+      54,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      58,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246836",
+     "name": "Pieper",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      49,
+      53,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      52,
+      57,
+      82
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246885",
+     "name": "Capaldo",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      72,
+      70,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      74,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id260823",
+     "name": "Fagioli",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 110374,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id230658",
+     "name": "Arthur",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id236786",
+     "name": "Terrier",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      77,
+      75,
+      42
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      79,
+      46
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id192318",
+     "name": "Götze",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      76,
+      80,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      84,
+      58
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      83,
+      78
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id277327",
+     "name": "Esposito",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 131682,
+     "card": [
+      77,
+      71,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      74,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id216816",
+     "name": "Simeone",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      78,
+      67,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      70,
+      49
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 82.0,
+    "attack": 79.6,
+    "defence": 78.67,
+    "control_cards": [
+     84,
+     83,
+     82,
+     82,
+     79
+    ],
+    "attack_cards": [
+     81,
+     80,
+     80,
+     79,
+     78
+    ],
+    "defence_cards": [
+     82,
+     82,
+     81,
+     79,
+     74,
+     74
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  }
+ ],
+ "built": "2026-10-11 17:52 UTC"
+}

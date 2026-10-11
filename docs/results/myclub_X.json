@@ -1,0 +1,321 @@
+{
+ "mode": "myclub",
+ "series": {
+  "key": "X",
+  "cap": 99,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 18,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   },
+   {
+    "on": "nation",
+    "id": 21,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   }
+  ],
+  "minutes": 30
+ },
+ "opponents": [
+  [
+   "Müller",
+   "Rogers",
+   "Ngumoha",
+   "Zidane",
+   "Xavi Espart",
+   "Karetsas",
+   "Cucurella",
+   "Beckenbauer",
+   "Can",
+   "Sara",
+   "Angerer"
+  ]
+ ],
+ "team": {
+  "formation": "4-1-2-1-2",
+  "chem": 33,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id191694",
+    "name": "Campos",
+    "rating": 87,
+    "color": "hero",
+    "position": "GK",
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 114605,
+    "card": [
+     77,
+     68,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     70,
+     90
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "LB",
+    "id": "id121939",
+    "name": "Lahm",
+    "rating": 89,
+    "color": "icon",
+    "position": "RB",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     79,
+     83,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     87,
+     92
+    ],
+    "tiebreak": 256
+   },
+   {
+    "slot": "CB",
+    "id": "id238435",
+    "name": "Matthäus",
+    "rating": 90,
+    "color": "icon",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     85,
+     84,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     88,
+     92
+    ],
+    "tiebreak": 263
+   },
+   {
+    "slot": "CB",
+    "id": "id166906",
+    "name": "Baresi",
+    "rating": 91,
+    "color": "icon",
+    "position": "CB",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     66,
+     75,
+     91
+    ],
+    "chem": 3,
+    "eff": [
+     68,
+     77,
+     93
+    ],
+    "tiebreak": 238
+   },
+   {
+    "slot": "RB",
+    "id": "id1615",
+    "name": "Thuram",
+    "rating": 89,
+    "color": "icon",
+    "position": "RB",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     74,
+     75,
+     89
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     79,
+     93
+    ],
+    "tiebreak": 244
+   },
+   {
+    "slot": "CDM",
+    "id": "evo_Can_89",
+    "name": "Can",
+    "rating": 89,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     80,
+     89,
+     90
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     93,
+     94
+    ],
+    "tiebreak": 265
+   },
+   {
+    "slot": "CM",
+    "id": "id1397",
+    "name": "Zidane",
+    "rating": 94,
+    "color": "icon",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     91,
+     93,
+     74
+    ],
+    "chem": 3,
+    "eff": [
+     95,
+     97,
+     78
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "CM",
+    "id": "id168473",
+    "name": "Beckenbauer",
+    "rating": 93,
+    "color": "icon",
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     81,
+     86,
+     91
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     90,
+     95
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "CAM",
+    "id": "id275243",
+    "name": "Hamm",
+    "rating": 93,
+    "color": "icon",
+    "position": "ST",
+    "nationId": 95,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     92,
+     88,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     94,
+     90,
+     60
+    ],
+    "tiebreak": 244
+   },
+   {
+    "slot": "ST",
+    "id": "id237067",
+    "name": "Pelé",
+    "rating": 95,
+    "color": "icon",
+    "position": "CAM",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     93,
+     91,
+     60
+    ],
+    "chem": 3,
+    "eff": [
+     95,
+     93,
+     62
+    ],
+    "tiebreak": 250
+   },
+   {
+    "slot": "ST",
+    "id": "id226359",
+    "name": "Sinclair",
+    "rating": 92,
+    "color": "icon",
+    "position": "ST",
+    "nationId": 70,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     92,
+     87,
+     59
+    ],
+    "chem": 3,
+    "eff": [
+     94,
+     89,
+     61
+    ],
+    "tiebreak": 244
+   }
+  ],
+  "results": {
+   "reference 1": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   },
+   "counter 1": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   },
+   "counter 2": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "counter 3": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   },
+   "counter 4": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   }
+  }
+ },
+ "built": "2026-10-11 18:25 UTC"
+}
