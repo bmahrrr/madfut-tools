@@ -1,9 +1,9 @@
 "use strict";
 const REPO = "bmahrrr/madfut-tools";
-const NATIONS = {1:"Albania",4:"Austria",7:"Belgium",10:"Croatia",13:"Denmark",14:"England",18:"France",20:"Georgia",21:"Germany",22:"Greece",25:"Rep. of Ireland",27:"Italy",34:"Netherlands",36:"Norway",37:"Poland",38:"Portugal",39:"Romania",42:"Scotland",45:"Spain",46:"Sweden",47:"Switzerland",48:"Türkiye",49:"Ukraine",50:"Wales",51:"Serbia",52:"Argentina",54:"Brazil",55:"Chile",56:"Colombia",57:"Ecuador",60:"Uruguay",83:"Mexico",95:"USA",97:"Algeria",103:"Cameroon",108:"Ivory Coast",129:"Morocco",136:"Senegal",195:"Australia"};
-const LEAGUES = {4:"Belgian Pro League",10:"Eredivisie",13:"Premier League",14:"Championship",16:"Ligue 1",17:"Ligue 2",19:"Bundesliga",20:"2. Bundesliga",31:"Serie A",32:"Serie B",39:"MLS",53:"LaLiga",54:"LaLiga 2",308:"Liga Portugal",350:"Saudi Pro League",2118:"Icons",2215:"Frauen-Bundesliga",2216:"WSL",2218:"D1 Arkema",2221:"NWSL",2222:"Liga F",2236:"Serie A Femminile"};
-const nName = id => NATIONS[id] || `Nation ${id}`;
-const lName = id => LEAGUES[id] || `League ${id}`;
+const NATIONS = {1:"Albania",4:"Austria",12:"Czechia",23:"Hungary",35:"Northern Ireland",43:"Slovakia",44:"Slovenia",58:"Paraguay",59:"Peru",61:"Venezuela",70:"Canada",117:"Ghana",133:"Nigeria",163:"Japan",167:"Korea Republic",7:"Belgium",10:"Croatia",13:"Denmark",14:"England",18:"France",20:"Georgia",21:"Germany",22:"Greece",25:"Rep. of Ireland",27:"Italy",34:"Netherlands",36:"Norway",37:"Poland",38:"Portugal",39:"Romania",42:"Scotland",45:"Spain",46:"Sweden",47:"Switzerland",48:"Türkiye",49:"Ukraine",50:"Wales",51:"Serbia",52:"Argentina",54:"Brazil",55:"Chile",56:"Colombia",57:"Ecuador",60:"Uruguay",83:"Mexico",95:"USA",97:"Algeria",103:"Cameroon",108:"Ivory Coast",129:"Morocco",136:"Senegal",195:"Australia"};
+const LEAGUES = {1:"Superliga (Denmark)",7:"Brasileirão",41:"Eliteserien",50:"Scottish Premiership",56:"Allsvenskan",60:"League One",61:"League Two",66:"Ekstraklasa",68:"Süper Lig",80:"Austrian Bundesliga",189:"Swiss Super League",4:"Belgian Pro League",10:"Eredivisie",13:"Premier League",14:"Championship",16:"Ligue 1",17:"Ligue 2",19:"Bundesliga",20:"2. Bundesliga",31:"Serie A",32:"Serie B",39:"MLS",53:"LaLiga",54:"LaLiga 2",308:"Liga Portugal",350:"Saudi Pro League",2118:"Icons",2215:"Frauen-Bundesliga",2216:"WSL",2218:"D1 Arkema",2221:"NWSL",2222:"Liga F",2236:"Serie A Femminile"};
+const nName = id => NATIONS[id] || (typeof groupSample === "function" && CARDS.length ? `${groupSample("nation", id)[0] || "?"}'s nation` : `Nation ${id}`);
+const lName = id => LEAGUES[id] || (typeof groupSample === "function" && CARDS.length ? `${groupSample("league", id)[0] || "?"}'s league` : `League ${id}`);
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
 const TYPE = c => ({rare_gold:"gold",gold:"gold",rare_silver:"silver",silver:"silver",rare_bronze:"bronze",bronze:"bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM"}[c] || String(c).replace(/_/g, " "));
@@ -29,7 +29,8 @@ async function init() {
   try { const ex = await getJSON("results/extras.json"); ex.cards.forEach(c => CARDS.push(Object.assign({specialChem: ""}, c))); } catch (e) {}
   CARDS.forEach(c => { c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); } catch (e) {}
-  renderTeams(); setupMC(); setupSim(); renderSBC(); renderSetup();
+  try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
+  renderTeams(); setupMC(); setupSim(); setupSBC(); renderSetup();
 }
 
 // ---------- shared card UI ----------
@@ -251,19 +252,190 @@ function matchOdds(p, q, n) {
 }
 
 // ---------- SBC ----------
-async function renderSBC() {
-  let html = `<div class="card"><h2>SBC solver</h2><p class="small">Add an SBC by editing <a href="https://github.com/${REPO}/edit/main/config/sbc.json" target="_blank">config/sbc.json</a> and committing. The cheapest squad (golds first, then cheap specials, silvers, bronze) appears here about 2 minutes later.</p></div>`;
+const SBC_NUMS = [["min_rating", "Squad rating min"], ["min_chem", "Squad chem min"], ["min_player_chem", "Chem per player min"], ["min_types", "Card types min"],
+  ["min_card_rating", "Player rating min"], ["max_card_rating", "Player rating max"], ["min_nations", "Nations min"], ["max_nations", "Nations max"],
+  ["min_same_nation", "Same nation min"], ["max_same_nation", "Same nation max"], ["min_leagues", "Leagues min"], ["max_leagues", "Leagues max"],
+  ["min_same_league", "Same league min"], ["max_same_league", "Same league max"], ["min_clubs", "Clubs min"], ["max_clubs", "Clubs max"],
+  ["min_same_club", "Same club min"], ["max_same_club", "Same club max"]];
+const SB = { rules: [], include: [], exclude: [], last: null, lastReq: null, busy: false };
+const OPS = { ">=": "Min", "<=": "Max", "=": "Exactly" };
+const KIND = { nation: "Nation", league: "League", club: "Club", color: "Card type", rarity: "Rarity" };
+const KEYOF = { nation: "nationId", league: "leagueId", club: "clubId" };
+const sampleCache = new Map();
+function groupSample(kind, id) {             // a few well-known players so you can recognise a club / nation / league
+  const k = kind + id; if (sampleCache.has(k)) return sampleCache.get(k);
+  const seen = new Set(), out = [];
+  for (const c of [...CARDS].filter(c => c[KEYOF[kind]] === id).sort((a, b) => b.rating - a.rating)) { if (seen.has(c.name)) continue; seen.add(c.name); out.push(c.name); if (out.length === 3) break; }
+  sampleCache.set(k, out); return out;
+}
+function groupLabel(kind, id) {
+  if (kind === "nation" && NATIONS[id]) return NATIONS[id];
+  if (kind === "league" && LEAGUES[id]) return LEAGUES[id];
+  if (kind === "color") return TYPE(id);
+  if (kind === "rarity") return id;
+  return groupSample(kind, id).join(", ") || `${kind} ${id}`;
+}
+function ruleText(r) {
+  const known = (r.on === "nation" && NATIONS[r.id]) || (r.on === "league" && LEAGUES[r.id]);
+  const extra = (r.on === "club" || ((r.on === "nation" || r.on === "league") && !known)) ? ` <span class="muted">(e.g. ${esc(groupSample(r.on, r.id).join(", "))})</span>` : "";
+  if (r.on === "club" || ((r.on === "nation" || r.on === "league") && !known))
+    return `${OPS[r.op]} ${r.n} from the ${r.on} of <b>${esc(r.via || groupSample(r.on, r.id)[0] || r.id)}</b>${extra}`;
+  return `${OPS[r.op]} ${r.n} from ${esc(KIND[r.on])}: <b>${esc(groupLabel(r.on, r.id))}</b>`;
+}
+function setupSBC() {
+  const forms = Object.keys(SBC_FORMS_LIST());
+  $("sbcForm").innerHTML = forms.map(f => `<option>${f}</option>`).join("") + `<option value="any">Any (slower)</option>`;
+  $("sbcForm").value = "4-3-3";
+  const field = ([k, l]) => `<label>${l}<input type="number" inputmode="numeric" id="n_${k}" min="0"></label>`;
+  $("sbcNums").innerHTML = SBC_NUMS.slice(0, 4).map(field).join("");
+  $("sbcMore").innerHTML = SBC_NUMS.slice(4).map(field).join("");
+  $("rKind").onchange = drawPicker; drawPicker();
+  hookSearch("sbcIncQ", "sbcIncSr", c => { if (!SB.include.includes(c.id)) SB.include.push(c.id); drawSBCForm(); });
+  $("sbcGo").onclick = () => { SB.exclude = []; runSBC(15); };
+  $("sbcClear").onclick = () => { SB.rules = []; SB.include = []; SB.exclude = []; $("sbcName").value = ""; SBC_NUMS.forEach(([k]) => $("n_" + k).value = ""); $("sbcSp").checked = $("sbcIc").checked = false; $("sbcOut").hidden = true; drawSBCForm(); saveSBC(); };
+  ["sbcName", "sbcForm", "sbcPr", "sbcSp", "sbcIc", ...SBC_NUMS.map(([k]) => "n_" + k)].forEach(id => $(id).addEventListener("change", saveSBC));
+  loadSBC(); drawSBCForm();
+}
+let FORMS_CACHE = null;
+function SBC_FORMS_LIST() { return FORMS_CACHE || {}; }
+function drawPicker() {
+  const kind = $("rKind").value, box = $("rPickBox");
+  if (kind === "color") {
+    const types = [...new Set(CARDS.map(sbcType))].sort();
+    box.innerHTML = `<div class="row"><select id="rType">${types.map(t => `<option value="${esc(t)}">${esc(TYPE(t))}</option>`).join("")}</select><button class="ghost" id="rAdd">Add</button></div>`;
+    $("rAdd").onclick = () => addRule($("rType").value);
+  } else if (kind === "rarity") {
+    box.innerHTML = `<div class="row"><select id="rRar"><option>gold</option><option>silver</option><option>bronze</option></select><button class="ghost" id="rAdd">Add</button></div>`;
+    $("rAdd").onclick = () => addRule($("rRar").value);
+  } else {
+    box.innerHTML = `<input type="text" id="rQ" placeholder="${kind === "club" ? "Type a player from that club" : `Type the ${kind} name or a player from it`}"><ul class="sr" id="rSr" hidden></ul>`;
+    const inp = $("rQ"), ul = $("rSr");
+    inp.oninput = () => {
+      const q = inp.value.trim().toLowerCase(); if (q.length < 2) { ul.hidden = true; return; }
+      const opts = new Map();
+      const names = kind === "nation" ? NATIONS : kind === "league" ? LEAGUES : {};
+      for (const [id, n] of Object.entries(names)) if (n.toLowerCase().includes(q)) opts.set(+id, null);
+      for (const c of search(q, 8)) if (!opts.has(c[KEYOF[kind]])) opts.set(c[KEYOF[kind]], c.name);
+      const list = [...opts.entries()].slice(0, 10);
+      ul.hidden = !list.length;
+      ul.innerHTML = list.map(([id, via]) => `<li data-id="${id}" data-via="${esc(via || "")}"><b>${esc(groupLabel(kind, id))}</b>${kind !== "club" && (NATIONS[id] || LEAGUES[id]) && via ? ` <span class="muted small">(${esc(via)}'s ${kind})</span>` : ""}${kind === "club" ? ` <span class="muted small">— ${esc(via ? via + "'s club" : "")}</span>` : ""}</li>`).join("");
+    };
+    ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; addRule(+li.dataset.id, li.dataset.via); inp.value = ""; ul.hidden = true; };
+  }
+}
+function addRule(id, via) {
+  const n = Math.max(0, Math.min(11, +$("rN").value || 0));
+  const r = { on: $("rKind").value, id, op: $("rOp").value, n }; if (via) r.via = via;
+  SB.rules.push(r);
+  drawSBCForm(); saveSBC();
+}
+function drawSBCForm() {
+  $("sbcRules").innerHTML = SB.rules.length ? SB.rules.map((r, i) => `<span class="chip"><span>${ruleText(r)}</span><button class="x" data-r="${i}">✕</button></span>`).join("") : `<span class="muted">None yet. Add each “Min 1 player from …” line below.</span>`;
+  $("sbcInc").innerHTML = SB.include.map((id, i) => { const c = BYID.get(id); return c ? `<span class="chip"><b>${esc(c.name)}</b> ${c.rating}<button class="x" data-inc="${i}">✕</button></span>` : ""; }).join("");
+  document.querySelectorAll("[data-r]").forEach(b => b.onclick = () => { SB.rules.splice(+b.dataset.r, 1); drawSBCForm(); saveSBC(); });
+  document.querySelectorAll("[data-inc]").forEach(b => b.onclick = () => { SB.include.splice(+b.dataset.inc, 1); drawSBCForm(); saveSBC(); });
+}
+function readReq() {
+  const req = { name: $("sbcName").value.trim(), formation: $("sbcForm").value, priority: $("sbcPr").value,
+    allow_specials: $("sbcSp").checked, allow_icons: $("sbcIc").checked, rules: SB.rules.slice(), include: SB.include.slice(), exclude: SB.exclude.slice() };
+  for (const [k] of SBC_NUMS) { const v = $("n_" + k).value; if (v !== "") req[k] = +v; }
+  return req;
+}
+function saveSBC() { try { localStorage.setItem("sbcForm", JSON.stringify(readReq())); } catch (e) {} }
+function loadSBC() {
+  let r = null; try { r = JSON.parse(localStorage.getItem("sbcForm") || "null"); } catch (e) {}
+  if (!r) return;
+  $("sbcName").value = r.name || ""; if (r.formation) $("sbcForm").value = r.formation; if (r.priority) $("sbcPr").value = r.priority;
+  $("sbcSp").checked = !!r.allow_specials; $("sbcIc").checked = !!r.allow_icons;
+  SB.rules = r.rules || []; SB.include = r.include || [];
+  for (const [k] of SBC_NUMS) if (r[k] != null) $("n_" + k).value = r[k];
+  if (SBC_NUMS.slice(4).some(([k]) => r[k] != null)) $("sbcMoreBox").open = true;
+}
+let sbcWorker = null, sbcReq = 0;
+function sbcSolve(req, timeLimit, onProgress, onPartial) {
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js");
+  const id = ++sbcReq;
+  return new Promise((res, rej) => {
+    sbcWorker.onmessage = e => {
+      const m = e.data; if (m.id !== id) return;
+      if (m.type === "progress") onProgress(m.text);
+      else if (m.type === "partial") onPartial(m);
+      else if (m.type === "done") res(m); else rej(new Error(m.error));
+    };
+    sbcWorker.postMessage({ id, req, timeLimit });
+  });
+}
+async function runSBC(timeLimit, reqOverride) {
+  if (SB.busy) return;
+  const req = reqOverride || readReq();
+  if (!req.formation) return;
+  SB.busy = true; $("sbcGo").disabled = true;
+  const out = $("sbcOut"); out.hidden = false;
+  const t0 = Date.now(); let msg = "Loading solver…", hasPartial = false;
+  const status = () => `${esc(msg)} ${Math.round((Date.now() - t0) / 1000)}s`;
+  const tick = setInterval(() => { if (hasPartial) { const el = $("sbcWorking"); if (el) el.innerHTML = status(); } else out.innerHTML = `<p class="muted">${status()}</p>`; }, 500);
+  out.innerHTML = `<p class="muted">${msg}</p>`;
+  const per = req.formation === "any" ? Math.max(5, Math.round(timeLimit / 3)) : timeLimit;
   try {
-    const d = await getJSON("results/sbc.json");
-    for (const s of d.sbcs) {
-      html += `<div class="card"><h2>${esc(s.name || "SBC")}</h2>`;
-      if (!s.squad) { html += `<p class="muted">No squad found that meets every requirement.</p></div>`; continue; }
-      const q = s.squad;
-      html += `<p class="small">${esc(q.formation)} · rating ${q.rating} · chem ${q.chem}</p><div class="scroll"><table><tr><th>Pos</th><th>Player</th><th>Type</th><th>Chem</th></tr>${q.players.map(p => `<tr><td>${p.slot}</td><td><b>${esc(p.name)}</b> ${p.rating} <span class="muted small">${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))} · club ${p.clubId}</span></td><td>${esc(TYPE(p.color))}</td><td class="n">${p.chem}</td></tr>`).join("")}</table></div></div>`;
-    }
-    html += `<p class="small muted">Solved ${esc(d.built)}</p>`;
-  } catch (e) { html += `<p class="muted">No SBC results yet.</p>`; }
-  $("sbcBody").innerHTML = html;
+    const m = await sbcSolve(req, per, t => msg = t, p => { hasPartial = true; SB.last = p.result; SB.lastReq = req; SB.lastSeconds = p.seconds; drawSBCResult(true); });
+    SB.last = m.result; SB.lastReq = req; SB.lastSeconds = m.seconds;
+    drawSBCResult();
+  } catch (e) {
+    out.innerHTML = `<p class="bad">Something went wrong: ${esc(e.message)}</p>`;
+  } finally { clearInterval(tick); SB.busy = false; $("sbcGo").disabled = false; }
+}
+function sbcChecks(req, sq) {
+  const ch = sbcChem(sq), rt = teamRatingOf(sq.map(x => x.rating)), list = [];
+  const cnt = (f) => new Set(sq.map(f)).size;
+  const most = (f) => Math.max(...[...sq.reduce((m, x) => m.set(f(x), (m.get(f(x)) || 0) + 1), new Map()).values()]);
+  const add = (label, ok) => list.push({ label, ok });
+  if (req.min_rating) add(`Squad rating ${rt} (min ${req.min_rating})`, rt >= req.min_rating);
+  if (req.min_chem) add(`Squad chem ${ch.reduce((a, b) => a + b, 0)} (min ${req.min_chem})`, ch.reduce((a, b) => a + b, 0) >= req.min_chem);
+  if (req.min_player_chem) add(`Lowest player chem ${Math.min(...ch)} (min ${req.min_player_chem})`, Math.min(...ch) >= req.min_player_chem);
+  if (req.min_types) add(`Card types ${cnt(sbcType)} (min ${req.min_types})`, cnt(sbcType) >= req.min_types);
+  if (req.min_card_rating) add(`Lowest player ${Math.min(...sq.map(x => x.rating))} (min ${req.min_card_rating})`, sq.every(x => x.rating >= req.min_card_rating));
+  if (req.max_card_rating) add(`Highest player ${Math.max(...sq.map(x => x.rating))} (max ${req.max_card_rating})`, sq.every(x => x.rating <= req.max_card_rating));
+  for (const [kind, key] of [["nation", "nationId"], ["league", "leagueId"], ["club", "clubId"]]) {
+    const n = cnt(x => x[key]), m = most(x => x[key]);
+    if (req[`min_${kind}s`]) add(`${KIND[kind]}s ${n} (min ${req[`min_${kind}s`]})`, n >= req[`min_${kind}s`]);
+    if (req[`max_${kind}s`]) add(`${KIND[kind]}s ${n} (max ${req[`max_${kind}s`]})`, n <= req[`max_${kind}s`]);
+    if (req[`min_same_${kind}`]) add(`Same ${kind} ${m} (min ${req[`min_same_${kind}`]})`, m >= req[`min_same_${kind}`]);
+    if (req[`max_same_${kind}`]) add(`Same ${kind} ${m} (max ${req[`max_same_${kind}`]})`, m <= req[`max_same_${kind}`]);
+  }
+  for (const r of req.rules || []) {
+    const n = sq.filter(x => ruleMatch(x, r)).length;
+    add(`${ruleText(r)}: ${n}`, r.op === ">=" ? n >= r.n : r.op === "<=" ? n <= r.n : n === r.n);
+  }
+  for (const id of req.include || []) { const c = BYID.get(id); add(`Includes ${esc(c ? c.name : id)}`, sq.some(x => x.id === id)); }
+  return list;
+}
+function drawSBCResult(working = false) {
+  const out = $("sbcOut"), r = SB.last, req = SB.lastReq;
+  const skip = SB.exclude.map(id => BYID.get(id)).filter(Boolean);
+  const skipHtml = skip.length ? `<p class="small">Skipping: ${skip.map((c, i) => `<span class="chip">${esc(c.name)} ${c.rating}<button class="x" data-undo="${i}">↺</button></span>`).join("")}</p>` : "";
+  if (!r || r.none) {
+    out.innerHTML = (r && r.timedOut
+      ? `<p><b>No squad found yet.</b> It ran out of time before finding one.</p><button class="btn" id="sbcLonger">Search longer (up to 90 s)</button>`
+      : `<p><b>No squad meets all of these requirements</b> with the cards available${skip.length ? " after skipping the cards below" : ""}. Check the numbers, or allow special cards.</p>`) + skipHtml;
+  } else {
+    const sq = r.players.map(p => BYID.get(p.id));
+    const checks = sbcChecks(req, sq), allOk = checks.every(c => c.ok);
+    const head = working ? `<p><b>Squad found.</b> <span class="muted small" id="sbcWorking">Checking for a cheaper one…</span></p>`
+      : r.proven ? `<p class="ok"><b>✓ Cheapest squad</b> <span class="muted small">(checked against every cheaper combination of the ${r.candidates} best-fitting cards)</span></p>`
+      : `<p><b>Best squad found in ${SB.lastSeconds} s.</b> <span class="muted">There may be a slightly cheaper one.</span></p><button class="ghost" id="sbcLonger">Search longer (up to 90 s)</button>`;
+    out.innerHTML = `<h2>${esc(req.name || "SBC")} · ${esc(r.formation)}</h2>${head}
+      <p class="small">Squad rating <b>${r.rating}</b> · chem <b>${r.chem}</b></p>
+      <table class="sq"><tr><th>Pos</th><th>Player</th><th>Chem</th><th></th></tr>${r.players.map(p =>
+        `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td class="n">${p.chem}</td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
+      ${skipHtml}
+      <h3>Requirements check</h3><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul>
+      ${allOk ? "" : `<p class="bad small">A requirement isn't met — please tell Claude.</p>`}`;
+  }
+  if (working) { out.querySelectorAll("[data-nohave],[data-undo]").forEach(b => b.disabled = true); return; }
+  out.querySelectorAll("[data-nohave]").forEach(b => b.onclick = () => { SB.exclude.push(b.dataset.nohave); runSBC(15, Object.assign({}, SB.lastReq, { exclude: SB.exclude.slice() })); });
+  out.querySelectorAll("[data-undo]").forEach(b => b.onclick = () => { SB.exclude.splice(+b.dataset.undo, 1); runSBC(15, Object.assign({}, SB.lastReq, { exclude: SB.exclude.slice() })); });
+  const longer = $("sbcLonger");
+  if (longer) longer.onclick = () => runSBC(90, Object.assign({}, SB.lastReq, r && !r.none ? { formation: r.formation } : {}, { exclude: SB.exclude.slice() }));
 }
 
 // ---------- Weekly setup ----------

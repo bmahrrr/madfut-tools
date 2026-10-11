@@ -48,6 +48,20 @@ a{color:var(--accent)}
 .opt{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
 .opt:last-child{border-bottom:0}
 code{background:var(--chip);padding:1px 5px;border-radius:5px;font-size:12.5px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
+@media(min-width:760px){.fgrid{grid-template-columns:repeat(4,1fr)}}
+.fgrid label{display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--muted);min-width:0}
+.fgrid input,.fgrid select{width:100%;color:var(--text)}
+.rulebox{border:1px dashed var(--line);border-radius:10px;padding:10px;margin-top:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--chip);border-radius:999px;padding:4px 6px 4px 10px;margin:3px 4px 3px 0}
+.chk{display:flex;gap:8px;align-items:center;margin:4px 0}
+.ok{color:var(--win)}.bad{color:var(--loss)}
+tr.gone td{opacity:.45;text-decoration:line-through}
+.chip>span{line-height:1.35}
+table.sq td.wrap{white-space:normal}
+table.sq td,table.sq th{padding:6px 4px}
+button.nohave{background:var(--chip);color:var(--text);border:0;border-radius:7px;padding:4px 7px;font-size:11px;line-height:1.15}
+summary{cursor:pointer;color:var(--accent)}
 </style>
 </head>
 <body>
@@ -98,11 +112,43 @@ code{background:var(--chip);padding:1px 5px;border-radius:5px;font-size:12.5px}
     <div class="card"><button class="btn" id="simBtn">Compare</button><div id="simOut"></div></div>
   </section>
 
-  <section id="sbc"><div id="sbcBody" class="muted">Loading…</div></section>
+  <section id="sbc">
+    <div class="card">
+      <h2>SBC requirements</h2>
+      <p class="small muted">Fill in only what the SBC asks for and leave the rest blank. It assumes you own every card; after solving, tap <b>Don't have</b> on any card to get a new squad without it.</p>
+      <input type="text" id="sbcName" placeholder="SBC name (optional)">
+      <div class="fgrid" style="margin-top:10px">
+        <label>Formation<select id="sbcForm"></select></label>
+        <label>Cheapest means<select id="sbcPr"><option value="gold_first">Golds first</option><option value="lowest_rating">Lowest ratings</option></select></label>
+      </div>
+      <h3>Squad</h3>
+      <div class="fgrid" id="sbcNums"></div>
+      <details id="sbcMoreBox" style="margin-top:8px"><summary class="small">More: player ratings, nations, leagues, clubs</summary><div class="fgrid" id="sbcMore" style="margin-top:8px"></div></details>
+      <h3>Player requirements</h3>
+      <div id="sbcRules" class="small"></div>
+      <div class="rulebox">
+        <div class="row"><select id="rOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select>
+        <input id="rN" type="number" min="0" max="11" value="1" style="width:64px">
+        <span class="muted">players from</span>
+        <select id="rKind"><option value="club">Club</option><option value="nation">Nation</option><option value="league">League</option><option value="color">Card type</option><option value="rarity">Rarity</option></select></div>
+        <div id="rPickBox" style="margin-top:8px"></div>
+      </div>
+      <h3>Must include</h3>
+      <div id="sbcInc" class="small"></div>
+      <input type="text" id="sbcIncQ" placeholder="Search a player who must be in the squad…"><ul class="sr" id="sbcIncSr" hidden></ul>
+      <div style="margin-top:10px" class="small">
+        <label class="chk"><input type="checkbox" id="sbcSp"> Allow special cards (TOTW and other promos)</label>
+        <label class="chk"><input type="checkbox" id="sbcIc"> Allow Icons and Heroes</label>
+      </div>
+      <div class="row" style="margin-top:12px"><button class="btn" id="sbcGo">Solve</button><button class="ghost" id="sbcClear">Clear all</button><span id="sbcStatus" class="muted small"></span></div>
+    </div>
+    <div class="card" id="sbcOut" hidden></div>
+  </section>
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
 <script src="engine.js"></script>
+<script src="sbc-solver.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
