@@ -12,7 +12,7 @@ Everything runs free on GitHub: GitHub Actions does the heavy building and GitHu
 | Card data | `Update card data` workflow pulls madfutdata.com every day (03:17 UTC) into `docs/cards.json`. |
 | My Club builder | Searches for the team that does best against the reference teams with **perfect play from both sides** (exact solver, both lead orders). |
 | Sim builder | Exact optimiser (MILP): highest control first, then attack and defence, inside the cap with every boost and bonus. |
-| SBC solver | Cheapest squad meeting the requirements (golds first, or lowest rating). |
+| SBC solver | Website: type in the requirements, get the cheapest squad in seconds, tap **Don't have** on any card to re-solve without it. |
 | My Club compare | Website: put in two teams and get the exact result for both lead orders. |
 | Match helper | Website: tells you the best lead or answer every round during a live game. |
 | Sim compare | Website: your built Sim team vs theirs, with possession and match odds. |
@@ -52,18 +52,13 @@ To rebuild just one series: **Actions → Build teams → Run workflow**, then t
 
 Cards that aren't in the madfutdata file: evos, upgraded LTMs. `"owned": true` means you have it; `false` means only opponents can use it.
 
-### `config/sbc.json`
+### SBCs
 
-Add an entry and commit; the solver runs and the result appears on the SBC tab.
+Use the **SBC** tab on the website. Fill in only what the SBC asks for: formation, squad rating, chem, nations/leagues/clubs counts, and "Min/Max/Exactly N players from" a club, nation, league, card type or rarity (search a player to pick their club). It assumes you own every card; after solving, tap **Don't have** next to any card and it re-solves without it.
 
-```json
-{"name": "13-14 Champions League", "formation": "4-3-3", "min_chem": 25, "min_rating": 78,
- "rules": [{"on": "club", "id": 240, "op": ">=", "n": 1}], "priority": "gold_first"}
-```
+How it solves: a fast search finds a valid squad in about 2 seconds, then an exact solver (HiGHS, running in your browser) either finds a cheaper one or proves none exists among the best-fitting cards. "Cheapest" follows your order: golds first (lowest rated first), then cheap specials, silvers, bronze. Squad rating uses the EA formula without relying on rounding, so it's never short.
 
-Other keys: `min_player_chem`, `min_nations`/`max_nations`, `min_leagues`/`max_leagues`, `min_clubs`/`max_clubs`,
-`max_same_nation`/`max_same_league`/`max_same_club`, `min_types`, `allow_specials`, `allow_icons`, `exclude`/`include` (player names),
-rule `on` can also be `rarity` with id `gold`/`silver`/`bronze`. `priority`: `gold_first` or `lowest_rating`.
+SBC chem: Icons +2 to their nation and +1 to every league; Heroes +1 nation, +2 league; Squad Foundations +2 league; Icons and Heroes are always full chem.
 
 ## Game rules used
 
@@ -78,7 +73,6 @@ pip install -r requirements.txt
 python scripts/update_data.py          # download cards
 python scripts/build.py sim 84
 python scripts/build.py myclub 79 30   # 30 minutes
-python scripts/build.py sbc
 python scripts/build.py index
 cd docs && python -m http.server       # website on http://localhost:8000
 ```

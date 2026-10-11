@@ -3,7 +3,6 @@
   python scripts/build.py list                 # print the series keys (used by the workflow)
   python scripts/build.py sim KEY              # one Sim series      -> docs/results/sim_KEY.json
   python scripts/build.py myclub KEY [MIN]     # one My Club series  -> docs/results/myclub_KEY.json
-  python scripts/build.py sbc                  # every SBC in config/sbc.json -> docs/results/sbc.json
   python scripts/build.py index                # docs/results/index.json (what the website reads)
 """
 import json, os, sys, time
@@ -82,15 +81,6 @@ def main():
         team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes)
         save(f"myclub_{key}.json", {"mode": "myclub", "series": {k: v for k, v in s.items() if k != "opponents"},
                                     "opponents": [[c["name"] for c in o] for o in opps], "team": team})
-    elif mode == "sbc":
-        from fatal.sbc import solve_sbc
-        reqs = json.load(open(os.path.join(ROOT, "config", "sbc.json")))["sbcs"]
-        out = []
-        for r in reqs:
-            print("SBC", r.get("name"))
-            res = solve_sbc(r, owned)
-            out.append({"name": r.get("name"), "requirements": r, "squad": res})
-        save("sbc.json", {"mode": "sbc", "sbcs": out})
 
 
 if __name__ == "__main__":
