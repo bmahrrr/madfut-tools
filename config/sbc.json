@@ -1,0 +1,19 @@
+{
+ "_help": "Add one entry per SBC, commit, and the solver runs automatically. See README for every requirement you can use.",
+ "sbcs": [
+  {
+   "name": "Example: 13-14 Champions League",
+   "formation": "4-3-3",
+   "min_chem": 25,
+   "min_rating": 78,
+   "rules": [
+    {"on": "club", "id": 240, "op": ">=", "n": 1},
+    {"on": "club", "id": 21, "op": ">=", "n": 1},
+    {"on": "club", "id": 34, "op": ">=", "n": 1},
+    {"on": "club", "id": 325, "op": ">=", "n": 1},
+    {"on": "club", "id": 45, "op": ">=", "n": 1}
+   ],
+   "priority": "gold_first"
+  }
+ ]
+}

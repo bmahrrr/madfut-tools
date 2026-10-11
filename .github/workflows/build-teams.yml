@@ -1,0 +1,95 @@
+name: Build teams
+
+on:
+  push:
+    paths:
+      - "config/week.json"
+      - "config/extras.json"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "What to build: all, sim, myclub, or one series like myclub:79 or sim:84"
+        default: "all"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-teams
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      sim: ${{ steps.list.outputs.sim }}
+      myclub: ${{ steps.list.outputs.myclub }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          python3 scripts/build.py list "${{ github.event.inputs.only || 'all' }}" > keys.json
+          echo "sim=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['sim']))")" >> $GITHUB_OUTPUT
+          echo "myclub=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['myclub']))")" >> $GITHUB_OUTPUT
+
+  sim:
+    needs: plan
+    if: ${{ needs.plan.outputs.sim != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.sim) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/build.py sim "${{ matrix.key }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sim_${{ matrix.key }}
+          path: docs/results/sim_${{ matrix.key }}.json
+
+  myclub:
+    needs: plan
+    if: ${{ needs.plan.outputs.myclub != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.myclub) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/build.py myclub "${{ matrix.key }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: myclub_${{ matrix.key }}
+          path: docs/results/myclub_${{ matrix.key }}.json
+
+  publish:
+    needs: [sim, myclub]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Collect results
+        run: |
+          mkdir -p docs/results
+          find artifacts -name '*.json' -exec cp {} docs/results/ \;
+          python3 scripts/build.py index
+      - name: Save results
+        run: |
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/results
+          git diff --cached --quiet || (git commit -m "Update team results" && git pull --rebase && git push)

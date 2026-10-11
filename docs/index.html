@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MadFut Tools</title>
+<style>
+:root{--bg:#0f1115;--panel:#181b22;--line:#2a2f3a;--text:#e8eaf0;--muted:#9aa3b2;--accent:#f5a524;--win:#2fbf71;--draw:#d9a72b;--loss:#e5484d;--chip:#232834}
+@media (prefers-color-scheme: light){:root{--bg:#f6f7f9;--panel:#fff;--line:#e3e6ec;--text:#14171f;--muted:#5d6675;--chip:#eef0f4}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+.top{display:flex;align-items:center;gap:10px;padding:12px 16px 6px}
+.top h1{font-size:18px;margin:0;letter-spacing:.3px}
+.top .sub{color:var(--muted);font-size:12px;margin-left:auto}
+nav{display:flex;gap:6px;overflow-x:auto;padding:6px 12px 10px}
+nav button{flex:none;background:var(--chip);color:var(--text);border:0;border-radius:999px;padding:7px 14px;font-size:14px}
+nav button.on{background:var(--accent);color:#111;font-weight:600}
+main{max-width:900px;margin:0 auto;padding:14px 16px 80px}
+section{display:none}section.on{display:block}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}
+h2{font-size:16px;margin:0 0 8px}h3{font-size:14px;margin:12px 0 6px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:500}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600}
+.WIN{background:color-mix(in srgb,var(--win) 22%,transparent);color:var(--win)}
+.DRAW{background:color-mix(in srgb,var(--draw) 22%,transparent);color:var(--draw)}
+.LOSS{background:color-mix(in srgb,var(--loss) 22%,transparent);color:var(--loss)}
+.muted{color:var(--muted)}.small{font-size:12.5px}
+input,select{background:var(--chip);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:15px;max-width:100%}
+input[type=text]{width:100%}
+button.btn{background:var(--accent);color:#111;border:0;border-radius:8px;padding:9px 14px;font-weight:600;font-size:14px}
+button.ghost{background:var(--chip);color:var(--text);border:0;border-radius:8px;padding:7px 12px;font-size:13.5px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
+.results{position:relative}
+.sr{list-style:none;margin:6px 0 0;padding:0;border:1px solid var(--line);border-radius:8px;max-height:260px;overflow:auto}
+.sr li{padding:7px 10px;border-bottom:1px solid var(--line);cursor:pointer}
+.sr li:last-child{border-bottom:0}
+.x{background:none;border:0;color:var(--muted);font-size:16px;cursor:pointer}
+.move{font-size:16px;font-weight:600;margin:6px 0}
+.big{font-size:22px;font-weight:700}
+a{color:var(--accent)}
+.opt{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
+.opt:last-child{border-bottom:0}
+code{background:var(--chip);padding:1px 5px;border-radius:5px;font-size:12.5px}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><h1>⚽ MadFut Tools</h1><span class="sub" id="dataInfo">loading cards…</span></div>
+  <nav id="tabs">
+    <button data-t="teams" class="on">Teams</button>
+    <button data-t="mc">My Club compare</button>
+    <button data-t="match">Match helper</button>
+    <button data-t="sim">Sim compare</button>
+    <button data-t="sbc">SBC</button>
+    <button data-t="setup">Weekly setup</button>
+  </nav>
+</header>
+<main>
+  <section id="teams" class="on"><div id="teamsBody" class="muted">Loading results…</div></section>
+
+  <section id="mc">
+    <div class="card">
+      <div class="row"><label>Series <select id="mcSeries"></select></label></div>
+      <p class="small muted">Build both teams below (search a card and tap to add). Stats shown are in-game: boosts + chem. Then tap <b>Solve</b> for the exact result with perfect play.</p>
+    </div>
+    <div class="grid2">
+      <div class="card"><h2>Your team</h2><div class="row"><select id="mcLoadA"></select></div><div id="teamA"></div><input type="text" id="searchA" placeholder="Search card name…"><ul class="sr" id="srA" hidden></ul></div>
+      <div class="card"><h2>Their team</h2><div class="row"><select id="mcLoadB"></select></div><div id="teamB"></div><input type="text" id="searchB" placeholder="Search card name…"><ul class="sr" id="srB" hidden></ul></div>
+    </div>
+    <div class="card"><div class="row"><button class="btn" id="solveBtn">Solve</button><span id="solveOut" class="muted"></span></div></div>
+  </section>
+
+  <section id="match">
+    <div class="card" id="matchSetup">
+      <h2>Live match helper</h2>
+      <p class="small muted">Uses the two teams from <b>My Club compare</b>. Pick who leads first, then follow the moves.</p>
+      <div class="row"><button class="btn" id="iFirst">I lead first</button><button class="ghost" id="theyFirst">They lead first</button></div>
+    </div>
+    <div class="card" id="matchBox" hidden></div>
+  </section>
+
+  <section id="sim">
+    <div class="card">
+      <div class="row"><label>Series <select id="simSeries"></select></label><label>Their formation <select id="simFormB"></select></label></div>
+      <p class="small muted">Your team loads from this week's built Sim team. Add their 11 in formation order (GK first). Shows the chance of scoring per possession and match odds.</p>
+    </div>
+    <div class="grid2">
+      <div class="card"><h2>Your team</h2><div id="simA"></div></div>
+      <div class="card"><h2>Their team</h2><div id="simB"></div><input type="text" id="searchS" placeholder="Search card name…"><ul class="sr" id="srS" hidden></ul></div>
+    </div>
+    <div class="card"><button class="btn" id="simBtn">Compare</button><div id="simOut"></div></div>
+  </section>
+
+  <section id="sbc"><div id="sbcBody" class="muted">Loading…</div></section>
+
+  <section id="setup"><div id="setupBody"></div></section>
+</main>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

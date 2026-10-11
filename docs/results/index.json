@@ -1,0 +1,306 @@
+{
+ "week": "2026-10-12",
+ "files": [
+  "sbc.json",
+  "sim_84.json"
+ ],
+ "series": {
+  "sim": [
+   {
+    "key": "74",
+    "cap": 74,
+    "boosts": [
+     {
+      "on": "league",
+      "id": 16,
+      "att": 0,
+      "ctl": 3,
+      "def": 1
+     },
+     {
+      "on": "league",
+      "id": 17,
+      "att": 4,
+      "ctl": 4,
+      "def": 4
+     }
+    ]
+   },
+   {
+    "key": "77",
+    "cap": 77,
+    "boosts": [
+     {
+      "on": "league",
+      "id": 19,
+      "att": 0,
+      "ctl": 1,
+      "def": 1
+     }
+    ],
+    "bonuses": [
+     {
+      "kind": "clubs",
+      "min": 11,
+      "att": 1,
+      "ctl": 1,
+      "def": 1
+     }
+    ]
+   },
+   {
+    "key": "82",
+    "cap": 82,
+    "boosts": [
+     {
+      "on": "club",
+      "id": 69,
+      "att": 2,
+      "ctl": 2,
+      "def": 2
+     },
+     {
+      "on": "club",
+      "id": 22,
+      "att": 0,
+      "ctl": 2,
+      "def": 1
+     }
+    ]
+   },
+   {
+    "key": "84",
+    "cap": 84,
+    "boosts": [
+     {
+      "on": "nation",
+      "id": 54,
+      "att": 2,
+      "ctl": 1,
+      "def": 0
+     },
+     {
+      "on": "nation",
+      "id": 18,
+      "att": 1,
+      "ctl": 1,
+      "def": 1
+     }
+    ]
+   },
+   {
+    "key": "86",
+    "cap": 86,
+    "boosts": [
+     {
+      "on": "nation",
+      "id": 14,
+      "att": 3,
+      "ctl": 0,
+      "def": 1
+     },
+     {
+      "on": "league",
+      "id": 53,
+      "att": 2,
+      "ctl": 2,
+      "def": 2
+     }
+    ]
+   },
+   {
+    "key": "89",
+    "cap": 89,
+    "boosts": [
+     {
+      "on": "league",
+      "id": 13,
+      "att": 2,
+      "ctl": 1,
+      "def": 0
+     }
+    ],
+    "bonuses": [
+     {
+      "kind": "types",
+      "min": 5,
+      "att": 1,
+      "ctl": 1,
+      "def": 1
+     }
+    ]
+   },
+   {
+    "key": "X",
+    "cap": 99,
+    "boosts": [
+     {
+      "on": "nation",
+      "id": 45,
+      "att": 2,
+      "ctl": 2,
+      "def": 2
+     },
+     {
+      "on": "color",
+      "id": "totw_gold",
+      "att": 3,
+      "ctl": 3,
+      "def": 3
+     }
+    ]
+   }
+  ],
+  "myclub": [
+   {
+    "key": "67",
+    "cap": 67,
+    "boosts": [
+     {
+      "on": "nation",
+      "id": 7,
+      "att": 0,
+      "ctl": 2,
+      "def": 1
+     },
+     {
+      "on": "nation",
+      "id": 27,
+      "att": 1,
+      "ctl": 1,
+      "def": 1
+     }
+    ],
+    "minutes": 30
+   },
+   {
+    "key": "73",
+    "cap": 73,
+    "boosts": [
+     {
+      "on": "league",
+      "id": 31,
+      "att": 1,
+      "ctl": 1,
+      "def": 1
+     }
+    ],
+    "bonuses": [
+     {
+      "kind": "nations",
+      "min": 8,
+      "att": 2,
+      "ctl": 0,
+      "def": 0
+     }
+    ],
+    "minutes": 30
+   },
+   {
+    "key": "79",
+    "cap": 79,
+    "boosts": [
+     {
+      "on": "league",
+      "id": 39,
+      "att": 1,
+      "ctl": 1,
+      "def": 1
+     },
+     {
+      "on": "league",
+      "id": 350,
+      "att": 1,
+      "ctl": 0,
+      "def": 2
+     }
+    ],
+    "minutes": 30
+   },
+   {
+    "key": "85",
+    "cap": 85,
+    "boosts": [
+     {
+      "on": "color",
+      "id": "totw_gold",
+      "att": 2,
+      "ctl": 2,
+      "def": 2
+     },
+     {
+      "on": "nation",
+      "id": 18,
+      "att": 0,
+      "ctl": 1,
+      "def": 3
+     }
+    ],
+    "minutes": 30
+   },
+   {
+    "key": "88",
+    "cap": 88,
+    "boosts": [
+     {
+      "on": "club",
+      "id": 241,
+      "att": 1,
+      "ctl": 0,
+      "def": 2
+     },
+     {
+      "on": "league",
+      "id": 2222,
+      "att": 1,
+      "ctl": 1,
+      "def": 1
+     }
+    ],
+    "minutes": 30
+   },
+   {
+    "key": "90",
+    "cap": 90,
+    "boosts": [
+     {
+      "on": "club",
+      "id": 73,
+      "att": 2,
+      "ctl": 3,
+      "def": 0
+     },
+     {
+      "on": "club",
+      "id": 21,
+      "att": 2,
+      "ctl": 2,
+      "def": 2
+     }
+    ],
+    "minutes": 30
+   },
+   {
+    "key": "X",
+    "cap": 99,
+    "boosts": [
+     {
+      "on": "nation",
+      "id": 18,
+      "att": 2,
+      "ctl": 2,
+      "def": 2
+     },
+     {
+      "on": "nation",
+      "id": 21,
+      "att": 2,
+      "ctl": 2,
+      "def": 2
+     }
+    ],
+    "minutes": 30
+   }
+  ]
+ }
+}
