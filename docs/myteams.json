@@ -1,5 +1,5 @@
 {
- "_help": "Teams Claude built by hand for each series this week. Shown as a load button in My Club compare.",
+ "_help": "Teams Claude built by hand for this week's series. Only shown when 'week' matches config/week.json, so old teams never appear in a new week.",
  "teams": {
   "67": {
    "label": "Claude's 67 team",
@@ -103,5 +103,6 @@
    ],
    "note": "loss if you lead, win if they lead"
   }
- }
+ },
+ "week": "2026-10-12"
 }

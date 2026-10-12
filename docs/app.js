@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012g";
+const APP_V = "20261012h";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -113,7 +113,7 @@ const short = ids => ids.map(id => BYID.get(id)).filter(Boolean).slice(0, 3).map
 function savedTeams() { try { return JSON.parse(localStorage.getItem("mcSaved") || "[]"); } catch (e) { return []; } }
 function setSaved(list) { try { localStorage.setItem("mcSaved", JSON.stringify(list)); } catch (e) {} }
 async function setupMC() {
-  try { MYTEAMS = (await getJSON("myteams.json")).teams || {}; } catch (e) {}
+  try { const mt = await getJSON("myteams.json"); if (WEEK && mt.week === WEEK.week) MYTEAMS = mt.teams || {}; } catch (e) {}
   const ser = (WEEK && WEEK.myclub) || [];
   $("mcSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("") + `<option value="">No series (no boosts)</option>`;
   $("mcSeries").onchange = () => { drawMC(); $("solveOut").innerHTML = ""; };
@@ -125,7 +125,7 @@ function loadButtons(side) {
   const s = mcSeries(), out = [];
   if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Claude's ${s.key} team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
   if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-built ${s.key} team`, d: "from the weekly builder" });
-  (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reference team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
+  (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit reference team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
   return out;
 }
@@ -234,7 +234,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -496,7 +496,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012g");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012h");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
