@@ -149,7 +149,13 @@ def main():
                 cands.append(("Hand-Built Team", resolve_team(mt["teams"][key]["ids"], by_id, allc)))
         except Exception as e:
             print("no hand-built team:", e)
-        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind,
+        try:                                # this week's current best team: the new build must beat it to replace it
+            prev = json.load(open(os.path.join(RES, f"myclub_{key}.json")))
+            if json.load(open(os.path.join(RES, "week.json"))).get("week") == week().get("week"):
+                cands.append(("Previous Best", [by_id[p["id"]] for p in prev["team"]["players"] if p["id"] in by_id]))
+        except Exception as e:
+            print("no previous team:", e)
+        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind, seed=int(time.time() // 86400),
                             verify=3 if kind == "robust" else 0, candidates=cands)
         save(f"myclub_{key}.json", {"mode": "myclub", "series": {k: v for k, v in s.items() if k != "opponents"},
                                     "opponents": [[c["name"] for c in o] for o in opps], "team": team, "not_owned": no_names})

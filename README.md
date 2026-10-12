@@ -11,6 +11,10 @@ Everything runs free on GitHub: GitHub Actions does the heavy building and GitHu
 |---|---|
 | Card data | `Update card data` workflow pulls madfutdata.com every day (03:17 UTC) into `docs/cards.json`. |
 | My Club builder (Best teams) | Each week, for every series: the team with the best **worst case** against the Reddit team and stress-test teams built to beat it (exact solver, perfect play, both lead orders), checked again against fresh stress tests at the end. A final check then gives the Reddit and hand-built teams their own stress tests and keeps whichever team has the best worst case. Every opponent team is saved and viewable on the site. |
+| Nightly improvement | Every night at 01:00 Bangkok time the My Club teams are searched again from scratch with a new random seed. This week's current team is entered as "Previous Best" and only loses its place to a team with a better worst case. |
+| Game plan | Under each My Club team: the opening leads that keep its guaranteed result against every team it was tested on, cards to watch and the tiebreak card (`scripts/plan.js`, exact solver). |
+| Don't have | Tap **Don't have** on any player in Best Teams, then **Rebuild Without Them**. Those cards are skipped for the rest of the week (`config/notowned.json`); a new week assumes you own everything again. |
+| Vault | When a new week starts, last week's teams move to `docs/vault/<week>/` and stay viewable at the bottom of Best Teams. |
 | Sim builder | Exact optimiser (MILP): highest control first, then attack and defence, inside the cap with every boost and bonus. |
 | SBC solver | Website: type in the requirements, get the cheapest squad in seconds, tap **Don't have** on any card to re-solve without it. |
 | Beat a team | Website tab: load any team (e.g. the Reddit team), tap **Build a team to beat this**. Runs on GitHub; the result appears in the same tab. |
@@ -45,7 +49,7 @@ To rebuild just one series: **Actions → Build teams → Run workflow**, then t
 ```
 
 - `boosts.on`: `nation`, `league`, `club` or `color` (card type, e.g. `"totw"`). Find ids with the **card id lookup** on the Weekly setup tab.
-- `bonuses.kind`: `nations`, `clubs` or `types` (number of different ones in the squad needed for the bonus).
+- `bonuses.kind`: `nations`, `leagues`, `clubs` or `types` (number of different ones in the squad needed for the bonus).
 - `opponents`: the reference teams. The builder optimises against all of them.
 - `minutes`: search time for a My Club series.
 

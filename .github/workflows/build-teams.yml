@@ -5,6 +5,8 @@ on:
     paths:
       - "config/week.json"
       - "config/extras.json"
+  schedule:
+    - cron: "0 18 * * *"     # every night at 01:00 Bangkok: keep improving the My Club teams
   workflow_dispatch:
     inputs:
       only:
@@ -28,7 +30,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: list
         run: |
-          python3 scripts/build.py list "${{ github.event.inputs.only || 'all' }}" > keys.json
+          python3 scripts/build.py list "${{ github.event.inputs.only || (github.event_name == 'schedule' && 'myclub') || 'all' }}" > keys.json
           echo "sim=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['sim']))")" >> $GITHUB_OUTPUT
           echo "myclub=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['myclub']))")" >> $GITHUB_OUTPUT
 

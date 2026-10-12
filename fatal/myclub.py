@@ -284,7 +284,8 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         for label, cand in valid:
             k = worst_case(me.eff(cand))
             log(f"  {label}: worst case {k}")
-            if k > best_key:
+            # the current team ("Previous Best", always last) keeps its place unless something has a better worst case
+            if k > best_key or (label == "Previous Best" and k[0] >= best_key[0]):
                 best_key, team, source = k, cand, label
         E = me.eff(team)
         res = {n: {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
