@@ -39,7 +39,7 @@
   ]
  ],
  "team": {
-  "formation": "4-1-2-1-2",
+  "formation": "4-1-2-1-2 (2)",
   "chem": 32,
   "players": [
    {
@@ -67,26 +67,26 @@
    },
    {
     "slot": "LB",
-    "id": "id240020",
-    "name": "Ricardo Mangas",
+    "id": "id257771",
+    "name": "Juranović",
     "rating": 73,
     "color": "rare_silver",
-    "position": "LB",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 111811,
+    "position": "RB",
+    "nationId": 10,
+    "leagueId": 19,
+    "clubId": 1831,
     "card": [
-     70,
-     69,
+     71,
+     73,
      72
     ],
     "chem": 3,
     "eff": [
      75,
-     72,
-     75
+     75,
+     74
     ],
-    "tiebreak": 217
+    "tiebreak": 222
    },
    {
     "slot": "CB",
@@ -136,26 +136,26 @@
    },
    {
     "slot": "RB",
-    "id": "id257771",
-    "name": "Juranović",
-    "rating": 73,
+    "id": "id215449",
+    "name": "Skov",
+    "rating": 72,
     "color": "rare_silver",
-    "position": "RB",
-    "nationId": 10,
+    "position": "LB",
+    "nationId": 13,
     "leagueId": 19,
     "clubId": 1831,
     "card": [
-     71,
-     73,
-     72
+     75,
+     74,
+     71
     ],
     "chem": 3,
     "eff": [
-     75,
-     75,
-     74
+     79,
+     76,
+     73
     ],
-    "tiebreak": 222
+    "tiebreak": 226
    },
    {
     "slot": "CDM",
@@ -182,29 +182,6 @@
    },
    {
     "slot": "CM",
-    "id": "id215449",
-    "name": "Skov",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 1831,
-    "card": [
-     75,
-     74,
-     71
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     76,
-     73
-    ],
-    "tiebreak": 226
-   },
-   {
-    "slot": "CM",
     "id": "id240938",
     "name": "Junior Messias",
     "rating": 72,
@@ -225,6 +202,29 @@
      61
     ],
     "tiebreak": 210
+   },
+   {
+    "slot": "CM",
+    "id": "id264699",
+    "name": "Asllani",
+    "rating": 73,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 1,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     69,
+     73,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     76,
+     72
+    ],
+    "tiebreak": 217
    },
    {
     "slot": "CAM",
@@ -316,8 +316,37 @@
    "counter 4": {
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
+   },
+   "counter 5": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 6": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 7": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 8": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 3": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
    }
-  }
+  },
+  "mode": "robust"
  },
- "built": "2026-10-11 18:52 UTC"
+ "built": "2026-10-12 06:22 UTC"
 }

@@ -37,31 +37,31 @@
   ]
  ],
  "team": {
-  "formation": "4-3-2-1",
-  "chem": 33,
+  "formation": "4-2-3-1",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id267053",
-    "name": "Soggiu",
+    "id": "id236378",
+    "name": "Plizzari",
     "rating": 67,
     "color": "rare_silver",
     "position": "GK",
     "nationId": 27,
-    "leagueId": 2236,
-    "clubId": 52,
+    "leagueId": 32,
+    "clubId": 112494,
     "card": [
-     34,
-     30,
+     29,
+     24,
      68
     ],
     "chem": 3,
     "eff": [
-     37,
-     33,
+     32,
+     27,
      71
     ],
-    "tiebreak": 138
+    "tiebreak": 127
    },
    {
     "slot": "LB",
@@ -88,26 +88,26 @@
    },
    {
     "slot": "CB",
-    "id": "id74080",
-    "name": "Davi",
+    "id": "id230134",
+    "name": "Sergio Molina",
     "rating": 67,
     "color": "rare_silver",
-    "position": "LB",
-    "nationId": 27,
-    "leagueId": 32,
-    "clubId": 112494,
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 114554,
     "card": [
-     56,
-     60,
-     66
+     64,
+     64,
+     68
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     59,
-     63,
-     69
+     64,
+     64,
+     68
     ],
-    "tiebreak": 188
+    "tiebreak": 196
    },
    {
     "slot": "CB",
@@ -156,53 +156,7 @@
     "tiebreak": 204
    },
    {
-    "slot": "CM",
-    "id": "id212459",
-    "name": "Cavion",
-    "rating": 66,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 27,
-    "leagueId": 32,
-    "clubId": 112954,
-    "card": [
-     65,
-     63,
-     66
-    ],
-    "chem": 3,
-    "eff": [
-     68,
-     66,
-     69
-    ],
-    "tiebreak": 200
-   },
-   {
-    "slot": "CM",
-    "id": "id86098",
-    "name": "Chierico",
-    "rating": 66,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 27,
-    "leagueId": 32,
-    "clubId": 110907,
-    "card": [
-     68,
-     66,
-     58
-    ],
-    "chem": 3,
-    "eff": [
-     71,
-     69,
-     61
-    ],
-    "tiebreak": 198
-   },
-   {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "id279473",
     "name": "Rispoli",
     "rating": 66,
@@ -223,6 +177,52 @@
      60
     ],
     "tiebreak": 198
+   },
+   {
+    "slot": "CDM",
+    "id": "id271213",
+    "name": "Giovane",
+    "rating": 67,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 27,
+    "leagueId": 32,
+    "clubId": 110908,
+    "card": [
+     67,
+     67,
+     65
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     70,
+     68
+    ],
+    "tiebreak": 205
+   },
+   {
+    "slot": "CAM",
+    "id": "id205089",
+    "name": "Valoti",
+    "rating": 67,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 27,
+    "leagueId": 32,
+    "clubId": 112954,
+    "card": [
+     67,
+     69,
+     57
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     72,
+     60
+    ],
+    "tiebreak": 199
    },
    {
     "slot": "CAM",
@@ -249,26 +249,26 @@
    },
    {
     "slot": "CAM",
-    "id": "id205089",
-    "name": "Valoti",
-    "rating": 67,
+    "id": "id259551",
+    "name": "Milanese",
+    "rating": 66,
     "color": "rare_silver",
     "position": "CM",
     "nationId": 27,
     "leagueId": 32,
-    "clubId": 112954,
+    "clubId": 1847,
     "card": [
-     67,
      69,
-     57
+     66,
+     53
     ],
     "chem": 3,
     "eff": [
-     70,
      72,
-     60
+     69,
+     56
     ],
-    "tiebreak": 199
+    "tiebreak": 194
    },
    {
     "slot": "ST",
@@ -314,8 +314,37 @@
    "counter 4": {
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
+   },
+   "counter 5": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 6": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 7": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 8": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 3": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
    }
-  }
+  },
+  "mode": "robust"
  },
- "built": "2026-10-11 18:24 UTC"
+ "built": "2026-10-12 06:24 UTC"
 }

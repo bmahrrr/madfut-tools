@@ -37,31 +37,31 @@
   ]
  ],
  "team": {
-  "formation": "4-1-2-1-2",
+  "formation": "4-1-2-1-2 (2)",
   "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id191694",
-    "name": "Campos",
+    "id": "id215698",
+    "name": "Maignan",
     "rating": 87,
-    "color": "hero",
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 114605,
+    "nationId": 18,
+    "leagueId": 31,
+    "clubId": 131681,
     "card": [
-     77,
-     68,
-     88
+     46,
+     45,
+     87
     ],
     "chem": 3,
     "eff": [
-     79,
-     70,
-     90
+     50,
+     49,
+     91
     ],
-    "tiebreak": 239
+    "tiebreak": 184
    },
    {
     "slot": "LB",
@@ -88,6 +88,29 @@
    },
    {
     "slot": "CB",
+    "id": "id168473",
+    "name": "Beckenbauer",
+    "rating": 93,
+    "color": "icon",
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     81,
+     86,
+     91
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     90,
+     95
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "CB",
     "id": "id238435",
     "name": "Matthäus",
     "rating": 90,
@@ -110,50 +133,27 @@
     "tiebreak": 263
    },
    {
-    "slot": "CB",
-    "id": "id166906",
-    "name": "Baresi",
-    "rating": 91,
-    "color": "icon",
-    "position": "CB",
-    "nationId": 27,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     66,
-     75,
-     91
-    ],
-    "chem": 3,
-    "eff": [
-     68,
-     77,
-     93
-    ],
-    "tiebreak": 238
-   },
-   {
     "slot": "RB",
-    "id": "id1615",
-    "name": "Thuram",
-    "rating": 89,
-    "color": "icon",
+    "id": "id010",
+    "name": "Sara",
+    "rating": 93,
+    "color": "sbc_premium",
     "position": "RB",
-    "nationId": 18,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 4,
+    "leagueId": 80,
+    "clubId": 114605,
     "card": [
-     74,
-     75,
-     89
+     71,
+     85,
+     93
     ],
     "chem": 3,
     "eff": [
-     78,
-     79,
-     93
+     73,
+     87,
+     95
     ],
-    "tiebreak": 244
+    "tiebreak": 255
    },
    {
     "slot": "CDM",
@@ -203,49 +203,49 @@
    },
    {
     "slot": "CM",
-    "id": "id168473",
-    "name": "Beckenbauer",
-    "rating": 93,
+    "id": "id227324",
+    "name": "Abily",
+    "rating": 90,
     "color": "icon",
-    "position": "CB",
-    "nationId": 21,
+    "position": "CM",
+    "nationId": 18,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     81,
-     86,
-     91
+     88,
+     89,
+     78
     ],
     "chem": 3,
     "eff": [
-     85,
-     90,
-     95
+     92,
+     93,
+     82
     ],
-    "tiebreak": 264
+    "tiebreak": 261
    },
    {
     "slot": "CAM",
-    "id": "id275243",
-    "name": "Hamm",
-    "rating": 93,
-    "color": "icon",
-    "position": "ST",
-    "nationId": 95,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "id50579475",
+    "name": "Olise",
+    "rating": 91,
+    "color": "totw_gold",
+    "position": "RM",
+    "nationId": 18,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     92,
      88,
-     58
+     90,
+     50
     ],
     "chem": 3,
     "eff": [
+     92,
      94,
-     90,
-     60
+     54
     ],
-    "tiebreak": 244
+    "tiebreak": 234
    },
    {
     "slot": "ST",
@@ -272,26 +272,26 @@
    },
    {
     "slot": "ST",
-    "id": "id226359",
-    "name": "Sinclair",
-    "rating": 92,
+    "id": "id190045",
+    "name": "Cruyff",
+    "rating": 93,
     "color": "icon",
-    "position": "ST",
-    "nationId": 70,
+    "position": "CAM",
+    "nationId": 34,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     92,
-     87,
-     59
+     91,
+     90,
+     47
     ],
     "chem": 3,
     "eff": [
-     94,
-     89,
-     61
+     93,
+     92,
+     49
     ],
-    "tiebreak": 244
+    "tiebreak": 234
    }
   ],
   "results": {
@@ -304,18 +304,47 @@
     "they_lead_first": "LOSS"
    },
    "counter 2": {
-    "you_lead_first": "WIN",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 3": {
-    "you_lead_first": "LOSS",
-    "they_lead_first": "LOSS"
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
    },
    "counter 4": {
     "you_lead_first": "LOSS",
     "they_lead_first": "LOSS"
+   },
+   "counter 5": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "counter 6": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   },
+   "counter 7": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   },
+   "counter 8": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   },
+   "fresh test 1": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   },
+   "fresh test 2": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   },
+   "fresh test 3": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "DRAW"
    }
-  }
+  },
+  "mode": "robust"
  },
- "built": "2026-10-11 18:25 UTC"
+ "built": "2026-10-12 06:18 UTC"
 }

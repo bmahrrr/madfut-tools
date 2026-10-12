@@ -51,7 +51,7 @@
  ],
  "team": {
   "formation": "3-1-4-2",
-  "chem": 30,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -147,26 +147,26 @@
    },
    {
     "slot": "CDM",
-    "id": "id264989",
-    "name": "Corley",
-    "rating": 79,
+    "id": "id254909",
+    "name": "Dorley",
+    "rating": 77,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 95,
-    "leagueId": 2221,
-    "clubId": 116312,
+    "position": "CDM",
+    "nationId": 122,
+    "leagueId": 350,
+    "clubId": 112393,
     "card": [
-     77,
+     71,
      76,
-     60
+     75
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     77,
-     76,
-     60
+     74,
+     78,
+     79
     ],
-    "tiebreak": 213
+    "tiebreak": 228
    },
    {
     "slot": "LM",
@@ -193,26 +193,26 @@
    },
    {
     "slot": "CM",
-    "id": "id264900",
-    "name": "Fazer",
+    "id": "id230020",
+    "name": "Lees-Melou",
     "rating": 77,
     "color": "rare_gold",
     "position": "CDM",
     "nationId": 18,
-    "leagueId": 2221,
-    "clubId": 116312,
+    "leagueId": 16,
+    "clubId": 111817,
     "card": [
-     79,
-     77,
+     73,
+     76,
      73
     ],
     "chem": 3,
     "eff": [
-     81,
-     79,
+     75,
+     78,
      75
     ],
-    "tiebreak": 235
+    "tiebreak": 228
    },
    {
     "slot": "CM",
@@ -309,7 +309,7 @@
   ],
   "results": {
    "reference 1": {
-    "you_lead_first": "WIN",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "reference 2": {
@@ -317,22 +317,51 @@
     "they_lead_first": "WIN"
    },
    "counter 1": {
-    "you_lead_first": "LOSS",
-    "they_lead_first": "DRAW"
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
    },
    "counter 2": {
-    "you_lead_first": "LOSS",
-    "they_lead_first": "DRAW"
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
    },
    "counter 3": {
     "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 4": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "DRAW"
+   },
+   "counter 5": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "counter 6": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "counter 7": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "counter 8": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "fresh test 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "fresh test 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 3": {
     "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    }
-  }
+  },
+  "mode": "robust"
  },
- "built": "2026-10-11 18:27 UTC"
+ "built": "2026-10-12 06:23 UTC"
 }
