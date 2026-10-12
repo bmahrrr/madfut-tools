@@ -1,0 +1,328 @@
+{
+ "mode": "custom",
+ "request": {
+  "name": "Beat Mailson, Perraud, Andrei Girotto",
+  "series": "79",
+  "mode": "beat",
+  "minutes": 30,
+  "opponents": [
+   [
+    "id243830",
+    "id231318",
+    "id226515",
+    "id208165",
+    "id235454",
+    "id270559",
+    "id234239",
+    "id212729",
+    "id195864",
+    "id50596345",
+    "id216594"
+   ]
+  ],
+  "created": "2026-10-12T08:09:53.858Z"
+ },
+ "series": {
+  "key": "79",
+  "cap": 79,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 39,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   },
+   {
+    "on": "league",
+    "id": 350,
+    "att": 1,
+    "ctl": 0,
+    "def": 2
+   }
+  ],
+  "minutes": 30
+ },
+ "opponents": [
+  [
+   "Mailson",
+   "Perraud",
+   "Andrei Girotto",
+   "Djimsiti",
+   "Sarr",
+   "Tiago Santos",
+   "Hein",
+   "Tozé",
+   "Pogba",
+   "Amoura",
+   "Fekir"
+  ]
+ ],
+ "team": {
+  "formation": "3-4-3",
+  "chem": 31,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id262956",
+    "name": "Vasilj",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "GK",
+    "nationId": 8,
+    "leagueId": 350,
+    "clubId": 113224,
+    "card": [
+     28,
+     29,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     31,
+     31,
+     82
+    ],
+    "tiebreak": 141
+   },
+   {
+    "slot": "CB",
+    "id": "id279709",
+    "name": "Lucas Beraldo",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     60,
+     71,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     62,
+     73,
+     81
+    ],
+    "tiebreak": 216
+   },
+   {
+    "slot": "CB",
+    "id": "id208165",
+    "name": "Djimsiti",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 1,
+    "leagueId": 350,
+    "clubId": 113224,
+    "card": [
+     53,
+     58,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     56,
+     60,
+     84
+    ],
+    "tiebreak": 197
+   },
+   {
+    "slot": "CB",
+    "id": "id226515",
+    "name": "Andrei Girotto",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 350,
+    "clubId": 112389,
+    "card": [
+     67,
+     67,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     69,
+     82
+    ],
+    "tiebreak": 218
+   },
+   {
+    "slot": "LM",
+    "id": "id231318",
+    "name": "Perraud",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 65,
+    "card": [
+     76,
+     76,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     78,
+     79
+    ],
+    "tiebreak": 235
+   },
+   {
+    "slot": "CM",
+    "id": "id195864",
+    "name": "Pogba",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 69,
+    "card": [
+     75,
+     79,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     81,
+     63
+    ],
+    "tiebreak": 221
+   },
+   {
+    "slot": "CM",
+    "id": "id193474",
+    "name": "Gueye",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 136,
+    "leagueId": 350,
+    "clubId": 113224,
+    "card": [
+     69,
+     73,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     75,
+     82
+    ],
+    "tiebreak": 226
+   },
+   {
+    "slot": "RM",
+    "id": "id263781",
+    "name": "Vanderson",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 16,
+    "clubId": 69,
+    "card": [
+     72,
+     74,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     76,
+     78
+    ],
+    "tiebreak": 228
+   },
+   {
+    "slot": "LW",
+    "id": "id219732",
+    "name": "Nkoudou",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 103,
+    "leagueId": 350,
+    "clubId": 113224,
+    "card": [
+     80,
+     74,
+     39
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     76,
+     43
+    ],
+    "tiebreak": 199
+   },
+   {
+    "slot": "ST",
+    "id": "id50596345",
+    "name": "Amoura",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 72,
+    "card": [
+     82,
+     76,
+     50
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     77,
+     51
+    ],
+    "tiebreak": 211
+   },
+   {
+    "slot": "RW",
+    "id": "id227562",
+    "name": "Haraslín",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "LW",
+    "nationId": 43,
+    "leagueId": 350,
+    "clubId": 112390,
+    "card": [
+     78,
+     76,
+     44
+    ],
+    "chem": 2,
+    "eff": [
+     80,
+     77,
+     47
+    ],
+    "tiebreak": 201
+   }
+  ],
+  "results": {
+   "target 1": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   }
+  },
+  "mode": "beat"
+ },
+ "built": "2026-10-12 08:43 UTC"
+}
