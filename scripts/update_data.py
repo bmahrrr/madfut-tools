@@ -6,7 +6,7 @@ Usage:
 
 The output is a compact table used by both the Python builders and the website.
 """
-import argparse, json, os, sys, time, urllib.request
+import argparse, json, os, sys, time, urllib.parse, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIELDS = ["id", "name", "rating", "color", "position", "altPositions", "attack", "control",
@@ -89,7 +89,14 @@ def update_names(cards, src, loc_file=None):
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (madfut-tools updater)"})
     with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode("utf-8"))
+        data = json.loads(r.read().decode("utf-8"))
+    # Firestore lists come in pages: follow nextPageToken and merge the documents
+    while isinstance(data, dict) and data.get("nextPageToken") and "firestore.googleapis.com" in url:
+        sep = "&" if "?" in url else "?"
+        more = fetch(url + sep + "pageToken=" + urllib.parse.quote(data.pop("nextPageToken")))
+        data.setdefault("documents", []).extend(more.get("documents", []))
+        data["nextPageToken"] = more.get("nextPageToken")
+    return data
 
 
 def main():
@@ -119,11 +126,15 @@ def main():
     if a.updates:
         upd = players_from(json.load(open(a.updates)), prefix)
     elif not a.realm:
+        got = False
         for url in src.get("update_urls", []):
             try:
-                upd = players_from(fetch(url), prefix); print("downloaded", url, len(upd)); break
+                upd = players_from(fetch(url), prefix); print("downloaded", url, len(upd)); got = True; break
             except Exception as e:
                 print("failed", url, e)
+        if src.get("update_urls") and not got:
+            # never replace good data with data that is missing the newest releases
+            sys.exit("Could not download the new-release cards; keeping the existing card data.")
     by_id = {p["id"]: p for p in base if "id" in p}
     for p in upd:
         if "id" in p:

@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "17 3 * * *"     # every day at 03:17 UTC
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "config/sources.json"
+      - "scripts/update_data.py"
 
 permissions:
   contents: write
