@@ -1,0 +1,869 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "81",
+  "cap": 81,
+  "boosts": [
+   {
+    "on": "club",
+    "id": 240,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   },
+   {
+    "on": "club",
+    "id": 18,
+    "att": 3,
+    "ctl": 1,
+    "def": 0
+   }
+  ],
+  "opponents": [
+   [
+    "id237328",
+    "id262545",
+    "id247394",
+    "id245367",
+    "id50522413",
+    "id243780",
+    "evo_Lucas Vázquez_80",
+    "id266039",
+    "id233486",
+    "id241464",
+    "id258498"
+   ]
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id265076",
+     "name": "Borggräfe",
+     "rating": 79,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2215,
+     "clubId": 32,
+     "card": [
+      37,
+      35,
+      80
+     ],
+     "chem": 2,
+     "eff": [
+      38,
+      36,
+      81
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id241464",
+     "name": "Pau Torres",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      62,
+      71,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      73,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id266039",
+     "name": "Pubill",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      69,
+      72,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      76,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id233486",
+     "name": "Le Normand",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      53,
+      62,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      66,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id245367",
+     "name": "Simons",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      80,
+      81,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      84,
+      63
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id243780",
+     "name": "Lee Kang In",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 167,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      79,
+      81,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      85,
+      57
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50522413",
+     "name": "Groß",
+     "rating": 81,
+     "color": "totw_gold",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      79,
+      83,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      85,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      80
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id247394",
+     "name": "Kulusevski",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 46,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      80,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      85,
+      65
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id262545",
+     "name": "Amaiur Sarriegi",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 240,
+     "card": [
+      81,
+      78,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      82,
+      56
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id245155",
+     "name": "Kudus",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "RM",
+     "nationId": 117,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      81,
+      78,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      81,
+      62
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 84.8,
+    "attack": 85.0,
+    "defence": 83.0,
+    "control_cards": [
+     85,
+     85,
+     85,
+     85,
+     84
+    ],
+    "attack_cards": [
+     86,
+     85,
+     85,
+     85,
+     84
+    ],
+    "defence_cards": [
+     84,
+     84,
+     83,
+     81
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id265076",
+     "name": "Borggräfe",
+     "rating": 79,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2215,
+     "clubId": 32,
+     "card": [
+      37,
+      35,
+      80
+     ],
+     "chem": 2,
+     "eff": [
+      38,
+      36,
+      81
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id241464",
+     "name": "Pau Torres",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      62,
+      71,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      73,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id266039",
+     "name": "Pubill",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      69,
+      72,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      76,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id233486",
+     "name": "Le Normand",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      53,
+      62,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      66,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50522413",
+     "name": "Groß",
+     "rating": 81,
+     "color": "totw_gold",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      79,
+      83,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      85,
+      77
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id245367",
+     "name": "Simons",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      80,
+      81,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      84,
+      63
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id247394",
+     "name": "Kulusevski",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 46,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      80,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      85,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id243780",
+     "name": "Lee Kang In",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 167,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      79,
+      81,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      85,
+      57
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      80
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id262545",
+     "name": "Amaiur Sarriegi",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 240,
+     "card": [
+      81,
+      78,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      82,
+      56
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id245155",
+     "name": "Kudus",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "RM",
+     "nationId": 117,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      81,
+      78,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      81,
+      62
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 84.8,
+    "attack": 85.0,
+    "defence": 81.8,
+    "control_cards": [
+     85,
+     85,
+     85,
+     85,
+     84
+    ],
+    "attack_cards": [
+     86,
+     85,
+     85,
+     84
+    ],
+    "defence_cards": [
+     84,
+     84,
+     83,
+     81,
+     77
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id211738",
+     "name": "Flekken",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      34,
+      37,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      39,
+      80
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id263012",
+     "name": "Turner",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 88,
+     "card": [
+      59,
+      64,
+      82
+     ],
+     "chem": 2,
+     "eff": [
+      60,
+      65,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id241464",
+     "name": "Pau Torres",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      62,
+      71,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      73,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id239340",
+     "name": "Chabot",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 36,
+     "card": [
+      49,
+      53,
+      82
+     ],
+     "chem": 2,
+     "eff": [
+      50,
+      54,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50522413",
+     "name": "Groß",
+     "rating": 81,
+     "color": "totw_gold",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      79,
+      83,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      85,
+      77
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id233751",
+     "name": "van de Donk",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 2216,
+     "clubId": 132176,
+     "card": [
+      80,
+      82,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      84,
+      69
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id245367",
+     "name": "Simons",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      80,
+      81,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      84,
+      63
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id247394",
+     "name": "Kulusevski",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 46,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      80,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      85,
+      65
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      80
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id235659",
+     "name": "Parris",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 132176,
+     "card": [
+      81,
+      77,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      79,
+      52
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id245155",
+     "name": "Kudus",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "RM",
+     "nationId": 117,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      81,
+      78,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      81,
+      62
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 84.6,
+    "attack": 84.6,
+    "defence": 79.17,
+    "control_cards": [
+     85,
+     85,
+     85,
+     84,
+     84
+    ],
+    "attack_cards": [
+     86,
+     85,
+     85,
+     84,
+     83
+    ],
+    "defence_cards": [
+     83,
+     83,
+     83,
+     80,
+     77,
+     69
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-12 15:21 UTC"
+}

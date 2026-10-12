@@ -1,0 +1,3300 @@
+{
+ "mode": "myclub",
+ "series": {
+  "key": "75",
+  "cap": 75,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 19,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "nations",
+    "min": 8,
+    "att": 0,
+    "ctl": 2,
+    "def": 0
+   }
+  ],
+  "minutes": 30
+ },
+ "opponents": [
+  [
+   "Hollerbach",
+   "Olislagers",
+   "Boey",
+   "Stöger",
+   "Symonds",
+   "Skov",
+   "Lucas Vázquez",
+   "Capaldo",
+   "George",
+   "Sander",
+   "Batz"
+  ]
+ ],
+ "team": {
+  "formation": "4-1-4-1",
+  "chem": 31,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id199803",
+    "name": "Batz",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "GK",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 23,
+    "card": [
+     30,
+     29,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     33,
+     34,
+     79
+    ],
+    "tiebreak": 141
+   },
+   {
+    "slot": "LB",
+    "id": "id266551",
+    "name": "George",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 14,
+    "leagueId": 2216,
+    "clubId": 1808,
+    "card": [
+     62,
+     67,
+     78
+    ],
+    "chem": 2,
+    "eff": [
+     63,
+     70,
+     79
+    ],
+    "tiebreak": 210
+   },
+   {
+    "slot": "CB",
+    "id": "id243354",
+    "name": "Sander",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 23,
+    "card": [
+     72,
+     73,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     78,
+     78
+    ],
+    "tiebreak": 226
+   },
+   {
+    "slot": "CB",
+    "id": "id246885",
+    "name": "Capaldo",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 52,
+    "leagueId": 19,
+    "clubId": 28,
+    "card": [
+     72,
+     70,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     75,
+     78
+    ],
+    "tiebreak": 223
+   },
+   {
+    "slot": "RB",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     76,
+     77,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     82,
+     75
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "CDM",
+    "id": "id265292",
+    "name": "Symonds",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 2216,
+    "clubId": 1808,
+    "card": [
+     73,
+     71,
+     67
+    ],
+    "chem": 2,
+    "eff": [
+     74,
+     74,
+     68
+    ],
+    "tiebreak": 214
+   },
+   {
+    "slot": "LM",
+    "id": "id232839",
+    "name": "Muheim",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 47,
+    "leagueId": 19,
+    "clubId": 28,
+    "card": [
+     71,
+     72,
+     74
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     77,
+     77
+    ],
+    "tiebreak": 223
+   },
+   {
+    "slot": "CM",
+    "id": "id215449",
+    "name": "Skov",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "LB",
+    "nationId": 13,
+    "leagueId": 19,
+    "clubId": 1831,
+    "card": [
+     75,
+     74,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     79,
+     74
+    ],
+    "tiebreak": 226
+   },
+   {
+    "slot": "CM",
+    "id": "id204497",
+    "name": "Stöger",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "CAM",
+    "nationId": 4,
+    "leagueId": 19,
+    "clubId": 23,
+    "card": [
+     73,
+     77,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     82,
+     64
+    ],
+    "tiebreak": 217
+   },
+   {
+    "slot": "RM",
+    "id": "id248266",
+    "name": "Boey",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 18,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     67,
+     69,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     74,
+     78
+    ],
+    "tiebreak": 217
+   },
+   {
+    "slot": "ST",
+    "id": "id258715",
+    "name": "Hollerbach",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 169,
+    "card": [
+     76,
+     71,
+     35
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     76,
+     38
+    ],
+    "tiebreak": 188
+   }
+  ],
+  "results": {
+   "reference 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "mirror": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "counter 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 3": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 4": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 5": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 3": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "final check 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   }
+  },
+  "source": "builder",
+  "mode": "robust",
+  "opponent_teams": {
+   "reference 1": {
+    "formation": "4-1-4-1",
+    "chem": 32,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "LB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       64,
+       71,
+       80
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "RB",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CDM",
+      "id": "id265292",
+      "name": "Symonds",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       73,
+       71,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       69
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "LM",
+      "id": "id265705",
+      "name": "Olislagers",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 34,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       68,
+       74
+      ],
+      "chem": 2,
+      "eff": [
+       63,
+       71,
+       75
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "RM",
+      "id": "id248266",
+      "name": "Boey",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       67,
+       69,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       78
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "mirror": {
+    "formation": "4-1-4-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "LB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       63,
+       70,
+       79
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "RB",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CDM",
+      "id": "id265292",
+      "name": "Symonds",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       73,
+       71,
+       67
+      ],
+      "chem": 2,
+      "eff": [
+       74,
+       74,
+       68
+      ],
+      "tiebreak": 214
+     },
+     {
+      "slot": "LM",
+      "id": "id232839",
+      "name": "Muheim",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 47,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       71,
+       72,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       77,
+       77
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "RM",
+      "id": "id248266",
+      "name": "Boey",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       67,
+       69,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       78
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "counter 1": {
+    "formation": "4-1-4-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "LB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       63,
+       70,
+       79
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "RB",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CDM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "LM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id265292",
+      "name": "Symonds",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       73,
+       71,
+       67
+      ],
+      "chem": 2,
+      "eff": [
+       74,
+       74,
+       68
+      ],
+      "tiebreak": 214
+     },
+     {
+      "slot": "CM",
+      "id": "id272781",
+      "name": "Ben Seghir",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 129,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       74,
+       73,
+       34
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       37
+      ],
+      "tiebreak": 187
+     },
+     {
+      "slot": "RM",
+      "id": "id248266",
+      "name": "Boey",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       67,
+       69,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       78
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "counter 2": {
+    "formation": "4-1-4-1",
+    "chem": 29,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "LB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 1,
+      "eff": [
+       62,
+       69,
+       78
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "RB",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CDM",
+      "id": "id236898",
+      "name": "Aebischer",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 47,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       72,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       77,
+       75
+      ],
+      "tiebreak": 221
+     },
+     {
+      "slot": "LM",
+      "id": "id265705",
+      "name": "Olislagers",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 34,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       68,
+       74
+      ],
+      "chem": 1,
+      "eff": [
+       62,
+       70,
+       74
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "RM",
+      "id": "id248266",
+      "name": "Boey",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       67,
+       69,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       78
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "counter 3": {
+    "formation": "3-4-3",
+    "chem": 29,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 1,
+      "eff": [
+       62,
+       69,
+       78
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "LM",
+      "id": "id250941",
+      "name": "Köhn",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 117,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       73,
+       72,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       76
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CM",
+      "id": "id236898",
+      "name": "Aebischer",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 47,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       72,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       77,
+       75
+      ],
+      "tiebreak": 221
+     },
+     {
+      "slot": "CM",
+      "id": "id235642",
+      "name": "Yates",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 14,
+      "card": [
+       64,
+       68,
+       74
+      ],
+      "chem": 1,
+      "eff": [
+       64,
+       70,
+       74
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "RM",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "LW",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     },
+     {
+      "slot": "RW",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     }
+    ]
+   },
+   "counter 4": {
+    "formation": "4-1-4-1",
+    "chem": 29,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "LB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 1,
+      "eff": [
+       62,
+       69,
+       78
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "RB",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CDM",
+      "id": "id265691",
+      "name": "Rule",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 195,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       63,
+       63,
+       73
+      ],
+      "chem": 1,
+      "eff": [
+       63,
+       65,
+       73
+      ],
+      "tiebreak": 199
+     },
+     {
+      "slot": "LM",
+      "id": "id257771",
+      "name": "Juranović",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 10,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       73,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       78,
+       75
+      ],
+      "tiebreak": 222
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "RM",
+      "id": "id248266",
+      "name": "Boey",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       67,
+       69,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       78
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "counter 5": {
+    "formation": "3-4-3",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 1,
+      "eff": [
+       62,
+       69,
+       78
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "LM",
+      "id": "id250941",
+      "name": "Köhn",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 117,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       73,
+       72,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       76
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CM",
+      "id": "id76433",
+      "name": "Grant",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "RM",
+      "nationId": 14,
+      "leagueId": 2215,
+      "clubId": 32,
+      "card": [
+       70,
+       71,
+       68
+      ],
+      "chem": 2,
+      "eff": [
+       71,
+       74,
+       69
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CM",
+      "id": "id236898",
+      "name": "Aebischer",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 47,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       72,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       77,
+       75
+      ],
+      "tiebreak": 221
+     },
+     {
+      "slot": "RM",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "LW",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     },
+     {
+      "slot": "RW",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     }
+    ]
+   },
+   "fresh test 1": {
+    "formation": "4-1-4-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "LB",
+      "id": "id250941",
+      "name": "Köhn",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 117,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       73,
+       72,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       76
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       63,
+       70,
+       79
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CDM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "LM",
+      "id": "id232839",
+      "name": "Muheim",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 47,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       71,
+       72,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       77,
+       77
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id265292",
+      "name": "Symonds",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       73,
+       71,
+       67
+      ],
+      "chem": 2,
+      "eff": [
+       74,
+       74,
+       68
+      ],
+      "tiebreak": 214
+     },
+     {
+      "slot": "RM",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "fresh test 2": {
+    "formation": "4-1-4-1",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "LB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 0,
+      "eff": [
+       59,
+       66,
+       75
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "RB",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CDM",
+      "id": "id212212",
+      "name": "Kohr",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       66,
+       63,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       68,
+       78
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "LM",
+      "id": "id250941",
+      "name": "Köhn",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 117,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       73,
+       72,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       76
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "RM",
+      "id": "id248266",
+      "name": "Boey",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       67,
+       69,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       78
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "fresh test 3": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "LB",
+      "id": "id232839",
+      "name": "Muheim",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 47,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       71,
+       72,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       77,
+       77
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "RB",
+      "id": "id254638",
+      "name": "Sebulonsen",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 36,
+      "leagueId": 19,
+      "clubId": 31,
+      "card": [
+       70,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       71,
+       76
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "CDM",
+      "id": "id236898",
+      "name": "Aebischer",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 47,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       72,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       77,
+       75
+      ],
+      "tiebreak": 221
+     },
+     {
+      "slot": "LM",
+      "id": "id250941",
+      "name": "Köhn",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 117,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       73,
+       72,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       76
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "RM",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "final check 1": {
+    "formation": "3-4-2-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id199803",
+      "name": "Batz",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       30,
+       29,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       33,
+       34,
+       79
+      ],
+      "tiebreak": 141
+     },
+     {
+      "slot": "CB",
+      "id": "id243354",
+      "name": "Sander",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       72,
+       73,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       78
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id266551",
+      "name": "George",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       62,
+       67,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       63,
+       70,
+       79
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CB",
+      "id": "id246885",
+      "name": "Capaldo",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       70,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       78
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "LM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       74
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id265292",
+      "name": "Symonds",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 2216,
+      "clubId": 1808,
+      "card": [
+       73,
+       71,
+       67
+      ],
+      "chem": 2,
+      "eff": [
+       74,
+       74,
+       68
+      ],
+      "tiebreak": 214
+     },
+     {
+      "slot": "CM",
+      "id": "id236898",
+      "name": "Aebischer",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 47,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       72,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       77,
+       75
+      ],
+      "tiebreak": 221
+     },
+     {
+      "slot": "RM",
+      "id": "id208618",
+      "name": "Lucas Vázquez",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       76,
+       77,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       82,
+       75
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CAM",
+      "id": "id272781",
+      "name": "Ben Seghir",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 129,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       74,
+       73,
+       34
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       37
+      ],
+      "tiebreak": 187
+     },
+     {
+      "slot": "CAM",
+      "id": "id204497",
+      "name": "Stöger",
+      "rating": 74,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       73,
+       77,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       64
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id258715",
+      "name": "Hollerbach",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       76,
+       71,
+       35
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       38
+      ],
+      "tiebreak": 188
+     }
+    ]
+   }
+  },
+  "plan": {
+   "guaranteed": "DRAW",
+   "safe": [
+    {
+     "slot": "GK",
+     "name": "Batz",
+     "stat": "defence"
+    },
+    {
+     "slot": "LB",
+     "name": "George",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Sander",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Capaldo",
+     "stat": "defence"
+    },
+    {
+     "slot": "LM",
+     "name": "Muheim",
+     "stat": "defence"
+    },
+    {
+     "slot": "RM",
+     "name": "Boey",
+     "stat": "defence"
+    }
+   ],
+   "total_openers": 33,
+   "reddit": {
+    "guaranteed": "DRAW",
+    "safe": [
+     {
+      "slot": "GK",
+      "name": "Batz",
+      "stat": "defence"
+     },
+     {
+      "slot": "LB",
+      "name": "George",
+      "stat": "defence"
+     },
+     {
+      "slot": "CB",
+      "name": "Sander",
+      "stat": "defence"
+     },
+     {
+      "slot": "CB",
+      "name": "Capaldo",
+      "stat": "control"
+     },
+     {
+      "slot": "CB",
+      "name": "Capaldo",
+      "stat": "defence"
+     },
+     {
+      "slot": "LM",
+      "name": "Muheim",
+      "stat": "defence"
+     },
+     {
+      "slot": "CM",
+      "name": "Stöger",
+      "stat": "control"
+     },
+     {
+      "slot": "RM",
+      "name": "Boey",
+      "stat": "defence"
+     }
+    ]
+   },
+   "watch": [
+    {
+     "name": "Batz",
+     "text": "Only use for defence (79); attack 33, control 34"
+    },
+    {
+     "name": "Hollerbach",
+     "text": "Never use for defence (38)"
+    }
+   ],
+   "low_tb": {
+    "name": "Batz",
+    "tb": 141
+   },
+   "high_tb": {
+    "name": "Lucas Vázquez",
+    "tb": 231
+   }
+  }
+ },
+ "not_owned": [],
+ "built": "2026-10-12 15:58 UTC"
+}
