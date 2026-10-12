@@ -1,6 +1,20 @@
 {
   "_help": "Where the daily updater downloads card data from. If madfutdata changes its links, update them here.",
   "game_prefix": "27",
-  "realm_urls": ["https://madfutdata.com/27/json/realm27.json"],
-  "update_urls": ["https://madfutdata.com/27/json/updates.json", "https://madfutdata.com/json/updates.json"]
+  "realm_urls": [
+    "https://madfutdata.com/27/json/realm27.json"
+  ],
+  "update_urls": [
+    "https://firestore.googleapis.com/v1/projects/trivela-madfut/databases/%28default%29/documents/updates?pageSize=300"
+  ],
+  "names_url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/loc/en-US.json",
+  "names_year": "2027",
+  "firestore_base": "https://firestore.googleapis.com/v1/projects/trivela-madfut/databases/%28default%29/documents",
+  "extra_collections": [
+    "objectives",
+    "sbcGroups",
+    "draftCups",
+    "evosElite"
+  ],
+  "sbc_local": "https://madfutdata.com/27/json/sbcGroups/27_{n}.json"
 }
