@@ -1,0 +1,851 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "87",
+  "cap": 87,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 45,
+    "att": 1,
+    "ctl": 3,
+    "def": 0
+   },
+   {
+    "on": "club",
+    "id": 241,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "5-3-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id259532",
+     "name": "Joan García",
+     "rating": 86,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      36,
+      38,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      41,
+      45,
+      90
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      71
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id213331",
+     "name": "Tah",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      54,
+      61,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      63,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id227190",
+     "name": "Irene Paredes",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      64,
+      67,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      74,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50559326",
+     "name": "Konsa",
+     "rating": 86,
+     "color": "destined_for_glory",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      71,
+      76,
+      86
+     ],
+     "chem": 2,
+     "eff": [
+      72,
+      77,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_espart87",
+     "name": "Xavi Espart",
+     "rating": 87,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      78,
+      85,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      92,
+      90
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id50554313",
+     "name": "Ødegaard",
+     "rating": 87,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      84,
+      88,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      90,
+      67
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id262285",
+     "name": "Guti",
+     "rating": 86,
+     "color": "hero",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 114605,
+     "card": [
+      84,
+      86,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      91,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      90,
+      80
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id1845",
+     "name": "Solskjær",
+     "rating": 86,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      87,
+      77,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      79,
+      50
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id10704",
+     "name": "Makaay",
+     "rating": 87,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      88,
+      76,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      78,
+      40
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 90.6,
+    "attack": 89.5,
+    "defence": 86.0,
+    "control_cards": [
+     92,
+     91,
+     90,
+     90,
+     90
+    ],
+    "attack_cards": [
+     90,
+     89
+    ],
+    "defence_cards": [
+     90,
+     90,
+     90,
+     88,
+     87,
+     71
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "5-2-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id259532",
+     "name": "Joan García",
+     "rating": 86,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      36,
+      38,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      41,
+      45,
+      90
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      71
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id213331",
+     "name": "Tah",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      54,
+      61,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      63,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50559326",
+     "name": "Konsa",
+     "rating": 86,
+     "color": "destined_for_glory",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      71,
+      76,
+      86
+     ],
+     "chem": 2,
+     "eff": [
+      72,
+      77,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id227190",
+     "name": "Irene Paredes",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      64,
+      67,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      74,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_espart87",
+     "name": "Xavi Espart",
+     "rating": 87,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      78,
+      85,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      92,
+      90
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id262285",
+     "name": "Guti",
+     "rating": 86,
+     "color": "hero",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 114605,
+     "card": [
+      84,
+      86,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      91,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50554313",
+     "name": "Ødegaard",
+     "rating": 87,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      84,
+      88,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      90,
+      67
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      90,
+      80
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id1845",
+     "name": "Solskjær",
+     "rating": 86,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      87,
+      77,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      79,
+      50
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id10704",
+     "name": "Makaay",
+     "rating": 87,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      88,
+      76,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      78,
+      40
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 90.6,
+    "attack": 89.33,
+    "defence": 86.0,
+    "control_cards": [
+     92,
+     91,
+     90,
+     90,
+     90
+    ],
+    "attack_cards": [
+     90,
+     89,
+     89
+    ],
+    "defence_cards": [
+     90,
+     90,
+     90,
+     88,
+     87,
+     71
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id259532",
+     "name": "Joan García",
+     "rating": 86,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      36,
+      38,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      41,
+      45,
+      90
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id16619",
+     "name": "Córdoba",
+     "rating": 87,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 56,
+     "leagueId": 31,
+     "clubId": 114605,
+     "card": [
+      70,
+      66,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      68,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id137186",
+     "name": "Barzagli",
+     "rating": 87,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 114605,
+     "card": [
+      63,
+      65,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id213331",
+     "name": "Tah",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      54,
+      61,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      63,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      71
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id262285",
+     "name": "Guti",
+     "rating": 86,
+     "color": "hero",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 114605,
+     "card": [
+      84,
+      86,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      91,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_espart87",
+     "name": "Xavi Espart",
+     "rating": 87,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      78,
+      85,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      92,
+      90
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id271446",
+     "name": "Vicky López",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      82,
+      82,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      52
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      90,
+      80
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id10704",
+     "name": "Makaay",
+     "rating": 87,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      88,
+      76,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      78,
+      40
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id5661",
+     "name": "Fernando Morientes",
+     "rating": 87,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 114605,
+     "card": [
+      87,
+      78,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      83,
+      54
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 90.4,
+    "attack": 88.2,
+    "defence": 89.5,
+    "control_cards": [
+     92,
+     91,
+     90,
+     90,
+     89
+    ],
+    "attack_cards": [
+     90,
+     90,
+     89,
+     87,
+     85
+    ],
+    "defence_cards": [
+     90,
+     90,
+     90,
+     88
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-12 15:16 UTC"
+}

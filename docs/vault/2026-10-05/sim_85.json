@@ -1,0 +1,856 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "85",
+  "cap": 85,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 18,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "types",
+    "min": 5,
+    "att": 0,
+    "ctl": 0,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id50603566",
+     "name": "Risser",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "GK",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      32,
+      32,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      35,
+      35,
+      89
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246426",
+     "name": "Williamson",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      64,
+      73,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      75,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      81
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      88,
+      88
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      60
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      72
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id67158233",
+     "name": "Fernando Torres",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      74,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      46
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      48
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 88.2,
+    "attack": 86.4,
+    "defence": 87.75,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     87
+    ],
+    "attack_cards": [
+     88,
+     88,
+     86,
+     86,
+     84
+    ],
+    "defence_cards": [
+     89,
+     88,
+     87,
+     87
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id50603566",
+     "name": "Risser",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "GK",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      32,
+      32,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      35,
+      35,
+      89
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246426",
+     "name": "Williamson",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      64,
+      73,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      75,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      81
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      88,
+      88
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      60
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      72
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      48
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id67158233",
+     "name": "Fernando Torres",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      74,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      46
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 88.2,
+    "attack": 86.4,
+    "defence": 87.75,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     87
+    ],
+    "attack_cards": [
+     88,
+     88,
+     86,
+     86,
+     84
+    ],
+    "defence_cards": [
+     89,
+     88,
+     87,
+     87
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id50603566",
+     "name": "Risser",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "GK",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      32,
+      32,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      35,
+      35,
+      89
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246426",
+     "name": "Williamson",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      64,
+      73,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      75,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      81
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      88,
+      88
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      72
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      60
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      48
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id67158233",
+     "name": "Fernando Torres",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      74,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      46
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 88.2,
+    "attack": 86.4,
+    "defence": 86.67,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     87
+    ],
+    "attack_cards": [
+     88,
+     88,
+     86,
+     86,
+     84
+    ],
+    "defence_cards": [
+     89,
+     88,
+     88,
+     87,
+     87,
+     81
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-12 15:18 UTC"
+}
