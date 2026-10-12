@@ -151,6 +151,40 @@ def milp_seed(pool, rng=None, time_limit=60):
     return best[1] if best else None
 
 
+def _key(team):
+    return frozenset(c["id"] for c in team)
+
+
+def dedupe(out):
+    """Drop opponents whose 11 cards repeat an earlier opponent, and renumber the rest without gaps.
+    An opponent identical to the team itself is kept once, as 'mirror' (a copy of this team)."""
+    teams, res = out.get("opponent_teams", {}), out.get("results", {})
+    mine = frozenset(p["id"] for p in out["players"])
+    order = sorted(res, key=lambda n: (not n.startswith(("reference", "target")), n != "mirror"))
+    seen, keep = set(), []
+    for n in order:
+        if n not in teams:
+            keep.append((n, n)); continue
+        k = frozenset(p["id"] for p in teams[n]["players"])
+        if k in seen: continue
+        seen.add(k)
+        if k == mine and not n.startswith(("reference", "target")):
+            keep.append((n, "mirror")); continue
+        keep.append((n, "counter 0" if n == "mirror" else n))   # an old copy that no longer matches the team
+    count, new_res, new_teams = {}, {}, {}
+    for old, new in keep:
+        base = new.rstrip("0123456789").strip()
+        if base in ("counter", "fresh test", "final check"):
+            count[base] = count.get(base, 0) + 1; new = f"{base} {count[base]}"
+        new_res[new] = res[old]
+        if old in teams: new_teams[new] = teams[old]
+    order_rank = lambda n: ["reference", "target", "mirror", "counter", "fresh test", "final check"].index(
+        next(b for b in ["reference", "target", "mirror", "counter", "fresh test", "final check"] if n.startswith(b)))
+    out["results"] = dict(sorted(new_res.items(), key=lambda kv: (order_rank(kv[0]), int("0" + "".join(ch for ch in kv[0] if ch.isdigit())))))
+    if teams: out["opponent_teams"] = {n: new_teams[n] for n in out["results"] if n in new_teams}
+    return out
+
+
 def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, rounds=4, seed=1, log=print,
                  mode="standard", verify=0, candidates=()):
     """opponents: teams (lists of card dicts) to beat, e.g. Reddit reference teams.
@@ -200,6 +234,10 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
         br = optimize(field, start, [E], [1], T * 0.25 / rounds, rng, None, f"counter{rd}")
         log(f"  counter-team {rd+1}: result vs my team {br[0][0]:+d}")
+        if _key(br[1]) in {_key(x) for x in list(opponents) + counters}:
+            log("    same as an earlier opponent: not added again")
+            b = optimize(me, team, pool_opps, weights, T * (0.30 - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
+            team = b[1]; continue
         counters.append(br[1])
         pool_opps.append(field.eff(br[1])); weights.append(1); names.append(f"counter {rd+1}")
         opp_cards[f"counter {rd+1}"] = br[1]
@@ -261,4 +299,4 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
             out["opponent_teams"][n] = describe(cards, series)
         except Exception as e:   # never lose a finished build over a display extra
             log(f"  could not describe {n}: {e}")
-    return out
+    return dedupe(out)
