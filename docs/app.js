@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012n";
+const APP_V = "20261012o";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -326,7 +326,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012n"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012o"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -588,7 +588,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012n");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012o");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -691,8 +691,7 @@ async function wsLoad(fromLive = false) {
 function seriesCardHtml(type, i) {
   const s = WS[type][i], id = `${type}-${i}`, isMC = type === "myclub";
   let h = `<div class="card" style="margin:10px 0"><div class="row" style="justify-content:space-between">
-    <div class="row"><label class="small muted">Series <input type="text" data-f="key" data-s="${id}" value="${esc(s.key || "")}" style="width:70px"></label>
-    <label class="small muted">Cap <input type="number" inputmode="numeric" data-f="cap" data-s="${id}" value="${s.cap || ""}" style="width:76px"></label></div>
+    <label class="small muted">Series <input type="text" inputmode="numeric" data-f="key" data-s="${id}" value="${esc(s.key || "")}" style="width:80px"></label>
     <button class="x" data-delseries="${id}" title="Remove series">🗑</button></div>`;
   h += `<div class="small" style="margin-top:8px"><b>Boosts</b></div>` + ((s.boosts || []).map((b, j) =>
     `<div class="req"><span>${esc(BKIND[b.on])}: <b>${esc(groupName(b.on, b.id))}</b> <span class="muted">${statTxt(b)}</span></span><button class="x" data-delb="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
@@ -725,8 +724,7 @@ function renderWeekForm() {
   $("wWeek").onchange = e => { WS.week = e.target.value; wsDraftSave(); };
   box.querySelectorAll("[data-f]").forEach(inp => inp.onchange = () => {
     const s = S(inp.dataset.s);
-    if (inp.dataset.f === "key") { s.key = inp.value.trim(); if (/^\d+$/.test(s.key) && !s.cap) s.cap = +s.key; }
-    else s.cap = +inp.value || 0;
+    s.key = inp.value.trim(); s.cap = /^\d+$/.test(s.key) ? +s.key : 99;   // the series number is the rating cap
     redraw();
   });
   box.querySelectorAll("[data-delseries]").forEach(b => b.onclick = () => { const [t, i] = b.dataset.delseries.split("-"); if (confirm(`Remove the ${WS[t][+i].key || ""} series?`)) { WS[t].splice(+i, 1); WSUI.open = ""; redraw(); } });
@@ -736,7 +734,7 @@ function renderWeekForm() {
   box.querySelectorAll("[data-open]").forEach(b => b.onclick = () => { WSUI.open = b.dataset.open; renderWeekForm(); });
   box.querySelectorAll("[data-close]").forEach(b => b.onclick = () => { WSUI.open = ""; renderWeekForm(); });
   box.querySelectorAll("[data-addseries]").forEach(b => b.onclick = () => {
-    const k = prompt("Series name (usually the rating cap, e.g. 81):"); if (!k) return;
+    const k = prompt("Series (the rating cap, e.g. 81):"); if (!k) return;
     const t = b.dataset.addseries, s = { key: k.trim(), cap: /^\d+$/.test(k.trim()) ? +k.trim() : 99, boosts: [] };
     if (t === "myclub") { s.opponents = []; s.minutes = 30; }
     WS[t].push(s); redraw();
@@ -800,7 +798,7 @@ function renderWeekForm() {
     const msg = $("wSaveMsg");
     if (!ghToken()) { msg.innerHTML = `<span class="bad">Connect GitHub first (box below).</span>`; $("ghBox").scrollIntoView({ behavior: "smooth" }); return; }
     const bad = [...WS.myclub, ...WS.sim].find(s => !s.key || !s.cap);
-    if (bad) { msg.innerHTML = `<span class="bad">Every series needs a name and a cap.</span>`; return; }
+    if (bad) { msg.innerHTML = `<span class="bad">Every series needs its number (e.g. 79).</span>`; return; }
     if (!confirm(`Save this week's setup and rebuild every team?\n\nSim teams take about 10 minutes, My Club teams about 2 hours.`)) return;
     msg.textContent = "Saving…";
     try {
