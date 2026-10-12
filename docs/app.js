@@ -7,8 +7,11 @@ const cName = id => CLUBS[id] || `club ${id}`;
 const nName = id => NATIONS[id] || (typeof groupSample === "function" && CARDS.length ? `${groupSample("nation", id)[0] || "?"}'s nation` : `Nation ${id}`);
 const lName = id => LEAGUES[id] || (typeof groupSample === "function" && CARDS.length ? `${groupSample("league", id)[0] || "?"}'s league` : `League ${id}`);
 const $ = id => document.getElementById(id);
+const fmtDay = d => { const x = new Date(String(d).slice(0, 10) + "T12:00:00Z"); return isNaN(x) ? String(d) : x.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }); };
+const fmtStamp = d => { const x = new Date(String(d).replace(" UTC", "Z").replace(" ", "T")); return isNaN(x) ? String(d) : x.toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }); };
+const cap = t => { t = String(t ?? ""); return t.charAt(0).toUpperCase() + t.slice(1); };   // first letter always a capital
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
-const TYPE = c => ({rare_gold:"gold",gold:"gold",rare_silver:"silver",silver:"silver",rare_bronze:"bronze",bronze:"bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo"}[c] || String(c).replace(/_/g, " "));
+const TYPE = c => cap({rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo"}[c] || String(c).replace(/_/g, " "));
 
 let CARDS = [], BYID = new Map(), WEEK = null, INDEX = null;
 const state = { A: [], B: [], T: [], simB: [], simA: null };
@@ -22,7 +25,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012q";
+const APP_V = "20261012r";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -35,15 +38,16 @@ async function selfUpdate() {         // a saved old copy of the site reloads it
 }
 async function init() {
   if (await selfUpdate()) return;
-  $("appV").textContent = "version " + APP_V;
+  $("appV").textContent = "Version " + APP_V;
   try {
     const d = await getJSON("cards.json");
     CARDS = d.cards.map(r => { const c = {}; d.fields.forEach((f, i) => c[f] = r[i]); return c; });
-    $("dataInfo").textContent = `${d.count.toLocaleString()} cards · updated ${d.updated}`;
-  } catch (e) { $("dataInfo").textContent = "card data missing"; }
+    $("dataInfo").textContent = `${d.count.toLocaleString()} cards · Updated ${fmtStamp(d.updated)}`;
+  } catch (e) { $("dataInfo").textContent = "Card data missing"; }
   try { const nm = await getJSON("names.json"); Object.assign(NATIONS, nm.nations); Object.assign(LEAGUES, nm.leagues); CLUBS = nm.clubs || {}; } catch (e) {}
+  for (const M of [NATIONS, LEAGUES, CLUBS]) for (const k in M) M[k] = cap(M[k]);
   try { const ex = await getJSON("results/extras.json"); ex.cards.forEach(c => CARDS.push(Object.assign({specialChem: "", _extra: true}, c))); } catch (e) {}
-  CARDS.forEach(c => { c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
+  CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup();
@@ -72,7 +76,7 @@ function hookSearch(inputId, listId, onPick) {
   };
   ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; onPick(BYID.get(li.dataset.id)); inp.value = ""; ul.hidden = true; };
 }
-function pill(r) { return `<span class="pill ${r}">${r}</span>`; }
+function pill(r) { return `<span class="pill ${r}">${cap(String(r).toLowerCase())}</span>`; }
 
 // ---------- custom builds (run on GitHub) ----------
 const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit reference team $1").replace(/^counter (\d+)$/, "Counter team $1")
@@ -118,7 +122,7 @@ function resultsTable(res) {
 async function renderTeams() {
   const box = $("teamsBody");
   if (!INDEX) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Weekly setup</b> and they'll appear here once the build finishes.</div>`; return; }
-  let html = `<div class="card"><h2>Best teams — week ${esc(INDEX.week || "")}</h2><p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>`;
+  let html = `<div class="card"><h2>Best teams</h2><p class="meta">Week of ${esc(fmtDay(INDEX.week || ""))}</p><p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>`;
   const files = INDEX.files || [];
   const mc = files.filter(f => f.startsWith("myclub_")), sim = files.filter(f => f.startsWith("sim_"));
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
@@ -130,16 +134,16 @@ async function renderTeams() {
       for (const [k, v] of Object.entries(t.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
-      html += `<div class="card"><h2>${esc(d.series.key)} series · ${esc(t.formation || "")} · ${t.chem} chem</h2>`;
-      if (refs.length) html += `<p class="small" style="margin:2px 0">vs Reddit team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
-      if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">vs ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next weekly build upgrades it</span>` : ""}</p>`;
+      html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation || "")} · ${t.chem} chem</p>`;
+      if (refs.length) html += `<p class="small" style="margin:2px 0">Against the Reddit team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
+      if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">against ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next weekly build upgrades it</span>` : ""}</p>`;
       html += playersTable(t.players, true);
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All results and what they mean</summary>${resultsTable(t.results)}<p class="small" style="margin:6px 0">
         <b>Reddit reference team</b>: the team posted on Reddit for this series (when added to the weekly setup).<br>
         <b>Counter teams</b>: stress tests. The builder searched every card under the cap for the team that does best against this one, improved this team, and repeated.<br>
         <b>Fresh stress tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
         A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
-      html += `<p class="small muted">Built ${esc(d.built)}</p></div>`;
+      html += `<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
   }
   html += `<h3>Fatal Sim</h3>`;
@@ -147,14 +151,14 @@ async function renderTeams() {
     try {
       const d = await getJSON("results/" + f); const t = d.teams && d.teams[0]; if (!t) continue;
       const m = t.metrics;
-      html += `<div class="card"><h2>${esc(d.series.key)} series · ${esc(t.formation)} · ${m.chem} chem</h2><p class="small">Control <b>${m.control}</b> · Attack <b>${m.attack}</b> · Defence <b>${m.defence}</b> <span class="muted">(averages)</span></p>${playersTable(t.players, false)}<p class="small muted">Built ${esc(d.built)}</p></div>`;
+      html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem</p><p class="small">Control <b>${m.control}</b> · Attack <b>${m.attack}</b> · Defence <b>${m.defence}</b> <span class="muted">(averages)</span></p>${playersTable(t.players, false)}<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
   }
   box.innerHTML = html;
 }
 function playersTable(ps, showTB) {
   return `<div class="scroll"><table><tr><th>Pos</th><th>Player</th><th>Card</th><th>In game</th><th>Chem</th>${showTB ? "<th>TB</th>" : ""}</tr>${ps.map(p =>
-    `<tr><td>${esc(p.slot)}</td><td><b>${esc(p.name)}</b> <span class="muted small">${p.rating} ${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td class="n">${p.card.join("/")}</td><td class="n">${p.eff.join("/")}</td><td class="n">${p.chem}</td>${showTB ? `<td class="n">${p.tiebreak ?? ""}</td>` : ""}</tr>`).join("")}</table></div>`;
+    `<tr><td>${esc(p.slot)}</td><td style="white-space:normal;min-width:150px"><b>${esc(cap(p.name))}</b><br><span class="muted small">${p.rating} ${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td class="n">${p.card.join("/")}</td><td class="n">${p.eff.join("/")}</td><td class="n">${p.chem}</td>${showTB ? `<td class="n">${p.tiebreak ?? ""}</td>` : ""}</tr>`).join("")}</table></div>`;
 }
 
 // ---------- My Club compare ----------
@@ -188,7 +192,7 @@ function drawBeatResults() {
     .sort((a, b) => String(b.built).localeCompare(String(a.built)));
   $("beatResults").innerHTML = `<h3>Finished ${esc(key)} builds</h3>` + (L.length ? L.map(d => {
     const t = d.team, r = Object.values(t.results || {})[0] || {};
-    return `<div class="card"><h2>vs ${esc((d.opponents[0] || []).slice(0, 4).join(", "))}…</h2>
+    return `<div class="card"><h2>Against ${esc((d.opponents[0] || []).map(cap).slice(0, 4).join(", "))}…</h2>
       <p>You lead first ${pill(r.you_lead_first || "?")} &nbsp; They lead first ${pill(r.they_lead_first || "?")}</p>
       <p class="small muted">${esc(t.formation || "")} · ${t.chem} chem · ${esc(d.request.minutes)} min search · built ${esc(d.built)}</p>${playersTable(t.players, true)}
       <div class="row" style="margin-top:8px"><button class="ghost" data-usebeat="${CUSTOM.indexOf(d)}" style="font-size:12.5px">Open both teams in My Club compare</button></div></div>`;
@@ -203,9 +207,9 @@ function drawBeatResults() {
 }
 function loadButtons(side) {
   const s = serOf(side), out = [];
-  if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Claude's ${s.key} team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
-  if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-built ${s.key} team`, d: "from the weekly builder" });
-  if (side === "A") CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "🎯 Built to beat", d: "vs " + (c.opponents[0] || []).slice(0, 3).join(", ") + "…" }));
+  if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-built ${s.key} team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
+  if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-built ${s.key} team`, d: "From the weekly builder" });
+  if (side === "A") CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
   (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit reference team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
   return out;
@@ -215,21 +219,21 @@ function panelHtml(side) {
   const btns = loadButtons(side);
   let h = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${SIDE[side]} <span class="muted small">${team.length}/11${team.length ? " · chem " + E.reduce((a, e) => a + e.chem, 0) : ""}</span></h2>
     ${team.length ? `<button class="ghost" data-clear="${side}" style="padding:4px 9px;font-size:12px">Clear</button>` : ""}</div>`;
-  if (btns.length) h += `<div class="small muted" style="margin-top:8px">Load a team:</div><div class="chips">${btns.map(b => `<button class="chipbtn" data-load="${side}:${b.k}"><b>${esc(b.t)}</b><span>${esc(b.d)}</span></button>${b.del != null ? `<button class="x" data-unsave="${b.del}" title="Delete saved team">✕</button>` : ""}`).join("")}</div>`;
+  if (btns.length) h += `<div class="small muted" style="margin-top:8px">Load a team:</div><div class="chips">${btns.map(b => `<button class="chipbtn" data-load="${side}:${b.k}"><b>${esc(b.t)}</b><span>${esc(cap(b.d))}</span></button>${b.del != null ? `<button class="x" data-unsave="${b.del}" title="Delete saved team">✕</button>` : ""}`).join("")}</div>`;
   h += `<div>${Array.from({ length: 11 }, (_, i) => {
     const c = team[i];
     if (!c) return `<div class="slot"><span class="num">${i + 1}</span><span class="who muted">—</span></div>`;
     const e = E[i];
     const alts = versions(c, side).length > 1;
     return `<div class="slot"><span class="num">${i + 1}</span><span class="who"><b>${esc(c.name)}</b> ${c.rating}${alts ? ` <button class="x" data-alt="${side}:${i}" title="Other versions of this player" style="font-size:13px;color:var(--accent)">⇄</button>` : ""}<br><span class="muted small">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(cName(c.clubId))}</span></span>
-      <span class="st">A ${e.a} · C ${e.c} · D ${e.d}<br>chem ${e.chem} · TB ${e.t}</span><button class="x" data-del="${side}:${i}">✕</button></div>`;
+      <span class="st">A ${e.a} · C ${e.c} · D ${e.d}<br>Chem ${e.chem} · TB ${e.t}</span><button class="x" data-del="${side}:${i}">✕</button></div>`;
   }).join("")}</div>`;
   if (team.length < 11) h += `<input type="text" id="q${side}" placeholder="Add a player — type a name" style="margin-top:10px"><ul class="sr" id="r${side}" hidden></ul>
     <details style="margin-top:8px"><summary class="small">Paste several names at once</summary>
       <p class="small muted" style="margin:6px 0">Separate with commas or new lines. If a name has several versions, add the rating or club, e.g. <code>Costa 67</code> or <code>Sarr Neom</code>. You can also tap ⇄ on a player to switch version.</p>
       <textarea id="p${side}" placeholder="Radelet, Pupe, Coulibaly, …"></textarea>
       <div class="row" style="margin-top:6px"><button class="ghost" data-paste="${side}">Add these</button><span id="pm${side}" class="small"></span></div></details>`;
-  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key ? `<button class="ghost" data-beat="1" style="font-size:12.5px">🎯 Beat this team</button>` : ""}</div>`;
+  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key ? `<button class="ghost" data-beat="1" style="font-size:12.5px">Beat this team</button>` : ""}</div>`;
   return h;
 }
 const seriesInfo = s => s.key ? `Cap ${s.cap || "?"}${(s.boosts || []).length ? ` · ${s.boosts.length} boost${s.boosts.length > 1 ? "s" : ""} applied` : " · no boosts"}. Stats shown are in-game (boosts + chem). TB = tiebreak total.` : "No boosts applied.";
@@ -326,7 +330,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012q"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012r"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -410,7 +414,7 @@ const SIM_FORMS = {"3-1-4-2":["GK","CB","CB","CB","CDM","LM","CM","CM","RM","ST"
 function simSeries() { const k = $("simSeries").value; return (WEEK && WEEK.sim || []).find(s => s.key === k) || { boosts: [] }; }
 function setupSim() {
   const ser = (WEEK && WEEK.sim) || [];
-  $("simSeries").innerHTML = ser.map(s => `<option>${esc(s.key)}</option>`).join("");
+  $("simSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("");
   $("simFormB").innerHTML = Object.keys(SIM_FORMS).map(f => `<option>${f}</option>`).join("");
   $("simSeries").onchange = loadSimA; $("simFormB").onchange = drawSim;
   hookSearch("searchS", "srS", c => { if (state.simB.length < 11) state.simB.push(c); drawSim(); });
@@ -588,7 +592,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012q");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012r");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -662,7 +666,7 @@ function drawSBCResult(working = false) {
       <table class="sq"><tr><th>Pos</th><th>Player</th><th>Chem</th><th></th></tr>${r.players.map(p =>
         `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(cName(p.clubId))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td class="n">${p.chem}</td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
       ${skipHtml}
-      <details ${allOk ? "" : "open"} style="margin-top:8px"><summary class="small ${allOk ? "ok" : "bad"}">${allOk ? "✓ Meets every requirement" : "✗ A requirement isn't met — please tell Claude"}</summary><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul></details>`;
+      <details ${allOk ? "" : "open"} style="margin-top:8px"><summary class="small ${allOk ? "ok" : "bad"}">${allOk ? "✓ Meets every requirement" : "✗ A requirement isn't met — please report it"}</summary><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul></details>`;
   }
   if (working) { out.querySelectorAll("[data-nohave],[data-undo]").forEach(b => b.disabled = true); return; }
   out.querySelectorAll("[data-nohave]").forEach(b => b.onclick = () => { SB.exclude.push(b.dataset.nohave); runSBC(15, Object.assign({}, SB.lastReq, { exclude: SB.exclude.slice() })); });
@@ -680,7 +684,7 @@ function setupCards() {
   const cnt = new Map(); real.forEach(c => cnt.set(typeKey(c), (cnt.get(typeKey(c)) || 0) + 1));
   const special = real.filter(c => !["gold", "silver", "bronze"].includes(typeKey(c))).length;
   const order = ["gold", "silver", "bronze", ...[...cnt.keys()].filter(t => !["gold", "silver", "bronze"].includes(t)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b)))];
-  $("cardsInfo").innerHTML = `${real.length.toLocaleString()} cards · data updated ${esc(($("dataInfo").textContent.split("updated ")[1] || "").split("version")[0])}. Compare these totals with your collection screen in the game. Evos and LTM upgrades aren't included (they depend on each player's upgrades).`;
+  $("cardsInfo").innerHTML = `${real.length.toLocaleString()} cards · data updated ${esc(($("dataInfo").textContent.split("Updated ")[1] || "").split("version")[0])}. Compare these totals with your collection screen in the game. Evos and LTM upgrades aren't included (they depend on each player's upgrades).`;
   $("cardsTypes").innerHTML = `<button class="chipbtn" data-ct="special"><b>All special</b><span>${special}</span></button>` +
     order.map(t => `<button class="chipbtn" data-ct="${esc(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t)}</span></button>`).join("");
   $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
@@ -695,12 +699,12 @@ function setupCards() {
   $("cMore").onclick = () => { CF.shown += 200; drawCards(); };
   drawCards();
 }
-const cardRow = c => `<div class="slot"><span class="who"><b>${esc(c.name)}</b> ${c.rating} <span class="muted small">${esc(c.position)}${c.altPositions ? "," + esc(c.altPositions) : ""}</span><br><span class="muted small">${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></span><span class="st">A ${c.attack} · C ${c.control} · D ${c.defense}</span></div>`;
+const cardRow = c => `<div class="slot"><span class="who"><b>${esc(c.name)}</b> ${c.rating} <span class="muted small">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span><br><span class="muted small">${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></span><span class="st">A ${c.attack} · C ${c.control} · D ${c.defense}</span></div>`;
 function byRatingHtml(L, nested) {        // cards grouped under rating headings (big groups fold away)
   const G = new Map(); L.forEach(c => { if (!G.has(c.rating)) G.set(c.rating, []); G.get(c.rating).push(c); });
   return [...G.entries()].sort((a, b) => b[0] - a[0]).map(([r, cs]) => nested
-    ? `<details class="rgrp" data-r="${r}"><summary class="small"><b>${r}</b> · ${cs.length} card${cs.length > 1 ? "s" : ""}</summary><div class="rbody"></div></details>`
-    : `<div class="small" style="margin:10px 0 2px"><b>${r}</b> <span class="muted">· ${cs.length}</span></div>${cs.map(cardRow).join("")}`).join("");
+    ? `<details class="rgrp" data-r="${r}"><summary class="small"><b>Rated ${r}</b> · ${cs.length} card${cs.length > 1 ? "s" : ""}</summary><div class="rbody"></div></details>`
+    : `<div class="small" style="margin:10px 0 2px"><b>Rated ${r}</b> <span class="muted">· ${cs.length} card${cs.length > 1 ? "s" : ""}</span></div>${cs.map(cardRow).join("")}`).join("");
 }
 function drawCards() {
   const q = norm($("cQ").value.trim()), t = $("cType").value, pos = $("cPos").value, lo = +$("cMin").value || 0, hi = +$("cMax").value || 99;
@@ -714,7 +718,7 @@ function drawCards() {
   const openAll = filtering && L.length <= 300;
   $("cList").innerHTML = order.map(k => {
     const cs = groups.get(k), rs = cs.map(c => c.rating);
-    return `<details class="tgrp" data-t="${esc(k)}"${openAll || groups.size === 1 ? " open" : ""}><summary><b>${esc(typeLabel(k))}</b> <span class="muted small">· ${cs.length} card${cs.length > 1 ? "s" : ""} · rated ${Math.min(...rs) === Math.max(...rs) ? Math.min(...rs) : Math.min(...rs) + "–" + Math.max(...rs)}</span></summary><div class="tbody"></div></details>`;
+    return `<details class="tgrp" data-t="${esc(k)}"${openAll || groups.size === 1 ? " open" : ""}><summary><b>${esc(typeLabel(k))}</b> <span class="muted small">· ${cs.length} card${cs.length > 1 ? "s" : ""} · Rated ${Math.min(...rs) === Math.max(...rs) ? Math.min(...rs) : Math.min(...rs) + "–" + Math.max(...rs)}</span></summary><div class="tbody"></div></details>`;
   }).join("") || `<p class="muted small">No cards match.</p>`;
   const fill = d => {
     const body = d.querySelector(".tbody"); if (body.dataset.done) return; body.dataset.done = 1;
@@ -762,7 +766,7 @@ function seriesCardHtml(type, i) {
   const nums = `<div class="row" style="margin-top:8px"><label class="small">A <input type="number" inputmode="numeric" id="wA" value="0" style="width:62px"></label><label class="small">C <input type="number" inputmode="numeric" id="wC" value="0" style="width:62px"></label><label class="small">D <input type="number" inputmode="numeric" id="wD" value="0" style="width:62px"></label></div>`;
   if (open === "boost") h += `<div class="rulebox"><div class="row"><select id="wKind"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select></div>
     <div id="wPick" style="margin-top:8px"></div>${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add boost</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
-  if (open === "bonus") h += `<div class="rulebox"><div class="row"><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><span class="small">+</span><select id="wBK"><option value="nations">different nations</option><option value="clubs">different clubs</option><option value="types">different card types</option></select></div>
+  if (open === "bonus") h += `<div class="rulebox"><div class="row"><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><span class="small">+</span><select id="wBK"><option value="nations">Different nations</option><option value="clubs">Different clubs</option><option value="types">Different card types</option></select></div>
     ${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add bonus</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
   if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names (commas or new lines). Add a rating or club if a name has several versions, e.g. <code>Costa 67</code>, <code>Sarr Neom</code>.</p>
     <textarea id="wRef"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add team</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
@@ -883,7 +887,7 @@ async function renderSetup() {
    <p class="small" id="ghMsg"></p></div>
   <details class="card"><summary>More</summary>
    <p class="small">Card data updates itself every day from madfutdata. <a href="https://github.com/${REPO}/actions" target="_blank">See running jobs on GitHub</a>.</p>
-   <p class="small">Evos and maxed LTMs: send Claude the stats (they go in <code>config/extras.json</code>).</p>
+   <p class="small">Evos and maxed LTMs go in <code>config/extras.json</code>.</p>
    <h3>Card lookup</h3><input type="text" id="idQ" placeholder="Search a card…"><ul class="sr" id="idSr" hidden></ul><p id="idOut" class="small"></p></details>`;
   const ghState = () => { $("ghState").innerHTML = ghToken() ? `<span class="ok">connected ✓</span> <a href="#" id="ghOff">disconnect</a>` : "not connected"; const o = $("ghOff"); if (o) o.onclick = e => { e.preventDefault(); try { localStorage.removeItem("ghToken"); } catch (x) {} ghState(); }; };
   ghState();
