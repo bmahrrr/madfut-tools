@@ -50,7 +50,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012s";
+const APP_V = "20261012t";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -105,7 +105,7 @@ function pill(r) { return `<span class="pill ${r}">${cap(String(r).toLowerCase()
 
 // ---------- custom builds (run on GitHub) ----------
 const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit Reference Team $1").replace(/^counter (\d+)$/, "Counter Team $1")
-  .replace(/^mirror$/, "Copy of This Team").replace(/^target (\d+)$/, "Team to Beat").replace(/^fresh test (\d+)$/, "Fresh Stress Test $1");
+  .replace(/^mirror$/, "Copy of This Team").replace(/^target (\d+)$/, "Team to Beat").replace(/^fresh test (\d+)$/, "Fresh Stress Test $1").replace(/^final check (\d+)$/, "Final Check Team $1");
 // The site can start builds itself with a GitHub key saved on this phone only (Weekly setup → Connect GitHub).
 const ghToken = () => { try { return localStorage.getItem("ghToken") || ""; } catch (e) { return ""; } };
 async function ghGetFile(path) {          // { text, sha } of a file on main, or null
@@ -188,6 +188,8 @@ async function renderTeams() {
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
       html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation || "")} · ${t.chem} chem</p>`;
+      if (t.source && t.source.startsWith("Reddit")) html += `<p class="small ok" style="margin:2px 0 6px"><b>✓ Copy the Reddit Team.</b> <span class="muted">Nothing the builder found has a better worst case.</span></p>`;
+      else if (t.source && t.source.startsWith("Hand")) html += `<p class="small ok" style="margin:2px 0 6px"><b>✓ Hand-Built Team</b> <span class="muted">— it beat the builder's own team on worst case.</span></p>`;
       if (refs.length) html += `<p class="small" style="margin:2px 0">Against the Reddit Team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
       if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">against ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next weekly build upgrades it</span>` : ""}</p>`;
       html += playersTable(t.players, true);
@@ -196,6 +198,7 @@ async function renderTeams() {
         <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added to the weekly setup).<br>
         <b>Counter Teams</b>: stress tests. The builder searched every card under the cap for the team that does best against this one, improved this team, and repeated.<br>
         <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
+        <b>Final Check Teams</b>: stress tests built against the Reddit Team and the Hand-Built Team, so every option faces teams built to beat it. The team shown is whichever has the best worst case against all of these.<br>
         A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
       html += `<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
@@ -384,7 +387,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012s"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012t"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -646,7 +649,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012s");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012t");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
