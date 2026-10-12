@@ -58,6 +58,8 @@ code{background:var(--chip);padding:1px 5px;border-radius:5px;font-size:12.5px}
 .ok{color:var(--win)}.bad{color:var(--loss)}
 tr.gone td{opacity:.45;text-decoration:line-through}
 .chip>span{line-height:1.35}
+.req{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.req:last-child{border-bottom:0}
 table.sq td.wrap{white-space:normal}
 table.sq td,table.sq th{padding:6px 4px}
 button.nohave{background:var(--chip);color:var(--text);border:0;border-radius:7px;padding:4px 7px;font-size:11px;line-height:1.15}
@@ -114,33 +116,23 @@ summary{cursor:pointer;color:var(--accent)}
 
   <section id="sbc">
     <div class="card">
-      <h2>SBC requirements</h2>
-      <p class="small muted">Fill in only what the SBC asks for and leave the rest blank. It assumes you own every card; after solving, tap <b>Don't have</b> on any card to get a new squad without it.</p>
-      <input type="text" id="sbcName" placeholder="SBC name (optional)">
-      <div class="fgrid" style="margin-top:10px">
-        <label>Formation<select id="sbcForm"></select></label>
-        <label>Cheapest means<select id="sbcPr"><option value="gold_first">Golds first</option><option value="lowest_rating">Lowest ratings</option></select></label>
+      <div class="row"><label>Formation <select id="sbcForm"></select></label></div>
+      <h3>Requirements</h3>
+      <div id="sbcList"></div>
+      <button class="ghost" id="sbcAddBtn" style="margin-top:6px">+ Add requirement</button>
+      <div id="sbcAdd" class="rulebox" hidden>
+        <select id="aType" style="width:100%"></select>
+        <div id="aBody" style="margin-top:8px"></div>
       </div>
-      <h3>Squad</h3>
-      <div class="fgrid" id="sbcNums"></div>
-      <details id="sbcMoreBox" style="margin-top:8px"><summary class="small">More: player ratings, nations, leagues, clubs</summary><div class="fgrid" id="sbcMore" style="margin-top:8px"></div></details>
-      <h3>Player requirements</h3>
-      <div id="sbcRules" class="small"></div>
-      <div class="rulebox">
-        <div class="row"><select id="rOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select>
-        <input id="rN" type="number" min="0" max="11" value="1" style="width:64px">
-        <span class="muted">players from</span>
-        <select id="rKind"><option value="club">Club</option><option value="nation">Nation</option><option value="league">League</option><option value="color">Card type</option><option value="rarity">Rarity</option></select></div>
-        <div id="rPickBox" style="margin-top:8px"></div>
-      </div>
-      <h3>Must include</h3>
-      <div id="sbcInc" class="small"></div>
-      <input type="text" id="sbcIncQ" placeholder="Search a player who must be in the squad…"><ul class="sr" id="sbcIncSr" hidden></ul>
-      <div style="margin-top:10px" class="small">
-        <label class="chk"><input type="checkbox" id="sbcSp"> Allow special cards (TOTW and other promos)</label>
-        <label class="chk"><input type="checkbox" id="sbcIc"> Allow Icons and Heroes</label>
-      </div>
-      <div class="row" style="margin-top:12px"><button class="btn" id="sbcGo">Solve</button><button class="ghost" id="sbcClear">Clear all</button><span id="sbcStatus" class="muted small"></span></div>
+      <details style="margin-top:12px"><summary class="small">Options</summary>
+        <div class="small" style="margin-top:6px">
+          <label class="chk">Cheapest means <select id="sbcPr"><option value="gold_first">Golds first</option><option value="lowest_rating">Lowest ratings</option></select></label>
+          <label class="chk"><input type="checkbox" id="sbcSp"> Allow special cards (TOTW etc.)</label>
+          <label class="chk"><input type="checkbox" id="sbcIc"> Allow Icons and Heroes</label>
+        </div>
+      </details>
+      <div class="row" style="margin-top:12px"><button class="btn" id="sbcGo">Solve</button><button class="ghost" id="sbcClear">Clear</button></div>
+      <p class="small muted" style="margin:10px 0 0">Assumes you own every card. Tap <b>Don't have</b> on any card in the answer to get a new squad without it.</p>
     </div>
     <div class="card" id="sbcOut" hidden></div>
   </section>

@@ -252,12 +252,14 @@ function matchOdds(p, q, n) {
 }
 
 // ---------- SBC ----------
-const SBC_NUMS = [["min_rating", "Squad rating min"], ["min_chem", "Squad chem min"], ["min_player_chem", "Chem per player min"], ["min_types", "Card types min"],
-  ["min_card_rating", "Player rating min"], ["max_card_rating", "Player rating max"], ["min_nations", "Nations min"], ["max_nations", "Nations max"],
-  ["min_same_nation", "Same nation min"], ["max_same_nation", "Same nation max"], ["min_leagues", "Leagues min"], ["max_leagues", "Leagues max"],
-  ["min_same_league", "Same league min"], ["max_same_league", "Same league max"], ["min_clubs", "Clubs min"], ["max_clubs", "Clubs max"],
-  ["min_same_club", "Same club min"], ["max_same_club", "Same club max"]];
-const SB = { rules: [], include: [], exclude: [], last: null, lastReq: null, busy: false };
+// Requirement lines, worded like the game. Each line maps onto the solver's requirement object.
+const NUM_KEYS = {   // key -> label
+  min_rating: "Squad rating", min_chem: "Team chemistry", min_player_chem: "Chemistry per player", min_types: "Card types",
+  min_card_rating: "Every player rated", max_card_rating: "Every player rated",
+  min_nations: "Nations", max_nations: "Nations", min_leagues: "Leagues", max_leagues: "Leagues", min_clubs: "Clubs", max_clubs: "Clubs",
+  min_same_nation: "Same nation", max_same_nation: "Same nation", min_same_league: "Same league", max_same_league: "Same league",
+  min_same_club: "Same club", max_same_club: "Same club" };
+const SB = { items: [], exclude: [], last: null, lastReq: null, busy: false };
 const OPS = { ">=": "Min", "<=": "Max", "=": "Exactly" };
 const KIND = { nation: "Nation", league: "League", club: "Club", color: "Card type", rarity: "Rarity" };
 const KEYOF = { nation: "nationId", league: "leagueId", club: "clubId" };
@@ -272,84 +274,122 @@ function groupLabel(kind, id) {
   if (kind === "nation" && NATIONS[id]) return NATIONS[id];
   if (kind === "league" && LEAGUES[id]) return LEAGUES[id];
   if (kind === "color") return TYPE(id);
-  if (kind === "rarity") return id;
+  if (kind === "rarity") return id[0].toUpperCase() + id.slice(1);
   return groupSample(kind, id).join(", ") || `${kind} ${id}`;
 }
 function ruleText(r) {
+  const head = `${OPS[r.op]} ${r.n}`;
+  if (r.on === "color" || r.on === "rarity") return `${head} <b>${esc(groupLabel(r.on, r.id))}</b>`;
   const known = (r.on === "nation" && NATIONS[r.id]) || (r.on === "league" && LEAGUES[r.id]);
-  const extra = (r.on === "club" || ((r.on === "nation" || r.on === "league") && !known)) ? ` <span class="muted">(e.g. ${esc(groupSample(r.on, r.id).join(", "))})</span>` : "";
-  if (r.on === "club" || ((r.on === "nation" || r.on === "league") && !known))
-    return `${OPS[r.op]} ${r.n} from the ${r.on} of <b>${esc(r.via || groupSample(r.on, r.id)[0] || r.id)}</b>${extra}`;
-  return `${OPS[r.op]} ${r.n} from ${esc(KIND[r.on])}: <b>${esc(groupLabel(r.on, r.id))}</b>`;
+  if (known) return `${head} from <b>${esc(known)}</b>`;
+  return `${head} from <b>${esc(r.via || groupSample(r.on, r.id)[0] || r.id)}'s ${r.on}</b> <span class="muted">(${esc(groupSample(r.on, r.id).join(", "))})</span>`;
 }
-function setupSBC() {
-  const forms = Object.keys(SBC_FORMS_LIST());
-  $("sbcForm").innerHTML = forms.map(f => `<option>${f}</option>`).join("") + `<option value="any">Any (slower)</option>`;
-  $("sbcForm").value = "4-3-3";
-  const field = ([k, l]) => `<label>${l}<input type="number" inputmode="numeric" id="n_${k}" min="0"></label>`;
-  $("sbcNums").innerHTML = SBC_NUMS.slice(0, 4).map(field).join("");
-  $("sbcMore").innerHTML = SBC_NUMS.slice(4).map(field).join("");
-  $("rKind").onchange = drawPicker; drawPicker();
-  hookSearch("sbcIncQ", "sbcIncSr", c => { if (!SB.include.includes(c.id)) SB.include.push(c.id); drawSBCForm(); });
-  $("sbcGo").onclick = () => { SB.exclude = []; runSBC(15); };
-  $("sbcClear").onclick = () => { SB.rules = []; SB.include = []; SB.exclude = []; $("sbcName").value = ""; SBC_NUMS.forEach(([k]) => $("n_" + k).value = ""); $("sbcSp").checked = $("sbcIc").checked = false; $("sbcOut").hidden = true; drawSBCForm(); saveSBC(); };
-  ["sbcName", "sbcForm", "sbcPr", "sbcSp", "sbcIc", ...SBC_NUMS.map(([k]) => "n_" + k)].forEach(id => $(id).addEventListener("change", saveSBC));
-  loadSBC(); drawSBCForm();
+function itemText(it) {
+  if (it.t === "rule") return ruleText(it.rule);
+  if (it.t === "inc") { const c = BYID.get(it.id); return `Must include <b>${esc(c ? c.name + " " + c.rating : it.id)}</b>`; }
+  const mm = it.key.startsWith("max_") ? "Max" : "Min";
+  return `${NUM_KEYS[it.key]}: <b>${mm} ${it.v}</b>`;
 }
 let FORMS_CACHE = null;
-function SBC_FORMS_LIST() { return FORMS_CACHE || {}; }
-function drawPicker() {
-  const kind = $("rKind").value, box = $("rPickBox");
-  if (kind === "color") {
-    const types = [...new Set(CARDS.map(sbcType))].sort();
-    box.innerHTML = `<div class="row"><select id="rType">${types.map(t => `<option value="${esc(t)}">${esc(TYPE(t))}</option>`).join("")}</select><button class="ghost" id="rAdd">Add</button></div>`;
-    $("rAdd").onclick = () => addRule($("rType").value);
-  } else if (kind === "rarity") {
-    box.innerHTML = `<div class="row"><select id="rRar"><option>gold</option><option>silver</option><option>bronze</option></select><button class="ghost" id="rAdd">Add</button></div>`;
-    $("rAdd").onclick = () => addRule($("rRar").value);
-  } else {
-    box.innerHTML = `<input type="text" id="rQ" placeholder="${kind === "club" ? "Type a player from that club" : `Type the ${kind} name or a player from it`}"><ul class="sr" id="rSr" hidden></ul>`;
-    const inp = $("rQ"), ul = $("rSr");
-    inp.oninput = () => {
-      const q = inp.value.trim().toLowerCase(); if (q.length < 2) { ul.hidden = true; return; }
-      const opts = new Map();
-      const names = kind === "nation" ? NATIONS : kind === "league" ? LEAGUES : {};
+const ADD_TYPES = [
+  ["min_rating", "Squad rating"], ["min_chem", "Team chemistry"], ["from", "Players from a club / nation / league"],
+  ["ctype", "Players of a card type (gold, rare, TOTW…)"], ["count", "Number of nations / leagues / clubs"],
+  ["same", "Same nation / league / club count"], ["min_player_chem", "Chemistry per player"], ["min_types", "Number of card types"],
+  ["prating", "Every player's rating"], ["inc", "Must include a player"]];
+function setupSBC() {
+  $("sbcForm").innerHTML = Object.keys(FORMS_CACHE || {}).map(f => `<option>${f}</option>`).join("") + `<option value="any">Any (slower)</option>`;
+  $("sbcForm").value = "4-3-3";
+  $("aType").innerHTML = `<option value="">Choose…</option>` + ADD_TYPES.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
+  $("aType").onchange = drawAddBody;
+  $("sbcAddBtn").onclick = () => { $("sbcAdd").hidden = false; $("sbcAddBtn").hidden = true; $("aType").value = ""; drawAddBody(); };
+  $("sbcGo").onclick = () => { SB.exclude = []; runSBC(15); };
+  $("sbcClear").onclick = () => { SB.items = []; SB.exclude = []; $("sbcOut").hidden = true; drawSBCForm(); saveSBC(); };
+  ["sbcForm", "sbcPr", "sbcSp", "sbcIc"].forEach(id => $(id).addEventListener("change", saveSBC));
+  loadSBC(); drawSBCForm();
+}
+function closeAdd() { $("sbcAdd").hidden = true; $("sbcAddBtn").hidden = false; }
+function addItem(it) {
+  if (it.t === "num") SB.items = SB.items.filter(x => !(x.t === "num" && x.key === it.key));
+  SB.items.push(it); closeAdd(); drawSBCForm(); saveSBC();
+}
+const numBox = (id, val = "") => `<input type="number" inputmode="numeric" id="${id}" min="0" value="${val}" style="width:80px">`;
+const minMax = id => `<select id="${id}"><option value="min">Min</option><option value="max">Max</option></select>`;
+function drawAddBody() {
+  const t = $("aType").value, box = $("aBody");
+  const addBtn = `<button class="btn" id="aOk">Add</button> <button class="ghost" id="aCancel">Cancel</button>`;
+  const done = () => { const c = $("aCancel"); if (c) c.onclick = closeAdd; };
+  if (!t) { box.innerHTML = `<button class="ghost" id="aCancel">Cancel</button>`; done(); return; }
+  if (["min_rating", "min_chem", "min_player_chem", "min_types"].includes(t)) {
+    box.innerHTML = `<div class="row">Min ${numBox("aN")} ${addBtn}</div>`; done();
+    $("aN").focus();
+    $("aOk").onclick = () => { const v = +$("aN").value; if (v > 0) addItem({ t: "num", key: t, v }); };
+  } else if (t === "prating") {
+    box.innerHTML = `<div class="row">${minMax("aM")} ${numBox("aN")} ${addBtn}</div>`; done();
+    $("aOk").onclick = () => { const v = +$("aN").value; if (v > 0) addItem({ t: "num", key: $("aM").value + "_card_rating", v }); };
+  } else if (t === "count" || t === "same") {
+    box.innerHTML = `<div class="row">${minMax("aM")} ${numBox("aN")} <select id="aK"><option value="nation">Nations</option><option value="league">Leagues</option><option value="club">Clubs</option></select> ${addBtn}</div>`; done();
+    $("aOk").onclick = () => {
+      const v = +$("aN").value, k = $("aK").value, m = $("aM").value; if (!(v > 0)) return;
+      addItem({ t: "num", key: t === "count" ? `${m}_${k}s` : `${m}_same_${k}`, v });
+    };
+  } else if (t === "ctype") {
+    const types = [...new Set(CARDS.map(sbcType))].filter(x => !["gold", "silver", "bronze"].includes(x)).sort();
+    box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
+      <select id="aC"><option value="rarity:gold">Gold</option><option value="rarity:silver">Silver</option><option value="rarity:bronze">Bronze</option>${types.map(x => `<option value="color:${esc(x)}">${esc(TYPE(x))}</option>`).join("")}</select> ${addBtn}</div>`; done();
+    $("aOk").onclick = () => { const [on, id] = $("aC").value.split(":"); addItem({ t: "rule", rule: { on, id, op: $("aOp").value, n: +$("aN").value || 0 } }); };
+  } else if (t === "inc") {
+    box.innerHTML = `<input type="text" id="aQ" placeholder="Search the player…"><ul class="sr" id="aSr" hidden></ul><div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
+    hookSearch("aQ", "aSr", c => addItem({ t: "inc", id: c.id }));
+    $("aQ").focus();
+  } else if (t === "from") {
+    box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
+      <select id="aK"><option value="club">Club</option><option value="nation">Nation</option><option value="league">League</option></select></div>
+      <input type="text" id="aQ" placeholder="Type a player from it (or the nation / league name)" style="margin-top:8px"><ul class="sr" id="aSr" hidden></ul>
+      <div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
+    const inp = $("aQ"), ul = $("aSr");
+    const refresh = () => {
+      const kind = $("aK").value, q = inp.value.trim().toLowerCase(); if (q.length < 2) { ul.hidden = true; return; }
+      const opts = new Map(), names = kind === "nation" ? NATIONS : kind === "league" ? LEAGUES : {};
       for (const [id, n] of Object.entries(names)) if (n.toLowerCase().includes(q)) opts.set(+id, null);
       for (const c of search(q, 8)) if (!opts.has(c[KEYOF[kind]])) opts.set(c[KEYOF[kind]], c.name);
       const list = [...opts.entries()].slice(0, 10);
       ul.hidden = !list.length;
-      ul.innerHTML = list.map(([id, via]) => `<li data-id="${id}" data-via="${esc(via || "")}"><b>${esc(groupLabel(kind, id))}</b>${kind !== "club" && (NATIONS[id] || LEAGUES[id]) && via ? ` <span class="muted small">(${esc(via)}'s ${kind})</span>` : ""}${kind === "club" ? ` <span class="muted small">— ${esc(via ? via + "'s club" : "")}</span>` : ""}</li>`).join("");
+      ul.innerHTML = list.map(([id, via]) => {
+        const known = (kind === "nation" && NATIONS[id]) || (kind === "league" && LEAGUES[id]);
+        const label = known ? `<b>${esc(known)}</b>` : `<b>${esc(via)}'s ${kind}</b>`;
+        return `<li data-id="${id}" data-via="${esc(via || "")}">${label} <span class="muted small">${esc(groupSample(kind, id).join(", "))}</span></li>`;
+      }).join("");
     };
-    ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; addRule(+li.dataset.id, li.dataset.via); inp.value = ""; ul.hidden = true; };
+    inp.oninput = refresh; $("aK").onchange = refresh; inp.focus();
+    ul.onclick = e => {
+      const li = e.target.closest("li"); if (!li) return;
+      const rule = { on: $("aK").value, id: +li.dataset.id, op: $("aOp").value, n: +$("aN").value || 0 };
+      if (li.dataset.via) rule.via = li.dataset.via;
+      addItem({ t: "rule", rule });
+    };
   }
 }
-function addRule(id, via) {
-  const n = Math.max(0, Math.min(11, +$("rN").value || 0));
-  const r = { on: $("rKind").value, id, op: $("rOp").value, n }; if (via) r.via = via;
-  SB.rules.push(r);
-  drawSBCForm(); saveSBC();
-}
 function drawSBCForm() {
-  $("sbcRules").innerHTML = SB.rules.length ? SB.rules.map((r, i) => `<span class="chip"><span>${ruleText(r)}</span><button class="x" data-r="${i}">✕</button></span>`).join("") : `<span class="muted">None yet. Add each “Min 1 player from …” line below.</span>`;
-  $("sbcInc").innerHTML = SB.include.map((id, i) => { const c = BYID.get(id); return c ? `<span class="chip"><b>${esc(c.name)}</b> ${c.rating}<button class="x" data-inc="${i}">✕</button></span>` : ""; }).join("");
-  document.querySelectorAll("[data-r]").forEach(b => b.onclick = () => { SB.rules.splice(+b.dataset.r, 1); drawSBCForm(); saveSBC(); });
-  document.querySelectorAll("[data-inc]").forEach(b => b.onclick = () => { SB.include.splice(+b.dataset.inc, 1); drawSBCForm(); saveSBC(); });
+  $("sbcList").innerHTML = SB.items.length ? SB.items.map((it, i) => `<div class="req"><span>${itemText(it)}</span><button class="x" data-del="${i}">✕</button></div>`).join("")
+    : `<p class="muted small">No requirements yet. Tap <b>+ Add requirement</b> for each line on the SBC.</p>`;
+  document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { SB.items.splice(+b.dataset.del, 1); drawSBCForm(); saveSBC(); });
 }
 function readReq() {
-  const req = { name: $("sbcName").value.trim(), formation: $("sbcForm").value, priority: $("sbcPr").value,
-    allow_specials: $("sbcSp").checked, allow_icons: $("sbcIc").checked, rules: SB.rules.slice(), include: SB.include.slice(), exclude: SB.exclude.slice() };
-  for (const [k] of SBC_NUMS) { const v = $("n_" + k).value; if (v !== "") req[k] = +v; }
+  const req = { formation: $("sbcForm").value, priority: $("sbcPr").value, allow_specials: $("sbcSp").checked, allow_icons: $("sbcIc").checked,
+    rules: [], include: [], exclude: SB.exclude.slice() };
+  for (const it of SB.items) {
+    if (it.t === "num") req[it.key] = it.v;
+    else if (it.t === "rule") req.rules.push(it.rule);
+    else if (it.t === "inc") req.include.push(it.id);
+  }
   return req;
 }
-function saveSBC() { try { localStorage.setItem("sbcForm", JSON.stringify(readReq())); } catch (e) {} }
+function saveSBC() { try { localStorage.setItem("sbcV2", JSON.stringify({ items: SB.items, formation: $("sbcForm").value, priority: $("sbcPr").value, sp: $("sbcSp").checked, ic: $("sbcIc").checked })); } catch (e) {} }
 function loadSBC() {
-  let r = null; try { r = JSON.parse(localStorage.getItem("sbcForm") || "null"); } catch (e) {}
+  let r = null; try { r = JSON.parse(localStorage.getItem("sbcV2") || "null"); } catch (e) {}
   if (!r) return;
-  $("sbcName").value = r.name || ""; if (r.formation) $("sbcForm").value = r.formation; if (r.priority) $("sbcPr").value = r.priority;
-  $("sbcSp").checked = !!r.allow_specials; $("sbcIc").checked = !!r.allow_icons;
-  SB.rules = r.rules || []; SB.include = r.include || [];
-  for (const [k] of SBC_NUMS) if (r[k] != null) $("n_" + k).value = r[k];
-  if (SBC_NUMS.slice(4).some(([k]) => r[k] != null)) $("sbcMoreBox").open = true;
+  SB.items = r.items || []; if (r.formation) $("sbcForm").value = r.formation; if (r.priority) $("sbcPr").value = r.priority;
+  $("sbcSp").checked = !!r.sp; $("sbcIc").checked = !!r.ic;
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
@@ -421,15 +461,13 @@ function drawSBCResult(working = false) {
     const sq = r.players.map(p => BYID.get(p.id));
     const checks = sbcChecks(req, sq), allOk = checks.every(c => c.ok);
     const head = working ? `<p><b>Squad found.</b> <span class="muted small" id="sbcWorking">Checking for a cheaper one…</span></p>`
-      : r.proven ? `<p class="ok"><b>✓ Cheapest squad</b> <span class="muted small">(checked against every cheaper combination of the ${r.candidates} best-fitting cards)</span></p>`
-      : `<p><b>Best squad found in ${SB.lastSeconds} s.</b> <span class="muted">There may be a slightly cheaper one.</span></p><button class="ghost" id="sbcLonger">Search longer (up to 90 s)</button>`;
-    out.innerHTML = `<h2>${esc(req.name || "SBC")} · ${esc(r.formation)}</h2>${head}
-      <p class="small">Squad rating <b>${r.rating}</b> · chem <b>${r.chem}</b></p>
+      : r.proven ? `<p class="ok"><b>✓ Cheapest squad</b></p>`
+      : `<p><b>Good squad</b> <span class="muted small">— may be a slightly cheaper one.</span> <button class="ghost" id="sbcLonger" style="padding:4px 9px;font-size:12px">Search longer</button></p>`;
+    out.innerHTML = `<h2>${esc(r.formation)} · rating ${r.rating} · chem ${r.chem}</h2>${head}
       <table class="sq"><tr><th>Pos</th><th>Player</th><th>Chem</th><th></th></tr>${r.players.map(p =>
         `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td class="n">${p.chem}</td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
       ${skipHtml}
-      <h3>Requirements check</h3><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul>
-      ${allOk ? "" : `<p class="bad small">A requirement isn't met — please tell Claude.</p>`}`;
+      <details ${allOk ? "" : "open"} style="margin-top:8px"><summary class="small ${allOk ? "ok" : "bad"}">${allOk ? "✓ Meets every requirement" : "✗ A requirement isn't met — please tell Claude"}</summary><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul></details>`;
   }
   if (working) { out.querySelectorAll("[data-nohave],[data-undo]").forEach(b => b.disabled = true); return; }
   out.querySelectorAll("[data-nohave]").forEach(b => b.onclick = () => { SB.exclude.push(b.dataset.nohave); runSBC(15, Object.assign({}, SB.lastReq, { exclude: SB.exclude.slice() })); });
