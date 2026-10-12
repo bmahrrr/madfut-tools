@@ -1,0 +1,29 @@
+name: Probe name sources
+on:
+  push:
+    branches: [probe]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          set +e
+          UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+          for u in https://madfutdata.com/27/Cards.html https://madfutdata.com/27/index.html; do
+            echo "=== $u"; curl -sL -A "$UA" "$u" -o page.html; wc -c page.html
+            grep -oE '(src|href)="[^"]+"' page.html | sort -u | head -40
+            grep -oE "fetch\([^)]{0,200}\)" page.html | head -20
+            grep -oE "[A-Za-z0-9_/.:-]+\.json[^\"' )]*" page.html | sort -u | head -40
+          done
+          echo "=== inline scripts mentioning club"
+          grep -oiE ".{0,120}club.{0,120}" page.html | head -20
+          for js in $(grep -oE 'src="[^"]+\.js[^"]*"' page.html | sed 's/src="//;s/"$//'); do
+            case "$js" in http*) url="$js";; /*) url="https://madfutdata.com$js";; *) url="https://madfutdata.com/27/$js";; esac
+            echo "=== JS $url"; curl -sL -A "$UA" "$url" -o s.js; wc -c s.js
+            grep -oE "[A-Za-z0-9_/.:-]+\.json[^\"' )]*" s.js | sort -u | head -30
+            grep -oiE ".{0,80}(clubs?Names?|clubName|teams?\.json|leagueName|nationName).{0,80}" s.js | head -10
+            grep -oE ".{0,60}Chelsea.{0,60}" s.js | head -3
+          done
+          echo "=== EA loc"
+          curl -sL -A "$UA" https://www.ea.com/ea-sports-fc/ultimate-team/web-app/loc/en-US.json -o loc.json; wc -c loc.json; head -c 300 loc.json; echo
+          grep -oE '"[^"]{0,80}":"Chelsea"' loc.json | head; grep -oE '"[^"]{0,80}":"England"' loc.json | head -3; grep -oE '"[^"]{0,80}":"Premier League"' loc.json | head -3
