@@ -1,6 +1,13 @@
 {
   "_help": "Where the daily updater downloads card data from. If madfutdata changes its links, update them here.",
   "game_prefix": "27",
-  "realm_urls": ["https://madfutdata.com/27/json/realm27.json"],
-  "update_urls": ["https://madfutdata.com/27/json/updates.json", "https://madfutdata.com/json/updates.json"]
+  "realm_urls": [
+    "https://madfutdata.com/27/json/realm27.json"
+  ],
+  "update_urls": [
+    "https://madfutdata.com/27/json/updates.json",
+    "https://madfutdata.com/json/updates.json"
+  ],
+  "names_url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/loc/en-US.json",
+  "names_year": "2027"
 }
