@@ -2929,6 +2929,91 @@
      }
     ]
    }
+  },
+  "plan": {
+   "guaranteed": "LOSS",
+   "safe": [
+    {
+     "slot": "GK",
+     "name": "Risser",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Koundé",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Renard",
+     "stat": "defence"
+    },
+    {
+     "slot": "RB",
+     "name": "João Cancelo",
+     "stat": "control"
+    },
+    {
+     "slot": "RB",
+     "name": "João Cancelo",
+     "stat": "defence"
+    },
+    {
+     "slot": "CDM",
+     "name": "King",
+     "stat": "control"
+    },
+    {
+     "slot": "CM",
+     "name": "Tolisso",
+     "stat": "defence"
+    },
+    {
+     "slot": "RM",
+     "name": "Akliouche",
+     "stat": "control"
+    }
+   ],
+   "total_openers": 33,
+   "reddit": {
+    "guaranteed": "WIN",
+    "safe": [
+     {
+      "slot": "GK",
+      "name": "Risser",
+      "stat": "defence"
+     },
+     {
+      "slot": "CB",
+      "name": "Koundé",
+      "stat": "defence"
+     },
+     {
+      "slot": "CB",
+      "name": "Renard",
+      "stat": "defence"
+     },
+     {
+      "slot": "RM",
+      "name": "Akliouche",
+      "stat": "control"
+     }
+    ]
+   },
+   "watch": [
+    {
+     "name": "Risser",
+     "text": "Only use for defence (90); attack 34, control 35"
+    }
+   ],
+   "low_tb": {
+    "name": "Risser",
+    "tb": 155
+   },
+   "high_tb": {
+    "name": "João Cancelo",
+    "tb": 255
+   }
   }
  },
  "built": "2026-10-12 11:36 UTC"

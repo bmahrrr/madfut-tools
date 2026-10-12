@@ -2140,6 +2140,85 @@
      }
     ]
    }
+  },
+  "plan": {
+   "guaranteed": "DRAW",
+   "safe": [
+    {
+     "slot": "LB",
+     "name": "Costa",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "Rispoli",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "Chierico",
+     "stat": "attack"
+    },
+    {
+     "slot": "CAM",
+     "name": "Vasić",
+     "stat": "attack"
+    },
+    {
+     "slot": "ST",
+     "name": "Buso",
+     "stat": "attack"
+    }
+   ],
+   "total_openers": 33,
+   "reddit": {
+    "guaranteed": "DRAW",
+    "safe": [
+     {
+      "slot": "LB",
+      "name": "Costa",
+      "stat": "attack"
+     },
+     {
+      "slot": "CM",
+      "name": "Rispoli",
+      "stat": "attack"
+     },
+     {
+      "slot": "CM",
+      "name": "Chierico",
+      "stat": "attack"
+     },
+     {
+      "slot": "CAM",
+      "name": "Vasić",
+      "stat": "attack"
+     },
+     {
+      "slot": "ST",
+      "name": "Buso",
+      "stat": "attack"
+     }
+    ]
+   },
+   "watch": [
+    {
+     "name": "Iannarilli",
+     "text": "Only use for defence (71); attack 38, control 36"
+    },
+    {
+     "name": "Buso",
+     "text": "Never use for defence (39)"
+    }
+   ],
+   "low_tb": {
+    "name": "Iannarilli",
+    "tb": 142
+   },
+   "high_tb": {
+    "name": "Vasić",
+    "tb": 207
+   }
   }
  },
  "built": "2026-10-12 11:40 UTC"

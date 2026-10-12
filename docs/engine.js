@@ -46,6 +46,7 @@ function squadBonus(team, bonuses) {
     let n = 0;
     if (b.kind === "nations") n = new Set(team.map(x => x.nationId)).size;
     else if (b.kind === "clubs") n = new Set(team.map(x => x.clubId)).size;
+    else if (b.kind === "leagues") n = new Set(team.map(x => x.leagueId)).size;
     else if (b.kind === "types") n = new Set(team.map(cardType)).size;
     if (n >= b.min) { out[0] += b.att || 0; out[1] += b.ctl || 0; out[2] += b.def || 0; }
   }

@@ -51,11 +51,16 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python scripts/build.py request "${{ matrix.file }}"
       - id: name
-        run: echo "stem=$(basename '${{ matrix.file }}' .json)" >> $GITHUB_OUTPUT
+        run: |
+          echo "stem=$(basename '${{ matrix.file }}' .json)" >> $GITHUB_OUTPUT
+          # a "rebuild" request (Don't have on the site) replaces that series' weekly team
+          OUT=$(python3 -c "import json;r=json.load(open('${{ matrix.file }}'));print(f\"docs/results/{r.get('kind','myclub')}_{r['series']}.json\" if r.get('mode')=='rebuild' else '')")
+          echo "out=$OUT" >> $GITHUB_OUTPUT
+          if [ -n "$OUT" ] && [ "${OUT#docs/results/myclub_}" != "$OUT" ]; then node scripts/plan.js "$OUT" || echo "game plan failed"; fi
       - uses: actions/upload-artifact@v4
         with:
           name: custom_${{ steps.name.outputs.stem }}
-          path: docs/results/custom_${{ steps.name.outputs.stem }}.json
+          path: ${{ steps.name.outputs.out || format('docs/results/custom_{0}.json', steps.name.outputs.stem) }}
 
   publish:
     needs: build
