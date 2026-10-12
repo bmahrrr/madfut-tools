@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012f";
+const APP_V = "20261012g";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -43,18 +43,22 @@ async function init() {
   } catch (e) { $("dataInfo").textContent = "card data missing"; }
   try { const nm = await getJSON("names.json"); Object.assign(NATIONS, nm.nations); Object.assign(LEAGUES, nm.leagues); CLUBS = nm.clubs || {}; } catch (e) {}
   try { const ex = await getJSON("results/extras.json"); ex.cards.forEach(c => CARDS.push(Object.assign({specialChem: "", _extra: true}, c))); } catch (e) {}
-  CARDS.forEach(c => { c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
+  CARDS.forEach(c => { c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); renderSetup();
 }
 
 // ---------- shared card UI ----------
-function search(q, limit = 12) {
-  q = q.trim().toLowerCase(); if (q.length < 2) return [];
+const norm = t => String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+  .replace(/ø/g, "o").replace(/æ/g, "ae").replace(/ß/g, "ss").replace(/ł/g, "l").replace(/ı/g, "i").replace(/đ/g, "d");
+function search(q, limit = 12, cap = 0) {
+  q = norm(q.trim()); if (q.length < 2) return [];
   const out = [];
-  for (const c of CARDS) { if (c.name.toLowerCase().includes(q)) { out.push(c); if (out.length > 200) break; } }
-  return out.sort((a, b) => b.rating - a.rating).slice(0, limit);
+  for (const c of CARDS) { if ((c._n || (c._n = norm(c.name))).includes(q)) { out.push(c); if (out.length > 300) break; } }
+  // exact name matches first, then cards within the cap, then highest rated
+  const score = c => (c._n === q ? 0 : c._n.startsWith(q) ? 1 : 2) * 2 + (cap && c.rating > cap ? 1 : 0);
+  return out.sort((a, b) => score(a) - score(b) || b.rating - a.rating).slice(0, limit);
 }
 function cardLine(c) {
   return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span> <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
@@ -102,54 +106,136 @@ function playersTable(ps, showTB) {
 }
 
 // ---------- My Club compare ----------
-function mcSeries() { const k = $("mcSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [] }; }
-function setupMC() {
+let MYTEAMS = {};
+function mcSeries() { const k = $("mcSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [], key: "" }; }
+const SIDE = { A: "Your team", B: "Their team" };
+const short = ids => ids.map(id => BYID.get(id)).filter(Boolean).slice(0, 3).map(c => c.name).join(", ") + "…";
+function savedTeams() { try { return JSON.parse(localStorage.getItem("mcSaved") || "[]"); } catch (e) { return []; } }
+function setSaved(list) { try { localStorage.setItem("mcSaved", JSON.stringify(list)); } catch (e) {} }
+async function setupMC() {
+  try { MYTEAMS = (await getJSON("myteams.json")).teams || {}; } catch (e) {}
   const ser = (WEEK && WEEK.myclub) || [];
-  $("mcSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)}</option>`).join("") + `<option value="">No boosts</option>`;
-  const loadOpts = () => {
-    const s = mcSeries(); let o = `<option value="">Load a team…</option>`;
-    if (INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) o += `<option value="built">My built ${esc(s.key)} team</option>`;
-    (s.opponents || []).forEach((t, i) => o += `<option value="ref${i}">Reference team ${i + 1}</option>`);
-    o += `<option value="clear">Clear</option>`;
-    $("mcLoadA").innerHTML = o; $("mcLoadB").innerHTML = o;
-  };
-  const loader = side => async () => {
-    const v = $("mcLoad" + side).value, s = mcSeries();
-    if (v === "clear") state[side] = [];
-    else if (v === "built") { const d = await getJSON(`results/myclub_${s.key}.json`); state[side] = d.team.players.map(p => BYID.get(p.id)).filter(Boolean); }
-    else if (v.startsWith("ref")) state[side] = s.opponents[+v.slice(3)].map(id => BYID.get(id)).filter(Boolean);
-    $("mcLoad" + side).value = ""; drawTeams();
-  };
-  $("mcLoadA").onchange = loader("A"); $("mcLoadB").onchange = loader("B");
-  $("mcSeries").onchange = () => { loadOpts(); drawTeams(); };
-  loadOpts();
-  hookSearch("searchA", "srA", c => { if (state.A.length < 11) state.A.push(c); drawTeams(); });
-  hookSearch("searchB", "srB", c => { if (state.B.length < 11) state.B.push(c); drawTeams(); });
+  $("mcSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("") + `<option value="">No series (no boosts)</option>`;
+  $("mcSeries").onchange = () => { drawMC(); $("solveOut").innerHTML = ""; };
   $("solveBtn").onclick = solveMC;
-  drawTeams();
+  $("swapBtn").onclick = () => { [state.A, state.B] = [state.B, state.A]; drawMC(); $("solveOut").innerHTML = ""; };
+  drawMC();
 }
-function teamTable(side) {
-  const team = state[side]; if (!team.length) return `<p class="muted small">No cards yet.</p>`;
-  const E = effective(team, mcSeries());
-  return `<div class="scroll"><table><tr><th>Player</th><th>In game</th><th>Ch</th><th>TB</th><th></th></tr>${team.map((c, i) =>
-    `<tr><td><b>${esc(c.name)}</b> <span class="muted small">${c.rating} ${esc(c.position)}</span></td><td class="n">${E[i].a}/${E[i].c}/${E[i].d}</td><td class="n">${E[i].chem}</td><td class="n">${E[i].t}</td><td><button class="x" data-s="${side}" data-i="${i}">✕</button></td></tr>`).join("")}</table></div>
-    <p class="small muted">${team.length}/11 cards · chem ${E.reduce((s, e) => s + e.chem, 0)}</p>`;
+function loadButtons(side) {
+  const s = mcSeries(), out = [];
+  if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Claude's ${s.key} team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
+  if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-built ${s.key} team`, d: "from the weekly builder" });
+  (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reference team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
+  savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
+  return out;
 }
-function drawTeams() {
-  $("teamA").innerHTML = teamTable("A"); $("teamB").innerHTML = teamTable("B");
-  document.querySelectorAll("#teamA .x, #teamB .x").forEach(b => b.onclick = () => { state[b.dataset.s].splice(+b.dataset.i, 1); drawTeams(); });
+function panelHtml(side) {
+  const team = state[side], s = mcSeries(), E = team.length ? effective(team, s) : [];
+  const btns = loadButtons(side);
+  let h = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${SIDE[side]} <span class="muted small">${team.length}/11${team.length ? " · chem " + E.reduce((a, e) => a + e.chem, 0) : ""}</span></h2>
+    ${team.length ? `<button class="ghost" data-clear="${side}" style="padding:4px 9px;font-size:12px">Clear</button>` : ""}</div>`;
+  if (btns.length) h += `<div class="small muted" style="margin-top:8px">Load a team:</div><div class="chips">${btns.map(b => `<button class="chipbtn" data-load="${side}:${b.k}"><b>${esc(b.t)}</b><span>${esc(b.d)}</span></button>${b.del != null ? `<button class="x" data-unsave="${b.del}" title="Delete saved team">✕</button>` : ""}`).join("")}</div>`;
+  h += `<div>${Array.from({ length: 11 }, (_, i) => {
+    const c = team[i];
+    if (!c) return `<div class="slot"><span class="num">${i + 1}</span><span class="who muted">—</span></div>`;
+    const e = E[i];
+    const alts = versions(c).length > 1;
+    return `<div class="slot"><span class="num">${i + 1}</span><span class="who"><b>${esc(c.name)}</b> ${c.rating}${alts ? ` <button class="x" data-alt="${side}:${i}" title="Other versions of this player" style="font-size:13px;color:var(--accent)">⇄</button>` : ""}<br><span class="muted small">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(cName(c.clubId))}</span></span>
+      <span class="st">A ${e.a} · C ${e.c} · D ${e.d}<br>chem ${e.chem} · TB ${e.t}</span><button class="x" data-del="${side}:${i}">✕</button></div>`;
+  }).join("")}</div>`;
+  if (team.length < 11) h += `<input type="text" id="q${side}" placeholder="Add a player — type a name" style="margin-top:10px"><ul class="sr" id="r${side}" hidden></ul>
+    <details style="margin-top:8px"><summary class="small">Paste several names at once</summary>
+      <p class="small muted" style="margin:6px 0">Separate with commas or new lines. If a name has several versions, add the rating or club, e.g. <code>Costa 67</code> or <code>Sarr Neom</code>. You can also tap ⇄ on a player to switch version.</p>
+      <textarea id="p${side}" placeholder="Radelet, Pupe, Coulibaly, …"></textarea>
+      <div class="row" style="margin-top:6px"><button class="ghost" data-paste="${side}">Add these</button><span id="pm${side}" class="small"></span></div></details>`;
+  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button></div>`;
+  return h;
+}
+function drawMC() {
+  const s = mcSeries();
+  $("mcInfo").innerHTML = s.key ? `Cap ${s.cap || "?"}${(s.boosts || []).length ? ` · ${s.boosts.length} boost${s.boosts.length > 1 ? "s" : ""} applied` : " · no boosts"}. Stats shown are in-game (boosts + chem). TB = tiebreak total.` : "No boosts applied.";
+  for (const side of ["A", "B"]) $("panel" + side).innerHTML = panelHtml(side);
+  document.querySelectorAll("[data-clear]").forEach(b => b.onclick = () => { state[b.dataset.clear] = []; drawMC(); });
+  document.querySelectorAll("[data-alt]").forEach(b => b.onclick = () => {
+    const [sd, i] = b.dataset.alt.split(":"), c = state[sd][+i], L = versions(c).filter(x => x.id === c.id || !state[sd].some(y => y.id === x.id));
+    state[sd][+i] = L[(L.findIndex(x => x.id === c.id) + 1) % L.length]; $("solveOut").innerHTML = ""; drawMC();
+  });
+  document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { const [sd, i] = b.dataset.del.split(":"); state[sd].splice(+i, 1); drawMC(); });
+  document.querySelectorAll("[data-load]").forEach(b => b.onclick = () => loadTeam(...b.dataset.load.split(":")));
+  document.querySelectorAll("[data-unsave]").forEach(b => b.onclick = () => { const l = savedTeams(); if (confirm(`Delete saved team "${l[+b.dataset.unsave].name}"?`)) { l.splice(+b.dataset.unsave, 1); setSaved(l); drawMC(); } });
+  document.querySelectorAll("[data-save]").forEach(b => b.onclick = () => {
+    const n = prompt("Name for this team (e.g. Jake's 79):"); if (!n) return;
+    const l = savedTeams(); l.push({ name: n.trim(), ids: state[b.dataset.save].map(c => c.id), key: mcSeries().key }); setSaved(l); drawMC();
+  });
+  document.querySelectorAll("[data-paste]").forEach(b => b.onclick = () => pasteNames(b.dataset.paste));
+  for (const side of ["A", "B"]) {
+    const inp = $("q" + side), ul = $("r" + side); if (!inp) continue;
+    inp.oninput = () => {
+      const cap = mcSeries().cap || 0, res = search(inp.value, 10, cap);
+      ul.hidden = !res.length;
+      ul.innerHTML = res.map(c => `<li data-id="${esc(c.id)}" class="${cap && c.rating > cap ? "over" : ""}">${cardLine(c)}${cap && c.rating > cap ? ` <span class="small bad">over cap</span>` : ""}</li>`).join("");
+    };
+    ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; addToTeam(side, BYID.get(li.dataset.id)); const q = $("q" + side); if (q) q.focus(); };
+  }
+}
+function versions(c) {             // every card of the same player name, within the cap first, highest rated first
+  const cap = mcSeries().cap || 0;
+  return CARDS.filter(x => x._n === c._n).sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
+}
+function addToTeam(side, c) {
+  if (!c || state[side].length >= 11) return;
+  if (state[side].some(x => x.id === c.id)) { alert(`${c.name} is already in this team.`); return; }
+  state[side].push(c); $("solveOut").innerHTML = ""; drawMC();
+}
+async function loadTeam(side, k) {
+  const s = mcSeries(); let ids = null;
+  if (k === "mine") ids = MYTEAMS[s.key].ids;
+  else if (k === "built") { try { ids = (await getJSON(`results/myclub_${s.key}.json`)).team.players.map(p => p.id); } catch (e) { alert("Couldn't load the built team."); return; } }
+  else if (k.startsWith("ref")) ids = s.opponents[+k.slice(3)];
+  else if (k.startsWith("saved")) ids = savedTeams()[+k.slice(5)].ids;
+  state[side] = (ids || []).map(id => BYID.get(id)).filter(Boolean).slice(0, 11);
+  $("solveOut").innerHTML = ""; drawMC();
+}
+function pasteNames(side) {
+  const cap = mcSeries().cap || 0, out = [], miss = [];
+  for (let tok of $("p" + side).value.split(/[,;\n]+/)) {
+    tok = tok.trim(); if (!tok) continue;
+    const m = tok.match(/^(.*?)[\s@]+(\d{2})$/), full = norm(m ? m[1] : tok), r = m ? +m[2] : 0;
+    // "Sarr Neom" = player name + a hint (club, nation or league)
+    let L = [], hint = "";
+    const words = full.split(/\s+/);
+    for (let k = words.length; k >= 1 && !L.length; k--) {
+      const nm = words.slice(0, k).join(" "); L = CARDS.filter(c => c._n === nm); hint = words.slice(k).join(" ");
+    }
+    if (!L.length) { L = CARDS.filter(c => c._n.includes(full)); hint = ""; }
+    if (hint) { const H = L.filter(c => [cName(c.clubId), nName(c.nationId), lName(c.leagueId)].some(t => norm(t).includes(hint))); if (H.length) L = H; }
+    if (r) L = L.filter(c => c.rating === r);
+    L.sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
+    const pick = L.find(c => !state[side].some(x => x.id === c.id) && !out.some(x => x.id === c.id));
+    if (pick) out.push(pick); else miss.push(tok);
+  }
+  const room = 11 - state[side].length;
+  state[side].push(...out.slice(0, room));
+  drawMC();
+  const msg = $("pm" + side) || $("solveOut");
+  if (msg) msg.innerHTML = (miss.length ? `<span class="bad">Not found: ${esc(miss.join(", "))}</span>` : "") + (out.length > room ? ` <span class="bad">Only ${room} fitted.</span>` : "");
+}
+const LEVEL_TEXT = l => ["Lose by 2+", "Lose by 1", "Draw", "Win by 1", "Win by 2+"][l];
+async function solveMC() {
+  if (state.A.length !== 11 || state.B.length !== 11) { $("solveOut").innerHTML = `<span class="bad">Both teams need 11 players (you have ${state.A.length} and ${state.B.length}).</span>`; return; }
+  $("solveOut").innerHTML = `<span class="muted">Working it out with perfect play from both sides… a few seconds</span>`;
+  const s = mcSeries(); const A = effective(state.A, s), B = effective(state.B, s);
+  const r = await ask({ type: "solve", A, B });
+  $("solveOut").innerHTML = `<table><tr><th>Who leads first</th><th>Result for you</th></tr>
+    <tr><td>You</td><td>${pill(LEVEL_NAME(r[0]))} <span class="small muted">${LEVEL_TEXT(r[0])}</span></td></tr>
+    <tr><td>Them</td><td>${pill(LEVEL_NAME(r[1]))} <span class="small muted">${LEVEL_TEXT(r[1])}</span></td></tr></table>
+    <p class="small muted">Both sides playing perfectly. <a href="#" id="toMatch">Play it move by move in Match helper →</a></p>`;
+  $("toMatch").onclick = e => { e.preventDefault(); document.querySelector('#tabs button[data-t="match"]').click(); };
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
-}
-async function solveMC() {
-  if (state.A.length !== 11 || state.B.length !== 11) { $("solveOut").textContent = "Both teams need 11 cards."; return; }
-  $("solveOut").textContent = "Solving… (a few seconds)";
-  const s = mcSeries(); const A = effective(state.A, s), B = effective(state.B, s);
-  const r = await ask({ type: "solve", A, B });
-  $("solveOut").innerHTML = `You lead first: ${pill(LEVEL_NAME(r[0]))} &nbsp; They lead first: ${pill(LEVEL_NAME(r[1]))}`;
 }
 
 // ---------- Match helper ----------
@@ -410,7 +496,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012f");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012g");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

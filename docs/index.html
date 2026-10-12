@@ -64,6 +64,16 @@ table.sq td.wrap{white-space:normal}
 table.sq td,table.sq th{padding:6px 4px}
 button.nohave{background:var(--chip);color:var(--text);border:0;border-radius:7px;padding:4px 7px;font-size:11px;line-height:1.15}
 summary{cursor:pointer;color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.chipbtn{background:var(--chip);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:13px;text-align:left;max-width:100%}
+.chipbtn b{display:block;font-size:13px}
+.chipbtn span{color:var(--muted);font-size:11.5px}
+.slot{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.slot .num{width:18px;color:var(--muted);font-size:12px}
+.slot .who{flex:1;min-width:0}
+.slot .st{font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.over{opacity:.5}
+textarea{width:100%;min-height:90px;background:var(--chip);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:16px}
 </style>
 </head>
 <body>
@@ -84,13 +94,16 @@ summary{cursor:pointer;color:var(--accent)}
   <section id="mc">
     <div class="card">
       <div class="row"><label>Series <select id="mcSeries"></select></label></div>
-      <p class="small muted">Build both teams below (search a card and tap to add). Stats shown are in-game: boosts + chem. Then tap <b>Solve</b> for the exact result with perfect play.</p>
+      <p id="mcInfo" class="small muted" style="margin:8px 0 0"></p>
     </div>
     <div class="grid2">
-      <div class="card"><h2>Your team</h2><div class="row"><select id="mcLoadA"></select></div><div id="teamA"></div><input type="text" id="searchA" placeholder="Search card name…"><ul class="sr" id="srA" hidden></ul></div>
-      <div class="card"><h2>Their team</h2><div class="row"><select id="mcLoadB"></select></div><div id="teamB"></div><input type="text" id="searchB" placeholder="Search card name…"><ul class="sr" id="srB" hidden></ul></div>
+      <div class="card" id="panelA"></div>
+      <div class="card" id="panelB"></div>
     </div>
-    <div class="card"><div class="row"><button class="btn" id="solveBtn">Solve</button><span id="solveOut" class="muted"></span></div></div>
+    <div class="card">
+      <div class="row"><button class="btn" id="solveBtn">Compare</button><button class="ghost" id="swapBtn">⇄ Swap teams</button></div>
+      <div id="solveOut" style="margin-top:8px"></div>
+    </div>
   </section>
 
   <section id="match">
@@ -139,8 +152,8 @@ summary{cursor:pointer;color:var(--accent)}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261012f"></script>
-<script src="sbc-solver.js?v=20261012f"></script>
-<script src="app.js?v=20261012f"></script>
+<script src="engine.js?v=20261012g"></script>
+<script src="sbc-solver.js?v=20261012g"></script>
+<script src="app.js?v=20261012g"></script>
 </body>
 </html>
