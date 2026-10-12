@@ -13,25 +13,23 @@ jobs:
           set +e
           exec > probe.txt 2>&1
           UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
-          for u in https://madfutdata.com/27/Cards.html https://madfutdata.com/27/index.html; do
-            echo "=== $u"; curl -sL -A "$UA" "$u" -o page.html; wc -c page.html
-            grep -oE '(src|href)="[^"]+"' page.html | sort -u | head -40
-            grep -oE "fetch\([^)]{0,200}\)" page.html | head -20
-            grep -oE "[A-Za-z0-9_/.:-]+\.json[^\"' )]*" page.html | sort -u | head -40
+          mkdir -p js
+          for page in 27/Cards.html 27/LTM-Cards.html 27/Evo-Chains.html 27/Upgrade-Hub.html 27/index.html; do
+            echo "=== PAGE $page"; curl -sL -A "$UA" "https://madfutdata.com/$page" -o p.html; wc -c p.html
+            grep -oE 'src="[^"]+"' p.html | sort -u
+            for js in $(grep -oE 'src="[^"]+\.js[^"]*"' p.html | sed 's/src="//;s/"$//' | grep -v googlesynd | grep -v cdnjs); do
+              case "$js" in http*) url="$js";; /*) url="https://madfutdata.com$js";; *) url="https://madfutdata.com/27/$js";; esac
+              f="js/$(echo $url | tr '/:' '__')"; [ -f "$f" ] && continue
+              curl -sL -A "$UA" "$url" -o "$f"; echo "--- JS $url $(wc -c < $f)"
+              grep -oE "https?://[^\"' \`)]+" "$f" | sort -u | head -30
+              grep -oE "[\"'\`][^\"'\`]*(json|documents/)[^\"'\`]*[\"'\`]" "$f" | sort -u | head -30
+            done
           done
-          echo "=== inline scripts mentioning club"
-          grep -oiE ".{0,120}club.{0,120}" page.html | head -20
-          for js in $(grep -oE 'src="[^"]+\.js[^"]*"' page.html | sed 's/src="//;s/"$//'); do
-            case "$js" in http*) url="$js";; /*) url="https://madfutdata.com$js";; *) url="https://madfutdata.com/27/$js";; esac
-            echo "=== JS $url"; curl -sL -A "$UA" "$url" -o s.js; wc -c s.js
-            grep -oE "[A-Za-z0-9_/.:-]+\.json[^\"' )]*" s.js | sort -u | head -30
-            grep -oiE ".{0,80}(clubs?Names?|clubName|teams?\.json|leagueName|nationName).{0,80}" s.js | head -10
-            grep -oE ".{0,60}Chelsea.{0,60}" s.js | head -3
+          echo "=== firestore guesses"
+          for c in updates sbcs sbc evos evolutions ltm ltms potm objectives realm cards config players promos; do
+            code=$(curl -s -o fs.json -w "%{http_code}" "https://firestore.googleapis.com/v1/projects/trivela-madfut/databases/%28default%29/documents/$c?pageSize=3"); echo "$c $code $(head -c 200 fs.json | tr '\n' ' ')"
           done
-          echo "=== EA loc"
-          curl -sL -A "$UA" https://www.ea.com/ea-sports-fc/ultimate-team/web-app/loc/en-US.json -o loc.json; wc -c loc.json; head -c 300 loc.json; echo
-          grep -oE '"[^"]{0,80}":"Chelsea"' loc.json | head; grep -oE '"[^"]{0,80}":"England"' loc.json | head -3; grep -oE '"[^"]{0,80}":"Premier League"' loc.json | head -3
       - run: |
           git config user.name bot; git config user.email actions@users.noreply.github.com
-          mkdir -p probe-out; for f in probe.txt page.html loc.json s.js; do [ -f $f ] && cp $f probe-out/; done; ls -la probe-out
+          mkdir -p probe-out; cp probe.txt probe-out/; cp -r js probe-out/ 2>/dev/null || true
           git add -f probe-out && git commit -m "probe output [skip ci]" && git push
