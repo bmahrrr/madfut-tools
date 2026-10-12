@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012e";
+const APP_V = "20261012f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -141,7 +141,7 @@ function drawTeams() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 async function solveMC() {
@@ -350,13 +350,13 @@ function drawAddBody() {
       addItem({ t: "num", key: t === "count" ? `${m}_${k}s` : `${m}_same_${k}`, v });
     };
   } else if (t === "ctype") {
-    const types = [...new Set(CARDS.filter(c => !c._extra).map(sbcType))].filter(x => !["gold", "silver", "bronze"].includes(x)).sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
+    const types = [...new Set(CARDS.filter(c => !c._extra && !NO_SBC.has(c.color)).map(sbcType))].filter(x => !["gold", "silver", "bronze"].includes(x)).sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
     box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
       <select id="aC"><option value="rarity:gold">Gold</option><option value="rarity:silver">Silver</option><option value="rarity:bronze">Bronze</option>${types.map(x => `<option value="color:${esc(x)}">${esc(TYPE(x))}</option>`).join("")}</select> ${addBtn}</div>`; done();
     $("aOk").onclick = () => { const [on, id] = $("aC").value.split(":"); addItem({ t: "rule", rule: { on, id, op: $("aOp").value, n: +$("aN").value || 0 } }); };
   } else if (t === "inc") {
     box.innerHTML = `<input type="text" id="aQ" placeholder="Search the player…"><ul class="sr" id="aSr" hidden></ul><div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
-    hookSearch("aQ", "aSr", c => addItem({ t: "inc", id: c.id }));
+    hookSearch("aQ", "aSr", c => { if (c._extra || NO_SBC.has(c.color)) { alert(`${TYPE(c.color)} cards can't be used in SBCs.`); return; } addItem({ t: "inc", id: c.id }); });
     $("aQ").focus();
   } else if (t === "from") {
     box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
@@ -410,7 +410,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012e");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
