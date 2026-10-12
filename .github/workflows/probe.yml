@@ -1,4 +1,4 @@
-name: Probe name sources
+name: Probe card sources
 on:
   push:
     branches: [probe]
@@ -13,19 +13,10 @@ jobs:
         with: { python-version: "3.12" }
       - run: |
           set +e
-          python scripts/update_data.py > probe.txt 2>&1
-          cat > summary.py <<'PY'
-          import json, collections
-          d = json.load(open("data/cards.json")); F = d["fields"]; C = [dict(zip(F, r)) for r in d["cards"]]
-          print("TOTAL", d["count"])
-          col = collections.Counter(c["color"] for c in C)
-          print(sorted(col.items(), key=lambda x: -x[1]))
-          for c in C:
-              if str(c["id"]).startswith(("sbcGroups", "objectives", "draftCups", "evosElite")) or any(w in str(c["color"]) for w in ("potm", "premium", "evo")):
-                  print(c["id"], c["name"], c["rating"], c["color"], c["position"], c["attack"], c["control"], c["defense"])
-          PY
-          python summary.py >> probe.txt 2>&1
+          git show origin/main:scripts/update_data.py > /dev/null 2>&1
+          git fetch -q origin main && git show origin/main:scripts/update_data.py > scripts/update_data.py
+          python probe2.py > probe2.txt 2>&1
       - run: |
           git config user.name bot; git config user.email actions@users.noreply.github.com
-          mkdir -p probe-out; cp probe.txt probe-out/
+          mkdir -p probe-out; cp probe2.txt probe-out/
           git add -f probe-out && git commit -m "probe output [skip ci]" && git push
