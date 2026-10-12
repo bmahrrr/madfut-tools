@@ -28,6 +28,37 @@ def conv(v):
     return v
 
 
+def doc_players(f, kind):
+    """Cards inside one Firestore document (fields already converted), the same way madfutdata reads them."""
+    pl = f.get("players", [])
+    if isinstance(pl, dict):
+        pl = list(pl.values())
+    if kind == "draftCups" and isinstance(f.get("rewardPlayer"), dict):
+        pl = [f["rewardPlayer"]]
+    evos = f.get("evos")
+    if isinstance(evos, list) and evos:
+        top = max(evos, key=lambda e: int((e or {}).get("id") or 0))
+        pl = list((top or {}).get("players") or [])[1:]     # final stage of the highest evo
+    return [p for p in pl if isinstance(p, dict)]
+
+
+def collection_players(obj, prefix, kind):
+    """All FC-<prefix> cards in a Firestore collection listing (documents named <prefix>_<n>)."""
+    out = []
+    for doc in (obj or {}).get("documents", []):
+        name = doc.get("name", "").split("/")[-1]
+        if not name.startswith(prefix + "_"):
+            continue
+        f = {k: conv(v) for k, v in doc.get("fields", {}).items()}
+        for i, p in enumerate(doc_players(f, kind)):
+            p = dict(p)
+            if not p.get("id") or p.get("id") in ("id001", "id002", "id003"):
+                p["id"] = f"{kind}_{name}_{i}"
+            p["_src"] = kind
+            out.append(p)
+    return out
+
+
 def players_from(obj, prefix="27"):
     """Accept the several shapes madfutdata serves and return a list of player dicts."""
     if isinstance(obj, dict) and "players" in obj and isinstance(obj["players"], list):
@@ -139,6 +170,31 @@ def main():
     for p in upd:
         if "id" in p:
             by_id[p["id"]] = p
+    # reward cards: SBC rewards (POTMs, SBC Premium...), objectives, draft cups, Elite Evos.
+    # They only add cards that aren't already known; a failed download just skips that source.
+    if not a.realm:
+        fs = src.get("firestore_base")
+        for kind in src.get("extra_collections", []):
+            try:
+                got = collection_players(fetch(f"{fs}/{kind}?pageSize=300"), prefix, kind)
+            except Exception as e:
+                print("failed", kind, e); got = []
+            if kind == "sbcGroups":
+                # madfutdata keeps some SBC files on its own site; those replace Firestore's file with the same number
+                for n in range(1, 41):
+                    try:
+                        loc = collection_players({"documents": [dict(d, name=f"x/{prefix}_{n}") for d in (lambda j: j if isinstance(j, list) else j.get("documents", [j]))(fetch(src["sbc_local"].format(n=n))) if d.get("fields")]}, prefix, kind)
+                    except Exception:
+                        continue
+                    got = [p for p in got if not p["id"].startswith(f"sbcGroups_{prefix}_{n}_")] + loc
+                    print("local sbc file", n, len(loc))
+            new = 0
+            for p in got:
+                if p.get("rating") is None:
+                    continue
+                if p["id"] not in by_id:
+                    by_id[p["id"]] = p; new += 1
+            print(kind, "cards:", len(got), "new:", new)
     cards = [[p.get(k, "" if k in ("altPositions", "specialChem") else None) for k in FIELDS]
              for p in by_id.values() if p.get("rating") is not None and p.get("attack") is not None]
     cards.sort(key=lambda c: (-c[2], c[1]))
