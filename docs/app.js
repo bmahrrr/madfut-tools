@@ -50,7 +50,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013b";
+const APP_V = "20261013c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -300,7 +300,8 @@ function playersTable(ps, showTB, nh) {     // nh = "myclub:73" adds a Don't hav
 
 // ---------- My Club compare ----------
 let MYTEAMS = {}, CUSTOM = [];
-function mcSeries() { const k = $("mcSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [], key: "" }; }
+let MCW = { week: "", base: "results/", myclub: [], files: [] };   // the week My Club Compare uses: this week or a Vault week
+function mcSeries() { const k = $("mcSeries").value; return MCW.myclub.find(s => s.key === k) || { boosts: [], key: "" }; }
 function beatSeries() { const k = $("beatSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [], key: "" }; }
 const serOf = side => side === "T" ? beatSeries() : mcSeries();
 const SIDE = { A: "Your team", B: "Their team", T: "Team to beat" };
@@ -311,7 +312,20 @@ async function setupMC() {
   for (const f of ((INDEX && INDEX.files) || []).filter(f => f.startsWith("custom_"))) { try { CUSTOM.push(await getJSON("results/" + f)); } catch (e) {} }
   try { const mt = await getJSON("myteams.json"); if (WEEK && mt.week === WEEK.week) MYTEAMS = mt.teams || {}; } catch (e) {}
   const ser = (WEEK && WEEK.myclub) || [];
-  $("mcSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") + `<option value="">No Series (No Boosts)</option>`;
+  MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
+  let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
+  weeks = weeks.filter(w => w.files.some(f => f.startsWith("myclub_")));
+  const wlabel = w => { const sn = ((w.note || "").match(/^Season \d+/) || [""])[0]; return (sn ? sn + " · " : "") + "Week of " + fmtDay(w.week); };
+  $("mcWeek").innerHTML = `<option value="">This week (${esc(fmtDay((WEEK && WEEK.week) || ""))})</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(wlabel(w))}</option>`).join("");
+  const fillSeries = () => { $("mcSeries").innerHTML = MCW.myclub.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") + `<option value="">No Series (No Boosts)</option>`; };
+  $("mcWeek").onchange = async () => {
+    const wk = $("mcWeek").value;
+    if (!wk) MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
+    else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {}
+      MCW = { week: wk, base: `vault/${wk}/`, myclub: w.myclub || [], files: (weeks.find(x => x.week === wk) || { files: [] }).files }; }
+    fillSeries(); drawMC(); $("solveOut").innerHTML = "";
+  };
+  fillSeries();
   $("mcSeries").onchange = () => { drawMC(); $("solveOut").innerHTML = ""; };
   $("solveBtn").onclick = solveMC;
   $("swapBtn").onclick = () => { [state.A, state.B] = [state.B, state.A]; drawMC(); $("solveOut").innerHTML = ""; };
@@ -344,9 +358,10 @@ function drawBeatResults() {
 }
 function loadButtons(side) {
   const s = serOf(side), out = [];
-  if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-Built ${s.key} Team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
-  if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: "From the weekly builder" });
-  if (side === "A") CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to Beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
+  const vault = side !== "T" && MCW.week;      // a past week: only that week's own teams (plus your saved ones)
+  if (side === "A" && !vault && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-Built ${s.key} Team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
+  if (side === "A" && (side === "T" ? (INDEX && INDEX.files) || [] : MCW.files).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: vault ? "From that week's build" : "From the weekly builder" });
+  if (side === "A" && !vault) CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to Beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
   (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit Reference Team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
   return out;
@@ -417,7 +432,7 @@ function addToTeam(side, c) {
 async function loadTeam(side, k) {
   const s = serOf(side); let ids = null;
   if (k === "mine") ids = MYTEAMS[s.key].ids;
-  else if (k === "built") { try { ids = (await getJSON(`results/myclub_${s.key}.json`)).team.players.map(p => p.id); } catch (e) { alert("Couldn't load the built team."); return; } }
+  else if (k === "built") { try { ids = (await getJSON(`${side === "T" ? "results/" : MCW.base}myclub_${s.key}.json`)).team.players.map(p => p.id); } catch (e) { alert("Couldn't load the built team."); return; } }
   else if (k.startsWith("ref")) ids = s.opponents[+k.slice(3)];
   else if (k.startsWith("saved")) ids = savedTeams()[+k.slice(5)].ids;
   else if (k.startsWith("custom")) ids = CUSTOM[+k.slice(6)].team.players.map(p => p.id);
@@ -467,7 +482,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261013c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -748,7 +763,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
