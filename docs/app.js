@@ -9,6 +9,9 @@ const lName = id => LEAGUES[id] || (typeof groupSample === "function" && CARDS.l
 const $ = id => document.getElementById(id);
 const fmtDay = d => { const x = new Date(String(d).slice(0, 10) + "T12:00:00Z"); return isNaN(x) ? String(d) : x.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }); };
 const fmtStamp = d => { const x = new Date(String(d).replace(" UTC", "Z").replace(" ", "T")); return isNaN(x) ? String(d) : x.toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }); };
+const SEASON1 = "2026-09-26";       // Fatal season 1 (FC 27) started Saturday Sep 26; a new season every Saturday
+const seasonOf = d => 1 + Math.floor((Date.parse(String(d).slice(0, 10)) - Date.parse(SEASON1)) / 6048e5);
+const seasonName = d => d ? "Season " + seasonOf(d) : "Season";
 const cap = t => { t = String(t ?? ""); return t.charAt(0).toUpperCase() + t.slice(1); };   // first letter always a capital
 const MINOR = new Set(["a", "an", "the", "and", "but", "or", "nor", "of", "to", "in", "on", "at", "by", "for", "vs", "as", "per"]);
 const titleWord = (w, first) => w.split("-").map((p, j) => {            // leaves LaLiga, TOTW, 4-3-3 as they are
@@ -50,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013d";
+const APP_V = "20261013e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -134,7 +137,7 @@ async function startBuild(req) {
   req.created = t.toISOString();
   const mins = Math.round((req.minutes || 30) * 1.1 + 8);
   if (!ghToken()) {
-    alert(`To start builds from the site, connect GitHub once:\n\nWeekly setup tab → "Connect GitHub".\n\nIt takes about 2 minutes and then every build is one tap.`);
+    alert(`To start builds from the site, connect GitHub once:\n\nSeason Setup tab → "Connect GitHub".\n\nIt takes about 2 minutes and then every build is one tap.`);
     document.querySelector('#tabs button[data-t="setup"]').click();
     const box = $("ghBox"); if (box) box.scrollIntoView({ behavior: "smooth" });
     return;
@@ -205,11 +208,11 @@ function wireNoHave() {
 async function rebuildWithout(k) {
   const [kind, key] = k.split(":"), ids = noHave(k);
   if (!ghToken()) {
-    alert(`To rebuild teams from the site, connect GitHub once:\n\nWeekly Setup tab → "Connect GitHub".`);
+    alert(`To rebuild teams from the site, connect GitHub once:\n\nSeason Setup tab → "Connect GitHub".`);
     document.querySelector('#tabs button[data-t="setup"]').click(); return;
   }
   const mins = kind === "sim" ? 5 : 50;
-  if (!confirm(`Rebuild the ${key} series without ${ids.length} card${ids.length > 1 ? "s" : ""}?\n\nIt runs on GitHub and takes about ${mins} minutes. These cards stay excluded for the rest of this week; next week assumes you own everything again.`)) return;
+  if (!confirm(`Rebuild the ${key} series without ${ids.length} card${ids.length > 1 ? "s" : ""}?\n\nIt runs on GitHub and takes about ${mins} minutes. These cards stay excluded for the rest of this season; next season assumes you own everything again.`)) return;
   try {
     const f = await ghGetFile("config/notowned.json"); let cur = { week: INDEX.week, ids: [] };
     try { const j = f && JSON.parse(f.text); if (j && j.week === INDEX.week) cur = j; } catch (e) {}
@@ -245,13 +248,12 @@ function planHtml(p) {
 let VAULT = null;     // { week, files } when looking at a past week
 async function renderTeams() {
   const box = $("teamsBody"), V = VAULT, base = V ? `vault/${V.week}/` : "results/";
-  if (!INDEX && !V) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Weekly setup</b> and they'll appear here once the build finishes.</div>`; return; }
+  if (!INDEX && !V) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Season Setup</b> and they'll appear here once the build finishes.</div>`; return; }
   let weeks = []; if (!V) { try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {} }
-  const vaultBox = V ? "" : `<details class="card"><summary>Vault</summary><p class="small muted" style="margin:6px 0">Past weeks' teams, saved automatically when a new week starts.</p>${weeks.length
-      ? `<div class="chips">${weeks.map((w, i) => { const sn = ((w.note || "").match(/^Season \d+/) || [""])[0];
-          return `<button class="chipbtn" data-vault="${i}"><b>${esc(sn || "Week of " + fmtDay(w.week))}</b><span>${sn ? "Week of " + esc(fmtDay(w.week)) + " · " : ""}${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`; }).join("")}</div>`
-      : `<p class="small muted">Nothing yet. This week moves here when you start next week.</p>`}</details>`;
-  OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past week, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Week</button></p>` : ""}<p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>` + vaultBox;
+  const vaultBox = V ? "" : `<details class="card"><summary>Vault</summary><p class="small muted" style="margin:6px 0">Past seasons' teams, saved automatically when a new season starts.</p>${weeks.length
+      ? `<div class="chips">${weeks.map((w, i) => { return `<button class="chipbtn" data-vault="${i}"><b>${esc(seasonName(w.week))}</b><span>Week of ${esc(fmtDay(w.week))} · ${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`; }).join("")}</div>`
+      : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
+  OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>` + vaultBox;
   const files = V ? V.files : INDEX.files || [];
   const mc = files.filter(f => f.startsWith("myclub_")), sim = files.filter(f => f.startsWith("sim_"));
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
@@ -268,12 +270,12 @@ async function renderTeams() {
       else if (t.source === "Previous Best") html += `<p class="small ok" style="margin:2px 0 6px"><b>✓ Still the best</b> <span class="muted">— the latest search found nothing with a better worst case.</span></p>`;
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="small ok" style="margin:2px 0 6px"><b>✓ Hand-Built Team</b> <span class="muted">— it beat the builder's own team on worst case.</span></p>`;
       if (refs.length) html += `<p class="small" style="margin:2px 0">Against the Reddit Team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
-      if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">against ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next weekly build upgrades it</span>` : ""}</p>`;
+      if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">against ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next build upgrades it</span>` : ""}</p>`;
       if (t.plan) html += planHtml(t.plan);
       html += (V ? "" : noHaveBar("myclub:" + d.series.key, d.not_owned)) + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
-        <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added to the weekly setup).<br>
+        <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added in Season Setup).<br>
         <b>Copy of This Team</b>: when the strongest stress test found is simply your own team (someone copying you).<br>
         <b>Counter Teams</b>: stress tests. The builder searched every card under the cap for the team that does best against this one, improved this team, and repeated.<br>
         <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
@@ -321,8 +323,7 @@ async function setupMC() {
   MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
   let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
   weeks = weeks.filter(w => w.files.some(f => f.startsWith("myclub_")));
-  const wlabel = w => { const sn = ((w.note || "").match(/^Season \d+/) || [""])[0]; return (sn ? sn + " · " : "") + "Week of " + fmtDay(w.week); };
-  if ($("mcWeek")) $("mcWeek").innerHTML = `<option value="">This week (${esc(fmtDay((WEEK && WEEK.week) || ""))})</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(wlabel(w))}</option>`).join("");
+  if ($("mcWeek")) $("mcWeek").innerHTML = `<option value="">${esc(seasonName(WEEK && WEEK.week))} (This Season)</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(seasonName(w.week))}</option>`).join("");
   const fillSeries = () => { $("mcSeries").innerHTML = MCW.myclub.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") + `<option value="">No Series (No Boosts)</option>`; };
   if ($("mcWeek")) $("mcWeek").onchange = async () => {
     const wk = $("mcWeek").value;
@@ -366,7 +367,7 @@ function loadButtons(side) {
   const s = serOf(side), out = [];
   const vault = side !== "T" && MCW.week;      // a past week: only that week's own teams (plus your saved ones)
   if (side === "A" && !vault && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-Built ${s.key} Team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
-  if (side === "A" && (side === "T" ? (INDEX && INDEX.files) || [] : MCW.files).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: vault ? "From that week's build" : "From the weekly builder" });
+  if (side === "A" && (side === "T" ? (INDEX && INDEX.files) || [] : MCW.files).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: vault ? "From that season's build" : "From this season's build" });
   if (side === "A" && !vault) CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to Beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
   (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit Reference Team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
@@ -488,7 +489,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261013e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -574,8 +575,7 @@ function simSeries() { const k = $("simSeries").value; return SIMW.sim.find(s =>
 async function setupSim() {
   let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
   weeks = weeks.filter(w => w.files.some(f => f.startsWith("sim_")));
-  const label = w => { const sn = ((w.note || "").match(/^Season \d+/) || [""])[0]; return (sn ? sn + " · " : "") + "Week of " + fmtDay(w.week); };
-  if ($("simWeek")) $("simWeek").innerHTML = `<option value="">This week (${esc(fmtDay((WEEK && WEEK.week) || ""))})</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(label(w))}</option>`).join("");
+  if ($("simWeek")) $("simWeek").innerHTML = `<option value="">${esc(seasonName(WEEK && WEEK.week))} (This Season)</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(seasonName(w.week))}</option>`).join("");
   if ($("simWeek")) $("simWeek").onchange = async () => {
     const wk = $("simWeek").value;
     if (!wk) SIMW = { base: "results/", sim: (WEEK && WEEK.sim) || [] };
@@ -769,7 +769,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013d");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -958,16 +958,16 @@ function seriesCardHtml(type, i) {
 }
 function renderWeekForm() {
   const box = $("weekForm"); if (!box || !WS) return;
-  box.innerHTML = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">This week's series</h2>
-      <label class="small muted">Week <input type="date" id="wWeek" value="${esc(WS.week || "")}"></label></div>
+  box.innerHTML = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(seasonName(WS.week))} Series</h2>
+      <label class="small muted">Season start <input type="date" id="wWeek" value="${esc(WS.week || "")}"></label></div>
     <p class="small muted" style="margin:6px 0 0">Changes are kept on this phone until you tap <b>Save &amp; rebuild</b>.</p>
     <h3>Fatal My Club</h3>${WS.myclub.map((_, i) => seriesCardHtml("myclub", i)).join("")}<button class="ghost" data-addseries="myclub">+ Add My Club series</button>
     <h3>Fatal Sim</h3>${WS.sim.map((_, i) => seriesCardHtml("sim", i)).join("")}<button class="ghost" data-addseries="sim">+ Add Sim series</button>
-    <div class="row" style="margin-top:16px"><button class="btn" id="wSave">Save &amp; rebuild</button><button class="ghost" id="wNew">New week</button><button class="ghost" id="wDiscard">Discard changes</button></div>
+    <div class="row" style="margin-top:16px"><button class="btn" id="wSave">Save &amp; rebuild</button><button class="ghost" id="wNew">New Season</button><button class="ghost" id="wDiscard">Discard changes</button></div>
     <p class="small" id="wSaveMsg"></p>`;
   const S = id => { const [t, i] = id.split("-"); return WS[t][+i]; };
   const redraw = () => { wsDraftSave(); renderWeekForm(); };
-  $("wWeek").onchange = e => { WS.week = e.target.value; wsDraftSave(); };
+  $("wWeek").onchange = e => { WS.week = e.target.value; wsDraftSave(); renderWeekForm(); };
   box.querySelectorAll("[data-f]").forEach(inp => inp.onchange = () => {
     const s = S(inp.dataset.s);
     s.key = inp.value.trim(); s.cap = /^\d+$/.test(s.key) ? +s.key : 99;   // the series number is the rating cap
@@ -1034,7 +1034,7 @@ function renderWeekForm() {
     }
   }
   $("wNew").onclick = () => {
-    if (!confirm("Start a new week? This keeps the series list but clears every boost, bonus and Reddit team. Nothing is saved until you tap Save & rebuild.")) return;
+    if (!confirm("Start a new season? This keeps the series list but clears every boost, bonus and Reddit team. Nothing is saved until you tap Save & rebuild.")) return;
     const t = new Date(); WS.week = t.toISOString().slice(0, 10);
     for (const s of [...WS.myclub, ...WS.sim]) { s.boosts = []; delete s.bonuses; if (s.opponents) s.opponents = []; }
     redraw();
@@ -1045,7 +1045,7 @@ function renderWeekForm() {
     if (!ghToken()) { msg.innerHTML = `<span class="bad">Connect GitHub first (box below).</span>`; $("ghBox").scrollIntoView({ behavior: "smooth" }); return; }
     const bad = [...WS.myclub, ...WS.sim].find(s => !s.key || !s.cap);
     if (bad) { msg.innerHTML = `<span class="bad">Every series needs its number (e.g. 79).</span>`; return; }
-    if (!confirm(`Save this week's setup and rebuild every team?\n\nSim teams take about 10 minutes, My Club teams about 2 hours.`)) return;
+    if (!confirm(`Save this season's setup and rebuild every team?\n\nSim teams take about 10 minutes, My Club teams about 2 hours.`)) return;
     msg.textContent = "Saving…";
     try {
       const f = await ghGetFile("config/week.json");
@@ -1057,9 +1057,9 @@ function renderWeekForm() {
 }
 async function renderSetup() {
   $("setupBody").innerHTML = `
-  <div class="card" id="weekForm"><p class="muted">Loading this week's setup…</p></div>
+  <div class="card" id="weekForm"><p class="muted">Loading this season's setup…</p></div>
   <div class="card" id="ghBox"><h2>Connect GitHub <span class="small muted" id="ghState"></span></h2>
-   <p class="small">Lets the site save the weekly setup and start "Beat a team" builds. It's a key that can only change files in your madfut-tools repo, saved on this phone only (never on the site).</p>
+   <p class="small">Lets the site save the season setup and start "Beat a team" builds. It's a key that can only change files in your madfut-tools repo, saved on this phone only (never on the site).</p>
    <ol class="small" style="padding-left:18px">
     <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">github.com/settings/personal-access-tokens/new</a> (if the GitHub app opens, long-press the link and choose <b>Open in Safari</b>).</li>
     <li><b>Token name</b>: madfut site. <b>Expiration</b>: pick the longest option.</li>

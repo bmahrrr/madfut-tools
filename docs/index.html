@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261013d">
+<meta name="app-version" content="20261013e">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0c1712" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#eef2ea" media="(prefers-color-scheme: light)">
@@ -123,7 +123,7 @@ textarea{width:100%;min-height:90px}
     <button data-t="sim">Sim compare</button>
     <button data-t="sbc">SBC</button>
     <button data-t="cards">Cards</button>
-    <button data-t="setup">Weekly setup</button>
+    <button data-t="setup">Season setup</button>
   </nav>
 </header>
 <main>
@@ -147,7 +147,7 @@ textarea{width:100%;min-height:90px}
 
   <section id="mc">
     <div class="card">
-      <div class="row"><label>Week <select id="mcWeek"></select></label></div>
+      <div class="row"><label>Season <select id="mcWeek"></select></label></div>
       <div class="row" style="margin-top:8px"><label>Series <select id="mcSeries"></select></label></div>
       <p id="mcInfo" class="small muted" style="margin:8px 0 0"></p>
     </div>
@@ -172,9 +172,9 @@ textarea{width:100%;min-height:90px}
 
   <section id="sim">
     <div class="card">
-      <div class="row"><label>Week <select id="simWeek"></select></label></div>
+      <div class="row"><label>Season <select id="simWeek"></select></label></div>
       <div class="row" style="margin-top:8px"><label>Series <select id="simSeries"></select></label><label>Their formation <select id="simFormB"></select></label></div>
-      <p class="small muted">Pick the week first (this week or one from the Vault), then the series. Your team loads from that week's built Sim team. Add their 11 in formation order (GK first). Shows the chance of scoring per possession and match odds.</p>
+      <p class="small muted">Pick the season first (this season or one from the Vault), then the series. Your team loads from that season's built Sim team. Add their 11 in formation order (GK first). Shows the chance of scoring per possession and match odds.</p>
     </div>
     <div class="grid2">
       <div class="card"><h2>Your team</h2><div id="simA"></div></div>
@@ -224,8 +224,8 @@ textarea{width:100%;min-height:90px}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261013d"></script>
-<script src="sbc-solver.js?v=20261013d"></script>
-<script src="app.js?v=20261013d"></script>
+<script src="engine.js?v=20261013e"></script>
+<script src="sbc-solver.js?v=20261013e"></script>
+<script src="app.js?v=20261013e"></script>
 </body>
 </html>
