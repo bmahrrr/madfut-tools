@@ -86,6 +86,7 @@ textarea{width:100%;min-height:90px;background:var(--chip);color:var(--text);bor
     <button data-t="match">Match helper</button>
     <button data-t="sim">Sim compare</button>
     <button data-t="sbc">SBC</button>
+    <button data-t="cards">Cards</button>
     <button data-t="setup">Weekly setup</button>
   </nav>
 </header>
@@ -167,10 +168,26 @@ textarea{width:100%;min-height:90px;background:var(--chip);color:var(--text);bor
     <div class="card" id="sbcOut" hidden></div>
   </section>
 
+  <section id="cards">
+    <div class="card">
+      <h2>Every card on the site</h2>
+      <p class="small muted" id="cardsInfo" style="margin:4px 0 8px"></p>
+      <div class="chips" id="cardsTypes"></div>
+      <input type="text" id="cQ" placeholder="Search a name…">
+      <div class="fgrid" style="margin-top:8px">
+        <label>Card type<select id="cType"></select></label>
+        <label>Position<select id="cPos"></select></label>
+        <label>Rating from<input type="number" inputmode="numeric" id="cMin" placeholder="any"></label>
+        <label>Rating to<input type="number" inputmode="numeric" id="cMax" placeholder="any"></label>
+      </div>
+    </div>
+    <div class="card"><p class="small muted" id="cCount" style="margin:0 0 6px"></p><div id="cList"></div><div class="row" style="margin-top:8px"><button class="ghost" id="cMore">Show more</button></div></div>
+  </section>
+
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261012o"></script>
-<script src="sbc-solver.js?v=20261012o"></script>
-<script src="app.js?v=20261012o"></script>
+<script src="engine.js?v=20261012p"></script>
+<script src="sbc-solver.js?v=20261012p"></script>
+<script src="app.js?v=20261012p"></script>
 </body>
 </html>
