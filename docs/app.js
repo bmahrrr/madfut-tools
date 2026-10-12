@@ -22,7 +22,20 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
+const APP_V = "20261012c";
+async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
+  try {
+    const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
+    if (v && v !== APP_V) {
+      let tried = null; try { tried = sessionStorage.getItem("triedV"); } catch (e) {}
+      if (tried !== v) { try { sessionStorage.setItem("triedV", v); } catch (e) {} location.replace(location.pathname + "?v=" + v); return true; }
+    }
+  } catch (e) {}
+  return false;
+}
 async function init() {
+  if (await selfUpdate()) return;
+  $("appV").textContent = "version " + APP_V;
   try {
     const d = await getJSON("cards.json");
     CARDS = d.cards.map(r => { const c = {}; d.fields.forEach((f, i) => c[f] = r[i]); return c; });
@@ -128,7 +141,7 @@ function drawTeams() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 async function solveMC() {
@@ -397,7 +410,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
