@@ -152,12 +152,15 @@ def milp_seed(pool, rng=None, time_limit=60):
 
 
 def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, rounds=4, seed=1, log=print,
-                 mode="standard", verify=0):
+                 mode="standard", verify=0, candidates=()):
     """opponents: teams (lists of card dicts) to beat, e.g. Reddit reference teams.
     mode "standard": good against the opponents and against counter teams the builder finds.
     mode "robust":   judged by its WORST result against any opponent or counter team, more rounds.
     mode "beat":     all the time goes into beating the given opponents (no counter teams).
     verify: number of fresh counter teams searched at the end (not used while building) as a check.
+    candidates: (label, team) pairs, e.g. the Reddit team or a hand-built team. At the end every candidate
+                and the built team are scored on the SAME opponents (references, counters, fresh tests) and
+                the one with the best worst case is returned, so copying the Reddit team wins when it is best.
     Returns dict with the team, formation and results against every opponent tested."""
     rng = random.Random(seed)
     robust = mode == "robust"
@@ -212,9 +215,30 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
         br = optimize(field, start, [E], [1], T * verify_share / verify, vr, None, f"fresh{k}")
         O = field.eff(br[1])
+        pool_opps.append(O); names.append(f"fresh test {k+1}")
         res[f"fresh test {k+1}"] = {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
         log(f"  fresh test {k+1}: {res[f'fresh test {k+1}']}")
+    source = "builder"
+    if candidates:
+        def worst_case(Et):
+            per = [play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps]
+            return (min(per), sum(per))
+        best_key = worst_case(E)
+        log(f"  built team: worst case {best_key}")
+        for label, cand in candidates:
+            cand = [owned_ids.get(c["id"]) for c in cand]
+            if not all(cand) or not fits(cand):
+                continue
+            k = worst_case(me.eff(cand))
+            log(f"  {label}: worst case {k}")
+            if k > best_key:
+                best_key, team, source = k, cand, label
+        if source != "builder":
+            E = me.eff(team)
+            res = {n: {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
+                   for n, O in zip(names, pool_opps)}
     out = describe(team, series)
     out["results"] = res
     out["mode"] = mode
+    out["source"] = source
     return out
