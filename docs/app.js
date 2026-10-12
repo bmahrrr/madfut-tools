@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012o";
+const APP_V = "20261012p";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -46,7 +46,7 @@ async function init() {
   CARDS.forEach(c => { c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
-  renderTeams(); setupMC(); setupSim(); setupSBC(); renderSetup();
+  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup();
 }
 
 // ---------- shared card UI ----------
@@ -326,7 +326,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012o"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012p"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -588,7 +588,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012o");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012p");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -669,6 +669,36 @@ function drawSBCResult(working = false) {
   out.querySelectorAll("[data-undo]").forEach(b => b.onclick = () => { SB.exclude.splice(+b.dataset.undo, 1); runSBC(15, Object.assign({}, SB.lastReq, { exclude: SB.exclude.slice() })); });
   const longer = $("sbcLonger");
   if (longer) longer.onclick = () => runSBC(90, Object.assign({}, SB.lastReq, r && !r.none ? { formation: r.formation } : {}, { exclude: SB.exclude.slice() }));
+}
+
+// ---------- Cards (everything in the data, to spot what's missing) ----------
+const CF = { shown: 100 };
+const typeKey = c => { const t = String(c.color).replace("rare_", ""); return ["gold", "silver", "bronze"].includes(t) ? t : t; };
+const typeLabel = t => ({ gold: "Gold", silver: "Silver", bronze: "Bronze" }[t] || TYPE(t));
+function setupCards() {
+  const real = CARDS.filter(c => !c._extra);
+  const cnt = new Map(); real.forEach(c => cnt.set(typeKey(c), (cnt.get(typeKey(c)) || 0) + 1));
+  const special = real.filter(c => !["gold", "silver", "bronze"].includes(typeKey(c))).length;
+  const order = ["gold", "silver", "bronze", ...[...cnt.keys()].filter(t => !["gold", "silver", "bronze"].includes(t)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b)))];
+  $("cardsInfo").innerHTML = `${real.length.toLocaleString()} cards · data updated ${esc(($("dataInfo").textContent.split("updated ")[1] || "").split("version")[0])}. Compare these totals with your collection screen in the game. Evos and LTM upgrades aren't included (they depend on each player's upgrades).`;
+  $("cardsTypes").innerHTML = `<button class="chipbtn" data-ct="special"><b>All special</b><span>${special}</span></button>` +
+    order.map(t => `<button class="chipbtn" data-ct="${esc(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t)}</span></button>`).join("");
+  $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
+  const poss = [...new Set(real.map(c => c.position))].sort();
+  $("cPos").innerHTML = `<option value="">All</option>` + poss.map(p => `<option>${esc(p)}</option>`).join("");
+  document.querySelectorAll("[data-ct]").forEach(b => b.onclick = () => { $("cType").value = b.dataset.ct; CF.shown = 100; drawCards(); });
+  ["cQ", "cType", "cPos", "cMin", "cMax"].forEach(id => $(id).addEventListener("input", () => { CF.shown = 100; drawCards(); }));
+  $("cMore").onclick = () => { CF.shown += 200; drawCards(); };
+  drawCards();
+}
+function drawCards() {
+  const q = norm($("cQ").value.trim()), t = $("cType").value, pos = $("cPos").value, lo = +$("cMin").value || 0, hi = +$("cMax").value || 99;
+  const L = CARDS.filter(c => !c._extra && (!q || c._n.includes(q)) && (!t || (t === "special" ? !["gold", "silver", "bronze"].includes(typeKey(c)) : typeKey(c) === t))
+    && (!pos || c.position === pos || String(c.altPositions || "").split(",").includes(pos)) && c.rating >= lo && c.rating <= hi)
+    .sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
+  $("cCount").textContent = `${L.length.toLocaleString()} card${L.length === 1 ? "" : "s"}${L.length > CF.shown ? ` · showing the top ${CF.shown}` : ""}`;
+  $("cList").innerHTML = L.slice(0, CF.shown).map(c => `<div class="slot"><span class="who"><b>${esc(c.name)}</b> ${c.rating} <span class="muted small">${esc(c.position)}${c.altPositions ? "," + esc(c.altPositions) : ""} · ${esc(typeLabel(typeKey(c)))}</span><br><span class="muted small">${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></span><span class="st">A ${c.attack} · C ${c.control} · D ${c.defense}</span></div>`).join("") || `<p class="muted small">No cards match.</p>`;
+  $("cMore").hidden = L.length <= CF.shown;
 }
 
 // ---------- Weekly setup ----------
