@@ -50,7 +50,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013a";
+const APP_V = "20261013b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -467,7 +467,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261013b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -548,27 +548,46 @@ function duelR(i, j, s, aLeads) {
 
 // ---------- Sim compare ----------
 const SIM_FORMS = {"3-1-4-2":["GK","CB","CB","CB","CDM","LM","CM","CM","RM","ST","ST"],"3-4-1-2":["GK","CB","CB","CB","LM","CM","CM","RM","CAM","ST","ST"],"3-5-2":["GK","CB","CB","CB","CDM","CDM","LM","CAM","RM","ST","ST"],"5-2-1-2":["GK","LB","CB","CB","CB","RB","CM","CM","CAM","ST","ST"],"5-3-2":["GK","LB","CB","CB","CB","RB","CM","CM","CM","ST","ST"],"5-4-1":["GK","LB","CB","CB","CB","RB","LM","CM","CM","RM","ST"],"4-4-2":["GK","LB","CB","CB","RB","LM","CM","CM","RM","ST","ST"],"4-3-3":["GK","LB","CB","CB","RB","CM","CM","CM","LW","ST","RW"],"4-2-3-1":["GK","LB","CB","CB","RB","CDM","CDM","CAM","CAM","CAM","ST"]};
-function simSeries() { const k = $("simSeries").value; return (WEEK && WEEK.sim || []).find(s => s.key === k) || { boosts: [] }; }
-function setupSim() {
-  const ser = (WEEK && WEEK.sim) || [];
-  $("simSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("");
+let SIMW = { base: "results/", sim: [] };    // the week being compared: this week or one from the Vault
+function simSeries() { const k = $("simSeries").value; return SIMW.sim.find(s => s.key === k) || { boosts: [] }; }
+async function setupSim() {
+  let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
+  weeks = weeks.filter(w => w.files.some(f => f.startsWith("sim_")));
+  const label = w => { const sn = ((w.note || "").match(/^Season \d+/) || [""])[0]; return (sn ? sn + " · " : "") + "Week of " + fmtDay(w.week); };
+  $("simWeek").innerHTML = `<option value="">This week (${esc(fmtDay((WEEK && WEEK.week) || ""))})</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(label(w))}</option>`).join("");
+  $("simWeek").onchange = async () => {
+    const wk = $("simWeek").value;
+    if (!wk) SIMW = { base: "results/", sim: (WEEK && WEEK.sim) || [] };
+    else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {} SIMW = { base: `vault/${wk}/`, sim: w.sim || [] }; }
+    fillSimSeries(); state.simB = []; loadSimA();
+  };
+  SIMW = { base: "results/", sim: (WEEK && WEEK.sim) || [] };
+  fillSimSeries();
   $("simFormB").innerHTML = Object.keys(SIM_FORMS).map(f => `<option>${f}</option>`).join("");
-  $("simSeries").onchange = loadSimA; $("simFormB").onchange = drawSim;
+  $("simSeries").onchange = () => { state.simB = []; loadSimA(); }; $("simFormB").onchange = drawSim;
   hookSearch("searchS", "srS", c => { if (state.simB.length < 11) state.simB.push(c); drawSim(); });
   $("simBtn").onclick = runSim;
   loadSimA();
 }
+function fillSimSeries() {
+  $("simSeries").innerHTML = SIMW.sim.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") || `<option value="">No Sim series</option>`;
+}
 async function loadSimA() {
   state.simA = null;
-  try { const d = await getJSON(`results/sim_${simSeries().key}.json`); state.simA = d.teams[0]; } catch (e) {}
+  try { const d = await getJSON(`${SIMW.base}sim_${simSeries().key}.json`); state.simA = d.teams[0]; } catch (e) {}
   drawSim();
 }
 function drawSim() {
   const A = state.simA;
   $("simA").innerHTML = A ? `<p class="small">${esc(A.formation)}</p>` + `<table>${A.players.map(p => `<tr><td>${p.slot}</td><td>${esc(p.name)}</td><td class="n">${p.eff.join("/")}</td></tr>`).join("")}</table>` : `<p class="muted small">No built team for this series yet.</p>`;
   const slots = SIM_FORMS[$("simFormB").value], E = effective(state.simB, simSeries());
-  $("simB").innerHTML = `<table>${slots.map((s, i) => { const c = state.simB[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) : '<span class="muted">—</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`;
+  const ref = (simSeries().opponents || [])[0];
+  $("simB").innerHTML = (ref && !state.simB.length ? `<button class="ghost" id="simRef" style="font-size:12.5px;margin-bottom:8px">Load the Reddit Team</button>` : "") + `<table>${slots.map((s, i) => { const c = state.simB[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) : '<span class="muted">—</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`;
   document.querySelectorAll("#simB .x").forEach(b => b.onclick = () => { state.simB.splice(+b.dataset.i, 1); drawSim(); });
+  if ($("simRef")) $("simRef").onclick = () => {
+    const f = simSeries().opponent_formation; if (f && SIM_FORMS[f]) $("simFormB").value = f;
+    state.simB = ref.map(id => BYID.get(id)).filter(Boolean); drawSim();
+  };
 }
 function runSim() {
   const A = state.simA; if (!A || state.simB.length !== 11) { $("simOut").textContent = "Need your built team and their 11 cards."; return; }
@@ -729,7 +748,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
