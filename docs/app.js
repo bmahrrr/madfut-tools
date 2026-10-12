@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013e";
+const APP_V = "20261013f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -251,7 +251,8 @@ async function renderTeams() {
   if (!INDEX && !V) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Season Setup</b> and they'll appear here once the build finishes.</div>`; return; }
   let weeks = []; if (!V) { try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {} }
   const vaultBox = V ? "" : `<details class="card"><summary>Vault</summary><p class="small muted" style="margin:6px 0">Past seasons' teams, saved automatically when a new season starts.</p>${weeks.length
-      ? `<div class="chips">${weeks.map((w, i) => { return `<button class="chipbtn" data-vault="${i}"><b>${esc(seasonName(w.week))}</b><span>Week of ${esc(fmtDay(w.week))} · ${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`; }).join("")}</div>`
+      ? `<div class="chips">${weeks.map((w, i) => { return w.files.length ? `<button class="chipbtn" data-vault="${i}"><b>${esc(seasonName(w.week))}</b><span>Week of ${esc(fmtDay(w.week))} · ${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`
+            : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
   OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>` + vaultBox;
   const files = V ? V.files : INDEX.files || [];
@@ -489,7 +490,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261013f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -769,7 +770,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013e");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -901,7 +902,7 @@ function drawCards() {
   const openAll = filtering && L.length <= 300;
   $("cList").innerHTML = order.map(k => {
     const cs = groups.get(k), rs = cs.map(c => c.rating);
-    const n = cardCount(k, cs), extra = cs.some(c => c._extra);
+    const n = cardCount(k, cs), extra = cs.some(c => c._extra) || (typeof NO_SBC !== "undefined" && NO_SBC.has(k));
     return `<details class="tgrp" data-t="${esc(k)}"${openAll || groups.size === 1 ? " open" : ""}><summary><b>${esc(typeLabel(k))}</b> <span class="muted small">· ${n} card${n > 1 ? "s" : ""}${n !== cs.length ? ` (${cs.length} levels)` : ""}${extra ? " · Not for SBC" : ""} · Rated ${Math.min(...rs) === Math.max(...rs) ? Math.min(...rs) : Math.min(...rs) + "–" + Math.max(...rs)}</span></summary><div class="tbody"></div></details>`;
   }).join("") || `<p class="muted small">No cards match.</p>`;
   const fill = d => {
