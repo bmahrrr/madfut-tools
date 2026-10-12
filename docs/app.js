@@ -11,7 +11,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const TYPE = c => ({rare_gold:"gold",gold:"gold",rare_silver:"silver",silver:"silver",rare_bronze:"bronze",bronze:"bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo"}[c] || String(c).replace(/_/g, " "));
 
 let CARDS = [], BYID = new Map(), WEEK = null, INDEX = null;
-const state = { A: [], B: [], simB: [], simA: null };
+const state = { A: [], B: [], T: [], simB: [], simA: null };
 
 // ---------- tabs ----------
 document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012i";
+const APP_V = "20261012k";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -74,25 +74,47 @@ function hookSearch(inputId, listId, onPick) {
 }
 function pill(r) { return `<span class="pill ${r}">${r}</span>`; }
 
+// ---------- custom builds (run on GitHub) ----------
+const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit reference team $1").replace(/^counter (\d+)$/, "Counter team $1")
+  .replace(/^mirror$/, "Copy of this team").replace(/^target (\d+)$/, "Team to beat").replace(/^fresh test (\d+)$/, "Fresh stress test $1");
+function startBuild(req) {
+  const t = new Date(), pad = n => String(n).padStart(2, "0");
+  const stem = `${req.mode}-${req.series}-${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}-${pad(t.getHours())}${pad(t.getMinutes())}`;
+  req.created = t.toISOString();
+  const url = `https://github.com/${REPO}/new/main/config/requests?filename=${encodeURIComponent(stem + ".json")}&value=${encodeURIComponent(JSON.stringify(req, null, 1))}`;
+  const mins = Math.round((req.minutes || 30) * 1.1 + 8);
+  if (!confirm(`GitHub will open with this build request filled in.\n\nTap "Commit changes" there (twice) to start it.\n\nThe team appears on the Teams tab under "Custom builds" in about ${mins} minutes.`)) return;
+  window.open(url, "_blank");
+}
+function resultsTable(res) {
+  return `<table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(res).map(([k, v]) => `<tr><td>${esc(resultLabel(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>`;
+}
+
 // ---------- Teams tab ----------
 async function renderTeams() {
   const box = $("teamsBody");
   if (!INDEX) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Weekly setup</b> and they'll appear here once the build finishes.</div>`; return; }
-  let html = `<p class="muted small">Week ${esc(INDEX.week || "")}. Stats are in-game (boosts + chem).</p>`;
+  let html = `<div class="card"><h2>Best teams — week ${esc(INDEX.week || "")}</h2><p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>`;
   const files = INDEX.files || [];
   const mc = files.filter(f => f.startsWith("myclub_")), sim = files.filter(f => f.startsWith("sim_"));
+  const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
   html += `<h3>Fatal My Club</h3>`;
   for (const f of mc) {
     try {
       const d = await getJSON("results/" + f); const t = d.team;
-      html += `<div class="card"><h2>${esc(d.series.key)} series · ${esc(t.formation || "")} · ${t.chem} chem</h2>${playersTable(t.players, true)}`;
-      if (t.results) {
-        const label = k => k.replace(/^reference (\d+)$/, "Reddit reference team $1").replace(/^counter (\d+)$/, "Counter team $1").replace(/^mirror$/, "Copy of this team");
-        html += `<h3>Results (perfect play)</h3><table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(t.results).map(([k, v]) => `<tr><td>${esc(label(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>
-        <details style="margin-top:6px"><summary class="small">What do these opponents mean?</summary><p class="small" style="margin:6px 0">
-        <b>Reddit reference team</b>: the reference team posted on Reddit for this series (only shown when it was added to the weekly setup).<br>
-        <b>Counter teams</b>: the builder's own stress tests. After building this team, it searched every card under the cap for the team that does best against it, then improved this team and repeated, 4 times. A counter team is built knowing exactly what you're using, so a loss against one is a worst case, not something a normal opponent would do.</p></details>`;
-      }
+      let worst = null;
+      for (const [k, v] of Object.entries(t.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
+        if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
+      const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
+      html += `<div class="card"><h2>${esc(d.series.key)} series · ${esc(t.formation || "")} · ${t.chem} chem</h2>`;
+      if (refs.length) html += `<p class="small" style="margin:2px 0">vs Reddit team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
+      if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">vs ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next weekly build upgrades it</span>` : ""}</p>`;
+      html += playersTable(t.players, true);
+      if (t.results) html += `<details style="margin-top:6px"><summary class="small">All results and what they mean</summary>${resultsTable(t.results)}<p class="small" style="margin:6px 0">
+        <b>Reddit reference team</b>: the team posted on Reddit for this series (when added to the weekly setup).<br>
+        <b>Counter teams</b>: stress tests. The builder searched every card under the cap for the team that does best against this one, improved this team, and repeated.<br>
+        <b>Fresh stress tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
+        A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
       html += `<p class="small muted">Built ${esc(d.built)}</p></div>`;
     } catch (e) {}
   }
@@ -112,31 +134,60 @@ function playersTable(ps, showTB) {
 }
 
 // ---------- My Club compare ----------
-let MYTEAMS = {};
+let MYTEAMS = {}, CUSTOM = [];
 function mcSeries() { const k = $("mcSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [], key: "" }; }
-const SIDE = { A: "Your team", B: "Their team" };
+function beatSeries() { const k = $("beatSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [], key: "" }; }
+const serOf = side => side === "T" ? beatSeries() : mcSeries();
+const SIDE = { A: "Your team", B: "Their team", T: "Team to beat" };
 const short = ids => ids.map(id => BYID.get(id)).filter(Boolean).slice(0, 3).map(c => c.name).join(", ") + "…";
 function savedTeams() { try { return JSON.parse(localStorage.getItem("mcSaved") || "[]"); } catch (e) { return []; } }
 function setSaved(list) { try { localStorage.setItem("mcSaved", JSON.stringify(list)); } catch (e) {} }
 async function setupMC() {
+  for (const f of ((INDEX && INDEX.files) || []).filter(f => f.startsWith("custom_"))) { try { CUSTOM.push(await getJSON("results/" + f)); } catch (e) {} }
   try { const mt = await getJSON("myteams.json"); if (WEEK && mt.week === WEEK.week) MYTEAMS = mt.teams || {}; } catch (e) {}
   const ser = (WEEK && WEEK.myclub) || [];
   $("mcSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("") + `<option value="">No series (no boosts)</option>`;
   $("mcSeries").onchange = () => { drawMC(); $("solveOut").innerHTML = ""; };
   $("solveBtn").onclick = solveMC;
   $("swapBtn").onclick = () => { [state.A, state.B] = [state.B, state.A]; drawMC(); $("solveOut").innerHTML = ""; };
-  drawMC();
+  $("beatSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("");
+  $("beatSeries").onchange = () => { drawMC(); drawBeatResults(); };
+  $("beatGo").onclick = () => {
+    const s = beatSeries();
+    if (state.T.length !== 11) { alert("Add all 11 players of the team you want to beat first."); return; }
+    startBuild({ name: `Beat ${state.T.slice(0, 3).map(c => c.name).join(", ")}`, series: s.key, mode: "beat", minutes: +$("beatMin").value, opponents: [state.T.map(c => c.id)] });
+  };
+  drawMC(); drawBeatResults();
+}
+function drawBeatResults() {
+  const key = beatSeries().key, L = CUSTOM.filter(c => c.request && c.request.mode === "beat" && c.series.key === key)
+    .sort((a, b) => String(b.built).localeCompare(String(a.built)));
+  $("beatResults").innerHTML = `<h3>Finished ${esc(key)} builds</h3>` + (L.length ? L.map(d => {
+    const t = d.team, r = Object.values(t.results || {})[0] || {};
+    return `<div class="card"><h2>vs ${esc((d.opponents[0] || []).slice(0, 4).join(", "))}…</h2>
+      <p>You lead first ${pill(r.you_lead_first || "?")} &nbsp; They lead first ${pill(r.they_lead_first || "?")}</p>
+      <p class="small muted">${esc(t.formation || "")} · ${t.chem} chem · ${esc(d.request.minutes)} min search · built ${esc(d.built)}</p>${playersTable(t.players, true)}
+      <div class="row" style="margin-top:8px"><button class="ghost" data-usebeat="${CUSTOM.indexOf(d)}" style="font-size:12.5px">Open both teams in My Club compare</button></div></div>`;
+  }).join("") : `<p class="small muted">None yet for this series. Builds you start appear here when they finish (refresh the site).</p>`);
+  document.querySelectorAll("[data-usebeat]").forEach(b => b.onclick = () => {
+    const d = CUSTOM[+b.dataset.usebeat];
+    state.A = d.team.players.map(p => BYID.get(p.id)).filter(Boolean);
+    state.B = (d.request.opponents[0] || []).map(id => BYID.get(id)).filter(Boolean);
+    $("mcSeries").value = d.series.key; drawMC(); $("solveOut").innerHTML = "";
+    document.querySelector('#tabs button[data-t="mc"]').click();
+  });
 }
 function loadButtons(side) {
-  const s = mcSeries(), out = [];
+  const s = serOf(side), out = [];
   if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Claude's ${s.key} team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
   if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-built ${s.key} team`, d: "from the weekly builder" });
+  if (side === "A") CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "🎯 Built to beat", d: "vs " + (c.opponents[0] || []).slice(0, 3).join(", ") + "…" }));
   (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit reference team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
   return out;
 }
 function panelHtml(side) {
-  const team = state[side], s = mcSeries(), E = team.length ? effective(team, s) : [];
+  const team = state[side], s = serOf(side), E = team.length ? effective(team, s) : [];
   const btns = loadButtons(side);
   let h = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${SIDE[side]} <span class="muted small">${team.length}/11${team.length ? " · chem " + E.reduce((a, e) => a + e.chem, 0) : ""}</span></h2>
     ${team.length ? `<button class="ghost" data-clear="${side}" style="padding:4px 9px;font-size:12px">Clear</button>` : ""}</div>`;
@@ -145,7 +196,7 @@ function panelHtml(side) {
     const c = team[i];
     if (!c) return `<div class="slot"><span class="num">${i + 1}</span><span class="who muted">—</span></div>`;
     const e = E[i];
-    const alts = versions(c).length > 1;
+    const alts = versions(c, side).length > 1;
     return `<div class="slot"><span class="num">${i + 1}</span><span class="who"><b>${esc(c.name)}</b> ${c.rating}${alts ? ` <button class="x" data-alt="${side}:${i}" title="Other versions of this player" style="font-size:13px;color:var(--accent)">⇄</button>` : ""}<br><span class="muted small">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(cName(c.clubId))}</span></span>
       <span class="st">A ${e.a} · C ${e.c} · D ${e.d}<br>chem ${e.chem} · TB ${e.t}</span><button class="x" data-del="${side}:${i}">✕</button></div>`;
   }).join("")}</div>`;
@@ -154,16 +205,17 @@ function panelHtml(side) {
       <p class="small muted" style="margin:6px 0">Separate with commas or new lines. If a name has several versions, add the rating or club, e.g. <code>Costa 67</code> or <code>Sarr Neom</code>. You can also tap ⇄ on a player to switch version.</p>
       <textarea id="p${side}" placeholder="Radelet, Pupe, Coulibaly, …"></textarea>
       <div class="row" style="margin-top:6px"><button class="ghost" data-paste="${side}">Add these</button><span id="pm${side}" class="small"></span></div></details>`;
-  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button></div>`;
+  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key ? `<button class="ghost" data-beat="1" style="font-size:12.5px">🎯 Beat this team</button>` : ""}</div>`;
   return h;
 }
+const seriesInfo = s => s.key ? `Cap ${s.cap || "?"}${(s.boosts || []).length ? ` · ${s.boosts.length} boost${s.boosts.length > 1 ? "s" : ""} applied` : " · no boosts"}. Stats shown are in-game (boosts + chem). TB = tiebreak total.` : "No boosts applied.";
 function drawMC() {
-  const s = mcSeries();
-  $("mcInfo").innerHTML = s.key ? `Cap ${s.cap || "?"}${(s.boosts || []).length ? ` · ${s.boosts.length} boost${s.boosts.length > 1 ? "s" : ""} applied` : " · no boosts"}. Stats shown are in-game (boosts + chem). TB = tiebreak total.` : "No boosts applied.";
-  for (const side of ["A", "B"]) $("panel" + side).innerHTML = panelHtml(side);
+  $("mcInfo").innerHTML = seriesInfo(mcSeries());
+  if ($("beatInfo")) $("beatInfo").innerHTML = seriesInfo(beatSeries());
+  for (const side of ["A", "B", "T"]) if ($("panel" + side)) $("panel" + side).innerHTML = panelHtml(side);
   document.querySelectorAll("[data-clear]").forEach(b => b.onclick = () => { state[b.dataset.clear] = []; drawMC(); });
   document.querySelectorAll("[data-alt]").forEach(b => b.onclick = () => {
-    const [sd, i] = b.dataset.alt.split(":"), c = state[sd][+i], L = versions(c).filter(x => x.id === c.id || !state[sd].some(y => y.id === x.id));
+    const [sd, i] = b.dataset.alt.split(":"), c = state[sd][+i], L = versions(c, sd).filter(x => x.id === c.id || !state[sd].some(y => y.id === x.id));
     state[sd][+i] = L[(L.findIndex(x => x.id === c.id) + 1) % L.length]; $("solveOut").innerHTML = ""; drawMC();
   });
   document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { const [sd, i] = b.dataset.del.split(":"); state[sd].splice(+i, 1); drawMC(); });
@@ -171,39 +223,44 @@ function drawMC() {
   document.querySelectorAll("[data-unsave]").forEach(b => b.onclick = () => { const l = savedTeams(); if (confirm(`Delete saved team "${l[+b.dataset.unsave].name}"?`)) { l.splice(+b.dataset.unsave, 1); setSaved(l); drawMC(); } });
   document.querySelectorAll("[data-save]").forEach(b => b.onclick = () => {
     const n = prompt("Name for this team (e.g. Jake's 79):"); if (!n) return;
-    const l = savedTeams(); l.push({ name: n.trim(), ids: state[b.dataset.save].map(c => c.id), key: mcSeries().key }); setSaved(l); drawMC();
+    const l = savedTeams(); l.push({ name: n.trim(), ids: state[b.dataset.save].map(c => c.id), key: serOf(b.dataset.save).key }); setSaved(l); drawMC();
   });
   document.querySelectorAll("[data-paste]").forEach(b => b.onclick = () => pasteNames(b.dataset.paste));
-  for (const side of ["A", "B"]) {
+  document.querySelectorAll("[data-beat]").forEach(b => b.onclick = () => {   // send "their team" to the Beat a team tab
+    state.T = state.B.slice(); $("beatSeries").value = mcSeries().key; drawMC(); drawBeatResults();
+    document.querySelector('#tabs button[data-t="beat"]').click();
+  });
+  for (const side of ["A", "B", "T"]) {
     const inp = $("q" + side), ul = $("r" + side); if (!inp) continue;
     inp.oninput = () => {
-      const cap = mcSeries().cap || 0, res = search(inp.value, 10, cap);
+      const cap = serOf(side).cap || 0, res = search(inp.value, 10, cap);
       ul.hidden = !res.length;
       ul.innerHTML = res.map(c => `<li data-id="${esc(c.id)}" class="${cap && c.rating > cap ? "over" : ""}">${cardLine(c)}${cap && c.rating > cap ? ` <span class="small bad">over cap</span>` : ""}</li>`).join("");
     };
     ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; addToTeam(side, BYID.get(li.dataset.id)); const q = $("q" + side); if (q) q.focus(); };
   }
 }
-function versions(c) {             // every card of the same player name, within the cap first, highest rated first
-  const cap = mcSeries().cap || 0;
+function versions(c, side = "A") {   // every card of the same player name, within the cap first, highest rated first
+  const cap = serOf(side).cap || 0;
   return CARDS.filter(x => x._n === c._n).sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
 }
 function addToTeam(side, c) {
   if (!c || state[side].length >= 11) return;
   if (state[side].some(x => x.id === c.id)) { alert(`${c.name} is already in this team.`); return; }
-  state[side].push(c); $("solveOut").innerHTML = ""; drawMC();
+  state[side].push(c); if (side !== "T") $("solveOut").innerHTML = ""; drawMC();
 }
 async function loadTeam(side, k) {
-  const s = mcSeries(); let ids = null;
+  const s = serOf(side); let ids = null;
   if (k === "mine") ids = MYTEAMS[s.key].ids;
   else if (k === "built") { try { ids = (await getJSON(`results/myclub_${s.key}.json`)).team.players.map(p => p.id); } catch (e) { alert("Couldn't load the built team."); return; } }
   else if (k.startsWith("ref")) ids = s.opponents[+k.slice(3)];
   else if (k.startsWith("saved")) ids = savedTeams()[+k.slice(5)].ids;
+  else if (k.startsWith("custom")) ids = CUSTOM[+k.slice(6)].team.players.map(p => p.id);
   state[side] = (ids || []).map(id => BYID.get(id)).filter(Boolean).slice(0, 11);
-  $("solveOut").innerHTML = ""; drawMC();
+  if (side !== "T") $("solveOut").innerHTML = ""; drawMC();
 }
 function pasteNames(side) {
-  const cap = mcSeries().cap || 0, out = [], miss = [];
+  const cap = serOf(side).cap || 0, out = [], miss = [];
   for (let tok of $("p" + side).value.split(/[,;\n]+/)) {
     tok = tok.trim(); if (!tok) continue;
     const m = tok.match(/^(.*?)[\s@]+(\d{2})$/), full = norm(m ? m[1] : tok), r = m ? +m[2] : 0;
@@ -240,7 +297,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012k"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -502,7 +559,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012i");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012k");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

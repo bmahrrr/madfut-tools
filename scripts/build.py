@@ -3,6 +3,7 @@
   python scripts/build.py list                 # print the series keys (used by the workflow)
   python scripts/build.py sim KEY              # one Sim series      -> docs/results/sim_KEY.json
   python scripts/build.py myclub KEY [MIN]     # one My Club series  -> docs/results/myclub_KEY.json
+  python scripts/build.py request FILE         # a custom build request (config/requests/*.json) -> docs/results/custom_*.json
   python scripts/build.py index                # docs/results/index.json (what the website reads)
 """
 import json, os, sys, time
@@ -71,6 +72,22 @@ def main():
         print("Sim", key)
         teams = build_sim(s, owned)
         save(f"sim_{key}.json", {"mode": "sim", "series": s, "teams": teams})
+    elif mode == "request":
+        from fatal.myclub import build_myclub
+        path = sys.argv[2]
+        req = json.load(open(path))
+        stem = os.path.splitext(os.path.basename(path))[0]
+        s = next(x for x in week()["myclub"] if x["key"] == str(req["series"]))
+        kind = req.get("mode", "robust")
+        minutes = float(req.get("minutes", 60 if kind == "robust" else 30))
+        opps = [resolve_team(t, by_id, allc) for t in (req.get("opponents") or [])]
+        if kind == "robust":
+            opps += [resolve_team(t, by_id, allc) for t in s.get("opponents", [])]
+        print("Custom", kind, "series", s["key"], "opponents:", len(opps), "minutes:", minutes)
+        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind,
+                            verify=3 if kind == "robust" else 0)
+        save(f"custom_{stem}.json", {"mode": "custom", "request": req, "series": {k: v for k, v in s.items() if k != "opponents"},
+                                     "opponents": [[c["name"] for c in o] for o in opps], "team": team})
     elif mode == "myclub":
         from fatal.myclub import build_myclub
         key = sys.argv[2]
@@ -78,7 +95,8 @@ def main():
         minutes = float(sys.argv[3]) if len(sys.argv) > 3 else s.get("minutes", 30)
         opps = [resolve_team(t, by_id, allc) for t in s.get("opponents", [])]
         print("My Club", key, "opponents:", len(opps))
-        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes)
+        kind = s.get("mode", "robust")      # best worst case against the Reddit team and stress tests
+        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind, verify=3 if kind == "robust" else 0)
         save(f"myclub_{key}.json", {"mode": "myclub", "series": {k: v for k, v in s.items() if k != "opponents"},
                                     "opponents": [[c["name"] for c in o] for o in opps], "team": team})
 
