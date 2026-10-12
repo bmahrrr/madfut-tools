@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012m";
+const APP_V = "20261012n";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -79,10 +79,17 @@ const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit reference team $
   .replace(/^mirror$/, "Copy of this team").replace(/^target (\d+)$/, "Team to beat").replace(/^fresh test (\d+)$/, "Fresh stress test $1");
 // The site can start builds itself with a GitHub key saved on this phone only (Weekly setup → Connect GitHub).
 const ghToken = () => { try { return localStorage.getItem("ghToken") || ""; } catch (e) { return ""; } };
-async function ghPutFile(path, content, message) {
+async function ghGetFile(path) {          // { text, sha } of a file on main, or null
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=main&t=${Date.now()}`, { headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" }, cache: "no-store" });
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`GitHub said ${r.status}`);
+  const j = await r.json();
+  return { sha: j.sha, text: decodeURIComponent(escape(atob(j.content.replace(/\n/g, "")))) };
+}
+async function ghPutFile(path, content, message, sha) {
   const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
     method: "PUT", headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" },
-    body: JSON.stringify({ message, branch: "main", content: btoa(unescape(encodeURIComponent(content))) }) });
+    body: JSON.stringify(Object.assign({ message, branch: "main", content: btoa(unescape(encodeURIComponent(content))) }, sha ? { sha } : {})) });
   if (!r.ok) throw new Error(`GitHub said ${r.status}${r.status === 401 || r.status === 403 ? " (the GitHub key is wrong or expired)" : ""}`);
   return r.json();
 }
@@ -276,9 +283,10 @@ async function loadTeam(side, k) {
   state[side] = (ids || []).map(id => BYID.get(id)).filter(Boolean).slice(0, 11);
   if (side !== "T") $("solveOut").innerHTML = ""; drawMC();
 }
-function pasteNames(side) {
-  const cap = serOf(side).cap || 0, out = [], miss = [];
-  for (let tok of $("p" + side).value.split(/[,;\n]+/)) {
+// Turn "Radelet, Pupe, Costa 67, Sarr Neom" into cards. Returns { cards, miss }.
+function resolveNames(text, cap, taken = []) {
+  const out = [], miss = [];
+  for (let tok of String(text).split(/[,;\n]+/)) {
     tok = tok.trim(); if (!tok) continue;
     const m = tok.match(/^(.*?)[\s@]+(\d{2})$/), full = norm(m ? m[1] : tok), r = m ? +m[2] : 0;
     // "Sarr Neom" = player name + a hint (club, nation or league)
@@ -291,9 +299,13 @@ function pasteNames(side) {
     if (hint) { const H = L.filter(c => [cName(c.clubId), nName(c.nationId), lName(c.leagueId)].some(t => norm(t).includes(hint))); if (H.length) L = H; }
     if (r) L = L.filter(c => c.rating === r);
     L.sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
-    const pick = L.find(c => !state[side].some(x => x.id === c.id) && !out.some(x => x.id === c.id));
+    const pick = L.find(c => !taken.some(x => x.id === c.id) && !out.some(x => x.id === c.id));
     if (pick) out.push(pick); else miss.push(tok);
   }
+  return { cards: out, miss };
+}
+function pasteNames(side) {
+  const { cards: out, miss } = resolveNames($("p" + side).value, serOf(side).cap || 0, state[side]);
   const room = 11 - state[side].length;
   state[side].push(...out.slice(0, room));
   drawMC();
@@ -314,7 +326,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012m"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012n"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -576,7 +588,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012m");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012n");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -660,16 +672,150 @@ function drawSBCResult(working = false) {
 }
 
 // ---------- Weekly setup ----------
-function renderSetup() {
-  const ed = f => `https://github.com/${REPO}/edit/main/${f}`;
+// ---------- Weekly setup form ----------
+let WS = null, WSUI = { open: "" };
+const BKIND = { nation: "Nation", league: "League", club: "Club", color: "Card type" };
+const BNKIND = { nations: "different nations", clubs: "different clubs", types: "different card types" };
+const groupName = (on, id) => on === "nation" ? nName(id) : on === "league" ? lName(id) : on === "club" ? cName(id) : TYPE(id);
+const statTxt = o => `A +${o.att || 0} · C +${o.ctl || 0} · D +${o.def || 0}`;
+function wsDraftSave() { try { localStorage.setItem("weekDraft", JSON.stringify(WS)); } catch (e) {} }
+function wsDraftClear() { try { localStorage.removeItem("weekDraft"); } catch (e) {} }
+async function wsLoad(fromLive = false) {
+  let d = null;
+  if (!fromLive) { try { d = JSON.parse(localStorage.getItem("weekDraft") || "null"); } catch (e) {} }
+  if (!d && ghToken()) { try { const f = await ghGetFile("config/week.json"); if (f) d = JSON.parse(f.text); } catch (e) {} }
+  if (!d) d = JSON.parse(JSON.stringify(WEEK || { week: "", myclub: [], sim: [] }));
+  d.myclub = d.myclub || []; d.sim = d.sim || [];
+  WS = d;
+}
+function seriesCardHtml(type, i) {
+  const s = WS[type][i], id = `${type}-${i}`, isMC = type === "myclub";
+  let h = `<div class="card" style="margin:10px 0"><div class="row" style="justify-content:space-between">
+    <div class="row"><label class="small muted">Series <input type="text" data-f="key" data-s="${id}" value="${esc(s.key || "")}" style="width:70px"></label>
+    <label class="small muted">Cap <input type="number" inputmode="numeric" data-f="cap" data-s="${id}" value="${s.cap || ""}" style="width:76px"></label></div>
+    <button class="x" data-delseries="${id}" title="Remove series">🗑</button></div>`;
+  h += `<div class="small" style="margin-top:8px"><b>Boosts</b></div>` + ((s.boosts || []).map((b, j) =>
+    `<div class="req"><span>${esc(BKIND[b.on])}: <b>${esc(groupName(b.on, b.id))}</b> <span class="muted">${statTxt(b)}</span></span><button class="x" data-delb="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
+  h += `<div class="small" style="margin-top:8px"><b>Squad bonuses</b></div>` + ((s.bonuses || []).map((b, j) =>
+    `<div class="req"><span>${b.min}+ ${esc(BNKIND[b.kind] || b.kind)} <span class="muted">${statTxt(b)}</span></span><button class="x" data-delbn="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
+  if (isMC) h += `<div class="small" style="margin-top:8px"><b>Reddit reference teams</b></div>` + ((s.opponents || []).map((t, j) =>
+    `<div class="req"><span>${esc(short(t))}</span><button class="x" data-delref="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None (optional)</p>`);
+  const open = WSUI.open.startsWith(id + ":") ? WSUI.open.split(":")[1] : "";
+  h += `<div class="row" style="margin-top:8px"><button class="ghost" data-open="${id}:boost" style="font-size:12.5px">+ Boost</button><button class="ghost" data-open="${id}:bonus" style="font-size:12.5px">+ Squad bonus</button>${isMC ? `<button class="ghost" data-open="${id}:ref" style="font-size:12.5px">+ Reddit team</button>` : ""}</div>`;
+  const nums = `<div class="row" style="margin-top:8px"><label class="small">A <input type="number" inputmode="numeric" id="wA" value="0" style="width:62px"></label><label class="small">C <input type="number" inputmode="numeric" id="wC" value="0" style="width:62px"></label><label class="small">D <input type="number" inputmode="numeric" id="wD" value="0" style="width:62px"></label></div>`;
+  if (open === "boost") h += `<div class="rulebox"><div class="row"><select id="wKind"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select></div>
+    <div id="wPick" style="margin-top:8px"></div>${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add boost</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
+  if (open === "bonus") h += `<div class="rulebox"><div class="row"><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><span class="small">+</span><select id="wBK"><option value="nations">different nations</option><option value="clubs">different clubs</option><option value="types">different card types</option></select></div>
+    ${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add bonus</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
+  if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names (commas or new lines). Add a rating or club if a name has several versions, e.g. <code>Costa 67</code>, <code>Sarr Neom</code>.</p>
+    <textarea id="wRef"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add team</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
+  return h + `</div>`;
+}
+function renderWeekForm() {
+  const box = $("weekForm"); if (!box || !WS) return;
+  box.innerHTML = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">This week's series</h2>
+      <label class="small muted">Week <input type="date" id="wWeek" value="${esc(WS.week || "")}"></label></div>
+    <p class="small muted" style="margin:6px 0 0">Changes are kept on this phone until you tap <b>Save &amp; rebuild</b>.</p>
+    <h3>Fatal My Club</h3>${WS.myclub.map((_, i) => seriesCardHtml("myclub", i)).join("")}<button class="ghost" data-addseries="myclub">+ Add My Club series</button>
+    <h3>Fatal Sim</h3>${WS.sim.map((_, i) => seriesCardHtml("sim", i)).join("")}<button class="ghost" data-addseries="sim">+ Add Sim series</button>
+    <div class="row" style="margin-top:16px"><button class="btn" id="wSave">Save &amp; rebuild</button><button class="ghost" id="wNew">New week</button><button class="ghost" id="wDiscard">Discard changes</button></div>
+    <p class="small" id="wSaveMsg"></p>`;
+  const S = id => { const [t, i] = id.split("-"); return WS[t][+i]; };
+  const redraw = () => { wsDraftSave(); renderWeekForm(); };
+  $("wWeek").onchange = e => { WS.week = e.target.value; wsDraftSave(); };
+  box.querySelectorAll("[data-f]").forEach(inp => inp.onchange = () => {
+    const s = S(inp.dataset.s);
+    if (inp.dataset.f === "key") { s.key = inp.value.trim(); if (/^\d+$/.test(s.key) && !s.cap) s.cap = +s.key; }
+    else s.cap = +inp.value || 0;
+    redraw();
+  });
+  box.querySelectorAll("[data-delseries]").forEach(b => b.onclick = () => { const [t, i] = b.dataset.delseries.split("-"); if (confirm(`Remove the ${WS[t][+i].key || ""} series?`)) { WS[t].splice(+i, 1); WSUI.open = ""; redraw(); } });
+  box.querySelectorAll("[data-delb]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delb.split(":"); S(id).boosts.splice(+j, 1); redraw(); });
+  box.querySelectorAll("[data-delbn]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delbn.split(":"); S(id).bonuses.splice(+j, 1); redraw(); });
+  box.querySelectorAll("[data-delref]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delref.split(":"); S(id).opponents.splice(+j, 1); redraw(); });
+  box.querySelectorAll("[data-open]").forEach(b => b.onclick = () => { WSUI.open = b.dataset.open; renderWeekForm(); });
+  box.querySelectorAll("[data-close]").forEach(b => b.onclick = () => { WSUI.open = ""; renderWeekForm(); });
+  box.querySelectorAll("[data-addseries]").forEach(b => b.onclick = () => {
+    const k = prompt("Series name (usually the rating cap, e.g. 81):"); if (!k) return;
+    const t = b.dataset.addseries, s = { key: k.trim(), cap: /^\d+$/.test(k.trim()) ? +k.trim() : 99, boosts: [] };
+    if (t === "myclub") { s.opponents = []; s.minutes = 30; }
+    WS[t].push(s); redraw();
+  });
+  // the open "add" panel
+  if (WSUI.open) {
+    const [id, what] = WSUI.open.split(":"), s = S(id), num = k => +($(k) ? $(k).value : 0) || 0;
+    if (what === "boost") {
+      let picked = null;
+      const drawPick = () => {
+        const kind = $("wKind").value;
+        if (kind === "color") {
+          const types = [...new Set(CARDS.filter(c => !c._extra).map(c => String(c.color).replace("rare_", "")))].sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
+          $("wPick").innerHTML = `<select id="wType">${types.map(t => `<option value="${esc(t)}">${esc(TYPE(t))}</option>`).join("")}</select>`;
+          picked = () => $("wType").value; return;
+        }
+        $("wPick").innerHTML = `<input type="text" id="wQ" placeholder="Type the ${kind} name or a player from it"><ul class="sr" id="wSr" hidden></ul><p class="small" id="wSel"></p>`;
+        picked = () => null; let sel = null;
+        const names = kind === "nation" ? NATIONS : kind === "league" ? LEAGUES : CLUBS, key = KEYOF[kind];
+        $("wQ").oninput = () => {
+          const q = norm($("wQ").value.trim()); if (q.length < 2) { $("wSr").hidden = true; return; }
+          const opts = new Map();
+          for (const [gid, n] of Object.entries(names)) if (norm(n).includes(q)) opts.set(+gid, null);
+          for (const c of search(q, 8)) if (!opts.has(c[key])) opts.set(c[key], c.name);
+          const list = [...opts.keys()].slice(0, 10);
+          $("wSr").hidden = !list.length;
+          $("wSr").innerHTML = list.map(gid => `<li data-g="${gid}"><b>${esc(groupName(kind, gid))}</b> <span class="muted small">${esc(groupSample(kind, gid).join(", "))}</span></li>`).join("");
+        };
+        $("wSr").onclick = e => { const li = e.target.closest("li"); if (!li) return; sel = +li.dataset.g; $("wSr").hidden = true; $("wQ").value = groupName(kind, sel); $("wSel").innerHTML = `Selected: <b>${esc(groupName(kind, sel))}</b>`; };
+        picked = () => sel;
+      };
+      $("wKind").onchange = drawPick; drawPick();
+      $("wAdd").onclick = () => {
+        const gid = picked(); if (gid == null || gid === "") { $("wMsg").innerHTML = `<span class="bad">Pick the ${$("wKind").value} first.</span>`; return; }
+        (s.boosts = s.boosts || []).push({ on: $("wKind").value, id: gid, att: num("wA"), ctl: num("wC"), def: num("wD") });
+        WSUI.open = ""; redraw();
+      };
+    } else if (what === "bonus") {
+      $("wAdd").onclick = () => {
+        const mn = num("wMin"); if (!mn) { $("wMsg").innerHTML = `<span class="bad">Enter how many are needed.</span>`; return; }
+        (s.bonuses = s.bonuses || []).push({ kind: $("wBK").value, min: mn, att: num("wA"), ctl: num("wC"), def: num("wD") });
+        WSUI.open = ""; redraw();
+      };
+    } else if (what === "ref") {
+      $("wAdd").onclick = () => {
+        const { cards, miss } = resolveNames($("wRef").value, s.cap || 0);
+        if (miss.length || cards.length !== 11) { $("wMsg").innerHTML = `<span class="bad">${miss.length ? "Not found: " + esc(miss.join(", ")) + ". " : ""}Found ${cards.length}/11.</span>`; return; }
+        (s.opponents = s.opponents || []).push(cards.map(c => c.id));
+        WSUI.open = ""; redraw();
+      };
+    }
+  }
+  $("wNew").onclick = () => {
+    if (!confirm("Start a new week? This keeps the series list but clears every boost, bonus and Reddit team. Nothing is saved until you tap Save & rebuild.")) return;
+    const t = new Date(); WS.week = t.toISOString().slice(0, 10);
+    for (const s of [...WS.myclub, ...WS.sim]) { s.boosts = []; delete s.bonuses; if (s.opponents) s.opponents = []; }
+    redraw();
+  };
+  $("wDiscard").onclick = async () => { if (!confirm("Throw away your changes and reload the live setup?")) return; wsDraftClear(); await wsLoad(true); WSUI.open = ""; renderWeekForm(); };
+  $("wSave").onclick = async () => {
+    const msg = $("wSaveMsg");
+    if (!ghToken()) { msg.innerHTML = `<span class="bad">Connect GitHub first (box below).</span>`; $("ghBox").scrollIntoView({ behavior: "smooth" }); return; }
+    const bad = [...WS.myclub, ...WS.sim].find(s => !s.key || !s.cap);
+    if (bad) { msg.innerHTML = `<span class="bad">Every series needs a name and a cap.</span>`; return; }
+    if (!confirm(`Save this week's setup and rebuild every team?\n\nSim teams take about 10 minutes, My Club teams about 2 hours.`)) return;
+    msg.textContent = "Saving…";
+    try {
+      const f = await ghGetFile("config/week.json");
+      await ghPutFile("config/week.json", JSON.stringify(WS, null, 1) + "\n", `Weekly setup ${WS.week || ""}`, f && f.sha);
+      wsDraftClear();
+      msg.innerHTML = `<span class="ok">Saved ✓ Rebuilding now — Sim teams in about 10 minutes, My Club teams in about 2 hours, on the Best teams tab.</span>`;
+    } catch (e) { msg.innerHTML = `<span class="bad">Couldn't save: ${esc(e.message)}</span>`; }
+  };
+}
+async function renderSetup() {
   $("setupBody").innerHTML = `
-  <div class="card"><h2>Each week</h2><ol>
-   <li>Open <a href="${ed("config/week.json")}" target="_blank">config/week.json</a> and update each series' <code>cap</code> and <code>boosts</code> (use the helper below to write boost lines). For My Club you can add <code>opponents</code> (reference teams, as card ids) to beat.</li>
-   <li>Tap <b>Commit changes</b>. Sim teams appear in ~5 minutes, My Club teams in ~40 minutes on the <b>Teams</b> tab.</li>
-   <li>Upgraded an LTM or got an evo? Update <a href="${ed("config/extras.json")}" target="_blank">config/extras.json</a>.</li>
-  </ol><p class="small muted">Card data updates itself every day from madfutdata. <a href="https://github.com/${REPO}/actions" target="_blank">See running jobs</a>.</p></div>
+  <div class="card" id="weekForm"><p class="muted">Loading this week's setup…</p></div>
   <div class="card" id="ghBox"><h2>Connect GitHub <span class="small muted" id="ghState"></span></h2>
-   <p class="small">Lets the site start "Beat a team" builds by itself. It's a key that can only change files in your madfut-tools repo, and it's saved on this phone only (never on the site).</p>
+   <p class="small">Lets the site save the weekly setup and start "Beat a team" builds. It's a key that can only change files in your madfut-tools repo, saved on this phone only (never on the site).</p>
    <ol class="small" style="padding-left:18px">
     <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">github.com/settings/personal-access-tokens/new</a> (if the GitHub app opens, long-press the link and choose <b>Open in Safari</b>).</li>
     <li><b>Token name</b>: madfut site. <b>Expiration</b>: pick the longest option.</li>
@@ -679,20 +825,10 @@ function renderSetup() {
    </ol>
    <div class="row"><input type="password" id="ghIn" placeholder="github_pat_…" style="flex:1"><button class="btn" id="ghSave">Save</button></div>
    <p class="small" id="ghMsg"></p></div>
-  <div class="card"><h2>Boost line helper</h2>
-   <div class="row"><select id="bOn"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select>
-   <input type="text" id="bCard" placeholder="Search a card from that nation / league / club" style="flex:1"></div><ul class="sr" id="bSr" hidden></ul>
-   <div class="row" style="margin-top:8px"><label>Att <input id="bA" type="number" value="0" style="width:64px"></label><label>Ctl <input id="bC" type="number" value="0" style="width:64px"></label><label>Def <input id="bD" type="number" value="0" style="width:64px"></label></div>
-   <p>Line to paste: <code id="bOut">pick a card</code></p></div>
-  <div class="card"><h2>Card id lookup</h2><p class="small muted">Card ids are used for reference teams. Search a card to see its id, nation, league and club ids.</p><input type="text" id="idQ" placeholder="Search…"><ul class="sr" id="idSr" hidden></ul><p id="idOut" class="small"></p></div>`;
-  let picked = null;
-  const upd = () => {
-    if (!picked) return;
-    const on = $("bOn").value, id = on === "nation" ? picked.nationId : on === "league" ? picked.leagueId : on === "club" ? picked.clubId : String(picked.color).replace("rare_", "");
-    $("bOut").textContent = JSON.stringify({ on, id, att: +$("bA").value, ctl: +$("bC").value, def: +$("bD").value });
-  };
-  hookSearch("bCard", "bSr", c => { picked = c; $("bCard").value = c.name; upd(); });
-  ["bOn", "bA", "bC", "bD"].forEach(k => $(k).oninput = upd);
+  <details class="card"><summary>More</summary>
+   <p class="small">Card data updates itself every day from madfutdata. <a href="https://github.com/${REPO}/actions" target="_blank">See running jobs on GitHub</a>.</p>
+   <p class="small">Evos and maxed LTMs: send Claude the stats (they go in <code>config/extras.json</code>).</p>
+   <h3>Card lookup</h3><input type="text" id="idQ" placeholder="Search a card…"><ul class="sr" id="idSr" hidden></ul><p id="idOut" class="small"></p></details>`;
   const ghState = () => { $("ghState").innerHTML = ghToken() ? `<span class="ok">connected ✓</span> <a href="#" id="ghOff">disconnect</a>` : "not connected"; const o = $("ghOff"); if (o) o.onclick = e => { e.preventDefault(); try { localStorage.removeItem("ghToken"); } catch (x) {} ghState(); }; };
   ghState();
   $("ghSave").onclick = async () => {
@@ -704,10 +840,11 @@ function renderSetup() {
       if (!r.ok) throw new Error(j.message || r.status);
       if (!(j.permissions && j.permissions.push)) throw new Error("this key can't change the repo — set Contents to Read and write");
       try { localStorage.setItem("ghToken", t); } catch (x) { throw new Error("couldn't save on this phone"); }
-      $("ghIn").value = ""; $("ghMsg").innerHTML = `<span class="ok">Connected ✓ Builds now start with one tap.</span>`; ghState();
+      $("ghIn").value = ""; $("ghMsg").innerHTML = `<span class="ok">Connected ✓</span>`; ghState();
+      await wsLoad(); renderWeekForm();
     } catch (e) { $("ghMsg").innerHTML = `<span class="bad">Didn't work: ${esc(e.message)}</span>`; }
   };
-  hookSearch("idQ", "idSr", c => { $("idOut").innerHTML = `${cardLine(c)}<br>id <code>${esc(c.id)}</code> · nation ${c.nationId} · league ${c.leagueId} · club ${c.clubId}`; });
+  hookSearch("idQ", "idSr", c => { $("idOut").innerHTML = `${cardLine(c)}<br>id <code>${esc(c.id)}</code> · ${esc(cName(c.clubId))}`; });
+  await wsLoad(); renderWeekForm();
 }
-
 init();
