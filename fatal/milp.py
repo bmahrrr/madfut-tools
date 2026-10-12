@@ -5,7 +5,7 @@ each card a chem value h in [0, 3] that can only be as high as the chem threshol
 """
 import collections
 import pulp
-from .core import AUTO, ICON, card_type, pid
+from .core import AUTO, ICON, card_type, pid, solo, full_chem
 
 THRESH = {"n": (2, 5, 8), "l": (3, 5, 8), "k": (2, 4, 7)}
 
@@ -54,6 +54,8 @@ def build(cards, slots, value, chem_weight=None, force_full=None, minimize=False
     icons = [i for i in used if byi[i]["color"] in ICON]
     for i in used:
         x = byi[i]
+        if solo(x):          # full chem itself, but counts towards nobody
+            continue
         cnt["n"][x["nationId"]].append((i, 1))
         if x["color"] not in ICON:
             cnt["l"][x["leagueId"]].append((i, 2 if x.get("specialChem") == "league2" else 1))
@@ -78,7 +80,7 @@ def build(cards, slots, value, chem_weight=None, force_full=None, minimize=False
             x = byi[i]
             h = pulp.LpVariable(f"h_{i}", 0, 3)
             H[i] = h
-            if x["color"] in AUTO:
+            if full_chem(x):
                 prob += h <= 3 * Y[i]
             else:
                 pts = pulp.lpSum(Z[("n", x["nationId"], t)] for t in THRESH["n"])

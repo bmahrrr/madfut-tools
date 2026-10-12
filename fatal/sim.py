@@ -4,7 +4,7 @@ Priority (as agreed): the highest possible Control in every control position (LM
 CAM, CM, CDM, LB, RB), all on full chem; then the best Attack (ST, CAM, wingers, wide mids);
 then the best Defence (full backs, CDM, CB, GK).
 """
-from .core import (CTRL, ATT, DEF, AUTO, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe)
+from .core import (CTRL, ATT, DEF, AUTO, full_chem, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe)
 from .milp import build
 
 
@@ -53,7 +53,7 @@ def build_sim(series, cards, formations=None, margin=2, topk=50, time_limit=120,
                 key = (lambda x: x["A"]) if s in ATT else (lambda x: x["D"])
                 el = [x for x in pool if s in x["P"]]
                 cand |= {x["_i"] for x in sorted(el, key=lambda x: -key(x))[:topk]}
-                cand |= {x["_i"] for x in el if x["clubId"] in cl or x["color"] in AUTO or
+                cand |= {x["_i"] for x in el if x["clubId"] in cl or full_chem(x) or
                          (x["leagueId"] in lg and key(x) >= maxC - 6) or (x["nationId"] in nat and key(x) >= maxC - 4)}
         cards_f = [pool[i] for i in cand]
 
@@ -69,7 +69,7 @@ def build_sim(series, cards, formations=None, margin=2, topk=50, time_limit=120,
             return (3 if s in ATT else 0) + (1 if s in DEF else 0) + 0.01
 
         def full(c, s):
-            return s in CTRL and c["color"] not in AUTO
+            return s in CTRL and not full_chem(c)
 
         for bv in bonus_variants:
             sq = build(cards_f, slots, value, chem_weight=chem_w, force_full=full, time_limit=time_limit, **bv)
