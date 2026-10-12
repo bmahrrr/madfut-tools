@@ -70,8 +70,19 @@ class Pool:
         return new if fits(new) else None
 
 
-def evaluate(E, opps, weights, bound=None):
+def evaluate(E, opps, weights, bound=None, robust=False):
+    """Score a team against opponents. Normal: weighted sum of results (+1 win, 0 draw, -1 loss
+    for each lead order). Robust: the worst result against any single opponent comes first."""
     tot = lv = 0
+    if robust:
+        worst = 9
+        for O, w in zip(opps, weights):
+            s = 0
+            for f in (0, 1):
+                o, l = play(E, O, f)
+                s += o; tot += w * o; lv += w * l
+            worst = min(worst, s)
+        return (worst, tot), lv
     rem = sum(2 * w for w in weights)
     for O, w in zip(opps, weights):
         for f in (0, 1):
@@ -89,11 +100,12 @@ def secondary(E):
     return s + sum(e[3] for e in E) / 10
 
 
-def optimize(pool, seed, opps, weights, seconds, rng, log=None, label=""):
+def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust=False):
     cur = seed[:]
     E = pool.eff(cur)
-    o, l = evaluate(E, opps, weights)
+    o, l = evaluate(E, opps, weights, robust=robust)
     ckey = (o, l, secondary(E)); best = (ckey, cur[:])
+    head = (lambda k: k[0][0]) if robust else (lambda k: k[0])
     t0 = time.time(); it = 0
     while time.time() - t0 < seconds:
         it += 1
@@ -103,7 +115,7 @@ def optimize(pool, seed, opps, weights, seconds, rng, log=None, label=""):
             n2 = pool.propose(new, rng)
             if n2 is not None: new = n2
         E2 = pool.eff(new)
-        r = evaluate(E2, opps, weights, bound=ckey[0] - 1)
+        r = evaluate(E2, opps, weights, bound=None if robust else ckey[0] - 1, robust=robust)
         if r is None: continue
         k2 = (r[0], r[1], secondary(E2))
         if k2 > ckey or (k2[:2] == ckey[:2] and rng.random() < 0.3) or \
@@ -112,7 +124,7 @@ def optimize(pool, seed, opps, weights, seconds, rng, log=None, label=""):
             if k2 > best[0]:
                 best = (k2, cur[:])
                 if log: log(f"  [{label}] {time.time()-t0:.0f}s score={k2[0]} margin={k2[1]}")
-        if ckey[0] < best[0][0] - 1:
+        if head(ckey) < head(best[0]) - (0 if robust else 1):
             cur = best[1][:]; ckey = best[0]
     return best
 
@@ -139,17 +151,27 @@ def milp_seed(pool, rng=None, time_limit=60):
     return best[1] if best else None
 
 
-def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, rounds=4, seed=1, log=print):
-    """opponents: list of teams (lists of card dicts) to beat, e.g. reference teams.
+def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, rounds=4, seed=1, log=print,
+                 mode="standard", verify=0):
+    """opponents: teams (lists of card dicts) to beat, e.g. Reddit reference teams.
+    mode "standard": good against the opponents and against counter teams the builder finds.
+    mode "robust":   judged by its WORST result against any opponent or counter team, more rounds.
+    mode "beat":     all the time goes into beating the given opponents (no counter teams).
+    verify: number of fresh counter teams searched at the end (not used while building) as a check.
     Returns dict with the team, formation and results against every opponent tested."""
     rng = random.Random(seed)
+    robust = mode == "robust"
+    if mode == "beat":
+        rounds = 0
+    elif robust:
+        rounds = max(rounds, 8)
     me = Pool(series, owned_cards)
     field = Pool(series, all_cards)
     T = minutes * 60
     owned_ids = {c["id"]: c for c in me.cards}
     pool_opps = [field.eff(o) for o in opponents]
-    weights = [3] * len(pool_opps)
-    names = [f"reference {i+1}" for i in range(len(pool_opps))]
+    weights = [1 if mode == "beat" else 3] * len(pool_opps)
+    names = [f"{'target' if mode == 'beat' else 'reference'} {i+1}" for i in range(len(pool_opps))]
     seeds = []
     for o in opponents:
         v = [owned_ids.get(c["id"]) for c in o]
@@ -159,25 +181,40 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     if not pool_opps:          # nothing to beat yet: start from the seed's own mirror
         base = seeds[-1]
         pool_opps = [field.eff(base)]; weights = [1]; names = ["mirror"]
+    share = 0.95 if mode == "beat" else 0.45
+    verify_share = 0.1 if verify else 0
     cands = []
     for k, sd in enumerate(seeds):
-        b = optimize(me, sd, pool_opps, weights, T * 0.45 / max(1, len(seeds)), rng, log, f"seed{k}")
+        b = optimize(me, sd, pool_opps, weights, T * (share - verify_share / 2) / max(1, len(seeds)), rng, log, f"seed{k}", robust)
         cands.append(b)
     best = max(cands, key=lambda b: b[0]); team = best[1]
+    counters = []
     for rd in range(rounds):
         E = me.eff(team)
-        start = rng.choice([o for o in opponents] + [team]) if opponents else team
+        starts = list(opponents) + [team] + counters
+        start = rng.choice(starts)
         start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
         br = optimize(field, start, [E], [1], T * 0.25 / rounds, rng, None, f"counter{rd}")
         log(f"  counter-team {rd+1}: result vs my team {br[0][0]:+d}")
+        counters.append(br[1])
         pool_opps.append(field.eff(br[1])); weights.append(1); names.append(f"counter {rd+1}")
-        b = optimize(me, team, pool_opps, weights, T * 0.30 / rounds, rng, log, f"improve{rd}")
+        b = optimize(me, team, pool_opps, weights, T * (0.30 - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
         team = b[1]
     E = me.eff(team)
     res = {}
     lab = {1: "WIN", 0: "DRAW", -1: "LOSS"}
     for n, O in zip(names, pool_opps):
         res[n] = {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
+    # fresh stress tests: new counter teams searched against the FINAL team, never used to build it
+    vr = random.Random(seed + 1000)
+    for k in range(verify):
+        start = vr.choice(list(opponents) + [team] + counters)
+        start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
+        br = optimize(field, start, [E], [1], T * verify_share / verify, vr, None, f"fresh{k}")
+        O = field.eff(br[1])
+        res[f"fresh test {k+1}"] = {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
+        log(f"  fresh test {k+1}: {res[f'fresh test {k+1}']}")
     out = describe(team, series)
     out["results"] = res
+    out["mode"] = mode
     return out

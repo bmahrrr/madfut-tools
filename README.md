@@ -13,6 +13,7 @@ Everything runs free on GitHub: GitHub Actions does the heavy building and GitHu
 | My Club builder | Searches for the team that does best against the reference teams with **perfect play from both sides** (exact solver, both lead orders). |
 | Sim builder | Exact optimiser (MILP): highest control first, then attack and defence, inside the cap with every boost and bonus. |
 | SBC solver | Website: type in the requirements, get the cheapest squad in seconds, tap **Don't have** on any card to re-solve without it. |
+| Custom builds | Teams tab → **🛡 Build the most robust team** (judged by its worst result against every opponent and stress test, then checked against fresh stress tests), or My Club compare → **🎯 Build a team to beat this** (all the time spent beating one team, e.g. the Reddit team). Runs on GitHub; results appear under "Custom builds". |
 | My Club compare | Website: put in two teams and get the exact result for both lead orders. |
 | Match helper | Website: tells you the best lead or answer every round during a live game. |
 | Sim compare | Website: your built Sim team vs theirs, with possession and match odds. |

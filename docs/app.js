@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012i";
+const APP_V = "20261012j";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -74,6 +74,22 @@ function hookSearch(inputId, listId, onPick) {
 }
 function pill(r) { return `<span class="pill ${r}">${r}</span>`; }
 
+// ---------- custom builds (run on GitHub) ----------
+const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit reference team $1").replace(/^counter (\d+)$/, "Counter team $1")
+  .replace(/^mirror$/, "Copy of this team").replace(/^target (\d+)$/, "Team to beat").replace(/^fresh test (\d+)$/, "Fresh stress test $1");
+function startBuild(req) {
+  const t = new Date(), pad = n => String(n).padStart(2, "0");
+  const stem = `${req.mode}-${req.series}-${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}-${pad(t.getHours())}${pad(t.getMinutes())}`;
+  req.created = t.toISOString();
+  const url = `https://github.com/${REPO}/new/main/config/requests?filename=${encodeURIComponent(stem + ".json")}&value=${encodeURIComponent(JSON.stringify(req, null, 1))}`;
+  const mins = Math.round((req.minutes || 30) * 1.1 + 8);
+  if (!confirm(`GitHub will open with this build request filled in.\n\nTap "Commit changes" there (twice) to start it.\n\nThe team appears on the Teams tab under "Custom builds" in about ${mins} minutes.`)) return;
+  window.open(url, "_blank");
+}
+function resultsTable(res) {
+  return `<table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(res).map(([k, v]) => `<tr><td>${esc(resultLabel(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>`;
+}
+
 // ---------- Teams tab ----------
 async function renderTeams() {
   const box = $("teamsBody");
@@ -87,14 +103,27 @@ async function renderTeams() {
       const d = await getJSON("results/" + f); const t = d.team;
       html += `<div class="card"><h2>${esc(d.series.key)} series · ${esc(t.formation || "")} · ${t.chem} chem</h2>${playersTable(t.players, true)}`;
       if (t.results) {
-        const label = k => k.replace(/^reference (\d+)$/, "Reddit reference team $1").replace(/^counter (\d+)$/, "Counter team $1").replace(/^mirror$/, "Copy of this team");
+        const label = resultLabel;
         html += `<h3>Results (perfect play)</h3><table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(t.results).map(([k, v]) => `<tr><td>${esc(label(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>
         <details style="margin-top:6px"><summary class="small">What do these opponents mean?</summary><p class="small" style="margin:6px 0">
         <b>Reddit reference team</b>: the reference team posted on Reddit for this series (only shown when it was added to the weekly setup).<br>
         <b>Counter teams</b>: the builder's own stress tests. After building this team, it searched every card under the cap for the team that does best against it, then improved this team and repeated, 4 times. A counter team is built knowing exactly what you're using, so a loss against one is a worst case, not something a normal opponent would do.</p></details>`;
       }
-      html += `<p class="small muted">Built ${esc(d.built)}</p></div>`;
+      html += `<p class="small muted">Built ${esc(d.built)}</p><button class="ghost" data-robust="${esc(d.series.key)}" style="font-size:12.5px">🛡 Build the most robust ${esc(d.series.key)} team (about 70 min)</button></div>`;
     } catch (e) {}
+  }
+  const custom = files.filter(f => f.startsWith("custom_"));
+  if (custom.length) {
+    html += `<h3>Custom builds</h3>`;
+    const docs = [];
+    for (const f of custom) { try { docs.push(await getJSON("results/" + f)); } catch (e) {} }
+    docs.sort((a, b) => String(b.built).localeCompare(String(a.built)));
+    for (const d of docs) {
+      const t = d.team, r = d.request || {};
+      const title = r.mode === "beat" ? `🎯 ${esc(d.series.key)} team to beat ${esc((d.opponents[0] || []).slice(0, 3).join(", "))}…` : `🛡 Most robust ${esc(d.series.key)} team`;
+      html += `<div class="card"><h2>${title}</h2><p class="small muted">${esc(t.formation || "")} · ${t.chem} chem · built ${esc(d.built)}</p>${playersTable(t.players, true)}<h3>Results (perfect play)</h3>${resultsTable(t.results)}
+        <p class="small muted">${r.mode === "beat" ? "Built only to beat that team." : "Judged by its worst result against every opponent. Fresh stress tests are new teams built to beat it after it was finished — the honest check of how robust it is."}</p></div>`;
+    }
   }
   html += `<h3>Fatal Sim</h3>`;
   for (const f of sim) {
@@ -105,6 +134,7 @@ async function renderTeams() {
     } catch (e) {}
   }
   box.innerHTML = html;
+  box.querySelectorAll("[data-robust]").forEach(b => b.onclick = () => startBuild({ name: `Robust ${b.dataset.robust}`, series: b.dataset.robust, mode: "robust", minutes: 60 }));
 }
 function playersTable(ps, showTB) {
   return `<div class="scroll"><table><tr><th>Pos</th><th>Player</th><th>Card</th><th>In game</th><th>Chem</th>${showTB ? "<th>TB</th>" : ""}</tr>${ps.map(p =>
@@ -112,13 +142,14 @@ function playersTable(ps, showTB) {
 }
 
 // ---------- My Club compare ----------
-let MYTEAMS = {};
+let MYTEAMS = {}, CUSTOM = [];
 function mcSeries() { const k = $("mcSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [], key: "" }; }
 const SIDE = { A: "Your team", B: "Their team" };
 const short = ids => ids.map(id => BYID.get(id)).filter(Boolean).slice(0, 3).map(c => c.name).join(", ") + "…";
 function savedTeams() { try { return JSON.parse(localStorage.getItem("mcSaved") || "[]"); } catch (e) { return []; } }
 function setSaved(list) { try { localStorage.setItem("mcSaved", JSON.stringify(list)); } catch (e) {} }
 async function setupMC() {
+  for (const f of ((INDEX && INDEX.files) || []).filter(f => f.startsWith("custom_"))) { try { CUSTOM.push(await getJSON("results/" + f)); } catch (e) {} }
   try { const mt = await getJSON("myteams.json"); if (WEEK && mt.week === WEEK.week) MYTEAMS = mt.teams || {}; } catch (e) {}
   const ser = (WEEK && WEEK.myclub) || [];
   $("mcSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("") + `<option value="">No series (no boosts)</option>`;
@@ -131,6 +162,7 @@ function loadButtons(side) {
   const s = mcSeries(), out = [];
   if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Claude's ${s.key} team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
   if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-built ${s.key} team`, d: "from the weekly builder" });
+  if (side === "A") CUSTOM.filter(c => c.series.key === s.key).forEach((c, i) => out.push({ k: "custom" + CUSTOM.indexOf(c), t: c.request.mode === "beat" ? "🎯 Beat-team build" : "🛡 Robust build", d: c.request.mode === "beat" ? "vs " + (c.opponents[0] || []).slice(0, 3).join(", ") + "…" : "built " + c.built }));
   (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit reference team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
   return out;
@@ -154,7 +186,7 @@ function panelHtml(side) {
       <p class="small muted" style="margin:6px 0">Separate with commas or new lines. If a name has several versions, add the rating or club, e.g. <code>Costa 67</code> or <code>Sarr Neom</code>. You can also tap ⇄ on a player to switch version.</p>
       <textarea id="p${side}" placeholder="Radelet, Pupe, Coulibaly, …"></textarea>
       <div class="row" style="margin-top:6px"><button class="ghost" data-paste="${side}">Add these</button><span id="pm${side}" class="small"></span></div></details>`;
-  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button></div>`;
+  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key ? `<button class="ghost" data-beat="1" style="font-size:12.5px">🎯 Build a team to beat this</button>` : ""}</div>`;
   return h;
 }
 function drawMC() {
@@ -174,6 +206,10 @@ function drawMC() {
     const l = savedTeams(); l.push({ name: n.trim(), ids: state[b.dataset.save].map(c => c.id), key: mcSeries().key }); setSaved(l); drawMC();
   });
   document.querySelectorAll("[data-paste]").forEach(b => b.onclick = () => pasteNames(b.dataset.paste));
+  document.querySelectorAll("[data-beat]").forEach(b => b.onclick = () => {
+    const m = prompt("How many minutes should it search? 30 is good, 60 is more thorough.", "30"); if (!m) return;
+    startBuild({ name: `Beat ${state.B.slice(0, 3).map(c => c.name).join(", ")}`, series: mcSeries().key, mode: "beat", minutes: Math.max(5, Math.min(180, +m || 30)), opponents: [state.B.map(c => c.id)] });
+  });
   for (const side of ["A", "B"]) {
     const inp = $("q" + side), ul = $("r" + side); if (!inp) continue;
     inp.oninput = () => {
@@ -199,6 +235,7 @@ async function loadTeam(side, k) {
   else if (k === "built") { try { ids = (await getJSON(`results/myclub_${s.key}.json`)).team.players.map(p => p.id); } catch (e) { alert("Couldn't load the built team."); return; } }
   else if (k.startsWith("ref")) ids = s.opponents[+k.slice(3)];
   else if (k.startsWith("saved")) ids = savedTeams()[+k.slice(5)].ids;
+  else if (k.startsWith("custom")) ids = CUSTOM[+k.slice(6)].team.players.map(p => p.id);
   state[side] = (ids || []).map(id => BYID.get(id)).filter(Boolean).slice(0, 11);
   $("solveOut").innerHTML = ""; drawMC();
 }
@@ -240,7 +277,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -502,7 +539,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012i");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012j");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
