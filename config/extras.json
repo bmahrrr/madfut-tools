@@ -1,5 +1,5 @@
 {
- "_help": "Extra cards not in the madfutdata file: Evo, Elite Evo and LTM cards (one entry per rating/level). owned=true means YOU have it; owned=false means only opponents may use it. None of these can be used in SBCs.",
+ "_help": "Extra cards not in the madfutdata file: Evo, Elite Evo and LTM cards (one entry per rating/level). owned=true means YOU have it; owned=false means only opponents may use it. None of these can be used in SBCs. specialChem \"solo\": always full chem but adds nothing to other cards' chem.",
  "cards": [
   {
    "id": "evo_Rogers_86",
@@ -127,7 +127,8 @@
    "leagueId": 60,
    "clubId": 112764,
    "baseId": -500008,
-   "owned": true
+   "owned": true,
+   "specialChem": "solo"
   },
   {
    "id": "sp_ngumoha84",
@@ -239,15 +240,15 @@
    "leagueId": 13,
    "clubId": 5,
    "baseId": -500005,
-   "owned": false
+   "owned": true
   },
   {
    "id": "new_Can_92",
    "name": "Can",
    "rating": 92,
    "color": "elite_evo",
-   "position": "CB",
-   "altPositions": "CDM",
+   "position": "CDM",
+   "altPositions": "CB",
    "attack": 82,
    "control": 90,
    "defense": 92,
@@ -255,7 +256,23 @@
    "leagueId": 19,
    "clubId": 22,
    "baseId": -500006,
-   "owned": false
+   "owned": true
+  },
+  {
+   "id": "elite_Diomande_91",
+   "name": "Diomande",
+   "rating": 91,
+   "color": "elite_evo",
+   "position": "RW",
+   "altPositions": "RM",
+   "attack": 92,
+   "control": 91,
+   "defense": 56,
+   "nationId": 108,
+   "leagueId": 53,
+   "clubId": 243,
+   "baseId": -500009,
+   "owned": true
   },
   {
    "id": "ltm_espart87",

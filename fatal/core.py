@@ -61,19 +61,28 @@ def card_type(c):
     return str(c["color"]).replace("rare_", "")
 
 
+def solo(x):
+    """Always on full chem but adds nothing to anyone else's chem (e.g. Evo Jones)."""
+    return x.get("specialChem") == "solo"
+
+
+def full_chem(x):
+    return x["color"] in AUTO or solo(x)
+
+
 def chem(team):
     """Chemistry (0-3) for each card of an 11-card team."""
-    nat = collections.Counter(x["nationId"] for x in team)
-    club = collections.Counter(x["clubId"] for x in team if x["color"] not in AUTO)
+    nat = collections.Counter(x["nationId"] for x in team if not solo(x))
+    club = collections.Counter(x["clubId"] for x in team if not full_chem(x))
     lg = collections.Counter()
     icons = sum(1 for x in team if x["color"] in ICON)
     for x in team:
-        if x["color"] in ICON:
+        if x["color"] in ICON or solo(x):
             continue
         lg[x["leagueId"]] += 2 if x.get("specialChem") == "league2" else 1
     out = []
     for x in team:
-        if x["color"] in AUTO:
+        if full_chem(x):
             out.append(3); continue
         n, l, k = nat[x["nationId"]], lg[x["leagueId"]] + icons, club[x["clubId"]]
         pts = (3 if n >= 8 else 2 if n >= 5 else 1 if n >= 2 else 0) + \

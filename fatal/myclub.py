@@ -6,7 +6,7 @@ builder itself searches for (teams built specifically to beat the current best t
 The search is a local search over owned cards that respects positions and chemistry.
 """
 import collections, random, time
-from .core import AUTO, FORMATIONS, boosted, effective, formation_fit, pid, describe, CTRL
+from .core import AUTO, full_chem, FORMATIONS, boosted, effective, formation_fit, pid, describe, CTRL
 from .game import play
 from .milp import build
 
@@ -45,7 +45,7 @@ class Pool:
         for k in self.by:
             for g in self.by[k]:
                 self.by[k][g].sort(key=lambda x: -x["T3"]); self.by[k][g] = self.by[k][g][:60]
-        self.auto = sorted([x for x in cs if x["color"] in AUTO], key=lambda x: -x["T3"])[:80]
+        self.auto = sorted([x for x in cs if full_chem(x)], key=lambda x: -x["T3"])[:80]
 
     def eff(self, team, full=False):
         E, _ = effective(team, self.series, full)
