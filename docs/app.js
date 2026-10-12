@@ -879,7 +879,7 @@ function drawCards() {
 // ---------- Weekly setup form ----------
 let WS = null, WSUI = { open: "" };
 const BKIND = { nation: "Nation", league: "League", club: "Club", color: "Card type" };
-const BNKIND = { nations: "different nations", clubs: "different clubs", types: "different card types" };
+const BNKIND = { nations: "different nations", leagues: "different leagues", clubs: "different clubs", types: "different card types" };
 const groupName = (on, id) => on === "nation" ? nName(id) : on === "league" ? lName(id) : on === "club" ? cName(id) : TYPE(id);
 const statTxt = o => `A +${o.att || 0} · C +${o.ctl || 0} · D +${o.def || 0}`;
 function wsDraftSave() { try { localStorage.setItem("weekDraft", JSON.stringify(WS)); } catch (e) {} }
@@ -908,7 +908,7 @@ function seriesCardHtml(type, i) {
   const nums = `<div class="row" style="margin-top:8px"><label class="small">A <input type="number" inputmode="numeric" id="wA" value="0" style="width:62px"></label><label class="small">C <input type="number" inputmode="numeric" id="wC" value="0" style="width:62px"></label><label class="small">D <input type="number" inputmode="numeric" id="wD" value="0" style="width:62px"></label></div>`;
   if (open === "boost") h += `<div class="rulebox"><div class="row"><select id="wKind"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select></div>
     <div id="wPick" style="margin-top:8px"></div>${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add boost</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
-  if (open === "bonus") h += `<div class="rulebox"><div class="row"><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><span class="small">+</span><select id="wBK"><option value="nations">Different nations</option><option value="clubs">Different clubs</option><option value="types">Different card types</option></select></div>
+  if (open === "bonus") h += `<div class="rulebox"><div class="row"><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><span class="small">+</span><select id="wBK"><option value="nations">Different nations</option><option value="leagues">Different leagues</option><option value="clubs">Different clubs</option><option value="types">Different card types</option></select></div>
     ${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add bonus</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
   if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names (commas or new lines). Add a rating or club if a name has several versions, e.g. <code>Costa 67</code>, <code>Sarr Neom</code>.</p>
     <textarea id="wRef"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add team</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
