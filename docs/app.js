@@ -50,8 +50,14 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013c";
+const APP_V = "20261013d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
+  // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
+  const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
+  if (htmlV !== APP_V) {
+    let tried = null; try { tried = sessionStorage.getItem("triedHtml"); } catch (e) {}
+    if (tried !== APP_V) { try { sessionStorage.setItem("triedHtml", APP_V); } catch (e) {} location.replace(location.pathname + "?v=" + APP_V + "&t=" + Date.now()); return true; }
+  }
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
     if (v && v !== APP_V) {
@@ -316,9 +322,9 @@ async function setupMC() {
   let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
   weeks = weeks.filter(w => w.files.some(f => f.startsWith("myclub_")));
   const wlabel = w => { const sn = ((w.note || "").match(/^Season \d+/) || [""])[0]; return (sn ? sn + " · " : "") + "Week of " + fmtDay(w.week); };
-  $("mcWeek").innerHTML = `<option value="">This week (${esc(fmtDay((WEEK && WEEK.week) || ""))})</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(wlabel(w))}</option>`).join("");
+  if ($("mcWeek")) $("mcWeek").innerHTML = `<option value="">This week (${esc(fmtDay((WEEK && WEEK.week) || ""))})</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(wlabel(w))}</option>`).join("");
   const fillSeries = () => { $("mcSeries").innerHTML = MCW.myclub.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") + `<option value="">No Series (No Boosts)</option>`; };
-  $("mcWeek").onchange = async () => {
+  if ($("mcWeek")) $("mcWeek").onchange = async () => {
     const wk = $("mcWeek").value;
     if (!wk) MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
     else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {}
@@ -482,7 +488,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261013d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -569,8 +575,8 @@ async function setupSim() {
   let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
   weeks = weeks.filter(w => w.files.some(f => f.startsWith("sim_")));
   const label = w => { const sn = ((w.note || "").match(/^Season \d+/) || [""])[0]; return (sn ? sn + " · " : "") + "Week of " + fmtDay(w.week); };
-  $("simWeek").innerHTML = `<option value="">This week (${esc(fmtDay((WEEK && WEEK.week) || ""))})</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(label(w))}</option>`).join("");
-  $("simWeek").onchange = async () => {
+  if ($("simWeek")) $("simWeek").innerHTML = `<option value="">This week (${esc(fmtDay((WEEK && WEEK.week) || ""))})</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(label(w))}</option>`).join("");
+  if ($("simWeek")) $("simWeek").onchange = async () => {
     const wk = $("simWeek").value;
     if (!wk) SIMW = { base: "results/", sim: (WEEK && WEEK.sim) || [] };
     else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {} SIMW = { base: `vault/${wk}/`, sim: w.sim || [] }; }
@@ -763,7 +769,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013c");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
