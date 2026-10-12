@@ -52,6 +52,40 @@ def players_from(obj, prefix="27"):
     return []
 
 
+def build_names(cards, loc, year):
+    """Club / nation / league names from EA's FC web-app text file, for the ids that appear in the cards."""
+    import re
+    def grab(pats):
+        out = {}
+        for pat in pats:
+            rx = re.compile(pat)
+            for k, v in loc.items():
+                m = rx.fullmatch(k)
+                if m and int(m.group(1)) not in out:
+                    out[int(m.group(1))] = v
+        return out
+    clubs = grab([rf"global\.teamabbr15\.{year}\.team(\d+)", rf"global\.teamabbr10\.{year}\.team(\d+)", r"clubAbbrvByID_(\d+)"])
+    nations = grab([r"search\.nationName\.nation(\d+)", r"nationAbbrvByID_(\d+)"])
+    leagues = grab([rf"global\.leagueFull\.{year}\.league(\d+)", rf"global\.leagueabbr15\.{year}\.league(\d+)"])
+    ci, ni, li = FIELDS.index("clubId"), FIELDS.index("nationId"), FIELDS.index("leagueId")
+    used = lambda i: {c[i] for c in cards if isinstance(c[i], int)}
+    pick = lambda M, ids: {str(k): M[k] for k in sorted(ids) if k in M}
+    return {"clubs": pick(clubs, used(ci)), "nations": pick(nations, used(ni)), "leagues": pick(leagues, used(li))}
+
+
+def update_names(cards, src, loc_file=None):
+    path = os.path.join(ROOT, "docs", "names.json")
+    try:
+        loc = json.load(open(loc_file)) if loc_file else fetch(src["names_url"])
+    except Exception as e:
+        print("names: could not download, keeping the old file", e); return
+    names = build_names(cards, loc, src.get("names_year", "20" + src.get("game_prefix", "27")))
+    if not names["clubs"]:
+        print("names: nothing found, keeping the old file"); return
+    json.dump(names, open(path, "w"), ensure_ascii=False, separators=(",", ":"))
+    print("names:", {k: len(v) for k, v in names.items()})
+
+
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (madfut-tools updater)"})
     with urllib.request.urlopen(req, timeout=60) as r:
@@ -62,6 +96,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--realm")
     ap.add_argument("--updates")
+    ap.add_argument("--loc", help="local copy of EA's web-app text file (for club / nation / league names)")
     a = ap.parse_args()
     src = json.load(open(os.path.join(ROOT, "config", "sources.json")))
     prefix = src.get("game_prefix", "27")
@@ -96,6 +131,8 @@ def main():
     cards = [[p.get(k, "" if k in ("altPositions", "specialChem") else None) for k in FIELDS]
              for p in by_id.values() if p.get("rating") is not None and p.get("attack") is not None]
     cards.sort(key=lambda c: (-c[2], c[1]))
+    if src.get("names_url") or a.loc:
+        update_names(cards, src, a.loc)
     out = {"fields": FIELDS, "updated": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()), "count": len(cards), "cards": cards}
     path = os.path.join(ROOT, "data", "cards.json")
     old = None
