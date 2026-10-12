@@ -80,7 +80,8 @@ textarea{width:100%;min-height:90px;background:var(--chip);color:var(--text);bor
 <header>
   <div class="top"><h1>⚽ MadFut Tools</h1><span class="sub"><span id="dataInfo">loading cards…</span><br><span id="appV" style="opacity:.7"></span></span></div>
   <nav id="tabs">
-    <button data-t="teams" class="on">Teams</button>
+    <button data-t="teams" class="on">Best teams</button>
+    <button data-t="beat">Beat a team</button>
     <button data-t="mc">My Club compare</button>
     <button data-t="match">Match helper</button>
     <button data-t="sim">Sim compare</button>
@@ -90,6 +91,22 @@ textarea{width:100%;min-height:90px;background:var(--chip);color:var(--text);bor
 </header>
 <main>
   <section id="teams" class="on"><div id="teamsBody" class="muted">Loading results…</div></section>
+
+  <section id="beat">
+    <div class="card">
+      <h2>Beat a specific team</h2>
+      <p class="small muted" style="margin:4px 0 10px">Load the team you want to beat (e.g. the Reddit team or a team you saved), then start a build. It runs on GitHub, so it keeps going if you close the site, and the finished team shows up below.</p>
+      <div class="row"><label>Series <select id="beatSeries"></select></label></div>
+      <p id="beatInfo" class="small muted" style="margin:8px 0 0"></p>
+    </div>
+    <div class="card" id="panelT"></div>
+    <div class="card">
+      <div class="row"><label>Search time <select id="beatMin"><option value="30">30 min</option><option value="60" selected>60 min</option><option value="120">2 hours</option></select></label>
+      <button class="btn" id="beatGo">🎯 Build a team to beat this</button></div>
+      <p class="small muted" style="margin:8px 0 0">Longer searches find stronger counters. Results usually appear within the search time plus about 10 minutes.</p>
+    </div>
+    <div id="beatResults"></div>
+  </section>
 
   <section id="mc">
     <div class="card">
@@ -152,8 +169,8 @@ textarea{width:100%;min-height:90px;background:var(--chip);color:var(--text);bor
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261012j"></script>
-<script src="sbc-solver.js?v=20261012j"></script>
-<script src="app.js?v=20261012j"></script>
+<script src="engine.js?v=20261012k"></script>
+<script src="sbc-solver.js?v=20261012k"></script>
+<script src="app.js?v=20261012k"></script>
 </body>
 </html>

@@ -95,7 +95,8 @@ def main():
         minutes = float(sys.argv[3]) if len(sys.argv) > 3 else s.get("minutes", 30)
         opps = [resolve_team(t, by_id, allc) for t in s.get("opponents", [])]
         print("My Club", key, "opponents:", len(opps))
-        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes)
+        kind = s.get("mode", "robust")      # best worst case against the Reddit team and stress tests
+        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind, verify=3 if kind == "robust" else 0)
         save(f"myclub_{key}.json", {"mode": "myclub", "series": {k: v for k, v in s.items() if k != "opponents"},
                                     "opponents": [[c["name"] for c in o] for o in opps], "team": team})
 
