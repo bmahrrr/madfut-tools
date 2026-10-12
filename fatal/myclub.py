@@ -130,7 +130,7 @@ def milp_seed(pool, rng=None, time_limit=60):
     for i, c in enumerate(chosen.values()):
         c = dict(c); c["_i"] = i; cards.append(c)
     best = None
-    for form in ("4-4-2", "4-3-3", "3-4-1-2", "4-2-3-1", "4-1-2-1-2", "3-5-2"):
+    for form in ("4-4-2", "4-3-3", "3-4-1-2", "4-2-3-1", "4-1-2-1-2 (2)", "3-5-2"):
         sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"], chem_weight=lambda c, s: 6,
                    time_limit=time_limit)
         if sq:
