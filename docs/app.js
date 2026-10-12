@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012p";
+const APP_V = "20261012q";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -326,7 +326,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012p"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012q"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -588,7 +588,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012p");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012q");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -686,19 +686,47 @@ function setupCards() {
   $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
   const poss = [...new Set(real.map(c => c.position))].sort();
   $("cPos").innerHTML = `<option value="">All</option>` + poss.map(p => `<option>${esc(p)}</option>`).join("");
-  document.querySelectorAll("[data-ct]").forEach(b => b.onclick = () => { $("cType").value = b.dataset.ct; CF.shown = 100; drawCards(); });
+  document.querySelectorAll("[data-ct]").forEach(b => b.onclick = () => {
+    $("cType").value = b.dataset.ct === "special" ? "special" : ""; drawCards();
+    const d = b.dataset.ct === "special" ? null : document.querySelector(`.tgrp[data-t="${b.dataset.ct}"]`);
+    if (d) { d.open = true; d.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  });
   ["cQ", "cType", "cPos", "cMin", "cMax"].forEach(id => $(id).addEventListener("input", () => { CF.shown = 100; drawCards(); }));
   $("cMore").onclick = () => { CF.shown += 200; drawCards(); };
   drawCards();
 }
+const cardRow = c => `<div class="slot"><span class="who"><b>${esc(c.name)}</b> ${c.rating} <span class="muted small">${esc(c.position)}${c.altPositions ? "," + esc(c.altPositions) : ""}</span><br><span class="muted small">${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></span><span class="st">A ${c.attack} · C ${c.control} · D ${c.defense}</span></div>`;
+function byRatingHtml(L, nested) {        // cards grouped under rating headings (big groups fold away)
+  const G = new Map(); L.forEach(c => { if (!G.has(c.rating)) G.set(c.rating, []); G.get(c.rating).push(c); });
+  return [...G.entries()].sort((a, b) => b[0] - a[0]).map(([r, cs]) => nested
+    ? `<details class="rgrp" data-r="${r}"><summary class="small"><b>${r}</b> · ${cs.length} card${cs.length > 1 ? "s" : ""}</summary><div class="rbody"></div></details>`
+    : `<div class="small" style="margin:10px 0 2px"><b>${r}</b> <span class="muted">· ${cs.length}</span></div>${cs.map(cardRow).join("")}`).join("");
+}
 function drawCards() {
   const q = norm($("cQ").value.trim()), t = $("cType").value, pos = $("cPos").value, lo = +$("cMin").value || 0, hi = +$("cMax").value || 99;
+  const filtering = q || pos || $("cMin").value || $("cMax").value;
   const L = CARDS.filter(c => !c._extra && (!q || c._n.includes(q)) && (!t || (t === "special" ? !["gold", "silver", "bronze"].includes(typeKey(c)) : typeKey(c) === t))
     && (!pos || c.position === pos || String(c.altPositions || "").split(",").includes(pos)) && c.rating >= lo && c.rating <= hi)
     .sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
-  $("cCount").textContent = `${L.length.toLocaleString()} card${L.length === 1 ? "" : "s"}${L.length > CF.shown ? ` · showing the top ${CF.shown}` : ""}`;
-  $("cList").innerHTML = L.slice(0, CF.shown).map(c => `<div class="slot"><span class="who"><b>${esc(c.name)}</b> ${c.rating} <span class="muted small">${esc(c.position)}${c.altPositions ? "," + esc(c.altPositions) : ""} · ${esc(typeLabel(typeKey(c)))}</span><br><span class="muted small">${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></span><span class="st">A ${c.attack} · C ${c.control} · D ${c.defense}</span></div>`).join("") || `<p class="muted small">No cards match.</p>`;
-  $("cMore").hidden = L.length <= CF.shown;
+  const groups = new Map(); L.forEach(c => { const k = typeKey(c); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(c); });
+  const order = ["gold", "silver", "bronze"].filter(k => groups.has(k)).concat([...groups.keys()].filter(k => !["gold", "silver", "bronze"].includes(k)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b))));
+  $("cCount").textContent = `${L.length.toLocaleString()} card${L.length === 1 ? "" : "s"} in ${groups.size} type${groups.size === 1 ? "" : "s"}${filtering ? " (filtered)" : ""}`;
+  const openAll = filtering && L.length <= 300;
+  $("cList").innerHTML = order.map(k => {
+    const cs = groups.get(k), rs = cs.map(c => c.rating);
+    return `<details class="tgrp" data-t="${esc(k)}"${openAll || groups.size === 1 ? " open" : ""}><summary><b>${esc(typeLabel(k))}</b> <span class="muted small">· ${cs.length} card${cs.length > 1 ? "s" : ""} · rated ${Math.min(...rs) === Math.max(...rs) ? Math.min(...rs) : Math.min(...rs) + "–" + Math.max(...rs)}</span></summary><div class="tbody"></div></details>`;
+  }).join("") || `<p class="muted small">No cards match.</p>`;
+  const fill = d => {
+    const body = d.querySelector(".tbody"); if (body.dataset.done) return; body.dataset.done = 1;
+    const cs = groups.get(d.dataset.t), nested = cs.length > 150;
+    body.innerHTML = byRatingHtml(cs, nested);
+    if (nested) body.querySelectorAll(".rgrp").forEach(rd => rd.addEventListener("toggle", () => {
+      const rb = rd.querySelector(".rbody"); if (rb.dataset.done) return; rb.dataset.done = 1;
+      rb.innerHTML = cs.filter(c => c.rating === +rd.dataset.r).map(cardRow).join("");
+    }));
+  };
+  $("cList").querySelectorAll(".tgrp").forEach(d => { d.addEventListener("toggle", () => d.open && fill(d)); if (d.open) fill(d); });
+  $("cMore").hidden = true;
 }
 
 // ---------- Weekly setup ----------
