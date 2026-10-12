@@ -40,9 +40,16 @@ def build_sim(series, cards, formations=None, margin=2, topk=50, time_limit=120,
     results = []
     bonus_variants = [{}]
     for b in series.get("bonuses", []):
-        req = {"nations": "min_nations", "types": "min_types", "clubs": "distinct_clubs"}[b["kind"]]
-        val = True if b["kind"] == "clubs" else b["min"]
-        bonus_variants = bonus_variants + [dict(v, **{req: val}) for v in bonus_variants]
+        k = b["kind"]
+        def with_bonus(v, k=k, b=b):         # the same build, but forced to earn this bonus
+            v = dict(v)
+            if k == "nations": v["min_nations"] = b["min"]
+            elif k == "types": v["min_types"] = b["min"]
+            elif k in ("clubs", "leagues"):
+                d = dict(v.get("distinct") or {}); d[k[:-1]] = (b["min"], None); v["distinct"] = d
+            return v
+        if k in ("nations", "types", "clubs", "leagues"):
+            bonus_variants = bonus_variants + [with_bonus(v) for v in bonus_variants]
     for form in formations:
         slots = FORMATIONS[form]
         cand = set()

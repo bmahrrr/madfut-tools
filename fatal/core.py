@@ -103,11 +103,12 @@ def boosted(c, boosts):
 
 
 def squad_bonus(team, bonuses):
-    """Squad-wide bonuses, e.g. {"kind": "nations", "min": 8, "att": 2} or kind clubs/types."""
+    """Squad-wide bonuses, e.g. {"kind": "nations", "min": 8, "att": 2} or kind clubs/leagues/types."""
     out = [0, 0, 0]
     for b in bonuses or []:
         if b["kind"] == "nations": n = len({x["nationId"] for x in team})
         elif b["kind"] == "clubs": n = len({x["clubId"] for x in team})
+        elif b["kind"] == "leagues": n = len({x["leagueId"] for x in team})
         elif b["kind"] == "types": n = len({card_type(x) for x in team})
         else: continue
         if n >= b["min"]:
