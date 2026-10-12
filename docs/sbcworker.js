@@ -1,5 +1,5 @@
 // Runs the SBC solver off the main thread. Loads the cards and the HiGHS solver once, then answers solve requests.
-importScripts("vendor/highs.js", "sbc-solver.js?v=20261012y");
+importScripts("vendor/highs.js", "sbc-solver.js?v=20261012z");
 let ready = null;
 async function load() {
   const get = async p => { const r = await fetch(p + "?t=" + Date.now()); if (!r.ok) throw new Error("Could not load " + p); return r.json(); };
