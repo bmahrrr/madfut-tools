@@ -96,7 +96,15 @@ def main():
         opps = [resolve_team(t, by_id, allc) for t in s.get("opponents", [])]
         print("My Club", key, "opponents:", len(opps))
         kind = s.get("mode", "robust")      # best worst case against the Reddit team and stress tests
-        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind, verify=3 if kind == "robust" else 0)
+        cands = [(f"Reddit Reference Team {i+1}", o) for i, o in enumerate(opps)]
+        try:                                # this week's hand-built team, if there is one
+            mt = json.load(open(os.path.join(ROOT, "docs", "myteams.json")))
+            if mt.get("week") == week().get("week") and key in mt.get("teams", {}):
+                cands.append(("Hand-Built Team", resolve_team(mt["teams"][key]["ids"], by_id, allc)))
+        except Exception as e:
+            print("no hand-built team:", e)
+        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind,
+                            verify=3 if kind == "robust" else 0, candidates=cands)
         save(f"myclub_{key}.json", {"mode": "myclub", "series": {k: v for k, v in s.items() if k != "opponents"},
                                     "opponents": [[c["name"] for c in o] for o in opps], "team": team})
 

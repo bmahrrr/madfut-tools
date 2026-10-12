@@ -10,7 +10,7 @@ Everything runs free on GitHub: GitHub Actions does the heavy building and GitHu
 | Part | How |
 |---|---|
 | Card data | `Update card data` workflow pulls madfutdata.com every day (03:17 UTC) into `docs/cards.json`. |
-| My Club builder (Best teams) | Each week, for every series: the team with the best **worst case** against the Reddit team and stress-test teams built to beat it (exact solver, perfect play, both lead orders), checked again against fresh stress tests at the end. |
+| My Club builder (Best teams) | Each week, for every series: the team with the best **worst case** against the Reddit team and stress-test teams built to beat it (exact solver, perfect play, both lead orders), checked again against fresh stress tests at the end. A final check then gives the Reddit and hand-built teams their own stress tests and keeps whichever team has the best worst case. Every opponent team is saved and viewable on the site. |
 | Sim builder | Exact optimiser (MILP): highest control first, then attack and defence, inside the cap with every boost and bonus. |
 | SBC solver | Website: type in the requirements, get the cheapest squad in seconds, tap **Don't have** on any card to re-solve without it. |
 | Beat a team | Website tab: load any team (e.g. the Reddit team), tap **Build a team to beat this**. Runs on GitHub; the result appears in the same tab. |
