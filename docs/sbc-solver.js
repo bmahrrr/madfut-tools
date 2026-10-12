@@ -14,11 +14,12 @@ const rarity = c => { const t = sbcType(c); return t === "gold" || t === "silver
 const playerKey = c => (Number.isInteger(c.baseId) && c.baseId > 0 ? "b" + c.baseId : c.name + "|" + c.nationId);
 
 function sbcCost(c, pr) {
-  const r = rarity(c);
-  if (pr === "lowest_rating") return (r === "special" ? 300 : 0) + c.rating * 10;
+  // Like coin prices: each rating point costs a little up to 80, then far more (a 90 costs ~5x an 80).
+  const r = rarity(c), q = c.rating, steep = q > 80 ? 40 * (q - 80) * (q - 80) : 0;
+  if (pr === "lowest_rating") return (r === "special" ? 300 : 0) + q * 10 + steep;
   let base = { gold: 0, special: 400, silver: 600, bronze: 900 }[r];
   if (SBC_AUTO.has(c.color)) base = 2000;
-  return base + c.rating * 10;
+  return base + q * 10 + steep;
 }
 
 function ruleMatch(c, r) {
