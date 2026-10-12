@@ -171,18 +171,83 @@ function resultsTable(res) {
   return `<table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(res).map(([k, v]) => `<tr><td>${esc(resultLabel(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>`;
 }
 
+// ---------- Don't have (this week only): rebuild a series without cards you don't own yet ----------
+const nhKey = () => "nohave:" + ((INDEX && INDEX.week) || "");
+function nhAll() { try { return JSON.parse(localStorage.getItem(nhKey()) || "{}"); } catch (e) { return {}; } }
+const noHave = k => nhAll()[k] || [];
+function nhSet(k, ids) { const a = nhAll(); if (ids.length) a[k] = ids; else delete a[k]; try { localStorage.setItem(nhKey(), JSON.stringify(a)); } catch (e) {} }
+function noHaveBar(k, built) {
+  const ids = noHave(k), names = ids.map(id => { const c = BYID.get(id); return c ? cap(c.name) + " " + c.rating : id; });
+  let h = `<div class="nhbar" data-nhbar="${esc(k)}">`;
+  if (built && built.length) h += `<p class="small muted" style="margin:2px 0 6px">Built without: ${esc(built.map(cap).join(", "))}</p>`;
+  if (ids.length) h += `<p class="small" style="margin:2px 0 6px"><b>Don't have:</b> ${esc(names.join(", "))}</p><div class="row" style="margin:0 0 10px"><button class="btn" data-nhgo="${esc(k)}">Rebuild Without Them</button><button class="ghost" data-nhclear="${esc(k)}">Undo</button></div>`;
+  return h + `</div>`;
+}
+function wireNoHave() {
+  const redraw = k => { const bar = document.querySelector(`[data-nhbar="${k}"]`); if (bar) bar.outerHTML = noHaveBar(k, null); wireNoHave(); };
+  document.querySelectorAll("[data-nh]").forEach(b => b.onclick = () => {
+    const k = b.dataset.nh, ids = noHave(k), i = ids.indexOf(b.dataset.id);
+    if (i >= 0) ids.splice(i, 1); else ids.push(b.dataset.id);
+    nhSet(k, ids); b.classList.toggle("on", i < 0); redraw(k);
+  });
+  document.querySelectorAll("[data-nhclear]").forEach(b => b.onclick = () => {
+    const k = b.dataset.nhclear; nhSet(k, []);
+    document.querySelectorAll(`[data-nh="${k}"]`).forEach(x => x.classList.remove("on")); redraw(k);
+  });
+  document.querySelectorAll("[data-nhgo]").forEach(b => b.onclick = () => rebuildWithout(b.dataset.nhgo));
+}
+async function rebuildWithout(k) {
+  const [kind, key] = k.split(":"), ids = noHave(k);
+  if (!ghToken()) {
+    alert(`To rebuild teams from the site, connect GitHub once:\n\nWeekly Setup tab → "Connect GitHub".`);
+    document.querySelector('#tabs button[data-t="setup"]').click(); return;
+  }
+  const mins = kind === "sim" ? 5 : 50;
+  if (!confirm(`Rebuild the ${key} series without ${ids.length} card${ids.length > 1 ? "s" : ""}?\n\nIt runs on GitHub and takes about ${mins} minutes. These cards stay excluded for the rest of this week; next week assumes you own everything again.`)) return;
+  try {
+    const f = await ghGetFile("config/notowned.json"); let cur = { week: INDEX.week, ids: [] };
+    try { const j = f && JSON.parse(f.text); if (j && j.week === INDEX.week) cur = j; } catch (e) {}
+    cur.ids = [...new Set([...(cur.ids || []), ...ids])];
+    cur._help = "Cards marked Don't have on the site. Only used while 'week' matches config/week.json, so a new week assumes you own everything again.";
+    await ghPutFile("config/notowned.json", JSON.stringify(cur, null, 1), `Don't have: ${ids.length} card(s) for ${k}`, f && f.sha);
+    const t = new Date(), pad = n => String(n).padStart(2, "0");
+    await ghPutFile(`config/requests/rebuild-${kind}-${key}-${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}-${pad(t.getHours())}${pad(t.getMinutes())}${pad(t.getSeconds())}.json`,
+      JSON.stringify({ mode: "rebuild", kind, series: key, name: `Rebuild ${k}`, created: t.toISOString() }, null, 1), `Rebuild ${k} without ${ids.length} card(s)`);
+    nhSet(k, []);
+    alert(`Started ✓\n\nThe new ${key} team appears here in about ${mins} minutes (refresh the site).`);
+    renderTeams();
+  } catch (e) { alert("Couldn't start the rebuild: " + e.message); }
+}
+
+// ---------- Game plan (computed after each build by scripts/plan.js) ----------
+function planHtml(p) {
+  const chips = L => L.map(x => `<span class="chip">${esc(cap(x.name))} · ${esc(cap(x.stat))}</span>`).join(" ");
+  const keep = { WIN: "to keep the guaranteed win:", DRAW: "to keep the guaranteed draw:", LOSS: "— they do best, but a perfect opponent can still win:" };
+  const verb = { WIN: "you win", DRAW: "you draw", LOSS: "you lose" };
+  const same = (a, b) => a && b && a.length === b.length && a.every((x, i) => x.name === b[i].name && x.stat === b[i].stat);
+  const lead = L => L.length >= p.total_openers ? `<p class="small muted" style="margin:2px 0">Any card: every opening lead gives the same result against perfect play.</p>` : `<div class="chips" style="margin:4px 0">${chips(L)}</div>`;
+  let h = `<details class="plan" open><summary>Game Plan</summary>`;
+  h += `<p class="small" style="margin:6px 0 0"><b>When you lead first</b>, open with one of these ${keep[p.guaranteed] || ":"}</p>${lead(p.safe)}`;
+  if (p.reddit && !same(p.reddit.safe, p.safe)) h += `<p class="small" style="margin:8px 0 0"><b>Against the Reddit Team</b> (${verb[p.reddit.guaranteed]} with perfect play), open with:</p>${lead(p.reddit.safe)}`;
+  h += `<p class="small" style="margin:8px 0 0"><b>When they lead first</b>, use Match Helper for the best answer each round.</p>`;
+  if (p.watch.length) h += `<p class="small" style="margin:8px 0 2px"><b>Cards to watch</b></p><ul class="small" style="margin:0;padding-left:18px">${p.watch.map(w => `<li><b>${esc(cap(w.name))}</b>: ${esc(w.text)}</li>`).join("")}</ul>`;
+  h += `<p class="small" style="margin:8px 0 4px"><b>Tiebreak</b>: your 11th (unplayed) card plays it. Play <b>${esc(cap(p.low_tb.name))}</b> (total ${p.low_tb.tb}) before the end. Highest total: <b>${esc(cap(p.high_tb.name))}</b> (${p.high_tb.tb}).</p></details>`;
+  return h;
+}
+
 // ---------- Teams tab ----------
+let VAULT = null;     // { week, files } when looking at a past week
 async function renderTeams() {
-  const box = $("teamsBody");
-  if (!INDEX) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Weekly setup</b> and they'll appear here once the build finishes.</div>`; return; }
-  OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">Week of ${esc(fmtDay(INDEX.week || ""))}</p><p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>`;
-  const files = INDEX.files || [];
+  const box = $("teamsBody"), V = VAULT, base = V ? `vault/${V.week}/` : "results/";
+  if (!INDEX && !V) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Weekly setup</b> and they'll appear here once the build finishes.</div>`; return; }
+  OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past week, kept for reference. <button class="ghost" id="vaultBack">Back to This Week</button></p>` : ""}<p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>`;
+  const files = V ? V.files : INDEX.files || [];
   const mc = files.filter(f => f.startsWith("myclub_")), sim = files.filter(f => f.startsWith("sim_"));
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
   html += `<h3>Fatal My Club</h3>`;
   for (const f of mc) {
     try {
-      const d = await getJSON("results/" + f); const t = d.team;
+      const d = await getJSON(base + f); const t = d.team;
       let worst = null;
       for (const [k, v] of Object.entries(t.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
@@ -192,8 +257,9 @@ async function renderTeams() {
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="small ok" style="margin:2px 0 6px"><b>✓ Hand-Built Team</b> <span class="muted">— it beat the builder's own team on worst case.</span></p>`;
       if (refs.length) html += `<p class="small" style="margin:2px 0">Against the Reddit Team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
       if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">against ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next weekly build upgrades it</span>` : ""}</p>`;
-      html += playersTable(t.players, true);
-      const wser = ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
+      if (t.plan) html += planHtml(t.plan);
+      html += (V ? "" : noHaveBar("myclub:" + d.series.key, d.not_owned)) + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
+      const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
         <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added to the weekly setup).<br>
         <b>Copy of This Team</b>: when the strongest stress test found is simply your own team (someone copying you).<br>
@@ -207,16 +273,27 @@ async function renderTeams() {
   html += `<h3>Fatal Sim</h3>`;
   for (const f of sim) {
     try {
-      const d = await getJSON("results/" + f); const t = d.teams && d.teams[0]; if (!t) continue;
+      const d = await getJSON(base + f); const t = d.teams && d.teams[0]; if (!t) continue;
       const m = t.metrics;
-      html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem</p><p class="small">Control <b>${m.control}</b> · Attack <b>${m.attack}</b> · Defence <b>${m.defence}</b> <span class="muted">(averages)</span></p>${playersTable(t.players, false)}<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem</p><p class="small">Control <b>${m.control}</b> · Attack <b>${m.attack}</b> · Defence <b>${m.defence}</b> <span class="muted">(averages)</span></p>${V ? "" : noHaveBar("sim:" + d.series.key, d.not_owned)}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
   }
-  box.innerHTML = html; wireOpps();
+  if (!V) {
+    let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
+    html += `<details class="card"><summary>Vault</summary><p class="small muted" style="margin:6px 0">Past weeks' teams, saved automatically when a new week starts.</p>${weeks.length
+      ? `<div class="chips">${weeks.map((w, i) => `<button class="chipbtn" data-vault="${i}"><b>Week of ${esc(fmtDay(w.week))}</b><span>${w.files.length} teams</span></button>`).join("")}</div>`
+      : `<p class="small muted">Nothing yet. This week moves here when you start next week.</p>`}</details>`;
+    box.innerHTML = html;
+    document.querySelectorAll("[data-vault]").forEach(b => b.onclick = () => { VAULT = weeks[+b.dataset.vault]; renderTeams(); window.scrollTo(0, 0); });
+  } else {
+    box.innerHTML = html;
+    $("vaultBack").onclick = () => { VAULT = null; renderTeams(); window.scrollTo(0, 0); };
+  }
+  wireOpps(); if (!V) wireNoHave();
 }
-function playersTable(ps, showTB) {
+function playersTable(ps, showTB, nh) {     // nh = "myclub:73" adds a Don't have button to each player
   return `<div class="scroll"><table><tr><th>Pos</th><th>Player</th><th>Card</th><th>In game</th><th>Chem</th>${showTB ? "<th>TB</th>" : ""}</tr>${ps.map(p =>
-    `<tr><td>${esc(p.slot)}</td><td style="white-space:normal;min-width:150px"><b>${esc(cap(p.name))}</b><br><span class="muted small">${p.rating} ${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td class="n">${p.card.join("/")}</td><td class="n">${p.eff.join("/")}</td><td class="n">${p.chem}</td>${showTB ? `<td class="n">${p.tiebreak ?? ""}</td>` : ""}</tr>`).join("")}</table></div>`;
+    `<tr><td>${esc(p.slot)}</td><td style="white-space:normal;min-width:150px"><b>${esc(cap(p.name))}</b><br><span class="muted small">${p.rating} ${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span>${nh ? `<br><button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</td><td class="n">${p.card.join("/")}</td><td class="n">${p.eff.join("/")}</td><td class="n">${p.chem}</td>${showTB ? `<td class="n">${p.tiebreak ?? ""}</td>` : ""}</tr>`).join("")}</table></div>`;
 }
 
 // ---------- My Club compare ----------

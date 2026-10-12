@@ -68,6 +68,8 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - run: python scripts/build.py myclub "${{ matrix.key }}"
+      - name: Game plan
+        run: node scripts/plan.js "docs/results/myclub_${{ matrix.key }}.json" || echo "game plan failed; the team is still saved"
       - uses: actions/upload-artifact@v4
         with:
           name: myclub_${{ matrix.key }}
@@ -85,11 +87,12 @@ jobs:
       - name: Collect results
         run: |
           mkdir -p docs/results
+          python3 scripts/build.py archive
           find artifacts -name '*.json' -exec cp {} docs/results/ \;
           python3 scripts/build.py index
       - name: Save results
         run: |
           git config user.name "madfut-tools bot"
           git config user.email "actions@users.noreply.github.com"
-          git add docs/results
+          git add -A docs/results docs/vault
           git diff --cached --quiet || (git commit -m "Update team results" && git pull --rebase && git push)

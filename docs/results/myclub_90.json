@@ -3192,6 +3192,105 @@
      }
     ]
    }
+  },
+  "plan": {
+   "guaranteed": "LOSS",
+   "safe": [
+    {
+     "slot": "GK",
+     "name": "Casillas",
+     "stat": "defence"
+    },
+    {
+     "slot": "CDM",
+     "name": "Can",
+     "stat": "defence"
+    },
+    {
+     "slot": "LM",
+     "name": "Rummenigge",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "Vitinha",
+     "stat": "control"
+    },
+    {
+     "slot": "RM",
+     "name": "Dembélé",
+     "stat": "attack"
+    },
+    {
+     "slot": "ST",
+     "name": "Pajor",
+     "stat": "attack"
+    },
+    {
+     "slot": "ST",
+     "name": "Kane",
+     "stat": "attack"
+    }
+   ],
+   "total_openers": 33,
+   "reddit": {
+    "guaranteed": "LOSS",
+    "safe": [
+     {
+      "slot": "GK",
+      "name": "Casillas",
+      "stat": "defence"
+     },
+     {
+      "slot": "CDM",
+      "name": "Can",
+      "stat": "defence"
+     },
+     {
+      "slot": "LM",
+      "name": "Rummenigge",
+      "stat": "attack"
+     },
+     {
+      "slot": "CM",
+      "name": "Vitinha",
+      "stat": "control"
+     },
+     {
+      "slot": "RM",
+      "name": "Dembélé",
+      "stat": "attack"
+     },
+     {
+      "slot": "ST",
+      "name": "Pajor",
+      "stat": "attack"
+     },
+     {
+      "slot": "ST",
+      "name": "Kane",
+      "stat": "attack"
+     }
+    ]
+   },
+   "watch": [
+    {
+     "name": "Casillas",
+     "text": "Only use for defence (93); attack 50, control 49"
+    },
+    {
+     "name": "Pajor",
+     "text": "Never use for defence (33)"
+    }
+   ],
+   "low_tb": {
+    "name": "Casillas",
+    "tb": 192
+   },
+   "high_tb": {
+    "name": "Can",
+    "tb": 265
+   }
   }
  },
  "built": "2026-10-12 11:34 UTC"
