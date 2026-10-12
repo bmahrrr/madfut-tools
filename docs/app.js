@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012k";
+const APP_V = "20261012m";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -77,14 +77,31 @@ function pill(r) { return `<span class="pill ${r}">${r}</span>`; }
 // ---------- custom builds (run on GitHub) ----------
 const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit reference team $1").replace(/^counter (\d+)$/, "Counter team $1")
   .replace(/^mirror$/, "Copy of this team").replace(/^target (\d+)$/, "Team to beat").replace(/^fresh test (\d+)$/, "Fresh stress test $1");
-function startBuild(req) {
+// The site can start builds itself with a GitHub key saved on this phone only (Weekly setup → Connect GitHub).
+const ghToken = () => { try { return localStorage.getItem("ghToken") || ""; } catch (e) { return ""; } };
+async function ghPutFile(path, content, message) {
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+    method: "PUT", headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" },
+    body: JSON.stringify({ message, branch: "main", content: btoa(unescape(encodeURIComponent(content))) }) });
+  if (!r.ok) throw new Error(`GitHub said ${r.status}${r.status === 401 || r.status === 403 ? " (the GitHub key is wrong or expired)" : ""}`);
+  return r.json();
+}
+async function startBuild(req) {
   const t = new Date(), pad = n => String(n).padStart(2, "0");
   const stem = `${req.mode}-${req.series}-${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}-${pad(t.getHours())}${pad(t.getMinutes())}`;
   req.created = t.toISOString();
-  const url = `https://github.com/${REPO}/new/main/config/requests?filename=${encodeURIComponent(stem + ".json")}&value=${encodeURIComponent(JSON.stringify(req, null, 1))}`;
   const mins = Math.round((req.minutes || 30) * 1.1 + 8);
-  if (!confirm(`GitHub will open with this build request filled in.\n\nTap "Commit changes" there (twice) to start it.\n\nThe team appears on the Teams tab under "Custom builds" in about ${mins} minutes.`)) return;
-  window.open(url, "_blank");
+  if (!ghToken()) {
+    alert(`To start builds from the site, connect GitHub once:\n\nWeekly setup tab → "Connect GitHub".\n\nIt takes about 2 minutes and then every build is one tap.`);
+    document.querySelector('#tabs button[data-t="setup"]').click();
+    const box = $("ghBox"); if (box) box.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+  if (!confirm(`Start this build?\n\nIt runs on GitHub (you can close the site). The team appears in the Beat a team tab in about ${mins} minutes.`)) return;
+  try {
+    await ghPutFile(`config/requests/${stem}.json`, JSON.stringify(req, null, 1), `Build request: ${req.name}`);
+    alert(`Started ✓\n\nCheck back in about ${mins} minutes. Progress: GitHub → Actions → "Custom build".`);
+  } catch (e) { alert("Couldn't start the build: " + e.message); }
 }
 function resultsTable(res) {
   return `<table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(res).map(([k, v]) => `<tr><td>${esc(resultLabel(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>`;
@@ -297,7 +314,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012k"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012m"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -559,7 +576,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012k");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012m");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -651,6 +668,17 @@ function renderSetup() {
    <li>Tap <b>Commit changes</b>. Sim teams appear in ~5 minutes, My Club teams in ~40 minutes on the <b>Teams</b> tab.</li>
    <li>Upgraded an LTM or got an evo? Update <a href="${ed("config/extras.json")}" target="_blank">config/extras.json</a>.</li>
   </ol><p class="small muted">Card data updates itself every day from madfutdata. <a href="https://github.com/${REPO}/actions" target="_blank">See running jobs</a>.</p></div>
+  <div class="card" id="ghBox"><h2>Connect GitHub <span class="small muted" id="ghState"></span></h2>
+   <p class="small">Lets the site start "Beat a team" builds by itself. It's a key that can only change files in your madfut-tools repo, and it's saved on this phone only (never on the site).</p>
+   <ol class="small" style="padding-left:18px">
+    <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">github.com/settings/personal-access-tokens/new</a> (if the GitHub app opens, long-press the link and choose <b>Open in Safari</b>).</li>
+    <li><b>Token name</b>: madfut site. <b>Expiration</b>: pick the longest option.</li>
+    <li><b>Repository access</b>: Only select repositories → <b>madfut-tools</b>.</li>
+    <li><b>Permissions</b> → Repository permissions → <b>Contents</b>: Read and write.</li>
+    <li>Tap <b>Generate token</b>, copy it and paste it here:</li>
+   </ol>
+   <div class="row"><input type="password" id="ghIn" placeholder="github_pat_…" style="flex:1"><button class="btn" id="ghSave">Save</button></div>
+   <p class="small" id="ghMsg"></p></div>
   <div class="card"><h2>Boost line helper</h2>
    <div class="row"><select id="bOn"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select>
    <input type="text" id="bCard" placeholder="Search a card from that nation / league / club" style="flex:1"></div><ul class="sr" id="bSr" hidden></ul>
@@ -665,6 +693,20 @@ function renderSetup() {
   };
   hookSearch("bCard", "bSr", c => { picked = c; $("bCard").value = c.name; upd(); });
   ["bOn", "bA", "bC", "bD"].forEach(k => $(k).oninput = upd);
+  const ghState = () => { $("ghState").innerHTML = ghToken() ? `<span class="ok">connected ✓</span> <a href="#" id="ghOff">disconnect</a>` : "not connected"; const o = $("ghOff"); if (o) o.onclick = e => { e.preventDefault(); try { localStorage.removeItem("ghToken"); } catch (x) {} ghState(); }; };
+  ghState();
+  $("ghSave").onclick = async () => {
+    const t = $("ghIn").value.trim(); if (!t) return;
+    $("ghMsg").textContent = "Checking…";
+    try {
+      const r = await fetch(`https://api.github.com/repos/${REPO}`, { headers: { Authorization: `Bearer ${t}`, Accept: "application/vnd.github+json" } });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.message || r.status);
+      if (!(j.permissions && j.permissions.push)) throw new Error("this key can't change the repo — set Contents to Read and write");
+      try { localStorage.setItem("ghToken", t); } catch (x) { throw new Error("couldn't save on this phone"); }
+      $("ghIn").value = ""; $("ghMsg").innerHTML = `<span class="ok">Connected ✓ Builds now start with one tap.</span>`; ghState();
+    } catch (e) { $("ghMsg").innerHTML = `<span class="bad">Didn't work: ${esc(e.message)}</span>`; }
+  };
   hookSearch("idQ", "idSr", c => { $("idOut").innerHTML = `${cardLine(c)}<br>id <code>${esc(c.id)}</code> · nation ${c.nationId} · league ${c.leagueId} · club ${c.clubId}`; });
 }
 
