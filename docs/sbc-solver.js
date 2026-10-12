@@ -6,6 +6,8 @@
 const SBC_AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut"]);
 const SBC_ICON = new Set(["icon", "debut_icon"]);
 const SBC_HERO = new Set(["hero", "hall_of_fut"]);
+// Card types the game doesn't allow in SBCs.
+const NO_SBC = new Set(["evo", "elite_evo", "sbc_premium", "ltm", "epl_potm", "laliga_potm", "seriea_potm", "bundesliga_potm"]);
 const COMMON_FORMS = ["4-3-3", "4-4-2", "4-2-3-1", "3-5-2", "4-1-2-1-2", "3-4-3", "4-4-1-1", "5-3-2", "4-3-2-1", "3-4-1-2"];
 const THRESH = { n: [2, 5, 8], l: [3, 5, 8], k: [2, 4, 7] };
 
@@ -62,7 +64,7 @@ function sbcPool(req, cards) {
   const rules = req.rules || [];
   const lo = req.min_card_rating || 0, hi = req.max_card_rating || 99;
   return cards.filter(c => {
-    if (ex.has(c.id)) return false;
+    if (ex.has(c.id) || NO_SBC.has(c.color) || NO_SBC.has(String(c.color).replace("rare_", ""))) return false;
     if (inc.has(c.id)) return true;
     if (c.rating < lo || c.rating > hi) return false;
     if (SBC_AUTO.has(c.color)) return !!req.allow_icons;
