@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
 <style>
 :root{--bg:#0f1115;--panel:#181b22;--line:#2a2f3a;--text:#e8eaf0;--muted:#9aa3b2;--accent:#f5a524;--win:#2fbf71;--draw:#d9a72b;--loss:#e5484d;--chip:#232834}
@@ -30,7 +30,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .DRAW{background:color-mix(in srgb,var(--draw) 22%,transparent);color:var(--draw)}
 .LOSS{background:color-mix(in srgb,var(--loss) 22%,transparent);color:var(--loss)}
 .muted{color:var(--muted)}.small{font-size:12.5px}
-input,select{background:var(--chip);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:15px;max-width:100%}
+input,select{background:var(--chip);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:16px;max-width:100%}
 input[type=text]{width:100%}
 button.btn{background:var(--accent);color:#111;border:0;border-radius:8px;padding:9px 14px;font-weight:600;font-size:14px}
 button.ghost{background:var(--chip);color:var(--text);border:0;border-radius:8px;padding:7px 12px;font-size:13.5px}
@@ -139,8 +139,8 @@ summary{cursor:pointer;color:var(--accent)}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js"></script>
-<script src="sbc-solver.js"></script>
-<script src="app.js"></script>
+<script src="engine.js?v=20261012b"></script>
+<script src="sbc-solver.js?v=20261012b"></script>
+<script src="app.js?v=20261012b"></script>
 </body>
 </html>
