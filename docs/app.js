@@ -22,7 +22,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012h";
+const APP_V = "20261012i";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -86,7 +86,13 @@ async function renderTeams() {
     try {
       const d = await getJSON("results/" + f); const t = d.team;
       html += `<div class="card"><h2>${esc(d.series.key)} series · ${esc(t.formation || "")} · ${t.chem} chem</h2>${playersTable(t.players, true)}`;
-      if (t.results) html += `<h3>Results (perfect play)</h3><table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(t.results).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>`;
+      if (t.results) {
+        const label = k => k.replace(/^reference (\d+)$/, "Reddit reference team $1").replace(/^counter (\d+)$/, "Counter team $1").replace(/^mirror$/, "Copy of this team");
+        html += `<h3>Results (perfect play)</h3><table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(t.results).map(([k, v]) => `<tr><td>${esc(label(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>
+        <details style="margin-top:6px"><summary class="small">What do these opponents mean?</summary><p class="small" style="margin:6px 0">
+        <b>Reddit reference team</b>: the reference team posted on Reddit for this series (only shown when it was added to the weekly setup).<br>
+        <b>Counter teams</b>: the builder's own stress tests. After building this team, it searched every card under the cap for the team that does best against it, then improved this team and repeated, 4 times. A counter team is built knowing exactly what you're using, so a loss against one is a worst case, not something a normal opponent would do.</p></details>`;
+      }
       html += `<p class="small muted">Built ${esc(d.built)}</p></div>`;
     } catch (e) {}
   }
@@ -234,7 +240,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -496,7 +502,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012h");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012i");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
