@@ -22,7 +22,7 @@ Everything runs free on GitHub: GitHub Actions does the heavy building and GitHu
 | Match helper | Website: tells you the best lead or answer every round during a live game. |
 | Sim compare | Website: your built Sim team vs theirs, with possession and match odds. |
 
-## Each week
+## Each season
 
 1. Open `config/week.json` on GitHub (website → **Weekly setup** has direct edit links).
 2. Change the `week`, the caps, the boosts and the reference (opponent) teams. Commit.
