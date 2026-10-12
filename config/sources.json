@@ -5,8 +5,7 @@
     "https://madfutdata.com/27/json/realm27.json"
   ],
   "update_urls": [
-    "https://madfutdata.com/27/json/updates.json",
-    "https://madfutdata.com/json/updates.json"
+    "https://firestore.googleapis.com/v1/projects/trivela-madfut/databases/%28default%29/documents/updates?pageSize=300"
   ],
   "names_url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/loc/en-US.json",
   "names_year": "2027"
