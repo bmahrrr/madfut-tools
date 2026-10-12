@@ -1,11 +1,10 @@
 // Runs the SBC solver off the main thread. Loads the cards and the HiGHS solver once, then answers solve requests.
-importScripts("vendor/highs.js", "sbc-solver.js?v=20261012c");
+importScripts("vendor/highs.js", "sbc-solver.js?v=20261012d");
 let ready = null;
 async function load() {
   const get = async p => { const r = await fetch(p + "?t=" + Date.now()); if (!r.ok) throw new Error("Could not load " + p); return r.json(); };
   const [highs, d, FORMS] = await Promise.all([Module({ locateFile: f => "vendor/" + f }), get("cards.json"), get("formations.json")]);
   const cards = d.cards.map(r => { const c = {}; d.fields.forEach((f, i) => c[f] = r[i]); return c; });
-  try { (await get("results/extras.json")).cards.forEach(c => cards.push(Object.assign({ specialChem: "" }, c))); } catch (e) {}
   cards.forEach(c => { c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); });
   return { highs, cards, FORMS };
 }
