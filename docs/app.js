@@ -10,6 +10,31 @@ const $ = id => document.getElementById(id);
 const fmtDay = d => { const x = new Date(String(d).slice(0, 10) + "T12:00:00Z"); return isNaN(x) ? String(d) : x.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }); };
 const fmtStamp = d => { const x = new Date(String(d).replace(" UTC", "Z").replace(" ", "T")); return isNaN(x) ? String(d) : x.toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }); };
 const cap = t => { t = String(t ?? ""); return t.charAt(0).toUpperCase() + t.slice(1); };   // first letter always a capital
+const MINOR = new Set(["a", "an", "the", "and", "but", "or", "nor", "of", "to", "in", "on", "at", "by", "for", "vs", "as", "per"]);
+const titleWord = (w, first) => w.split("-").map((p, j) => {            // leaves LaLiga, TOTW, 4-3-3 as they are
+  if (!/^[a-z]/.test(p)) return p;
+  if (j === 0 && !first && MINOR.has(p.replace(/[^a-z]/g, ""))) return p;
+  return p.charAt(0).toUpperCase() + p.slice(1);
+}).join("-");
+const tc = t => String(t ?? "").split(/(\s+)/).map((w, i) => /\s/.test(w) ? w : titleWord(w, i === 0)).join("");   // Title Case
+const HEADS = "h1,h2,h3,nav button,summary:not(.ok):not(.bad),.chipbtn>b,.tc";
+function titleAll(root) {
+  const h = root.closest && root.closest(HEADS), els = h ? [h] : [];
+  if (root.querySelectorAll) els.push(...root.querySelectorAll(HEADS));
+  for (const el of els) {
+    if (el.closest(".notc")) continue;
+    let first = true;
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let n = w.nextNode(); n; n = w.nextNode()) {
+      if (n.parentElement.closest(".pill,.notc,input,select,textarea")) { if (n.nodeValue.trim()) first = false; continue; }
+      const v = n.nodeValue.split(/(\s+)/).map((x, i) => { if (/^\s*$/.test(x)) return x; const r = titleWord(x, first); first = false; return r; }).join("");
+      if (v !== n.nodeValue) n.nodeValue = v;
+    }
+  }
+}
+new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) if (n.nodeType === 1) titleAll(n); else if (n.nodeType === 3 && n.parentElement) titleAll(n.parentElement); })
+  .observe(document.documentElement, { childList: true, subtree: true });
+document.addEventListener("DOMContentLoaded", () => titleAll(document.body));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
 const TYPE = c => cap({rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo"}[c] || String(c).replace(/_/g, " "));
 
@@ -25,7 +50,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261012r";
+const APP_V = "20261012s";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   try {
     const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
@@ -79,8 +104,8 @@ function hookSearch(inputId, listId, onPick) {
 function pill(r) { return `<span class="pill ${r}">${cap(String(r).toLowerCase())}</span>`; }
 
 // ---------- custom builds (run on GitHub) ----------
-const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit reference team $1").replace(/^counter (\d+)$/, "Counter team $1")
-  .replace(/^mirror$/, "Copy of this team").replace(/^target (\d+)$/, "Team to beat").replace(/^fresh test (\d+)$/, "Fresh stress test $1");
+const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit Reference Team $1").replace(/^counter (\d+)$/, "Counter Team $1")
+  .replace(/^mirror$/, "Copy of This Team").replace(/^target (\d+)$/, "Team to Beat").replace(/^fresh test (\d+)$/, "Fresh Stress Test $1");
 // The site can start builds itself with a GitHub key saved on this phone only (Weekly setup → Connect GitHub).
 const ghToken = () => { try { return localStorage.getItem("ghToken") || ""; } catch (e) { return ""; } };
 async function ghGetFile(path) {          // { text, sha } of a file on main, or null
@@ -114,6 +139,34 @@ async function startBuild(req) {
     alert(`Started ✓\n\nCheck back in about ${mins} minutes. Progress: GitHub → Actions → "Custom build".`);
   } catch (e) { alert("Couldn't start the build: " + e.message); }
 }
+function oppTeamRows(t, k, series) {    // the opponent's team: saved by the builder, or (Reddit teams) from the weekly setup
+  const sv = t.opponent_teams && t.opponent_teams[k];
+  if (sv) return { meta: `${sv.formation || ""} · ${sv.chem} chem`, players: sv.players };
+  const m = /^reference (\d+)$/.exec(k), ids = m && series && (series.opponents || [])[+m[1] - 1];
+  if (!ids) return null;
+  const team = ids.map(id => BYID.get(id)).filter(Boolean); if (team.length !== 11) return null;
+  const E = effective(team, series);
+  return { meta: `${E.reduce((a, e) => a + e.chem, 0)} chem`, players: team.map((c, i) => ({ slot: c.position, id: c.id, name: c.name, rating: c.rating, color: c.color,
+    nationId: c.nationId, leagueId: c.leagueId, card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t })) };
+}
+let OPPS = [];
+function oppList(t, series) {          // every opponent tested: tap a name to see their team
+  return `<div class="opps">${Object.entries(t.results || {}).map(([k, v]) => {
+    const o = oppTeamRows(t, k, series); let body;
+    if (o) { OPPS.push({ mine: t.players.map(p => p.id), theirs: o.players.map(p => p.id), key: series && series.key });
+      body = `<p class="meta" style="margin:6px 0 4px">${esc(o.meta)}</p>${playersTable(o.players, true)}<div class="row" style="margin:8px 0 4px"><button class="ghost" data-opp="${OPPS.length - 1}" style="font-size:12.5px">Open in My Club Compare</button></div>`; }
+    else body = `<p class="small muted" style="margin:6px 0">This team wasn't saved by this build. Teams are saved from the next build onwards.</p>`;
+    return `<details class="opp"><summary><span class="on">${esc(resultLabel(k))}</span><span class="res">${pill(v.you_lead_first)} ${pill(v.they_lead_first)}</span></summary>${body}</details>`;
+  }).join("")}</div>`;
+}
+function wireOpps() {
+  document.querySelectorAll("[data-opp]").forEach(b => b.onclick = () => {
+    const o = OPPS[+b.dataset.opp];
+    state.A = o.mine.map(id => BYID.get(id)).filter(Boolean); state.B = o.theirs.map(id => BYID.get(id)).filter(Boolean);
+    if (o.key) $("mcSeries").value = o.key; drawMC(); $("solveOut").innerHTML = "";
+    document.querySelector('#tabs button[data-t="mc"]').click(); window.scrollTo(0, 0);
+  });
+}
 function resultsTable(res) {
   return `<table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(res).map(([k, v]) => `<tr><td>${esc(resultLabel(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>`;
 }
@@ -122,7 +175,7 @@ function resultsTable(res) {
 async function renderTeams() {
   const box = $("teamsBody");
   if (!INDEX) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Weekly setup</b> and they'll appear here once the build finishes.</div>`; return; }
-  let html = `<div class="card"><h2>Best teams</h2><p class="meta">Week of ${esc(fmtDay(INDEX.week || ""))}</p><p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>`;
+  OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">Week of ${esc(fmtDay(INDEX.week || ""))}</p><p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>`;
   const files = INDEX.files || [];
   const mc = files.filter(f => f.startsWith("myclub_")), sim = files.filter(f => f.startsWith("sim_"));
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
@@ -135,13 +188,14 @@ async function renderTeams() {
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
       html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation || "")} · ${t.chem} chem</p>`;
-      if (refs.length) html += `<p class="small" style="margin:2px 0">Against the Reddit team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
+      if (refs.length) html += `<p class="small" style="margin:2px 0">Against the Reddit Team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
       if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">against ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next weekly build upgrades it</span>` : ""}</p>`;
       html += playersTable(t.players, true);
-      if (t.results) html += `<details style="margin-top:6px"><summary class="small">All results and what they mean</summary>${resultsTable(t.results)}<p class="small" style="margin:6px 0">
-        <b>Reddit reference team</b>: the team posted on Reddit for this series (when added to the weekly setup).<br>
-        <b>Counter teams</b>: stress tests. The builder searched every card under the cap for the team that does best against this one, improved this team, and repeated.<br>
-        <b>Fresh stress tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
+      const wser = ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
+      if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
+        <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added to the weekly setup).<br>
+        <b>Counter Teams</b>: stress tests. The builder searched every card under the cap for the team that does best against this one, improved this team, and repeated.<br>
+        <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
         A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
       html += `<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
@@ -154,7 +208,7 @@ async function renderTeams() {
       html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem</p><p class="small">Control <b>${m.control}</b> · Attack <b>${m.attack}</b> · Defence <b>${m.defence}</b> <span class="muted">(averages)</span></p>${playersTable(t.players, false)}<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
   }
-  box.innerHTML = html;
+  box.innerHTML = html; wireOpps();
 }
 function playersTable(ps, showTB) {
   return `<div class="scroll"><table><tr><th>Pos</th><th>Player</th><th>Card</th><th>In game</th><th>Chem</th>${showTB ? "<th>TB</th>" : ""}</tr>${ps.map(p =>
@@ -174,11 +228,11 @@ async function setupMC() {
   for (const f of ((INDEX && INDEX.files) || []).filter(f => f.startsWith("custom_"))) { try { CUSTOM.push(await getJSON("results/" + f)); } catch (e) {} }
   try { const mt = await getJSON("myteams.json"); if (WEEK && mt.week === WEEK.week) MYTEAMS = mt.teams || {}; } catch (e) {}
   const ser = (WEEK && WEEK.myclub) || [];
-  $("mcSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("") + `<option value="">No series (no boosts)</option>`;
+  $("mcSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") + `<option value="">No Series (No Boosts)</option>`;
   $("mcSeries").onchange = () => { drawMC(); $("solveOut").innerHTML = ""; };
   $("solveBtn").onclick = solveMC;
   $("swapBtn").onclick = () => { [state.A, state.B] = [state.B, state.A]; drawMC(); $("solveOut").innerHTML = ""; };
-  $("beatSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("");
+  $("beatSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("");
   $("beatSeries").onchange = () => { drawMC(); drawBeatResults(); };
   $("beatGo").onclick = () => {
     const s = beatSeries();
@@ -207,10 +261,10 @@ function drawBeatResults() {
 }
 function loadButtons(side) {
   const s = serOf(side), out = [];
-  if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-built ${s.key} team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
-  if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-built ${s.key} team`, d: "From the weekly builder" });
-  if (side === "A") CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
-  (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit reference team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
+  if (side === "A" && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-Built ${s.key} Team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
+  if (side === "A" && INDEX && (INDEX.files || []).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: "From the weekly builder" });
+  if (side === "A") CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to Beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
+  (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit Reference Team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
   return out;
 }
@@ -330,7 +384,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261012r"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261012s"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -414,7 +468,7 @@ const SIM_FORMS = {"3-1-4-2":["GK","CB","CB","CB","CDM","LM","CM","CM","RM","ST"
 function simSeries() { const k = $("simSeries").value; return (WEEK && WEEK.sim || []).find(s => s.key === k) || { boosts: [] }; }
 function setupSim() {
   const ser = (WEEK && WEEK.sim) || [];
-  $("simSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} series</option>`).join("");
+  $("simSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("");
   $("simFormB").innerHTML = Object.keys(SIM_FORMS).map(f => `<option>${f}</option>`).join("");
   $("simSeries").onchange = loadSimA; $("simFormB").onchange = drawSim;
   hookSearch("searchS", "srS", c => { if (state.simB.length < 11) state.simB.push(c); drawSim(); });
@@ -592,7 +646,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012r");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261012s");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

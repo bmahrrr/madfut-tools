@@ -178,9 +178,10 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         if all(v) and fits(v): seeds.append(v)
     ms = milp_seed(me)
     if ms: seeds.append([owned_ids[c["id"]] for c in ms])
+    opp_cards = dict(zip(names, opponents))   # every opponent team, saved so the site can show it
     if not pool_opps:          # nothing to beat yet: start from the seed's own mirror
         base = seeds[-1]
-        pool_opps = [field.eff(base)]; weights = [1]; names = ["mirror"]
+        pool_opps = [field.eff(base)]; weights = [1]; names = ["mirror"]; opp_cards["mirror"] = base
     share = 0.95 if mode == "beat" else 0.45
     verify_share = 0.1 if verify else 0
     cands = []
@@ -198,6 +199,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         log(f"  counter-team {rd+1}: result vs my team {br[0][0]:+d}")
         counters.append(br[1])
         pool_opps.append(field.eff(br[1])); weights.append(1); names.append(f"counter {rd+1}")
+        opp_cards[f"counter {rd+1}"] = br[1]
         b = optimize(me, team, pool_opps, weights, T * (0.30 - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
         team = b[1]
     E = me.eff(team)
@@ -211,10 +213,16 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         start = vr.choice(list(opponents) + [team] + counters)
         start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
         br = optimize(field, start, [E], [1], T * verify_share / verify, vr, None, f"fresh{k}")
-        O = field.eff(br[1])
+        O = field.eff(br[1]); opp_cards[f"fresh test {k+1}"] = br[1]
         res[f"fresh test {k+1}"] = {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
         log(f"  fresh test {k+1}: {res[f'fresh test {k+1}']}")
     out = describe(team, series)
     out["results"] = res
     out["mode"] = mode
+    out["opponent_teams"] = {}
+    for n, cards in opp_cards.items():
+        try:
+            out["opponent_teams"][n] = describe(cards, series)
+        except Exception as e:   # never lose a finished build over a display extra
+            log(f"  could not describe {n}: {e}")
     return out
