@@ -37,7 +37,7 @@
   ]
  ],
  "team": {
-  "formation": "3-4-2-1",
+  "formation": "4-1-4-1",
   "chem": 33,
   "players": [
    {
@@ -62,6 +62,29 @@
      90
     ],
     "tiebreak": 155
+   },
+   {
+    "slot": "LB",
+    "id": "id235883",
+    "name": "Sessegnon",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
+    "card": [
+     74,
+     74,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     76,
+     78
+    ],
+    "tiebreak": 230
    },
    {
     "slot": "CB",
@@ -110,73 +133,73 @@
     "tiebreak": 224
    },
    {
-    "slot": "CB",
-    "id": "id67229397",
-    "name": "Pepe",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "CB",
+    "slot": "RB",
+    "id": "id50542162",
+    "name": "João Cancelo",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "RB",
     "nationId": 38,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
-     59,
-     61,
-     85
+     82,
+     84,
+     83
     ],
     "chem": 3,
     "eff": [
-     61,
-     63,
+     86,
+     88,
      87
     ],
-    "tiebreak": 211
+    "tiebreak": 255
    },
    {
-    "slot": "LM",
-    "id": "id235883",
-    "name": "Sessegnon",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "LB",
+    "slot": "CDM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
     "nationId": 14,
     "leagueId": 13,
     "clubId": 144,
     "card": [
-     74,
-     74,
-     76
+     86,
+     87,
+     69
     ],
     "chem": 3,
     "eff": [
-     76,
-     76,
-     78
+     88,
+     89,
+     71
     ],
-    "tiebreak": 230
+    "tiebreak": 248
    },
    {
-    "slot": "CM",
-    "id": "id50596510",
-    "name": "Akliouche",
-    "rating": 85,
-    "color": "destined_for_glory",
+    "slot": "LM",
+    "id": "id50596036",
+    "name": "Moleiro",
+    "rating": 84,
+    "color": "totw_gold",
     "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 73,
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 483,
     "card": [
-     85,
-     86,
+     84,
+     82,
      56
     ],
     "chem": 3,
     "eff": [
-     87,
-     89,
-     61
+     88,
+     86,
+     60
     ],
-    "tiebreak": 233
+    "tiebreak": 228
    },
    {
     "slot": "CM",
@@ -202,73 +225,50 @@
     "tiebreak": 248
    },
    {
-    "slot": "RM",
-    "id": "id50542162",
-    "name": "João Cancelo",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "RB",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 241,
+    "slot": "CM",
+    "id": "id67335759",
+    "name": "Formiga",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
+     79,
      82,
-     84,
      83
     ],
     "chem": 3,
     "eff": [
-     86,
-     88,
-     87
-    ],
-    "tiebreak": 255
-   },
-   {
-    "slot": "CAM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CAM",
-    "id": "id50596036",
-    "name": "Moleiro",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 483,
-    "card": [
+     81,
      84,
-     82,
+     85
+    ],
+    "tiebreak": 250
+   },
+   {
+    "slot": "RM",
+    "id": "id50596510",
+    "name": "Akliouche",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     85,
+     86,
      56
     ],
     "chem": 3,
     "eff": [
-     88,
-     86,
-     60
+     87,
+     89,
+     61
     ],
-    "tiebreak": 228
+    "tiebreak": 233
    },
    {
     "slot": "ST",
@@ -305,18 +305,18 @@
    },
    "counter 2": {
     "you_lead_first": "DRAW",
-    "they_lead_first": "DRAW"
+    "they_lead_first": "WIN"
    },
    "counter 3": {
     "you_lead_first": "DRAW",
-    "they_lead_first": "DRAW"
+    "they_lead_first": "WIN"
    },
    "counter 4": {
     "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 5": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 6": {
@@ -337,14 +337,4703 @@
    },
    "fresh test 2": {
     "you_lead_first": "DRAW",
-    "they_lead_first": "DRAW"
+    "they_lead_first": "WIN"
    },
    "fresh test 3": {
     "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
+   },
+   "final check 1": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "final check 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "final check 3": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "final check 4": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "WIN"
+   },
+   "final check 5": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "WIN"
+   },
+   "final check 6": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
    }
   },
-  "mode": "robust"
+  "source": "Hand-Built Team",
+  "mode": "robust",
+  "opponent_teams": {
+   "reference 1": {
+    "formation": "3-1-4-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CB",
+      "id": "id227346",
+      "name": "Mbock",
+      "rating": 83,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 73,
+      "card": [
+       61,
+       66,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       63,
+       69,
+       88
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "CDM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "ST",
+      "id": "id186627",
+      "name": "Balotelli",
+      "rating": 85,
+      "color": "hall_of_fut",
+      "position": "ST",
+      "nationId": 27,
+      "leagueId": 13,
+      "clubId": 132794,
+      "card": [
+       85,
+       75,
+       41
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       77,
+       43
+      ],
+      "tiebreak": 207
+     }
+    ]
+   },
+   "counter 1": {
+    "formation": "3-4-2-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CB",
+      "id": "id67229397",
+      "name": "Pepe",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CB",
+      "nationId": 38,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       59,
+       61,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       61,
+       63,
+       87
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "LM",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CAM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CAM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "counter 2": {
+    "formation": "3-4-2-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CB",
+      "id": "id67229397",
+      "name": "Pepe",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CB",
+      "nationId": 38,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       59,
+       61,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       61,
+       63,
+       87
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "LM",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CAM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CAM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "counter 3": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id241811",
+      "name": "Sergio Gómez",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 457,
+      "card": [
+       77,
+       79,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       81,
+       78
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 4": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id241811",
+      "name": "Sergio Gómez",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 457,
+      "card": [
+       77,
+       79,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       81,
+       78
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 5": {
+    "formation": "3-1-4-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CB",
+      "id": "id227346",
+      "name": "Mbock",
+      "rating": 83,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 73,
+      "card": [
+       61,
+       66,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       63,
+       69,
+       88
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "CDM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "ST",
+      "id": "id186627",
+      "name": "Balotelli",
+      "rating": 85,
+      "color": "hall_of_fut",
+      "position": "ST",
+      "nationId": 27,
+      "leagueId": 13,
+      "clubId": 132794,
+      "card": [
+       85,
+       75,
+       41
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       77,
+       43
+      ],
+      "tiebreak": 207
+     }
+    ]
+   },
+   "counter 6": {
+    "formation": "4-1-2-1-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CAM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "counter 7": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50588927",
+      "name": "Álex Baena",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 240,
+      "card": [
+       81,
+       83,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       87,
+       71
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "CM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 8": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id241811",
+      "name": "Sergio Gómez",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 457,
+      "card": [
+       77,
+       79,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       81,
+       78
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "fresh test 1": {
+    "formation": "4-1-4-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id167905",
+      "name": "Valencia",
+      "rating": 85,
+      "color": "hall_of_fut",
+      "position": "RM",
+      "nationId": 57,
+      "leagueId": 13,
+      "clubId": 132794,
+      "card": [
+       83,
+       80,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       80
+      ],
+      "tiebreak": 247
+     },
+     {
+      "slot": "CDM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 1,
+      "eff": [
+       82,
+       83,
+       78
+      ],
+      "tiebreak": 243
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "fresh test 2": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50588927",
+      "name": "Álex Baena",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 240,
+      "card": [
+       81,
+       83,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       87,
+       71
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "CM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "fresh test 3": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50588927",
+      "name": "Álex Baena",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 240,
+      "card": [
+       81,
+       83,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       87,
+       71
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "CM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "final check 1": {
+    "formation": "3-4-2-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CB",
+      "id": "id227346",
+      "name": "Mbock",
+      "rating": 83,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 73,
+      "card": [
+       61,
+       66,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       63,
+       69,
+       88
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "LM",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50563169",
+      "name": "Palacios",
+      "rating": 83,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 94,
+      "card": [
+       79,
+       81,
+       79
+      ],
+      "chem": 1,
+      "eff": [
+       79,
+       81,
+       79
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CAM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CAM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "final check 2": {
+    "formation": "4-1-2-1-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CAM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "final check 3": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CM",
+      "id": "id67193279",
+      "name": "Riise",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CM",
+      "nationId": 36,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       83,
+       84,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       86,
+       71
+      ],
+      "tiebreak": 242
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "final check 4": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CM",
+      "id": "id67335759",
+      "name": "Formiga",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       79,
+       82,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       81,
+       84,
+       85
+      ],
+      "tiebreak": 250
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "final check 5": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CM",
+      "id": "id67335759",
+      "name": "Formiga",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       79,
+       82,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       81,
+       84,
+       85
+      ],
+      "tiebreak": 250
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "final check 6": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50603566",
+      "name": "Risser",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 64,
+      "card": [
+       32,
+       32,
+       85
+      ],
+      "chem": 3,
+      "eff": [
+       34,
+       35,
+       90
+      ],
+      "tiebreak": 155
+     },
+     {
+      "slot": "LB",
+      "id": "id235883",
+      "name": "Sessegnon",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       74,
+       74,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       76,
+       78
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id241486",
+      "name": "Koundé",
+      "rating": 85,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       71,
+       75,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       78,
+       89
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CB",
+      "id": "id227316",
+      "name": "Renard",
+      "rating": 84,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 66,
+      "card": [
+       65,
+       69,
+       84
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       72,
+       89
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "RB",
+      "id": "id50542162",
+      "name": "João Cancelo",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "RB",
+      "nationId": 38,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       82,
+       84,
+       83
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       87
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "CDM",
+      "id": "id50551331",
+      "name": "Tolisso",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 66,
+      "card": [
+       82,
+       80,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       87
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "LM",
+      "id": "id270728",
+      "name": "Carlos Romero",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       78,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       79,
+       81
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CM",
+      "id": "id50596036",
+      "name": "Moleiro",
+      "rating": 84,
+      "color": "totw_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       84,
+       82,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       86,
+       60
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id50402434",
+      "name": "King",
+      "rating": 85,
+      "color": "future_stars",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 144,
+      "card": [
+       86,
+       87,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       89,
+       71
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "RM",
+      "id": "id50596510",
+      "name": "Akliouche",
+      "rating": 85,
+      "color": "destined_for_glory",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       85,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       89,
+       61
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "ST",
+      "id": "id67376139",
+      "name": "Nagasato",
+      "rating": 85,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 163,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       84,
+       82,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       84,
+       47
+      ],
+      "tiebreak": 217
+     }
+    ]
+   }
+  }
  },
- "built": "2026-10-12 06:20 UTC"
+ "built": "2026-10-12 11:36 UTC"
 }
