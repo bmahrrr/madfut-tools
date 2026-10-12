@@ -12,12 +12,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 from fatal.core import load_cards  # noqa: E402
 
-RES = os.path.join(ROOT, "docs", "results")
+# WEEK_FILE / RES_DIR let the same builder fill a vault week (e.g. a past week) without touching this week's results
+RES = os.path.join(ROOT, os.environ.get("RES_DIR") or os.path.join("docs", "results"))
 os.makedirs(RES, exist_ok=True)
 
 
 def week():
-    return json.load(open(os.path.join(ROOT, "config", "week.json")))
+    return json.load(open(os.path.join(ROOT, os.environ.get("WEEK_FILE") or os.path.join("config", "week.json"))))
 
 
 def resolve_team(spec, by_id, cards):

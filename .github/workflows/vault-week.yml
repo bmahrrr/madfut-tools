@@ -1,0 +1,123 @@
+name: Build vault week
+
+# Builds a past (or any) week straight into the vault: config/vault/<week>.json -> docs/vault/<week>/.
+# This week's results (docs/results) are never touched.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "config/vault/*.json"
+  workflow_dispatch:
+    inputs:
+      file:
+        description: "Week file, e.g. config/vault/2026-10-05.json"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vault-week
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      file: ${{ steps.f.outputs.file }}
+      week: ${{ steps.f.outputs.week }}
+      sim: ${{ steps.f.outputs.sim }}
+      myclub: ${{ steps.f.outputs.myclub }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: f
+        run: |
+          if [ -n "${{ github.event.inputs.file }}" ]; then F="${{ github.event.inputs.file }}"; else
+            F=$(git diff --name-only --diff-filter=AM "${{ github.event.before }}" "${{ github.sha }}" -- 'config/vault/*.json' | head -1); fi
+          echo "file=$F" >> $GITHUB_OUTPUT
+          echo "week=$(python3 -c "import json;print(json.load(open('$F'))['week'])")" >> $GITHUB_OUTPUT
+          WEEK_FILE="$F" python3 scripts/build.py list all > keys.json
+          echo "sim=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['sim']))")" >> $GITHUB_OUTPUT
+          echo "myclub=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['myclub']))")" >> $GITHUB_OUTPUT
+
+  sim:
+    needs: plan
+    if: ${{ needs.plan.outputs.sim != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.sim) }}
+    env:
+      WEEK_FILE: ${{ needs.plan.outputs.file }}
+      RES_DIR: vault-out
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/build.py sim "${{ matrix.key }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sim_${{ matrix.key }}
+          path: vault-out/sim_${{ matrix.key }}.json
+
+  myclub:
+    needs: plan
+    if: ${{ needs.plan.outputs.myclub != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.myclub) }}
+    env:
+      WEEK_FILE: ${{ needs.plan.outputs.file }}
+      RES_DIR: vault-out
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/build.py myclub "${{ matrix.key }}"
+      - name: Game plan
+        run: node scripts/plan.js "vault-out/myclub_${{ matrix.key }}.json" || echo "game plan failed; the team is still saved"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: myclub_${{ matrix.key }}
+          path: vault-out/myclub_${{ matrix.key }}.json
+
+  publish:
+    needs: [plan, sim, myclub]
+    if: ${{ always() && needs.plan.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Save to the vault
+        run: |
+          W="${{ needs.plan.outputs.week }}"
+          mkdir -p "docs/vault/$W"
+          find artifacts -name '*.json' -exec cp {} "docs/vault/$W/" \;
+          cp "${{ needs.plan.outputs.file }}" "docs/vault/$W/week.json"
+          python3 - "$W" <<'PY'
+          import json, os, sys
+          w = sys.argv[1]; vi = "docs/vault/index.json"
+          v = json.load(open(vi)) if os.path.exists(vi) else {"weeks": []}
+          files = sorted(f for f in os.listdir(f"docs/vault/{w}") if f.startswith(("myclub_", "sim_")))
+          note = json.load(open(f"docs/vault/{w}/week.json")).get("note", "")
+          v["weeks"] = [x for x in v["weeks"] if x["week"] != w] + [{"week": w, "files": files, "note": note}]
+          v["weeks"].sort(key=lambda x: x["week"], reverse=True)
+          json.dump(v, open(vi, "w"), indent=1)
+          PY
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/vault
+          git diff --cached --quiet || (git commit -m "Vault week $W" && git pull --rebase && git push)
