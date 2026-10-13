@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013h";
+const APP_V = "20261013i";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -305,12 +305,12 @@ async function renderTeams() {
       for (const [k, v] of Object.entries(t.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
-      html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation || "")} · ${t.chem} chem</p>`;
-      if (t.source && t.source.startsWith("Reddit")) html += `<p class="small ok" style="margin:2px 0 6px"><b>✓ Copy the Reddit Team.</b> <span class="muted">Nothing the builder found has a better worst case.</span></p>`;
-      else if (t.source === "Previous Best") html += `<p class="small ok" style="margin:2px 0 6px"><b>✓ Still the best</b> <span class="muted">— the latest search found nothing with a better worst case.</span></p>`;
-      else if (t.source && t.source.startsWith("Hand")) html += `<p class="small ok" style="margin:2px 0 6px"><b>✓ Hand-Built Team</b> <span class="muted">— it beat the builder's own team on worst case.</span></p>`;
-      if (refs.length) html += `<p class="small" style="margin:2px 0">Against the Reddit Team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
-      if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">against ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next build upgrades it</span>` : ""}</p>`;
+      html += `<div class="card"><div class="num">${esc(d.series.key)}</div><h2>${esc(d.series.key)} Series</h2><p class="meta">${esc(t.formation || "")} · ${t.chem} chem</p>`;
+      if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">✓ Copy the Reddit Team <span>· nothing the builder found has a better worst case</span></p>`;
+      else if (t.source === "Previous Best") html += `<p class="verdict">✓ Still the best <span>· the latest search found nothing with a better worst case</span></p>`;
+      else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">✓ Hand-Built Team <span>· it beat the builder's own team on worst case</span></p>`;
+      const box = (label, inner, note) => `<div class="sc"><span>${label}</span>${inner}${note ? `<small>${note}</small>` : ""}</div>`;
+      if (refs.length || worst) html += `<div class="score">${refs.length ? box("VS Reddit Team", refs.map(([k, v]) => `${pill(v.you_lead_first)}${pill(v.they_lead_first)}`).join(" "), "You lead · they lead") : box("VS Reddit Team", `<span class="muted small">Not added</span>`)}${worst ? box("Worst Case", pill(worst.r), `${esc(resultLabel(worst.k))}, ${worst.who}${t.mode !== "robust" ? ". Built before worst-case mode" : ""}`) : ""}</div>`;
       if (t.plan) html += planHtml(t.plan);
       html += bar + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
@@ -321,7 +321,7 @@ async function renderTeams() {
         <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
         <b>Final Check Teams</b>: stress tests built against the Reddit Team and the Hand-Built Team, so every option faces teams built to beat it. The team shown is whichever has the best worst case against all of these.<br>
         A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
-      html += `<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
   }
   html += `<h3>Fatal Sim</h3>`;
@@ -331,7 +331,8 @@ async function renderTeams() {
       if (!V) ({ d, bar } = await versionOf("sim:" + d.series.key, f, d));
       const t = d.teams && d.teams[0]; if (!t) continue;
       const m = t.metrics;
-      html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem</p><p class="small">Control <b>${m.control}</b> · Attack <b>${m.attack}</b> · Defence <b>${m.defence}</b> <span class="muted">(averages)</span></p>${bar}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
+      html += `<div class="card"><div class="num">${esc(d.series.key)}</div><h2>${esc(d.series.key)} Series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem · averages below</p><div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${bar}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
   }
   if (!V) {
@@ -344,8 +345,8 @@ async function renderTeams() {
   wireOpps(); if (!V) wireNoHave();
 }
 function playersTable(ps, showTB, nh) {     // nh = "myclub:73" adds a Don't have button to each player
-  return `<div class="scroll"><table><tr><th>Pos</th><th>Player</th><th>Card</th><th>In game</th><th>Chem</th>${showTB ? "<th>TB</th>" : ""}</tr>${ps.map(p =>
-    `<tr><td>${esc(p.slot)}</td><td style="white-space:normal;min-width:150px"><b>${esc(cap(p.name))}</b><br><span class="muted small">${p.rating} ${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span>${nh ? `<br><button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</td><td class="n">${p.card.join("/")}</td><td class="n">${p.eff.join("/")}</td><td class="n">${p.chem}</td>${showTB ? `<td class="n">${p.tiebreak ?? ""}</td>` : ""}</tr>`).join("")}</table></div>`;
+  return `<div class="squad"><div class="stkey"><span>Att</span><span>Ctl</span><span>Def</span></div>${ps.map(p =>
+    `<div class="prow"><span class="pos">${esc(p.slot)}</span><span class="nm"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}<small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Card ${p.card.join("/")} · Chem ${p.chem}</small></span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
 }
 
 // ---------- My Club compare ----------
@@ -531,7 +532,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261013i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -811,7 +812,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013h");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013i");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
