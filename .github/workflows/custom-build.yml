@@ -54,9 +54,9 @@ jobs:
         run: |
           echo "stem=$(basename '${{ matrix.file }}' .json)" >> $GITHUB_OUTPUT
           # a "rebuild" request (Don't have on the site) replaces that series' weekly team
-          OUT=$(python3 -c "import json;r=json.load(open('${{ matrix.file }}'));print(f\"docs/results/{r.get('kind','myclub')}_{r['series']}.json\" if r.get('mode')=='rebuild' else '')")
+          OUT=$(python3 -c "import json;r=json.load(open('${{ matrix.file }}'));print(f\"docs/results/mine/{r.get('kind','myclub')}_{r['series']}.json\" if r.get('mode')=='rebuild' else '')")
           echo "out=$OUT" >> $GITHUB_OUTPUT
-          if [ -n "$OUT" ] && [ "${OUT#docs/results/myclub_}" != "$OUT" ]; then node scripts/plan.js "$OUT" || echo "game plan failed"; fi
+          if [ -n "$OUT" ] && [ "${OUT#docs/results/mine/myclub_}" != "$OUT" ]; then node scripts/plan.js "$OUT" || echo "game plan failed"; fi
       - uses: actions/upload-artifact@v4
         with:
           name: custom_${{ steps.name.outputs.stem }}
@@ -76,7 +76,13 @@ jobs:
       - name: Save results
         run: |
           mkdir -p docs/results
-          find artifacts -name '*.json' -exec cp {} docs/results/ \;
+          mkdir -p docs/results/mine
+          for f in $(find artifacts -name '*.json'); do
+            case "$(basename $(dirname $f))" in
+              custom_rebuild-*) cp "$f" docs/results/mine/ ;;
+              *) cp "$f" docs/results/ ;;
+            esac
+          done
           python3 scripts/build.py index
           git config user.name "madfut-tools bot"
           git config user.email "actions@users.noreply.github.com"

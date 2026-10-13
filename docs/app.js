@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013g";
+const APP_V = "20261013h";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -124,6 +124,12 @@ async function ghGetFile(path) {          // { text, sha } of a file on main, or
   const j = await r.json();
   return { sha: j.sha, text: decodeURIComponent(escape(atob(j.content.replace(/\n/g, "")))) };
 }
+async function ghDeleteFile(path, message) {
+  const f = await ghGetFile(path); if (!f) return;
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, { method: "DELETE",
+    headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" }, body: JSON.stringify({ message, branch: "main", sha: f.sha }) });
+  if (!r.ok) throw new Error(`GitHub said ${r.status}`);
+}
 async function ghPutFile(path, content, message, sha) {
   const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
     method: "PUT", headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" },
@@ -180,20 +186,45 @@ function resultsTable(res) {
   return `<table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(res).map(([k, v]) => `<tr><td>${esc(resultLabel(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>`;
 }
 
-// ---------- Don't have (this week only): rebuild a series without cards you don't own yet ----------
-const nhKey = () => "nohave:" + ((INDEX && INDEX.week) || "");
-function nhAll() { try { return JSON.parse(localStorage.getItem(nhKey()) || "{}"); } catch (e) { return {}; } }
-const noHave = k => nhAll()[k] || [];
-function nhSet(k, ids) { const a = nhAll(); if (ids.length) a[k] = ids; else delete a[k]; try { localStorage.setItem(nhKey(), JSON.stringify(a)); } catch (e) {} }
-function noHaveBar(k, built) {
-  const ids = noHave(k), names = ids.map(id => { const c = BYID.get(id); return c ? cap(c.name) + " " + c.rating : id; });
+// ---------- Don't have: a personal version of a team, rebuilt without cards you don't own ----------
+// Best Teams always assume everyone owns every card. A "Don't have" rebuild makes YOUR version
+// (docs/results/mine/...), shown only on this phone; everyone else keeps seeing the full team.
+const wkKey = p => p + ":" + ((INDEX && INDEX.week) || "");
+const lsGet = k => { try { return JSON.parse(localStorage.getItem(wkKey(k)) || "{}"); } catch (e) { return {}; } };
+const lsSet = (k, v) => { try { localStorage.setItem(wkKey(k), JSON.stringify(v)); } catch (e) {} };
+const noHave = k => lsGet("nohave")[k] || [];                       // picked, not rebuilt yet
+function nhSet(k, ids) { const a = lsGet("nohave"); if (ids.length) a[k] = ids; else delete a[k]; lsSet("nohave", a); }
+const mineOf = k => lsGet("mine")[k] || null;                      // { ids, at } = your version was requested
+function mineSet(k, v) { const a = lsGet("mine"); if (v) a[k] = v; else delete a[k]; lsSet("mine", a); }
+const viewOf = k => lsGet("mineview")[k] || "mine";
+function viewSet(k, v) { const a = lsGet("mineview"); a[k] = v; lsSet("mineview", a); }
+const cardNames = ids => ids.map(id => { const c = BYID.get(id); return c ? cap(c.name) + " " + c.rating : id; });
+const sameSet = (a, b) => (a || []).length === (b || []).length && (a || []).every(x => (b || []).includes(x));
+async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
+  if (!ghToken()) return { d, bar: noHaveBar(k) };     // personal versions belong to the phone with the GitHub key
+  let dm = null; try { dm = await getJSON("results/mine/" + f); } catch (e) {}
+  if (dm && (dm.week !== INDEX.week || !(dm.not_owned_ids || []).length)) dm = null;
+  let m = mineOf(k);
+  if (m && !m.ids.length) return { d, bar: noHaveBar(k) };     // you got every card back: everyone's team
+  if (!m && dm) m = { ids: dm.not_owned_ids };                   // built earlier (or on another visit)
+  if (!m) return { d, bar: noHaveBar(k) };
+  const ready = dm && sameSet(dm.not_owned_ids, m.ids);
+  const names = esc(cardNames(m.ids).join(", ")), got = m.ids.map(id => `<button class="ghost small" data-got="${esc(k)}|${esc(id)}" data-all="${esc(m.ids.join(","))}" style="padding:3px 9px">Got ${esc(cardNames([id])[0])}</button>`).join("");
+  let bar = `<div class="minebar">`;
+  if (!ready) bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names} is building (about ${k.startsWith("sim") ? 5 : 50} min). Showing everyone's team for now.</p>`;
+  else if (viewOf(k) === "mine") { bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b>, built without ${names}. Everyone else sees the full team.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|everyone" style="padding:4px 10px;font-size:12.5px">Show Everyone's Team</button></div>`; d = dm; }
+  else bar += `<p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|mine" style="padding:4px 10px;font-size:12.5px">Show Your Version (without ${names})</button></div>`;
+  bar += `<div class="row" style="margin:0 0 4px">${got}</div><p class="small muted" style="margin:0 0 8px">Got a card since? Tap it and your version updates.</p></div>`;
+  return { d, bar: bar + noHaveBar(k) };
+}
+function noHaveBar(k) {
+  const ids = noHave(k);
   let h = `<div class="nhbar" data-nhbar="${esc(k)}">`;
-  if (built && built.length) h += `<p class="small muted" style="margin:2px 0 6px">Built without: ${esc(built.map(cap).join(", "))}</p>`;
-  if (ids.length) h += `<p class="small" style="margin:2px 0 6px"><b>Don't have:</b> ${esc(names.join(", "))}</p><div class="row" style="margin:0 0 10px"><button class="btn" data-nhgo="${esc(k)}">Rebuild Without Them</button><button class="ghost" data-nhclear="${esc(k)}">Undo</button></div>`;
+  if (ids.length) h += `<p class="small" style="margin:2px 0 6px"><b>Don't have:</b> ${esc(cardNames(ids).join(", "))}</p><div class="row" style="margin:0 0 10px"><button class="btn" data-nhgo="${esc(k)}">Rebuild Without Them</button><button class="ghost" data-nhclear="${esc(k)}">Undo</button></div>`;
   return h + `</div>`;
 }
 function wireNoHave() {
-  const redraw = k => { const bar = document.querySelector(`[data-nhbar="${k}"]`); if (bar) bar.outerHTML = noHaveBar(k, null); wireNoHave(); };
+  const redraw = k => { const bar = document.querySelector(`[data-nhbar="${k}"]`); if (bar) bar.outerHTML = noHaveBar(k); wireNoHave(); };
   document.querySelectorAll("[data-nh]").forEach(b => b.onclick = () => {
     const k = b.dataset.nh, ids = noHave(k), i = ids.indexOf(b.dataset.id);
     if (i >= 0) ids.splice(i, 1); else ids.push(b.dataset.id);
@@ -203,27 +234,33 @@ function wireNoHave() {
     const k = b.dataset.nhclear; nhSet(k, []);
     document.querySelectorAll(`[data-nh="${k}"]`).forEach(x => x.classList.remove("on")); redraw(k);
   });
-  document.querySelectorAll("[data-nhgo]").forEach(b => b.onclick = () => rebuildWithout(b.dataset.nhgo));
+  document.querySelectorAll("[data-nhgo]").forEach(b => b.onclick = () => rebuildWithout(b.dataset.nhgo, [...new Set([...((mineOf(b.dataset.nhgo) || {}).ids || []), ...noHave(b.dataset.nhgo)])]));
+  document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => { const [k, v] = b.dataset.view.split("|"); viewSet(k, v); renderTeams(); });
+  document.querySelectorAll("[data-got]").forEach(b => b.onclick = () => {
+    const [k, id] = b.dataset.got.split("|"), cur = mineOf(k) || { ids: (b.dataset.all || "").split(",").filter(Boolean) }, rest = cur.ids.filter(x => x !== id);
+    if (!rest.length) {                                   // nothing missing any more: back to everyone's team
+      const [kind, key] = k.split(":");
+      mineSet(k, { ids: [], at: new Date().toISOString() }); viewSet(k, "everyone");
+      ghDeleteFile(`docs/results/mine/${kind}_${key}.json`, `Got every card for ${k}: back to everyone's team`).catch(() => {});
+      renderTeams(); return;
+    }
+    rebuildWithout(k, rest, true);
+  });
 }
-async function rebuildWithout(k) {
-  const [kind, key] = k.split(":"), ids = noHave(k);
+async function rebuildWithout(k, ids, afterGot) {
+  const [kind, key] = k.split(":");
   if (!ghToken()) {
-    alert(`To rebuild teams from the site, connect GitHub once:\n\nSeason Setup tab → "Connect GitHub".`);
-    document.querySelector('#tabs button[data-t="setup"]').click(); return;
+    alert(`Rebuilding needs the site's GitHub connection (Season Setup tab → "Connect GitHub"), which only the site owner has.`);
+    return;
   }
   const mins = kind === "sim" ? 5 : 50;
-  if (!confirm(`Rebuild the ${key} series without ${ids.length} card${ids.length > 1 ? "s" : ""}?\n\nIt runs on GitHub and takes about ${mins} minutes. These cards stay excluded for the rest of this season; next season assumes you own everything again.`)) return;
+  if (!confirm(`${afterGot ? "Rebuild your version" : "Build your own version of"} the ${key} series without ${cardNames(ids).join(", ")}?\n\nIt runs on GitHub and takes about ${mins} minutes. Only you see it; everyone else keeps the full team. It lasts until the season ends.`)) return;
   try {
-    const f = await ghGetFile("config/notowned.json"); let cur = { week: INDEX.week, ids: [] };
-    try { const j = f && JSON.parse(f.text); if (j && j.week === INDEX.week) cur = j; } catch (e) {}
-    cur.ids = [...new Set([...(cur.ids || []), ...ids])];
-    cur._help = "Cards marked Don't have on the site. Only used while 'week' matches config/week.json, so a new week assumes you own everything again.";
-    await ghPutFile("config/notowned.json", JSON.stringify(cur, null, 1), `Don't have: ${ids.length} card(s) for ${k}`, f && f.sha);
     const t = new Date(), pad = n => String(n).padStart(2, "0");
     await ghPutFile(`config/requests/rebuild-${kind}-${key}-${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}-${pad(t.getHours())}${pad(t.getMinutes())}${pad(t.getSeconds())}.json`,
-      JSON.stringify({ mode: "rebuild", kind, series: key, name: `Rebuild ${k}`, created: t.toISOString() }, null, 1), `Rebuild ${k} without ${ids.length} card(s)`);
-    nhSet(k, []);
-    alert(`Started ✓\n\nThe new ${key} team appears here in about ${mins} minutes (refresh the site).`);
+      JSON.stringify({ mode: "rebuild", kind, series: key, not_owned: ids, name: `Rebuild ${k}`, created: t.toISOString() }, null, 1), `Personal rebuild ${k} without ${ids.length} card(s)`);
+    mineSet(k, { ids, at: t.toISOString() }); viewSet(k, "mine"); nhSet(k, []);
+    alert(`Started ✓\n\nYour version of ${key} appears here in about ${mins} minutes (refresh the site).`);
     renderTeams();
   } catch (e) { alert("Couldn't start the rebuild: " + e.message); }
 }
@@ -261,7 +298,9 @@ async function renderTeams() {
   html += `<h3>Fatal My Club</h3>`;
   for (const f of mc) {
     try {
-      const d = await getJSON(base + f); const t = d.team;
+      let d = await getJSON(base + f), bar = "";
+      if (!V) ({ d, bar } = await versionOf("myclub:" + d.series.key, f, d));
+      const t = d.team;
       let worst = null;
       for (const [k, v] of Object.entries(t.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
@@ -273,7 +312,7 @@ async function renderTeams() {
       if (refs.length) html += `<p class="small" style="margin:2px 0">Against the Reddit Team: ${refs.map(([k, v]) => `${pill(v.you_lead_first)} ${pill(v.they_lead_first)}`).join(" · ")} <span class="muted">(you lead / they lead)</span></p>`;
       if (worst) html += `<p class="small" style="margin:2px 0 8px">Worst case: ${pill(worst.r)} <span class="muted">against ${esc(resultLabel(worst.k))}, ${worst.who}</span>${t.mode !== "robust" ? ` <span class="muted">· built before the worst-case mode; next build upgrades it</span>` : ""}</p>`;
       if (t.plan) html += planHtml(t.plan);
-      html += (V ? "" : noHaveBar("myclub:" + d.series.key, d.not_owned)) + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
+      html += bar + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
         <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added in Season Setup).<br>
@@ -288,9 +327,11 @@ async function renderTeams() {
   html += `<h3>Fatal Sim</h3>`;
   for (const f of sim) {
     try {
-      const d = await getJSON(base + f); const t = d.teams && d.teams[0]; if (!t) continue;
+      let d = await getJSON(base + f), bar = "";
+      if (!V) ({ d, bar } = await versionOf("sim:" + d.series.key, f, d));
+      const t = d.teams && d.teams[0]; if (!t) continue;
       const m = t.metrics;
-      html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem</p><p class="small">Control <b>${m.control}</b> · Attack <b>${m.attack}</b> · Defence <b>${m.defence}</b> <span class="muted">(averages)</span></p>${V ? "" : noHaveBar("sim:" + d.series.key, d.not_owned)}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      html += `<div class="card"><h2>${esc(d.series.key)} series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem</p><p class="small">Control <b>${m.control}</b> · Attack <b>${m.attack}</b> · Defence <b>${m.defence}</b> <span class="muted">(averages)</span></p>${bar}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="small muted">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
   }
   if (!V) {
@@ -490,7 +531,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261013h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -770,7 +811,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013g");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013h");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
