@@ -1,0 +1,14 @@
+<!doctype html><html><body><pre id="o"></pre><script>
+(async () => {
+  const W = (await (await fetch("results/week.json")).json());
+  const out = document.getElementById("o"); const log = t => out.textContent += t + "\n";
+  const run = (key, notOwned, tl) => new Promise(res => { const w = new Worker("simworker.js?x=" + Math.random());
+    w.onmessage = e => { if (e.data.type === "progress") return; res(e.data); w.terminate(); };
+    w.postMessage({ id: 1, series: W.sim.find(s => s.key === key), notOwned, timeLimit: tl }); });
+  for (const [key, no] of [["89", []], ["89", ["id212198"]], ["74", []], ["77", []]]) {
+    const r = await run(key, no, 20);
+    log(JSON.stringify({ key, no, seconds: r.seconds, err: r.error, formation: r.team && r.team.formation, metrics: r.team && r.team.metrics, names: r.team && r.team.players.map(p => p.name) }));
+  }
+  log("DONE");
+})();
+</script></body></html>
