@@ -88,29 +88,6 @@
    },
    {
     "slot": "CB",
-    "id": "id82975",
-    "name": "Alborghetti",
-    "rating": 67,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 27,
-    "leagueId": 32,
-    "clubId": 113147,
-    "card": [
-     55,
-     58,
-     66
-    ],
-    "chem": 3,
-    "eff": [
-     58,
-     61,
-     69
-    ],
-    "tiebreak": 185
-   },
-   {
-    "slot": "CB",
     "id": "id50603220",
     "name": "Fontanarosa",
     "rating": 67,
@@ -131,6 +108,29 @@
      70
     ],
     "tiebreak": 191
+   },
+   {
+    "slot": "CB",
+    "id": "id82975",
+    "name": "Alborghetti",
+    "rating": 67,
+    "color": "rare_silver",
+    "position": "CB",
+    "nationId": 27,
+    "leagueId": 32,
+    "clubId": 113147,
+    "card": [
+     55,
+     58,
+     66
+    ],
+    "chem": 3,
+    "eff": [
+     58,
+     61,
+     69
+    ],
+    "tiebreak": 185
    },
    {
     "slot": "RB",
@@ -157,26 +157,26 @@
    },
    {
     "slot": "CM",
-    "id": "id271213",
-    "name": "Giovane",
-    "rating": 67,
+    "id": "id279473",
+    "name": "Rispoli",
+    "rating": 66,
     "color": "rare_silver",
-    "position": "CDM",
+    "position": "CM",
     "nationId": 27,
     "leagueId": 32,
-    "clubId": 110908,
+    "clubId": 112494,
     "card": [
+     68,
      67,
-     67,
-     65
+     57
     ],
     "chem": 3,
     "eff": [
+     71,
      70,
-     70,
-     68
+     60
     ],
-    "tiebreak": 205
+    "tiebreak": 198
    },
    {
     "slot": "CM",
@@ -203,49 +203,26 @@
    },
    {
     "slot": "CM",
-    "id": "id279473",
-    "name": "Rispoli",
-    "rating": 66,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 27,
-    "leagueId": 32,
-    "clubId": 112494,
-    "card": [
-     68,
-     67,
-     57
-    ],
-    "chem": 3,
-    "eff": [
-     71,
-     70,
-     60
-    ],
-    "tiebreak": 198
-   },
-   {
-    "slot": "CAM",
-    "id": "id205089",
-    "name": "Valoti",
+    "id": "id271213",
+    "name": "Giovane",
     "rating": 67,
     "color": "rare_silver",
-    "position": "CM",
+    "position": "CDM",
     "nationId": 27,
     "leagueId": 32,
-    "clubId": 112954,
+    "clubId": 110908,
     "card": [
      67,
-     69,
-     57
+     67,
+     65
     ],
     "chem": 3,
     "eff": [
      70,
-     72,
-     60
+     70,
+     68
     ],
-    "tiebreak": 199
+    "tiebreak": 205
    },
    {
     "slot": "CAM",
@@ -269,6 +246,29 @@
      67
     ],
     "tiebreak": 207
+   },
+   {
+    "slot": "CAM",
+    "id": "id205089",
+    "name": "Valoti",
+    "rating": 67,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 27,
+    "leagueId": 32,
+    "clubId": 112954,
+    "card": [
+     67,
+     69,
+     57
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     72,
+     60
+    ],
+    "tiebreak": 199
    },
    {
     "slot": "ST",
@@ -299,17 +299,13 @@
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
    },
-   "mirror": {
-    "you_lead_first": "DRAW",
-    "they_lead_first": "DRAW"
-   },
    "counter 1": {
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
    },
    "counter 2": {
-    "you_lead_first": "WIN",
-    "they_lead_first": "WIN"
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
    },
    "counter 3": {
     "you_lead_first": "DRAW",
@@ -323,11 +319,15 @@
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
    },
-   "fresh test 1": {
+   "counter 6": {
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
    },
-   "fresh test 2": {
+   "counter 7": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 1": {
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
    },
@@ -348,6 +348,14 @@
     "they_lead_first": "DRAW"
    },
    "final check 5": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "final check 6": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "final check 7": {
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
    }
@@ -614,550 +622,32 @@
      }
     ]
    },
-   "mirror": {
+   "counter 1": {
     "formation": "4-3-2-1",
     "chem": 33,
     "players": [
      {
       "slot": "GK",
-      "id": "id198633",
-      "name": "Iannarilli",
+      "id": "id267053",
+      "name": "Soggiu",
       "rating": 67,
       "color": "rare_silver",
       "position": "GK",
       "nationId": 27,
-      "leagueId": 32,
-      "clubId": 2038,
+      "leagueId": 2236,
+      "clubId": 52,
       "card": [
-       35,
+       34,
+       30,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       37,
        33,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       38,
-       36,
        71
       ],
-      "tiebreak": 142
-     },
-     {
-      "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id82975",
-      "name": "Alborghetti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       55,
-       58,
-       66
-      ],
-      "chem": 3,
-      "eff": [
-       58,
-       61,
-       69
-      ],
-      "tiebreak": 185
-     },
-     {
-      "slot": "CB",
-      "id": "id50603220",
-      "name": "Fontanarosa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 4,
-      "clubId": 100087,
-      "card": [
-       60,
-       58,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       63,
-       61,
-       70
-      ],
-      "tiebreak": 191
-     },
-     {
-      "slot": "RB",
-      "id": "id200904",
-      "name": "Bariti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       66,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       70,
-       68
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "CM",
-      "id": "id271213",
-      "name": "Giovane",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       67,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       70,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CM",
-      "id": "id86098",
-      "name": "Chierico",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110907,
-      "card": [
-       68,
-       66,
-       58
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       61
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CM",
-      "id": "id279473",
-      "name": "Rispoli",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       68,
-       67,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       70,
-       60
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CAM",
-      "id": "id205089",
-      "name": "Valoti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       67,
-       69,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       72,
-       60
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "CAM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "ST",
-      "id": "id276035",
-      "name": "Buso",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       69,
-       64,
-       36
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       67,
-       39
-      ],
-      "tiebreak": 175
-     }
-    ]
-   },
-   "counter 1": {
-    "formation": "4-3-2-1",
-    "chem": 31,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id72755",
-      "name": "Bethke",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 21,
-      "leagueId": 20,
-      "clubId": 503,
-      "card": [
-       25,
-       24,
-       68
-      ],
-      "chem": 1,
-      "eff": [
-       25,
-       24,
-       68
-      ],
-      "tiebreak": 117
-     },
-     {
-      "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id278750",
-      "name": "Münz",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 21,
-      "leagueId": 4,
-      "clubId": 681,
-      "card": [
-       59,
-       61,
-       66
-      ],
-      "chem": 3,
-      "eff": [
-       61,
-       63,
-       68
-      ],
-      "tiebreak": 192
-     },
-     {
-      "slot": "CB",
-      "id": "id50603220",
-      "name": "Fontanarosa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 4,
-      "clubId": 100087,
-      "card": [
-       60,
-       58,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       63,
-       61,
-       70
-      ],
-      "tiebreak": 191
-     },
-     {
-      "slot": "RB",
-      "id": "id79017",
-      "name": "Faedo",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110912,
-      "card": [
-       48,
-       52,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       51,
-       55,
-       70
-      ],
-      "tiebreak": 173
-     },
-     {
-      "slot": "CM",
-      "id": "id271213",
-      "name": "Giovane",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       67,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       70,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CM",
-      "id": "id86445",
-      "name": "Pellizzari",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       68,
-       64,
-       64
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       67,
-       67
-      ],
-      "tiebreak": 202
-     },
-     {
-      "slot": "CM",
-      "id": "id210831",
-      "name": "Verstraete",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 100087,
-      "card": [
-       66,
-       68,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       68,
-       72,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CAM",
-      "id": "id195065",
-      "name": "Hairemans",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 230,
-      "card": [
-       66,
-       69,
-       51
-      ],
-      "chem": 3,
-      "eff": [
-       68,
-       73,
-       54
-      ],
-      "tiebreak": 192
-     },
-     {
-      "slot": "CAM",
-      "id": "id259551",
-      "name": "Milanese",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 1847,
-      "card": [
-       69,
-       66,
-       53
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       56
-      ],
-      "tiebreak": 194
-     },
-     {
-      "slot": "ST",
-      "id": "id260577",
-      "name": "Sandra",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "ST",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 681,
-      "card": [
-       68,
-       67,
-       53
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       71,
-       56
-      ],
-      "tiebreak": 194
-     }
-    ]
-   },
-   "counter 2": {
-    "formation": "4-2-3-1",
-    "chem": 32,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id263619",
-      "name": "Chambaere",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 2014,
-      "card": [
-       27,
-       20,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       29,
-       24,
-       71
-      ],
-      "tiebreak": 121
+      "tiebreak": 138
      },
      {
       "slot": "LB",
@@ -1207,544 +697,26 @@
      },
      {
       "slot": "CB",
-      "id": "id246946",
-      "name": "Coulibaly",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 126,
-      "leagueId": 4,
-      "clubId": 132231,
-      "card": [
-       69,
-       65,
-       61
-      ],
-      "chem": 2,
-      "eff": [
-       70,
-       66,
-       62
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "RB",
-      "id": "id273537",
-      "name": "Corbanie",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 110724,
-      "card": [
-       61,
-       64,
-       66
-      ],
-      "chem": 3,
-      "eff": [
-       63,
-       68,
-       69
-      ],
-      "tiebreak": 197
-     },
-     {
-      "slot": "CDM",
-      "id": "id210831",
-      "name": "Verstraete",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 100087,
-      "card": [
-       66,
-       68,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       68,
-       72,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CDM",
-      "id": "id79016",
-      "name": "Fusi",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110912,
-      "card": [
-       66,
-       66,
-       66
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       69,
-       69
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "CAM",
-      "id": "id205089",
-      "name": "Valoti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       67,
-       69,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       72,
-       60
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "CAM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "CAM",
-      "id": "id50609999",
-      "name": "Zeroli",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       65,
-       65,
-       63
-      ],
-      "chem": 3,
-      "eff": [
-       68,
-       68,
-       66
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "ST",
-      "id": "id260577",
-      "name": "Sandra",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "ST",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 681,
-      "card": [
-       68,
-       67,
-       53
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       71,
-       56
-      ],
-      "tiebreak": 194
-     }
-    ]
-   },
-   "counter 3": {
-    "formation": "4-1-4-1",
-    "chem": 31,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id198633",
-      "name": "Iannarilli",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 2038,
-      "card": [
-       35,
-       33,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       38,
-       36,
-       71
-      ],
-      "tiebreak": 142
-     },
-     {
-      "slot": "LB",
-      "id": "id251911",
-      "name": "Nzita",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 670,
-      "card": [
-       59,
-       64,
-       66
-      ],
-      "chem": 3,
-      "eff": [
-       61,
-       68,
-       69
-      ],
-      "tiebreak": 195
-     },
-     {
-      "slot": "CB",
-      "id": "id212121",
-      "name": "Vanlerberghe",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 7,
-      "leagueId": 1,
-      "clubId": 269,
-      "card": [
-       60,
-       62,
-       66
-      ],
-      "chem": 2,
-      "eff": [
-       61,
-       65,
-       68
-      ],
-      "tiebreak": 191
-     },
-     {
-      "slot": "CB",
-      "id": "id246946",
-      "name": "Coulibaly",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 126,
-      "leagueId": 4,
-      "clubId": 132231,
-      "card": [
-       69,
-       65,
-       61
-      ],
-      "chem": 2,
-      "eff": [
-       70,
-       66,
-       62
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "RB",
-      "id": "id200904",
-      "name": "Bariti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       66,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       70,
-       68
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "CDM",
-      "id": "id279473",
-      "name": "Rispoli",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       68,
-       67,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       70,
-       60
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "LM",
-      "id": "id220488",
-      "name": "Costa",
+      "id": "id74080",
+      "name": "Davi",
       "rating": 67,
       "color": "rare_silver",
       "position": "LB",
       "nationId": 27,
       "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CM",
-      "id": "id210831",
-      "name": "Verstraete",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 100087,
-      "card": [
-       66,
-       68,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       68,
-       72,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
       "clubId": 112494,
       "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "RM",
-      "id": "id195065",
-      "name": "Hairemans",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 230,
-      "card": [
-       66,
-       69,
-       51
-      ],
-      "chem": 3,
-      "eff": [
-       68,
-       73,
-       54
-      ],
-      "tiebreak": 192
-     },
-     {
-      "slot": "ST",
-      "id": "id260577",
-      "name": "Sandra",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "ST",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 681,
-      "card": [
-       68,
-       67,
-       53
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       71,
-       56
-      ],
-      "tiebreak": 194
-     }
-    ]
-   },
-   "counter 4": {
-    "formation": "4-3-2-1",
-    "chem": 31,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id198633",
-      "name": "Iannarilli",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 2038,
-      "card": [
-       35,
-       33,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       38,
-       36,
-       71
-      ],
-      "tiebreak": 142
-     },
-     {
-      "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id193333",
-      "name": "Brighenti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       54,
-       53,
-       66
-      ],
-      "chem": 3,
-      "eff": [
-       57,
        56,
+       60,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       59,
+       63,
        69
       ],
-      "tiebreak": 179
-     },
-     {
-      "slot": "CB",
-      "id": "id79542",
-      "name": "Gajić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 51,
-      "leagueId": 2218,
-      "clubId": 116036,
-      "card": [
-       39,
-       49,
-       68
-      ],
-      "chem": 1,
-      "eff": [
-       39,
-       49,
-       68
-      ],
-      "tiebreak": 156
+      "tiebreak": 188
      },
      {
       "slot": "RB",
@@ -1837,6 +809,2596 @@
        65
       ],
       "tiebreak": 199
+     },
+     {
+      "slot": "CAM",
+      "id": "id276451",
+      "name": "Vasić",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 51,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       69,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       67
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CAM",
+      "id": "id205089",
+      "name": "Valoti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       67,
+       69,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       60
+      ],
+      "tiebreak": 199
+     },
+     {
+      "slot": "ST",
+      "id": "id79158",
+      "name": "Bernat Guiu",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       69,
+       67,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       38
+      ],
+      "tiebreak": 178
+     }
+    ]
+   },
+   "counter 2": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id70904",
+      "name": "Pereira Cardoso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 31,
+      "leagueId": 4,
+      "clubId": 132231,
+      "card": [
+       25,
+       33,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       27,
+       35,
+       70
+      ],
+      "tiebreak": 132
+     },
+     {
+      "slot": "LB",
+      "id": "id78419",
+      "name": "Cappelle",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 15005,
+      "card": [
+       59,
+       62,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       61,
+       66,
+       68
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "CB",
+      "id": "id254273",
+      "name": "Beka Beka",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 18,
+      "leagueId": 4,
+      "clubId": 132231,
+      "card": [
+       63,
+       62,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       65,
+       64,
+       66
+      ],
+      "tiebreak": 195
+     },
+     {
+      "slot": "CB",
+      "id": "id246946",
+      "name": "Coulibaly",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 126,
+      "leagueId": 4,
+      "clubId": 132231,
+      "card": [
+       69,
+       65,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       63
+      ],
+      "tiebreak": 201
+     },
+     {
+      "slot": "RB",
+      "id": "id273537",
+      "name": "Corbanie",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 110724,
+      "card": [
+       61,
+       64,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       63,
+       68,
+       69
+      ],
+      "tiebreak": 197
+     },
+     {
+      "slot": "CDM",
+      "id": "id271213",
+      "name": "Giovane",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       67,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "LM",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CM",
+      "id": "id210831",
+      "name": "Verstraete",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 100087,
+      "card": [
+       66,
+       68,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       68,
+       72,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "CM",
+      "id": "id205089",
+      "name": "Valoti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       67,
+       69,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       60
+      ],
+      "tiebreak": 199
+     },
+     {
+      "slot": "RM",
+      "id": "id269361",
+      "name": "Silipo",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 1847,
+      "card": [
+       68,
+       66,
+       38
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       41
+      ],
+      "tiebreak": 178
+     },
+     {
+      "slot": "ST",
+      "id": "id80630",
+      "name": "Rao",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110738,
+      "card": [
+       68,
+       65,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       68,
+       43
+      ],
+      "tiebreak": 179
+     }
+    ]
+   },
+   "counter 3": {
+    "formation": "4-1-2-1-2 (2)",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id263619",
+      "name": "Chambaere",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 2014,
+      "card": [
+       27,
+       20,
+       68
+      ],
+      "chem": 2,
+      "eff": [
+       28,
+       23,
+       70
+      ],
+      "tiebreak": 118
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id50603220",
+      "name": "Fontanarosa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 4,
+      "clubId": 100087,
+      "card": [
+       60,
+       58,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       63,
+       61,
+       70
+      ],
+      "tiebreak": 191
+     },
+     {
+      "slot": "CB",
+      "id": "id240233",
+      "name": "Pupe",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 680,
+      "card": [
+       41,
+       46,
+       68
+      ],
+      "chem": 2,
+      "eff": [
+       42,
+       49,
+       70
+      ],
+      "tiebreak": 158
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CDM",
+      "id": "id277769",
+      "name": "Zuccon",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 115845,
+      "card": [
+       64,
+       67,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       70,
+       67
+      ],
+      "tiebreak": 201
+     },
+     {
+      "slot": "CM",
+      "id": "id86098",
+      "name": "Chierico",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110907,
+      "card": [
+       68,
+       66,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       61
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       68,
+       67,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CAM",
+      "id": "id243527",
+      "name": "Caligara",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 111974,
+      "card": [
+       66,
+       66,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       69,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "ST",
+      "id": "id270473",
+      "name": "Rauti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       59,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       62,
+       34
+      ],
+      "tiebreak": 164
+     },
+     {
+      "slot": "ST",
+      "id": "id276035",
+      "name": "Buso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       69,
+       64,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       67,
+       39
+      ],
+      "tiebreak": 175
+     }
+    ]
+   },
+   "counter 4": {
+    "formation": "4-3-2-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50600523",
+      "name": "Pizzignacco",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112493,
+      "card": [
+       32,
+       36,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       35,
+       39,
+       71
+      ],
+      "tiebreak": 142
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id82975",
+      "name": "Alborghetti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       55,
+       58,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       58,
+       61,
+       69
+      ],
+      "tiebreak": 185
+     },
+     {
+      "slot": "CB",
+      "id": "id247214",
+      "name": "Parodi",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       59,
+       56,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       62,
+       59,
+       70
+      ],
+      "tiebreak": 188
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id86445",
+      "name": "Pellizzari",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       64,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CM",
+      "id": "id79016",
+      "name": "Fusi",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110912,
+      "card": [
+       66,
+       66,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       69,
+       69
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       68,
+       67,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CAM",
+      "id": "id276451",
+      "name": "Vasić",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 51,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       69,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       67
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CAM",
+      "id": "id259551",
+      "name": "Milanese",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 1847,
+      "card": [
+       69,
+       66,
+       53
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       56
+      ],
+      "tiebreak": 194
+     },
+     {
+      "slot": "ST",
+      "id": "id276035",
+      "name": "Buso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       69,
+       64,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       67,
+       39
+      ],
+      "tiebreak": 175
+     }
+    ]
+   },
+   "counter 5": {
+    "formation": "4-3-2-1",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id267053",
+      "name": "Soggiu",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 2236,
+      "clubId": 52,
+      "card": [
+       34,
+       30,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       37,
+       33,
+       71
+      ],
+      "tiebreak": 138
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id229073",
+      "name": "Dacres-Cogley",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 14,
+      "leagueId": 60,
+      "clubId": 1931,
+      "card": [
+       66,
+       62,
+       65
+      ],
+      "chem": 0,
+      "eff": [
+       63,
+       59,
+       62
+      ],
+      "tiebreak": 184
+     },
+     {
+      "slot": "CB",
+      "id": "id79017",
+      "name": "Faedo",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110912,
+      "card": [
+       48,
+       52,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       51,
+       55,
+       70
+      ],
+      "tiebreak": 173
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id271213",
+      "name": "Giovane",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       67,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "CM",
+      "id": "id86445",
+      "name": "Pellizzari",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       64,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       68,
+       67,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CAM",
+      "id": "id271201",
+      "name": "Lella",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 206,
+      "card": [
+       66,
+       63,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       66,
+       67
+      ],
+      "tiebreak": 199
+     },
+     {
+      "slot": "CAM",
+      "id": "id276451",
+      "name": "Vasić",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 51,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       69,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       67
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "ST",
+      "id": "id80630",
+      "name": "Rao",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110738,
+      "card": [
+       68,
+       65,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       68,
+       43
+      ],
+      "tiebreak": 179
+     }
+    ]
+   },
+   "counter 6": {
+    "formation": "4-1-2-1-2 (2)",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id198633",
+      "name": "Iannarilli",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 2038,
+      "card": [
+       35,
+       33,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       38,
+       36,
+       71
+      ],
+      "tiebreak": 142
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id50573912",
+      "name": "Imperiale",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       54,
+       57,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       57,
+       60,
+       70
+      ],
+      "tiebreak": 184
+     },
+     {
+      "slot": "CB",
+      "id": "id230134",
+      "name": "Sergio Molina",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 114554,
+      "card": [
+       64,
+       64,
+       68
+      ],
+      "chem": 1,
+      "eff": [
+       64,
+       64,
+       68
+      ],
+      "tiebreak": 196
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CDM",
+      "id": "id205089",
+      "name": "Valoti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       67,
+       69,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       60
+      ],
+      "tiebreak": 199
+     },
+     {
+      "slot": "CM",
+      "id": "id271213",
+      "name": "Giovane",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       67,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "CM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       68,
+       67,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CAM",
+      "id": "id276451",
+      "name": "Vasić",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 51,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       69,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       67
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "ST",
+      "id": "id79158",
+      "name": "Bernat Guiu",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       69,
+       67,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       38
+      ],
+      "tiebreak": 178
+     },
+     {
+      "slot": "ST",
+      "id": "id276035",
+      "name": "Buso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       69,
+       64,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       67,
+       39
+      ],
+      "tiebreak": 175
+     }
+    ]
+   },
+   "counter 7": {
+    "formation": "4-3-2-1",
+    "chem": 27,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id267053",
+      "name": "Soggiu",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 2236,
+      "clubId": 52,
+      "card": [
+       34,
+       30,
+       68
+      ],
+      "chem": 2,
+      "eff": [
+       36,
+       32,
+       70
+      ],
+      "tiebreak": 135
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id223229",
+      "name": "Manea",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 39,
+      "leagueId": 330,
+      "clubId": 310,
+      "card": [
+       60,
+       58,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       62,
+       60,
+       68
+      ],
+      "tiebreak": 190
+     },
+     {
+      "slot": "CB",
+      "id": "id248680",
+      "name": "Grameni",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 39,
+      "leagueId": 330,
+      "clubId": 310,
+      "card": [
+       69,
+       66,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       68,
+       65
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id79016",
+      "name": "Fusi",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110912,
+      "card": [
+       66,
+       66,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       69,
+       69
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id244960",
+      "name": "Bruno Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 38,
+      "leagueId": 330,
+      "clubId": 114385,
+      "card": [
+       69,
+       68,
+       58
+      ],
+      "chem": 1,
+      "eff": [
+       69,
+       68,
+       58
+      ],
+      "tiebreak": 195
+     },
+     {
+      "slot": "CM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       68,
+       67,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CAM",
+      "id": "id276451",
+      "name": "Vasić",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 51,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       69,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       67
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CAM",
+      "id": "id259551",
+      "name": "Milanese",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 1847,
+      "card": [
+       69,
+       66,
+       53
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       56
+      ],
+      "tiebreak": 194
+     },
+     {
+      "slot": "ST",
+      "id": "id260577",
+      "name": "Sandra",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 681,
+      "card": [
+       68,
+       67,
+       53
+      ],
+      "chem": 0,
+      "eff": [
+       65,
+       66,
+       51
+      ],
+      "tiebreak": 179
+     }
+    ]
+   },
+   "fresh test 1": {
+    "formation": "4-3-2-1",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id236378",
+      "name": "Plizzari",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       29,
+       24,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       32,
+       27,
+       71
+      ],
+      "tiebreak": 127
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id74080",
+      "name": "Davi",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       56,
+       60,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       59,
+       63,
+       69
+      ],
+      "tiebreak": 188
+     },
+     {
+      "slot": "CB",
+      "id": "id230134",
+      "name": "Sergio Molina",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 114554,
+      "card": [
+       64,
+       64,
+       68
+      ],
+      "chem": 0,
+      "eff": [
+       61,
+       61,
+       65
+      ],
+      "tiebreak": 187
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       68,
+       67,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CM",
+      "id": "id271213",
+      "name": "Giovane",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       67,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "CM",
+      "id": "id86445",
+      "name": "Pellizzari",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       64,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CAM",
+      "id": "id268753",
+      "name": "Tait",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       65,
+       66,
+       60
+      ],
+      "chem": 3,
+      "eff": [
+       68,
+       69,
+       63
+      ],
+      "tiebreak": 197
+     },
+     {
+      "slot": "CAM",
+      "id": "id276451",
+      "name": "Vasić",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 51,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       69,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       67
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "ST",
+      "id": "id80630",
+      "name": "Rao",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110738,
+      "card": [
+       68,
+       65,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       68,
+       43
+      ],
+      "tiebreak": 179
+     }
+    ]
+   },
+   "final check 1": {
+    "formation": "4-1-2-1-2 (2)",
+    "chem": 29,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50600523",
+      "name": "Pizzignacco",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112493,
+      "card": [
+       32,
+       36,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       35,
+       39,
+       71
+      ],
+      "tiebreak": 142
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id242045",
+      "name": "Ashimeru",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 117,
+      "leagueId": 4,
+      "clubId": 229,
+      "card": [
+       67,
+       67,
+       61
+      ],
+      "chem": 1,
+      "eff": [
+       67,
+       67,
+       61
+      ],
+      "tiebreak": 195
+     },
+     {
+      "slot": "CB",
+      "id": "id50603220",
+      "name": "Fontanarosa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 4,
+      "clubId": 100087,
+      "card": [
+       60,
+       58,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       63,
+       61,
+       70
+      ],
+      "tiebreak": 191
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CDM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       68,
+       67,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CM",
+      "id": "id210831",
+      "name": "Verstraete",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 100087,
+      "card": [
+       66,
+       68,
+       65
+      ],
+      "chem": 2,
+      "eff": [
+       67,
+       71,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CM",
+      "id": "id277769",
+      "name": "Zuccon",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 115845,
+      "card": [
+       64,
+       67,
+       64
+      ],
+      "chem": 2,
+      "eff": [
+       66,
+       69,
+       66
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CAM",
+      "id": "id276451",
+      "name": "Vasić",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 51,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       69,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       67
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "ST",
+      "id": "id276035",
+      "name": "Buso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       69,
+       64,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       67,
+       39
+      ],
+      "tiebreak": 175
+     },
+     {
+      "slot": "ST",
+      "id": "id79158",
+      "name": "Bernat Guiu",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       69,
+       67,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       38
+      ],
+      "tiebreak": 178
+     }
+    ]
+   },
+   "final check 2": {
+    "formation": "4-1-2-1-2 (2)",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id257752",
+      "name": "Del Frate",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       23,
+       23,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       26,
+       26,
+       71
+      ],
+      "tiebreak": 120
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id50603220",
+      "name": "Fontanarosa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 4,
+      "clubId": 100087,
+      "card": [
+       60,
+       58,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       63,
+       61,
+       70
+      ],
+      "tiebreak": 191
+     },
+     {
+      "slot": "CB",
+      "id": "id245560",
+      "name": "Venturi",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 2038,
+      "card": [
+       53,
+       57,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       56,
+       60,
+       69
+      ],
+      "tiebreak": 182
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CDM",
+      "id": "id86098",
+      "name": "Chierico",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110907,
+      "card": [
+       68,
+       66,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       61
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CM",
+      "id": "id86445",
+      "name": "Pellizzari",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       64,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CM",
+      "id": "id271213",
+      "name": "Giovane",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       67,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "CAM",
+      "id": "id205089",
+      "name": "Valoti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       67,
+       69,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       60
+      ],
+      "tiebreak": 199
+     },
+     {
+      "slot": "ST",
+      "id": "id276035",
+      "name": "Buso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       69,
+       64,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       67,
+       39
+      ],
+      "tiebreak": 175
+     },
+     {
+      "slot": "ST",
+      "id": "id270473",
+      "name": "Rauti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       59,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       62,
+       34
+      ],
+      "tiebreak": 164
+     }
+    ]
+   },
+   "final check 3": {
+    "formation": "4-2-3-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id220532",
+      "name": "Contini",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 48,
+      "card": [
+       32,
+       23,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       35,
+       26,
+       71
+      ],
+      "tiebreak": 129
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id193333",
+      "name": "Brighenti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       54,
+       53,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       57,
+       56,
+       69
+      ],
+      "tiebreak": 179
+     },
+     {
+      "slot": "CB",
+      "id": "id50573912",
+      "name": "Imperiale",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       54,
+       57,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       57,
+       60,
+       70
+      ],
+      "tiebreak": 184
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CDM",
+      "id": "id86445",
+      "name": "Pellizzari",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       64,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CDM",
+      "id": "id205089",
+      "name": "Valoti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       67,
+       69,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       60
+      ],
+      "tiebreak": 199
+     },
+     {
+      "slot": "CAM",
+      "id": "id259551",
+      "name": "Milanese",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 1847,
+      "card": [
+       69,
+       66,
+       53
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       56
+      ],
+      "tiebreak": 194
      },
      {
       "slot": "CAM",
@@ -1909,314 +3471,55 @@
      }
     ]
    },
-   "counter 5": {
-    "formation": "4-3-2-1",
+   "final check 4": {
+    "formation": "4-1-4-1",
     "chem": 33,
     "players": [
      {
       "slot": "GK",
-      "id": "id257752",
-      "name": "Del Frate",
+      "id": "id70904",
+      "name": "Pereira Cardoso",
       "rating": 67,
       "color": "rare_silver",
       "position": "GK",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
+      "nationId": 31,
+      "leagueId": 4,
+      "clubId": 132231,
       "card": [
-       23,
-       23,
+       25,
+       33,
        68
       ],
       "chem": 3,
       "eff": [
-       26,
-       26,
-       71
+       27,
+       35,
+       70
       ],
-      "tiebreak": 120
+      "tiebreak": 132
      },
      {
       "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
+      "id": "id251911",
+      "name": "Nzita",
       "rating": 67,
       "color": "rare_silver",
       "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 670,
       "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id50573912",
-      "name": "Imperiale",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       54,
-       57,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       57,
-       60,
-       70
-      ],
-      "tiebreak": 184
-     },
-     {
-      "slot": "CB",
-      "id": "id193333",
-      "name": "Brighenti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       54,
-       53,
+       59,
+       64,
        66
       ],
       "chem": 3,
       "eff": [
-       57,
-       56,
+       61,
+       68,
        69
       ],
-      "tiebreak": 179
-     },
-     {
-      "slot": "RB",
-      "id": "id200904",
-      "name": "Bariti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       66,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       70,
-       68
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "CM",
-      "id": "id271213",
-      "name": "Giovane",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       67,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       70,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CM",
-      "id": "id279473",
-      "name": "Rispoli",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       68,
-       67,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       70,
-       60
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CM",
-      "id": "id86098",
-      "name": "Chierico",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110907,
-      "card": [
-       68,
-       66,
-       58
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       61
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CAM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "CAM",
-      "id": "id205089",
-      "name": "Valoti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       67,
-       69,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       72,
-       60
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "ST",
-      "id": "id270473",
-      "name": "Rauti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "ST",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       68,
-       59,
-       31
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       62,
-       34
-      ],
-      "tiebreak": 164
-     }
-    ]
-   },
-   "fresh test 1": {
-    "formation": "4-3-2-1",
-    "chem": 33,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id236378",
-      "name": "Plizzari",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       29,
-       24,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       32,
-       27,
-       71
-      ],
-      "tiebreak": 127
-     },
-     {
-      "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
+      "tiebreak": 195
      },
      {
       "slot": "CB",
@@ -2243,357 +3546,52 @@
      },
      {
       "slot": "CB",
-      "id": "id72097",
-      "name": "Dellavalle",
-      "rating": 66,
+      "id": "id246946",
+      "name": "Coulibaly",
+      "rating": 67,
       "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110912,
+      "position": "CM",
+      "nationId": 126,
+      "leagueId": 4,
+      "clubId": 132231,
       "card": [
-       47,
-       47,
+       69,
+       65,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       63
+      ],
+      "tiebreak": 201
+     },
+     {
+      "slot": "RB",
+      "id": "id273537",
+      "name": "Corbanie",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 110724,
+      "card": [
+       61,
+       64,
        66
       ],
       "chem": 3,
       "eff": [
-       50,
-       50,
+       63,
+       68,
        69
       ],
-      "tiebreak": 166
+      "tiebreak": 197
      },
      {
-      "slot": "RB",
-      "id": "id200904",
-      "name": "Bariti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       66,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       70,
-       68
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "CM",
-      "id": "id87294",
-      "name": "Schirone",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110915,
-      "card": [
-       64,
-       67,
-       62
-      ],
-      "chem": 3,
-      "eff": [
-       67,
-       70,
-       65
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "CM",
-      "id": "id86445",
-      "name": "Pellizzari",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       68,
-       64,
-       64
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       67,
-       67
-      ],
-      "tiebreak": 202
-     },
-     {
-      "slot": "CM",
-      "id": "id279473",
-      "name": "Rispoli",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       68,
-       67,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       70,
-       60
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CAM",
-      "id": "id205089",
-      "name": "Valoti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       67,
-       69,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       72,
-       60
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "CAM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "ST",
-      "id": "id80630",
-      "name": "Rao",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110738,
-      "card": [
-       68,
-       65,
-       40
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       68,
-       43
-      ],
-      "tiebreak": 179
-     }
-    ]
-   },
-   "fresh test 2": {
-    "formation": "4-3-2-1",
-    "chem": 33,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id263619",
-      "name": "Chambaere",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 2014,
-      "card": [
-       27,
-       20,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       29,
-       24,
-       71
-      ],
-      "tiebreak": 121
-     },
-     {
-      "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id240233",
-      "name": "Pupe",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 680,
-      "card": [
-       41,
-       46,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       43,
-       50,
-       71
-      ],
-      "tiebreak": 161
-     },
-     {
-      "slot": "CB",
-      "id": "id222909",
-      "name": "Ruyssen",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 100081,
-      "card": [
-       40,
-       43,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       42,
-       47,
-       70
-      ],
-      "tiebreak": 156
-     },
-     {
-      "slot": "RB",
-      "id": "id262024",
-      "name": "Mehssatou",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 55,
-      "leagueId": 4,
-      "clubId": 100081,
-      "card": [
-       66,
-       67,
-       59
-      ],
-      "chem": 3,
-      "eff": [
-       68,
-       69,
-       61
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CM",
-      "id": "id86445",
-      "name": "Pellizzari",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       68,
-       64,
-       64
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       67,
-       67
-      ],
-      "tiebreak": 202
-     },
-     {
-      "slot": "CM",
-      "id": "id271213",
-      "name": "Giovane",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       67,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       70,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CM",
+      "slot": "CDM",
       "id": "id210831",
       "name": "Verstraete",
       "rating": 67,
@@ -2616,105 +3614,7 @@
       "tiebreak": 205
      },
      {
-      "slot": "CAM",
-      "id": "id195065",
-      "name": "Hairemans",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 7,
-      "leagueId": 4,
-      "clubId": 230,
-      "card": [
-       66,
-       69,
-       51
-      ],
-      "chem": 3,
-      "eff": [
-       68,
-       73,
-       54
-      ],
-      "tiebreak": 192
-     },
-     {
-      "slot": "CAM",
-      "id": "id259551",
-      "name": "Milanese",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 1847,
-      "card": [
-       69,
-       66,
-       53
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       56
-      ],
-      "tiebreak": 194
-     },
-     {
-      "slot": "ST",
-      "id": "id276035",
-      "name": "Buso",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       69,
-       64,
-       36
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       67,
-       39
-      ],
-      "tiebreak": 175
-     }
-    ]
-   },
-   "final check 1": {
-    "formation": "4-3-2-1",
-    "chem": 30,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id86928",
-      "name": "Waldbillig",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 7,
-      "leagueId": 2215,
-      "clubId": 112172,
-      "card": [
-       34,
-       36,
-       68
-      ],
-      "chem": 0,
-      "eff": [
-       31,
-       35,
-       66
-      ],
-      "tiebreak": 129
-     },
-     {
-      "slot": "LB",
+      "slot": "LM",
       "id": "id220488",
       "name": "Costa",
       "rating": 67,
@@ -2737,71 +3637,25 @@
       "tiebreak": 206
      },
      {
-      "slot": "CB",
-      "id": "id82975",
-      "name": "Alborghetti",
+      "slot": "CM",
+      "id": "id79016",
+      "name": "Fusi",
       "rating": 67,
       "color": "rare_silver",
-      "position": "CB",
+      "position": "CM",
       "nationId": 27,
       "leagueId": 32,
-      "clubId": 113147,
+      "clubId": 110912,
       "card": [
-       55,
-       58,
+       66,
+       66,
        66
       ],
       "chem": 3,
       "eff": [
-       58,
-       61,
-       69
-      ],
-      "tiebreak": 185
-     },
-     {
-      "slot": "CB",
-      "id": "id223007",
-      "name": "Coppolaro",
-      "rating": 65,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110907,
-      "card": [
-       54,
-       54,
-       64
-      ],
-      "chem": 3,
-      "eff": [
-       57,
-       57,
-       67
-      ],
-      "tiebreak": 178
-     },
-     {
-      "slot": "RB",
-      "id": "id200904",
-      "name": "Bariti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       66,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
        69,
-       70,
-       68
+       69,
+       69
       ],
       "tiebreak": 204
      },
@@ -2829,873 +3683,27 @@
       "tiebreak": 202
      },
      {
-      "slot": "CM",
-      "id": "id271213",
-      "name": "Giovane",
+      "slot": "RM",
+      "id": "id269361",
+      "name": "Silipo",
       "rating": 67,
       "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       67,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       70,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CM",
-      "id": "id86098",
-      "name": "Chierico",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110907,
-      "card": [
-       68,
-       66,
-       58
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       61
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CAM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "CAM",
-      "id": "id205089",
-      "name": "Valoti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       67,
-       69,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       72,
-       60
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "ST",
-      "id": "id79158",
-      "name": "Bernat Guiu",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "ST",
-      "nationId": 45,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       69,
-       67,
-       36
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       38
-      ],
-      "tiebreak": 178
-     }
-    ]
-   },
-   "final check 2": {
-    "formation": "4-2-3-1",
-    "chem": 33,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id220532",
-      "name": "Contini",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 27,
-      "leagueId": 31,
-      "clubId": 48,
-      "card": [
-       32,
-       23,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       35,
-       26,
-       71
-      ],
-      "tiebreak": 129
-     },
-     {
-      "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id50573912",
-      "name": "Imperiale",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       54,
-       57,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       57,
-       60,
-       70
-      ],
-      "tiebreak": 184
-     },
-     {
-      "slot": "CB",
-      "id": "id82975",
-      "name": "Alborghetti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       55,
-       58,
-       66
-      ],
-      "chem": 3,
-      "eff": [
-       58,
-       61,
-       69
-      ],
-      "tiebreak": 185
-     },
-     {
-      "slot": "RB",
-      "id": "id200904",
-      "name": "Bariti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       66,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       70,
-       68
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "CDM",
-      "id": "id86098",
-      "name": "Chierico",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110907,
-      "card": [
-       68,
-       66,
-       58
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       61
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CDM",
-      "id": "id271213",
-      "name": "Giovane",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       67,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       70,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CAM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "CAM",
-      "id": "id205089",
-      "name": "Valoti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       67,
-       69,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       72,
-       60
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "CAM",
-      "id": "id259551",
-      "name": "Milanese",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
+      "position": "RM",
       "nationId": 27,
       "leagueId": 32,
       "clubId": 1847,
       "card": [
-       69,
-       66,
-       53
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       56
-      ],
-      "tiebreak": 194
-     },
-     {
-      "slot": "ST",
-      "id": "id276035",
-      "name": "Buso",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       69,
-       64,
-       36
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       67,
-       39
-      ],
-      "tiebreak": 175
-     }
-    ]
-   },
-   "final check 3": {
-    "formation": "4-3-2-1",
-    "chem": 33,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id78934",
-      "name": "Fortin",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 1843,
-      "card": [
-       29,
-       25,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       32,
-       28,
-       71
-      ],
-      "tiebreak": 128
-     },
-     {
-      "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id50573912",
-      "name": "Imperiale",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       54,
-       57,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       57,
-       60,
-       70
-      ],
-      "tiebreak": 184
-     },
-     {
-      "slot": "CB",
-      "id": "id79017",
-      "name": "Faedo",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110912,
-      "card": [
-       48,
-       52,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       51,
-       55,
-       70
-      ],
-      "tiebreak": 173
-     },
-     {
-      "slot": "RB",
-      "id": "id200904",
-      "name": "Bariti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       66,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       70,
-       68
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "CM",
-      "id": "id271213",
-      "name": "Giovane",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       67,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       70,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CM",
-      "id": "id86445",
-      "name": "Pellizzari",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       68,
-       64,
-       64
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       67,
-       67
-      ],
-      "tiebreak": 202
-     },
-     {
-      "slot": "CM",
-      "id": "id86098",
-      "name": "Chierico",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110907,
-      "card": [
        68,
        66,
-       58
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       61
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CAM",
-      "id": "id278076",
-      "name": "Besaggio",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 2038,
-      "card": [
-       66,
-       68,
-       59
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       71,
-       62
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "CAM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "ST",
-      "id": "id79158",
-      "name": "Bernat Guiu",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "ST",
-      "nationId": 45,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       69,
-       67,
-       36
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
        38
       ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       41
+      ],
       "tiebreak": 178
-     }
-    ]
-   },
-   "final check 4": {
-    "formation": "4-3-2-1",
-    "chem": 33,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id257752",
-      "name": "Del Frate",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       23,
-       23,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       26,
-       26,
-       71
-      ],
-      "tiebreak": 120
-     },
-     {
-      "slot": "LB",
-      "id": "id220488",
-      "name": "Costa",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       69,
-       66,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       72,
-       69,
-       68
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id50573912",
-      "name": "Imperiale",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       54,
-       57,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       57,
-       60,
-       70
-      ],
-      "tiebreak": 184
-     },
-     {
-      "slot": "CB",
-      "id": "id79017",
-      "name": "Faedo",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110912,
-      "card": [
-       48,
-       52,
-       67
-      ],
-      "chem": 3,
-      "eff": [
-       51,
-       55,
-       70
-      ],
-      "tiebreak": 173
-     },
-     {
-      "slot": "RB",
-      "id": "id200904",
-      "name": "Bariti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 113147,
-      "card": [
-       66,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       69,
-       70,
-       68
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "CM",
-      "id": "id271213",
-      "name": "Giovane",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110908,
-      "card": [
-       67,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       70,
-       68
-      ],
-      "tiebreak": 205
-     },
-     {
-      "slot": "CM",
-      "id": "id279473",
-      "name": "Rispoli",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       68,
-       67,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       70,
-       60
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CM",
-      "id": "id86098",
-      "name": "Chierico",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110907,
-      "card": [
-       68,
-       66,
-       58
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       61
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CAM",
-      "id": "id276451",
-      "name": "Vasić",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 51,
-      "leagueId": 32,
-      "clubId": 112494,
-      "card": [
-       69,
-       67,
-       65
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       67
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "CAM",
-      "id": "id205089",
-      "name": "Valoti",
-      "rating": 67,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 112954,
-      "card": [
-       67,
-       69,
-       57
-      ],
-      "chem": 3,
-      "eff": [
-       70,
-       72,
-       60
-      ],
-      "tiebreak": 199
      },
      {
       "slot": "ST",
@@ -3728,26 +3736,26 @@
     "players": [
      {
       "slot": "GK",
-      "id": "id271146",
-      "name": "Sorrentino",
+      "id": "id50600523",
+      "name": "Pizzignacco",
       "rating": 67,
       "color": "rare_silver",
       "position": "GK",
       "nationId": 27,
       "leagueId": 32,
-      "clubId": 110912,
+      "clubId": 112493,
       "card": [
-       26,
-       23,
+       32,
+       36,
        68
       ],
       "chem": 3,
       "eff": [
-       29,
-       26,
+       35,
+       39,
        71
       ],
-      "tiebreak": 123
+      "tiebreak": 142
      },
      {
       "slot": "LB",
@@ -3774,26 +3782,26 @@
      },
      {
       "slot": "CB",
-      "id": "id79017",
-      "name": "Faedo",
+      "id": "id82975",
+      "name": "Alborghetti",
       "rating": 67,
       "color": "rare_silver",
       "position": "CB",
       "nationId": 27,
       "leagueId": 32,
-      "clubId": 110912,
+      "clubId": 113147,
       "card": [
-       48,
-       52,
-       67
+       55,
+       58,
+       66
       ],
       "chem": 3,
       "eff": [
-       51,
-       55,
-       70
+       58,
+       61,
+       69
       ],
-      "tiebreak": 173
+      "tiebreak": 185
      },
      {
       "slot": "CB",
@@ -3843,29 +3851,6 @@
      },
      {
       "slot": "CM",
-      "id": "id86098",
-      "name": "Chierico",
-      "rating": 66,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 32,
-      "clubId": 110907,
-      "card": [
-       68,
-       66,
-       58
-      ],
-      "chem": 3,
-      "eff": [
-       71,
-       69,
-       61
-      ],
-      "tiebreak": 198
-     },
-     {
-      "slot": "CM",
       "id": "id86445",
       "name": "Pellizzari",
       "rating": 67,
@@ -3911,27 +3896,286 @@
       "tiebreak": 205
      },
      {
-      "slot": "CAM",
-      "id": "id268753",
-      "name": "Tait",
-      "rating": 67,
+      "slot": "CM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
       "color": "rare_silver",
       "position": "CM",
       "nationId": 27,
       "leagueId": 32,
       "clubId": 112494,
       "card": [
-       65,
-       66,
-       60
+       68,
+       67,
+       57
       ],
       "chem": 3,
       "eff": [
-       68,
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "CAM",
+      "id": "id276451",
+      "name": "Vasić",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 51,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
        69,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       69,
+       67
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CAM",
+      "id": "id259551",
+      "name": "Milanese",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 1847,
+      "card": [
+       69,
+       66,
+       53
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       56
+      ],
+      "tiebreak": 194
+     },
+     {
+      "slot": "ST",
+      "id": "id276035",
+      "name": "Buso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       69,
+       64,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       67,
+       39
+      ],
+      "tiebreak": 175
+     }
+    ]
+   },
+   "final check 6": {
+    "formation": "4-1-2-1-2 (2)",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id267053",
+      "name": "Soggiu",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 2236,
+      "clubId": 52,
+      "card": [
+       34,
+       30,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       37,
+       33,
+       71
+      ],
+      "tiebreak": 138
+     },
+     {
+      "slot": "LB",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id234578",
+      "name": "Reyes",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 83,
+      "leagueId": 341,
+      "clubId": 1032,
+      "card": [
+       62,
+       68,
+       66
+      ],
+      "chem": 0,
+      "eff": [
+       59,
+       65,
        63
       ],
-      "tiebreak": 197
+      "tiebreak": 187
+     },
+     {
+      "slot": "CB",
+      "id": "id79017",
+      "name": "Faedo",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110912,
+      "card": [
+       48,
+       52,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       51,
+       55,
+       70
+      ],
+      "tiebreak": 173
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CDM",
+      "id": "id271213",
+      "name": "Giovane",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       67,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "CM",
+      "id": "id86445",
+      "name": "Pellizzari",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       64,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CM",
+      "id": "id205089",
+      "name": "Valoti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       67,
+       69,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       60
+      ],
+      "tiebreak": 199
      },
      {
       "slot": "CAM",
@@ -3958,26 +4202,308 @@
      },
      {
       "slot": "ST",
-      "id": "id79158",
-      "name": "Bernat Guiu",
+      "id": "id80630",
+      "name": "Rao",
       "rating": 67,
       "color": "rare_silver",
-      "position": "ST",
-      "nationId": 45,
+      "position": "CAM",
+      "nationId": 27,
       "leagueId": 32,
-      "clubId": 113147,
+      "clubId": 110738,
       "card": [
-       69,
-       67,
-       36
+       68,
+       65,
+       40
       ],
       "chem": 3,
       "eff": [
        71,
-       69,
-       38
+       68,
+       43
       ],
-      "tiebreak": 178
+      "tiebreak": 179
+     },
+     {
+      "slot": "ST",
+      "id": "id276035",
+      "name": "Buso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       69,
+       64,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       67,
+       39
+      ],
+      "tiebreak": 175
+     }
+    ]
+   },
+   "final check 7": {
+    "formation": "4-1-4-1",
+    "chem": 32,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id263619",
+      "name": "Chambaere",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 2014,
+      "card": [
+       27,
+       20,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       29,
+       24,
+       71
+      ],
+      "tiebreak": 121
+     },
+     {
+      "slot": "LB",
+      "id": "id251911",
+      "name": "Nzita",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 670,
+      "card": [
+       59,
+       64,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       61,
+       68,
+       69
+      ],
+      "tiebreak": 195
+     },
+     {
+      "slot": "CB",
+      "id": "id240233",
+      "name": "Pupe",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 680,
+      "card": [
+       41,
+       46,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       43,
+       50,
+       71
+      ],
+      "tiebreak": 161
+     },
+     {
+      "slot": "CB",
+      "id": "id223931",
+      "name": "Matthys",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 7,
+      "leagueId": 56,
+      "clubId": 433,
+      "card": [
+       55,
+       58,
+       66
+      ],
+      "chem": 2,
+      "eff": [
+       56,
+       61,
+       68
+      ],
+      "tiebreak": 182
+     },
+     {
+      "slot": "RB",
+      "id": "id200904",
+      "name": "Bariti",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 113147,
+      "card": [
+       66,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       69,
+       70,
+       68
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CDM",
+      "id": "id271213",
+      "name": "Giovane",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       67,
+       67,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "LM",
+      "id": "id220488",
+      "name": "Costa",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       69,
+       66,
+       65
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CM",
+      "id": "id86445",
+      "name": "Pellizzari",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112954,
+      "card": [
+       68,
+       64,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       67,
+       67
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CM",
+      "id": "id279473",
+      "name": "Rispoli",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 112494,
+      "card": [
+       68,
+       67,
+       57
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       70,
+       60
+      ],
+      "tiebreak": 198
+     },
+     {
+      "slot": "RM",
+      "id": "id195065",
+      "name": "Hairemans",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 7,
+      "leagueId": 4,
+      "clubId": 230,
+      "card": [
+       66,
+       69,
+       51
+      ],
+      "chem": 3,
+      "eff": [
+       68,
+       73,
+       54
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "ST",
+      "id": "id276035",
+      "name": "Buso",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 32,
+      "clubId": 110908,
+      "card": [
+       69,
+       64,
+       36
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       67,
+       39
+      ],
+      "tiebreak": 175
      }
     ]
    }
@@ -3992,12 +4518,12 @@
     },
     {
      "slot": "CM",
-     "name": "Chierico",
+     "name": "Rispoli",
      "stat": "attack"
     },
     {
      "slot": "CM",
-     "name": "Rispoli",
+     "name": "Chierico",
      "stat": "attack"
     },
     {
@@ -4022,12 +4548,12 @@
      },
      {
       "slot": "CM",
-      "name": "Chierico",
+      "name": "Rispoli",
       "stat": "attack"
      },
      {
       "slot": "CM",
-      "name": "Rispoli",
+      "name": "Chierico",
       "stat": "attack"
      },
      {
@@ -4063,5 +4589,6 @@
   }
  },
  "not_owned": [],
- "built": "2026-10-12 18:57 UTC"
+ "built": "2026-10-13 20:42 UTC",
+ "week": "2026-10-12"
 }
