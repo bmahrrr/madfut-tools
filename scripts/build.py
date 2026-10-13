@@ -51,6 +51,7 @@ def save(name, data):
 
 
 def main():
+    global RES          # a personal rebuild writes to docs/results/mine
     mode = sys.argv[1]
     if mode == "list":
         w = week()
@@ -120,7 +121,6 @@ def main():
         req = json.load(open(sys.argv[2]))
         kind, key = req.get("kind", "myclub"), str(req["series"])
         # a personal version: same build, without the cards this person doesn't have; saved to docs/results/mine/
-        global RES
         os.environ["NOT_OWNED"] = ",".join(req.get("not_owned", []))
         RES = os.path.join(ROOT, "docs", "results", "mine"); os.makedirs(RES, exist_ok=True)
         print("Personal rebuild", kind, key, "without", req.get("not_owned"))
