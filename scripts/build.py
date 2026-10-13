@@ -36,16 +36,16 @@ def resolve_team(spec, by_id, cards):
 
 
 def not_owned():
-    """Cards marked "Don't have" on the site for THIS week (config/notowned.json). A new week forgets them."""
-    try:
-        n = json.load(open(os.path.join(ROOT, "config", "notowned.json")))
-    except Exception:
-        return set()
-    return set(n.get("ids", [])) if n.get("week") == week().get("week") else set()
+    """Cards left out of a personal rebuild ("Don't have" on the site). Weekly and nightly builds assume
+    everyone owns every card, so they never set this."""
+    return {x for x in os.environ.get("NOT_OWNED", "").split(",") if x}
 
 
 def save(name, data):
     data["built"] = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
+    data["week"] = week().get("week")
+    if not_owned():
+        data["not_owned_ids"] = sorted(not_owned())
     json.dump(data, open(os.path.join(RES, name), "w"), ensure_ascii=False, indent=1)
     print("saved", name)
 
@@ -87,6 +87,9 @@ def main():
         for f in kept:          # last week's teams leave the live results
             if f != "week.json":
                 os.remove(os.path.join(RES, f))
+        mine = os.path.join(RES, "mine")    # personal "Don't have" versions only last one season
+        if os.path.isdir(mine):
+            shutil.rmtree(mine)
         print("archived", old, len(kept), "files")
         return
     if mode == "index":
@@ -116,7 +119,11 @@ def main():
     elif mode == "request" and json.load(open(sys.argv[2])).get("mode") == "rebuild":
         req = json.load(open(sys.argv[2]))
         kind, key = req.get("kind", "myclub"), str(req["series"])
-        print("Rebuild", kind, key, "without", no_names)
+        # a personal version: same build, without the cards this person doesn't have; saved to docs/results/mine/
+        global RES
+        os.environ["NOT_OWNED"] = ",".join(req.get("not_owned", []))
+        RES = os.path.join(ROOT, "docs", "results", "mine"); os.makedirs(RES, exist_ok=True)
+        print("Personal rebuild", kind, key, "without", req.get("not_owned"))
         sys.argv = [sys.argv[0], kind, key]
         return main()
     elif mode == "request":
@@ -151,8 +158,9 @@ def main():
         except Exception as e:
             print("no hand-built team:", e)
         try:                                # this week's current best team: the new build must beat it to replace it
-            prev = json.load(open(os.path.join(RES, f"myclub_{key}.json")))
-            if json.load(open(os.path.join(RES, "week.json"))).get("week") == week().get("week"):
+            SHARED = os.path.join(ROOT, os.environ.get("RES_DIR") or os.path.join("docs", "results"))
+            prev = json.load(open(os.path.join(SHARED, f"myclub_{key}.json")))
+            if json.load(open(os.path.join(SHARED, "week.json"))).get("week") == week().get("week"):
                 cands.append(("Previous Best", [by_id[p["id"]] for p in prev["team"]["players"] if p["id"] in by_id]))
         except Exception as e:
             print("no previous team:", e)
