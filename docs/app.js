@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013i";
+const APP_V = "20261013j";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -70,17 +70,19 @@ async function selfUpdate() {         // a saved old copy of the site reloads it
   } catch (e) {}
   return false;
 }
+let DATA_UPDATED = "";
 async function init() {
   if (await selfUpdate()) return;
   $("appV").textContent = "Version " + APP_V;
   try {
     const d = await getJSON("cards.json");
     CARDS = d.cards.map(r => { const c = {}; d.fields.forEach((f, i) => c[f] = r[i]); return c; });
-    $("dataInfo").textContent = `${d.count.toLocaleString()} cards · Updated ${fmtStamp(d.updated)}`;
+    DATA_UPDATED = fmtStamp(d.updated); $("dataInfo").textContent = `${d.count.toLocaleString()} cards · Updated ${DATA_UPDATED}`;
   } catch (e) { $("dataInfo").textContent = "Card data missing"; }
   try { const nm = await getJSON("names.json"); Object.assign(NATIONS, nm.nations); Object.assign(LEAGUES, nm.leagues); CLUBS = nm.clubs || {}; } catch (e) {}
   for (const M of [NATIONS, LEAGUES, CLUBS]) for (const k in M) M[k] = cap(M[k]);
   try { const ex = await getJSON("results/extras.json"); ex.cards.forEach(c => CARDS.push(Object.assign({specialChem: "", _extra: true}, c))); } catch (e) {}
+  if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`;   // same total as the Cards tab
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
@@ -532,7 +534,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261013j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -812,7 +814,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013i");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013j");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -902,6 +904,10 @@ const typeLabel = t => ({ gold: "Gold", silver: "Silver", bronze: "Bronze" }[t] 
 const SHOW_EXTRA = new Set(["evo", "elite_evo", "ltm"]);      // hand-added cards listed in the Cards tab
 const inCards = c => !c._extra || SHOW_EXTRA.has(c.color);
 const cardCount = (t, cs) => t === "ltm" ? new Set(cs.map(c => c.name)).size : cs.length;   // an LTM counts once, whatever its level
+function siteTotal() {          // every card on the site, counted as the Cards tab does (hand-added Evo / Elite Evo / LTM included, each LTM once)
+  const byT = new Map(); CARDS.filter(inCards).forEach(c => { const k = typeKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
+  return [...byT].reduce((a, [t, cs]) => a + cardCount(t, cs), 0);
+}
 function setupCards() {
   const real = CARDS.filter(inCards);
   const byT = new Map(); real.forEach(c => { const k = typeKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
@@ -909,7 +915,7 @@ function setupCards() {
   const special = [...cnt].filter(([t]) => !["gold", "silver", "bronze"].includes(t)).reduce((a, [, n]) => a + n, 0);
   const order = ["gold", "silver", "bronze", ...[...cnt.keys()].filter(t => !["gold", "silver", "bronze"].includes(t)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b)))];
   const total = [...cnt.values()].reduce((a, n) => a + n, 0);
-  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(($("dataInfo").textContent.split("Updated ")[1] || "").split("version")[0])}. Compare these totals with your collection screen in the game. Evo, Elite Evo and LTM cards are added by hand and can't be used in SBCs. Each LTM counts once; its levels are listed inside.`;
+  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Compare these totals with your collection screen in the game. Evo, Elite Evo and LTM cards are added by hand and can't be used in SBCs. Each LTM counts once; its levels are listed inside.`;
   $("cardsTypes").innerHTML = `<button class="chipbtn" data-ct="special"><b>All special</b><span>${special}</span></button>` +
     order.map(t => `<button class="chipbtn" data-ct="${esc(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t)}</span></button>`).join("");
   $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
