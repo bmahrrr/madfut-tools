@@ -28,6 +28,16 @@ static inline int duelA(int ai, int bi, int s, int aLeads){
     return cmp(TA[ai], TB[bi]);
 }
 static int ordA[3][N], ordB[3][N], byTA[N], byTB[N];
+// domA[i]: bitmask of A's cards that are no better than card i in every stat and in tiebreak total
+// (exact copies count once, by index). The game is monotone in card strength, so when several cards
+// give the same duel result, using the weakest one is always at least as good: the others are pruned.
+static int domA[N], domB[N];
+static void doms(int S[N][3], int*T, int*dom){
+    for (int i=0;i<N;i++){ dom[i]=0; for (int j=0;j<N;j++){ if (j==i) continue;
+        int le = S[j][0]<=S[i][0] && S[j][1]<=S[i][1] && S[j][2]<=S[i][2] && T[j]<=T[i];
+        int eq = S[j][0]==S[i][0] && S[j][1]==S[i][1] && S[j][2]==S[i][2] && T[j]==T[i];
+        if (le && (!eq || j<i)) dom[i] |= 1<<j; } }
+}
 static int (*CS)[3]; static int *CT; static int cs_s;
 static int qs_desc(const void*a, const void*b){ int x=*(int*)a, y=*(int*)b; int c=CS[y][cs_s]-CS[x][cs_s]; if(c) return c; return CT[y]-CT[x]; }
 static int qs_asc(const void*a, const void*b){ int x=*(int*)a, y=*(int*)b; return CT[x]-CT[y]; }
@@ -60,9 +70,11 @@ static int win(int ma, int mb, int d, int ti){
     if (aLeads){
         res = 0;
         for (int s=0; s<3 && !res; s++) for (int oi=0; oi<N && !res; oi++){ int i=ordA[s][oi]; if(!(ma>>i&1)) continue;
-            int ok = 1;
+            int ok = 1, rr[N], same[3] = {0,0,0};
+            for (int j=0;j<N;j++) if (mb>>j&1){ rr[j] = duelA(i,j,s,1); same[rr[j]+1] |= 1<<j; }
             for (int pass=0; pass<2 && ok; pass++) for (int oj=0; oj<N; oj++){ int j=byTB[oj]; if(!(mb>>j&1)) continue;
-                int r = duelA(i,j,s,1); if ((pass==0) != (r<0)) continue;
+                int r = rr[j]; if ((pass==0) != (r<0)) continue;
+                if (domB[j] & same[r+1]) continue;      // a weaker B card gives the same result
                 if (!win(ma&~(1<<i), mb&~(1<<j), d+r, ti)){ ok=0; break; }
             }
             if (ok) res = 1;
@@ -70,9 +82,11 @@ static int win(int ma, int mb, int d, int ti){
     } else {
         res = 1;
         for (int s=0; s<3 && res; s++) for (int oj=0; oj<N && res; oj++){ int j=ordB[s][oj]; if(!(mb>>j&1)) continue;
-            int ok = 0;
+            int ok = 0, rr[N], same[3] = {0,0,0};
+            for (int i=0;i<N;i++) if (ma>>i&1){ rr[i] = duelA(i,j,s,0); same[rr[i]+1] |= 1<<i; }
             for (int pass=0; pass<2 && !ok; pass++) for (int oi=0; oi<N; oi++){ int i=byTA[oi]; if(!(ma>>i&1)) continue;
-                int r = duelA(i,j,s,0); if ((pass==0) != (r>0)) continue;
+                int r = rr[i]; if ((pass==0) != (r>0)) continue;
+                if (domA[i] & same[r+1]) continue;      // a weaker A card gives the same result
                 if (win(ma&~(1<<i), mb&~(1<<j), d+r, ti)){ ok=1; break; }
             }
             if (!ok) res = 0;
@@ -87,7 +101,7 @@ void setup(int f, const int*a, const int*b, const int*ta, const int*tb){
         for (int s=0;s<3;s++){ SA[i][s]=a[3*i+s]; SB[i][s]=b[3*i+s]; }
         TA[i]=ta[i]; TB[i]=tb[i];
     }
-    bump(); orders(SA,TA,ordA,byTA); orders(SB,TB,ordB,byTB);
+    bump(); orders(SA,TA,ordA,byTA); orders(SB,TB,ordB,byTB); doms(SA,TA,domA); doms(SB,TB,domB);
 }
 int level(int ma, int mb, int d){
     int l = 0;
@@ -97,4 +111,11 @@ int level(int ma, int mb, int d){
 int duelres(int ai, int bi, int s, int aLeads){ return duelA(ai,bi,s,aLeads); }
 int game(int f, const int*a, const int*b, const int*ta, const int*tb){
     setup(f,a,b,ta,tb); return level((1<<N)-1, (1<<N)-1, 0);
+}
+// Only the result for A (-1 loss, 0 draw, 1 win), not the margin: at most two searches instead of four.
+int outcome(int f, const int*a, const int*b, const int*ta, const int*tb){
+    setup(f,a,b,ta,tb);
+    int full = (1<<N)-1;
+    THR = 0; if (!win(full, full, 0, 1)) return -1;
+    THR = 1; return win(full, full, 0, 2) ? 1 : 0;
 }

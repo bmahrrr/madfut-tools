@@ -70,18 +70,30 @@ class Pool:
         return new if fits(new) else None
 
 
-def evaluate(E, opps, weights, bound=None, robust=False):
+def evaluate(E, opps, weights, bound=None, robust=False, floor=None, order=None, need=None):
     """Score a team against opponents. Normal: weighted sum of results (+1 win, 0 draw, -1 loss
-    for each lead order). Robust: the worst result against any single opponent comes first."""
+    for each lead order). Robust: the worst result against any single opponent comes first.
+    floor (robust): give up (None) as soon as one opponent scores below it - such a team can't be
+    accepted, so most candidates are rejected after one or two games. order: opponent indexes,
+    hardest first; the one that rejected a team moves to the front.
+    need (robust): the current team's (worst, total). Also give up when the worst case can no longer
+    beat it and the total can no longer reach it (the team can only be worse)."""
     tot = lv = 0
     if robust:
         worst = 9
-        for O, w in zip(opps, weights):
+        idx = list(order) if order is not None else list(range(len(opps)))
+        if need is not None and floor is None: floor = need[0]
+        rem = sum(2 * weights[k] for k in idx)
+        for n, k in enumerate(idx):
+            O, w = opps[k], weights[k]
             s = 0
             for f in (0, 1):
                 o, l = play(E, O, f)
                 s += o; tot += w * o; lv += w * l
-            worst = min(worst, s)
+            worst = min(worst, s); rem -= 2 * w
+            if (floor is not None and s < floor) or (need is not None and worst <= need[0] and tot + rem < need[1]):
+                if order is not None and n: order.insert(0, order.pop(order.index(k)))
+                return None
         return (worst, tot), lv
     rem = sum(2 * w for w in weights)
     for O, w in zip(opps, weights):
@@ -103,6 +115,7 @@ def secondary(E):
 def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust=False):
     cur = seed[:]
     E = pool.eff(cur)
+    order = list(range(len(opps))) if robust else None
     o, l = evaluate(E, opps, weights, robust=robust)
     ckey = (o, l, secondary(E)); best = (ckey, cur[:])
     head = (lambda k: k[0][0]) if robust else (lambda k: k[0])
@@ -115,7 +128,8 @@ def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust
             n2 = pool.propose(new, rng)
             if n2 is not None: new = n2
         E2 = pool.eff(new)
-        r = evaluate(E2, opps, weights, bound=None if robust else ckey[0] - 1, robust=robust)
+        r = evaluate(E2, opps, weights, bound=None if robust else ckey[0] - 1, robust=robust,
+                     need=ckey[0] if robust else None, order=order)
         if r is None: continue
         k2 = (r[0], r[1], secondary(E2))
         if k2 > ckey or (k2[:2] == ckey[:2] and rng.random() < 0.3) or \
@@ -127,6 +141,58 @@ def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust
         if head(ckey) < head(best[0]) - (0 if robust else 1):
             cur = best[1][:]; ckey = best[0]
     return best
+
+
+def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None):
+    """Systematic check of the finished team: try every promising single-card swap, judged on
+    (worst case, total results) against every opponent. Candidates: cards linked to the team by
+    nation/league/club, full-chem cards (Icons, Heroes...) and the strongest cards; a swap must not
+    lower the team's chemistry. Swaps that tie are kept as stepping stones and searched one level
+    deeper (full-chem cards first, they unlock links), so two-card changes like 'an Icon + the card
+    its league link puts on full chem' are found too."""
+    t0 = time.time(); order = list(range(len(opps)))
+    chem = lambda tm: sum(effective(tm, pool.series)[1])
+    def score(tm):
+        E = pool.eff(tm); r = evaluate(E, opps, weights, robust=True)
+        return (r[0], secondary(E))
+    cur = team[:]; ck = score(cur)
+    def cands(tm):
+        seen = {}
+        for x in tm:
+            for k in ("nationId", "leagueId", "clubId"):
+                for c in pool.by[k][x[k]][:per_link]: seen[c["id"]] = c
+        for c in pool.auto[:2 * per_link] + sorted(pool.top, key=lambda x: -x["T3"])[:3 * per_link]: seen[c["id"]] = c
+        used = {x["pid"] for x in tm}
+        L = [c for c in seen.values() if c["pid"] not in used]
+        if rng: rng.shuffle(L)              # a different order each night within the same strength band
+        return sorted(L, key=lambda c: -(c["T3"] // 8))
+    def sweep(base, bkey, collect):
+        ties, ch0, tried = [], chem(base), 0
+        for c in cands(base):
+            for i in range(11):
+                if time.time() - t0 > seconds: return None, ties, tried
+                new = base[:i] + [c] + base[i + 1:]
+                if not fits(new) or chem(new) < ch0: continue
+                tried += 1
+                E2 = pool.eff(new)
+                r = evaluate(E2, opps, weights, robust=True, need=bkey[0], order=order)
+                if r is None: continue
+                k2 = (r[0], secondary(E2))
+                if k2[0] > ck[0]: return (k2, new), ties, tried
+                if collect and k2[0] == bkey[0]: ties.append((k2, new, c))
+        return None, ties, tried
+    while time.time() - t0 < seconds:
+        hit, ties, n = sweep(cur, ck, True)
+        if log: log(f"  polish: {n} swaps tried, {len(ties)} ties, {time.time()-t0:.0f}s")
+        if not hit:
+            for k2, tie, c in sorted(ties, key=lambda t: (not full_chem(t[2]), -t[0][1])):
+                if time.time() - t0 > seconds: break
+                hit, _, _ = sweep(tie, k2, False)
+                if hit: break
+        if not hit: break
+        ck, cur = hit
+        if log: log(f"  polish: better team, worst {ck[0][0]} total {ck[0][1]}: {[c['name'] for c in cur]}")
+    return ck, cur
 
 
 def milp_seed(pool, rng=None, time_limit=60):
@@ -186,7 +252,7 @@ def dedupe(out):
 
 
 def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, rounds=4, seed=1, log=print,
-                 mode="standard", verify=0, candidates=()):
+                 mode="standard", verify=0, candidates=(), polish_share=0.25):
     """opponents: teams (lists of card dicts) to beat, e.g. Reddit reference teams.
     mode "standard": good against the opponents and against counter teams the builder finds.
     mode "robust":   judged by its WORST result against any opponent or counter team, more rounds.
@@ -276,20 +342,38 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                 br = optimize(field, start, [Ec], [1], max(20, T * 0.1 / n_chk), vr, None, f"check{i}")
                 i += 1
                 pool_opps.append(field.eff(br[1])); names.append(f"final check {i}"); opp_cards[f"final check {i}"] = br[1]
-        def worst_case(Et):
+        def worst_case(Et):         # worst result vs any opponent, then total results, then in-game stats
             per = [play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps]
-            return (min(per), sum(per))
+            return (min(per), sum(per), secondary(Et))
         best_key = worst_case(E)
         log(f"  built team: worst case {best_key}")
         for label, cand in valid:
             k = worst_case(me.eff(cand))
             log(f"  {label}: worst case {k}")
-            # the current team ("Previous Best", always last) keeps its place unless something has a better worst case
-            if k > best_key or (label == "Previous Best" and k[0] >= best_key[0]):
+            # best worst case wins; equal worst case -> more wins/draws over all opponents -> stronger stats.
+            # The current team ("Previous Best", always last) keeps its place on a full tie.
+            if k > best_key or (label == "Previous Best" and k[:2] >= best_key[:2]):
                 best_key, team, source = k, cand, label
         E = me.eff(team)
-        res = {n: {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
-               for n, O in zip(names, pool_opps)}
+    if polish_share and mode != "beat":
+        # systematic swap check of the chosen team against every opponent found so far
+        ck, pteam = polish(me, team, pool_opps, [1] * len(pool_opps), T * polish_share, log, rng=random.Random(seed + 7))
+        if _key(pteam) != _key(team):
+            # the improved team must also face stress tests built specifically against it
+            Ep = me.eff(pteam); n_chk = max(verify, 2)
+            for k in range(n_chk):
+                start = vr.choice(list(opponents) + [pteam, team] + counters)
+                start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
+                br = optimize(field, start, [Ep], [1], max(20, T * 0.1 / n_chk), vr, None, f"pcheck{k}")
+                nm = f"final check {sum(1 for n in names if n.startswith('final check')) + 1}"
+                pool_opps.append(field.eff(br[1])); names.append(nm); opp_cards[nm] = br[1]
+            key = lambda Et: (lambda per: (min(per), sum(per), secondary(Et)))([play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps])
+            ko, kp = key(E), key(Ep)
+            log(f"  polished team {kp} vs chosen team {ko}")
+            if kp[:2] > ko[:2]:
+                team, source, E = pteam, "Polished", Ep
+    res = {n: {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
+           for n, O in zip(names, pool_opps)}
     out = describe(team, series)
     out["results"] = res
     out["source"] = source
