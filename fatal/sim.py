@@ -1,11 +1,14 @@
 """FATAL Sim team builder.
 
 Priority (as agreed): the highest possible Control in every control position (LM, LW, RM, RW,
-CAM, CM, CDM, LB, RB), all on full chem; then the best Attack (ST, CAM, wingers, wide mids);
+CAM, CM, CDM, LB, RB), all on full chem; then the best Attack (ST, CAM, wingers, wide mids, full-backs);
 then the best Defence (full backs, CDM, CB, GK).
 """
 from .core import (CTRL, ATT, DEF, AUTO, full_chem, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe)
 from .milp import build
+
+# In Fatal Sim the attacker is picked at random from the attacking positions, and full-backs can be picked too
+ATT = ATT | {"LB", "RB"}
 
 
 def _pool(series, cards):

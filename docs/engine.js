@@ -4,7 +4,7 @@ const AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut"]);
 const ICON = new Set(["icon", "debut_icon"]);
 const CHEM_BONUS = { 0: -3, 1: 0, 2: 1, 3: 2 };
 const CTRL = new Set(["LM", "LW", "RM", "RW", "CAM", "CM", "CDM", "LB", "RB"]);
-const ATT = new Set(["ST", "CAM", "LW", "LM", "RW", "RM", "CF"]);
+const ATT = new Set(["ST", "CAM", "LW", "LM", "RW", "RM", "CF", "LB", "RB"]);   // Sim: full-backs can be picked to attack too
 const DEF = new Set(["LB", "RB", "CDM", "CB", "GK"]);
 
 function cardType(c) { return String(c.color).replace("rare_", ""); }
