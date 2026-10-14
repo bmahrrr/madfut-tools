@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261014e";
+const APP_V = "20261014f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -548,7 +548,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261014e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261014f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -828,7 +828,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014e");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1001,9 +1001,15 @@ async function wsLoad(fromLive = false) {
   d.myclub = d.myclub || []; d.sim = d.sim || [];
   WS = d;
 }
+const WSOPEN = new Set();                 // Season Setup series left open between redraws
 function seriesCardHtml(type, i) {
   const s = WS[type][i], id = `${type}-${i}`, isMC = type === "myclub";
-  let h = `<div class="card" style="margin:10px 0"><div class="row" style="justify-content:space-between">
+  const nb = (s.boosts || []).length, nbn = (s.bonuses || []).length, nr = (s.opponents || []).length;
+  const boostNames = (s.boosts || []).map(b => groupName(b.on, b.id)).join(" · ") || "No boosts yet";
+  const sub = [`${nb} boost${nb === 1 ? "" : "s"}`, nbn ? `${nbn} bonus${nbn === 1 ? "" : "es"}` : "", isMC ? `${nr} Reddit team${nr === 1 ? "" : "s"}` : ""].filter(Boolean).join(" · ");
+  const isOpen = WSOPEN.has(id) || WSUI.open.startsWith(id + ":");
+  const warn = !nb ? `<span class="pill LOSS">Needs boosts</span>` : isMC && !nr ? `<span class="pill DRAW">No Reddit</span>` : `<span class="pill WIN">Ready</span>`;
+  let h = `<details class="card sercard" data-wser="${id}"${isOpen ? " open" : ""}><summary class="strip"><span class="k">${esc(s.key || "?")}</span><span class="mid"><b>${esc(boostNames)}</b><small>${esc(sub)}</small></span><span class="res">${warn}</span></summary><div class="body"><div class="row" style="justify-content:space-between">
     <label class="small muted">Series <input type="text" inputmode="numeric" data-f="key" data-s="${id}" value="${esc(s.key || "")}" style="width:80px"></label>
     <button class="x" data-delseries="${id}" title="Remove series">🗑</button></div>`;
   h += `<div class="small" style="margin-top:8px"><b>Boosts</b></div>` + ((s.boosts || []).map((b, j) =>
@@ -1021,7 +1027,7 @@ function seriesCardHtml(type, i) {
     ${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add bonus</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
   if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names (commas or new lines). Add a rating or club if a name has several versions, e.g. <code>Costa 67</code>, <code>Sarr Neom</code>.</p>
     <textarea id="wRef"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add team</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
-  return h + `</div>`;
+  return h + `</div></details>`;
 }
 function renderWeekForm() {
   const box = $("weekForm"); if (!box || !WS) return;
@@ -1034,13 +1040,14 @@ function renderWeekForm() {
     <p class="small" id="wSaveMsg"></p>`;
   const S = id => { const [t, i] = id.split("-"); return WS[t][+i]; };
   const redraw = () => { wsDraftSave(); renderWeekForm(); };
+  box.querySelectorAll("details[data-wser]").forEach(x => x.ontoggle = () => { x.open ? WSOPEN.add(x.dataset.wser) : WSOPEN.delete(x.dataset.wser); });
   $("wWeek").onchange = e => { WS.week = e.target.value; wsDraftSave(); renderWeekForm(); };
   box.querySelectorAll("[data-f]").forEach(inp => inp.onchange = () => {
     const s = S(inp.dataset.s);
     s.key = inp.value.trim(); s.cap = /^\d+$/.test(s.key) ? +s.key : 99;   // the series number is the rating cap
     redraw();
   });
-  box.querySelectorAll("[data-delseries]").forEach(b => b.onclick = () => { const [t, i] = b.dataset.delseries.split("-"); if (confirm(`Remove the ${WS[t][+i].key || ""} series?`)) { WS[t].splice(+i, 1); WSUI.open = ""; redraw(); } });
+  box.querySelectorAll("[data-delseries]").forEach(b => b.onclick = () => { const [t, i] = b.dataset.delseries.split("-"); if (confirm(`Remove the ${WS[t][+i].key || ""} series?`)) { WS[t].splice(+i, 1); WSUI.open = ""; WSOPEN.clear(); redraw(); } });
   box.querySelectorAll("[data-delb]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delb.split(":"); S(id).boosts.splice(+j, 1); redraw(); });
   box.querySelectorAll("[data-delbn]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delbn.split(":"); S(id).bonuses.splice(+j, 1); redraw(); });
   box.querySelectorAll("[data-delref]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delref.split(":"); S(id).opponents.splice(+j, 1); redraw(); });
@@ -1050,7 +1057,7 @@ function renderWeekForm() {
     const k = prompt("Series (the rating cap, e.g. 81):"); if (!k) return;
     const t = b.dataset.addseries, s = { key: k.trim(), cap: /^\d+$/.test(k.trim()) ? +k.trim() : 99, boosts: [] };
     if (t === "myclub") { s.opponents = []; s.minutes = 30; }
-    WS[t].push(s); redraw();
+    WS[t].push(s); WSOPEN.add(`${t}-${WS[t].length - 1}`); redraw();
   });
   // the open "add" panel
   if (WSUI.open) {
