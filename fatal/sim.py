@@ -22,13 +22,21 @@ def _pool(series, cards):
 def evaluate(team, slots, series):
     E, ch = effective(team, series)
     C = [E[i][1] for i, s in enumerate(slots) if s in CTRL]
+    CT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in CTRL)   # control duels tie -> total stats
     A = [E[i][0] for i, s in enumerate(slots) if s in ATT]
     D = [E[i][2] for i, s in enumerate(slots) if s in DEF]
     bad = sum(1 for i, s in enumerate(slots) if s in CTRL and ch[i] < 3)
     m = lambda v: sum(v) / len(v) if v else 0
     return {"control": round(m(C), 2), "attack": round(m(A), 2), "defence": round(m(D), 2),
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
-            "defence_cards": sorted(D, reverse=True), "chem": sum(ch), "ctrl_not_full": bad}
+            "defence_cards": sorted(D, reverse=True), "chem": sum(ch), "ctrl_not_full": bad,
+            "ctrl_total": round(CT / len(C), 2) if C else 0}
+
+
+def rank_key(ev):
+    """Best Sim team: highest Control; then the control cards' total stats (a tied control duel goes to
+    the higher total); then Attack (x3) + Defence; then chem."""
+    return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(3 * ev["attack"] + ev["defence"], 2), ev["chem"])
 
 
 def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200, log=print):
@@ -67,7 +75,7 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         cards_f = [pool[i] for i in cand]
 
         def value(c, s):
-            T = (c["A"] + c["C"] + c["D"]) / 1000
+            T = (c["A"] + c["C"] + c["D"]) / 400
             v = 0
             if s in CTRL: v += 1000 * (c["C"] + T)
             if s in ATT: v += 3 * c["A"]
@@ -87,7 +95,7 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             ev = evaluate(sq, slots, series)
             results.append((ev, form, sq))
             log(f"  {form} {bv or ''}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
-    results.sort(key=lambda r: (-round(r[0]["control"], 2), -(3 * r[0]["attack"] + r[0]["defence"])))
+    results.sort(key=lambda r: rank_key(r[0]), reverse=True)
     results = [r for r in results if r[0]["ctrl_not_full"] == 0] or results
     out = []
     for ev, form, sq in results[:3]:
