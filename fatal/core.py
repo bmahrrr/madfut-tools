@@ -22,15 +22,38 @@ ATT = {"ST", "CAM", "LW", "LM", "RW", "RM", "CF"}
 DEF = {"LB", "RB", "CDM", "CB", "GK"}
 
 
+def build_week():
+    """The week being built (config/week.json, or WEEK_FILE for a vault week)."""
+    try:
+        return json.load(open(os.path.join(ROOT, os.environ.get("WEEK_FILE") or os.path.join("config", "week.json")))).get("week") or ""
+    except Exception:
+        return ""
+
+
+def season_ids(week):
+    """Game cards that existed in that season (data/seasons/<week>.json, saved when the season ends), or None
+    for the current season (every card)."""
+    f = os.path.join(ROOT, "data", "seasons", f"{week}.json")
+    return set(json.load(open(f))["ids"]) if week and os.path.exists(f) else None
+
+
 def load_cards(owned_only=False):
-    """Return a list of card dicts (database + config/extras.json)."""
+    """Return a list of card dicts (database + config/extras.json), as available in the week being built:
+    a past season only gets the game cards that existed then; hand-added cards with "from_week" (regular Evos)
+    only from that week on. Every other hand-added card (LTM, Elite Evo, ...) counts in every season."""
     raw = json.load(open(os.path.join(ROOT, "data", "cards.json")))
     F = raw["fields"]
     cards = [dict(zip(F, row)) for row in raw["cards"]]
+    wk = build_week()
+    keep = season_ids(wk)
+    if keep is not None:
+        cards = [c for c in cards if c["id"] in keep]
     for c in cards:
         c["owned"] = True
     ex = json.load(open(os.path.join(ROOT, "config", "extras.json")))["cards"]
     for e in ex:
+        if e.get("from_week") and wk and e["from_week"] > wk:
+            continue
         e = dict(e)
         e.setdefault("specialChem", "")
         e.setdefault("altPositions", "")

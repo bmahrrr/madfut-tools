@@ -92,6 +92,12 @@ def main():
         if os.path.isdir(mine):
             shutil.rmtree(mine)
         print("archived", old, len(kept), "files")
+        try:                                # remember which game cards that season had (for later rebuilds of it)
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import season_cards
+            season_cards.save(old)
+        except Exception as e:
+            print("season card list not saved:", e)
         return
     if mode == "index":
         w = week()

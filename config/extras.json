@@ -1,5 +1,5 @@
 {
- "_help": "Extra cards not in the madfutdata file: Evo, Elite Evo and LTM cards (one entry per rating/level). owned=true means YOU have it; owned=false means only opponents may use it. None of these can be used in SBCs. specialChem \"solo\": always full chem but adds nothing to other cards' chem.",
+ "_help": "Extra cards not in the madfutdata file: Evo, Elite Evo and LTM cards (one entry per rating/level). owned=true means YOU have it; owned=false means only opponents may use it. None of these can be used in SBCs. specialChem \"solo\": always full chem but adds nothing to other cards' chem. from_week (regular Evos only): the week it was added; older seasons' rebuilds leave it out. LTM, Elite Evo and other hand-added cards count in every season.",
  "cards": [
   {
    "id": "evo_Rogers_86",
@@ -95,7 +95,8 @@
    "leagueId": 2215,
    "clubId": 175,
    "baseId": -744288313,
-   "owned": true
+   "owned": true,
+   "from_week": "2026-10-12"
   },
   {
    "id": "evo_Lucas Vázquez_80",
@@ -111,7 +112,8 @@
    "leagueId": 19,
    "clubId": 32,
    "baseId": -499869458,
-   "owned": true
+   "owned": true,
+   "from_week": "2026-10-12"
   },
   {
    "id": "evo_Jones_64",
@@ -128,7 +130,8 @@
    "clubId": 112764,
    "baseId": -500008,
    "owned": true,
-   "specialChem": "solo"
+   "specialChem": "solo",
+   "from_week": "2026-10-12"
   },
   {
    "id": "sp_ngumoha84",
