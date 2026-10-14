@@ -48,24 +48,46 @@
      "slot": "GK"
     },
     {
-     "id": "id238384",
-     "name": "Carles Puyol",
-     "rating": 89,
+     "id": "id238439",
+     "name": "Maldini",
+     "rating": 93,
      "color": "icon",
      "position": "CB",
-     "nationId": 45,
+     "nationId": 27,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      60,
-      63,
+      69,
+      74,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      76,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id190044",
+     "name": "Moore",
+     "rating": 90,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      73,
+      79,
       89
      ],
      "chem": 3,
      "eff": [
-      64,
-      67,
-      93
+      75,
+      81,
+      91
      ],
      "slot": "CB"
     },
@@ -92,70 +114,26 @@
      "slot": "CB"
     },
     {
-     "id": "id238439",
-     "name": "Maldini",
+     "id": "new_Rogers_93",
+     "name": "Rogers",
      "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      69,
-      74,
-      92
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      76,
-      94
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50584019",
-     "name": "Bellingham",
-     "rating": 91,
-     "color": "totw_gold",
+     "color": "elite_evo",
      "position": "CAM",
      "nationId": 14,
-     "leagueId": 53,
-     "clubId": 243,
+     "leagueId": 13,
+     "clubId": 5,
      "card": [
-      89,
-      86,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      94,
-      91,
-      86
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id50558851",
-     "name": "Alexia Putellas",
-     "rating": 92,
-     "color": "totw_gold",
-     "position": "CAM",
-     "nationId": 45,
-     "leagueId": 2216,
-     "clubId": 132176,
-     "card": [
-      91,
-      91,
+      93,
+      93,
       73
      ],
      "chem": 3,
      "eff": [
-      98,
-      98,
-      80
+      95,
+      95,
+      75
      ],
-     "slot": "CM"
+     "slot": "LM"
     },
     {
      "id": "new_Xavi Espart_96",
@@ -176,6 +154,28 @@
       91,
       98,
       99
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id1397",
+     "name": "Zidane",
+     "rating": 94,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      93,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      95,
+      76
      ],
      "slot": "CM"
     },
@@ -202,48 +202,26 @@
      "slot": "RM"
     },
     {
-     "id": "id190042",
-     "name": "Maradona",
-     "rating": 95,
-     "color": "icon",
+     "id": "id50558851",
+     "name": "Alexia Putellas",
+     "rating": 92,
+     "color": "totw_gold",
      "position": "CAM",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 45,
+     "leagueId": 2216,
+     "clubId": 132176,
      "card": [
-      93,
-      92,
-      47
+      91,
+      91,
+      73
      ],
      "chem": 3,
      "eff": [
-      95,
-      94,
-      49
+      98,
+      98,
+      80
      ],
      "slot": "CAM"
-    },
-    {
-     "id": "id37576",
-     "name": "Ronaldo",
-     "rating": 94,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      93,
-      84,
-      47
-     ],
-     "chem": 3,
-     "eff": [
-      95,
-      86,
-      49
-     ],
-     "slot": "ST"
     },
     {
      "id": "id50573494",
@@ -266,38 +244,60 @@
       36
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id190042",
+     "name": "Maradona",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      92,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      94,
+      49
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 95.4,
-    "attack": 95.0,
-    "defence": 94.25,
+    "control": 96.4,
+    "attack": 95.8,
+    "defence": 93.75,
     "control_cards": [
      98,
      98,
      96,
-     94,
-     91
+     95,
+     95
     ],
     "attack_cards": [
+     98,
      96,
      95,
      95,
-     95,
-     94
+     95
     ],
     "defence_cards": [
      97,
      94,
      93,
-     93
+     91
     ],
     "chem": 33,
     "ctrl_not_full": 0
    }
   },
   {
-   "formation": "3-5-2",
+   "formation": "3-1-4-2",
    "chem": 33,
    "players": [
     {
@@ -321,28 +321,6 @@
       97
      ],
      "slot": "GK"
-    },
-    {
-     "id": "id238439",
-     "name": "Maldini",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      69,
-      74,
-      92
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      76,
-      94
-     ],
-     "slot": "CB"
     },
     {
      "id": "id168473",
@@ -389,6 +367,28 @@
      "slot": "CB"
     },
     {
+     "id": "id238439",
+     "name": "Maldini",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      69,
+      74,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      76,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "new_Xavi Espart_96",
      "name": "Xavi Espart",
      "rating": 96,
@@ -411,48 +411,48 @@
      "slot": "CDM"
     },
     {
-     "id": "new_Can_92",
-     "name": "Can",
-     "rating": 92,
+     "id": "new_Rogers_93",
+     "name": "Rogers",
+     "rating": 93,
      "color": "elite_evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      82,
-      90,
-      92
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      92,
-      94
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id50584019",
-     "name": "Bellingham",
-     "rating": 91,
-     "color": "totw_gold",
      "position": "CAM",
      "nationId": 14,
-     "leagueId": 53,
-     "clubId": 243,
+     "leagueId": 13,
+     "clubId": 5,
      "card": [
-      89,
-      86,
-      81
+      93,
+      93,
+      73
      ],
      "chem": 3,
      "eff": [
-      94,
-      91,
-      86
+      95,
+      95,
+      75
      ],
      "slot": "LM"
+    },
+    {
+     "id": "id1397",
+     "name": "Zidane",
+     "rating": 94,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      93,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      95,
+      76
+     ],
+     "slot": "CM"
     },
     {
      "id": "id50558851",
@@ -474,7 +474,7 @@
       98,
       80
      ],
-     "slot": "CAM"
+     "slot": "CM"
     },
     {
      "id": "id67386507",
@@ -544,27 +544,25 @@
     }
    ],
    "metrics": {
-    "control": 95.0,
-    "attack": 95.6,
-    "defence": 94.67,
+    "control": 96.4,
+    "attack": 95.25,
+    "defence": 94.8,
     "control_cards": [
      98,
      98,
      96,
-     92,
-     91
+     95,
+     95
     ],
     "attack_cards": [
-     98,
      96,
      95,
      95,
-     94
+     95
     ],
     "defence_cards": [
      99,
      97,
-     94,
      94,
      93,
      91
@@ -574,30 +572,52 @@
    }
   },
   {
-   "formation": "3-1-4-2",
+   "formation": "3-5-2",
    "chem": 33,
    "players": [
     {
-     "id": "id5479",
-     "name": "Casillas",
-     "rating": 90,
-     "color": "icon",
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
      "position": "GK",
      "nationId": 45,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "leagueId": 13,
+     "clubId": 1,
      "card": [
+      46,
       48,
-      47,
-      91
+      90
      ],
      "chem": 3,
      "eff": [
-      52,
-      51,
-      95
+      53,
+      55,
+      97
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id190044",
+     "name": "Moore",
+     "rating": 90,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      73,
+      79,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      81,
+      91
+     ],
+     "slot": "CB"
     },
     {
      "id": "id168473",
@@ -622,50 +642,6 @@
      "slot": "CB"
     },
     {
-     "id": "id238439",
-     "name": "Maldini",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      69,
-      74,
-      92
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      76,
-      94
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id238384",
-     "name": "Carles Puyol",
-     "rating": 89,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 45,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      60,
-      63,
-      89
-     ],
-     "chem": 3,
-     "eff": [
-      64,
-      67,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "new_Can_92",
      "name": "Can",
      "rating": 92,
@@ -685,27 +661,71 @@
       92,
       94
      ],
-     "slot": "CDM"
+     "slot": "CB"
     },
     {
-     "id": "id50584019",
-     "name": "Bellingham",
+     "id": "id10535",
+     "name": "Xavi",
      "rating": 91,
-     "color": "totw_gold",
-     "position": "CAM",
-     "nationId": 14,
-     "leagueId": 53,
-     "clubId": 243,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      89,
-      86,
-      81
+      87,
+      91,
+      68
      ],
      "chem": 3,
      "eff": [
-      94,
       91,
-      86
+      95,
+      72
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      98,
+      99
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Rogers_93",
+     "name": "Rogers",
+     "rating": 93,
+     "color": "elite_evo",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 5,
+     "card": [
+      93,
+      93,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      95,
+      75
      ],
      "slot": "LM"
     },
@@ -729,29 +749,7 @@
       98,
       80
      ],
-     "slot": "CM"
-    },
-    {
-     "id": "new_Xavi Espart_96",
-     "name": "Xavi Espart",
-     "rating": 96,
-     "color": "ltm",
-     "position": "RB",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 241,
-     "card": [
-      87,
-      94,
-      95
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      98,
-      99
-     ],
-     "slot": "CM"
+     "slot": "CAM"
     },
     {
      "id": "id67386507",
@@ -776,28 +774,6 @@
      "slot": "RM"
     },
     {
-     "id": "id37576",
-     "name": "Ronaldo",
-     "rating": 94,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      93,
-      84,
-      47
-     ],
-     "chem": 3,
-     "eff": [
-      95,
-      86,
-      49
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id50573494",
      "name": "Pajor",
      "rating": 90,
@@ -818,31 +794,55 @@
       36
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      84,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      86,
+      49
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 95.0,
-    "attack": 95.0,
-    "defence": 93.8,
+    "control": 96.4,
+    "attack": 95.8,
+    "defence": 91.0,
     "control_cards": [
      98,
      98,
      96,
-     92,
-     91
+     95,
+     95
     ],
     "attack_cards": [
+     98,
      96,
      95,
      95,
-     94
+     95
     ],
     "defence_cards": [
-     95,
-     94,
+     99,
+     97,
      94,
      93,
-     93
+     91,
+     72
     ],
     "chem": 33,
     "ctrl_not_full": 0
@@ -850,6 +850,6 @@
   }
  ],
  "not_owned": [],
- "built": "2026-10-14 09:06 UTC",
+ "built": "2026-10-14 10:52 UTC",
  "week": "2026-10-12"
 }

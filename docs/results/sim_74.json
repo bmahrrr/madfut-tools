@@ -294,11 +294,12 @@
     ],
     "chem": 32,
     "ctrl_not_full": 0
-   }
+   },
+   "source": "Previous Best"
   },
   {
-   "formation": "3-1-4-2",
-   "chem": 32,
+   "formation": "3-4-1-2",
+   "chem": 33,
    "players": [
     {
      "id": "id204092",
@@ -323,46 +324,46 @@
      "slot": "GK"
     },
     {
-     "id": "id231838",
-     "name": "Wöber",
+     "id": "id50597038",
+     "name": "Regeer",
      "rating": 73,
      "color": "rare_silver",
-     "position": "CB",
-     "nationId": 4,
+     "position": "CDM",
+     "nationId": 34,
      "leagueId": 19,
-     "clubId": 34,
+     "clubId": 38,
      "card": [
-      60,
-      64,
-      73
+      67,
+      71,
+      71
      ],
      "chem": 3,
      "eff": [
-      62,
-      66,
-      75
+      69,
+      73,
+      73
      ],
      "slot": "CB"
     },
     {
-     "id": "id238476",
-     "name": "Zagadou",
-     "rating": 73,
+     "id": "id275878",
+     "name": "Biumla",
+     "rating": 70,
      "color": "rare_silver",
      "position": "CB",
      "nationId": 18,
-     "leagueId": 19,
-     "clubId": 36,
+     "leagueId": 16,
+     "clubId": 1530,
      "card": [
-      45,
       54,
-      73
+      55,
+      69
      ],
      "chem": 3,
      "eff": [
-      47,
       56,
-      75
+      60,
+      72
      ],
      "slot": "CB"
     },
@@ -389,28 +390,6 @@
      "slot": "CB"
     },
     {
-     "id": "id205686",
-     "name": "Savanier",
-     "rating": 73,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 18,
-     "leagueId": 17,
-     "clubId": 68,
-     "card": [
-      73,
-      75,
-      62
-     ],
-     "chem": 3,
-     "eff": [
-      79,
-      81,
-      68
-     ],
-     "slot": "CDM"
-    },
-    {
      "id": "id204497",
      "name": "Stöger",
      "rating": 74,
@@ -433,6 +412,28 @@
      "slot": "LM"
     },
     {
+     "id": "id229158",
+     "name": "van den Boomen",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 16,
+     "clubId": 1530,
+     "card": [
+      68,
+      74,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      79,
+      66
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "id239744",
      "name": "Cuisance",
      "rating": 72,
@@ -451,28 +452,6 @@
       74,
       80,
       55
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id232097",
-     "name": "Harit",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 129,
-     "leagueId": 16,
-     "clubId": 219,
-     "card": [
-      71,
-      74,
-      57
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      79,
-      60
      ],
      "slot": "CM"
     },
@@ -499,54 +478,76 @@
      "slot": "RM"
     },
     {
-     "id": "id211784",
-     "name": "Maupay",
-     "rating": 74,
+     "id": "id205686",
+     "name": "Savanier",
+     "rating": 73,
      "color": "rare_silver",
-     "position": "ST",
+     "position": "CAM",
      "nationId": 18,
-     "leagueId": 16,
-     "clubId": 219,
+     "leagueId": 17,
+     "clubId": 68,
      "card": [
       73,
-      69,
-      46
+      75,
+      62
      ],
      "chem": 3,
      "eff": [
-      75,
+      79,
+      81,
+      68
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id256548",
+     "name": "Grüll",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
       74,
-      49
+      69,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      71,
+      42
      ],
      "slot": "ST"
     },
     {
-     "id": "id255579",
-     "name": "El Kachati",
+     "id": "id72136",
+     "name": "Durand",
      "rating": 70,
      "color": "rare_silver",
      "position": "ST",
-     "nationId": 129,
+     "nationId": 18,
      "leagueId": 17,
-     "clubId": 379,
+     "clubId": 111273,
      "card": [
-      73,
-      63,
-      35
+      72,
+      71,
+      40
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
       78,
-      68,
-      40
+      77,
+      46
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "control": 79.6,
-    "attack": 76.5,
-    "defence": 74.8,
+    "attack": 77.2,
+    "defence": 75.25,
     "control_cards": [
      81,
      80,
@@ -555,25 +556,25 @@
      79
     ],
     "attack_cards": [
+     79,
      78,
      78,
-     75,
+     76,
      75
     ],
     "defence_cards": [
      79,
      77,
-     75,
-     75,
-     68
+     73,
+     72
     ],
-    "chem": 32,
+    "chem": 33,
     "ctrl_not_full": 0
    }
   },
   {
-   "formation": "3-5-2",
-   "chem": 32,
+   "formation": "3-1-4-2",
+   "chem": 33,
    "players": [
     {
      "id": "id204092",
@@ -598,92 +599,70 @@
      "slot": "GK"
     },
     {
-     "id": "id243133",
-     "name": "Scally",
-     "rating": 74,
+     "id": "id50597038",
+     "name": "Regeer",
+     "rating": 73,
      "color": "rare_silver",
-     "position": "RB",
-     "nationId": 95,
+     "position": "CDM",
+     "nationId": 34,
      "leagueId": 19,
-     "clubId": 23,
+     "clubId": 38,
      "card": [
-      66,
-      63,
-      73
+      67,
+      71,
+      71
      ],
      "chem": 3,
      "eff": [
-      68,
-      65,
-      75
+      69,
+      73,
+      73
      ],
      "slot": "CB"
     },
     {
-     "id": "id262344",
-     "name": "Le Cardinal",
+     "id": "id275878",
+     "name": "Biumla",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 1530,
+     "card": [
+      54,
+      55,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      60,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id228290",
+     "name": "Laporte",
      "rating": 73,
      "color": "rare_silver",
      "position": "CB",
      "nationId": 18,
      "leagueId": 17,
-     "clubId": 1819,
+     "clubId": 70,
      "card": [
-      55,
-      63,
+      43,
+      47,
       73
      ],
      "chem": 3,
      "eff": [
-      61,
-      69,
+      49,
+      53,
       79
      ],
      "slot": "CB"
-    },
-    {
-     "id": "id238476",
-     "name": "Zagadou",
-     "rating": 73,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 19,
-     "clubId": 36,
-     "card": [
-      45,
-      54,
-      73
-     ],
-     "chem": 3,
-     "eff": [
-      47,
-      56,
-      75
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id232097",
-     "name": "Harit",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 129,
-     "leagueId": 16,
-     "clubId": 219,
-     "card": [
-      71,
-      74,
-      57
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      79,
-      60
-     ],
-     "slot": "CDM"
     },
     {
      "id": "id205686",
@@ -749,7 +728,29 @@
       80,
       55
      ],
-     "slot": "CAM"
+     "slot": "CM"
+    },
+    {
+     "id": "id229158",
+     "name": "van den Boomen",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 16,
+     "clubId": 1530,
+     "card": [
+      68,
+      74,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      79,
+      66
+     ],
+     "slot": "CM"
     },
     {
      "id": "id208618",
@@ -774,54 +775,54 @@
      "slot": "RM"
     },
     {
-     "id": "id255579",
-     "name": "El Kachati",
-     "rating": 70,
+     "id": "id256548",
+     "name": "Grüll",
+     "rating": 73,
      "color": "rare_silver",
-     "position": "ST",
-     "nationId": 129,
-     "leagueId": 17,
-     "clubId": 379,
+     "position": "LM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 38,
      "card": [
-      73,
-      63,
-      35
-     ],
-     "chem": 2,
-     "eff": [
-      78,
-      68,
+      74,
+      69,
       40
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      71,
+      42
      ],
      "slot": "ST"
     },
     {
-     "id": "id211784",
-     "name": "Maupay",
-     "rating": 74,
+     "id": "id72136",
+     "name": "Durand",
+     "rating": 70,
      "color": "rare_silver",
      "position": "ST",
      "nationId": 18,
-     "leagueId": 16,
-     "clubId": 219,
+     "leagueId": 17,
+     "clubId": 111273,
      "card": [
-      73,
-      69,
-      46
+      72,
+      71,
+      40
      ],
      "chem": 3,
      "eff": [
-      75,
-      74,
-      49
+      78,
+      77,
+      46
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "control": 79.6,
-    "attack": 76.0,
-    "defence": 72.33,
+    "attack": 76.75,
+    "defence": 73.8,
     "control_cards": [
      81,
      80,
@@ -832,24 +833,22 @@
     "attack_cards": [
      78,
      78,
-     75,
-     75,
-     74
+     76,
+     75
     ],
     "defence_cards": [
      79,
      77,
-     75,
-     75,
-     68,
-     60
+     73,
+     72,
+     68
     ],
-    "chem": 32,
+    "chem": 33,
     "ctrl_not_full": 0
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-14 09:08 UTC",
+ "built": "2026-10-14 11:01 UTC",
  "week": "2026-10-12"
 }
