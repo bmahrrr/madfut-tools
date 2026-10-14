@@ -2,6 +2,7 @@ name: Build teams
 
 on:
   push:
+    branches: [main]       # work-in-progress branches never start a build
     paths:
       - "config/week.json"
       - "config/extras.json"
