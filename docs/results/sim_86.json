@@ -70,28 +70,6 @@
      "slot": "LB"
     },
     {
-     "id": "id67310399",
-     "name": "Varane",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      67,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      66,
-      69,
-      87
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id67375554",
      "name": "Lúcio",
      "rating": 85,
@@ -110,6 +88,28 @@
       73,
       73,
       86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67310399",
+     "name": "Varane",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      67,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      69,
+      87
      ],
      "slot": "CB"
     },
@@ -136,48 +136,26 @@
      "slot": "CB"
     },
     {
-     "id": "ltm_espart86",
-     "name": "Xavi Espart",
-     "rating": 86,
-     "color": "ltm",
+     "id": "id50542162",
+     "name": "João Cancelo",
+     "rating": 84,
+     "color": "totw_gold",
      "position": "RB",
-     "nationId": 45,
+     "nationId": 38,
      "leagueId": 53,
      "clubId": 241,
      "card": [
-      78,
+      82,
       84,
-      85
+      83
      ],
      "chem": 3,
      "eff": [
-      82,
+      86,
       88,
-      89
+      87
      ],
      "slot": "RB"
-    },
-    {
-     "id": "id50609599",
-     "name": "Yohannes",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 95,
-     "leagueId": 2218,
-     "clubId": 66,
-     "card": [
-      86,
-      87,
-      76
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      89,
-      78
-     ],
-     "slot": "CM"
     },
     {
      "id": "id262285",
@@ -198,6 +176,28 @@
       88,
       90,
       67
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50609599",
+     "name": "Yohannes",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 95,
+     "leagueId": 2218,
+     "clubId": 66,
+     "card": [
+      86,
+      87,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      78
      ],
      "slot": "CM"
     },
@@ -224,28 +224,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id67336134",
-     "name": "White",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "ST",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      85,
-      75,
-      58
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      77,
-      61
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id50574612",
      "name": "Gordon",
      "rating": 86,
@@ -266,12 +244,34 @@
       63
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id67336134",
+     "name": "White",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      75,
+      58
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      77,
+      61
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 89.2,
-    "attack": 91.0,
-    "defence": 85.33,
+    "attack": 89.6,
+    "defence": 85.0,
     "control_cards": [
      90,
      90,
@@ -282,10 +282,12 @@
     "attack_cards": [
      92,
      91,
-     90
+     90,
+     89,
+     86
     ],
     "defence_cards": [
-     89,
+     87,
      87,
      87,
      86,
@@ -293,7 +295,8 @@
      80
     ],
     "chem": 33,
-    "ctrl_not_full": 0
+    "ctrl_not_full": 0,
+    "ctrl_total": 254.4
    }
   },
   {
@@ -345,28 +348,6 @@
      "slot": "LB"
     },
     {
-     "id": "id67310399",
-     "name": "Varane",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      67,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      66,
-      69,
-      87
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id67229397",
      "name": "Pepe",
      "rating": 85,
@@ -384,6 +365,28 @@
      "eff": [
       61,
       63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67310399",
+     "name": "Varane",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      67,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      69,
       87
      ],
      "slot": "CB"
@@ -411,26 +414,48 @@
      "slot": "CB"
     },
     {
-     "id": "ltm_espart86",
-     "name": "Xavi Espart",
-     "rating": 86,
-     "color": "ltm",
+     "id": "id50542162",
+     "name": "João Cancelo",
+     "rating": 84,
+     "color": "totw_gold",
      "position": "RB",
-     "nationId": 45,
+     "nationId": 38,
      "leagueId": 53,
      "clubId": 241,
      "card": [
-      78,
+      82,
       84,
-      85
+      83
      ],
      "chem": 3,
      "eff": [
-      82,
+      86,
       88,
-      89
+      87
      ],
      "slot": "RB"
+    },
+    {
+     "id": "id50609599",
+     "name": "Yohannes",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 95,
+     "leagueId": 2218,
+     "clubId": 66,
+     "card": [
+      86,
+      87,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      78
+     ],
+     "slot": "CM"
     },
     {
      "id": "id50402434",
@@ -473,28 +498,6 @@
       88,
       90,
       67
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id50609599",
-     "name": "Yohannes",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 95,
-     "leagueId": 2218,
-     "clubId": 66,
-     "card": [
-      86,
-      87,
-      76
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      89,
-      78
      ],
      "slot": "CM"
     },
@@ -545,8 +548,8 @@
    ],
    "metrics": {
     "control": 89.2,
-    "attack": 91.0,
-    "defence": 85.33,
+    "attack": 89.25,
+    "defence": 85.0,
     "control_cards": [
      90,
      90,
@@ -556,10 +559,12 @@
     ],
     "attack_cards": [
      92,
-     90
+     90,
+     89,
+     86
     ],
     "defence_cards": [
-     89,
+     87,
      87,
      87,
      86,
@@ -567,100 +572,123 @@
      80
     ],
     "chem": 33,
-    "ctrl_not_full": 0
+    "ctrl_not_full": 0,
+    "ctrl_total": 254.4
    }
   },
   {
-   "formation": "3-4-1-2",
+   "formation": "3-1-4-2",
    "chem": 33,
    "players": [
     {
-     "id": "id167495",
-     "name": "Neuer",
-     "rating": 81,
+     "id": "id245956",
+     "name": "Endler",
+     "rating": 85,
      "color": "rare_gold",
      "position": "GK",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 21,
+     "nationId": 55,
+     "leagueId": 2218,
+     "clubId": 66,
      "card": [
-      39,
-      46,
-      82
+      35,
+      31,
+      85
      ],
      "chem": 3,
      "eff": [
-      41,
-      48,
-      84
+      37,
+      33,
+      87
      ],
      "slot": "GK"
     },
     {
-     "id": "id50559326",
-     "name": "Konsa",
-     "rating": 86,
-     "color": "destined_for_glory",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      71,
-      76,
-      86
-     ],
-     "chem": 3,
-     "eff": [
-      76,
-      78,
-      89
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50608873",
-     "name": "Jon Martín",
+     "id": "id67229397",
+     "name": "Pepe",
      "rating": 85,
-     "color": "future_stars",
+     "color": "debut_icon",
      "position": "CB",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 457,
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      64,
-      70,
-      86
+      59,
+      61,
+      85
      ],
      "chem": 3,
      "eff": [
-      68,
-      74,
-      90
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50752",
-     "name": "King",
-     "rating": 86,
-     "color": "hero",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 114605,
-     "card": [
-      67,
-      70,
+      61,
+      63,
       87
      ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67310399",
+     "name": "Varane",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      67,
+      85
+     ],
      "chem": 3,
      "eff": [
-      72,
-      72,
-      90
+      66,
+      69,
+      87
      ],
      "slot": "CB"
+    },
+    {
+     "id": "id229476",
+     "name": "Anton",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      62,
+      67,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      69,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      90,
+      80
+     ],
+     "slot": "CDM"
     },
     {
      "id": "id210035",
@@ -685,24 +713,24 @@
      "slot": "LM"
     },
     {
-     "id": "id50595413",
-     "name": "Bischof",
+     "id": "id50609599",
+     "name": "Yohannes",
      "rating": 86,
      "color": "future_stars",
      "position": "CM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 21,
+     "nationId": 95,
+     "leagueId": 2218,
+     "clubId": 66,
      "card": [
+      86,
       87,
-      88,
-      78
+      76
      ],
      "chem": 3,
      "eff": [
+      88,
       89,
-      90,
-      80
+      78
      ],
      "slot": "CM"
     },
@@ -751,28 +779,6 @@
      "slot": "RM"
     },
     {
-     "id": "id50402434",
-     "name": "King",
-     "rating": 85,
-     "color": "future_stars",
-     "position": "CAM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 144,
-     "card": [
-      86,
-      87,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      89,
-      72
-     ],
-     "slot": "CAM"
-    },
-    {
      "id": "id50574612",
      "name": "Gordon",
      "rating": 86,
@@ -819,8 +825,8 @@
    ],
    "metrics": {
     "control": 89.2,
-    "attack": 89.0,
-    "defence": 88.25,
+    "attack": 88.5,
+    "defence": 85.4,
     "control_cards": [
      90,
      90,
@@ -830,23 +836,24 @@
     ],
     "attack_cards": [
      92,
-     91,
      90,
      86,
      86
     ],
     "defence_cards": [
-     90,
-     90,
-     89,
-     84
+     87,
+     87,
+     87,
+     86,
+     80
     ],
     "chem": 33,
-    "ctrl_not_full": 0
+    "ctrl_not_full": 0,
+    "ctrl_total": 253.6
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-14 10:53 UTC",
+ "built": "2026-10-14 16:46 UTC",
  "week": "2026-10-12"
 }
