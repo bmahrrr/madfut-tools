@@ -1,5 +1,5 @@
 // Runs the exact My Club solver off the main thread so the page stays responsive.
-importScripts("engine.js?v=20261015a");
+importScripts("engine.js?v=20261015b");
 let S = null, key = null;
 onmessage = (e) => {
   const m = e.data;
