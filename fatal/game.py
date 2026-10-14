@@ -15,6 +15,7 @@ def _lib():
     L.game.argtypes = [ctypes.c_int, P, P, P, P]
     L.level.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int]
     L.duelres.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
+    L.outcome.argtypes = [ctypes.c_int, P, P, P, P]
     return L
 
 
@@ -37,8 +38,9 @@ def play(a, b, first):
     key = bytes(array.array("h", fa + fb + ta + tb + [first]))
     v = _cache.get(key)
     if v is None:
-        lv = L.game(first, A, B, TA, TB)
-        v = (1 if lv >= 3 else 0 if lv == 2 else -1, lv)
+        # the builders only need win/draw/loss; the margin (level) is approximated from it
+        o = L.outcome(first, A, B, TA, TB)
+        v = (o, o + 2)
         if len(_cache) > 400000:
             _cache.clear()
         _cache[key] = v

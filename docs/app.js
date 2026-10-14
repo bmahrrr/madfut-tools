@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261014d";
+const APP_V = "20261014e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -321,6 +321,7 @@ async function renderTeams() {
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">✓ Copy the Reddit Team <span>· nothing the builder found has a better worst case</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">✓ Still the best <span>· the latest search found nothing with a better worst case</span></p>`;
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">✓ Hand-Built Team <span>· it beat the builder's own team on worst case</span></p>`;
+      else if (t.source === "Polished") html += `<p class="verdict">✓ Improved <span>· a card-by-card swap check found a better team, then passed new stress tests</span></p>`;
       const box = (label, inner, note) => `<div class="sc"><span>${label}</span>${inner}${note ? `<small>${note}</small>` : ""}</div>`;
       if (refs.length || worst) html += `<div class="score">${refs.length ? box("VS Reddit Team", refs.map(([k, v]) => `${pill(v.you_lead_first)}${pill(v.they_lead_first)}`).join(" "), "You lead · they lead") : box("VS Reddit Team", `<span class="muted small">Not added</span>`)}${worst ? box("Worst Case", pill(worst.r), `${esc(resultLabel(worst.k))}, ${worst.who}${t.mode !== "robust" ? ". Built before worst-case mode" : ""}`) : ""}</div>`;
       if (t.plan) html += planHtml(t.plan);
@@ -547,7 +548,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261014d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261014e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -827,7 +828,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014d");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
