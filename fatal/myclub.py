@@ -46,6 +46,16 @@ class Pool:
             for g in self.by[k]:
                 self.by[k][g].sort(key=lambda x: -x["T3"]); self.by[k][g] = self.by[k][g][:60]
         self.auto = sorted([x for x in cs if full_chem(x)], key=lambda x: -x["T3"])[:80]
+        # the best cards for EACH position (a GK never makes an overall top list: its total is ~165 vs 220+),
+        # including full-chem Icons/Heroes for that position
+        self.pos_top = {}
+        for p in {q for x in cs for q in x["P"]}:
+            el = [x for x in cs if p in x["P"]]
+            sel = {}
+            for key in ("bA", "bC", "bD", "T3"):
+                for x in sorted(el, key=lambda x: -x[key])[:15]: sel[x["id"]] = x
+            for x in sorted((x for x in el if full_chem(x)), key=lambda x: -x["T3"])[:10]: sel[x["id"]] = x
+            self.pos_top[p] = list(sel.values())
 
     def eff(self, team, full=False):
         E, _ = effective(team, self.series, full)
@@ -54,8 +64,12 @@ class Pool:
     def propose(self, team, rng):
         i = rng.randrange(11)
         r = rng.random()
-        if r < 0.45:
+        if r < 0.3:
             c = rng.choice(self.top)
+        elif r < 0.5:                       # a strong card for the replaced card's own position
+            L = self.pos_top.get(rng.choice(sorted(team[i]["P"])))
+            if not L: return None
+            c = rng.choice(L)
         elif r < 0.9:
             y = rng.choice(team)
             key = rng.choice(("nationId", "leagueId", "clubId"))
@@ -162,24 +176,39 @@ def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None):
             for k in ("nationId", "leagueId", "clubId"):
                 for c in pool.by[k][x[k]][:per_link]: seen[c["id"]] = c
         for c in pool.auto[:2 * per_link] + sorted(pool.top, key=lambda x: -x["T3"])[:3 * per_link]: seen[c["id"]] = c
+        for x in tm:                          # every position's own best cards (GKs, full-backs...)
+            for p in x["P"]:
+                for c in pool.pos_top.get(p, []): seen[c["id"]] = c
         used = {x["pid"] for x in tm}
         L = [c for c in seen.values() if c["pid"] not in used]
         if rng: rng.shuffle(L)              # a different order each night within the same strength band
         return sorted(L, key=lambda c: -(c["T3"] // 8))
     def sweep(base, bkey, collect):
+        # every (slot, card) swap, best upgrades first: ranked by how much stronger the card is than the one it
+        # replaces (so a +4 goalkeeper is tried before a weaker outfield card, whatever the totals)
         ties, ch0, tried = [], chem(base), 0
-        for c in cands(base):
+        # Cheap filter first (formation fits, team chem not lower), then per slot the biggest in-game upgrade first
+        # (after boosts and chem); slots take turns (round robin) so every position - the goalkeeper too - gets its
+        # best options tried early. Only then the expensive game checks.
+        C = cands(base); E0 = pool.eff(base); per = [[] for _ in range(11)]
+        for c in C:
             for i in range(11):
-                if time.time() - t0 > seconds: return None, ties, tried
                 new = base[:i] + [c] + base[i + 1:]
                 if not fits(new) or chem(new) < ch0: continue
-                tried += 1
-                E2 = pool.eff(new)
-                r = evaluate(E2, opps, weights, robust=True, need=bkey[0], order=order)
-                if r is None: continue
-                k2 = (r[0], secondary(E2))
-                if k2[0] > ck[0]: return (k2, new), ties, tried
-                if collect and k2[0] == bkey[0]: ties.append((k2, new, c))
+                e = pool.eff(new)[i]
+                per[i].append((sum(e[:3]) - sum(E0[i][:3]), c))
+        for L in per: L.sort(key=lambda z: -z[0])
+        pairs = [(i, per[i][r][1]) for r in range(max((len(L) for L in per), default=0)) for i in range(11) if r < len(per[i])]
+        for i, c in pairs:
+            if time.time() - t0 > seconds: return None, ties, tried
+            new = base[:i] + [c] + base[i + 1:]
+            tried += 1
+            E2 = pool.eff(new)
+            r = evaluate(E2, opps, weights, robust=True, need=bkey[0], order=order)
+            if r is None: continue
+            k2 = (r[0], secondary(E2))
+            if k2[0] > ck[0]: return (k2, new), ties, tried
+            if collect and k2[0] == bkey[0]: ties.append((k2, new, c))
         return None, ties, tried
     while time.time() - t0 < seconds:
         hit, ties, n = sweep(cur, ck, True)
