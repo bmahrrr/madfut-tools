@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261015b";
+const APP_V = "20261015c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -548,7 +548,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261015b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261015c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -559,8 +559,9 @@ $("iFirst").onclick = () => startMatch(0); $("theyFirst").onclick = () => startM
 async function startMatch(first) {
   if (state.A.length !== 11 || state.B.length !== 11) { alert("Set up both teams in My Club compare first."); return; }
   const s = mcSeries();
-  M = { first, A: effective(state.A, s), B: effective(state.B, s), ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [] };
-  $("matchBox").hidden = false; $("matchBox").innerHTML = "Starting…";
+  M = { first, A: effective(state.A, s), B: effective(state.B, s), TB: state.B.slice(), swapped: new Set(), cap: s.cap || 99, ser: s,
+    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [] };
+  $("matchBox").hidden = false; $("matchBox").innerHTML = `<p class="muted">Working out the match… a few seconds</p>`;
   await ask({ type: "start", A: M.A, B: M.B, first });
   matchStep();
 }
@@ -570,7 +571,7 @@ async function matchStep() {
   const box = $("matchBox");
   if (M.n === 10) {
     const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb);
-    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div><p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(state.B[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<button class="ghost" onclick="startMatch(M.first)">Restart</button>`;
+    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div><p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<button class="ghost" onclick="startMatch(M.first)">Restart</button>`;
     return;
   }
   const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
@@ -587,15 +588,56 @@ async function matchStep() {
   } else {
     html += `<h3>Which card did they lead with?</h3><div class="row">` + teamButtons("B", M.mb, j => `theirLead(${j})`) + `</div>`;
   }
+  html += `<p class="small" style="margin-top:12px"><a href="#" onclick="swapPick();return false">Their card isn't the Reddit one? Swap it</a></p>`;
   box.innerHTML = html + logHtml();
 }
+// ---- a different card in their team: swap it, re-solve from the current state ----
+window.swapPick = () => {
+  $("matchBox").innerHTML = `<h3>Which of their cards is different?</h3><div class="row">${teamButtons("B", M.mb, j => `swapFind(${j})`)}</div>
+    <p class="small muted">Only cards they haven't played yet.</p><button class="ghost" onclick="matchStep()">Back</button>`;
+};
+function swapEff(j, card) {                 // their new card on full chem with this series' boosts
+  const team = M.TB.slice(); team[j] = card;
+  const sb = squadBonus(team, M.ser.bonuses), [a, k, d] = boosted(card, M.ser.boosts), b = CHEM_BONUS[3];
+  return { a: a + b + sb[0], c: k + b + sb[1], d: d + b + sb[2], t: card.attack + card.control + card.defense + 3 * b, chem: 3 };
+}
+window.swapFind = j => {
+  const old = M.TB[j];
+  $("matchBox").innerHTML = `<h3>Replace ${esc(old.name)}</h3>
+    <input type="text" id="swQ" placeholder="Name, or a hint: nation, league or club (e.g. Czech, Ligue 1, PSG)" autocomplete="off">
+    <label class="chk small"><input type="checkbox" id="swAny"> Any position (otherwise ${esc(old.position)} only, like the card it replaces)</label>
+    <div id="swRes" style="margin-top:8px"></div><button class="ghost" onclick="swapPick()" style="margin-top:8px">Back</button>`;
+  const used = new Set(M.TB.filter((_, k) => k !== j).map(c => c.name + "|" + c.nationId));
+  const draw = () => {
+    const q = norm($("swQ").value.trim());
+    if (q.length < 2) { $("swRes").innerHTML = `<p class="small muted">Type at least 2 letters. Cards up to ${M.cap} only, strongest first.</p>`; return; }
+    const anyPos = $("swAny").checked;
+    const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.name + "|" + c.nationId) && (anyPos || c.P.has(old.position)) &&
+        (c._n.includes(q) || norm(nName(c.nationId)).includes(q) || norm(lName(c.leagueId)).includes(q) || norm(cName(c.clubId)).includes(q)))
+      .map(c => ({ c, e: swapEff(j, c) })).sort((x, y) => (y.e.a + y.e.c + y.e.d) - (x.e.a + x.e.c + x.e.d)).slice(0, 25);
+    $("swRes").innerHTML = L.length ? L.map(({ c, e }, k) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="swapDo(${j},'${esc(c.id)}')">
+        <b>${esc(c.name)} ${c.rating}${k === 0 ? ` <span class="tag">Strongest</span>` : ""}</b>
+        <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))} — in game ${e.a}/${e.c}/${e.d}, TB ${e.t}</span></button>`).join("")
+      : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
+  };
+  $("swQ").oninput = draw; $("swAny").onchange = draw; draw(); $("swQ").focus();
+};
+window.swapDo = async (j, id) => {
+  const card = BYID.get(id); if (!card) return;
+  const old = M.TB[j]; M.TB[j] = card; M.B[j] = swapEff(j, card); M.swapped.add(j);
+  M.log.push(`Swapped their ${esc(old.name)} for ${esc(card.name)} ${card.rating}`);
+  $("matchBox").innerHTML = `<p class="muted">Re-working the match with ${esc(card.name)}…</p>`;
+  await ask({ type: "start", A: M.A, B: M.B, first: M.first, ma: M.ma, mb: M.mb, d: M.d });
+  matchStep();
+};
+window.matchStep = matchStep;
 function teamButtons(side, mask, fn) {
-  const team = side === "A" ? state.A : state.B;
-  return team.map((c, i) => (mask >> i & 1) ? `<button class="ghost" onclick="${fn(i)}">${esc(c.name)}</button>` : "").join("");
+  const team = side === "A" ? state.A : M.TB;
+  return team.map((c, i) => (mask >> i & 1) ? `<button class="ghost" onclick="${fn(i)}">${esc(c.name)}${side === "B" && M.swapped.has(i) ? ` <span class="tag">swapped</span>` : ""}</button>` : "").join("");
 }
 function logHtml() { return M.log.length ? `<h3>Moves</h3><ol class="small">${M.log.map(l => `<li>${l}</li>`).join("")}</ol>` : ""; }
 function apply(i, j, r, text) { M.ma &= ~(1 << i); M.mb &= ~(1 << j); M.d += r; M.n++; if (r > 0) M.me++; if (r < 0) M.them++; M.log.push(text + (r > 0 ? " ✅" : r < 0 ? " ❌" : " ➖")); matchStep(); }
-window.ansTheirs = (i, s, j) => apply(i, j, duelR(i, j, s, true), `You led ${esc(state.A[i].name)} (${STAT[s]}) · they answered ${esc(state.B[j].name)}`);
+window.ansTheirs = (i, s, j) => apply(i, j, duelR(i, j, s, true), `You led ${esc(state.A[i].name)} (${STAT[s]}) · they answered ${esc(M.TB[j].name)}`);
 window.pickMyLead = () => {
   const box = $("matchBox");
   box.innerHTML = `<h3>Which card did you lead with?</h3><div class="row">${teamButtons("A", M.ma, i => `pickMyStat(${i})`)}</div>`;
@@ -607,7 +649,7 @@ window.pickTheirAns = (i, s) => {
   $("matchBox").innerHTML = `<h3>What did they answer with?</h3><div class="row">${teamButtons("B", M.mb, j => `ansTheirs(${i},${s},${j})`)}</div>`;
 };
 window.theirLead = j => {
-  $("matchBox").innerHTML = `<h3>${esc(state.B[j].name)} — which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="theirStat(${j},${s})">${STAT[s]} ${[M.B[j].a, M.B[j].c, M.B[j].d][s]}</button>`).join("")}</div>`;
+  $("matchBox").innerHTML = `<h3>${esc(M.TB[j].name)} — which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="theirStat(${j},${s})">${STAT[s]} ${[M.B[j].a, M.B[j].c, M.B[j].d][s]}</button>`).join("")}</div>`;
 };
 window.theirStat = async (j, s) => {
   const box = $("matchBox"); box.innerHTML = `<p class="muted">Working out your best answer…</p>`;
@@ -618,7 +660,7 @@ window.theirStat = async (j, s) => {
   html += `<h3>Or tap the card you actually played</h3><div class="row">${teamButtons("A", M.ma, i => `ansMine(${j},${s},${i})`)}</div>`;
   box.innerHTML = html + logHtml();
 };
-window.ansMine = (j, s, i) => apply(i, j, duelR(i, j, s, false), `They led ${esc(state.B[j].name)} (${STAT[s]}) · you answered ${esc(state.A[i].name)}`);
+window.ansMine = (j, s, i) => apply(i, j, duelR(i, j, s, false), `They led ${esc(M.TB[j].name)} (${STAT[s]}) · you answered ${esc(state.A[i].name)}`);
 function duelR(i, j, s, aLeads) {
   const A = M.A[i], B = M.B[j], v = e => [e.a, e.c, e.d];
   let va, vb;
@@ -828,7 +870,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261015b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261015c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

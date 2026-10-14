@@ -75,6 +75,15 @@ class Solver {
     this.ordA = ordFor(this.SA, this.TA); this.ordB = ordFor(this.SB, this.TB);
     this.byTA = [...Array(11).keys()].sort((x, y) => this.TA[x] - this.TA[y]);
     this.byTB = [...Array(11).keys()].sort((x, y) => this.TB[x] - this.TB[y]);
+    // dom[i]: cards no better than card i in every stat and tiebreak total (exact copies count once).
+    // When several answers give the same duel result, the weakest is always at least as good: the rest are skipped.
+    const doms = (S, T) => S.map((_, i) => S.reduce((m, _, j) => {
+      if (j === i) return m;
+      const le = S[j][0] <= S[i][0] && S[j][1] <= S[i][1] && S[j][2] <= S[i][2] && T[j] <= T[i];
+      const eq = S[j][0] === S[i][0] && S[j][1] === S[i][1] && S[j][2] === S[i][2] && T[j] === T[i];
+      return le && (!eq || j < i) ? m | (1 << j) : m;
+    }, 0));
+    this.domA = doms(this.SA, this.TA); this.domB = doms(this.SB, this.TB);
   }
   duel(ai, bi, s, aLeads) {
     const ctr = [2, 1, 0];
@@ -101,10 +110,12 @@ class Solver {
       res = false;
       outer: for (let s = 0; s < 3; s++) for (const i of this.ordA[s]) {
         if (!(ma >> i & 1)) continue;
-        let ok = true;
+        let ok = true; const rr = [], same = [0, 0, 0];
+        for (let j = 0; j < 11; j++) if (mb >> j & 1) { rr[j] = this.duel(i, j, s, true); same[rr[j] + 1] |= 1 << j; }
         for (let pass = 0; pass < 2 && ok; pass++) for (const j of this.byTB) {
           if (!(mb >> j & 1)) continue;
-          const r = this.duel(i, j, s, true); if ((pass === 0) !== (r < 0)) continue;
+          const r = rr[j]; if ((pass === 0) !== (r < 0)) continue;
+          if (this.domB[j] & same[r + 1]) continue;
           if (!this.win(ma & ~(1 << i), mb & ~(1 << j), d + r, thr)) { ok = false; break; }
         }
         if (ok) { res = true; break outer; }
@@ -113,10 +124,12 @@ class Solver {
       res = true;
       outer2: for (let s = 0; s < 3; s++) for (const j of this.ordB[s]) {
         if (!(mb >> j & 1)) continue;
-        let ok = false;
+        let ok = false; const rr = [], same = [0, 0, 0];
+        for (let i = 0; i < 11; i++) if (ma >> i & 1) { rr[i] = this.duel(i, j, s, false); same[rr[i] + 1] |= 1 << i; }
         for (let pass = 0; pass < 2 && !ok; pass++) for (const i of this.byTA) {
           if (!(ma >> i & 1)) continue;
-          const r = this.duel(i, j, s, false); if ((pass === 0) !== (r > 0)) continue;
+          const r = rr[i]; if ((pass === 0) !== (r > 0)) continue;
+          if (this.domA[i] & same[r + 1]) continue;
           if (this.win(ma & ~(1 << i), mb & ~(1 << j), d + r, thr)) { ok = true; break; }
         }
         if (!ok) { res = false; break outer2; }
@@ -129,6 +142,11 @@ class Solver {
     let l = 0;
     for (let t = -1; t <= 2; t++) { if (this.win(ma, mb, d, t)) l++; else break; }
     return l;
+  }
+  // Only win / draw / loss (as level 3 / 2 / 0): at most two searches instead of four. Used live in Match Helper.
+  outcome(ma = 2047, mb = 2047, d = 0) {
+    if (!this.win(ma, mb, d, 0)) return 0;
+    return this.win(ma, mb, d, 1) ? 3 : 2;
   }
 }
 function popcount(x) { x -= (x >> 1) & 0x55555555; x = (x & 0x33333333) + ((x >> 2) & 0x33333333); return (((x + (x >> 4)) & 0x0f0f0f0f) * 0x01010101) >>> 24; }
