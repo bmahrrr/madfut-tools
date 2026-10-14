@@ -47,6 +47,11 @@ def load_cards(owned_only=False):
     wk = build_week()
     keep = season_ids(wk)
     if keep is not None:
+        try:                    # cards the database added late but that were already in the game
+            early = json.load(open(os.path.join(ROOT, "config", "card_seasons.json")))["cards"]
+            keep |= {i for i, w in early.items() if w <= wk}
+        except FileNotFoundError:
+            pass
         cards = [c for c in cards if c["id"] in keep]
     for c in cards:
         c["owned"] = True
