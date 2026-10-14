@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261014g">
+<meta name="app-version" content="20261014h">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#150f12">
@@ -146,6 +146,15 @@ details.sercard>summary::-webkit-details-marker{display:none}
 .strip .cad{display:block;font:700 15px/1.3 var(--display)}.strip .cad i{font-style:normal;color:var(--muted);margin:0 2px 0 7px}
 details.sercard[open]>summary.strip{border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(255,91,34,.10),transparent)}
 details.sercard>.body{padding:12px 16px 16px}
+/* Cards tab: slim collection tiles + stat rows */
+#cardsTypes{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0 12px}
+.ctile{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border:0;text-align:left;clip-path:polygon(0 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%);min-width:0}
+.ctile.wide{grid-column:1/-1}
+.ctile b{font:700 15px/1.1 var(--display);letter-spacing:.6px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctile span{font:800 italic 20px/1 var(--display);flex:none}
+.prow.crow{grid-template-columns:48px minmax(0,1fr) auto;padding:8px 0}
+.crow .rt{display:flex;align-items:center;gap:7px}.crow .rt i{width:4px;height:32px;flex:none}.crow .rt b{font:800 italic 22px/1 var(--display)}
+.crow .nm .r{font-size:12.5px}
 .verdict{font:700 15px/1.2 var(--display);letter-spacing:.6px;text-transform:uppercase;color:var(--win);margin:0 0 8px}
 .verdict span{font:400 12.5px/1.3 var(--body);letter-spacing:0;text-transform:none;color:var(--muted)}
 .squad{margin:0 -16px;border-bottom:1px solid var(--line)}
@@ -281,8 +290,8 @@ details.sercard>.body{padding:12px 16px 16px}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261014g"></script>
-<script src="sbc-solver.js?v=20261014g"></script>
-<script src="app.js?v=20261014g"></script>
+<script src="engine.js?v=20261014h"></script>
+<script src="sbc-solver.js?v=20261014h"></script>
+<script src="app.js?v=20261014h"></script>
 </body>
 </html>
