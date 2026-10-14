@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261014a";
+const APP_V = "20261014b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -538,7 +538,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261014a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261014b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -818,7 +818,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -934,7 +934,11 @@ function setupCards() {
   $("cMore").onclick = () => { CF.shown += 200; drawCards(); };
   drawCards();
 }
-const cardRow = c => `<div class="slot"><span class="who"><b>${esc(c.name)}</b> ${c.rating}${c._extra ? ` <span class="small ${c.owned === false ? "muted" : "ok"}">${c.owned === false ? "Opponents only" : "Yours"}</span>` : ""} <span class="muted small">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span><br><span class="muted small">${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></span><span class="st">A ${c.attack} · C ${c.control} · D ${c.defense}</span></div>`;
+// "Yours" only on regular Evos you made yourself (not Elite Evos or their lower levels); LTMs are open to everyone
+const eliteNames = () => new Set(CARDS.filter(c => c.color === "elite_evo").map(c => c.name));
+const extraTag = c => !c._extra ? "" : c.owned === false ? ` <span class="small muted">Opponents only</span>`
+  : c.color === "evo" && !eliteNames().has(c.name) ? ` <span class="small ok">Yours</span>` : "";
+const cardRow = c => `<div class="slot"><span class="who"><b>${esc(c.name)}</b> ${c.rating}${extraTag(c)} <span class="muted small">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span><br><span class="muted small">${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></span><span class="st">A ${c.attack} · C ${c.control} · D ${c.defense}</span></div>`;
 function byRatingHtml(L, nested) {        // cards grouped under rating headings (big groups fold away)
   const G = new Map(); L.forEach(c => { if (!G.has(c.rating)) G.set(c.rating, []); G.get(c.rating).push(c); });
   return [...G.entries()].sort((a, b) => b[0] - a[0]).map(([r, cs]) => nested
