@@ -39,7 +39,7 @@ new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) i
   .observe(document.documentElement, { childList: true, subtree: true });
 document.addEventListener("DOMContentLoaded", () => titleAll(document.body));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
-const TYPE = c => cap({rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo"}[c] || String(c).replace(/_/g, " "));
+const TYPE = c => cap({rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",ligue1_potm:"Ligue 1 POTM",ligue_1_potm:"Ligue 1 POTM",liga_f_potm:"Liga F POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo"}[c] || String(c).replace(/_/g, " "));
 
 let CARDS = [], BYID = new Map(), WEEK = null, INDEX = null;
 const state = { A: [], B: [], T: [], simB: [], simA: null };
@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261014j";
+const APP_V = "20261015a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -548,7 +548,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261014j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261015a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -828,7 +828,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014j");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261015a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -925,6 +925,7 @@ const TCOL = {   // [light, dark, text], taken from the in-game collection scree
   sbc_premium: ["#a58ad0", "#3a2066", "#ffffff"], partners: ["#a89a88", "#4a3e33", "#ffffff"],
   epl_potm: ["#4fc3f7", "#2a6fd8", "#ffffff"], laliga_potm: ["#e04a3c", "#0a0618", "#ffffff"], seriea_potm: ["#3d63ff", "#1a10b8", "#ffffff"],
   bundesliga_potm: ["#c42a22", "#5e0f0f", "#ffffff"], liga_f_potm: ["#2f63c8", "#0a1f5c", "#ffffff"],
+  ligue1_potm: ["#4a5ff0", "#1b1a6e", "#ffffff"], ligue_1_potm: ["#4a5ff0", "#1b1a6e", "#ffffff"],
   evo: ["#2f6a5e", "#071219", "#c9f3e6"], elite_evo: ["#4f7a64", "#0b1620", "#ecd99a"], ltm: ["#2a4dff", "#c4162a", "#ffffff"] };
 const tcol = t => TCOL[t] || (h => [`hsl(${h} 70% 72%)`, `hsl(${h} 55% 38%)`, "#0d0a0b"])([...String(t)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 360, 7));
 const tgrad = t => { const [a, b, c] = tcol(t); return `background:linear-gradient(135deg,${a},${b});color:${c}`; };      // hand-added cards listed in the Cards tab
