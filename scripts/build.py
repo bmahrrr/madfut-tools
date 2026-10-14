@@ -122,6 +122,23 @@ def main():
         s = next(x for x in week()["sim"] if x["key"] == key)
         print("Sim", key)
         teams = build_sim(s, owned)
+        try:                                # keep this season's previous team if the new search did worse
+            from fatal.sim import evaluate, _slot_rows
+            from fatal.core import FORMATIONS
+            prev = json.load(open(os.path.join(RES, f"sim_{key}.json")))
+            if prev.get("week") == week().get("week") and prev.get("teams") and teams:
+                pt = prev["teams"][0]; sq = [by_id[p["id"]] for p in pt["players"] if p["id"] in by_id]
+                if len(sq) == 11 and all(c["id"] not in NO for c in sq):
+                    slots = FORMATIONS[pt["formation"]]; ev = evaluate(sq, slots, s)
+                    k = lambda e: (e["ctrl_not_full"] == 0, round(e["control"], 2), 3 * e["attack"] + e["defence"])
+                    if k(ev) > k(teams[0]["metrics"]):
+                        print("previous team is better:", ev["control"], "vs", teams[0]["metrics"]["control"])
+                        pt = dict(pt, metrics=ev, players=[dict(r, slot=sl) for r, sl in zip(_slot_rows(sq, s), slots)], source="Previous Best")
+                        teams = [pt] + teams[:2]
+        except FileNotFoundError:
+            pass
+        except Exception as e:
+            print("previous sim team not compared:", e)
         save(f"sim_{key}.json", {"mode": "sim", "series": s, "teams": teams, "not_owned": no_names})
     elif mode == "request" and json.load(open(sys.argv[2])).get("mode") == "rebuild":
         req = json.load(open(sys.argv[2]))
