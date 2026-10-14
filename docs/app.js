@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261014g";
+const APP_V = "20261014h";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -548,7 +548,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261014g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261014h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -828,7 +828,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014g");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014h");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -915,7 +915,14 @@ function drawSBCResult(working = false) {
 const CF = { shown: 100 };
 const typeKey = c => { const t = String(c.color).replace("rare_", ""); return ["gold", "silver", "bronze"].includes(t) ? t : t; };
 const typeLabel = t => ({ gold: "Gold", silver: "Silver", bronze: "Bronze" }[t] || TYPE(t));
-const SHOW_EXTRA = new Set(["evo", "elite_evo", "ltm"]);      // hand-added cards listed in the Cards tab
+const SHOW_EXTRA = new Set(["evo", "elite_evo", "ltm"]);
+// card-type colours (tiles and the strip beside each card): [light, dark, text]
+const TCOL = { gold: ["#ffe08a", "#c9962b", "#1d1405"], silver: ["#e3e7ec", "#8c96a3", "#10151b"], bronze: ["#e6b48a", "#8a5531", "#1a0d05"],
+  icon: ["#f3e2b3", "#b8975a", "#1b140a"], debut_icon: ["#e9e0ff", "#8f7bd8", "#140f24"], hero: ["#c9f1ff", "#3d8fb8", "#081620"],
+  totw_gold: ["#3a3a3a", "#0d0d0d", "#ffd76a"], future_stars: ["#ff7ad9", "#6a2bd8", "#ffffff"], destined_for_glory: ["#6ef0c8", "#127a64", "#04140f"],
+  hall_of_fut: ["#ffd9a0", "#a8642a", "#1a0d05"], evo: ["#9ff2ff", "#1f7fa8", "#04121a"], elite_evo: ["#ffd16a", "#e0531f", "#1a0b05"], ltm: ["#b7ff9e", "#2f8f3a", "#06140a"] };
+const tcol = t => TCOL[t] || (h => [`hsl(${h} 70% 72%)`, `hsl(${h} 55% 38%)`, "#0d0a0b"])([...String(t)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 360, 7));
+const tgrad = t => { const [a, b, c] = tcol(t); return `background:linear-gradient(135deg,${a},${b});color:${c}`; };      // hand-added cards listed in the Cards tab
 const inCards = c => !c._extra || SHOW_EXTRA.has(c.color);
 const cardCount = (t, cs) => t === "ltm" ? new Set(cs.map(c => c.name)).size : cs.length;   // an LTM counts once, whatever its level
 function siteTotal() {          // every card on the site, counted as the Cards tab does (hand-added Evo / Elite Evo / LTM included, each LTM once)
@@ -930,8 +937,8 @@ function setupCards() {
   const order = ["gold", "silver", "bronze", ...[...cnt.keys()].filter(t => !["gold", "silver", "bronze"].includes(t)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b)))];
   const total = [...cnt.values()].reduce((a, n) => a + n, 0);
   $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Compare these totals with your collection screen in the game. Evo, Elite Evo and LTM cards are added by hand and can't be used in SBCs. Each LTM counts once; its levels are listed inside.`;
-  $("cardsTypes").innerHTML = `<button class="chipbtn" data-ct="special"><b>All special</b><span>${special}</span></button>` +
-    order.map(t => `<button class="chipbtn" data-ct="${esc(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t)}</span></button>`).join("");
+  $("cardsTypes").innerHTML = `<button class="ctile wide" data-ct="special" style="background:var(--grad);color:#1a0b05"><b>All special</b><span>${special.toLocaleString()}</span></button>` +
+    order.map(t => `<button class="ctile" data-ct="${esc(t)}" style="${tgrad(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t).toLocaleString()}</span></button>`).join("");
   $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
   const poss = [...new Set(real.map(c => c.position))].sort();
   $("cPos").innerHTML = `<option value="">All</option>` + poss.map(p => `<option>${esc(p)}</option>`).join("");
@@ -948,7 +955,7 @@ function setupCards() {
 const eliteNames = () => new Set(CARDS.filter(c => c.color === "elite_evo").map(c => c.name));
 const extraTag = c => !c._extra || c.color === "ltm" ? "" : c.owned === false ? ` <span class="small muted">Opponents only</span>`
   : c.color === "evo" && !eliteNames().has(c.name) ? ` <span class="small ok">Yours</span>` : "";
-const cardRow = c => `<div class="slot"><span class="who"><b>${esc(c.name)}</b> ${c.rating}${extraTag(c)} <span class="muted small">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span><br><span class="muted small">${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></span><span class="st">A ${c.attack} · C ${c.control} · D ${c.defense}</span></div>`;
+const cardRow = c => `<div class="prow crow"><span class="rt"><i style="${tgrad(typeKey(c))}"></i><b>${c.rating}</b></span><span class="nm"><b>${esc(c.name)}</b><span class="r">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span>${extraTag(c)}<small>${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</small></span><span class="st"><span class="a">${c.attack}</span><span class="c">${c.control}</span><span class="d">${c.defense}</span></span></div>`;
 function byRatingHtml(L, nested) {        // cards grouped under rating headings (big groups fold away)
   const G = new Map(); L.forEach(c => { if (!G.has(c.rating)) G.set(c.rating, []); G.get(c.rating).push(c); });
   return [...G.entries()].sort((a, b) => b[0] - a[0]).map(([r, cs]) => nested
