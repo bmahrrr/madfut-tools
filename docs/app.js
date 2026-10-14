@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261014h";
+const APP_V = "20261014i";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -548,7 +548,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261014h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261014i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -828,7 +828,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014h");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014i");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -917,10 +917,15 @@ const typeKey = c => { const t = String(c.color).replace("rare_", ""); return ["
 const typeLabel = t => ({ gold: "Gold", silver: "Silver", bronze: "Bronze" }[t] || TYPE(t));
 const SHOW_EXTRA = new Set(["evo", "elite_evo", "ltm"]);
 // card-type colours (tiles and the strip beside each card): [light, dark, text]
-const TCOL = { gold: ["#ffe08a", "#c9962b", "#1d1405"], silver: ["#e3e7ec", "#8c96a3", "#10151b"], bronze: ["#e6b48a", "#8a5531", "#1a0d05"],
-  icon: ["#f3e2b3", "#b8975a", "#1b140a"], debut_icon: ["#e9e0ff", "#8f7bd8", "#140f24"], hero: ["#c9f1ff", "#3d8fb8", "#081620"],
-  totw_gold: ["#3a3a3a", "#0d0d0d", "#ffd76a"], future_stars: ["#ff7ad9", "#6a2bd8", "#ffffff"], destined_for_glory: ["#6ef0c8", "#127a64", "#04140f"],
-  hall_of_fut: ["#ffd9a0", "#a8642a", "#1a0d05"], evo: ["#9ff2ff", "#1f7fa8", "#04121a"], elite_evo: ["#ffd16a", "#e0531f", "#1a0b05"], ltm: ["#b7ff9e", "#2f8f3a", "#06140a"] };
+const TCOL = {   // [light, dark, text], taken from the in-game collection screen
+  gold: ["#f0e296", "#c9a24a", "#1d1405"], silver: ["#e2e4ea", "#9a9eaa", "#10151b"], bronze: ["#edc89a", "#c08452", "#1a0d05"],
+  totw_gold: ["#4a4030", "#141210", "#ecc96a"], icon: ["#f4f2ee", "#b9a57e", "#1b140a"], debut_icon: ["#ece3d8", "#9a7c5e", "#1b140a"],
+  hero: ["#8f7ad8", "#2a1d55", "#ffffff"], hall_of_fut: ["#9a9aa6", "#232126", "#ffffff"], future_stars: ["#9a6fd0", "#1f0e4c", "#ffffff"],
+  destined_for_glory: ["#c9a868", "#173a3e", "#ffffff"], otw: ["#4fc4d4", "#1e3c6a", "#ffffff"], squad_foundations: ["#5cc8b8", "#1d4d48", "#ffffff"],
+  sbc_premium: ["#a58ad0", "#3a2066", "#ffffff"], partners: ["#a89a88", "#4a3e33", "#ffffff"],
+  epl_potm: ["#4fc3f7", "#2a6fd8", "#ffffff"], laliga_potm: ["#e04a3c", "#0a0618", "#ffffff"], seriea_potm: ["#3d63ff", "#1a10b8", "#ffffff"],
+  bundesliga_potm: ["#c42a22", "#5e0f0f", "#ffffff"], liga_f_potm: ["#2f63c8", "#0a1f5c", "#ffffff"],
+  evo: ["#2f6a5e", "#071219", "#c9f3e6"], elite_evo: ["#4f7a64", "#0b1620", "#ecd99a"], ltm: ["#2a4dff", "#c4162a", "#ffffff"] };
 const tcol = t => TCOL[t] || (h => [`hsl(${h} 70% 72%)`, `hsl(${h} 55% 38%)`, "#0d0a0b"])([...String(t)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 360, 7));
 const tgrad = t => { const [a, b, c] = tcol(t); return `background:linear-gradient(135deg,${a},${b});color:${c}`; };      // hand-added cards listed in the Cards tab
 const inCards = c => !c._extra || SHOW_EXTRA.has(c.color);
