@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261014c";
+const APP_V = "20261014d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -288,6 +288,10 @@ function planHtml(p) {
 }
 
 // ---------- Teams tab ----------
+// Each series is a folded strip (like the game): number, formation and results; tap to open the full team.
+const OPEN = new Set();                   // series left open, kept when the page redraws (e.g. switching versions)
+const strip = (k, title, sub, res) => `<summary class="strip"><span class="k">${esc(k)}</span><span class="mid"><b>${esc(title)}</b><small>${sub}</small></span><span class="res">${res}</span></summary>`;
+const serOpen = id => OPEN.has(id) ? " open" : "";
 let VAULT = null;     // { week, files } when looking at a past week
 async function renderTeams() {
   const box = $("teamsBody"), V = VAULT, base = V ? `vault/${V.week}/` : "results/";
@@ -311,7 +315,9 @@ async function renderTeams() {
       for (const [k, v] of Object.entries(t.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
-      html += `<div class="card"><div class="num">${esc(d.series.key)}</div><h2>${esc(d.series.key)} Series</h2><p class="meta">${esc(t.formation || "")} · ${t.chem} chem</p>${bar}${vtag(which, d)}`;
+      const sid = "myclub:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
+      const sres = `${refs.length ? `<span class="rp">${refs.slice(0, 1).map(([k, v]) => pill(v.you_lead_first) + pill(v.they_lead_first)).join("")}</span><small>VS Reddit</small>` : ""}${worst ? `<span class="rp">${pill(worst.r)}</span><small>Worst case</small>` : ""}`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body"><p class="meta">${esc(d.series.key)} Series · ${esc(t.formation || "")} · ${t.chem} chem</p>${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">✓ Copy the Reddit Team <span>· nothing the builder found has a better worst case</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">✓ Still the best <span>· the latest search found nothing with a better worst case</span></p>`;
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">✓ Hand-Built Team <span>· it beat the builder's own team on worst case</span></p>`;
@@ -327,7 +333,7 @@ async function renderTeams() {
         <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
         <b>Final Check Teams</b>: stress tests built against the Reddit Team and the Hand-Built Team, so every option faces teams built to beat it. The team shown is whichever has the best worst case against all of these.<br>
         A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
-      html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div></details>`;
     } catch (e) {}
   }
   html += `<h3>Fatal Sim</h3>`;
@@ -338,7 +344,9 @@ async function renderTeams() {
       const t = d.teams && d.teams[0]; if (!t) continue;
       const m = t.metrics;
       const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
-      html += `<div class="card"><div class="num">${esc(d.series.key)}</div><h2>${esc(d.series.key)} Series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem · averages below</p>${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      const sid = "sim:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
+      const sres = `<span class="cad"><i>C</i>${m.control}<i>A</i>${m.attack}<i>D</i>${m.defence}</span><small>Averages</small>`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres)}<div class="body"><p class="meta">${esc(d.series.key)} Series · ${esc(t.formation)} · ${m.chem} chem · averages below</p>${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div></details>`;
     } catch (e) {}
   }
   if (!V) {
@@ -348,6 +356,7 @@ async function renderTeams() {
     box.innerHTML = html;
     $("vaultBack").onclick = () => { VAULT = null; renderTeams(); window.scrollTo(0, 0); };
   }
+  document.querySelectorAll("details.sercard").forEach(x => x.ontoggle = () => { x.open ? OPEN.add(x.dataset.ser) : OPEN.delete(x.dataset.ser); });
   wireOpps(); if (!V) wireNoHave();
 }
 function playersTable(ps, showTB, nh) {     // nh = "myclub:73" adds a Don't have button to each player
@@ -538,7 +547,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261014c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261014d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -818,7 +827,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014c");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
