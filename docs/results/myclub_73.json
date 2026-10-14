@@ -39,8 +39,8 @@
   ]
  ],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 32,
+  "formation": "4-3-2-1",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -67,6 +67,75 @@
    },
    {
     "slot": "LB",
+    "id": "id50575036",
+    "name": "Sosa",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "LB",
+    "nationId": 10,
+    "leagueId": 19,
+    "clubId": 31,
+    "card": [
+     67,
+     73,
+     71
+    ],
+    "chem": 2,
+    "eff": [
+     70,
+     74,
+     72
+    ],
+    "tiebreak": 214
+   },
+   {
+    "slot": "CB",
+    "id": "id276820",
+    "name": "Moreno",
+    "rating": 73,
+    "color": "rare_silver",
+    "position": "CB",
+    "nationId": 52,
+    "leagueId": 31,
+    "clubId": 205,
+    "card": [
+     48,
+     53,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     53,
+     56,
+     76
+    ],
+    "tiebreak": 180
+   },
+   {
+    "slot": "CB",
+    "id": "id74813",
+    "name": "Amondarain",
+    "rating": 73,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 52,
+    "leagueId": 31,
+    "clubId": 189,
+    "card": [
+     70,
+     71,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     74,
+     71
+    ],
+    "tiebreak": 215
+   },
+   {
+    "slot": "RB",
     "id": "id257771",
     "name": "Juranović",
     "rating": 73,
@@ -89,76 +158,7 @@
     "tiebreak": 222
    },
    {
-    "slot": "CB",
-    "id": "id278668",
-    "name": "Zé Pedro",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 1842,
-    "card": [
-     62,
-     65,
-     73
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     68,
-     76
-    ],
-    "tiebreak": 206
-   },
-   {
-    "slot": "CB",
-    "id": "id238370",
-    "name": "Pongračić",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 10,
-    "leagueId": 31,
-    "clubId": 110374,
-    "card": [
-     48,
-     57,
-     72
-    ],
-    "chem": 3,
-    "eff": [
-     53,
-     60,
-     75
-    ],
-    "tiebreak": 183
-   },
-   {
-    "slot": "RB",
-    "id": "id215449",
-    "name": "Skov",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 1831,
-    "card": [
-     75,
-     74,
-     71
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     76,
-     73
-    ],
-    "tiebreak": 226
-   },
-   {
-    "slot": "CDM",
+    "slot": "CM",
     "id": "id253177",
     "name": "Musah",
     "rating": 73,
@@ -181,30 +181,7 @@
     "tiebreak": 224
    },
    {
-    "slot": "CDM",
-    "id": "id264699",
-    "name": "Asllani",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 1,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     69,
-     73,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     76,
-     72
-    ],
-    "tiebreak": 217
-   },
-   {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id277840",
     "name": "Gandelman",
     "rating": 71,
@@ -227,25 +204,48 @@
     "tiebreak": 216
    },
    {
-    "slot": "CAM",
-    "id": "id256949",
-    "name": "Grønbæk",
-    "rating": 73,
+    "slot": "CM",
+    "id": "id215449",
+    "name": "Skov",
+    "rating": 72,
     "color": "rare_silver",
-    "position": "CAM",
+    "position": "LB",
     "nationId": 13,
     "leagueId": 19,
-    "clubId": 28,
+    "clubId": 1831,
     "card": [
-     72,
-     73,
-     62
+     75,
+     74,
+     71
     ],
     "chem": 2,
     "eff": [
+     78,
      75,
+     72
+    ],
+    "tiebreak": 223
+   },
+   {
+    "slot": "CAM",
+    "id": "id240938",
+    "name": "Junior Messias",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 110556,
+    "card": [
      74,
-     63
+     72,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     75,
+     61
     ],
     "tiebreak": 210
    },
@@ -310,10 +310,26 @@
     "they_lead_first": "DRAW"
    },
    "counter 2": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "counter 3": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 4": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 5": {
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
    },
    "fresh test 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 2": {
     "you_lead_first": "DRAW",
     "they_lead_first": "DRAW"
    },
@@ -334,7 +350,7 @@
     "they_lead_first": "DRAW"
    }
   },
-  "source": "Previous Best",
+  "source": "builder",
   "mode": "robust",
   "opponent_teams": {
    "reference 1": {
@@ -597,8 +613,8 @@
     ]
    },
    "mirror": {
-    "formation": "4-2-3-1",
-    "chem": 32,
+    "formation": "4-3-2-1",
+    "chem": 31,
     "players": [
      {
       "slot": "GK",
@@ -625,6 +641,75 @@
      },
      {
       "slot": "LB",
+      "id": "id50575036",
+      "name": "Sosa",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 10,
+      "leagueId": 19,
+      "clubId": 31,
+      "card": [
+       67,
+       73,
+       71
+      ],
+      "chem": 2,
+      "eff": [
+       70,
+       74,
+       72
+      ],
+      "tiebreak": 214
+     },
+     {
+      "slot": "CB",
+      "id": "id276820",
+      "name": "Moreno",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 31,
+      "clubId": 205,
+      "card": [
+       48,
+       53,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       53,
+       56,
+       76
+      ],
+      "tiebreak": 180
+     },
+     {
+      "slot": "CB",
+      "id": "id74813",
+      "name": "Amondarain",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 31,
+      "clubId": 189,
+      "card": [
+       70,
+       71,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       74,
+       71
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "RB",
       "id": "id257771",
       "name": "Juranović",
       "rating": 73,
@@ -645,6 +730,478 @@
        74
       ],
       "tiebreak": 222
+     },
+     {
+      "slot": "CM",
+      "id": "id253177",
+      "name": "Musah",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 95,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       76,
+       73,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       81,
+       76,
+       72
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "CM",
+      "id": "id277840",
+      "name": "Gandelman",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 26,
+      "leagueId": 31,
+      "clubId": 347,
+      "card": [
+       73,
+       66,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       69,
+       74
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 2,
+      "eff": [
+       78,
+       75,
+       72
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CAM",
+      "id": "id240938",
+      "name": "Junior Messias",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 110556,
+      "card": [
+       74,
+       72,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       75,
+       61
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CAM",
+      "id": "id50602667",
+      "name": "Fabbian",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 50,
+      "card": [
+       72,
+       72,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       75,
+       70
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id242755",
+      "name": "Yeboah",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 57,
+      "leagueId": 31,
+      "clubId": 205,
+      "card": [
+       76,
+       71,
+       33
+      ],
+      "chem": 3,
+      "eff": [
+       81,
+       74,
+       36
+      ],
+      "tiebreak": 186
+     }
+    ]
+   },
+   "counter 1": {
+    "formation": "4-1-4-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id202789",
+      "name": "Schwolow",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       30,
+       25,
+       74
+      ],
+      "chem": 2,
+      "eff": [
+       33,
+       26,
+       75
+      ],
+      "tiebreak": 132
+     },
+     {
+      "slot": "LB",
+      "id": "id50575036",
+      "name": "Sosa",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 10,
+      "leagueId": 19,
+      "clubId": 31,
+      "card": [
+       67,
+       73,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       75,
+       73
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "CB",
+      "id": "id271579",
+      "name": "Terracciano",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       69,
+       70,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       73,
+       73
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "CB",
+      "id": "id50597038",
+      "name": "Regeer",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 34,
+      "leagueId": 19,
+      "clubId": 38,
+      "card": [
+       67,
+       71,
+       71
+      ],
+      "chem": 2,
+      "eff": [
+       70,
+       72,
+       72
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "RB",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       73
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CDM",
+      "id": "id253177",
+      "name": "Musah",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 95,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       76,
+       73,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       81,
+       76,
+       72
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "LM",
+      "id": "id264436",
+      "name": "Ellertsson",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 24,
+      "leagueId": 31,
+      "clubId": 110556,
+      "card": [
+       70,
+       70,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       73,
+       69
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CM",
+      "id": "id50602667",
+      "name": "Fabbian",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 50,
+      "card": [
+       72,
+       72,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       75,
+       70
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "CM",
+      "id": "id240938",
+      "name": "Junior Messias",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 110556,
+      "card": [
+       74,
+       72,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       75,
+       61
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RM",
+      "id": "id257771",
+      "name": "Juranović",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 10,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       73,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       74
+      ],
+      "tiebreak": 222
+     },
+     {
+      "slot": "ST",
+      "id": "id269276",
+      "name": "Oristanio",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 54,
+      "card": [
+       75,
+       71,
+       51
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       74,
+       54
+      ],
+      "tiebreak": 203
+     }
+    ]
+   },
+   "counter 2": {
+    "formation": "4-2-3-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id237127",
+      "name": "Thiam",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 136,
+      "leagueId": 31,
+      "clubId": 111811,
+      "card": [
+       35,
+       28,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       40,
+       31,
+       76
+      ],
+      "tiebreak": 142
+     },
+     {
+      "slot": "LB",
+      "id": "id220421",
+      "name": "Kamara",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 108,
+      "leagueId": 31,
+      "clubId": 55,
+      "card": [
+       71,
+       69,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       72,
+       73
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "CB",
+      "id": "id271579",
+      "name": "Terracciano",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       69,
+       70,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       73,
+       73
+      ],
+      "tiebreak": 215
      },
      {
       "slot": "CB",
@@ -670,50 +1227,27 @@
       "tiebreak": 206
      },
      {
-      "slot": "CB",
-      "id": "id238370",
-      "name": "Pongračić",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 10,
-      "leagueId": 31,
-      "clubId": 110374,
-      "card": [
-       48,
-       57,
-       72
-      ],
-      "chem": 3,
-      "eff": [
-       53,
-       60,
-       75
-      ],
-      "tiebreak": 183
-     },
-     {
       "slot": "RB",
-      "id": "id215449",
-      "name": "Skov",
-      "rating": 72,
+      "id": "id170320",
+      "name": "De Silvestri",
+      "rating": 69,
       "color": "rare_silver",
-      "position": "LB",
-      "nationId": 13,
-      "leagueId": 19,
-      "clubId": 1831,
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 189,
       "card": [
-       75,
-       74,
-       71
+       65,
+       67,
+       70
       ],
       "chem": 3,
       "eff": [
-       79,
-       76,
+       70,
+       70,
        73
       ],
-      "tiebreak": 226
+      "tiebreak": 208
      },
      {
       "slot": "CDM",
@@ -786,29 +1320,6 @@
      },
      {
       "slot": "CAM",
-      "id": "id256949",
-      "name": "Grønbæk",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 13,
-      "leagueId": 19,
-      "clubId": 28,
-      "card": [
-       72,
-       73,
-       62
-      ],
-      "chem": 2,
-      "eff": [
-       75,
-       74,
-       63
-      ],
-      "tiebreak": 210
-     },
-     {
-      "slot": "CAM",
       "id": "id50602667",
       "name": "Fabbian",
       "rating": 73,
@@ -829,219 +1340,6 @@
        70
       ],
       "tiebreak": 217
-     },
-     {
-      "slot": "ST",
-      "id": "id242755",
-      "name": "Yeboah",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "ST",
-      "nationId": 57,
-      "leagueId": 31,
-      "clubId": 205,
-      "card": [
-       76,
-       71,
-       33
-      ],
-      "chem": 3,
-      "eff": [
-       81,
-       74,
-       36
-      ],
-      "tiebreak": 186
-     }
-    ]
-   },
-   "counter 1": {
-    "formation": "4-3-2-1",
-    "chem": 30,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id202789",
-      "name": "Schwolow",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "GK",
-      "nationId": 21,
-      "leagueId": 19,
-      "clubId": 169,
-      "card": [
-       30,
-       25,
-       74
-      ],
-      "chem": 3,
-      "eff": [
-       34,
-       27,
-       76
-      ],
-      "tiebreak": 135
-     },
-     {
-      "slot": "LB",
-      "id": "id257771",
-      "name": "Juranović",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 10,
-      "leagueId": 19,
-      "clubId": 1831,
-      "card": [
-       71,
-       73,
-       72
-      ],
-      "chem": 3,
-      "eff": [
-       75,
-       75,
-       74
-      ],
-      "tiebreak": 222
-     },
-     {
-      "slot": "CB",
-      "id": "id271579",
-      "name": "Terracciano",
-      "rating": 71,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 27,
-      "leagueId": 31,
-      "clubId": 131681,
-      "card": [
-       69,
-       70,
-       70
-      ],
-      "chem": 3,
-      "eff": [
-       74,
-       73,
-       73
-      ],
-      "tiebreak": 215
-     },
-     {
-      "slot": "CB",
-      "id": "id50597038",
-      "name": "Regeer",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 34,
-      "leagueId": 19,
-      "clubId": 38,
-      "card": [
-       67,
-       71,
-       71
-      ],
-      "chem": 2,
-      "eff": [
-       70,
-       72,
-       72
-      ],
-      "tiebreak": 212
-     },
-     {
-      "slot": "RB",
-      "id": "id224425",
-      "name": "Wolf",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 21,
-      "leagueId": 19,
-      "clubId": 100409,
-      "card": [
-       70,
-       69,
-       72
-      ],
-      "chem": 3,
-      "eff": [
-       74,
-       71,
-       74
-      ],
-      "tiebreak": 217
-     },
-     {
-      "slot": "CM",
-      "id": "id277840",
-      "name": "Gandelman",
-      "rating": 71,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 26,
-      "leagueId": 31,
-      "clubId": 347,
-      "card": [
-       73,
-       66,
-       71
-      ],
-      "chem": 2,
-      "eff": [
-       77,
-       68,
-       73
-      ],
-      "tiebreak": 213
-     },
-     {
-      "slot": "CM",
-      "id": "id253177",
-      "name": "Musah",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 95,
-      "leagueId": 31,
-      "clubId": 131681,
-      "card": [
-       76,
-       73,
-       69
-      ],
-      "chem": 3,
-      "eff": [
-       81,
-       76,
-       72
-      ],
-      "tiebreak": 224
-     },
-     {
-      "slot": "CM",
-      "id": "id215449",
-      "name": "Skov",
-      "rating": 72,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 13,
-      "leagueId": 19,
-      "clubId": 1831,
-      "card": [
-       75,
-       74,
-       71
-      ],
-      "chem": 3,
-      "eff": [
-       79,
-       76,
-       73
-      ],
-      "tiebreak": 226
      },
      {
       "slot": "CAM",
@@ -1058,36 +1356,13 @@
        72,
        58
       ],
-      "chem": 2,
-      "eff": [
-       78,
-       74,
-       60
-      ],
-      "tiebreak": 207
-     },
-     {
-      "slot": "CAM",
-      "id": "id50602667",
-      "name": "Fabbian",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
-      "leagueId": 31,
-      "clubId": 50,
-      "card": [
-       72,
-       72,
-       67
-      ],
       "chem": 3,
       "eff": [
-       77,
+       79,
        75,
-       70
+       61
       ],
-      "tiebreak": 217
+      "tiebreak": 210
      },
      {
       "slot": "ST",
@@ -1114,9 +1389,9 @@
      }
     ]
    },
-   "counter 2": {
-    "formation": "4-1-2-1-2 (2)",
-    "chem": 31,
+   "counter 3": {
+    "formation": "4-1-2-1-2",
+    "chem": 33,
     "players": [
      {
       "slot": "GK",
@@ -1166,72 +1441,72 @@
      },
      {
       "slot": "CB",
-      "id": "id222493",
-      "name": "Friedrich",
-      "rating": 72,
+      "id": "id271579",
+      "name": "Terracciano",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       69,
+       70,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       73,
+       73
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "CB",
+      "id": "id212977",
+      "name": "Stark",
+      "rating": 73,
       "color": "rare_silver",
       "position": "CB",
       "nationId": 21,
       "leagueId": 19,
-      "clubId": 1831,
+      "clubId": 38,
       "card": [
-       49,
-       52,
-       73
-      ],
-      "chem": 2,
-      "eff": [
-       52,
-       53,
-       74
-      ],
-      "tiebreak": 177
-     },
-     {
-      "slot": "CB",
-      "id": "id254928",
-      "name": "Franjić",
-      "rating": 69,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 10,
-      "leagueId": 31,
-      "clubId": 205,
-      "card": [
-       61,
+       63,
        64,
-       68
-      ],
-      "chem": 3,
-      "eff": [
-       66,
-       67,
-       71
-      ],
-      "tiebreak": 199
-     },
-     {
-      "slot": "RB",
-      "id": "id252440",
-      "name": "Zortea",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 27,
-      "leagueId": 31,
-      "clubId": 189,
-      "card": [
-       70,
-       69,
        72
       ],
       "chem": 3,
       "eff": [
-       75,
-       72,
-       75
+       67,
+       66,
+       74
       ],
-      "tiebreak": 217
+      "tiebreak": 205
+     },
+     {
+      "slot": "RB",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       73
+      ],
+      "tiebreak": 226
      },
      {
       "slot": "CDM",
@@ -1257,73 +1532,73 @@
       "tiebreak": 224
      },
      {
-      "slot": "CM",
-      "id": "id215449",
-      "name": "Skov",
-      "rating": 72,
+      "slot": "LM",
+      "id": "id256548",
+      "name": "Grüll",
+      "rating": 73,
       "color": "rare_silver",
-      "position": "LB",
-      "nationId": 13,
+      "position": "LM",
+      "nationId": 4,
       "leagueId": 19,
-      "clubId": 1831,
+      "clubId": 38,
       "card": [
-       75,
        74,
-       71
-      ],
-      "chem": 2,
-      "eff": [
-       78,
-       75,
-       72
-      ],
-      "tiebreak": 223
-     },
-     {
-      "slot": "CM",
-      "id": "id208535",
-      "name": "Duncan",
-      "rating": 72,
-      "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 117,
-      "leagueId": 31,
-      "clubId": 205,
-      "card": [
-       70,
-       71,
-       70
+       69,
+       40
       ],
       "chem": 3,
       "eff": [
-       75,
-       74,
-       73
+       78,
+       71,
+       42
       ],
-      "tiebreak": 217
+      "tiebreak": 189
      },
      {
-      "slot": "CAM",
-      "id": "id240938",
-      "name": "Junior Messias",
+      "slot": "RM",
+      "id": "id279622",
+      "name": "Aséko",
       "rating": 72,
       "color": "rare_silver",
       "position": "CM",
-      "nationId": 54,
-      "leagueId": 31,
-      "clubId": 110556,
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 1824,
       "card": [
-       74,
-       72,
-       58
+       70,
+       70,
+       67
       ],
       "chem": 3,
       "eff": [
-       79,
-       75,
-       61
+       74,
+       72,
+       69
       ],
-      "tiebreak": 210
+      "tiebreak": 213
+     },
+     {
+      "slot": "CAM",
+      "id": "id50602667",
+      "name": "Fabbian",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 50,
+      "card": [
+       72,
+       72,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       75,
+       70
+      ],
+      "tiebreak": 217
      },
      {
       "slot": "ST",
@@ -1350,31 +1625,31 @@
      },
      {
       "slot": "ST",
-      "id": "id242755",
-      "name": "Yeboah",
-      "rating": 73,
+      "id": "id50578105",
+      "name": "Ngonge",
+      "rating": 72,
       "color": "rare_silver",
-      "position": "ST",
-      "nationId": 57,
+      "position": "RM",
+      "nationId": 7,
       "leagueId": 31,
-      "clubId": 205,
+      "clubId": 111811,
       "card": [
-       76,
-       71,
-       33
+       72,
+       69,
+       41
       ],
       "chem": 3,
       "eff": [
-       81,
-       74,
-       36
+       77,
+       72,
+       44
       ],
-      "tiebreak": 186
+      "tiebreak": 188
      }
     ]
    },
-   "fresh test 1": {
-    "formation": "4-1-4-1",
+   "counter 4": {
+    "formation": "4-1-2-1-2 (2)",
     "chem": 32,
     "players": [
      {
@@ -1494,29 +1769,6 @@
      },
      {
       "slot": "CDM",
-      "id": "id277840",
-      "name": "Gandelman",
-      "rating": 71,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 26,
-      "leagueId": 31,
-      "clubId": 347,
-      "card": [
-       73,
-       66,
-       71
-      ],
-      "chem": 3,
-      "eff": [
-       78,
-       69,
-       74
-      ],
-      "tiebreak": 216
-     },
-     {
-      "slot": "LM",
       "id": "id256949",
       "name": "Grønbæk",
       "rating": 73,
@@ -1585,54 +1837,336 @@
       "tiebreak": 224
      },
      {
-      "slot": "RM",
-      "id": "id252440",
-      "name": "Zortea",
+      "slot": "CAM",
+      "id": "id74735",
+      "name": "Inao Oulaï",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 108,
+      "leagueId": 31,
+      "clubId": 110374,
+      "card": [
+       70,
+       72,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       71
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "ST",
+      "id": "id269276",
+      "name": "Oristanio",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 54,
+      "card": [
+       75,
+       71,
+       51
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       74,
+       54
+      ],
+      "tiebreak": 203
+     },
+     {
+      "slot": "ST",
+      "id": "id241628",
+      "name": "Pierini",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 111974,
+      "card": [
+       74,
+       68,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       71,
+       48
+      ],
+      "tiebreak": 193
+     }
+    ]
+   },
+   "counter 5": {
+    "formation": "3-4-2-1",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id234833",
+      "name": "Müller",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 25,
+      "card": [
+       32,
+       27,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       36,
+       29,
+       76
+      ],
+      "tiebreak": 139
+     },
+     {
+      "slot": "CB",
+      "id": "id271579",
+      "name": "Terracciano",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       69,
+       70,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       73,
+       73
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "CB",
+      "id": "id50597038",
+      "name": "Regeer",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 34,
+      "leagueId": 19,
+      "clubId": 38,
+      "card": [
+       67,
+       71,
+       71
+      ],
+      "chem": 2,
+      "eff": [
+       70,
+       72,
+       72
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CB",
+      "id": "id276367",
+      "name": "Curda",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "RM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 10030,
+      "card": [
+       68,
+       67,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       72
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "LM",
+      "id": "id257771",
+      "name": "Juranović",
       "rating": 73,
       "color": "rare_silver",
       "position": "RB",
-      "nationId": 27,
-      "leagueId": 31,
-      "clubId": 189,
+      "nationId": 10,
+      "leagueId": 19,
+      "clubId": 1831,
       "card": [
-       70,
-       69,
+       71,
+       73,
        72
       ],
       "chem": 3,
       "eff": [
        75,
-       72,
-       75
+       75,
+       74
       ],
-      "tiebreak": 217
+      "tiebreak": 222
      },
      {
-      "slot": "ST",
-      "id": "id242755",
-      "name": "Yeboah",
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       73
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id253177",
+      "name": "Musah",
       "rating": 73,
       "color": "rare_silver",
-      "position": "ST",
-      "nationId": 57,
+      "position": "CM",
+      "nationId": 95,
       "leagueId": 31,
-      "clubId": 205,
+      "clubId": 131681,
       "card": [
        76,
-       71,
-       33
+       73,
+       69
       ],
       "chem": 3,
       "eff": [
        81,
-       74,
-       36
+       76,
+       72
       ],
-      "tiebreak": 186
+      "tiebreak": 224
+     },
+     {
+      "slot": "RM",
+      "id": "id263804",
+      "name": "Konoplia",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 49,
+      "leagueId": 19,
+      "clubId": 23,
+      "card": [
+       65,
+       70,
+       72
+      ],
+      "chem": 2,
+      "eff": [
+       68,
+       71,
+       73
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CAM",
+      "id": "id50602667",
+      "name": "Fabbian",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 50,
+      "card": [
+       72,
+       72,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       75,
+       70
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "CAM",
+      "id": "id277840",
+      "name": "Gandelman",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 26,
+      "leagueId": 31,
+      "clubId": 347,
+      "card": [
+       73,
+       66,
+       71
+      ],
+      "chem": 2,
+      "eff": [
+       77,
+       68,
+       73
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "ST",
+      "id": "id269276",
+      "name": "Oristanio",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 54,
+      "card": [
+       75,
+       71,
+       51
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       74,
+       54
+      ],
+      "tiebreak": 203
      }
     ]
    },
-   "final check 1": {
+   "fresh test 1": {
     "formation": "4-1-2-1-2",
     "chem": 32,
     "players": [
@@ -1776,52 +2310,6 @@
      },
      {
       "slot": "LM",
-      "id": "id239368",
-      "name": "Bakker",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "LB",
-      "nationId": 34,
-      "leagueId": 31,
-      "clubId": 115845,
-      "card": [
-       68,
-       69,
-       72
-      ],
-      "chem": 3,
-      "eff": [
-       73,
-       72,
-       75
-      ],
-      "tiebreak": 215
-     },
-     {
-      "slot": "RM",
-      "id": "id269276",
-      "name": "Oristanio",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 27,
-      "leagueId": 31,
-      "clubId": 54,
-      "card": [
-       75,
-       71,
-       51
-      ],
-      "chem": 3,
-      "eff": [
-       80,
-       74,
-       54
-      ],
-      "tiebreak": 203
-     },
-     {
-      "slot": "CAM",
       "id": "id256949",
       "name": "Grønbæk",
       "rating": 73,
@@ -1844,27 +2332,73 @@
       "tiebreak": 210
      },
      {
-      "slot": "ST",
-      "id": "id241628",
-      "name": "Pierini",
-      "rating": 71,
+      "slot": "RM",
+      "id": "id237669",
+      "name": "Zerbin",
+      "rating": 72,
       "color": "rare_silver",
-      "position": "ST",
+      "position": "RM",
       "nationId": 27,
       "leagueId": 31,
-      "clubId": 111974,
+      "clubId": 111657,
+      "card": [
+       69,
+       70,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       73,
+       69
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CAM",
+      "id": "id240938",
+      "name": "Junior Messias",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 110556,
       "card": [
        74,
-       68,
-       45
+       72,
+       58
       ],
       "chem": 3,
       "eff": [
        79,
-       71,
-       48
+       75,
+       61
       ],
-      "tiebreak": 193
+      "tiebreak": 210
+     },
+     {
+      "slot": "ST",
+      "id": "id269276",
+      "name": "Oristanio",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 54,
+      "card": [
+       75,
+       71,
+       51
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       74,
+       54
+      ],
+      "tiebreak": 203
      },
      {
       "slot": "ST",
@@ -1891,8 +2425,267 @@
      }
     ]
    },
-   "final check 2": {
-    "formation": "3-1-4-2",
+   "fresh test 2": {
+    "formation": "4-3-2-1",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id186569",
+      "name": "Ulreich",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       30,
+       27,
+       74
+      ],
+      "chem": 2,
+      "eff": [
+       33,
+       28,
+       75
+      ],
+      "tiebreak": 134
+     },
+     {
+      "slot": "LB",
+      "id": "id247771",
+      "name": "Deman",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 7,
+      "leagueId": 19,
+      "clubId": 38,
+      "card": [
+       70,
+       70,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       74
+      ],
+      "tiebreak": 218
+     },
+     {
+      "slot": "CB",
+      "id": "id50597038",
+      "name": "Regeer",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 34,
+      "leagueId": 19,
+      "clubId": 38,
+      "card": [
+       67,
+       71,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       73,
+       73
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "CB",
+      "id": "id275783",
+      "name": "Gaspar",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 98,
+      "leagueId": 31,
+      "clubId": 347,
+      "card": [
+       43,
+       45,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       48,
+       48,
+       76
+      ],
+      "tiebreak": 167
+     },
+     {
+      "slot": "RB",
+      "id": "id257771",
+      "name": "Juranović",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 10,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       73,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       74
+      ],
+      "tiebreak": 222
+     },
+     {
+      "slot": "CM",
+      "id": "id240938",
+      "name": "Junior Messias",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 110556,
+      "card": [
+       74,
+       72,
+       58
+      ],
+      "chem": 2,
+      "eff": [
+       78,
+       74,
+       60
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       75,
+       74,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       76,
+       73
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id253177",
+      "name": "Musah",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 95,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       76,
+       73,
+       69
+      ],
+      "chem": 2,
+      "eff": [
+       80,
+       75,
+       71
+      ],
+      "tiebreak": 221
+     },
+     {
+      "slot": "CAM",
+      "id": "id277840",
+      "name": "Gandelman",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 26,
+      "leagueId": 31,
+      "clubId": 347,
+      "card": [
+       73,
+       66,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       69,
+       74
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "CAM",
+      "id": "id50602667",
+      "name": "Fabbian",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 50,
+      "card": [
+       72,
+       72,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       75,
+       70
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id269276",
+      "name": "Oristanio",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 54,
+      "card": [
+       75,
+       71,
+       51
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       74,
+       54
+      ],
+      "tiebreak": 203
+     }
+    ]
+   },
+   "final check 1": {
+    "formation": "3-4-2-1",
     "chem": 32,
     "players": [
      {
@@ -1920,6 +2713,52 @@
      },
      {
       "slot": "CB",
+      "id": "id271579",
+      "name": "Terracciano",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       69,
+       70,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       73,
+       73
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "CB",
+      "id": "id50597038",
+      "name": "Regeer",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 34,
+      "leagueId": 19,
+      "clubId": 38,
+      "card": [
+       67,
+       71,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       73,
+       73
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "CB",
       "id": "id278668",
       "name": "Zé Pedro",
       "rating": 73,
@@ -1933,105 +2772,36 @@
        65,
        73
       ],
-      "chem": 3,
+      "chem": 2,
       "eff": [
+       66,
        67,
-       68,
-       76
-      ],
-      "tiebreak": 206
-     },
-     {
-      "slot": "CB",
-      "id": "id238370",
-      "name": "Pongračić",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "CB",
-      "nationId": 10,
-      "leagueId": 31,
-      "clubId": 110374,
-      "card": [
-       48,
-       57,
-       72
-      ],
-      "chem": 3,
-      "eff": [
-       53,
-       60,
        75
       ],
-      "tiebreak": 183
+      "tiebreak": 203
      },
      {
-      "slot": "CB",
-      "id": "id74813",
-      "name": "Amondarain",
-      "rating": 73,
+      "slot": "LM",
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
       "color": "rare_silver",
-      "position": "CM",
-      "nationId": 52,
-      "leagueId": 31,
-      "clubId": 189,
+      "position": "LB",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 1831,
       "card": [
-       70,
-       71,
-       68
-      ],
-      "chem": 3,
-      "eff": [
        75,
        74,
        71
       ],
-      "tiebreak": 215
-     },
-     {
-      "slot": "CDM",
-      "id": "id256949",
-      "name": "Grønbæk",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "CAM",
-      "nationId": 13,
-      "leagueId": 19,
-      "clubId": 28,
-      "card": [
-       72,
-       73,
-       62
-      ],
-      "chem": 2,
-      "eff": [
-       75,
-       74,
-       63
-      ],
-      "tiebreak": 210
-     },
-     {
-      "slot": "LM",
-      "id": "id257771",
-      "name": "Juranović",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "RB",
-      "nationId": 10,
-      "leagueId": 19,
-      "clubId": 1831,
-      "card": [
-       71,
-       73,
-       72
-      ],
       "chem": 3,
       "eff": [
-       75,
-       75,
-       74
+       79,
+       76,
+       73
       ],
-      "tiebreak": 222
+      "tiebreak": 226
      },
      {
       "slot": "CM",
@@ -2058,6 +2828,242 @@
      },
      {
       "slot": "CM",
+      "id": "id219812",
+      "name": "Ciurria",
+      "rating": 72,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 111811,
+      "card": [
+       73,
+       71,
+       55
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       74,
+       58
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "RM",
+      "id": "id257771",
+      "name": "Juranović",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 10,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       73,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       74
+      ],
+      "tiebreak": 222
+     },
+     {
+      "slot": "CAM",
+      "id": "id256949",
+      "name": "Grønbæk",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 28,
+      "card": [
+       72,
+       73,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       75,
+       64
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "CAM",
+      "id": "id50602667",
+      "name": "Fabbian",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 50,
+      "card": [
+       72,
+       72,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       75,
+       70
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id256548",
+      "name": "Grüll",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "LM",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 38,
+      "card": [
+       74,
+       69,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       71,
+       42
+      ],
+      "tiebreak": 189
+     }
+    ]
+   },
+   "final check 2": {
+    "formation": "4-3-2-1",
+    "chem": 29,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id186148",
+      "name": "Zieler",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 31,
+      "card": [
+       33,
+       24,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       37,
+       26,
+       76
+      ],
+      "tiebreak": 137
+     },
+     {
+      "slot": "LB",
+      "id": "id257771",
+      "name": "Juranović",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 10,
+      "leagueId": 19,
+      "clubId": 1831,
+      "card": [
+       71,
+       73,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       74
+      ],
+      "tiebreak": 222
+     },
+     {
+      "slot": "CB",
+      "id": "id74813",
+      "name": "Amondarain",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 31,
+      "clubId": 189,
+      "card": [
+       70,
+       71,
+       68
+      ],
+      "chem": 2,
+      "eff": [
+       74,
+       73,
+       70
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CB",
+      "id": "id198352",
+      "name": "Bell",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       44,
+       50,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       48,
+       52,
+       76
+      ],
+      "tiebreak": 174
+     },
+     {
+      "slot": "RB",
+      "id": "id224425",
+      "name": "Wolf",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 100409,
+      "card": [
+       70,
+       69,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       71,
+       74
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "CM",
       "id": "id240938",
       "name": "Junior Messias",
       "rating": 72,
@@ -2071,16 +3077,16 @@
        72,
        58
       ],
-      "chem": 3,
+      "chem": 2,
       "eff": [
-       79,
-       75,
-       61
+       78,
+       74,
+       60
       ],
-      "tiebreak": 210
+      "tiebreak": 207
      },
      {
-      "slot": "RM",
+      "slot": "CM",
       "id": "id215449",
       "name": "Skov",
       "rating": 72,
@@ -2101,6 +3107,75 @@
        73
       ],
       "tiebreak": 226
+     },
+     {
+      "slot": "CM",
+      "id": "id253177",
+      "name": "Musah",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 95,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       76,
+       73,
+       69
+      ],
+      "chem": 2,
+      "eff": [
+       80,
+       75,
+       71
+      ],
+      "tiebreak": 221
+     },
+     {
+      "slot": "CAM",
+      "id": "id277840",
+      "name": "Gandelman",
+      "rating": 71,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 26,
+      "leagueId": 31,
+      "clubId": 347,
+      "card": [
+       73,
+       66,
+       71
+      ],
+      "chem": 2,
+      "eff": [
+       77,
+       68,
+       73
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "CAM",
+      "id": "id50602667",
+      "name": "Fabbian",
+      "rating": 73,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 50,
+      "card": [
+       72,
+       72,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       75,
+       70
+      ],
+      "tiebreak": 217
      },
      {
       "slot": "ST",
@@ -2124,29 +3199,6 @@
        54
       ],
       "tiebreak": 203
-     },
-     {
-      "slot": "ST",
-      "id": "id242755",
-      "name": "Yeboah",
-      "rating": 73,
-      "color": "rare_silver",
-      "position": "ST",
-      "nationId": 57,
-      "leagueId": 31,
-      "clubId": 205,
-      "card": [
-       76,
-       71,
-       33
-      ],
-      "chem": 3,
-      "eff": [
-       81,
-       74,
-       36
-      ],
-      "tiebreak": 186
      }
     ]
    },
@@ -2410,8 +3462,8 @@
     ]
    },
    "final check 4": {
-    "formation": "4-3-2-1",
-    "chem": 31,
+    "formation": "4-2-3-1",
+    "chem": 32,
     "players": [
      {
       "slot": "GK",
@@ -2438,26 +3490,26 @@
      },
      {
       "slot": "LB",
-      "id": "id257771",
-      "name": "Juranović",
-      "rating": 73,
+      "id": "id215449",
+      "name": "Skov",
+      "rating": 72,
       "color": "rare_silver",
-      "position": "RB",
-      "nationId": 10,
+      "position": "LB",
+      "nationId": 13,
       "leagueId": 19,
       "clubId": 1831,
       "card": [
-       71,
-       73,
-       72
+       75,
+       74,
+       71
       ],
       "chem": 3,
       "eff": [
-       75,
-       75,
-       74
+       79,
+       76,
+       73
       ],
-      "tiebreak": 222
+      "tiebreak": 226
      },
      {
       "slot": "CB",
@@ -2484,75 +3536,75 @@
      },
      {
       "slot": "CB",
-      "id": "id222493",
-      "name": "Friedrich",
-      "rating": 72,
+      "id": "id278668",
+      "name": "Zé Pedro",
+      "rating": 73,
       "color": "rare_silver",
       "position": "CB",
-      "nationId": 21,
-      "leagueId": 19,
-      "clubId": 1831,
+      "nationId": 38,
+      "leagueId": 31,
+      "clubId": 1842,
       "card": [
-       49,
-       52,
+       62,
+       65,
        73
       ],
-      "chem": 2,
+      "chem": 3,
       "eff": [
-       52,
-       53,
-       74
+       67,
+       68,
+       76
       ],
-      "tiebreak": 177
+      "tiebreak": 206
      },
      {
       "slot": "RB",
-      "id": "id215449",
-      "name": "Skov",
-      "rating": 72,
+      "id": "id257771",
+      "name": "Juranović",
+      "rating": 73,
       "color": "rare_silver",
-      "position": "LB",
-      "nationId": 13,
+      "position": "RB",
+      "nationId": 10,
       "leagueId": 19,
       "clubId": 1831,
       "card": [
-       75,
-       74,
-       71
-      ],
-      "chem": 2,
-      "eff": [
-       78,
-       75,
+       71,
+       73,
        72
       ],
-      "tiebreak": 223
+      "chem": 3,
+      "eff": [
+       75,
+       75,
+       74
+      ],
+      "tiebreak": 222
      },
      {
-      "slot": "CM",
-      "id": "id276682",
-      "name": "Ndour",
-      "rating": 72,
+      "slot": "CDM",
+      "id": "id264699",
+      "name": "Asllani",
+      "rating": 73,
       "color": "rare_silver",
-      "position": "CM",
-      "nationId": 27,
+      "position": "CDM",
+      "nationId": 1,
       "leagueId": 31,
-      "clubId": 110374,
+      "clubId": 131682,
       "card": [
        69,
-       70,
-       64
+       73,
+       69
       ],
       "chem": 3,
       "eff": [
        74,
-       73,
-       67
+       76,
+       72
       ],
-      "tiebreak": 209
+      "tiebreak": 217
      },
      {
-      "slot": "CM",
+      "slot": "CDM",
       "id": "id253177",
       "name": "Musah",
       "rating": 73,
@@ -2575,48 +3627,48 @@
       "tiebreak": 224
      },
      {
-      "slot": "CM",
-      "id": "id208535",
-      "name": "Duncan",
-      "rating": 72,
+      "slot": "CAM",
+      "id": "id50602667",
+      "name": "Fabbian",
+      "rating": 73,
       "color": "rare_silver",
-      "position": "CDM",
-      "nationId": 117,
+      "position": "CM",
+      "nationId": 27,
       "leagueId": 31,
-      "clubId": 205,
+      "clubId": 50,
       "card": [
-       70,
-       71,
-       70
+       72,
+       72,
+       67
       ],
       "chem": 3,
       "eff": [
+       77,
        75,
-       74,
-       73
+       70
       ],
       "tiebreak": 217
      },
      {
       "slot": "CAM",
-      "id": "id240938",
-      "name": "Junior Messias",
-      "rating": 72,
+      "id": "id256949",
+      "name": "Grønbæk",
+      "rating": 73,
       "color": "rare_silver",
-      "position": "CM",
-      "nationId": 54,
-      "leagueId": 31,
-      "clubId": 110556,
+      "position": "CAM",
+      "nationId": 13,
+      "leagueId": 19,
+      "clubId": 28,
       "card": [
-       74,
        72,
-       58
+       73,
+       62
       ],
-      "chem": 3,
+      "chem": 2,
       "eff": [
-       79,
        75,
-       61
+       74,
+       63
       ],
       "tiebreak": 210
      },
@@ -2673,18 +3725,23 @@
    "guaranteed": "DRAW",
    "safe": [
     {
-     "slot": "RB",
-     "name": "Skov",
-     "stat": "attack"
-    },
-    {
-     "slot": "CDM",
+     "slot": "CM",
      "name": "Musah",
      "stat": "attack"
     },
     {
-     "slot": "CAM",
+     "slot": "CM",
      "name": "Gandelman",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "Skov",
+     "stat": "attack"
+    },
+    {
+     "slot": "CAM",
+     "name": "Junior Messias",
      "stat": "attack"
     },
     {
@@ -2703,18 +3760,23 @@
     "guaranteed": "DRAW",
     "safe": [
      {
-      "slot": "RB",
-      "name": "Skov",
-      "stat": "attack"
-     },
-     {
-      "slot": "CDM",
+      "slot": "CM",
       "name": "Musah",
       "stat": "attack"
      },
      {
-      "slot": "CAM",
+      "slot": "CM",
       "name": "Gandelman",
+      "stat": "attack"
+     },
+     {
+      "slot": "CM",
+      "name": "Skov",
+      "stat": "attack"
+     },
+     {
+      "slot": "CAM",
+      "name": "Junior Messias",
       "stat": "attack"
      },
      {
@@ -2735,7 +3797,7 @@
      "text": "Only use for defence (77); attack 37, control 33"
     },
     {
-     "name": "Pongračić",
+     "name": "Moreno",
      "text": "Never use for attack (53)"
     },
     {
@@ -2748,12 +3810,12 @@
     "tb": 142
    },
    "high_tb": {
-    "name": "Skov",
-    "tb": 226
+    "name": "Musah",
+    "tb": 224
    }
   }
  },
  "not_owned": [],
- "built": "2026-10-14 16:26 UTC",
+ "built": "2026-10-14 22:22 UTC",
  "week": "2026-10-12"
 }
