@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261013j";
+const APP_V = "20261014a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -203,21 +203,21 @@ function viewSet(k, v) { const a = lsGet("mineview"); a[k] = v; lsSet("mineview"
 const cardNames = ids => ids.map(id => { const c = BYID.get(id); return c ? cap(c.name) + " " + c.rating : id; });
 const sameSet = (a, b) => (a || []).length === (b || []).length && (a || []).every(x => (b || []).includes(x));
 async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
-  if (!ghToken()) return { d, bar: noHaveBar(k) };     // personal versions belong to the phone with the GitHub key
+  if (!ghToken()) return { d, bar: "", nh: noHaveBar(k), which: null };     // personal versions belong to the phone with the GitHub key
   let dm = null; try { dm = await getJSON("results/mine/" + f); } catch (e) {}
   if (dm && (dm.week !== INDEX.week || !(dm.not_owned_ids || []).length)) dm = null;
   let m = mineOf(k);
-  if (m && !m.ids.length) return { d, bar: noHaveBar(k) };     // you got every card back: everyone's team
+  if (m && !m.ids.length) return { d, bar: "", nh: noHaveBar(k), which: null };     // you got every card back: everyone's team
   if (!m && dm) m = { ids: dm.not_owned_ids };                   // built earlier (or on another visit)
-  if (!m) return { d, bar: noHaveBar(k) };
-  const ready = dm && sameSet(dm.not_owned_ids, m.ids);
+  if (!m) return { d, bar: "", nh: noHaveBar(k), which: null };
+  const ready = dm && sameSet(dm.not_owned_ids, m.ids); let which = "everyone";
   const names = esc(cardNames(m.ids).join(", ")), got = m.ids.map(id => `<button class="ghost small" data-got="${esc(k)}|${esc(id)}" data-all="${esc(m.ids.join(","))}" style="padding:3px 9px">Got ${esc(cardNames([id])[0])}</button>`).join("");
   let bar = `<div class="minebar">`;
   if (!ready) bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names} is building (about ${k.startsWith("sim") ? 5 : 50} min). Showing everyone's team for now.</p>`;
-  else if (viewOf(k) === "mine") { bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b>, built without ${names}. Everyone else sees the full team.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|everyone" style="padding:4px 10px;font-size:12.5px">Show Everyone's Team</button></div>`; d = dm; }
+  else if (viewOf(k) === "mine") { bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b>, built without ${names}. Everyone else sees the full team.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|everyone" style="padding:4px 10px;font-size:12.5px">Show Everyone's Team</button></div>`; d = dm; which = "mine"; }
   else bar += `<p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|mine" style="padding:4px 10px;font-size:12.5px">Show Your Version (without ${names})</button></div>`;
   bar += `<div class="row" style="margin:0 0 4px">${got}</div><p class="small muted" style="margin:0 0 8px">Got a card since? Tap it and your version updates.</p></div>`;
-  return { d, bar: bar + noHaveBar(k) };
+  return { d, bar, nh: noHaveBar(k), which };
 }
 function noHaveBar(k) {
   const ids = noHave(k);
@@ -267,6 +267,10 @@ async function rebuildWithout(k, ids, afterGot) {
   } catch (e) { alert("Couldn't start the rebuild: " + e.message); }
 }
 
+const vtag = (which, d) => !which ? "" : which === "mine"
+  ? `<p class="vtag mine">Your version <span>· without ${esc(cardNames(d.not_owned_ids || []).join(", "))}</span></p>`
+  : `<p class="vtag">Everyone's team <span>· assumes every card</span></p>`;
+
 // ---------- Game plan (computed after each build by scripts/plan.js) ----------
 function planHtml(p) {
   const chips = L => L.map(x => `<span class="chip">${esc(cap(x.name))} · ${esc(cap(x.stat))}</span>`).join(" ");
@@ -300,21 +304,21 @@ async function renderTeams() {
   html += `<h3>Fatal My Club</h3>`;
   for (const f of mc) {
     try {
-      let d = await getJSON(base + f), bar = "";
-      if (!V) ({ d, bar } = await versionOf("myclub:" + d.series.key, f, d));
+      let d = await getJSON(base + f), bar = "", nh = "", which = null;
+      if (!V) ({ d, bar, nh, which } = await versionOf("myclub:" + d.series.key, f, d));
       const t = d.team;
       let worst = null;
       for (const [k, v] of Object.entries(t.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
-      html += `<div class="card"><div class="num">${esc(d.series.key)}</div><h2>${esc(d.series.key)} Series</h2><p class="meta">${esc(t.formation || "")} · ${t.chem} chem</p>`;
+      html += `<div class="card"><div class="num">${esc(d.series.key)}</div><h2>${esc(d.series.key)} Series</h2><p class="meta">${esc(t.formation || "")} · ${t.chem} chem</p>${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">✓ Copy the Reddit Team <span>· nothing the builder found has a better worst case</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">✓ Still the best <span>· the latest search found nothing with a better worst case</span></p>`;
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">✓ Hand-Built Team <span>· it beat the builder's own team on worst case</span></p>`;
       const box = (label, inner, note) => `<div class="sc"><span>${label}</span>${inner}${note ? `<small>${note}</small>` : ""}</div>`;
       if (refs.length || worst) html += `<div class="score">${refs.length ? box("VS Reddit Team", refs.map(([k, v]) => `${pill(v.you_lead_first)}${pill(v.they_lead_first)}`).join(" "), "You lead · they lead") : box("VS Reddit Team", `<span class="muted small">Not added</span>`)}${worst ? box("Worst Case", pill(worst.r), `${esc(resultLabel(worst.k))}, ${worst.who}${t.mode !== "robust" ? ". Built before worst-case mode" : ""}`) : ""}</div>`;
       if (t.plan) html += planHtml(t.plan);
-      html += bar + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
+      html += nh + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
         <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added in Season Setup).<br>
@@ -329,12 +333,12 @@ async function renderTeams() {
   html += `<h3>Fatal Sim</h3>`;
   for (const f of sim) {
     try {
-      let d = await getJSON(base + f), bar = "";
-      if (!V) ({ d, bar } = await versionOf("sim:" + d.series.key, f, d));
+      let d = await getJSON(base + f), bar = "", nh = "", which = null;
+      if (!V) ({ d, bar, nh, which } = await versionOf("sim:" + d.series.key, f, d));
       const t = d.teams && d.teams[0]; if (!t) continue;
       const m = t.metrics;
       const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
-      html += `<div class="card"><div class="num">${esc(d.series.key)}</div><h2>${esc(d.series.key)} Series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem · averages below</p><div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${bar}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      html += `<div class="card"><div class="num">${esc(d.series.key)}</div><h2>${esc(d.series.key)} Series</h2><p class="meta">${esc(t.formation)} · ${m.chem} chem · averages below</p>${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
     } catch (e) {}
   }
   if (!V) {
@@ -534,7 +538,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261013j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261014a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -814,7 +818,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261013j");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261014a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
