@@ -31,7 +31,9 @@ def evaluate(team, slots, series):
             "defence_cards": sorted(D, reverse=True), "chem": sum(ch), "ctrl_not_full": bad}
 
 
-def build_sim(series, cards, formations=None, margin=2, topk=50, time_limit=120, log=print):
+def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200, log=print):
+    """margin: control-position shortlist = every card within `margin` control of the best (2 was too narrow:
+    it missed Beste at LM in the 77 series)."""
     formations = formations or series.get("formations") or SIM_FORMATIONS
     pool = _pool(series, cards)
     maxC = max(x["C"] for x in pool if x["P"] & CTRL)
