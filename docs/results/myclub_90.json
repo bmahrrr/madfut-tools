@@ -65,23 +65,23 @@
    },
    {
     "slot": "CB",
-    "id": "id1183",
-    "name": "Cannavaro",
-    "rating": 89,
+    "id": "id138956",
+    "name": "Chiellini",
+    "rating": 88,
     "color": "icon",
     "position": "CB",
     "nationId": 27,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     62,
      64,
+     62,
      90
     ],
     "chem": 3,
     "eff": [
-     64,
      66,
+     64,
      92
     ],
     "tiebreak": 222
@@ -111,72 +111,49 @@
    },
    {
     "slot": "CB",
-    "id": "id138956",
-    "name": "Chiellini",
-    "rating": 88,
+    "id": "id1183",
+    "name": "Cannavaro",
+    "rating": 89,
     "color": "icon",
     "position": "CB",
     "nationId": 27,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     64,
      62,
+     64,
      90
     ],
     "chem": 3,
     "eff": [
-     66,
      64,
+     66,
      92
     ],
     "tiebreak": 222
    },
    {
     "slot": "LM",
-    "id": "id243075",
-    "name": "Rummenigge",
+    "id": "id50573494",
+    "name": "Pajor",
     "rating": 90,
-    "color": "icon",
+    "color": "totw_gold",
     "position": "ST",
-    "nationId": 21,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 37,
+    "leagueId": 2222,
+    "clubId": 241,
     "card": [
      91,
-     84,
-     59
+     76,
+     31
     ],
     "chem": 3,
     "eff": [
      93,
-     86,
-     61
+     78,
+     33
     ],
-    "tiebreak": 240
-   },
-   {
-    "slot": "CM",
-    "id": "id255253",
-    "name": "Vitinha",
-    "rating": 90,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     86,
-     89,
-     73
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     94,
-     75
-    ],
-    "tiebreak": 254
+    "tiebreak": 204
    },
    {
     "slot": "CM",
@@ -200,6 +177,29 @@
      92
     ],
     "tiebreak": 265
+   },
+   {
+    "slot": "CM",
+    "id": "id255253",
+    "name": "Vitinha",
+    "rating": 90,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     86,
+     89,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     94,
+     75
+    ],
+    "tiebreak": 254
    },
    {
     "slot": "RM",
@@ -249,6 +249,29 @@
    },
    {
     "slot": "ST",
+    "id": "id243075",
+    "name": "Rummenigge",
+    "rating": 90,
+    "color": "icon",
+    "position": "ST",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     91,
+     84,
+     59
+    ],
+    "chem": 3,
+    "eff": [
+     93,
+     86,
+     61
+    ],
+    "tiebreak": 240
+   },
+   {
+    "slot": "ST",
     "id": "id202126",
     "name": "Kane",
     "rating": 90,
@@ -269,29 +292,6 @@
      58
     ],
     "tiebreak": 231
-   },
-   {
-    "slot": "ST",
-    "id": "id50573494",
-    "name": "Pajor",
-    "rating": 90,
-    "color": "totw_gold",
-    "position": "ST",
-    "nationId": 37,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
-     91,
-     76,
-     31
-    ],
-    "chem": 3,
-    "eff": [
-     93,
-     78,
-     33
-    ],
-    "tiebreak": 204
    }
   ],
   "results": {
@@ -300,23 +300,39 @@
     "they_lead_first": "WIN"
    },
    "counter 1": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 2": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 3": {
     "you_lead_first": "LOSS",
     "they_lead_first": "WIN"
    },
-   "fresh test 1": {
+   "counter 4": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "WIN"
+   },
+   "counter 5": {
     "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
-   "fresh test 2": {
+   "counter 6": {
     "you_lead_first": "LOSS",
+    "they_lead_first": "WIN"
+   },
+   "counter 7": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "fresh test 1": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "WIN"
+   },
+   "fresh test 2": {
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "final check 1": {
@@ -328,15 +344,15 @@
     "they_lead_first": "WIN"
    },
    "final check 3": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "final check 4": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "final check 5": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "LOSS",
     "they_lead_first": "WIN"
    },
    "final check 6": {
@@ -345,6 +361,10 @@
    },
    "final check 7": {
     "you_lead_first": "LOSS",
+    "they_lead_first": "WIN"
+   },
+   "final check 8": {
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    }
   },
@@ -612,265 +632,6 @@
    },
    "counter 1": {
     "formation": "4-1-3-2",
-    "chem": 32,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id5479",
-      "name": "Casillas",
-      "rating": 90,
-      "color": "icon",
-      "position": "GK",
-      "nationId": 45,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       48,
-       47,
-       91
-      ],
-      "chem": 3,
-      "eff": [
-       50,
-       49,
-       93
-      ],
-      "tiebreak": 192
-     },
-     {
-      "slot": "LB",
-      "id": "id176676",
-      "name": "Marcelo",
-      "rating": 89,
-      "color": "icon",
-      "position": "LB",
-      "nationId": 54,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       83,
-       87,
-       87
-      ],
-      "chem": 3,
-      "eff": [
-       85,
-       89,
-       89
-      ],
-      "tiebreak": 263
-     },
-     {
-      "slot": "CB",
-      "id": "id238435",
-      "name": "Matthäus",
-      "rating": 90,
-      "color": "icon",
-      "position": "CM",
-      "nationId": 21,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       85,
-       84,
-       88
-      ],
-      "chem": 3,
-      "eff": [
-       87,
-       86,
-       90
-      ],
-      "tiebreak": 263
-     },
-     {
-      "slot": "CB",
-      "id": "id167680",
-      "name": "Koeman",
-      "rating": 89,
-      "color": "icon",
-      "position": "CB",
-      "nationId": 34,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       82,
-       82,
-       88
-      ],
-      "chem": 3,
-      "eff": [
-       84,
-       84,
-       90
-      ],
-      "tiebreak": 258
-     },
-     {
-      "slot": "RB",
-      "id": "ltm_espart90",
-      "name": "Xavi Espart",
-      "rating": 90,
-      "color": "ltm",
-      "position": "RB",
-      "nationId": 45,
-      "leagueId": 53,
-      "clubId": 241,
-      "card": [
-       81,
-       88,
-       89
-      ],
-      "chem": 3,
-      "eff": [
-       83,
-       90,
-       91
-      ],
-      "tiebreak": 264
-     },
-     {
-      "slot": "CDM",
-      "id": "evo_Can_89",
-      "name": "Can",
-      "rating": 89,
-      "color": "evo",
-      "position": "CDM",
-      "nationId": 21,
-      "leagueId": 31,
-      "clubId": 45,
-      "card": [
-       80,
-       89,
-       90
-      ],
-      "chem": 3,
-      "eff": [
-       82,
-       91,
-       92
-      ],
-      "tiebreak": 265
-     },
-     {
-      "slot": "LM",
-      "id": "id243075",
-      "name": "Rummenigge",
-      "rating": 90,
-      "color": "icon",
-      "position": "ST",
-      "nationId": 21,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       91,
-       84,
-       59
-      ],
-      "chem": 3,
-      "eff": [
-       93,
-       86,
-       61
-      ],
-      "tiebreak": 240
-     },
-     {
-      "slot": "CM",
-      "id": "id255253",
-      "name": "Vitinha",
-      "rating": 90,
-      "color": "rare_gold",
-      "position": "CM",
-      "nationId": 38,
-      "leagueId": 16,
-      "clubId": 73,
-      "card": [
-       86,
-       89,
-       73
-      ],
-      "chem": 3,
-      "eff": [
-       90,
-       94,
-       75
-      ],
-      "tiebreak": 254
-     },
-     {
-      "slot": "RM",
-      "id": "id231443",
-      "name": "Dembélé",
-      "rating": 90,
-      "color": "rare_gold",
-      "position": "ST",
-      "nationId": 18,
-      "leagueId": 16,
-      "clubId": 73,
-      "card": [
-       89,
-       86,
-       56
-      ],
-      "chem": 3,
-      "eff": [
-       93,
-       91,
-       58
-      ],
-      "tiebreak": 237
-     },
-     {
-      "slot": "ST",
-      "id": "id50573494",
-      "name": "Pajor",
-      "rating": 90,
-      "color": "totw_gold",
-      "position": "ST",
-      "nationId": 37,
-      "leagueId": 2222,
-      "clubId": 241,
-      "card": [
-       91,
-       76,
-       31
-      ],
-      "chem": 3,
-      "eff": [
-       93,
-       78,
-       33
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "ST",
-      "id": "id202126",
-      "name": "Kane",
-      "rating": 90,
-      "color": "rare_gold",
-      "position": "ST",
-      "nationId": 14,
-      "leagueId": 19,
-      "clubId": 21,
-      "card": [
-       90,
-       81,
-       54
-      ],
-      "chem": 2,
-      "eff": [
-       93,
-       84,
-       57
-      ],
-      "tiebreak": 228
-     }
-    ]
-   },
-   "counter 2": {
-    "formation": "4-1-3-2",
     "chem": 33,
     "players": [
      {
@@ -944,26 +705,26 @@
      },
      {
       "slot": "CB",
-      "id": "id167680",
-      "name": "Koeman",
+      "id": "id1615",
+      "name": "Thuram",
       "rating": 89,
       "color": "icon",
-      "position": "CB",
-      "nationId": 34,
+      "position": "RB",
+      "nationId": 18,
       "leagueId": 2118,
       "clubId": 112658,
       "card": [
-       82,
-       82,
-       88
+       74,
+       75,
+       89
       ],
       "chem": 3,
       "eff": [
-       84,
-       84,
-       90
+       76,
+       77,
+       91
       ],
-      "tiebreak": 258
+      "tiebreak": 244
      },
      {
       "slot": "RB",
@@ -990,26 +751,26 @@
      },
      {
       "slot": "CDM",
-      "id": "evo_Can_89",
-      "name": "Can",
-      "rating": 89,
-      "color": "evo",
+      "id": "id226895",
+      "name": "Formiga",
+      "rating": 90,
+      "color": "icon",
       "position": "CDM",
-      "nationId": 21,
-      "leagueId": 31,
-      "clubId": 45,
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
       "card": [
-       80,
-       89,
-       90
+       83,
+       86,
+       88
       ],
       "chem": 3,
       "eff": [
-       82,
-       91,
-       92
+       85,
+       88,
+       90
       ],
-      "tiebreak": 265
+      "tiebreak": 263
      },
      {
       "slot": "LM",
@@ -1128,9 +889,9 @@
      }
     ]
    },
-   "counter 3": {
-    "formation": "4-1-3-2",
-    "chem": 32,
+   "counter 2": {
+    "formation": "3-1-4-2",
+    "chem": 33,
     "players": [
      {
       "slot": "GK",
@@ -1156,50 +917,27 @@
       "tiebreak": 192
      },
      {
-      "slot": "LB",
-      "id": "id50583793",
-      "name": "Nuno Mendes",
-      "rating": 89,
-      "color": "destined_for_glory",
-      "position": "LB",
-      "nationId": 38,
-      "leagueId": 16,
-      "clubId": 73,
-      "card": [
-       84,
-       82,
-       87
-      ],
-      "chem": 3,
-      "eff": [
-       88,
-       87,
-       89
-      ],
-      "tiebreak": 259
-     },
-     {
       "slot": "CB",
-      "id": "id167680",
-      "name": "Koeman",
-      "rating": 89,
+      "id": "id190044",
+      "name": "Moore",
+      "rating": 90,
       "color": "icon",
       "position": "CB",
-      "nationId": 34,
+      "nationId": 14,
       "leagueId": 2118,
       "clubId": 112658,
       "card": [
-       82,
-       82,
-       88
+       73,
+       79,
+       89
       ],
       "chem": 3,
       "eff": [
-       84,
-       84,
-       90
+       75,
+       81,
+       91
       ],
-      "tiebreak": 258
+      "tiebreak": 247
      },
      {
       "slot": "CB",
@@ -1225,27 +963,27 @@
       "tiebreak": 263
      },
      {
-      "slot": "RB",
-      "id": "ltm_espart90",
-      "name": "Xavi Espart",
-      "rating": 90,
-      "color": "ltm",
-      "position": "RB",
-      "nationId": 45,
-      "leagueId": 53,
-      "clubId": 241,
+      "slot": "CB",
+      "id": "id238443",
+      "name": "Blanc",
+      "rating": 88,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2118,
+      "clubId": 112658,
       "card": [
-       81,
-       88,
-       89
+       77,
+       76,
+       87
       ],
       "chem": 3,
       "eff": [
-       83,
-       90,
-       91
+       79,
+       78,
+       89
       ],
-      "tiebreak": 264
+      "tiebreak": 246
      },
      {
       "slot": "CDM",
@@ -1295,26 +1033,49 @@
      },
      {
       "slot": "CM",
-      "id": "id255253",
-      "name": "Vitinha",
+      "id": "ltm_espart90",
+      "name": "Xavi Espart",
       "rating": 90,
-      "color": "rare_gold",
-      "position": "CM",
-      "nationId": 38,
-      "leagueId": 16,
-      "clubId": 73,
+      "color": "ltm",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 241,
       "card": [
-       86,
-       89,
-       73
+       81,
+       88,
+       89
       ],
       "chem": 3,
       "eff": [
+       83,
        90,
-       94,
-       75
+       91
       ],
-      "tiebreak": 254
+      "tiebreak": 264
+     },
+     {
+      "slot": "CM",
+      "id": "id50595413",
+      "name": "Bischof",
+      "rating": 86,
+      "color": "future_stars",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       87,
+       88,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       91,
+       92,
+       82
+      ],
+      "tiebreak": 259
      },
      {
       "slot": "RM",
@@ -1377,42 +1138,42 @@
        81,
        54
       ],
-      "chem": 2,
+      "chem": 3,
       "eff": [
-       93,
-       84,
-       57
+       94,
+       85,
+       58
       ],
-      "tiebreak": 228
+      "tiebreak": 231
      }
     ]
    },
-   "fresh test 1": {
+   "counter 3": {
     "formation": "4-1-3-2",
-    "chem": 32,
+    "chem": 33,
     "players": [
      {
       "slot": "GK",
-      "id": "id50562269",
-      "name": "Donnarumma",
+      "id": "id5479",
+      "name": "Casillas",
       "rating": 90,
-      "color": "totw_gold",
+      "color": "icon",
       "position": "GK",
-      "nationId": 27,
-      "leagueId": 13,
-      "clubId": 10,
+      "nationId": 45,
+      "leagueId": 2118,
+      "clubId": 112658,
       "card": [
-       39,
-       36,
-       90
-      ],
-      "chem": 2,
-      "eff": [
-       40,
-       37,
+       48,
+       47,
        91
       ],
-      "tiebreak": 168
+      "chem": 3,
+      "eff": [
+       50,
+       49,
+       93
+      ],
+      "tiebreak": 192
      },
      {
       "slot": "LB",
@@ -1646,7 +1407,7 @@
      }
     ]
    },
-   "fresh test 2": {
+   "counter 4": {
     "formation": "4-1-3-2",
     "chem": 33,
     "players": [
@@ -1698,29 +1459,6 @@
      },
      {
       "slot": "CB",
-      "id": "id266690",
-      "name": "Lúcio",
-      "rating": 89,
-      "color": "icon",
-      "position": "CB",
-      "nationId": 54,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       75,
-       74,
-       89
-      ],
-      "chem": 3,
-      "eff": [
-       77,
-       76,
-       91
-      ],
-      "tiebreak": 244
-     },
-     {
-      "slot": "CB",
       "id": "id238435",
       "name": "Matthäus",
       "rating": 90,
@@ -1741,6 +1479,29 @@
        90
       ],
       "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id77676",
+      "name": "Jones",
+      "rating": 89,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       71,
+       72,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       74,
+       91
+      ],
+      "tiebreak": 238
      },
      {
       "slot": "RB",
@@ -1905,7 +1666,1043 @@
      }
     ]
    },
-   "final check 1": {
+   "counter 5": {
+    "formation": "4-1-3-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id5479",
+      "name": "Casillas",
+      "rating": 90,
+      "color": "icon",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       48,
+       47,
+       91
+      ],
+      "chem": 3,
+      "eff": [
+       50,
+       49,
+       93
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "LB",
+      "id": "id50583793",
+      "name": "Nuno Mendes",
+      "rating": 89,
+      "color": "destined_for_glory",
+      "position": "LB",
+      "nationId": 38,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       84,
+       82,
+       87
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       87,
+       89
+      ],
+      "tiebreak": 259
+     },
+     {
+      "slot": "CB",
+      "id": "id238435",
+      "name": "Matthäus",
+      "rating": 90,
+      "color": "icon",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       85,
+       84,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       86,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id243029",
+      "name": "Campbell",
+      "rating": 88,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       60,
+       60,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       62,
+       62,
+       90
+      ],
+      "tiebreak": 214
+     },
+     {
+      "slot": "RB",
+      "id": "ltm_espart90",
+      "name": "Xavi Espart",
+      "rating": 90,
+      "color": "ltm",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       81,
+       88,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       90,
+       91
+      ],
+      "tiebreak": 264
+     },
+     {
+      "slot": "CDM",
+      "id": "evo_Can_89",
+      "name": "Can",
+      "rating": 89,
+      "color": "evo",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       80,
+       89,
+       90
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       91,
+       92
+      ],
+      "tiebreak": 265
+     },
+     {
+      "slot": "LM",
+      "id": "id243075",
+      "name": "Rummenigge",
+      "rating": 90,
+      "color": "icon",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       91,
+       84,
+       59
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       86,
+       61
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CM",
+      "id": "id226895",
+      "name": "Formiga",
+      "rating": 90,
+      "color": "icon",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       83,
+       86,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       88,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "RM",
+      "id": "id231443",
+      "name": "Dembélé",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       89,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       91,
+       58
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "ST",
+      "id": "id50573494",
+      "name": "Pajor",
+      "rating": 90,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 37,
+      "leagueId": 2222,
+      "clubId": 241,
+      "card": [
+       91,
+       76,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       78,
+       33
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "ST",
+      "id": "id202126",
+      "name": "Kane",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       90,
+       81,
+       54
+      ],
+      "chem": 3,
+      "eff": [
+       94,
+       85,
+       58
+      ],
+      "tiebreak": 231
+     }
+    ]
+   },
+   "counter 6": {
+    "formation": "4-1-3-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id5479",
+      "name": "Casillas",
+      "rating": 90,
+      "color": "icon",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       48,
+       47,
+       91
+      ],
+      "chem": 3,
+      "eff": [
+       50,
+       49,
+       93
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "LB",
+      "id": "id50595413",
+      "name": "Bischof",
+      "rating": 86,
+      "color": "future_stars",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       87,
+       88,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       91,
+       92,
+       82
+      ],
+      "tiebreak": 259
+     },
+     {
+      "slot": "CB",
+      "id": "id238435",
+      "name": "Matthäus",
+      "rating": 90,
+      "color": "icon",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       85,
+       84,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       86,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id167680",
+      "name": "Koeman",
+      "rating": 89,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 34,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       82,
+       82,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       84,
+       90
+      ],
+      "tiebreak": 258
+     },
+     {
+      "slot": "RB",
+      "id": "ltm_espart90",
+      "name": "Xavi Espart",
+      "rating": 90,
+      "color": "ltm",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       81,
+       88,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       90,
+       91
+      ],
+      "tiebreak": 264
+     },
+     {
+      "slot": "CDM",
+      "id": "evo_Can_89",
+      "name": "Can",
+      "rating": 89,
+      "color": "evo",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       80,
+       89,
+       90
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       91,
+       92
+      ],
+      "tiebreak": 265
+     },
+     {
+      "slot": "LM",
+      "id": "id50573494",
+      "name": "Pajor",
+      "rating": 90,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 37,
+      "leagueId": 2222,
+      "clubId": 241,
+      "card": [
+       91,
+       76,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       78,
+       33
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id255253",
+      "name": "Vitinha",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 38,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       86,
+       89,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       90,
+       94,
+       75
+      ],
+      "tiebreak": 254
+     },
+     {
+      "slot": "RM",
+      "id": "id231443",
+      "name": "Dembélé",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       89,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       91,
+       58
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "ST",
+      "id": "id243075",
+      "name": "Rummenigge",
+      "rating": 90,
+      "color": "icon",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       91,
+       84,
+       59
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       86,
+       61
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "ST",
+      "id": "id202126",
+      "name": "Kane",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       90,
+       81,
+       54
+      ],
+      "chem": 3,
+      "eff": [
+       94,
+       85,
+       58
+      ],
+      "tiebreak": 231
+     }
+    ]
+   },
+   "counter 7": {
+    "formation": "4-1-3-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id5479",
+      "name": "Casillas",
+      "rating": 90,
+      "color": "icon",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       48,
+       47,
+       91
+      ],
+      "chem": 3,
+      "eff": [
+       50,
+       49,
+       93
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "LB",
+      "id": "id50595413",
+      "name": "Bischof",
+      "rating": 86,
+      "color": "future_stars",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       87,
+       88,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       91,
+       92,
+       82
+      ],
+      "tiebreak": 259
+     },
+     {
+      "slot": "CB",
+      "id": "id1116",
+      "name": "Desailly",
+      "rating": 89,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       66,
+       66,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       68,
+       68,
+       90
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "CB",
+      "id": "id238435",
+      "name": "Matthäus",
+      "rating": 90,
+      "color": "icon",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       85,
+       84,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       86,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "RB",
+      "id": "ltm_espart89",
+      "name": "Xavi Espart",
+      "rating": 89,
+      "color": "ltm",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       80,
+       87,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       89,
+       90
+      ],
+      "tiebreak": 261
+     },
+     {
+      "slot": "CDM",
+      "id": "id237289",
+      "name": "Patri Guijarro",
+      "rating": 88,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 241,
+      "card": [
+       86,
+       85,
+       86
+      ],
+      "chem": 3,
+      "eff": [
+       88,
+       87,
+       88
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "LM",
+      "id": "id243075",
+      "name": "Rummenigge",
+      "rating": 90,
+      "color": "icon",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       91,
+       84,
+       59
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       86,
+       61
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CM",
+      "id": "evo_Can_89",
+      "name": "Can",
+      "rating": 89,
+      "color": "evo",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       80,
+       89,
+       90
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       91,
+       92
+      ],
+      "tiebreak": 265
+     },
+     {
+      "slot": "RM",
+      "id": "id231443",
+      "name": "Dembélé",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       89,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       91,
+       58
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "ST",
+      "id": "id50573494",
+      "name": "Pajor",
+      "rating": 90,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 37,
+      "leagueId": 2222,
+      "clubId": 241,
+      "card": [
+       91,
+       76,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       78,
+       33
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "ST",
+      "id": "id202126",
+      "name": "Kane",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       90,
+       81,
+       54
+      ],
+      "chem": 3,
+      "eff": [
+       94,
+       85,
+       58
+      ],
+      "tiebreak": 231
+     }
+    ]
+   },
+   "fresh test 1": {
+    "formation": "4-1-3-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id5479",
+      "name": "Casillas",
+      "rating": 90,
+      "color": "icon",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       48,
+       47,
+       91
+      ],
+      "chem": 3,
+      "eff": [
+       50,
+       49,
+       93
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "LB",
+      "id": "id50595413",
+      "name": "Bischof",
+      "rating": 86,
+      "color": "future_stars",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       87,
+       88,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       91,
+       92,
+       82
+      ],
+      "tiebreak": 259
+     },
+     {
+      "slot": "CB",
+      "id": "id238435",
+      "name": "Matthäus",
+      "rating": 90,
+      "color": "icon",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       85,
+       84,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       86,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id190044",
+      "name": "Moore",
+      "rating": 90,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       73,
+       79,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       81,
+       91
+      ],
+      "tiebreak": 247
+     },
+     {
+      "slot": "RB",
+      "id": "ltm_espart89",
+      "name": "Xavi Espart",
+      "rating": 89,
+      "color": "ltm",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       80,
+       87,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       89,
+       90
+      ],
+      "tiebreak": 261
+     },
+     {
+      "slot": "CDM",
+      "id": "evo_Can_89",
+      "name": "Can",
+      "rating": 89,
+      "color": "evo",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       80,
+       89,
+       90
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       91,
+       92
+      ],
+      "tiebreak": 265
+     },
+     {
+      "slot": "LM",
+      "id": "id243075",
+      "name": "Rummenigge",
+      "rating": 90,
+      "color": "icon",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       91,
+       84,
+       59
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       86,
+       61
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CM",
+      "id": "id255253",
+      "name": "Vitinha",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 38,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       86,
+       89,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       90,
+       94,
+       75
+      ],
+      "tiebreak": 254
+     },
+     {
+      "slot": "RM",
+      "id": "id231443",
+      "name": "Dembélé",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       89,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       91,
+       58
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "ST",
+      "id": "id50573494",
+      "name": "Pajor",
+      "rating": 90,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 37,
+      "leagueId": 2222,
+      "clubId": 241,
+      "card": [
+       91,
+       76,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       78,
+       33
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "ST",
+      "id": "id202126",
+      "name": "Kane",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       90,
+       81,
+       54
+      ],
+      "chem": 3,
+      "eff": [
+       94,
+       85,
+       58
+      ],
+      "tiebreak": 231
+     }
+    ]
+   },
+   "fresh test 2": {
     "formation": "4-1-3-2",
     "chem": 32,
     "players": [
@@ -1934,49 +2731,26 @@
      },
      {
       "slot": "LB",
-      "id": "id176676",
-      "name": "Marcelo",
+      "id": "id50583793",
+      "name": "Nuno Mendes",
       "rating": 89,
-      "color": "icon",
+      "color": "destined_for_glory",
       "position": "LB",
-      "nationId": 54,
-      "leagueId": 2118,
-      "clubId": 112658,
+      "nationId": 38,
+      "leagueId": 16,
+      "clubId": 73,
       "card": [
-       83,
-       87,
+       84,
+       82,
        87
       ],
       "chem": 3,
       "eff": [
-       85,
-       89,
+       88,
+       87,
        89
       ],
-      "tiebreak": 263
-     },
-     {
-      "slot": "CB",
-      "id": "id77676",
-      "name": "Jones",
-      "rating": 89,
-      "color": "icon",
-      "position": "CB",
-      "nationId": 21,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       71,
-       72,
-       89
-      ],
-      "chem": 3,
-      "eff": [
-       73,
-       74,
-       91
-      ],
-      "tiebreak": 238
+      "tiebreak": 259
      },
      {
       "slot": "CB",
@@ -2000,6 +2774,288 @@
        90
       ],
       "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id1615",
+      "name": "Thuram",
+      "rating": 89,
+      "color": "icon",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       74,
+       75,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       91
+      ],
+      "tiebreak": 244
+     },
+     {
+      "slot": "RB",
+      "id": "ltm_espart90",
+      "name": "Xavi Espart",
+      "rating": 90,
+      "color": "ltm",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       81,
+       88,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       90,
+       91
+      ],
+      "tiebreak": 264
+     },
+     {
+      "slot": "CDM",
+      "id": "evo_Can_89",
+      "name": "Can",
+      "rating": 89,
+      "color": "evo",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       80,
+       89,
+       90
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       91,
+       92
+      ],
+      "tiebreak": 265
+     },
+     {
+      "slot": "LM",
+      "id": "id243075",
+      "name": "Rummenigge",
+      "rating": 90,
+      "color": "icon",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       91,
+       84,
+       59
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       86,
+       61
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CM",
+      "id": "id226895",
+      "name": "Formiga",
+      "rating": 90,
+      "color": "icon",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       83,
+       86,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       88,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "RM",
+      "id": "id231443",
+      "name": "Dembélé",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       89,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       91,
+       58
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "ST",
+      "id": "id50573494",
+      "name": "Pajor",
+      "rating": 90,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 37,
+      "leagueId": 2222,
+      "clubId": 241,
+      "card": [
+       91,
+       76,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       78,
+       33
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "ST",
+      "id": "id202126",
+      "name": "Kane",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       90,
+       81,
+       54
+      ],
+      "chem": 2,
+      "eff": [
+       93,
+       84,
+       57
+      ],
+      "tiebreak": 228
+     }
+    ]
+   },
+   "final check 1": {
+    "formation": "4-1-3-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id5479",
+      "name": "Casillas",
+      "rating": 90,
+      "color": "icon",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       48,
+       47,
+       91
+      ],
+      "chem": 3,
+      "eff": [
+       50,
+       49,
+       93
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "LB",
+      "id": "id50595413",
+      "name": "Bischof",
+      "rating": 86,
+      "color": "future_stars",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       87,
+       88,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       91,
+       92,
+       82
+      ],
+      "tiebreak": 259
+     },
+     {
+      "slot": "CB",
+      "id": "id238435",
+      "name": "Matthäus",
+      "rating": 90,
+      "color": "icon",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       85,
+       84,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       86,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id266690",
+      "name": "Lúcio",
+      "rating": 89,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       75,
+       74,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       76,
+       91
+      ],
+      "tiebreak": 244
      },
      {
       "slot": "RB",
@@ -2154,13 +3210,13 @@
        81,
        54
       ],
-      "chem": 2,
+      "chem": 3,
       "eff": [
-       93,
-       84,
-       57
+       94,
+       85,
+       58
       ],
-      "tiebreak": 228
+      "tiebreak": 231
      }
     ]
    },
@@ -2193,24 +3249,24 @@
      },
      {
       "slot": "LB",
-      "id": "id50595413",
-      "name": "Bischof",
-      "rating": 86,
-      "color": "future_stars",
-      "position": "CM",
-      "nationId": 21,
-      "leagueId": 19,
-      "clubId": 21,
+      "id": "id50583793",
+      "name": "Nuno Mendes",
+      "rating": 89,
+      "color": "destined_for_glory",
+      "position": "LB",
+      "nationId": 38,
+      "leagueId": 16,
+      "clubId": 73,
       "card": [
-       87,
-       88,
-       78
+       84,
+       82,
+       87
       ],
       "chem": 3,
       "eff": [
-       91,
-       92,
-       82
+       88,
+       87,
+       89
       ],
       "tiebreak": 259
      },
@@ -2424,7 +3480,7 @@
     ]
    },
    "final check 3": {
-    "formation": "4-1-3-2",
+    "formation": "4-1-2-1-2 (2)",
     "chem": 33,
     "players": [
      {
@@ -2452,26 +3508,49 @@
      },
      {
       "slot": "LB",
-      "id": "id50583793",
-      "name": "Nuno Mendes",
-      "rating": 89,
-      "color": "destined_for_glory",
-      "position": "LB",
-      "nationId": 38,
-      "leagueId": 16,
-      "clubId": 73,
+      "id": "id50595413",
+      "name": "Bischof",
+      "rating": 86,
+      "color": "future_stars",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 21,
       "card": [
-       84,
-       82,
-       87
+       87,
+       88,
+       78
       ],
       "chem": 3,
       "eff": [
-       88,
-       87,
-       89
+       91,
+       92,
+       82
       ],
       "tiebreak": 259
+     },
+     {
+      "slot": "CB",
+      "id": "id167680",
+      "name": "Koeman",
+      "rating": 89,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 34,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       82,
+       82,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       84,
+       90
+      ],
+      "tiebreak": 258
      },
      {
       "slot": "CB",
@@ -2495,29 +3574,6 @@
        91
       ],
       "tiebreak": 247
-     },
-     {
-      "slot": "CB",
-      "id": "id238435",
-      "name": "Matthäus",
-      "rating": 90,
-      "color": "icon",
-      "position": "CM",
-      "nationId": 21,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       85,
-       84,
-       88
-      ],
-      "chem": 3,
-      "eff": [
-       87,
-       86,
-       90
-      ],
-      "tiebreak": 263
      },
      {
       "slot": "RB",
@@ -2566,29 +3622,6 @@
       "tiebreak": 265
      },
      {
-      "slot": "LM",
-      "id": "id243075",
-      "name": "Rummenigge",
-      "rating": 90,
-      "color": "icon",
-      "position": "ST",
-      "nationId": 21,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       91,
-       84,
-       59
-      ],
-      "chem": 3,
-      "eff": [
-       93,
-       86,
-       61
-      ],
-      "tiebreak": 240
-     },
-     {
       "slot": "CM",
       "id": "id255253",
       "name": "Vitinha",
@@ -2612,7 +3645,30 @@
       "tiebreak": 254
      },
      {
-      "slot": "RM",
+      "slot": "CM",
+      "id": "id227324",
+      "name": "Abily",
+      "rating": 90,
+      "color": "icon",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       88,
+       89,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       90,
+       91,
+       80
+      ],
+      "tiebreak": 261
+     },
+     {
+      "slot": "CAM",
       "id": "id231443",
       "name": "Dembélé",
       "rating": 90,
@@ -2636,26 +3692,26 @@
      },
      {
       "slot": "ST",
-      "id": "id50573494",
-      "name": "Pajor",
+      "id": "id243075",
+      "name": "Rummenigge",
       "rating": 90,
-      "color": "totw_gold",
+      "color": "icon",
       "position": "ST",
-      "nationId": 37,
-      "leagueId": 2222,
-      "clubId": 241,
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
       "card": [
        91,
-       76,
-       31
+       84,
+       59
       ],
       "chem": 3,
       "eff": [
        93,
-       78,
-       33
+       86,
+       61
       ],
-      "tiebreak": 204
+      "tiebreak": 240
      },
      {
       "slot": "ST",
@@ -2683,265 +3739,6 @@
     ]
    },
    "final check 4": {
-    "formation": "4-1-3-2",
-    "chem": 33,
-    "players": [
-     {
-      "slot": "GK",
-      "id": "id5479",
-      "name": "Casillas",
-      "rating": 90,
-      "color": "icon",
-      "position": "GK",
-      "nationId": 45,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       48,
-       47,
-       91
-      ],
-      "chem": 3,
-      "eff": [
-       50,
-       49,
-       93
-      ],
-      "tiebreak": 192
-     },
-     {
-      "slot": "LB",
-      "id": "id176676",
-      "name": "Marcelo",
-      "rating": 89,
-      "color": "icon",
-      "position": "LB",
-      "nationId": 54,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       83,
-       87,
-       87
-      ],
-      "chem": 3,
-      "eff": [
-       85,
-       89,
-       89
-      ],
-      "tiebreak": 263
-     },
-     {
-      "slot": "CB",
-      "id": "id190044",
-      "name": "Moore",
-      "rating": 90,
-      "color": "icon",
-      "position": "CB",
-      "nationId": 14,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       73,
-       79,
-       89
-      ],
-      "chem": 3,
-      "eff": [
-       75,
-       81,
-       91
-      ],
-      "tiebreak": 247
-     },
-     {
-      "slot": "CB",
-      "id": "id238435",
-      "name": "Matthäus",
-      "rating": 90,
-      "color": "icon",
-      "position": "CM",
-      "nationId": 21,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       85,
-       84,
-       88
-      ],
-      "chem": 3,
-      "eff": [
-       87,
-       86,
-       90
-      ],
-      "tiebreak": 263
-     },
-     {
-      "slot": "RB",
-      "id": "ltm_espart90",
-      "name": "Xavi Espart",
-      "rating": 90,
-      "color": "ltm",
-      "position": "RB",
-      "nationId": 45,
-      "leagueId": 53,
-      "clubId": 241,
-      "card": [
-       81,
-       88,
-       89
-      ],
-      "chem": 3,
-      "eff": [
-       83,
-       90,
-       91
-      ],
-      "tiebreak": 264
-     },
-     {
-      "slot": "CDM",
-      "id": "evo_Can_89",
-      "name": "Can",
-      "rating": 89,
-      "color": "evo",
-      "position": "CDM",
-      "nationId": 21,
-      "leagueId": 31,
-      "clubId": 45,
-      "card": [
-       80,
-       89,
-       90
-      ],
-      "chem": 3,
-      "eff": [
-       82,
-       91,
-       92
-      ],
-      "tiebreak": 265
-     },
-     {
-      "slot": "LM",
-      "id": "id243075",
-      "name": "Rummenigge",
-      "rating": 90,
-      "color": "icon",
-      "position": "ST",
-      "nationId": 21,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       91,
-       84,
-       59
-      ],
-      "chem": 3,
-      "eff": [
-       93,
-       86,
-       61
-      ],
-      "tiebreak": 240
-     },
-     {
-      "slot": "CM",
-      "id": "id255253",
-      "name": "Vitinha",
-      "rating": 90,
-      "color": "rare_gold",
-      "position": "CM",
-      "nationId": 38,
-      "leagueId": 16,
-      "clubId": 73,
-      "card": [
-       86,
-       89,
-       73
-      ],
-      "chem": 3,
-      "eff": [
-       90,
-       94,
-       75
-      ],
-      "tiebreak": 254
-     },
-     {
-      "slot": "RM",
-      "id": "id231443",
-      "name": "Dembélé",
-      "rating": 90,
-      "color": "rare_gold",
-      "position": "ST",
-      "nationId": 18,
-      "leagueId": 16,
-      "clubId": 73,
-      "card": [
-       89,
-       86,
-       56
-      ],
-      "chem": 3,
-      "eff": [
-       93,
-       91,
-       58
-      ],
-      "tiebreak": 237
-     },
-     {
-      "slot": "ST",
-      "id": "id50573494",
-      "name": "Pajor",
-      "rating": 90,
-      "color": "totw_gold",
-      "position": "ST",
-      "nationId": 37,
-      "leagueId": 2222,
-      "clubId": 241,
-      "card": [
-       91,
-       76,
-       31
-      ],
-      "chem": 3,
-      "eff": [
-       93,
-       78,
-       33
-      ],
-      "tiebreak": 204
-     },
-     {
-      "slot": "ST",
-      "id": "id202126",
-      "name": "Kane",
-      "rating": 90,
-      "color": "rare_gold",
-      "position": "ST",
-      "nationId": 14,
-      "leagueId": 19,
-      "clubId": 21,
-      "card": [
-       90,
-       81,
-       54
-      ],
-      "chem": 3,
-      "eff": [
-       94,
-       85,
-       58
-      ],
-      "tiebreak": 231
-     }
-    ]
-   },
-   "final check 5": {
     "formation": "4-1-3-2",
     "chem": 32,
     "players": [
@@ -2993,6 +3790,29 @@
      },
      {
       "slot": "CB",
+      "id": "id1615",
+      "name": "Thuram",
+      "rating": 89,
+      "color": "icon",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       74,
+       75,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       91
+      ],
+      "tiebreak": 244
+     },
+     {
+      "slot": "CB",
       "id": "id238435",
       "name": "Matthäus",
       "rating": 90,
@@ -3013,29 +3833,6 @@
        90
       ],
       "tiebreak": 263
-     },
-     {
-      "slot": "CB",
-      "id": "id77676",
-      "name": "Jones",
-      "rating": 89,
-      "color": "icon",
-      "position": "CB",
-      "nationId": 21,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       71,
-       72,
-       89
-      ],
-      "chem": 3,
-      "eff": [
-       73,
-       74,
-       91
-      ],
-      "tiebreak": 238
      },
      {
       "slot": "RB",
@@ -3200,9 +3997,9 @@
      }
     ]
    },
-   "final check 6": {
+   "final check 5": {
     "formation": "4-1-3-2",
-    "chem": 33,
+    "chem": 32,
     "players": [
      {
       "slot": "GK",
@@ -3229,26 +4026,49 @@
      },
      {
       "slot": "LB",
-      "id": "id50595413",
-      "name": "Bischof",
-      "rating": 86,
-      "color": "future_stars",
-      "position": "CM",
-      "nationId": 21,
-      "leagueId": 19,
-      "clubId": 21,
+      "id": "id176676",
+      "name": "Marcelo",
+      "rating": 89,
+      "color": "icon",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
       "card": [
+       83,
        87,
-       88,
-       78
+       87
       ],
       "chem": 3,
       "eff": [
-       91,
-       92,
-       82
+       85,
+       89,
+       89
       ],
-      "tiebreak": 259
+      "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id266690",
+      "name": "Lúcio",
+      "rating": 89,
+      "color": "icon",
+      "position": "CB",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       75,
+       74,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       76,
+       91
+      ],
+      "tiebreak": 244
      },
      {
       "slot": "CB",
@@ -3274,29 +4094,6 @@
       "tiebreak": 263
      },
      {
-      "slot": "CB",
-      "id": "id167680",
-      "name": "Koeman",
-      "rating": 89,
-      "color": "icon",
-      "position": "CB",
-      "nationId": 34,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       82,
-       82,
-       88
-      ],
-      "chem": 3,
-      "eff": [
-       84,
-       84,
-       90
-      ],
-      "tiebreak": 258
-     },
-     {
       "slot": "RB",
       "id": "ltm_espart89",
       "name": "Xavi Espart",
@@ -3318,6 +4115,265 @@
        90
       ],
       "tiebreak": 261
+     },
+     {
+      "slot": "CDM",
+      "id": "id255253",
+      "name": "Vitinha",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 38,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       86,
+       89,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       90,
+       94,
+       75
+      ],
+      "tiebreak": 254
+     },
+     {
+      "slot": "LM",
+      "id": "id243075",
+      "name": "Rummenigge",
+      "rating": 90,
+      "color": "icon",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       91,
+       84,
+       59
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       86,
+       61
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CM",
+      "id": "evo_Can_89",
+      "name": "Can",
+      "rating": 89,
+      "color": "evo",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       80,
+       89,
+       90
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       91,
+       92
+      ],
+      "tiebreak": 265
+     },
+     {
+      "slot": "RM",
+      "id": "id231443",
+      "name": "Dembélé",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       89,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       91,
+       58
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "ST",
+      "id": "id50573494",
+      "name": "Pajor",
+      "rating": 90,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 37,
+      "leagueId": 2222,
+      "clubId": 241,
+      "card": [
+       91,
+       76,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       78,
+       33
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "ST",
+      "id": "id202126",
+      "name": "Kane",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       90,
+       81,
+       54
+      ],
+      "chem": 2,
+      "eff": [
+       93,
+       84,
+       57
+      ],
+      "tiebreak": 228
+     }
+    ]
+   },
+   "final check 6": {
+    "formation": "4-1-3-2",
+    "chem": 32,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id5479",
+      "name": "Casillas",
+      "rating": 90,
+      "color": "icon",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       48,
+       47,
+       91
+      ],
+      "chem": 3,
+      "eff": [
+       50,
+       49,
+       93
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "LB",
+      "id": "id176676",
+      "name": "Marcelo",
+      "rating": 89,
+      "color": "icon",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       83,
+       87,
+       87
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       89,
+       89
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id142754",
+      "name": "Mascherano",
+      "rating": 88,
+      "color": "hero",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 53,
+      "clubId": 114605,
+      "card": [
+       70,
+       75,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       77,
+       90
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CB",
+      "id": "id238435",
+      "name": "Matthäus",
+      "rating": 90,
+      "color": "icon",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       85,
+       84,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       86,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "RB",
+      "id": "ltm_espart90",
+      "name": "Xavi Espart",
+      "rating": 90,
+      "color": "ltm",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       81,
+       88,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       90,
+       91
+      ],
+      "tiebreak": 264
      },
      {
       "slot": "CDM",
@@ -3449,13 +4505,13 @@
        81,
        54
       ],
-      "chem": 3,
+      "chem": 2,
       "eff": [
-       94,
-       85,
-       58
+       93,
+       84,
+       57
       ],
-      "tiebreak": 231
+      "tiebreak": 228
      }
     ]
    },
@@ -3511,6 +4567,29 @@
      },
      {
       "slot": "CB",
+      "id": "id1615",
+      "name": "Thuram",
+      "rating": 89,
+      "color": "icon",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       74,
+       75,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       91
+      ],
+      "tiebreak": 244
+     },
+     {
+      "slot": "CB",
       "id": "id238435",
       "name": "Matthäus",
       "rating": 90,
@@ -3533,73 +4612,50 @@
       "tiebreak": 263
      },
      {
-      "slot": "CB",
-      "id": "id266690",
-      "name": "Lúcio",
-      "rating": 89,
-      "color": "icon",
-      "position": "CB",
-      "nationId": 54,
-      "leagueId": 2118,
-      "clubId": 112658,
-      "card": [
-       75,
-       74,
-       89
-      ],
-      "chem": 3,
-      "eff": [
-       77,
-       76,
-       91
-      ],
-      "tiebreak": 244
-     },
-     {
       "slot": "RB",
-      "id": "ltm_espart89",
+      "id": "new_Xavi Espart_88",
       "name": "Xavi Espart",
-      "rating": 89,
+      "rating": 88,
       "color": "ltm",
       "position": "RB",
       "nationId": 45,
       "leagueId": 53,
       "clubId": 241,
       "card": [
-       80,
-       87,
-       88
+       79,
+       86,
+       87
       ],
       "chem": 3,
       "eff": [
-       82,
-       89,
-       90
+       81,
+       88,
+       89
       ],
-      "tiebreak": 261
+      "tiebreak": 258
      },
      {
       "slot": "CDM",
-      "id": "evo_Can_89",
-      "name": "Can",
-      "rating": 89,
-      "color": "evo",
-      "position": "CDM",
-      "nationId": 21,
-      "leagueId": 31,
-      "clubId": 45,
+      "id": "id255253",
+      "name": "Vitinha",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 38,
+      "leagueId": 16,
+      "clubId": 73,
       "card": [
-       80,
+       86,
        89,
-       90
+       73
       ],
       "chem": 3,
       "eff": [
-       82,
-       91,
-       92
+       90,
+       94,
+       75
       ],
-      "tiebreak": 265
+      "tiebreak": 254
      },
      {
       "slot": "LM",
@@ -3626,26 +4682,26 @@
      },
      {
       "slot": "CM",
-      "id": "id255253",
-      "name": "Vitinha",
-      "rating": 90,
-      "color": "rare_gold",
-      "position": "CM",
-      "nationId": 38,
-      "leagueId": 16,
-      "clubId": 73,
+      "id": "evo_Can_89",
+      "name": "Can",
+      "rating": 89,
+      "color": "evo",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 45,
       "card": [
-       86,
+       80,
        89,
-       73
+       90
       ],
       "chem": 3,
       "eff": [
-       90,
-       94,
-       75
+       82,
+       91,
+       92
       ],
-      "tiebreak": 254
+      "tiebreak": 265
      },
      {
       "slot": "RM",
@@ -3717,6 +4773,265 @@
       "tiebreak": 231
      }
     ]
+   },
+   "final check 8": {
+    "formation": "4-1-2-1-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id5479",
+      "name": "Casillas",
+      "rating": 90,
+      "color": "icon",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       48,
+       47,
+       91
+      ],
+      "chem": 3,
+      "eff": [
+       50,
+       49,
+       93
+      ],
+      "tiebreak": 192
+     },
+     {
+      "slot": "LB",
+      "id": "id238430",
+      "name": "Roberto Carlos",
+      "rating": 90,
+      "color": "icon",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       83,
+       81,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       83,
+       91
+      ],
+      "tiebreak": 259
+     },
+     {
+      "slot": "CB",
+      "id": "id238435",
+      "name": "Matthäus",
+      "rating": 90,
+      "color": "icon",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       85,
+       84,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       86,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "CB",
+      "id": "id1615",
+      "name": "Thuram",
+      "rating": 89,
+      "color": "icon",
+      "position": "RB",
+      "nationId": 18,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       74,
+       75,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       77,
+       91
+      ],
+      "tiebreak": 244
+     },
+     {
+      "slot": "RB",
+      "id": "ltm_espart90",
+      "name": "Xavi Espart",
+      "rating": 90,
+      "color": "ltm",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 241,
+      "card": [
+       81,
+       88,
+       89
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       90,
+       91
+      ],
+      "tiebreak": 264
+     },
+     {
+      "slot": "CDM",
+      "id": "id226895",
+      "name": "Formiga",
+      "rating": 90,
+      "color": "icon",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       83,
+       86,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       88,
+       90
+      ],
+      "tiebreak": 263
+     },
+     {
+      "slot": "LM",
+      "id": "id50573494",
+      "name": "Pajor",
+      "rating": 90,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 37,
+      "leagueId": 2222,
+      "clubId": 241,
+      "card": [
+       91,
+       76,
+       31
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       78,
+       33
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "RM",
+      "id": "id231443",
+      "name": "Dembélé",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       89,
+       86,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       91,
+       58
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "CAM",
+      "id": "id50595413",
+      "name": "Bischof",
+      "rating": 86,
+      "color": "future_stars",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       87,
+       88,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       91,
+       92,
+       82
+      ],
+      "tiebreak": 259
+     },
+     {
+      "slot": "ST",
+      "id": "id243075",
+      "name": "Rummenigge",
+      "rating": 90,
+      "color": "icon",
+      "position": "ST",
+      "nationId": 21,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       91,
+       84,
+       59
+      ],
+      "chem": 3,
+      "eff": [
+       93,
+       86,
+       61
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "ST",
+      "id": "id202126",
+      "name": "Kane",
+      "rating": 90,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 19,
+      "clubId": 21,
+      "card": [
+       90,
+       81,
+       54
+      ],
+      "chem": 3,
+      "eff": [
+       94,
+       85,
+       58
+      ],
+      "tiebreak": 231
+     }
+    ]
    }
   },
   "plan": {
@@ -3729,7 +5044,7 @@
     },
     {
      "slot": "LM",
-     "name": "Rummenigge",
+     "name": "Pajor",
      "stat": "attack"
     },
     {
@@ -3744,12 +5059,12 @@
     },
     {
      "slot": "ST",
-     "name": "Kane",
+     "name": "Rummenigge",
      "stat": "attack"
     },
     {
      "slot": "ST",
-     "name": "Pajor",
+     "name": "Kane",
      "stat": "attack"
     }
    ],
@@ -3764,7 +5079,7 @@
      },
      {
       "slot": "LM",
-      "name": "Rummenigge",
+      "name": "Pajor",
       "stat": "attack"
      },
      {
@@ -3779,12 +5094,12 @@
      },
      {
       "slot": "ST",
-      "name": "Kane",
+      "name": "Rummenigge",
       "stat": "attack"
      },
      {
       "slot": "ST",
-      "name": "Pajor",
+      "name": "Kane",
       "stat": "attack"
      }
     ]
@@ -3810,6 +5125,6 @@
   }
  },
  "not_owned": [],
- "built": "2026-10-14 22:03 UTC",
+ "built": "2026-10-15 02:25 UTC",
  "week": "2026-10-12"
 }
