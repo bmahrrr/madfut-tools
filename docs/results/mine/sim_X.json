@@ -1,0 +1,865 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "X",
+  "cap": 99,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 45,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   },
+   {
+    "on": "color",
+    "id": "totw_gold",
+    "att": 3,
+    "ctl": 3,
+    "def": 3
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      55,
+      97
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id238439",
+     "name": "Maldini",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      69,
+      74,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      76,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id168473",
+     "name": "Beckenbauer",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      81,
+      86,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      88,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id190044",
+     "name": "Moore",
+     "rating": 90,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      73,
+      79,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      81,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Rogers_93",
+     "name": "Rogers",
+     "rating": 93,
+     "color": "elite_evo",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 5,
+     "card": [
+      93,
+      93,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      95,
+      75
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      98,
+      99
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id10535",
+     "name": "Xavi",
+     "rating": 91,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      87,
+      91,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      95,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id67386507",
+     "name": "Lamine Yamal",
+     "rating": 91,
+     "color": "totw_gold",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      88,
+      89,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      96,
+      50
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50558851",
+     "name": "Alexia Putellas",
+     "rating": 92,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 2216,
+     "clubId": 132176,
+     "card": [
+      91,
+      91,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      98,
+      80
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50573494",
+     "name": "Pajor",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      91,
+      76,
+      31
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      81,
+      36
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      93,
+      62
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 96.4,
+    "attack": 95.8,
+    "defence": 93.75,
+    "control_cards": [
+     98,
+     98,
+     96,
+     95,
+     95
+    ],
+    "attack_cards": [
+     98,
+     96,
+     95,
+     95,
+     95
+    ],
+    "defence_cards": [
+     97,
+     94,
+     93,
+     91
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 265.6
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      55,
+      97
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id238439",
+     "name": "Maldini",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      69,
+      74,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      76,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id238384",
+     "name": "Carles Puyol",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      60,
+      63,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      67,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id190044",
+     "name": "Moore",
+     "rating": 90,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      73,
+      79,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      81,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      98,
+      99
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Rogers_93",
+     "name": "Rogers",
+     "rating": 93,
+     "color": "elite_evo",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 5,
+     "card": [
+      93,
+      93,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      95,
+      75
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50558851",
+     "name": "Alexia Putellas",
+     "rating": 92,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 2216,
+     "clubId": 132176,
+     "card": [
+      91,
+      91,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      98,
+      80
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id10535",
+     "name": "Xavi",
+     "rating": 91,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      87,
+      91,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      95,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id67386507",
+     "name": "Lamine Yamal",
+     "rating": 91,
+     "color": "totw_gold",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      88,
+      89,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      96,
+      50
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      84,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      86,
+      49
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50573494",
+     "name": "Pajor",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      91,
+      76,
+      31
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      81,
+      36
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 96.4,
+    "attack": 95.25,
+    "defence": 94.8,
+    "control_cards": [
+     98,
+     98,
+     96,
+     95,
+     95
+    ],
+    "attack_cards": [
+     96,
+     95,
+     95,
+     95
+    ],
+    "defence_cards": [
+     99,
+     97,
+     94,
+     93,
+     91
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 265.6
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      55,
+      97
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "new_Can_92",
+     "name": "Can",
+     "rating": 92,
+     "color": "elite_evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      90,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      92,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id190044",
+     "name": "Moore",
+     "rating": 90,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      73,
+      79,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      81,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id168473",
+     "name": "Beckenbauer",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      81,
+      86,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      88,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id10535",
+     "name": "Xavi",
+     "rating": 91,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      87,
+      91,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      95,
+      72
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      98,
+      99
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Rogers_93",
+     "name": "Rogers",
+     "rating": 93,
+     "color": "elite_evo",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 5,
+     "card": [
+      93,
+      93,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      95,
+      75
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50558851",
+     "name": "Alexia Putellas",
+     "rating": 92,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 2216,
+     "clubId": 132176,
+     "card": [
+      91,
+      91,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      98,
+      80
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id67386507",
+     "name": "Lamine Yamal",
+     "rating": 91,
+     "color": "totw_gold",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      88,
+      89,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      96,
+      50
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      93,
+      62
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50573494",
+     "name": "Pajor",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      91,
+      76,
+      31
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      81,
+      36
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 96.4,
+    "attack": 95.8,
+    "defence": 91.0,
+    "control_cards": [
+     98,
+     98,
+     96,
+     95,
+     95
+    ],
+    "attack_cards": [
+     98,
+     96,
+     95,
+     95,
+     95
+    ],
+    "defence_cards": [
+     99,
+     97,
+     94,
+     93,
+     91,
+     72
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 265.6
+   }
+  }
+ ],
+ "not_owned": [
+  "Maradona 95",
+  "Zidane 94"
+ ],
+ "built": "2026-10-15 02:34 UTC",
+ "week": "2026-10-12",
+ "not_owned_ids": [
+  "id1397",
+  "id190042"
+ ]
+}
