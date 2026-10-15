@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261015c";
+const APP_V = "20261015d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -216,7 +216,7 @@ async function versionOf(k, f, d) {          // -> { d: the version to show, bar
   if (!ready) bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names} is building (about ${k.startsWith("sim") ? 5 : 50} min). Showing everyone's team for now.</p>`;
   else if (viewOf(k) === "mine") { bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b>, built without ${names}. Everyone else sees the full team.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|everyone" style="padding:4px 10px;font-size:12.5px">Show Everyone's Team</button></div>`; d = dm; which = "mine"; }
   else bar += `<p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|mine" style="padding:4px 10px;font-size:12.5px">Show Your Version (without ${names})</button></div>`;
-  bar += `<div class="row" style="margin:0 0 4px">${got}</div><p class="small muted" style="margin:0 0 8px">Got a card since? Tap it and your version updates.</p></div>`;
+  bar += `<div class="row" style="margin:0 0 4px">${got}</div><div class="row" data-gotgo-row="${esc(k)}" hidden style="margin:4px 0"><button class="btn" data-gotgo="${esc(k)}" data-all="${esc(m.ids.join(","))}">Update Your Version</button></div><p class="small muted" style="margin:0 0 8px">Got cards since? Tap each one, then Update Your Version (one rebuild).</p></div>`;
   return { d, bar, nh: noHaveBar(k), which };
 }
 function noHaveBar(k) {
@@ -238,8 +238,15 @@ function wireNoHave() {
   });
   document.querySelectorAll("[data-nhgo]").forEach(b => b.onclick = () => rebuildWithout(b.dataset.nhgo, [...new Set([...((mineOf(b.dataset.nhgo) || {}).ids || []), ...noHave(b.dataset.nhgo)])]));
   document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => { const [k, v] = b.dataset.view.split("|"); viewSet(k, v); renderTeams(); });
-  document.querySelectorAll("[data-got]").forEach(b => b.onclick = () => {
-    const [k, id] = b.dataset.got.split("|"), cur = mineOf(k) || { ids: (b.dataset.all || "").split(",").filter(Boolean) }, rest = cur.ids.filter(x => x !== id);
+  document.querySelectorAll("[data-got]").forEach(b => b.onclick = () => {     // mark; one rebuild for all of them
+    b.classList.toggle("on"); b.style.borderColor = b.classList.contains("on") ? "var(--win)" : "";
+    const k = b.dataset.got.split("|")[0], any = document.querySelectorAll(`[data-got^="${CSS.escape(k)}|"].on`).length;
+    const row = document.querySelector(`[data-gotgo-row="${CSS.escape(k)}"]`); if (row) row.hidden = !any;
+  });
+  document.querySelectorAll("[data-gotgo]").forEach(b => b.onclick = () => {
+    const k = b.dataset.gotgo, cur = mineOf(k) || { ids: (b.dataset.all || "").split(",").filter(Boolean) };
+    const got = [...document.querySelectorAll(`[data-got^="${CSS.escape(k)}|"].on`)].map(x => x.dataset.got.split("|")[1]);
+    const rest = cur.ids.filter(x => !got.includes(x));
     if (!rest.length) {                                   // nothing missing any more: back to everyone's team
       const [kind, key] = k.split(":");
       mineSet(k, { ids: [], at: new Date().toISOString() }); viewSet(k, "everyone");
@@ -548,7 +555,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261015c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261015d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -870,7 +877,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261015c");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261015d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

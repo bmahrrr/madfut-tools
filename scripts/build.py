@@ -46,6 +46,8 @@ def save(name, data):
     data["week"] = week().get("week")
     if not_owned():
         data["not_owned_ids"] = sorted(not_owned())
+    if os.environ.get("REQ_CREATED"):            # personal rebuilds: when it was asked for (newest wins on save)
+        data["request_created"] = os.environ["REQ_CREATED"]
     json.dump(data, open(os.path.join(RES, name), "w"), ensure_ascii=False, indent=1)
     print("saved", name)
 
@@ -146,6 +148,7 @@ def main():
         kind, key = req.get("kind", "myclub"), str(req["series"])
         # a personal version: same build, without the cards this person doesn't have; saved to docs/results/mine/
         os.environ["NOT_OWNED"] = ",".join(req.get("not_owned", []))
+        os.environ["REQ_CREATED"] = req.get("created", "")
         RES = os.path.join(ROOT, "docs", "results", "mine"); os.makedirs(RES, exist_ok=True)
         print("Personal rebuild", kind, key, "without", req.get("not_owned"))
         sys.argv = [sys.argv[0], kind, key]
