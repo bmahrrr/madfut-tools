@@ -75,16 +75,30 @@ jobs:
           path: artifacts
       - name: Save results
         run: |
-          mkdir -p docs/results
-          mkdir -p docs/results/mine
-          for f in $(find artifacts -name '*.json'); do
-            case "$(basename $(dirname $f))" in
-              custom_rebuild-*) cp "$f" docs/results/mine/ ;;
-              *) cp "$f" docs/results/ ;;
-            esac
-          done
-          python3 scripts/build.py index
           git config user.name "madfut-tools bot"
           git config user.email "actions@users.noreply.github.com"
-          git add docs/results
-          git diff --cached --quiet || (git commit -m "Custom build results" && git pull --rebase && git push)
+          # Several builds can finish at once (e.g. quick taps on Don't have / Got): retry on the latest main,
+          # and never let an older personal rebuild overwrite a newer one.
+          for i in 1 2 3 4 5 6; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            mkdir -p docs/results/mine
+            for f in $(find artifacts -name '*.json'); do
+              case "$(basename $(dirname $f))" in
+                custom_rebuild-*)
+                  dest="docs/results/mine/$(basename $f)"
+                  python3 - "$f" "$dest" <<'PY' && cp "$f" "$dest"
+          import json, os, sys
+          new = json.load(open(sys.argv[1])).get("request_created", "")
+          old = json.load(open(sys.argv[2])).get("request_created", "") if os.path.exists(sys.argv[2]) else ""
+          sys.exit(0 if new >= old else 1)     # skip: a newer request's result is already saved
+          PY
+                  ;;
+                *) cp "$f" docs/results/ ;;
+              esac
+            done
+            python3 scripts/build.py index
+            git add docs/results
+            git diff --cached --quiet && { echo "nothing new to save"; break; }
+            git commit -qm "Custom build results" && git push -q origin HEAD:main && { echo "saved"; break; }
+            echo "push raced with another build, retrying ($i)"; sleep $((5 + RANDOM % 15))
+          done
