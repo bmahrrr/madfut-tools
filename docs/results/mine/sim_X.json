@@ -70,28 +70,6 @@
      "slot": "CB"
     },
     {
-     "id": "id238439",
-     "name": "Maldini",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      69,
-      74,
-      92
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      76,
-      94
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id190044",
      "name": "Moore",
      "rating": 90,
@@ -110,6 +88,28 @@
       75,
       81,
       91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id238439",
+     "name": "Maldini",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      69,
+      74,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      76,
+      94
      ],
      "slot": "CB"
     },
@@ -246,23 +246,23 @@
      "slot": "ST"
     },
     {
-     "id": "id190042",
-     "name": "Maradona",
-     "rating": 95,
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
      "color": "icon",
-     "position": "CAM",
-     "nationId": 52,
+     "position": "ST",
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
       93,
-      92,
+      84,
       47
      ],
      "chem": 3,
      "eff": [
       95,
-      94,
+      86,
       49
      ],
      "slot": "ST"
@@ -324,6 +324,28 @@
      "slot": "GK"
     },
     {
+     "id": "id166906",
+     "name": "Baresi",
+     "rating": 91,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      66,
+      75,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      77,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "id190044",
      "name": "Moore",
      "rating": 90,
@@ -342,28 +364,6 @@
       75,
       81,
       91
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id238384",
-     "name": "Carles Puyol",
-     "rating": 89,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 45,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      60,
-      63,
-      89
-     ],
-     "chem": 3,
-     "eff": [
-      64,
-      67,
-      93
      ],
      "slot": "CB"
     },
@@ -776,23 +776,23 @@
      "slot": "RM"
     },
     {
-     "id": "id190042",
-     "name": "Maradona",
-     "rating": 95,
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
      "color": "icon",
-     "position": "CAM",
-     "nationId": 52,
+     "position": "ST",
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
       93,
-      92,
+      84,
       47
      ],
      "chem": 3,
      "eff": [
       95,
-      94,
+      86,
       49
      ],
      "slot": "ST"
@@ -856,12 +856,14 @@
   "Pelé 95",
   "Zidane 94",
   "Beckenbauer 93",
-  "Iniesta 92"
+  "Iniesta 92",
+  "Thuram 89"
  ],
  "built": "2026-10-15 14:06 UTC",
  "week": "2026-10-12",
  "not_owned_ids": [
   "id1397",
+  "id1615",
   "id168473",
   "id237067",
   "id41"
