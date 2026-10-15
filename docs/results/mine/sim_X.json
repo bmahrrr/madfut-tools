@@ -48,6 +48,28 @@
      "slot": "GK"
     },
     {
+     "id": "id1116",
+     "name": "Desailly",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      66,
+      66,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      68,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "id190044",
      "name": "Moore",
      "rating": 90,
@@ -88,28 +110,6 @@
       71,
       76,
       94
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id1615",
-     "name": "Thuram",
-     "rating": 89,
-     "color": "icon",
-     "position": "RB",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      74,
-      75,
-      89
-     ],
-     "chem": 3,
-     "eff": [
-      76,
-      77,
-      91
      ],
      "slot": "CB"
     },
@@ -271,7 +271,7 @@
    "metrics": {
     "control": 96.4,
     "attack": 94.8,
-    "defence": 93.25,
+    "defence": 93.0,
     "control_cards": [
      98,
      98,
@@ -290,7 +290,7 @@
      97,
      94,
      91,
-     91
+     90
     ],
     "chem": 33,
     "ctrl_not_full": 0,
@@ -324,23 +324,23 @@
      "slot": "GK"
     },
     {
-     "id": "id238384",
-     "name": "Carles Puyol",
-     "rating": 89,
+     "id": "id166906",
+     "name": "Baresi",
+     "rating": 91,
      "color": "icon",
      "position": "CB",
-     "nationId": 45,
+     "nationId": 27,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      60,
-      63,
-      89
+      66,
+      75,
+      91
      ],
      "chem": 3,
      "eff": [
-      64,
-      67,
+      68,
+      77,
       93
      ],
      "slot": "CB"
@@ -622,23 +622,23 @@
      "slot": "CB"
     },
     {
-     "id": "id238384",
-     "name": "Carles Puyol",
-     "rating": 89,
+     "id": "id166906",
+     "name": "Baresi",
+     "rating": 91,
      "color": "icon",
      "position": "CB",
-     "nationId": 45,
+     "nationId": 27,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      60,
-      63,
-      89
+      66,
+      75,
+      91
      ],
      "chem": 3,
      "eff": [
-      64,
-      67,
+      68,
+      77,
       93
      ],
      "slot": "CB"
@@ -666,28 +666,6 @@
      "slot": "CB"
     },
     {
-     "id": "id251854",
-     "name": "Pedri",
-     "rating": 90,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 241,
-     "card": [
-      84,
-      89,
-      76
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      93,
-      80
-     ],
-     "slot": "CDM"
-    },
-    {
      "id": "new_Xavi Espart_96",
      "name": "Xavi Espart",
      "rating": 96,
@@ -706,6 +684,28 @@
       91,
       98,
       99
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id251854",
+     "name": "Pedri",
+     "rating": 90,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      89,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      93,
+      80
      ],
      "slot": "CDM"
     },
@@ -776,28 +776,6 @@
      "slot": "RM"
     },
     {
-     "id": "id50573494",
-     "name": "Pajor",
-     "rating": 90,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 37,
-     "leagueId": 2222,
-     "clubId": 241,
-     "card": [
-      91,
-      76,
-      31
-     ],
-     "chem": 3,
-     "eff": [
-      96,
-      81,
-      36
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id37576",
      "name": "Ronaldo",
      "rating": 94,
@@ -816,6 +794,28 @@
       95,
       86,
       49
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50573494",
+     "name": "Pajor",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      91,
+      76,
+      31
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      81,
+      36
      ],
      "slot": "ST"
     }
@@ -858,13 +858,15 @@
   "Zidane 94",
   "Beckenbauer 93",
   "Iniesta 92",
-  "Xavi 91"
+  "Xavi 91",
+  "Thuram 89"
  ],
- "built": "2026-10-15 02:45 UTC",
+ "built": "2026-10-15 02:48 UTC",
  "week": "2026-10-12",
  "not_owned_ids": [
   "id10535",
   "id1397",
+  "id1615",
   "id168473",
   "id190042",
   "id237067",
