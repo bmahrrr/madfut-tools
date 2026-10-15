@@ -48,50 +48,6 @@
      "slot": "GK"
     },
     {
-     "id": "id238439",
-     "name": "Maldini",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      69,
-      74,
-      92
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      76,
-      94
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id168473",
-     "name": "Beckenbauer",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      81,
-      86,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      83,
-      88,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id190044",
      "name": "Moore",
      "rating": 90,
@@ -110,6 +66,50 @@
       75,
       81,
       91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id238384",
+     "name": "Carles Puyol",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      60,
+      63,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      67,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id238439",
+     "name": "Maldini",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      69,
+      74,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      76,
+      94
      ],
      "slot": "CB"
     },
@@ -158,9 +158,9 @@
      "slot": "CM"
     },
     {
-     "id": "id10535",
-     "name": "Xavi",
-     "rating": 91,
+     "id": "id41",
+     "name": "Iniesta",
+     "rating": 92,
      "color": "icon",
      "position": "CM",
      "nationId": 45,
@@ -169,13 +169,13 @@
      "card": [
       87,
       91,
-      68
+      62
      ],
      "chem": 3,
      "eff": [
       91,
       95,
-      72
+      66
      ],
      "slot": "CM"
     },
@@ -224,6 +224,28 @@
      "slot": "CAM"
     },
     {
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      84,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      86,
+      49
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id50573494",
      "name": "Pajor",
      "rating": 90,
@@ -242,28 +264,6 @@
       96,
       81,
       36
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id237067",
-     "name": "Pelé",
-     "rating": 95,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      93,
-      91,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      95,
-      93,
-      62
      ],
      "slot": "ST"
     }
@@ -294,7 +294,7 @@
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 265.6
+    "ctrl_total": 264.4
    }
   },
   {
@@ -346,23 +346,23 @@
      "slot": "CB"
     },
     {
-     "id": "id238384",
-     "name": "Carles Puyol",
-     "rating": 89,
+     "id": "id166906",
+     "name": "Baresi",
+     "rating": 91,
      "color": "icon",
      "position": "CB",
-     "nationId": 45,
+     "nationId": 27,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      60,
-      63,
-      89
+      66,
+      75,
+      91
      ],
      "chem": 3,
      "eff": [
-      64,
-      67,
+      68,
+      77,
       93
      ],
      "slot": "CB"
@@ -456,9 +456,9 @@
      "slot": "CM"
     },
     {
-     "id": "id10535",
-     "name": "Xavi",
-     "rating": 91,
+     "id": "id41",
+     "name": "Iniesta",
+     "rating": 92,
      "color": "icon",
      "position": "CM",
      "nationId": 45,
@@ -467,13 +467,13 @@
      "card": [
       87,
       91,
-      68
+      62
      ],
      "chem": 3,
      "eff": [
       91,
       95,
-      72
+      66
      ],
      "slot": "CM"
     },
@@ -570,7 +570,7 @@
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 265.6
+    "ctrl_total": 264.4
    }
   },
   {
@@ -600,28 +600,6 @@
      "slot": "GK"
     },
     {
-     "id": "new_Can_92",
-     "name": "Can",
-     "rating": 92,
-     "color": "elite_evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      82,
-      90,
-      92
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      92,
-      94
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id190044",
      "name": "Moore",
      "rating": 90,
@@ -644,46 +622,68 @@
      "slot": "CB"
     },
     {
-     "id": "id168473",
-     "name": "Beckenbauer",
+     "id": "id238439",
+     "name": "Maldini",
      "rating": 93,
      "color": "icon",
      "position": "CB",
-     "nationId": 21,
+     "nationId": 27,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      81,
-      86,
+      69,
+      74,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      76,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id166906",
+     "name": "Baresi",
+     "rating": 91,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      66,
+      75,
       91
      ],
      "chem": 3,
      "eff": [
-      83,
-      88,
+      68,
+      77,
       93
      ],
      "slot": "CB"
     },
     {
-     "id": "id10535",
-     "name": "Xavi",
-     "rating": 91,
-     "color": "icon",
+     "id": "id251854",
+     "name": "Pedri",
+     "rating": 90,
+     "color": "rare_gold",
      "position": "CM",
      "nationId": 45,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      87,
-      91,
-      68
+      84,
+      89,
+      76
      ],
      "chem": 3,
      "eff": [
-      91,
-      95,
-      72
+      88,
+      93,
+      80
      ],
      "slot": "CDM"
     },
@@ -776,28 +776,6 @@
      "slot": "RM"
     },
     {
-     "id": "id237067",
-     "name": "Pelé",
-     "rating": 95,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      93,
-      91,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      95,
-      93,
-      62
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id50573494",
      "name": "Pajor",
      "rating": 90,
@@ -818,18 +796,40 @@
       36
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      84,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      86,
+      49
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 96.4,
+    "control": 96.0,
     "attack": 95.8,
-    "defence": 91.0,
+    "defence": 92.33,
     "control_cards": [
      98,
      98,
      96,
      95,
-     95
+     93
     ],
     "attack_cards": [
      98,
@@ -844,22 +844,28 @@
      94,
      93,
      91,
-     72
+     80
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 265.6
+    "ctrl_total": 266.2
    }
   }
  ],
  "not_owned": [
   "Maradona 95",
-  "Zidane 94"
+  "Pelé 95",
+  "Zidane 94",
+  "Beckenbauer 93",
+  "Xavi 91"
  ],
- "built": "2026-10-15 02:34 UTC",
+ "built": "2026-10-15 02:40 UTC",
  "week": "2026-10-12",
  "not_owned_ids": [
+  "id10535",
   "id1397",
-  "id190042"
+  "id168473",
+  "id190042",
+  "id237067"
  ]
 }
