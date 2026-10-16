@@ -1,20 +1,20 @@
 {
- "g": 2,
- "strength": 100.0,
+ "g": 4,
+ "strength": 99.8,
  "group_cards": 10,
  "reddit": [
   {
-   "you_lead_first": "WIN",
+   "you_lead_first": "LOSS",
    "they_lead_first": "WIN"
   },
   {
-   "you_lead_first": "WIN",
-   "they_lead_first": "WIN"
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 32,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -31,13 +31,13 @@
      32,
      80
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     36,
-     34,
-     82
+     35,
+     33,
+     81
     ],
-    "tiebreak": 152
+    "tiebreak": 149
    },
    {
     "slot": "LB",
@@ -87,26 +87,26 @@
    },
    {
     "slot": "CB",
-    "id": "id240679",
-    "name": "Koopmeiners",
+    "id": "id241736",
+    "name": "Bisseck",
     "rating": 78,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 34,
+    "position": "CB",
+    "nationId": 21,
     "leagueId": 31,
-    "clubId": 45,
+    "clubId": 131682,
     "card": [
-     75,
-     79,
-     73
+     67,
+     67,
+     77
     ],
     "chem": 3,
     "eff": [
-     77,
-     81,
-     75
+     69,
+     69,
+     79
     ],
-    "tiebreak": 233
+    "tiebreak": 217
    },
    {
     "slot": "RB",
@@ -156,47 +156,24 @@
    },
    {
     "slot": "LM",
-    "id": "id50596345",
-    "name": "Amoura",
+    "id": "id262842",
+    "name": "Baturina",
     "rating": 79,
     "color": "rare_gold",
-    "position": "ST",
-    "nationId": 97,
-    "leagueId": 16,
-    "clubId": 72,
+    "position": "CAM",
+    "nationId": 10,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
+     77,
+     80,
+     60
+    ],
+    "chem": 3,
+    "eff": [
+     79,
      82,
-     76,
-     50
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     78,
-     52
-    ],
-    "tiebreak": 214
-   },
-   {
-    "slot": "CM",
-    "id": "id253157",
-    "name": "Boudaoui",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 97,
-    "leagueId": 16,
-    "clubId": 72,
-    "card": [
-     72,
-     73,
-     72
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     75,
-     74
+     62
     ],
     "tiebreak": 223
    },
@@ -222,6 +199,29 @@
      77
     ],
     "tiebreak": 236
+   },
+   {
+    "slot": "CM",
+    "id": "id268534",
+    "name": "Diouf",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 18,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     74,
+     74,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     76,
+     70
+    ],
+    "tiebreak": 222
    },
    {
     "slot": "RM",
@@ -314,6 +314,6 @@
   "id234505",
   "id50596345"
  ],
- "built": "2026-10-16 11:36 UTC",
+ "built": "2026-10-16 11:54 UTC",
  "week": "2026-10-12"
 }

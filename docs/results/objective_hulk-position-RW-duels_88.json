@@ -1,11 +1,11 @@
 {
- "g": 1,
- "strength": 100.1,
+ "g": 4,
+ "strength": 99.9,
  "group_cards": 506,
  "reddit": [
   {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "DRAW"
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
@@ -14,72 +14,72 @@
   "players": [
    {
     "slot": "GK",
-    "id": "id48940",
-    "name": "Čech",
-    "rating": 88,
-    "color": "icon",
+    "id": "id191694",
+    "name": "Campos",
+    "rating": 87,
+    "color": "hero",
     "position": "GK",
-    "nationId": 12,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 114605,
     "card": [
-     40,
-     35,
-     89
+     77,
+     68,
+     88
     ],
     "chem": 3,
     "eff": [
-     42,
-     37,
-     91
+     79,
+     70,
+     90
     ],
-    "tiebreak": 170
+    "tiebreak": 239
    },
    {
     "slot": "LB",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     87,
-     88,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     90,
-     80
-    ],
-    "tiebreak": 259
-   },
-   {
-    "slot": "CB",
-    "id": "id227190",
-    "name": "Irene Paredes",
-    "rating": 87,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 45,
+    "id": "id67376394",
+    "name": "Brugts",
+    "rating": 85,
+    "color": "totw_gold",
+    "position": "LB",
+    "nationId": 34,
     "leagueId": 2222,
     "clubId": 241,
     "card": [
-     64,
-     67,
-     86
+     80,
+     80,
+     84
     ],
     "chem": 3,
     "eff": [
-     68,
-     70,
-     91
+     84,
+     83,
+     89
     ],
-    "tiebreak": 223
+    "tiebreak": 250
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     88,
+     87
+    ],
+    "tiebreak": 253
    },
    {
     "slot": "CB",
@@ -152,29 +152,6 @@
    },
    {
     "slot": "LM",
-    "id": "id120274",
-    "name": "Di Natale",
-    "rating": 88,
-    "color": "hero",
-    "position": "ST",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 114605,
-    "card": [
-     89,
-     85,
-     48
-    ],
-    "chem": 3,
-    "eff": [
-     91,
-     87,
-     50
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "RM",
     "id": "id121944",
     "name": "Schweinsteiger",
     "rating": 88,
@@ -197,50 +174,73 @@
     "tiebreak": 258
    },
    {
+    "slot": "RM",
+    "id": "id246669",
+    "name": "Saka",
+    "rating": 87,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1,
+    "card": [
+     85,
+     84,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     86,
+     63
+    ],
+    "tiebreak": 236
+   },
+   {
     "slot": "CAM",
-    "id": "id23174",
-    "name": "Riquelme",
-    "rating": 88,
-    "color": "icon",
-    "position": "CAM",
-    "nationId": 52,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "id27",
+    "name": "Cole",
+    "rating": 87,
+    "color": "hero",
+    "position": "RW",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 114605,
     "card": [
      86,
-     89,
-     39
+     86,
+     53
     ],
     "chem": 3,
     "eff": [
      88,
-     91,
-     41
+     88,
+     55
     ],
-    "tiebreak": 220
+    "tiebreak": 231
    },
    {
     "slot": "ST",
-    "id": "id262112",
-    "name": "van Persie",
-    "rating": 88,
-    "color": "icon",
-    "position": "ST",
-    "nationId": 34,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "id272163",
+    "name": "Elena Julve",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 131125,
     "card": [
-     89,
-     84,
-     49
+     83,
+     81,
+     64
     ],
     "chem": 3,
     "eff": [
-     91,
      86,
-     51
+     84,
+     67
     ],
-    "tiebreak": 228
+    "tiebreak": 234
    },
    {
     "slot": "ST",
@@ -310,6 +310,6 @@
   "id162895",
   "id262112"
  ],
- "built": "2026-10-16 11:37 UTC",
+ "built": "2026-10-16 11:54 UTC",
  "week": "2026-10-12"
 }

@@ -1,16 +1,16 @@
 {
- "g": 2,
- "strength": 99.5,
+ "g": 3,
+ "strength": 99.9,
  "group_cards": 500,
  "reddit": [
   {
-   "you_lead_first": "WIN",
+   "you_lead_first": "LOSS",
    "they_lead_first": "WIN"
   }
  ],
  "team": {
-  "formation": "4-1-2-1-2 (2)",
-  "chem": 33,
+  "formation": "4-1-4-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -37,75 +37,6 @@
    },
    {
     "slot": "LB",
-    "id": "id235883",
-    "name": "Sessegnon",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     74,
-     74,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     76,
-     78
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CB",
-    "id": "id241486",
-    "name": "Koundé",
-    "rating": 85,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 18,
-    "leagueId": 53,
-    "clubId": 241,
-    "card": [
-     71,
-     75,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     78,
-     89
-    ],
-    "tiebreak": 236
-   },
-   {
-    "slot": "CB",
-    "id": "id227316",
-    "name": "Renard",
-    "rating": 84,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 66,
-    "card": [
-     65,
-     69,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     72,
-     89
-    ],
-    "tiebreak": 224
-   },
-   {
-    "slot": "RB",
     "id": "id50542162",
     "name": "João Cancelo",
     "rating": 84,
@@ -126,6 +57,75 @@
      87
     ],
     "tiebreak": 255
+   },
+   {
+    "slot": "CB",
+    "id": "id50564136",
+    "name": "Romero",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "CB",
+    "nationId": 52,
+    "leagueId": 53,
+    "clubId": 240,
+    "card": [
+     63,
+     66,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     70,
+     89
+    ],
+    "tiebreak": 220
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
+     85
+    ],
+    "chem": 2,
+    "eff": [
+     77,
+     87,
+     86
+    ],
+    "tiebreak": 250
+   },
+   {
+    "slot": "RB",
+    "id": "id67359754",
+    "name": "Zambrotta",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     75,
+     77,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     79,
+     86
+    ],
+    "tiebreak": 242
    },
    {
     "slot": "CDM",
@@ -149,6 +149,29 @@
      71
     ],
     "tiebreak": 248
+   },
+   {
+    "slot": "LM",
+    "id": "id20775",
+    "name": "Quaresma",
+    "rating": 85,
+    "color": "hero",
+    "position": "RW",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 114605,
+    "card": [
+     84,
+     84,
+     36
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     86,
+     38
+    ],
+    "tiebreak": 210
    },
    {
     "slot": "CM",
@@ -175,49 +198,49 @@
    },
    {
     "slot": "CM",
-    "id": "id50596036",
-    "name": "Moleiro",
-    "rating": 84,
+    "id": "id67363107",
+    "name": "Anderson",
+    "rating": 85,
     "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 483,
+    "position": "CDM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 10,
     "card": [
-     84,
-     82,
-     56
+     78,
+     83,
+     82
     ],
     "chem": 3,
     "eff": [
-     88,
-     86,
-     60
+     82,
+     87,
+     86
     ],
-    "tiebreak": 228
+    "tiebreak": 249
    },
    {
-    "slot": "CAM",
-    "id": "id50551331",
-    "name": "Tolisso",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 66,
+    "slot": "RM",
+    "id": "id50575428",
+    "name": "Lee Kang In",
+    "rating": 83,
+    "color": "otw",
+    "position": "RW",
+    "nationId": 167,
+    "leagueId": 53,
+    "clubId": 240,
     "card": [
      82,
-     80,
-     80
+     84,
+     57
     ],
     "chem": 3,
     "eff": [
+     84,
      86,
-     85,
-     87
+     59
     ],
-    "tiebreak": 248
+    "tiebreak": 229
    },
    {
     "slot": "ST",
@@ -241,29 +264,6 @@
      59
     ],
     "tiebreak": 226
-   },
-   {
-    "slot": "ST",
-    "id": "id192629",
-    "name": "Iago Aspas",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 450,
-    "card": [
-     82,
-     80,
-     41
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     82,
-     43
-    ],
-    "tiebreak": 209
    }
   ]
  },
@@ -310,6 +310,6 @@
   "id50402434",
   "id50536618"
  ],
- "built": "2026-10-16 11:37 UTC",
+ "built": "2026-10-16 11:54 UTC",
  "week": "2026-10-12"
 }

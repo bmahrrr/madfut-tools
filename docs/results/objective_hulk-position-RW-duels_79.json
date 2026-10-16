@@ -1,19 +1,19 @@
 {
  "g": 2,
- "strength": 99.5,
+ "strength": 99.7,
  "group_cards": 460,
  "reddit": [
   {
-   "you_lead_first": "WIN",
+   "you_lead_first": "LOSS",
    "they_lead_first": "WIN"
   },
   {
-   "you_lead_first": "WIN",
-   "they_lead_first": "WIN"
+   "you_lead_first": "LOSS",
+   "they_lead_first": "DRAW"
   }
  ],
  "team": {
-  "formation": "4-1-3-2",
+  "formation": "4-1-4-1",
   "chem": 27,
   "players": [
    {
@@ -87,49 +87,49 @@
    },
    {
     "slot": "CB",
-    "id": "id257090",
-    "name": "Doukouré",
-    "rating": 77,
+    "id": "id224490",
+    "name": "Çelik",
+    "rating": 79,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 76,
+    "position": "RB",
+    "nationId": 48,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     59,
-     64,
-     76
+     69,
+     71,
+     78
     ],
     "chem": 3,
     "eff": [
-     61,
-     66,
-     78
+     71,
+     73,
+     80
     ],
-    "tiebreak": 205
+    "tiebreak": 224
    },
    {
     "slot": "RB",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
+    "id": "id268940",
+    "name": "Crnogorčević",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
+    "position": "RW",
+    "nationId": 47,
+    "leagueId": 2218,
+    "clubId": 76,
     "card": [
-     75,
-     80,
-     75
-    ],
-    "chem": 3,
-    "eff": [
      77,
-     82,
-     77
+     76,
+     74
     ],
-    "tiebreak": 236
+    "chem": 0,
+    "eff": [
+     74,
+     73,
+     71
+    ],
+    "tiebreak": 218
    },
    {
     "slot": "CDM",
@@ -201,50 +201,50 @@
     "tiebreak": 236
    },
    {
-    "slot": "RM",
-    "id": "id268940",
-    "name": "Crnogorčević",
+    "slot": "CM",
+    "id": "id254579",
+    "name": "Da Cunha",
     "rating": 78,
     "color": "rare_gold",
-    "position": "RW",
-    "nationId": 47,
-    "leagueId": 2218,
-    "clubId": 76,
+    "position": "CDM",
+    "nationId": 18,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
      77,
-     76,
-     74
-    ],
-    "chem": 1,
-    "eff": [
      77,
-     76,
      74
     ],
-    "tiebreak": 227
+    "chem": 3,
+    "eff": [
+     79,
+     79,
+     76
+    ],
+    "tiebreak": 234
    },
    {
-    "slot": "ST",
-    "id": "id50596345",
-    "name": "Amoura",
-    "rating": 79,
+    "slot": "RM",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
     "color": "rare_gold",
-    "position": "ST",
-    "nationId": 97,
-    "leagueId": 16,
-    "clubId": 72,
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
-     82,
-     76,
-     50
+     75,
+     80,
+     75
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     83,
      77,
-     51
+     82,
+     77
     ],
-    "tiebreak": 211
+    "tiebreak": 236
    },
    {
     "slot": "ST",
@@ -314,6 +314,6 @@
   "id234505",
   "id50596345"
  ],
- "built": "2026-10-16 11:37 UTC",
+ "built": "2026-10-16 11:55 UTC",
  "week": "2026-10-12"
 }

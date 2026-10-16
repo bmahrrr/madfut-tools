@@ -1,43 +1,89 @@
 {
  "g": 5,
- "strength": 100.2,
+ "strength": 100.4,
  "group_cards": 441,
  "reddit": [
   {
-   "you_lead_first": "WIN",
+   "you_lead_first": "LOSS",
    "they_lead_first": "WIN"
   },
   {
-   "you_lead_first": "WIN",
-   "they_lead_first": "WIN"
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
-  "formation": "3-4-3",
-  "chem": 32,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 29,
   "players": [
    {
     "slot": "GK",
-    "id": "id239254",
-    "name": "Özer",
-    "rating": 79,
+    "id": "id225149",
+    "name": "Butez",
+    "rating": 78,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 48,
-    "leagueId": 16,
-    "clubId": 65,
+    "nationId": 18,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
-     34,
-     32,
-     80
+     40,
+     43,
+     79
     ],
     "chem": 3,
     "eff": [
-     36,
-     34,
-     82
+     42,
+     45,
+     81
     ],
-    "tiebreak": 152
+    "tiebreak": 168
+   },
+   {
+    "slot": "LB",
+    "id": "id231318",
+    "name": "Perraud",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 65,
+    "card": [
+     76,
+     76,
+     77
+    ],
+    "chem": 2,
+    "eff": [
+     77,
+     77,
+     78
+    ],
+    "tiebreak": 232
+   },
+   {
+    "slot": "CB",
+    "id": "id227067",
+    "name": "Rosucci",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 27,
+    "leagueId": 2236,
+    "clubId": 45,
+    "card": [
+     75,
+     78,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     80,
+     80
+    ],
+    "tiebreak": 237
    },
    {
     "slot": "CB",
@@ -63,76 +109,30 @@
     "tiebreak": 216
    },
    {
-    "slot": "CB",
-    "id": "id224490",
-    "name": "Çelik",
-    "rating": 79,
+    "slot": "RB",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
     "color": "rare_gold",
     "position": "RB",
-    "nationId": 48,
+    "nationId": 54,
     "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     69,
-     71,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     71,
-     73,
-     80
-    ],
-    "tiebreak": 224
-   },
-   {
-    "slot": "CB",
-    "id": "id240679",
-    "name": "Koopmeiners",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 34,
-    "leagueId": 31,
-    "clubId": 45,
+    "clubId": 1745,
     "card": [
      75,
-     79,
-     73
+     80,
+     75
     ],
     "chem": 3,
     "eff": [
      77,
-     81,
-     75
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "LM",
-    "id": "id231318",
-    "name": "Perraud",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 65,
-    "card": [
-     76,
-     76,
+     82,
      77
     ],
-    "chem": 3,
-    "eff": [
-     78,
-     78,
-     79
-    ],
-    "tiebreak": 235
+    "tiebreak": 236
    },
    {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "id230658",
     "name": "Arthur",
     "rating": 76,
@@ -178,30 +178,53 @@
     "tiebreak": 236
    },
    {
-    "slot": "RM",
-    "id": "id239093",
-    "name": "Clauss",
-    "rating": 77,
+    "slot": "CM",
+    "id": "id50591516",
+    "name": "Sarr",
+    "rating": 79,
     "color": "rare_gold",
-    "position": "RB",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 72,
+    "position": "CM",
+    "nationId": 136,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     75,
-     74,
-     75
+     73,
+     77,
+     77
     ],
     "chem": 3,
     "eff": [
-     77,
-     76,
-     77
+     75,
+     79,
+     79
     ],
-    "tiebreak": 230
+    "tiebreak": 233
    },
    {
-    "slot": "LW",
+    "slot": "CAM",
+    "id": "id228251",
+    "name": "Pellegrini",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 52,
+    "card": [
+     77,
+     78,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     80,
+     72
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "ST",
     "id": "id50596345",
     "name": "Amoura",
     "rating": 79,
@@ -215,13 +238,13 @@
      76,
      50
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     84,
-     78,
-     52
+     82,
+     76,
+     50
     ],
-    "tiebreak": 214
+    "tiebreak": 208
    },
    {
     "slot": "ST",
@@ -245,29 +268,6 @@
      66
     ],
     "tiebreak": 224
-   },
-   {
-    "slot": "RW",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     75,
-     80,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     82,
-     77
-    ],
-    "tiebreak": 236
    }
   ]
  },
@@ -315,6 +315,6 @@
   "id234505",
   "id50596345"
  ],
- "built": "2026-10-16 11:34 UTC",
+ "built": "2026-10-16 11:54 UTC",
  "week": "2026-10-12"
 }

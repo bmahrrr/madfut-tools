@@ -1,16 +1,16 @@
 {
- "g": 2,
- "strength": 99.4,
+ "g": 6,
+ "strength": 99.7,
  "group_cards": 369,
  "reddit": [
   {
-   "you_lead_first": "WIN",
-   "they_lead_first": "WIN"
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 33,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 29,
   "players": [
    {
     "slot": "GK",
@@ -34,6 +34,29 @@
      90
     ],
     "tiebreak": 155
+   },
+   {
+    "slot": "LB",
+    "id": "id50542162",
+    "name": "João Cancelo",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "RB",
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     82,
+     84,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     88,
+     87
+    ],
+    "tiebreak": 255
    },
    {
     "slot": "CB",
@@ -82,142 +105,96 @@
     "tiebreak": 236
    },
    {
-    "slot": "CB",
-    "id": "id227316",
-    "name": "Renard",
-    "rating": 84,
+    "slot": "RB",
+    "id": "id253124",
+    "name": "Matheus Nunes",
+    "rating": 83,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 66,
-    "card": [
-     65,
-     69,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     72,
-     89
-    ],
-    "tiebreak": 224
-   },
-   {
-    "slot": "LM",
-    "id": "id235883",
-    "name": "Sessegnon",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 14,
+    "position": "RB",
+    "nationId": 38,
     "leagueId": 13,
-    "clubId": 144,
+    "clubId": 10,
     "card": [
-     74,
-     74,
-     76
+     77,
+     78,
+     82
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     76,
-     76,
-     78
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CM",
-    "id": "id67335759",
-    "name": "Formiga",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
+     78,
      79,
-     82,
      83
     ],
-    "chem": 3,
+    "tiebreak": 240
+   },
+   {
+    "slot": "CDM",
+    "id": "id50602505",
+    "name": "Mateus Fernandes",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 13,
+    "clubId": 18,
+    "card": [
+     85,
+     85,
+     76
+    ],
+    "chem": 2,
     "eff": [
-     81,
+     86,
+     86,
+     77
+    ],
+    "tiebreak": 249
+   },
+   {
+    "slot": "CM",
+    "id": "id227353",
+    "name": "Dali",
+    "rating": 85,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 18,
+    "leagueId": 2221,
+    "clubId": 116312,
+    "card": [
+     82,
      84,
+     81
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     86,
      85
     ],
     "tiebreak": 250
    },
    {
-    "slot": "RM",
-    "id": "id50542162",
-    "name": "João Cancelo",
+    "slot": "CM",
+    "id": "id218667",
+    "name": "Bernardo Silva",
     "rating": 84,
-    "color": "totw_gold",
-    "position": "RB",
+    "color": "rare_gold",
+    "position": "CM",
     "nationId": 38,
     "leagueId": 53,
-    "clubId": 241,
+    "clubId": 243,
     "card": [
-     82,
+     81,
      84,
-     83
+     68
     ],
     "chem": 3,
     "eff": [
+     83,
      86,
-     88,
-     87
+     70
     ],
-    "tiebreak": 255
-   },
-   {
-    "slot": "CAM",
-    "id": "id50596036",
-    "name": "Moleiro",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 483,
-    "card": [
-     84,
-     82,
-     56
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     86,
-     60
-    ],
-    "tiebreak": 228
+    "tiebreak": 239
    },
    {
     "slot": "CAM",
@@ -264,6 +241,29 @@
      59
     ],
     "tiebreak": 226
+   },
+   {
+    "slot": "ST",
+    "id": "id50574092",
+    "name": "João Félix",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 112139,
+    "card": [
+     84,
+     81,
+     51
+    ],
+    "chem": 2,
+    "eff": [
+     87,
+     84,
+     54
+    ],
+    "tiebreak": 219
    }
   ]
  },
@@ -310,6 +310,6 @@
   "id50402434",
   "id50536618"
  ],
- "built": "2026-10-16 11:38 UTC",
+ "built": "2026-10-16 11:54 UTC",
  "week": "2026-10-12"
 }
