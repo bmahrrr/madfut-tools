@@ -1,7 +1,11 @@
 {
- "g": 11,
- "strength": 99.7,
- "group_cards": 382,
+ "g": 2,
+ "obj_ids": [
+  "id120533",
+  "id255253"
+ ],
+ "strength": 102.8,
+ "group_cards": 2,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -9,169 +13,169 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
+  "formation": "4-3-2-1",
   "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id234577",
-    "name": "Diogo Costa",
-    "rating": 86,
-    "color": "rare_gold",
+    "id": "id191694",
+    "name": "Campos",
+    "rating": 87,
+    "color": "hero",
     "position": "GK",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 236,
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 114605,
     "card": [
-     36,
-     38,
-     86
+     77,
+     68,
+     88
     ],
     "chem": 3,
     "eff": [
-     38,
-     40,
-     88
+     79,
+     70,
+     90
     ],
-    "tiebreak": 166
+    "tiebreak": 239
    },
    {
     "slot": "LB",
-    "id": "id50583793",
-    "name": "Nuno Mendes",
-    "rating": 89,
-    "color": "destined_for_glory",
+    "id": "id238430",
+    "name": "Roberto Carlos",
+    "rating": 90,
+    "color": "icon",
     "position": "LB",
-    "nationId": 38,
-    "leagueId": 16,
-    "clubId": 73,
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     84,
-     82,
-     87
+     83,
+     81,
+     89
     ],
     "chem": 3,
     "eff": [
-     88,
-     87,
-     89
+     85,
+     83,
+     91
     ],
     "tiebreak": 259
    },
    {
     "slot": "CB",
-    "id": "id50605554",
-    "name": "Renato Veiga",
-    "rating": 84,
-    "color": "destined_for_glory",
+    "id": "id120533",
+    "name": "Pepe",
+    "rating": 89,
+    "color": "icon",
     "position": "CB",
     "nationId": 38,
-    "leagueId": 53,
-    "clubId": 483,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     74,
-     77,
-     83
+     62,
+     62,
+     89
     ],
     "chem": 3,
     "eff": [
-     76,
-     79,
-     85
+     64,
+     64,
+     91
     ],
-    "tiebreak": 240
+    "tiebreak": 219
    },
    {
     "slot": "CB",
-    "id": "id3622",
-    "name": "Ricardo Carvalho",
-    "rating": 88,
-    "color": "hero",
-    "position": "CB",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 114605,
+    "id": "id238435",
+    "name": "Matthäus",
+    "rating": 90,
+    "color": "icon",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     68,
-     71,
+     85,
+     84,
      88
     ],
     "chem": 3,
     "eff": [
-     70,
-     73,
+     87,
+     86,
      90
     ],
-    "tiebreak": 233
+    "tiebreak": 263
    },
    {
     "slot": "RB",
-    "id": "id253124",
-    "name": "Matheus Nunes",
-    "rating": 83,
-    "color": "rare_gold",
+    "id": "ltm_espart90",
+    "name": "Xavi Espart",
+    "rating": 90,
+    "color": "ltm",
     "position": "RB",
-    "nationId": 38,
-    "leagueId": 13,
-    "clubId": 10,
-    "card": [
-     77,
-     78,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     80,
-     84
-    ],
-    "tiebreak": 243
-   },
-   {
-    "slot": "CDM",
-    "id": "id272834",
-    "name": "João Neves",
-    "rating": 88,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     82,
-     84,
-     86
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     89,
-     88
-    ],
-    "tiebreak": 258
-   },
-   {
-    "slot": "LM",
-    "id": "id50542162",
-    "name": "João Cancelo",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "RB",
-    "nationId": 38,
+    "nationId": 45,
     "leagueId": 53,
     "clubId": 241,
     "card": [
-     82,
-     84,
-     83
+     81,
+     88,
+     89
     ],
     "chem": 3,
     "eff": [
-     84,
+     83,
+     90,
+     91
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "CM",
+    "id": "id50568937",
+    "name": "Patri Guijarro",
+    "rating": 89,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
+    "card": [
+     87,
      86,
      85
     ],
-    "tiebreak": 255
+    "chem": 3,
+    "eff": [
+     89,
+     88,
+     87
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "CM",
+    "id": "evo_Can_89",
+    "name": "Can",
+    "rating": 89,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     80,
+     89,
+     90
+    ],
+    "chem": 3,
+    "eff": [
+     82,
+     91,
+     92
+    ],
+    "tiebreak": 265
    },
    {
     "slot": "CM",
@@ -197,73 +201,73 @@
     "tiebreak": 254
    },
    {
-    "slot": "CM",
-    "id": "id212198",
-    "name": "Bruno Fernandes",
-    "rating": 89,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 13,
-    "clubId": 11,
+    "slot": "CAM",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     85,
+     87,
      88,
-     68
+     78
     ],
     "chem": 3,
     "eff": [
-     87,
-     90,
-     70
+     91,
+     92,
+     82
     ],
-    "tiebreak": 247
+    "tiebreak": 259
    },
    {
-    "slot": "RM",
-    "id": "id5589",
-    "name": "Luís Figo",
+    "slot": "CAM",
+    "id": "id227324",
+    "name": "Abily",
     "rating": 90,
     "color": "icon",
-    "position": "RW",
-    "nationId": 38,
+    "position": "CM",
+    "nationId": 18,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     87,
      88,
-     45
+     89,
+     78
     ],
     "chem": 3,
     "eff": [
-     89,
      90,
-     47
+     91,
+     80
     ],
-    "tiebreak": 226
+    "tiebreak": 261
    },
    {
     "slot": "ST",
-    "id": "id50593503",
-    "name": "Kika Nazareth",
-    "rating": 86,
-    "color": "destined_for_glory",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 2222,
-    "clubId": 241,
+    "id": "id231443",
+    "name": "Dembélé",
+    "rating": 90,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 73,
     "card": [
+     89,
      86,
-     85,
-     66
+     56
     ],
     "chem": 3,
     "eff": [
-     88,
-     87,
-     68
+     93,
+     91,
+     58
     ],
-    "tiebreak": 243
+    "tiebreak": 237
    }
   ]
  },
@@ -310,6 +314,6 @@
   "id202126",
   "id50573494"
  ],
- "built": "2026-10-16 11:54 UTC",
+ "built": "2026-10-16 12:09 UTC",
  "week": "2026-10-12"
 }

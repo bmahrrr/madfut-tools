@@ -1,62 +1,65 @@
 {
- "g": 2,
- "strength": 100.2,
- "group_cards": 265,
+ "g": 1,
+ "obj_ids": [
+  "id278668"
+ ],
+ "strength": 99.8,
+ "group_cards": 4,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
+   "you_lead_first": "DRAW",
+   "they_lead_first": "DRAW"
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
-    "id": "id50587548",
-    "name": "Törnqvist",
+    "id": "id198513",
+    "name": "Cláudio Ramos",
     "rating": 73,
     "color": "rare_silver",
     "position": "GK",
-    "nationId": 46,
-    "leagueId": 31,
-    "clubId": 111811,
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 236,
     "card": [
-     32,
-     30,
+     36,
+     27,
      74
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     37,
-     33,
-     77
+     38,
+     27,
+     74
     ],
-    "tiebreak": 142
+    "tiebreak": 137
    },
    {
     "slot": "LB",
-    "id": "id240020",
-    "name": "Ricardo Mangas",
-    "rating": 73,
+    "id": "id215449",
+    "name": "Skov",
+    "rating": 72,
     "color": "rare_silver",
     "position": "LB",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 111811,
+    "nationId": 13,
+    "leagueId": 19,
+    "clubId": 1831,
     "card": [
-     70,
-     69,
-     72
-    ],
-    "chem": 3,
-    "eff": [
      75,
-     72,
-     75
+     74,
+     71
     ],
-    "tiebreak": 217
+    "chem": 1,
+    "eff": [
+     77,
+     74,
+     71
+    ],
+    "tiebreak": 220
    },
    {
     "slot": "CB",
@@ -119,13 +122,13 @@
      73,
      72
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     74,
-     74,
-     73
+     73,
+     73,
+     72
     ],
-    "tiebreak": 219
+    "tiebreak": 216
    },
    {
     "slot": "CDM",
@@ -149,29 +152,6 @@
      72
     ],
     "tiebreak": 224
-   },
-   {
-    "slot": "LM",
-    "id": "id256949",
-    "name": "Grønbæk",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CAM",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 28,
-    "card": [
-     72,
-     73,
-     62
-    ],
-    "chem": 2,
-    "eff": [
-     75,
-     74,
-     63
-    ],
-    "tiebreak": 210
    },
    {
     "slot": "CM",
@@ -220,27 +200,50 @@
     "tiebreak": 210
    },
    {
-    "slot": "RM",
-    "id": "id215449",
-    "name": "Skov",
-    "rating": 72,
+    "slot": "CAM",
+    "id": "id277840",
+    "name": "Gandelman",
+    "rating": 71,
     "color": "rare_silver",
-    "position": "LB",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 1831,
+    "position": "CAM",
+    "nationId": 26,
+    "leagueId": 31,
+    "clubId": 347,
     "card": [
-     75,
-     74,
+     73,
+     66,
      71
     ],
     "chem": 3,
     "eff": [
-     79,
-     76,
-     73
+     78,
+     69,
+     74
     ],
-    "tiebreak": 226
+    "tiebreak": 216
+   },
+   {
+    "slot": "ST",
+    "id": "id242755",
+    "name": "Yeboah",
+    "rating": 73,
+    "color": "rare_silver",
+    "position": "ST",
+    "nationId": 57,
+    "leagueId": 31,
+    "clubId": 205,
+    "card": [
+     76,
+     71,
+     33
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     74,
+     36
+    ],
+    "tiebreak": 186
    },
    {
     "slot": "ST",
@@ -312,6 +315,6 @@
   "id50602667",
   "id242755"
  ],
- "built": "2026-10-16 11:54 UTC",
+ "built": "2026-10-16 12:10 UTC",
  "week": "2026-10-12"
 }

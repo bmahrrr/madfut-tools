@@ -1,39 +1,43 @@
 {
- "g": 3,
- "strength": 99.9,
- "group_cards": 500,
+ "g": 2,
+ "obj_ids": [
+  "id189362",
+  "id50536618"
+ ],
+ "strength": 100.3,
+ "group_cards": 2,
  "reddit": [
   {
    "you_lead_first": "LOSS",
-   "they_lead_first": "WIN"
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 32,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 29,
   "players": [
    {
     "slot": "GK",
-    "id": "id50603566",
-    "name": "Risser",
+    "id": "id273136",
+    "name": "Lorena",
     "rating": 85,
-    "color": "future_stars",
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
+    "nationId": 54,
+    "leagueId": 2221,
+    "clubId": 116309,
     "card": [
-     32,
-     32,
+     37,
+     41,
      85
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     34,
-     35,
-     90
+     38,
+     42,
+     86
     ],
-    "tiebreak": 155
+    "tiebreak": 166
    },
    {
     "slot": "LB",
@@ -60,29 +64,6 @@
    },
    {
     "slot": "CB",
-    "id": "id50564136",
-    "name": "Romero",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CB",
-    "nationId": 52,
-    "leagueId": 53,
-    "clubId": 240,
-    "card": [
-     63,
-     66,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     70,
-     89
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "CB",
     "id": "evo_Can_85",
     "name": "Can",
     "rating": 85,
@@ -96,13 +77,36 @@
      86,
      85
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     77,
-     87,
-     86
+     76,
+     86,
+     85
     ],
-    "tiebreak": 250
+    "tiebreak": 247
+   },
+   {
+    "slot": "CB",
+    "id": "id241486",
+    "name": "Koundé",
+    "rating": 85,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 18,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     71,
+     75,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     78,
+     89
+    ],
+    "tiebreak": 236
    },
    {
     "slot": "RB",
@@ -129,118 +133,95 @@
    },
    {
     "slot": "CDM",
-    "id": "id50402434",
-    "name": "King",
+    "id": "id50602505",
+    "name": "Mateus Fernandes",
     "rating": 85,
-    "color": "future_stars",
+    "color": "destined_for_glory",
     "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "LM",
-    "id": "id20775",
-    "name": "Quaresma",
-    "rating": 85,
-    "color": "hero",
-    "position": "RW",
     "nationId": 38,
-    "leagueId": 308,
-    "clubId": 114605,
-    "card": [
-     84,
-     84,
-     36
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     86,
-     38
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CM",
-    "id": "id67335759",
-    "name": "Formiga",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     79,
-     82,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     81,
-     84,
-     85
-    ],
-    "tiebreak": 250
-   },
-   {
-    "slot": "CM",
-    "id": "id67363107",
-    "name": "Anderson",
-    "rating": 85,
-    "color": "totw_gold",
-    "position": "CDM",
-    "nationId": 14,
     "leagueId": 13,
-    "clubId": 10,
+    "clubId": 18,
     "card": [
-     78,
-     83,
-     82
+     85,
+     85,
+     76
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     82,
-     87,
-     86
+     86,
+     86,
+     77
     ],
     "tiebreak": 249
    },
    {
-    "slot": "RM",
-    "id": "id50575428",
-    "name": "Lee Kang In",
-    "rating": 83,
-    "color": "otw",
-    "position": "RW",
-    "nationId": 167,
-    "leagueId": 53,
-    "clubId": 240,
+    "slot": "CM",
+    "id": "id50551331",
+    "name": "Tolisso",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 66,
+    "card": [
+     82,
+     80,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     85,
+     87
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CM",
+    "id": "id227353",
+    "name": "Dali",
+    "rating": 85,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 18,
+    "leagueId": 2221,
+    "clubId": 116312,
     "card": [
      82,
      84,
-     57
+     81
     ],
     "chem": 3,
     "eff": [
      84,
-     86,
-     59
+     87,
+     86
     ],
-    "tiebreak": 229
+    "tiebreak": 253
+   },
+   {
+    "slot": "CAM",
+    "id": "id50596510",
+    "name": "Akliouche",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     85,
+     86,
+     56
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     89,
+     61
+    ],
+    "tiebreak": 233
    },
    {
     "slot": "ST",
@@ -264,6 +245,29 @@
      59
     ],
     "tiebreak": 226
+   },
+   {
+    "slot": "ST",
+    "id": "id189362",
+    "name": "Hulk",
+    "rating": 85,
+    "color": "hall_of_fut",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 308,
+    "clubId": 132794,
+    "card": [
+     85,
+     82,
+     51
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     84,
+     53
+    ],
+    "tiebreak": 224
    }
   ]
  },
@@ -310,6 +314,6 @@
   "id50402434",
   "id50536618"
  ],
- "built": "2026-10-16 11:54 UTC",
+ "built": "2026-10-16 12:10 UTC",
  "week": "2026-10-12"
 }

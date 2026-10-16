@@ -1,7 +1,11 @@
 {
- "g": 5,
- "strength": 101.1,
- "group_cards": 514,
+ "g": 2,
+ "obj_ids": [
+  "evo_Diomande_89",
+  "id226330"
+ ],
+ "strength": 102.6,
+ "group_cards": 2,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -9,8 +13,8 @@
   }
  ],
  "team": {
-  "formation": "4-3-3 (4)",
-  "chem": 33,
+  "formation": "4-2-1-3",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -37,24 +41,24 @@
    },
    {
     "slot": "LB",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "id": "id50583793",
+    "name": "Nuno Mendes",
+    "rating": 89,
+    "color": "destined_for_glory",
+    "position": "LB",
+    "nationId": 38,
+    "leagueId": 16,
+    "clubId": 73,
     "card": [
-     87,
-     88,
-     78
+     84,
+     82,
+     87
     ],
     "chem": 3,
     "eff": [
-     91,
-     92,
-     82
+     88,
+     87,
+     89
     ],
     "tiebreak": 259
    },
@@ -128,7 +132,30 @@
     "tiebreak": 264
    },
    {
-    "slot": "CM",
+    "slot": "CDM",
+    "id": "id255253",
+    "name": "Vitinha",
+    "rating": 90,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     86,
+     89,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     94,
+     75
+    ],
+    "tiebreak": 254
+   },
+   {
+    "slot": "CDM",
     "id": "evo_Can_89",
     "name": "Can",
     "rating": 89,
@@ -151,50 +178,27 @@
     "tiebreak": 265
    },
    {
-    "slot": "CM",
-    "id": "id50603094",
-    "name": "Vicky López",
-    "rating": 90,
-    "color": "future_stars",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
-     87,
-     88,
-     54
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     90,
-     56
-    ],
-    "tiebreak": 235
-   },
-   {
     "slot": "CAM",
-    "id": "id5589",
-    "name": "Luís Figo",
-    "rating": 90,
-    "color": "icon",
-    "position": "RW",
-    "nationId": 38,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
      87,
      88,
-     45
+     78
     ],
     "chem": 3,
     "eff": [
-     89,
-     90,
-     47
+     91,
+     92,
+     82
     ],
-    "tiebreak": 226
+    "tiebreak": 259
    },
    {
     "slot": "LW",
@@ -221,26 +225,26 @@
    },
    {
     "slot": "ST",
-    "id": "id71557",
-    "name": "Bale",
-    "rating": 88,
-    "color": "icon",
-    "position": "RW",
-    "nationId": 50,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "id231443",
+    "name": "Dembélé",
+    "rating": 90,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 73,
     "card": [
-     88,
-     85,
-     66
+     89,
+     86,
+     56
     ],
     "chem": 3,
     "eff": [
-     90,
-     87,
-     68
+     93,
+     91,
+     58
     ],
-    "tiebreak": 245
+    "tiebreak": 237
    },
    {
     "slot": "RW",
@@ -257,13 +261,13 @@
      89,
      54
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     92,
      91,
-     56
+     90,
+     55
     ],
-    "tiebreak": 239
+    "tiebreak": 236
    }
   ]
  },
@@ -310,6 +314,6 @@
   "id202126",
   "id50573494"
  ],
- "built": "2026-10-16 11:54 UTC",
+ "built": "2026-10-16 12:09 UTC",
  "week": "2026-10-12"
 }

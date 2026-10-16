@@ -1,7 +1,11 @@
 {
- "g": 7,
- "strength": 99.7,
- "group_cards": 376,
+ "g": 2,
+ "obj_ids": [
+  "id50593503",
+  "id3622"
+ ],
+ "strength": 100.7,
+ "group_cards": 2,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -9,54 +13,54 @@
   }
  ],
  "team": {
-  "formation": "4-1-2-1-2 (2)",
+  "formation": "4-1-2-1-2",
   "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id234577",
-    "name": "Diogo Costa",
-    "rating": 86,
-    "color": "rare_gold",
+    "id": "id191694",
+    "name": "Campos",
+    "rating": 87,
+    "color": "hero",
     "position": "GK",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 236,
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 114605,
     "card": [
-     36,
-     38,
-     86
+     77,
+     68,
+     88
     ],
     "chem": 3,
     "eff": [
-     38,
-     40,
-     88
+     79,
+     70,
+     90
     ],
-    "tiebreak": 166
+    "tiebreak": 239
    },
    {
     "slot": "LB",
-    "id": "id50542162",
-    "name": "João Cancelo",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "RB",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 241,
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     82,
-     84,
-     83
+     87,
+     88,
+     78
     ],
     "chem": 3,
     "eff": [
-     85,
-     86,
-     87
+     89,
+     90,
+     80
     ],
-    "tiebreak": 255
+    "tiebreak": 259
    },
    {
     "slot": "CB",
@@ -83,26 +87,26 @@
    },
    {
     "slot": "CB",
-    "id": "id138956",
-    "name": "Chiellini",
-    "rating": 88,
-    "color": "icon",
-    "position": "CB",
-    "nationId": 27,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
-     64,
-     62,
-     90
+     76,
+     86,
+     85
     ],
     "chem": 3,
     "eff": [
-     66,
-     64,
-     92
+     78,
+     88,
+     87
     ],
-    "tiebreak": 222
+    "tiebreak": 253
    },
    {
     "slot": "RB",
@@ -129,52 +133,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id50602505",
-    "name": "Mateus Fernandes",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 13,
-    "clubId": 18,
-    "card": [
-     85,
-     85,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     87,
-     78
-    ],
-    "tiebreak": 252
-   },
-   {
-    "slot": "CM",
-    "id": "id272834",
-    "name": "João Neves",
-    "rating": 88,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     82,
-     84,
-     86
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     86,
-     88
-    ],
-    "tiebreak": 258
-   },
-   {
-    "slot": "CM",
     "id": "id237289",
     "name": "Patri Guijarro",
     "rating": 88,
@@ -197,27 +155,73 @@
     "tiebreak": 263
    },
    {
-    "slot": "CAM",
-    "id": "id1025",
-    "name": "Rui Costa",
-    "rating": 87,
-    "color": "hero",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 114605,
+    "slot": "LM",
+    "id": "id121944",
+    "name": "Schweinsteiger",
+    "rating": 88,
+    "color": "icon",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     84,
      86,
-     48
+     84,
+     82
     ],
     "chem": 3,
     "eff": [
-     86,
      88,
-     50
+     86,
+     84
     ],
-    "tiebreak": 224
+    "tiebreak": 258
+   },
+   {
+    "slot": "RM",
+    "id": "id135455",
+    "name": "Maicon",
+    "rating": 88,
+    "color": "icon",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     83,
+     81,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     83,
+     89
+    ],
+    "tiebreak": 257
+   },
+   {
+    "slot": "CAM",
+    "id": "id23174",
+    "name": "Riquelme",
+    "rating": 88,
+    "color": "icon",
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     86,
+     89,
+     39
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     91,
+     41
+    ],
+    "tiebreak": 220
    },
    {
     "slot": "ST",
@@ -310,6 +314,6 @@
   "id162895",
   "id262112"
  ],
- "built": "2026-10-16 11:54 UTC",
+ "built": "2026-10-16 12:10 UTC",
  "week": "2026-10-12"
 }

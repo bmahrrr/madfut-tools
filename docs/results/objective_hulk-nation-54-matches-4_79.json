@@ -1,66 +1,50 @@
 {
  "g": 5,
+ "obj_ids": [
+  "id279709",
+  "id236499",
+  "id230658",
+  "id259075",
+  "id234505"
+ ],
  "strength": 100.4,
  "group_cards": 441,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
+   "you_lead_first": "WIN",
    "they_lead_first": "WIN"
   },
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
+   "you_lead_first": "DRAW",
+   "they_lead_first": "DRAW"
   }
  ],
  "team": {
-  "formation": "4-1-2-1-2 (2)",
-  "chem": 29,
+  "formation": "3-4-2-1",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id225149",
-    "name": "Butez",
-    "rating": 78,
+    "id": "id239254",
+    "name": "Özer",
+    "rating": 79,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 18,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     40,
-     43,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     42,
-     45,
-     81
-    ],
-    "tiebreak": 168
-   },
-   {
-    "slot": "LB",
-    "id": "id231318",
-    "name": "Perraud",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 18,
+    "nationId": 48,
     "leagueId": 16,
     "clubId": 65,
     "card": [
-     76,
-     76,
-     77
+     34,
+     32,
+     80
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     77,
-     77,
-     78
+     36,
+     34,
+     82
     ],
-    "tiebreak": 232
+    "tiebreak": 152
    },
    {
     "slot": "CB",
@@ -109,30 +93,53 @@
     "tiebreak": 216
    },
    {
-    "slot": "RB",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
+    "slot": "CB",
+    "id": "id224490",
+    "name": "Çelik",
+    "rating": 79,
     "color": "rare_gold",
     "position": "RB",
-    "nationId": 54,
+    "nationId": 48,
     "leagueId": 31,
-    "clubId": 1745,
+    "clubId": 45,
     "card": [
-     75,
-     80,
-     75
+     69,
+     71,
+     78
     ],
     "chem": 3,
     "eff": [
-     77,
-     82,
-     77
+     71,
+     73,
+     80
     ],
-    "tiebreak": 236
+    "tiebreak": 224
    },
    {
-    "slot": "CDM",
+    "slot": "LM",
+    "id": "id231318",
+    "name": "Perraud",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 65,
+    "card": [
+     76,
+     76,
+     77
+    ],
+    "chem": 2,
+    "eff": [
+     77,
+     77,
+     78
+    ],
+    "tiebreak": 232
+   },
+   {
+    "slot": "CM",
     "id": "id230658",
     "name": "Arthur",
     "rating": 76,
@@ -178,27 +185,50 @@
     "tiebreak": 236
    },
    {
-    "slot": "CM",
-    "id": "id50591516",
-    "name": "Sarr",
-    "rating": 79,
+    "slot": "RM",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 136,
+    "position": "RB",
+    "nationId": 54,
     "leagueId": 31,
-    "clubId": 45,
+    "clubId": 1745,
     "card": [
-     73,
-     77,
-     77
+     75,
+     80,
+     75
     ],
     "chem": 3,
     "eff": [
-     75,
-     79,
-     79
+     77,
+     82,
+     77
     ],
-    "tiebreak": 233
+    "tiebreak": 236
+   },
+   {
+    "slot": "CAM",
+    "id": "id262842",
+    "name": "Baturina",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 10,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     77,
+     80,
+     60
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     82,
+     62
+    ],
+    "tiebreak": 223
    },
    {
     "slot": "CAM",
@@ -222,29 +252,6 @@
      72
     ],
     "tiebreak": 231
-   },
-   {
-    "slot": "ST",
-    "id": "id50596345",
-    "name": "Amoura",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "ST",
-    "nationId": 97,
-    "leagueId": 16,
-    "clubId": 72,
-    "card": [
-     82,
-     76,
-     50
-    ],
-    "chem": 1,
-    "eff": [
-     82,
-     76,
-     50
-    ],
-    "tiebreak": 208
    },
    {
     "slot": "ST",
@@ -315,6 +322,6 @@
   "id234505",
   "id50596345"
  ],
- "built": "2026-10-16 11:54 UTC",
+ "built": "2026-10-16 12:10 UTC",
  "week": "2026-10-12"
 }

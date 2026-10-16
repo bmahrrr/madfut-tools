@@ -1,20 +1,25 @@
 {
- "g": 4,
- "strength": 99.8,
- "group_cards": 10,
+ "g": 3,
+ "obj_ids": [
+  "id241736",
+  "id256632",
+  "id276278"
+ ],
+ "strength": 100.1,
+ "group_cards": 5,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
+   "you_lead_first": "WIN",
    "they_lead_first": "WIN"
   },
   {
    "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
+   "they_lead_first": "DRAW"
   }
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 31,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -31,13 +36,13 @@
      32,
      80
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     35,
-     33,
-     81
+     36,
+     34,
+     82
     ],
-    "tiebreak": 149
+    "tiebreak": 152
    },
    {
     "slot": "LB",
@@ -156,26 +161,49 @@
    },
    {
     "slot": "LM",
-    "id": "id262842",
-    "name": "Baturina",
+    "id": "id50596345",
+    "name": "Amoura",
     "rating": 79,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 10,
-    "leagueId": 31,
-    "clubId": 1745,
+    "position": "ST",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 72,
     "card": [
-     77,
-     80,
-     60
+     82,
+     76,
+     50
     ],
     "chem": 3,
     "eff": [
-     79,
-     82,
-     62
+     84,
+     78,
+     52
     ],
-    "tiebreak": 223
+    "tiebreak": 214
+   },
+   {
+    "slot": "CM",
+    "id": "id213296",
+    "name": "Bentaleb",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 65,
+    "card": [
+     74,
+     77,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     79,
+     75
+    ],
+    "tiebreak": 230
    },
    {
     "slot": "CM",
@@ -199,29 +227,6 @@
      77
     ],
     "tiebreak": 236
-   },
-   {
-    "slot": "CM",
-    "id": "id268534",
-    "name": "Diouf",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     74,
-     74,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     76,
-     70
-    ],
-    "tiebreak": 222
    },
    {
     "slot": "RM",
@@ -314,6 +319,6 @@
   "id234505",
   "id50596345"
  ],
- "built": "2026-10-16 11:54 UTC",
+ "built": "2026-10-16 12:10 UTC",
  "week": "2026-10-12"
 }

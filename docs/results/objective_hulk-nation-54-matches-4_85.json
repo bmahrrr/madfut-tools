@@ -1,6 +1,12 @@
 {
  "g": 4,
- "strength": 100.0,
+ "obj_ids": [
+  "id179944",
+  "id67375554",
+  "id67335759",
+  "id189362"
+ ],
+ "strength": 100.1,
  "group_cards": 487,
  "reddit": [
   {
@@ -10,53 +16,53 @@
  ],
  "team": {
   "formation": "4-1-2-1-2 (2)",
-  "chem": 33,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id268942",
-    "name": "Cata Coll",
+    "id": "id50603566",
+    "name": "Risser",
     "rating": 85,
-    "color": "rare_gold",
+    "color": "future_stars",
     "position": "GK",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 241,
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 64,
     "card": [
-     39,
-     36,
+     32,
+     32,
      85
     ],
     "chem": 3,
     "eff": [
-     41,
-     38,
-     87
+     34,
+     35,
+     90
     ],
-    "tiebreak": 166
+    "tiebreak": 155
    },
    {
     "slot": "LB",
-    "id": "id50542162",
-    "name": "João Cancelo",
-    "rating": 84,
+    "id": "id67376394",
+    "name": "Brugts",
+    "rating": 85,
     "color": "totw_gold",
-    "position": "RB",
-    "nationId": 38,
-    "leagueId": 53,
+    "position": "LB",
+    "nationId": 34,
+    "leagueId": 2222,
     "clubId": 241,
     "card": [
-     82,
-     84,
-     83
+     80,
+     80,
+     84
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     86,
-     88,
+     83,
+     83,
      87
     ],
-    "tiebreak": 255
+    "tiebreak": 247
    },
    {
     "slot": "CB",
@@ -106,72 +112,49 @@
    },
    {
     "slot": "RB",
-    "id": "id226161",
-    "name": "Marcos Llorente",
-    "rating": 85,
-    "color": "rare_gold",
+    "id": "id50542162",
+    "name": "João Cancelo",
+    "rating": 84,
+    "color": "totw_gold",
     "position": "RB",
-    "nationId": 45,
+    "nationId": 38,
     "leagueId": 53,
-    "clubId": 240,
+    "clubId": 241,
     "card": [
      82,
-     80,
+     84,
      83
     ],
     "chem": 3,
     "eff": [
-     84,
-     82,
-     85
+     86,
+     88,
+     87
     ],
-    "tiebreak": 251
+    "tiebreak": 255
    },
    {
     "slot": "CDM",
-    "id": "id67335759",
-    "name": "Formiga",
+    "id": "id50402434",
+    "name": "King",
     "rating": 85,
-    "color": "debut_icon",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     79,
-     82,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     81,
-     84,
-     85
-    ],
-    "tiebreak": 250
-   },
-   {
-    "slot": "CM",
-    "id": "id50596510",
-    "name": "Akliouche",
-    "rating": 85,
-    "color": "destined_for_glory",
+    "color": "future_stars",
     "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 73,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
     "card": [
-     85,
      86,
-     56
+     87,
+     69
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
      87,
-     89,
-     61
+     88,
+     70
     ],
-    "tiebreak": 233
+    "tiebreak": 245
    },
    {
     "slot": "CM",
@@ -197,27 +180,50 @@
     "tiebreak": 248
    },
    {
-    "slot": "CAM",
-    "id": "id50529429",
-    "name": "Isco",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 449,
+    "slot": "CM",
+    "id": "id67335759",
+    "name": "Formiga",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
+     79,
      82,
-     85,
-     59
+     83
     ],
     "chem": 3,
     "eff": [
-     86,
-     89,
-     63
+     81,
+     84,
+     85
     ],
-    "tiebreak": 232
+    "tiebreak": 250
+   },
+   {
+    "slot": "CAM",
+    "id": "id50602505",
+    "name": "Mateus Fernandes",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 13,
+    "clubId": 18,
+    "card": [
+     85,
+     85,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     87,
+     78
+    ],
+    "tiebreak": 252
    },
    {
     "slot": "ST",
@@ -311,6 +317,6 @@
   "id50402434",
   "id50536618"
  ],
- "built": "2026-10-16 11:54 UTC",
+ "built": "2026-10-16 12:10 UTC",
  "week": "2026-10-12"
 }
