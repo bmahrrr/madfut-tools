@@ -70,28 +70,6 @@
      "slot": "LB"
     },
     {
-     "id": "id240439",
-     "name": "Porteous",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 42,
-     "leagueId": 39,
-     "clubId": 112996,
-     "card": [
-      57,
-      62,
-      70
-     ],
-     "chem": 2,
-     "eff": [
-      58,
-      63,
-      71
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id263012",
      "name": "Turner",
      "rating": 81,
@@ -110,6 +88,28 @@
       60,
       65,
       83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id240439",
+     "name": "Porteous",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 42,
+     "leagueId": 39,
+     "clubId": 112996,
+     "card": [
+      57,
+      62,
+      70
+     ],
+     "chem": 2,
+     "eff": [
+      58,
+      63,
+      71
      ],
      "slot": "CB"
     },
@@ -224,28 +224,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id230142",
-     "name": "Oyarzabal",
-     "rating": 84,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 457,
-     "card": [
-      84,
-      81,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      86,
-      83,
-      50
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id50583500",
      "name": "Adeyemi",
      "rating": 83,
@@ -264,6 +242,28 @@
       86,
       80,
       47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id230142",
+     "name": "Oyarzabal",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 457,
+     "card": [
+      84,
+      81,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      83,
+      50
      ],
      "slot": "ST"
     }
@@ -348,28 +348,6 @@
      "slot": "LB"
     },
     {
-     "id": "id263013",
-     "name": "Wubben-Moy",
-     "rating": 81,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 2216,
-     "clubId": 1,
-     "card": [
-      55,
-      63,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      57,
-      65,
-      83
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id240439",
      "name": "Porteous",
      "rating": 71,
@@ -388,6 +366,28 @@
       58,
       63,
       71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id263013",
+     "name": "Wubben-Moy",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      55,
+      63,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      65,
+      83
      ],
      "slot": "CB"
     },
@@ -436,24 +436,24 @@
      "slot": "RB"
     },
     {
-     "id": "id50529429",
-     "name": "Isco",
+     "id": "id245872",
+     "name": "Little",
      "rating": 84,
-     "color": "totw_gold",
-     "position": "CAM",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 449,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
      "card": [
-      82,
-      85,
-      59
+      83,
+      86,
+      78
      ],
      "chem": 3,
      "eff": [
-      84,
-      87,
-      61
+      85,
+      88,
+      80
      ],
      "slot": "CM"
     },
@@ -480,24 +480,24 @@
      "slot": "CM"
     },
     {
-     "id": "id245872",
-     "name": "Little",
+     "id": "id50529429",
+     "name": "Isco",
      "rating": 84,
-     "color": "rare_gold",
-     "position": "CDM",
-     "nationId": 42,
-     "leagueId": 2216,
-     "clubId": 1,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
      "card": [
-      83,
-      86,
-      78
+      82,
+      85,
+      59
      ],
      "chem": 3,
      "eff": [
-      85,
-      88,
-      80
+      84,
+      87,
+      61
      ],
      "slot": "CM"
     },
@@ -577,72 +577,50 @@
    }
   },
   {
-   "formation": "3-1-4-2",
+   "formation": "3-4-1-2",
    "chem": 30,
    "players": [
     {
-     "id": "id266451",
-     "name": "Cumings",
-     "rating": 72,
+     "id": "id213536",
+     "name": "Crépeau",
+     "rating": 73,
      "color": "rare_silver",
      "position": "GK",
-     "nationId": 42,
-     "leagueId": 2216,
-     "clubId": 10,
+     "nationId": 70,
+     "leagueId": 39,
+     "clubId": 112606,
      "card": [
-      30,
-      25,
-      73
+      35,
+      34,
+      74
      ],
      "chem": 2,
      "eff": [
-      31,
-      26,
-      74
+      36,
+      35,
+      75
      ],
      "slot": "GK"
     },
     {
-     "id": "id224921",
-     "name": "Adrián Marín",
-     "rating": 69,
+     "id": "id240439",
+     "name": "Porteous",
+     "rating": 71,
      "color": "rare_silver",
-     "position": "LB",
-     "nationId": 45,
+     "position": "CB",
+     "nationId": 42,
      "leagueId": 39,
-     "clubId": 112606,
+     "clubId": 112996,
      "card": [
-      61,
-      63,
-      68
-     ],
-     "chem": 3,
-     "eff": [
-      63,
-      65,
+      57,
+      62,
       70
      ],
-     "slot": "CB"
-    },
-    {
-     "id": "id241637",
-     "name": "Tchouaméni",
-     "rating": 84,
-     "color": "rare_gold",
-     "position": "CDM",
-     "nationId": 18,
-     "leagueId": 53,
-     "clubId": 243,
-     "card": [
-      76,
-      79,
-      82
-     ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      79,
-      82,
-      85
+      58,
+      63,
+      71
      ],
      "slot": "CB"
     },
@@ -669,26 +647,26 @@
      "slot": "CB"
     },
     {
-     "id": "id50529429",
-     "name": "Isco",
-     "rating": 84,
-     "color": "totw_gold",
-     "position": "CAM",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 449,
+     "id": "id263012",
+     "name": "Turner",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 88,
      "card": [
-      82,
-      85,
-      59
+      59,
+      64,
+      82
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      84,
-      87,
-      61
+      60,
+      65,
+      83
      ],
-     "slot": "CDM"
+     "slot": "CB"
     },
     {
      "id": "id50542162",
@@ -713,28 +691,6 @@
      "slot": "LM"
     },
     {
-     "id": "id194765",
-     "name": "Griezmann",
-     "rating": 84,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 18,
-     "leagueId": 39,
-     "clubId": 112606,
-     "card": [
-      84,
-      85,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      88,
-      66
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id245872",
      "name": "Little",
      "rating": 84,
@@ -753,6 +709,28 @@
       85,
       88,
       80
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50529429",
+     "name": "Isco",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      82,
+      85,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      61
      ],
      "slot": "CM"
     },
@@ -779,26 +757,26 @@
      "slot": "RM"
     },
     {
-     "id": "id188545",
-     "name": "Lewandowski",
+     "id": "id194765",
+     "name": "Griezmann",
      "rating": 84,
      "color": "rare_gold",
      "position": "ST",
-     "nationId": 37,
+     "nationId": 18,
      "leagueId": 39,
-     "clubId": 693,
+     "clubId": 112606,
      "card": [
       84,
-      78,
-      49
+      85,
+      63
      ],
-     "chem": 1,
+     "chem": 3,
      "eff": [
-      84,
-      78,
-      49
+      87,
+      88,
+      66
      ],
-     "slot": "ST"
+     "slot": "CAM"
     },
     {
      "id": "id50583500",
@@ -821,12 +799,34 @@
       47
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id230142",
+     "name": "Oyarzabal",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 457,
+     "card": [
+      84,
+      81,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      83,
+      50
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 87.0,
-    "attack": 83.5,
-    "defence": 74.6,
+    "attack": 84.6,
+    "defence": 78.0,
     "control_cards": [
      88,
      88,
@@ -835,17 +835,17 @@
      86
     ],
     "attack_cards": [
+     87,
      86,
-     84,
+     86,
      84,
      80
     ],
     "defence_cards": [
-     85,
      83,
-     74,
-     70,
-     61
+     83,
+     75,
+     71
     ],
     "chem": 30,
     "ctrl_not_full": 0,
@@ -854,6 +854,6 @@
   }
  ],
  "not_owned": [],
- "built": "2026-10-15 05:48 UTC",
+ "built": "2026-10-16 03:17 UTC",
  "week": "2026-10-12"
 }
