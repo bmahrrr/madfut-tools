@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016c";
+const APP_V = "20261016d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -581,7 +581,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -589,23 +589,25 @@ async function keyCards(A, B, TA, TB, lv) {
   const tweak = (T, i, d) => T.map((e, k) => k === i ? Object.assign({}, e, { a: e.a + d, c: e.c + d, d: e.d + d, t: e.t + 3 * d }) : e);
   const jobs = [...TB.map((_, j) => ({ side: "B", k: j })), ...TA.map((_, i) => ({ side: "A", k: i }))];
   let done = 0; box.innerHTML = `<p class="muted small">Testing all 22 cards… <span id="kcProg">0</span>/22</p>`;
-  const res = await Promise.all(jobs.map((J, n) => poolAsk(n, { type: "o2", A: J.side === "A" ? tweak(A, J.k, D) : A, B: J.side === "B" ? tweak(B, J.k, -D) : B })
+  const res = await Promise.all(jobs.map((J, n) => poolAsk(n, { type: "o2", A: J.side === "A" ? tweak(A, J.k, -D) : A, B: J.side === "B" ? tweak(B, J.k, -D) : B })
     .then(o => { done++; const p = $("kcProg"); if (p) p.textContent = done; return Object.assign(J, { o }); })));
   const word = { 3: "win", 2: "draw", 0: "lose" }, order = ["you lead", "they lead"];
-  const gain = J => [0, 1].filter(f => J.o[f] > base[f]).map(f => `${order[f]}: ${word[base[f]]} → <b>${word[J.o[f]]}</b>`).join(", ");
-  const n2 = J => [0, 1].filter(f => J.o[f] > base[f]).length;
-  const theirs = res.filter(J => J.side === "B" && gain(J)).sort((x, y) => n2(y) - n2(x)), mine = res.filter(J => J.side === "A" && gain(J)).sort((x, y) => n2(y) - n2(x));
-  const li = (J, T) => `<li><b>${esc(T[J.k].name)}</b> <span class="muted">(${esc(J.side === "A" ? "+" : "−")}${D} on every stat)</span> — ${gain(J)}</li>`;
+  // their card 1 weaker -> better for you; your card 1 weaker -> worse for you
+  const diff = J => [0, 1].filter(f => J.side === "B" ? J.o[f] > base[f] : J.o[f] < base[f]);
+  const gain = J => diff(J).map(f => `${order[f]}: ${word[base[f]]} → <b>${word[J.o[f]]}</b>`).join(", ");
+  const theirs = res.filter(J => J.side === "B" && diff(J).length).sort((x, y) => diff(y).length - diff(x).length);
+  const mine = res.filter(J => J.side === "A" && diff(J).length).sort((x, y) => diff(y).length - diff(x).length);
+  const li = (J, T) => `<li><b>${esc(T[J.k].name)}</b> — ${gain(J)}</li>`;
   box.innerHTML = `<h3>Key cards</h3>
     <p class="small" style="margin:4px 0"><b>Their cards that decide it</b> — if this one card were ${D} weaker in every stat:</p>
     ${theirs.length ? `<ul class="small" style="margin:0;padding-left:18px">${theirs.map(J => li(J, TB)).join("")}</ul>` : `<p class="small muted" style="margin:0">None — no single card of theirs is holding the result.</p>`}
-    <p class="small" style="margin:10px 0 4px"><b>Your weak links</b> — if this one card of yours were ${D} stronger in every stat:</p>
-    ${mine.length ? `<ul class="small" style="margin:0;padding-left:18px">${mine.map(J => li(J, TA)).join("")}</ul><p class="small muted" style="margin:6px 0 0">Upgrade these first: a better version (chem, boost or a stronger card) changes the result.</p>` : `<p class="small muted" style="margin:0">None — a small upgrade to any one card doesn't change the result.</p>`}
+    <p class="small" style="margin:10px 0 4px"><b>Your cards holding the result</b> — if this one card of yours were ${D} weaker in every stat:</p>
+    ${mine.length ? `<ul class="small" style="margin:0;padding-left:18px">${mine.map(J => li(J, TA)).join("")}</ul><p class="small muted" style="margin:6px 0 0">Keep these exactly as they are (full chem, same version). Swapping one for a slightly weaker card, or losing a chem link, costs you the result.</p>` : `<p class="small muted" style="margin:0">None — the result survives any one of your cards being slightly weaker.</p>`}
     <p class="small muted" style="margin:8px 0 0">1 point is the smallest possible change: these cards are what the result hangs on.</p>`;
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -927,7 +929,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016c");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
