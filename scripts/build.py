@@ -108,7 +108,7 @@ def main():
         force = len(sys.argv) > 2 and sys.argv[2] == "all"
         for o in objs:
             for s in w.get("myclub", []):
-                if not 77 <= (s.get("cap") or 99) <= 90: continue     # objectives are done in the 80-90 series (a little below at most)
+                if not 70 <= (s.get("cap") or 99) <= 90: continue     # objectives are done in the 80-90 series, sometimes a bit below
                 try:
                     pub = json.load(open(os.path.join(RES, f"myclub_{s['key']}.json")))
                 except FileNotFoundError:

@@ -1,8 +1,10 @@
 """Objective teams: the series' best team with a SAFE number of cards from the objective's club / nation / league /
 position swapped in ("win 7 duels with Lombardia FC cards", "win 3 matches with min. 4 Brazil cards").
 
-Safe = the team keeps the best team's result against every Reddit team (each lead order) and loses no more than
-MAX_DROP of its in-game strength (boosts + chem). Objective cards go in one at a time, the strongest valid swap each
+Safe = the team loses no more than MAX_DROP of the best team's in-game strength (boosts + chem). These teams are
+played against the AI, so the Reddit team isn't the bar: the owner's own Season 2 objective teams lost to the Reddit
+team but kept 97-100% of the best team's strength (Lombardia duels 99.5%, Brazil wins 97.3%, Portugal duels 100.2%). Duels: at least 99.5% (just a few
+cards when the group is unboosted, a full team when it's boosted). Matches: at least 97%. Objective cards go in one at a time, the strongest valid swap each
 time (with a second swap to repair chem when needed), and stop as soon as no swap is safe.
 Duels: as many as are safe (can be 0 -> series skipped). Matches: at least `min`, or the series is skipped.
 """
@@ -11,7 +13,7 @@ from .myclub import Pool, fits, secondary
 from .game import play
 
 KEY = {"club": "clubId", "nation": "nationId", "league": "leagueId"}
-MAX_DROP = 0.02
+MAX_DROP = {"duels": 0.005, "matches": 0.03}   # duels: practically no weaker; matches: the cards only need to be in the team
 
 
 def build_objective(obj, series, owned_cards, base_ids, refs, seconds=60, seed=1, log=print):
@@ -21,20 +23,30 @@ def build_objective(obj, series, owned_cards, base_ids, refs, seconds=60, seed=1
     inG = (lambda c: c["position"] == obj["gid"]) if obj["on"] == "position" else (lambda c: c[KEY[obj["on"]]] == obj["gid"])
     G = sorted((c for c in me.cards if inG(c)), key=lambda c: -c["T3"])
     base = [by[i] for i in base_ids if i in by]
+    while G and 5 <= len(base) < 11:          # a best-team card no longer available: the strongest card that fits
+        opts = {c["id"]: c for p in me.pos_top for c in me.pos_top[p]}
+        used = {c["pid"] for c in base}
+        best = None
+        for c in opts.values():
+            if c["pid"] in used: continue
+            t = base + [c]
+            if len(t) == 11 and not fits(t): continue
+            v = secondary(me.eff(t)) if len(t) == 11 else c["T3"]
+            if best is None or v > best[0]: best = (v, c)
+        if best is None: break
+        base.append(best[1])
     if len(base) != 11 or not G:
         return {"skip": "no cards" if not G else "no best team", "group_cards": len(G)}
     R = [me.eff(r) for r in refs]
     res = lambda E: [play(E, O, 0)[0] + play(E, O, 1)[0] for O in R]
-    E0 = me.eff(base); need = res(E0); s0 = secondary(E0); floor = s0 * (1 - MAX_DROP)
+    E0 = me.eff(base); s0 = secondary(E0); floor = s0 * (1 - MAX_DROP[obj["kind"]])
     cnt = lambda t: sum(1 for c in t if inG(c))
     target = 11 if obj["kind"] == "duels" else obj["min"]
 
     def safe(t):           # -> strength, or None when the team isn't safe
         if not fits(t): return None
         E = me.eff(t); s = secondary(E)
-        if s < floor: return None
-        if any(a < b for a, b in zip(res(E), need)): return None
-        return s
+        return None if s < floor else s
 
     sw = {c["id"]: c for c in G[:40]}
     for p in {q for c in G for q in c["P"]}:
