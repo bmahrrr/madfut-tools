@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016f";
+const APP_V = "20261016g";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -86,7 +86,7 @@ async function init() {
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
-  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup();
+  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives();
 }
 
 // ---------- shared card UI ----------
@@ -367,9 +367,9 @@ async function renderTeams() {
   document.querySelectorAll("details.sercard").forEach(x => x.ontoggle = () => { x.open ? OPEN.add(x.dataset.ser) : OPEN.delete(x.dataset.ser); });
   wireOpps(); if (!V) wireNoHave();
 }
-function playersTable(ps, showTB, nh) {     // nh = "myclub:73" adds a Don't have button to each player
+function playersTable(ps, showTB, nh, mark) {     // nh = "myclub:73" adds a Don't have button to each player; mark(p): highlight
   return `<div class="squad"><div class="stkey"><span>Att</span><span>Ctl</span><span>Def</span></div>${ps.map(p =>
-    `<div class="prow"><span class="pos">${esc(p.slot)}</span><span class="nm"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}<small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Card ${p.card.join("/")} · Chem ${p.chem}</small></span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
+    `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}<small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Card ${p.card.join("/")} · Chem ${p.chem}</small></span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
 }
 
 // ---------- My Club compare ----------
@@ -581,7 +581,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -607,7 +607,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -929,7 +929,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016f");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016g");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1080,6 +1080,208 @@ async function setupUsage() {
   $("uFind").oninput = () => { shown = 25; draw(); };
   $("uMore").onclick = () => { shown += 50; draw(); };
   draw();
+}
+// ---------- Objectives (the game's My Club objectives, played against the AI) ----------
+// "Win 7 duels with Lombardia FC cards" -> per series, the team with the most Lombardia cards it can field, strongest
+// after this season's boosts and chem. "Win 5 matches with min. 5 Brazil cards" -> the strongest team with at least 5.
+// Built right here on the phone from this season's boosts every time the tab opens (no game solving needed: the AI
+// teams are weak), so the teams always follow the current season and old ones are never shown. Objectives added with
+// GitHub connected are saved in docs/objectives.json for everyone; anyone else's are saved on their phone.
+const OBJ_KEY = { club: "clubId", nation: "nationId", league: "leagueId" };
+const objGroup = o => o.on === "position" ? o.gid : groupLabel(o.on, o.gid);
+const objIn = o => o.on === "position" ? (c => c.position === o.gid) : (c => c[OBJ_KEY[o.on]] === o.gid);   // position: the card's main position
+const objText = o => o.kind === "duels" ? `Win ${o.count || "?"} duels with ${objGroup(o)} cards` : `Win ${o.count || "?"} matches with min. ${o.min} ${objGroup(o)} cards in the team`;
+const objShort = o => o.kind === "duels" ? `${o.count} duels · ${objGroup(o)}` : `${o.count} wins · ${o.min}+ ${objGroup(o)}`;
+let OBJ_SHARED = [];
+const objLocal = () => { try { return JSON.parse(localStorage.getItem("objectives") || "[]"); } catch (e) { return []; } };
+const objSave = L => { try { localStorage.setItem("objectives", JSON.stringify(L)); } catch (e) {} };
+const objList = () => OBJ_SHARED.map(o => Object.assign({ shared: true }, o)).concat(objLocal().filter(o => !OBJ_SHARED.some(x => x.id === o.id)));
+async function objPutShared(edit, msg) {          // change docs/objectives.json on GitHub (needs the key saved on this phone)
+  const f = await ghGetFile("docs/objectives.json"), cur = f ? JSON.parse(f.text) : { objectives: [] };
+  cur.objectives = edit(cur.objectives);
+  await ghPutFile("docs/objectives.json", JSON.stringify(cur, null, 1), msg, f && f.sha);
+  OBJ_SHARED = cur.objectives;
+}
+const OBJ_OPEN = new Set(), OBJ_RES = new Map();     // built teams, kept while the page is open
+let OBJ_FORM = false;
+const pidOf = c => (Number.isInteger(c.baseId) && c.baseId > 0) ? "b" + c.baseId : c.name + "|" + c.nationId;
+const FIT_CACHE = new Map();
+function formFit(team) {            // [formation, [card index per slot]] if the 11 cards fit a formation, else null
+  const key = team.map(c => [...c.P].sort().join("/")).sort().join(",");
+  if (FIT_CACHE.has(key)) { const r = FIT_CACHE.get(key); return r && fitWith(team, r[0]); }
+  let out = null;
+  for (const f of Object.keys(FORMS_CACHE || {})) { const m = fitWith(team, f); if (m) { out = m; break; } }
+  FIT_CACHE.set(key, out); return out;
+}
+function fitWith(team, f) {
+  const slots = FORMS_CACHE[f], match = new Array(11).fill(-1);
+  const tr = (i, seen) => { for (let j = 0; j < 11; j++) if (team[i].P.has(slots[j]) && !seen[j]) { seen[j] = true; if (match[j] < 0 || tr(match[j], seen)) { match[j] = i; return true; } } return false; };
+  for (let i = 0; i < 11; i++) if (!tr(i, new Array(11).fill(false))) return null;
+  return [f, match];
+}
+function objStrength(team, series) {     // in-game strength: best 7 of each stat (boosts + chem) + tiebreak totals / 10
+  const E = effective(team, series); let s = 0;
+  for (const k of ["a", "c", "d"]) s += E.map(e => e[k]).sort((x, y) => y - x).slice(0, 7).reduce((x, y) => x + y, 0);
+  return s + E.reduce((x, e) => x + e.t, 0) / 10;
+}
+async function objBuild(o, series, baseIds) {
+  const cap = series.cap || 99, inG = objIn(o);
+  const pool = CARDS.filter(c => c.rating <= cap && c.owned !== false && !(c.from_week && WEEK && c.from_week > WEEK.week));
+  const T3 = new Map(pool.map(c => { const b = boosted(c, series.boosts); return [c, b[0] + b[1] + b[2]]; }));
+  const byT = L => L.sort((x, y) => T3.get(y) - T3.get(x));
+  const G = byT(pool.filter(inG));
+  if (!G.length) return { g: 0, none: true, groupCards: 0 };
+  const top = new Map(), add = c => top.set(c.id, c);
+  G.slice(0, 40).forEach(add);
+  const posSet = new Set(pool.flatMap(c => [...c.P]));
+  for (const p of posSet) { G.filter(c => c.P.has(p)).slice(0, 3).forEach(add); }
+  const SW = [...top.values()];
+  const F = new Map();                     // other cards: best per position, full-chem cards, cards that link to the group
+  for (const p of posSet) byT(pool.filter(c => c.P.has(p))).slice(0, 20).forEach(c => F.set(c.id, c));
+  byT(pool.filter(c => AUTO.has(c.color))).slice(0, 40).forEach(c => F.set(c.id, c));
+  const lg = new Set(G.map(c => c.leagueId)), na = new Set(G.map(c => c.nationId));
+  byT(pool.filter(c => lg.has(c.leagueId) || na.has(c.nationId))).slice(0, 80).forEach(c => F.set(c.id, c));
+  G.forEach(c => F.set(c.id, c));
+  const FL = [...F.values()];
+  const cnt = t => t.reduce((n, c) => n + (inG(c) ? 1 : 0), 0);
+  const need = o.kind === "duels" ? 11 : o.min;
+  const keyOf = t => [Math.min(cnt(t), need), objStrength(t, series)];
+  const gt = (x, y) => x[0] > y[0] || (x[0] === y[0] && x[1] > y[1] + 1e-9);
+  const ok = (t, i) => { const p = pidOf(t[i]); for (let k = 0; k < 11; k++) if (k !== i && pidOf(t[k]) === p) return false; return !!formFit(t); };
+  let cur = baseIds.map(id => BYID.get(id)).filter(c => c && T3.has(c));
+  if (cur.length !== 11 || !formFit(cur)) {          // no usable best team: start from the strongest group cards that fit
+    return { g: 0, none: true, groupCards: G.length, msg: "This series' best team isn't built yet." };
+  }
+  // 1. add objective cards one at a time: every (slot, card) swap, keep the strongest
+  while (cnt(cur) < need) {
+    let best = null;
+    for (let i = 0; i < 11; i++) { if (inG(cur[i])) continue;
+      for (const c of SW) { const t = cur.slice(); t[i] = c; if (!ok(t, i)) continue; const k = keyOf(t); if (!best || gt(k, best.k)) best = { k, t }; } }
+    if (!best || cnt(best.t) <= cnt(cur)) break;
+    cur = best.t;
+  }
+  // 2. random search: one or two swaps at a time, never fewer objective cards
+  let ck = keyOf(cur), bt = cur, bk = ck;
+  for (let it = 0; it < 30000; it++) {
+    if (it % 1500 === 0) await new Promise(r => setTimeout(r, 0));
+    let t = cur.slice(), moves = Math.random() < 0.3 ? 2 : 1, good = true;
+    for (let m = 0; m < moves && good; m++) {
+      const i = Math.floor(Math.random() * 11), L = Math.random() < 0.4 ? SW : FL;
+      t[i] = L[Math.floor(Math.random() * L.length)];
+      good = ok(t, i) || m === 0 && moves === 2;
+    }
+    if (!good || !formFit(t) || new Set(t.map(pidOf)).size < 11) continue;
+    const k = keyOf(t);
+    if (!gt(ck, k)) { cur = t; ck = k; if (gt(k, bk)) { bt = t; bk = k; } }
+    if (gt(bk, ck) && Math.random() < 0.002) { cur = bt; ck = bk; }
+  }
+  // 3. check every single swap until none helps
+  for (let improved = true; improved;) {
+    improved = false; await new Promise(r => setTimeout(r, 0));
+    for (let i = 0; i < 11 && !improved; i++) for (const c of FL) {
+      const t = bt.slice(); t[i] = c; if (!ok(t, i)) continue;
+      const k = keyOf(t); if (gt(k, bk)) { bt = t; bk = k; improved = true; break; }
+    }
+  }
+  const [form, match] = formFit(bt), E = effective(bt, series), slots = FORMS_CACHE[form];
+  const players = match.map((i, j) => { const c = bt[i]; return { slot: slots[j], id: c.id, name: c.name, rating: c.rating, color: c.color, position: c.position, nationId: c.nationId, leagueId: c.leagueId, clubId: c.clubId,
+    card: [c.attack, c.control, c.defense], chem: E[i].chem, eff: [E[i].a, E[i].c, E[i].d], tiebreak: E[i].t }; });
+  return { g: cnt(bt), groupCards: G.length, formation: form, chem: E.reduce((x, e) => x + e.chem, 0), players };
+}
+async function renderObjectives(fetch = true) {     // fetch: reload the shared list (not right after changing it)
+  if (fetch) try { OBJ_SHARED = (await getJSON("objectives.json")).objectives || []; } catch (e) {}
+  const box = $("objBody"), L = objList();
+  const players = [...new Set(L.map(o => o.player || "Other"))];
+  let html = `<div class="card"><h2>Objectives</h2><p class="small" style="margin:4px 0 0">The game's Fatal My Club objectives, by the player they unlock. Tap a player, then an objective, for a team in every series. <b>Play these teams against the AI.</b></p>
+    <p class="small muted" style="margin:6px 0 0">Each team uses this season's boosts and updates by itself every season. Duels: as many of the objective's cards as fit. Matches: at least the number needed in the team (they don't have to win the duels). Objective cards are marked <span class="gold">▌</span>.</p>
+    <div style="margin-top:10px">${OBJ_FORM ? objFormHtml(players) : `<button class="btn" id="objAdd">Add Objective</button>`}</div></div>`;
+  if (!L.length) html += `<div class="card small muted">No objectives yet.</div>`;
+  for (const pl of players) {
+    const its = L.filter(o => (o.player || "Other") === pl), sid = "objp:" + pl;
+    html += `<details class="card sercard" data-op="${esc(sid)}"${OBJ_OPEN.has(sid) ? " open" : ""}>${strip(String(its.length), pl, esc(its.map(objShort).join(" · ")), "")}<div class="body">${its.map(o => {
+      const oid = "obj:" + o.id;
+      return `<details class="tgrp" data-oo="${esc(oid)}"${OBJ_OPEN.has(oid) ? " open" : ""}><summary class="notc">${esc(objText(o))}</summary><div id="ob_${esc(o.id)}"><p class="small muted">Building…</p></div></details>`; }).join("")}</div></details>`;
+  }
+  box.innerHTML = html;
+  if (OBJ_FORM) wireObjForm(); else $("objAdd").onclick = () => { OBJ_FORM = true; renderObjectives(false); };
+  box.querySelectorAll("details[data-op]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.op) : OBJ_OPEN.delete(x.dataset.op); });
+  box.querySelectorAll("details[data-oo]").forEach(x => { x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.oo) : OBJ_OPEN.delete(x.dataset.oo); if (x.open) objFill(x.dataset.oo.slice(4)); }; if (x.open) objFill(x.dataset.oo.slice(4)); });
+}
+async function objFill(id) {
+  const o = objList().find(x => x.id === id); if (!o || !$("ob_" + id)) return;
+  const wk = WEEK && WEEK.week, ck = id + "|" + wk;
+  if (!OBJ_RES.has(ck)) OBJ_RES.set(ck, (async () => {
+    const out = [];
+    for (const s of (WEEK && WEEK.myclub) || []) {
+      let base = []; try { const d = await getJSON(`results/myclub_${s.key}.json`); if (d.week === wk) base = d.team.players.map(p => p.id); } catch (e) {}
+      const e2 = $("ob_" + id); if (e2) e2.innerHTML = `<p class="small muted">Building ${esc(s.key)} Series…</p>`;
+      out.push([s, await objBuild(o, s, base)]);
+    }
+    return out;
+  })());
+  const res = await OBJ_RES.get(ck);
+  const el = $("ob_" + id); if (!el) return;            // the tab may have redrawn while building
+  const mark = objIn(o);
+  el.innerHTML = res.map(([s, r]) => {
+    const ssid = "obj:" + id + ":" + s.key;
+    if (r.none) return `<div class="orow"><b>${esc(s.key)} Series</b> <span class="small muted">· ${r.msg || (r.groupCards ? "no team fits" : `no ${esc(objGroup(o))} cards under ${s.cap}`)}</span></div>`;
+    const short = o.kind === "matches" && r.g < o.min;
+    return `<details class="oteam" data-ot="${esc(ssid)}"${OBJ_OPEN.has(ssid) ? " open" : ""}><summary class="notc"><b>${esc(s.key)} Series</b> <span class="muted small">· ${r.g} ${esc(objGroup(o))} card${r.g === 1 ? "" : "s"} · ${esc(r.formation)} · ${r.chem} chem${short ? ` · can't reach ${o.min}` : ""}</span></summary>${playersTable(r.players, true, null, mark)}</details>`;
+  }).join("") + `<p style="margin:8px 0 4px"><button class="ghost" data-objdel="${esc(id)}">Remove Objective</button></p>`;
+  el.querySelectorAll("details[data-ot]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.ot) : OBJ_OPEN.delete(x.dataset.ot); });
+  el.querySelector("[data-objdel]").onclick = async () => {
+    if (o.shared && !ghToken()) { alert("This objective is shared with everyone. Only the site owner can remove it."); return; }
+    if (!confirm(o.shared ? "Remove this objective for everyone?" : "Remove this objective?")) return;
+    try { if (o.shared) await objPutShared(L => L.filter(x => x.id !== id), "Remove objective"); objSave(objLocal().filter(x => x.id !== id)); renderObjectives(false); }
+    catch (e) { alert("Couldn't remove it: " + e.message); }
+  };
+}
+const OBJ_POS = ["GK", "LB", "CB", "RB", "CDM", "CM", "CAM", "LM", "RM", "LW", "RW", "ST", "CF"];
+function objFormHtml(players) {
+  return `<div class="fgrid"><label>Player it unlocks<input type="text" id="oPl" list="oPlL" placeholder="e.g. Hulk"><datalist id="oPlL">${players.map(p => `<option value="${esc(p)}">`).join("")}</datalist></label>
+    <label>Objective<select id="oKind"><option value="duels">Win duels with … cards</option><option value="matches">Win matches with min. … cards</option></select></label>
+    <label>How many<input type="number" id="oCount" inputmode="numeric" min="1" value="7"></label>
+    <label id="oMinL" hidden>Min. cards in team<input type="number" id="oMin" inputmode="numeric" min="1" max="11" value="4"></label>
+    <label>Cards from<select id="oOn"><option value="club">Club</option><option value="nation">Nation</option><option value="league">League</option><option value="position">Position</option></select></label>
+    <label id="oPosL" hidden>Position<select id="oPos">${OBJ_POS.map(p => `<option>${p}</option>`).join("")}</select></label></div>
+    <div id="oQL"><input type="text" id="oQ" placeholder="Type the club / nation / league name, or a player from it" style="margin-top:8px"><ul class="sr" id="oSr" hidden></ul></div>
+    <p class="small" id="oPick" style="margin:8px 0"></p>
+    <div class="row"><button class="btn" id="oSave" disabled>Add Objective</button> <button class="ghost" id="oCancel">Cancel</button></div>`;
+}
+function wireObjForm() {
+  let pick = null;
+  const kind = $("oKind"), on = $("oOn"), inp = $("oQ"), ul = $("oSr");
+  const grp = () => on.value === "position" ? { on: "position", id: $("oPos").value } : pick;
+  const objFrom = g => { const o = { player: cap($("oPl").value.trim()), kind: kind.value, on: g.on, gid: g.id, count: +$("oCount").value || 1 }; if (o.kind === "matches") o.min = Math.max(1, Math.min(11, +$("oMin").value || 1)); return o; };
+  const show = () => {
+    const pos = on.value === "position";
+    $("oMinL").hidden = kind.value !== "matches"; $("oPosL").hidden = !pos; $("oQL").hidden = pos;
+    const g = grp(), ready = g && $("oPl").value.trim();
+    $("oPick").innerHTML = g ? `${esc($("oPl").value.trim() || "?")}: <b>${esc(objText(objFrom(g)))}</b>` : ""; $("oSave").disabled = !ready;
+  };
+  const refresh = () => {
+    const k = on.value, q = inp.value.trim().toLowerCase(); if (k === "position" || q.length < 2) { ul.hidden = true; return; }
+    const opts = new Map(), names = k === "nation" ? NATIONS : k === "league" ? LEAGUES : CLUBS;
+    for (const [id, n] of Object.entries(names)) if (n.toLowerCase().includes(q)) opts.set(+id, null);
+    for (const c of search(q, 8)) if (!opts.has(c[KEYOF[k]])) opts.set(c[KEYOF[k]], c.name);
+    const list = [...opts.entries()].slice(0, 10); ul.hidden = !list.length;
+    ul.innerHTML = list.map(([id]) => `<li data-id="${id}"><b>${esc(groupLabel(k, id))}</b> <span class="muted small">${esc(groupSample(k, id).join(", "))}</span></li>`).join("");
+  };
+  inp.oninput = refresh; on.onchange = () => { pick = null; inp.value = ""; refresh(); show(); };
+  ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; pick = { on: on.value, id: +li.dataset.id }; ul.hidden = true; inp.value = groupLabel(pick.on, pick.id); show(); };
+  [kind, $("oCount"), $("oMin"), $("oPos"), $("oPl")].forEach(x => x.oninput = x.onchange = show);
+  $("oCancel").onclick = () => { OBJ_FORM = false; renderObjectives(false); };
+  $("oSave").onclick = async () => {
+    const g = grp(); if (!g || !$("oPl").value.trim()) return;
+    const o = objFrom(g); o.id = `${norm(o.player).replace(/[^a-z0-9]+/g, "")}-${o.on}-${o.gid}-${o.kind}${o.min ? "-" + o.min : ""}`;
+    if (ghToken()) {                       // the owner's phone: shared with everyone
+      $("oSave").disabled = true; $("oSave").textContent = "Saving…";
+      try { await objPutShared(L => L.filter(x => x.id !== o.id).concat([o]), "Objective: " + o.player + " - " + objText(o)); }
+      catch (e) { alert("Couldn't save it for everyone (" + e.message + "). Saved on this phone instead."); objSave(objLocal().filter(x => x.id !== o.id).concat([o])); }
+    } else objSave(objLocal().filter(x => x.id !== o.id).concat([o]));
+    OBJ_FORM = false; OBJ_OPEN.add("objp:" + o.player); OBJ_OPEN.add("obj:" + o.id); renderObjectives(false);
+  };
+  show();
 }
 function setupCards() {
   setupUsage();
