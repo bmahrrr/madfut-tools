@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016j";
+const APP_V = "20261016k";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -368,7 +368,8 @@ async function renderTeams() {
   wireOpps(); if (!V) wireNoHave();
 }
 function playersTable(ps, showTB, nh, mark) {     // nh = "myclub:73" adds a Don't have button to each player; mark(p): highlight
-  return `<div class="squad"><div class="stkey"><span>Att</span><span>Ctl</span><span>Def</span></div>${ps.map(p =>
+  const key = `<span>Att</span><span>Ctl</span><span>Def</span>`;
+  return `<div class="squad"><div class="stkey">${key}</div><div class="stkey k2">${key}</div>${ps.map(p =>
     `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}<small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Card ${p.card.join("/")} · Chem ${p.chem}</small></span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
 }
 
@@ -581,7 +582,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016j"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016k"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -607,7 +608,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016k"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -929,7 +930,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016j");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016k");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
