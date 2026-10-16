@@ -1,5 +1,5 @@
 // Runs the exact My Club solver off the main thread so the page stays responsive.
-importScripts("engine.js?v=20261016n");
+importScripts("engine.js?v=20261016o");
 let S = null;
 // Match Helper works on win / draw / loss only (level 3 / 2 / 0) and, for leads, only checks which moves keep
 // the best result reachable - far quicker than scoring every move exactly (fits the 30-second move timer).
