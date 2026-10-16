@@ -182,7 +182,8 @@ def main():
         os.environ["REQ_CREATED"] = req.get("created", "")
         RES = os.path.join(ROOT, "docs", "results", "mine"); os.makedirs(RES, exist_ok=True)
         print("Personal rebuild", kind, key, "without", req.get("not_owned"))
-        sys.argv = [sys.argv[0], kind, key]
+        # same search depth as the nightly Best Teams build (a short search missed e.g. Can 92 over Can 89)
+        sys.argv = [sys.argv[0], kind, key] + (["120"] if kind == "myclub" else [])
         return main()
     elif mode == "request":
         from fatal.myclub import build_myclub

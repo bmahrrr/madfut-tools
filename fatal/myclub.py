@@ -401,6 +401,27 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
             log(f"  polished team {kp} vs chosen team {ko}")
             if kp[:2] > ko[:2]:
                 team, source, E = pteam, "Polished", Ep
+    if mode != "beat":
+        # every other version of each player in the team (e.g. Can 89 Evo -> Can 92 Elite Evo): a swap is kept when it
+        # is at least as good on worst case and total against EVERY opponent found, and better overall
+        vkey = lambda Et: (lambda per: (min(per), sum(per), secondary(Et)))([play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps])
+        by_pid = collections.defaultdict(list)
+        for c in me.cards: by_pid[c["pid"]].append(c)
+        ck = vkey(E); improved = True
+        while improved:
+            improved = False
+            for i, c in enumerate(team):
+                for v in by_pid[c["pid"]]:
+                    if v["id"] == c["id"]: continue
+                    t = team[:i] + [v] + team[i + 1:]
+                    if not fits(t): continue
+                    Et = me.eff(t); k = vkey(Et)
+                    if k[:2] >= ck[:2] and k > ck:
+                        log(f"  version swap: {c['name']} {c['rating']} -> {v['rating']} {k} vs {ck}")
+                        team, E, ck, improved = t, Et, k, True
+                        if source == "builder": source = "Polished"
+                        break
+                if improved: break
     res = {n: {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
            for n, O in zip(names, pool_opps)}
     out = describe(team, series)
