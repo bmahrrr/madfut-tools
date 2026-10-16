@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261015d";
+const APP_V = "20261016a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -555,7 +555,7 @@ async function solveMC() {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261015d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -877,7 +877,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261015d");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -976,6 +976,9 @@ const TCOL = {   // [light, dark, text], taken from the in-game collection scree
   bundesliga_potm: ["#c42a22", "#5e0f0f", "#ffffff"], liga_f_potm: ["#2f63c8", "#0a1f5c", "#ffffff"],
   ligue1_potm: ["#4a5ff0", "#1b1a6e", "#ffffff"], ligue_1_potm: ["#4a5ff0", "#1b1a6e", "#ffffff"],
   evo: ["#2f6a5e", "#071219", "#c9f3e6"], elite_evo: ["#4f7a64", "#0b1620", "#ecd99a"], ltm: ["#2a4dff", "#c4162a", "#ffffff"] };
+// LTMs each have their own card design: the strip beside them uses that card's colours
+const LTMCOL = { "Xavi Espart": ["#3a6fe0", "#8a1640"], "Karetsas": ["#f5e04a", "#2a2614"] };
+const cardStrip = c => { const L = c.color === "ltm" && LTMCOL[c.name]; return L ? `background:linear-gradient(135deg,${L[0]},${L[1]})` : tgrad(typeKey(c)); };
 const tcol = t => TCOL[t] || (h => [`hsl(${h} 70% 72%)`, `hsl(${h} 55% 38%)`, "#0d0a0b"])([...String(t)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 360, 7));
 const tgrad = t => { const [a, b, c] = tcol(t); return `background:linear-gradient(135deg,${a},${b});color:${c}`; };      // hand-added cards listed in the Cards tab
 const inCards = c => !c._extra || SHOW_EXTRA.has(c.color);
@@ -1010,7 +1013,7 @@ function setupCards() {
 const eliteNames = () => new Set(CARDS.filter(c => c.color === "elite_evo").map(c => c.name));
 const extraTag = c => !c._extra || c.color === "ltm" ? "" : c.owned === false ? ` <span class="small muted">Opponents only</span>`
   : c.color === "evo" && !eliteNames().has(c.name) ? ` <span class="small ok">Yours</span>` : "";
-const cardRow = c => `<div class="prow crow"><span class="rt"><i style="${tgrad(typeKey(c))}"></i><b>${c.rating}</b></span><span class="nm"><b>${esc(c.name)}</b><span class="r">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span>${extraTag(c)}<small>${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</small></span><span class="st"><span class="a">${c.attack}</span><span class="c">${c.control}</span><span class="d">${c.defense}</span></span></div>`;
+const cardRow = c => `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${c.rating}</b></span><span class="nm"><b>${esc(c.name)}</b><span class="r">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span>${extraTag(c)}<small>${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</small></span><span class="st"><span class="a">${c.attack}</span><span class="c">${c.control}</span><span class="d">${c.defense}</span></span></div>`;
 function byRatingHtml(L, nested) {        // cards grouped under rating headings (big groups fold away)
   const G = new Map(); L.forEach(c => { if (!G.has(c.rating)) G.set(c.rating, []); G.get(c.rating).push(c); });
   return [...G.entries()].sort((a, b) => b[0] - a[0]).map(([r, cs]) => nested
