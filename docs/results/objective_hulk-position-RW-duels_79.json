@@ -1,6 +1,279 @@
 {
- "skip": "too weak",
- "group_cards": 13,
+ "g": 1,
+ "obj_ids": [
+  "id200260"
+ ],
+ "strength": 99.8,
+ "group_cards": 6,
+ "reddit": [
+  {
+   "you_lead_first": "WIN",
+   "they_lead_first": "WIN"
+  },
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
+ "team": {
+  "formation": "4-1-3-2",
+  "chem": 28,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id243830",
+    "name": "Mailson",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "GK",
+    "nationId": 54,
+    "leagueId": 350,
+    "clubId": 112393,
+    "card": [
+     29,
+     28,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     32,
+     30,
+     83
+    ],
+    "tiebreak": 142
+   },
+   {
+    "slot": "LB",
+    "id": "id231318",
+    "name": "Perraud",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 65,
+    "card": [
+     76,
+     76,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     78,
+     79
+    ],
+    "tiebreak": 235
+   },
+   {
+    "slot": "CB",
+    "id": "id190815",
+    "name": "Blind",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     70,
+     78,
+     75
+    ],
+    "chem": 2,
+    "eff": [
+     71,
+     79,
+     76
+    ],
+    "tiebreak": 226
+   },
+   {
+    "slot": "CB",
+    "id": "id226515",
+    "name": "Andrei Girotto",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 350,
+    "clubId": 112389,
+    "card": [
+     67,
+     67,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     69,
+     82
+    ],
+    "tiebreak": 218
+   },
+   {
+    "slot": "RB",
+    "id": "id230965",
+    "name": "Nández",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 60,
+    "leagueId": 350,
+    "clubId": 112391,
+    "card": [
+     76,
+     76,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     78,
+     79
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "CDM",
+    "id": "id222028",
+    "name": "Weigl",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 350,
+    "clubId": 112391,
+    "card": [
+     69,
+     77,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     79,
+     79
+    ],
+    "tiebreak": 227
+   },
+   {
+    "slot": "LM",
+    "id": "id265860",
+    "name": "Dufour",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 2221,
+    "clubId": 111140,
+    "card": [
+     78,
+     78,
+     51
+    ],
+    "chem": 1,
+    "eff": [
+     78,
+     78,
+     51
+    ],
+    "tiebreak": 207
+   },
+   {
+    "slot": "CM",
+    "id": "id213296",
+    "name": "Bentaleb",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 65,
+    "card": [
+     74,
+     77,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     79,
+     75
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "RM",
+    "id": "id200260",
+    "name": "Berghuis",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     75,
+     79,
+     44
+    ],
+    "chem": 2,
+    "eff": [
+     76,
+     80,
+     45
+    ],
+    "tiebreak": 201
+   },
+   {
+    "slot": "ST",
+    "id": "id50596345",
+    "name": "Amoura",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 72,
+    "card": [
+     82,
+     76,
+     50
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     77,
+     51
+    ],
+    "tiebreak": 211
+   },
+   {
+    "slot": "ST",
+    "id": "id216594",
+    "name": "Fekir",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 350,
+    "clubId": 113058,
+    "card": [
+     78,
+     79,
+     44
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     81,
+     48
+    ],
+    "tiebreak": 207
+   }
+  ]
+ },
  "mode": "objective",
  "objective": {
   "player": "Hulk",
@@ -32,18 +305,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id239254",
-  "id240679",
-  "id224490",
-  "id279709",
-  "id236499",
+  "id243830",
   "id231318",
-  "id253157",
-  "id230658",
-  "id259075",
-  "id234505",
+  "id226515",
+  "id208165",
+  "id245211",
+  "id213296",
+  "id193474",
+  "id195864",
+  "id225953",
+  "id216594",
   "id50596345"
  ],
- "built": "2026-10-16 12:10 UTC",
+ "built": "2026-10-16 22:53 UTC",
  "week": "2026-10-12"
 }

@@ -1,48 +1,46 @@
 {
- "g": 3,
+ "g": 1,
  "obj_ids": [
-  "id241736",
-  "id256632",
   "id276278"
  ],
- "strength": 100.1,
- "group_cards": 5,
+ "strength": 100.6,
+ "group_cards": 1,
  "reddit": [
   {
    "you_lead_first": "WIN",
    "they_lead_first": "WIN"
   },
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "DRAW"
+   "you_lead_first": "DRAW",
+   "they_lead_first": "WIN"
   }
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 32,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id239254",
-    "name": "Özer",
-    "rating": 79,
+    "id": "id243830",
+    "name": "Mailson",
+    "rating": 78,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 48,
-    "leagueId": 16,
-    "clubId": 65,
+    "nationId": 54,
+    "leagueId": 350,
+    "clubId": 112393,
     "card": [
-     34,
-     32,
-     80
+     29,
+     28,
+     79
     ],
     "chem": 3,
     "eff": [
-     36,
-     34,
-     82
+     32,
+     30,
+     83
     ],
-    "tiebreak": 152
+    "tiebreak": 142
    },
    {
     "slot": "LB",
@@ -69,49 +67,49 @@
    },
    {
     "slot": "CB",
-    "id": "id279709",
-    "name": "Lucas Beraldo",
+    "id": "id235454",
+    "name": "Sarr",
     "rating": 79,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 350,
+    "clubId": 131798,
     "card": [
-     60,
-     71,
+     59,
+     66,
      79
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     62,
-     73,
-     81
+     61,
+     67,
+     82
     ],
-    "tiebreak": 216
+    "tiebreak": 207
    },
    {
     "slot": "CB",
-    "id": "id241736",
-    "name": "Bisseck",
+    "id": "id226515",
+    "name": "Andrei Girotto",
     "rating": 78,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 21,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 54,
+    "leagueId": 350,
+    "clubId": 112389,
     "card": [
      67,
      67,
-     77
+     78
     ],
     "chem": 3,
     "eff": [
+     70,
      69,
-     69,
-     79
+     82
     ],
-    "tiebreak": 217
+    "tiebreak": 218
    },
    {
     "slot": "RB",
@@ -161,49 +159,26 @@
    },
    {
     "slot": "LM",
-    "id": "id50596345",
-    "name": "Amoura",
+    "id": "id262842",
+    "name": "Baturina",
     "rating": 79,
     "color": "rare_gold",
-    "position": "ST",
-    "nationId": 97,
-    "leagueId": 16,
-    "clubId": 72,
+    "position": "CAM",
+    "nationId": 10,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
-     82,
-     76,
-     50
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     78,
-     52
-    ],
-    "tiebreak": 214
-   },
-   {
-    "slot": "CM",
-    "id": "id213296",
-    "name": "Bentaleb",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 97,
-    "leagueId": 16,
-    "clubId": 65,
-    "card": [
-     74,
      77,
-     73
+     80,
+     60
     ],
     "chem": 3,
     "eff": [
-     76,
      79,
-     75
+     82,
+     62
     ],
-    "tiebreak": 230
+    "tiebreak": 223
    },
    {
     "slot": "CM",
@@ -227,6 +202,29 @@
      77
     ],
     "tiebreak": 236
+   },
+   {
+    "slot": "CM",
+    "id": "id213296",
+    "name": "Bentaleb",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 65,
+    "card": [
+     74,
+     77,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     79,
+     75
+    ],
+    "tiebreak": 230
    },
    {
     "slot": "RM",
@@ -253,26 +251,26 @@
    },
    {
     "slot": "ST",
-    "id": "id234505",
-    "name": "Evander",
+    "id": "id50596345",
+    "name": "Amoura",
     "rating": 79,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 54,
-    "leagueId": 39,
-    "clubId": 113149,
+    "position": "ST",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 72,
     "card": [
-     78,
-     79,
-     64
+     82,
+     76,
+     50
     ],
     "chem": 2,
     "eff": [
-     80,
-     81,
-     66
+     83,
+     77,
+     51
     ],
-    "tiebreak": 224
+    "tiebreak": 211
    }
   ]
  },
@@ -307,18 +305,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id239254",
-  "id240679",
-  "id224490",
-  "id279709",
-  "id236499",
+  "id243830",
   "id231318",
-  "id253157",
-  "id230658",
-  "id259075",
-  "id234505",
+  "id226515",
+  "id208165",
+  "id245211",
+  "id213296",
+  "id193474",
+  "id195864",
+  "id225953",
+  "id216594",
   "id50596345"
  ],
- "built": "2026-10-16 12:10 UTC",
+ "built": "2026-10-16 22:53 UTC",
  "week": "2026-10-12"
 }

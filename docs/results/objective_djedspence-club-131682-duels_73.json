@@ -63,29 +63,6 @@
    },
    {
     "slot": "CB",
-    "id": "id254928",
-    "name": "Franjić",
-    "rating": 69,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 10,
-    "leagueId": 31,
-    "clubId": 205,
-    "card": [
-     61,
-     64,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     66,
-     67,
-     71
-    ],
-    "tiebreak": 199
-   },
-   {
-    "slot": "CB",
     "id": "id278668",
     "name": "Zé Pedro",
     "rating": 73,
@@ -106,6 +83,29 @@
      76
     ],
     "tiebreak": 206
+   },
+   {
+    "slot": "CB",
+    "id": "id254928",
+    "name": "Franjić",
+    "rating": 69,
+    "color": "rare_silver",
+    "position": "CB",
+    "nationId": 10,
+    "leagueId": 31,
+    "clubId": 205,
+    "card": [
+     61,
+     64,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     66,
+     67,
+     71
+    ],
+    "tiebreak": 199
    },
    {
     "slot": "RB",
@@ -132,29 +132,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id264699",
-    "name": "Asllani",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 1,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     69,
-     73,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     76,
-     72
-    ],
-    "tiebreak": 217
-   },
-   {
-    "slot": "CDM",
     "id": "id253177",
     "name": "Musah",
     "rating": 73,
@@ -177,27 +154,50 @@
     "tiebreak": 224
    },
    {
-    "slot": "CAM",
-    "id": "id256949",
-    "name": "Grønbæk",
+    "slot": "CDM",
+    "id": "id264699",
+    "name": "Asllani",
     "rating": 73,
     "color": "rare_silver",
-    "position": "CAM",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 28,
+    "position": "CDM",
+    "nationId": 1,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     72,
+     69,
      73,
-     62
+     69
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     75,
      74,
-     63
+     76,
+     72
     ],
-    "tiebreak": 210
+    "tiebreak": 217
+   },
+   {
+    "slot": "CAM",
+    "id": "id277840",
+    "name": "Gandelman",
+    "rating": 71,
+    "color": "rare_silver",
+    "position": "CAM",
+    "nationId": 26,
+    "leagueId": 31,
+    "clubId": 347,
+    "card": [
+     73,
+     66,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     69,
+     74
+    ],
+    "tiebreak": 216
    },
    {
     "slot": "CAM",
@@ -224,26 +224,26 @@
    },
    {
     "slot": "CAM",
-    "id": "id277840",
-    "name": "Gandelman",
-    "rating": 71,
+    "id": "id256949",
+    "name": "Grønbæk",
+    "rating": 73,
     "color": "rare_silver",
     "position": "CAM",
-    "nationId": 26,
-    "leagueId": 31,
-    "clubId": 347,
+    "nationId": 13,
+    "leagueId": 19,
+    "clubId": 28,
     "card": [
+     72,
      73,
-     66,
-     71
+     62
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     78,
-     69,
-     74
+     75,
+     74,
+     63
     ],
-    "tiebreak": 216
+    "tiebreak": 210
    },
    {
     "slot": "ST",
@@ -305,16 +305,16 @@
  "base_ids": [
   "id50587548",
   "id50575036",
-  "id276820",
   "id74813",
+  "id276820",
   "id257771",
-  "id277840",
-  "id253177",
-  "id215449",
-  "id240938",
   "id50602667",
+  "id215449",
+  "id253177",
+  "id240938",
+  "id277840",
   "id242755"
  ],
- "built": "2026-10-16 12:10 UTC",
+ "built": "2026-10-16 22:53 UTC",
  "week": "2026-10-12"
 }

@@ -1,11 +1,14 @@
 {
- "g": 2,
+ "g": 5,
  "obj_ids": [
+  "id212197",
   "id255566",
-  "id212729"
+  "id50588606",
+  "id212729",
+  "id216531"
  ],
- "strength": 99.9,
- "group_cards": 18,
+ "strength": 99.8,
+ "group_cards": 5,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -17,31 +20,31 @@
   }
  ],
  "team": {
-  "formation": "4-3-2-1",
-  "chem": 28,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 29,
   "players": [
    {
     "slot": "GK",
-    "id": "id239254",
-    "name": "Özer",
+    "id": "id212197",
+    "name": "Heuer Fernandes",
     "rating": 79,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 48,
-    "leagueId": 16,
-    "clubId": 65,
+    "nationId": 38,
+    "leagueId": 19,
+    "clubId": 28,
     "card": [
-     34,
-     32,
+     33,
+     35,
      80
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
      35,
-     33,
-     81
+     37,
+     82
     ],
-    "tiebreak": 149
+    "tiebreak": 154
    },
    {
     "slot": "LB",
@@ -68,29 +71,6 @@
    },
    {
     "slot": "CB",
-    "id": "id279709",
-    "name": "Lucas Beraldo",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     60,
-     71,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     62,
-     73,
-     81
-    ],
-    "tiebreak": 216
-   },
-   {
-    "slot": "CB",
     "id": "id226515",
     "name": "Andrei Girotto",
     "rating": 78,
@@ -104,82 +84,105 @@
      67,
      78
     ],
+    "chem": 2,
+    "eff": [
+     69,
+     68,
+     81
+    ],
+    "tiebreak": 215
+   },
+   {
+    "slot": "CB",
+    "id": "id235454",
+    "name": "Sarr",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 350,
+    "clubId": 131798,
+    "card": [
+     59,
+     66,
+     79
+    ],
     "chem": 3,
     "eff": [
-     70,
-     69,
-     82
+     62,
+     68,
+     83
     ],
-    "tiebreak": 218
+    "tiebreak": 210
    },
    {
     "slot": "RB",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
+    "id": "id230965",
+    "name": "Nández",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
+    "position": "CM",
+    "nationId": 60,
+    "leagueId": 350,
+    "clubId": 112391,
     "card": [
-     75,
-     80,
+     76,
+     76,
      75
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
+     78,
      77,
-     82,
-     77
+     78
     ],
-    "tiebreak": 236
+    "tiebreak": 230
    },
    {
-    "slot": "CM",
-    "id": "id254579",
-    "name": "Da Cunha",
-    "rating": 78,
+    "slot": "CDM",
+    "id": "id213296",
+    "name": "Bentaleb",
+    "rating": 77,
     "color": "rare_gold",
     "position": "CDM",
-    "nationId": 18,
-    "leagueId": 31,
-    "clubId": 1745,
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 65,
     "card": [
+     74,
      77,
-     77,
-     74
+     73
     ],
     "chem": 3,
     "eff": [
-     79,
-     79,
-     76
-    ],
-    "tiebreak": 234
-   },
-   {
-    "slot": "CM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
      76,
      79,
      75
     ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "CM",
+    "id": "id212729",
+    "name": "Tozé",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 113037,
+    "card": [
+     78,
+     79,
+     55
+    ],
     "chem": 3,
     "eff": [
-     78,
      81,
-     77
+     81,
+     59
     ],
-    "tiebreak": 236
+    "tiebreak": 218
    },
    {
     "slot": "CM",
@@ -196,82 +199,82 @@
      71,
      76
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     71,
      72,
-     79
+     73,
+     80
     ],
-    "tiebreak": 219
+    "tiebreak": 222
    },
    {
     "slot": "CAM",
-    "id": "id212729",
-    "name": "Tozé",
-    "rating": 77,
+    "id": "id50588606",
+    "name": "Fábio Vieira",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "CM",
+    "position": "CAM",
     "nationId": 38,
-    "leagueId": 350,
-    "clubId": 113037,
+    "leagueId": 19,
+    "clubId": 28,
     "card": [
+     77,
      78,
-     79,
      55
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
+     79,
      80,
-     80,
-     58
+     57
     ],
-    "tiebreak": 215
-   },
-   {
-    "slot": "CAM",
-    "id": "id50583791",
-    "name": "Daniel Bragança",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 54,
-    "card": [
-     75,
-     77,
-     65
-    ],
-    "chem": 2,
-    "eff": [
-     76,
-     78,
-     66
-    ],
-    "tiebreak": 220
+    "tiebreak": 216
    },
    {
     "slot": "ST",
-    "id": "id234505",
-    "name": "Evander",
+    "id": "id50596345",
+    "name": "Amoura",
     "rating": 79,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 54,
-    "leagueId": 39,
-    "clubId": 113149,
+    "position": "ST",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 72,
     "card": [
-     78,
+     82,
+     76,
+     50
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     77,
+     51
+    ],
+    "tiebreak": 211
+   },
+   {
+    "slot": "ST",
+    "id": "id216531",
+    "name": "Paulinho",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 38,
+    "leagueId": 341,
+    "clubId": 1882,
+    "card": [
      79,
-     64
+     70,
+     49
     ],
     "chem": 2,
     "eff": [
      80,
-     81,
-     66
+     71,
+     50
     ],
-    "tiebreak": 224
+    "tiebreak": 201
    }
   ]
  },
@@ -306,18 +309,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id239254",
-  "id240679",
-  "id224490",
-  "id279709",
-  "id236499",
+  "id243830",
   "id231318",
-  "id253157",
-  "id230658",
-  "id259075",
-  "id234505",
+  "id226515",
+  "id208165",
+  "id245211",
+  "id213296",
+  "id193474",
+  "id195864",
+  "id225953",
+  "id216594",
   "id50596345"
  ],
- "built": "2026-10-16 12:10 UTC",
+ "built": "2026-10-16 22:53 UTC",
  "week": "2026-10-12"
 }
