@@ -13,6 +13,7 @@ from .myclub import Pool, fits, secondary
 from .game import play
 
 KEY = {"club": "clubId", "nation": "nationId", "league": "leagueId"}
+GAP = 2
 MAX_DROP = {"duels": 0.005, "matches": 0.03}   # duels: practically no weaker; matches: the cards only need to be in the team
 
 
@@ -20,8 +21,8 @@ def build_objective(obj, series, owned_cards, base_ids, refs, seconds=60, seed=1
     rng = random.Random(seed)
     me = Pool(series, owned_cards)
     by = {c["id"]: c for c in me.cards}
-    inG = (lambda c: c["position"] == obj["gid"]) if obj["on"] == "position" else (lambda c: c[KEY[obj["on"]]] == obj["gid"])
-    G = sorted((c for c in me.cards if inG(c)), key=lambda c: -c["T3"])
+    inGroup = (lambda c: c["position"] == obj["gid"]) if obj["on"] == "position" else (lambda c: c[KEY[obj["on"]]] == obj["gid"])
+    G = sorted((c for c in me.cards if inGroup(c)), key=lambda c: -c["T3"])
     base = [by[i] for i in base_ids if i in by]
     while G and 5 <= len(base) < 11:          # a best-team card no longer available: the strongest card that fits
         opts = {c["id"]: c for p in me.pos_top for c in me.pos_top[p]}
@@ -40,13 +41,31 @@ def build_objective(obj, series, owned_cards, base_ids, refs, seconds=60, seed=1
     R = [me.eff(r) for r in refs]
     res = lambda E: [play(E, O, 0)[0] + play(E, O, 1)[0] for O in R]
     E0 = me.eff(base); s0 = secondary(E0); floor = s0 * (1 - MAX_DROP[obj["kind"]])
+    # Duels: an objective card only counts if it can win duels at this cap - its best in-game stat within GAP of the
+    # best team's typical best stat (outfield: the median; goalkeeper: the best team's goalkeeper). The owner's Season 2
+    # teams were within 2 (Lombardia 80s at 82 vs 84, Portugal 69-70s at 73 vs 74); Lombardia 86-87s in the 90 Series
+    # (best team ~93) are not.
+    best_stat = [max(e[:3]) for e in E0]
+    gk = [b for c, b in zip(base, best_stat) if c["position"] == "GK"]
+    out = sorted(b for c, b in zip(base, best_stat) if c["position"] != "GK")
+    thr_out = out[len(out) // 2] - GAP if out else 0
+    thr_gk = (gk[0] if gk else thr_out + GAP) - GAP
+    thr = lambda c: thr_gk if c["position"] == "GK" else thr_out
+    if obj["kind"] == "duels":
+        capable = lambda c: max(c["bA"], c["bC"], c["bD"]) + 2 >= thr(c)     # +2: full chem
+        inG = lambda c: inGroup(c) and capable(c)
+        G = [c for c in G if capable(c)]
+        if not G: return {"skip": "too weak", "group_cards": 0}
+    else:
+        inG = inGroup
     cnt = lambda t: sum(1 for c in t if inG(c))
     target = 11 if obj["kind"] == "duels" else obj["min"]
 
     def safe(t):           # -> strength, or None when the team isn't safe
         if not fits(t): return None
         E = me.eff(t); s = secondary(E)
-        return None if s < floor else s
+        if s < floor: return None
+        return s
 
     sw = {c["id"]: c for c in G[:40]}
     for p in {q for c in G for q in c["P"]}:
@@ -109,5 +128,7 @@ def build_objective(obj, series, owned_cards, base_ids, refs, seconds=60, seed=1
         v = safe(t)
         if v is not None and v > cs: cs, cur = v, t
     E = me.eff(cur); lab = {1: "WIN", 0: "DRAW", -1: "LOSS"}
-    return {"g": g, "team_ids": [c["id"] for c in cur], "strength": round(cs / s0 * 100, 1), "group_cards": len(G),
+    ok = [c["id"] for c, e in zip(cur, E) if inG(c) and (obj["kind"] != "duels" or max(e[:3]) >= thr(c))]   # after real chem
+    if not ok: return {"skip": "too weak", "group_cards": len(G)}
+    return {"g": len(ok), "team_ids": [c["id"] for c in cur], "obj_ids": ok, "strength": round(cs / s0 * 100, 1), "group_cards": len(G),
             "reddit": [{"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]} for O in R]}
