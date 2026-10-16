@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016i";
+const APP_V = "20261016j";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -581,7 +581,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016i"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016j"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -607,7 +607,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -929,7 +929,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016i");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016j");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1106,7 +1106,7 @@ async function renderObjectives(fetch = true) {     // fetch: reload the shared 
   const box = $("objBody"), L = objList();
   const players = [...new Set(L.map(o => o.player || "Other"))];
   let html = `<div class="card"><h2>Objectives</h2><p class="small" style="margin:4px 0 0">The game's Fatal My Club objectives, by the player they unlock. Tap a player, then an objective. <b>Play these teams against the AI</b>, over as many matches as it takes.</p>
-    <p class="small muted" style="margin:6px 0 0">Each team is the series' boosted best team with a safe number of objective cards swapped in. Duels: practically no weaker (at least 99.5% of the best team's in-game strength), so only a few cards when they're unboosted. Matches: the cards just need to be in the team (at least 97%). Series 70 to 90. Teams update after every Best Teams build. Objective cards are marked <span class="gold">▌</span>.</p>
+    <p class="small muted" style="margin:6px 0 0">Each team is the series' boosted best team with a safe number of objective cards swapped in. Duels: practically no weaker (at least 99.5% of the best team's in-game strength), and only objective cards strong enough to win duels at that cap count (best in-game stat within 2 of the best team's typical best stat), so only a few when they're unboosted. Matches: the cards just need to be in the team (at least 97%). Series 70 to 90. Teams update after every Best Teams build. Objective cards are marked <span class="gold">▌</span>.</p>
     ${ghToken() ? `<div style="margin-top:10px">${OBJ_FORM ? objFormHtml(players) : `<button class="btn" id="objAdd">Add Objective</button>`}</div>` : ""}</div>`;
   if (!L.length) html += `<div class="card small muted">No objectives yet.</div>`;
   for (const pl of players) {
@@ -1129,13 +1129,13 @@ async function objFill(id) {
   got.sort((a, b) => (a.series.cap || 0) - (b.series.cap || 0));
   const ok = got.filter(d => d.team), skip = got.filter(d => !d.team);
   let h = ok.map(d => {
-    const ssid = "obj:" + id + ":" + d.series.key, t = d.team;
+    const ssid = "obj:" + id + ":" + d.series.key, t = d.team, mk = d.obj_ids ? (p => d.obj_ids.includes(p.id)) : mark;
     return `<details class="oteam" data-ot="${esc(ssid)}"${OBJ_OPEN.has(ssid) ? " open" : ""}><summary class="notc"><b>${esc(d.series.key)} Series</b> <span class="muted small">· ${d.g} ${esc(objGroup(o))} card${d.g === 1 ? "" : "s"} · ${esc(t.formation || "")} · ${t.chem} chem</span></summary>
-      <p class="small muted" style="margin:6px 0">${d.strength}% of the best team's in-game strength.</p>${playersTable(t.players, true, null, mark)}</details>`;
+      <p class="small muted" style="margin:6px 0">${d.strength}% of the best team's in-game strength.</p>${playersTable(t.players, true, null, mk)}</details>`;
   }).join("");
   if (!got.length) h = `<p class="small muted">${o.shared ? "Building… teams appear about 15 minutes after an objective is added, and update after every Best Teams build." : "Teams are built on GitHub for shared objectives only. Ask the site owner to add this one."}</p>`;
   else if (!ok.length) h = `<p class="small muted">No series can take ${esc(objGroup(o))} cards safely this season.</p>`;
-  if (skip.length) h += `<p class="small muted" style="margin:8px 0 0">Not realistic this season: ${skip.map(d => esc(d.series.key)).join(", ")} (no ${esc(objGroup(o))} card fits without weakening the team${o.kind === "matches" ? ` or fewer than ${o.min} fit` : ""}).</p>`;
+  if (skip.length) h += `<p class="small muted" style="margin:8px 0 0">Not realistic this season: ${skip.map(d => esc(d.series.key)).join(", ")} (${o.kind === "matches" ? `fewer than ${o.min} ${esc(objGroup(o))} cards fit without weakening the team` : `${esc(objGroup(o))} cards are too weak for that cap, or don't fit without weakening the team`}).</p>`;
   el.innerHTML = h + `<p style="margin:8px 0 4px"><button class="ghost" data-objdel="${esc(id)}">Remove Objective</button></p>`;
   el.querySelectorAll("details[data-ot]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.ot) : OBJ_OPEN.delete(x.dataset.ot); });
   el.querySelector("[data-objdel]").onclick = async () => {
