@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016e";
+const APP_V = "20261016f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -581,7 +581,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -607,7 +607,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -929,7 +929,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016e");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1045,26 +1045,39 @@ async function setupUsage() {
   const weeks = [...new Set(U.cards.flatMap(c => Object.keys(c.seasons)))].sort().reverse();
   $("uSeason").innerHTML = `<option value="">All seasons</option>` + weeks.map(w => `<option value="${esc(w)}">${esc(seasonName(w))}</option>`).join("");
   let shown = 25;
+  const fmt = d => { const r = Math.round(d); return r ? String(r) : "<1"; };
+  const f1 = d => { const r = Math.round(d * 10) / 10; return (r || "<0.1") + (r === 1 ? " day" : " days"); };
+  const label = s => (s.startsWith("myclub") ? "My Club " : "Sim ") + s.split("_")[1];
   const draw = () => {
-    const wk = $("uSeason").value, md = $("uMode").value;
+    const wk = $("uSeason").value, md = $("uMode").value, q = norm($("uFind").value.trim());
     const L = U.cards.map(c => {
-      let days = 0, series = new Set();
+      let days = 0; const per = [];                     // per season: [week, days, [[series, days, slot]]]
       for (const [w, v] of Object.entries(c.seasons)) {
         if (wk && w !== wk) continue;
-        days += md ? v[md] : v.myclub + v.sim;
-        v.series.filter(x => !md || x.startsWith(md)).forEach(x => series.add(w + "|" + x));
+        const ser = Array.isArray(v.series) ? Object.fromEntries(v.series.map(x => [x, [null, ""]])) : v.series;
+        const rows = Object.entries(ser).filter(([x]) => !md || x.startsWith(md)).map(([x, [d, sl]]) => [x, d, sl])
+          .sort((p, q) => (q[1] || 0) - (p[1] || 0) || p[0].localeCompare(q[0]));
+        const sd = md ? v[md] : v.myclub + v.sim;
+        if (sd > 0) { days += sd; per.push([w, sd, rows]); }
       }
-      return { c, days: Math.round(days), raw: days, teams: series.size, list: [...series].map(x => x.split("|")) };
+      per.sort((p, q) => q[0].localeCompare(p[0]));
+      return { c, raw: days, per, teams: per.reduce((n, p) => n + p[2].length, 0) };
     }).filter(x => x.raw > 0).sort((a, b) => b.raw - a.raw || b.teams - a.teams);
-    const label = s => (s.startsWith("myclub") ? "My Club " : "Sim ") + s.split("_")[1];
-    $("uList").innerHTML = L.slice(0, shown).map((x, k) => { const c = BYID.get(x.c.id) || x.c;
-      return `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${x.c.rating}</b></span><span class="nm"><b>${k + 1}. ${esc(x.c.name)}</b><span class="r">${esc(TYPE(x.c.color))}</span>
-        <small>${x.teams} team${x.teams === 1 ? "" : "s"}: ${x.list.map(([w, s]) => `${label(s)}${wk ? "" : ` (S${seasonOf(w)})`}`).join(" · ")}</small></span>
-        <span class="ud"><b>${x.days || "<1"}</b><small>days</small></span></div>`; }).join("")
-      || `<p class="small muted">Nothing for this choice yet.</p>`;
-    $("uMore").hidden = L.length <= shown;
+    L.forEach((x, k) => x.rank = k + 1);                 // rank stays the same when searching
+    const F = q ? L.filter(x => norm(x.c.name).includes(q)) : L;
+    $("uList").innerHTML = F.slice(0, shown).map(x => { const c = BYID.get(x.c.id) || x.c;
+      const ns = x.per.length;
+      const body = x.per.map(([w, sd, rows]) => `<div class="useas"><span>${esc(seasonName(w))}</span><span>${f1(sd)}</span></div>`
+        + rows.map(([s, d, sl]) => `<div class="uteam"><span>${esc(label(s))}</span><span class="usl">${esc(sl || "")}</span>
+            <span class="ubar"><i style="width:${d == null ? 100 : Math.min(100, d / 7 * 100)}%"></i></span><span class="ud2">${d == null ? "" : f1(d)}</span></div>`).join("")).join("");
+      return `<details class="urow"><summary class="prow crow notc"><span class="rt"><i style="${cardStrip(c)}"></i><b>${x.c.rating}</b></span><span class="nm"><b>${x.rank}. ${esc(x.c.name)}</b><span class="r">${esc(TYPE(x.c.color))}</span>
+        <small>${x.teams} team${x.teams === 1 ? "" : "s"} · ${ns} season${ns === 1 ? "" : "s"}</small></span>
+        <span class="ud"><b>${fmt(x.raw)}</b><small>days</small></span></summary><div class="ubody">${body}</div></details>`; }).join("")
+      || `<p class="small muted">${q ? "No card by that name here." : "Nothing for this choice yet."}</p>`;
+    $("uMore").hidden = F.length <= shown;
   };
   $("uSeason").onchange = $("uMode").onchange = () => { shown = 25; draw(); };
+  $("uFind").oninput = () => { shown = 25; draw(); };
   $("uMore").onclick = () => { shown += 50; draw(); };
   draw();
 }
