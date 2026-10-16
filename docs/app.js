@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016g";
+const APP_V = "20261016h";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -581,7 +581,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016h"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -607,7 +607,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -929,7 +929,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016g");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016h");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1081,12 +1081,9 @@ async function setupUsage() {
   $("uMore").onclick = () => { shown += 50; draw(); };
   draw();
 }
-// ---------- Objectives (the game's My Club objectives, played against the AI) ----------
-// "Win 7 duels with Lombardia FC cards" -> per series, the team with the most Lombardia cards it can field, strongest
-// after this season's boosts and chem. "Win 5 matches with min. 5 Brazil cards" -> the strongest team with at least 5.
-// Built right here on the phone from this season's boosts every time the tab opens (no game solving needed: the AI
-// teams are weak), so the teams always follow the current season and old ones are never shown. Objectives added with
-// GitHub connected are saved in docs/objectives.json for everyone; anyone else's are saved on their phone.
+// ---------- Objectives (the game's Fatal My Club objectives, played against the AI) ----------
+// The list lives in docs/objectives.json (the owner adds/removes from the site). Teams are built on GitHub by
+// fatal/objective.py (workflow objectives.yml): the series' best team with a safe number of objective cards.
 const OBJ_KEY = { club: "clubId", nation: "nationId", league: "leagueId" };
 const objGroup = o => o.on === "position" ? o.gid : groupLabel(o.on, o.gid);
 const objIn = o => o.on === "position" ? (c => c.position === o.gid) : (c => c[OBJ_KEY[o.on]] === o.gid);   // position: the card's main position
@@ -1104,97 +1101,13 @@ async function objPutShared(edit, msg) {          // change docs/objectives.json
 }
 const OBJ_OPEN = new Set(), OBJ_RES = new Map();     // built teams, kept while the page is open
 let OBJ_FORM = false;
-const pidOf = c => (Number.isInteger(c.baseId) && c.baseId > 0) ? "b" + c.baseId : c.name + "|" + c.nationId;
-const FIT_CACHE = new Map();
-function formFit(team) {            // [formation, [card index per slot]] if the 11 cards fit a formation, else null
-  const key = team.map(c => [...c.P].sort().join("/")).sort().join(",");
-  if (FIT_CACHE.has(key)) { const r = FIT_CACHE.get(key); return r && fitWith(team, r[0]); }
-  let out = null;
-  for (const f of Object.keys(FORMS_CACHE || {})) { const m = fitWith(team, f); if (m) { out = m; break; } }
-  FIT_CACHE.set(key, out); return out;
-}
-function fitWith(team, f) {
-  const slots = FORMS_CACHE[f], match = new Array(11).fill(-1);
-  const tr = (i, seen) => { for (let j = 0; j < 11; j++) if (team[i].P.has(slots[j]) && !seen[j]) { seen[j] = true; if (match[j] < 0 || tr(match[j], seen)) { match[j] = i; return true; } } return false; };
-  for (let i = 0; i < 11; i++) if (!tr(i, new Array(11).fill(false))) return null;
-  return [f, match];
-}
-function objStrength(team, series) {     // in-game strength: best 7 of each stat (boosts + chem) + tiebreak totals / 10
-  const E = effective(team, series); let s = 0;
-  for (const k of ["a", "c", "d"]) s += E.map(e => e[k]).sort((x, y) => y - x).slice(0, 7).reduce((x, y) => x + y, 0);
-  return s + E.reduce((x, e) => x + e.t, 0) / 10;
-}
-async function objBuild(o, series, baseIds) {
-  const cap = series.cap || 99, inG = objIn(o);
-  const pool = CARDS.filter(c => c.rating <= cap && c.owned !== false && !(c.from_week && WEEK && c.from_week > WEEK.week));
-  const T3 = new Map(pool.map(c => { const b = boosted(c, series.boosts); return [c, b[0] + b[1] + b[2]]; }));
-  const byT = L => L.sort((x, y) => T3.get(y) - T3.get(x));
-  const G = byT(pool.filter(inG));
-  if (!G.length) return { g: 0, none: true, groupCards: 0 };
-  const top = new Map(), add = c => top.set(c.id, c);
-  G.slice(0, 40).forEach(add);
-  const posSet = new Set(pool.flatMap(c => [...c.P]));
-  for (const p of posSet) { G.filter(c => c.P.has(p)).slice(0, 3).forEach(add); }
-  const SW = [...top.values()];
-  const F = new Map();                     // other cards: best per position, full-chem cards, cards that link to the group
-  for (const p of posSet) byT(pool.filter(c => c.P.has(p))).slice(0, 20).forEach(c => F.set(c.id, c));
-  byT(pool.filter(c => AUTO.has(c.color))).slice(0, 40).forEach(c => F.set(c.id, c));
-  const lg = new Set(G.map(c => c.leagueId)), na = new Set(G.map(c => c.nationId));
-  byT(pool.filter(c => lg.has(c.leagueId) || na.has(c.nationId))).slice(0, 80).forEach(c => F.set(c.id, c));
-  G.forEach(c => F.set(c.id, c));
-  const FL = [...F.values()];
-  const cnt = t => t.reduce((n, c) => n + (inG(c) ? 1 : 0), 0);
-  const need = o.kind === "duels" ? 11 : o.min;
-  const keyOf = t => [Math.min(cnt(t), need), objStrength(t, series)];
-  const gt = (x, y) => x[0] > y[0] || (x[0] === y[0] && x[1] > y[1] + 1e-9);
-  const ok = (t, i) => { const p = pidOf(t[i]); for (let k = 0; k < 11; k++) if (k !== i && pidOf(t[k]) === p) return false; return !!formFit(t); };
-  let cur = baseIds.map(id => BYID.get(id)).filter(c => c && T3.has(c));
-  if (cur.length !== 11 || !formFit(cur)) {          // no usable best team: start from the strongest group cards that fit
-    return { g: 0, none: true, groupCards: G.length, msg: "This series' best team isn't built yet." };
-  }
-  // 1. add objective cards one at a time: every (slot, card) swap, keep the strongest
-  while (cnt(cur) < need) {
-    let best = null;
-    for (let i = 0; i < 11; i++) { if (inG(cur[i])) continue;
-      for (const c of SW) { const t = cur.slice(); t[i] = c; if (!ok(t, i)) continue; const k = keyOf(t); if (!best || gt(k, best.k)) best = { k, t }; } }
-    if (!best || cnt(best.t) <= cnt(cur)) break;
-    cur = best.t;
-  }
-  // 2. random search: one or two swaps at a time, never fewer objective cards
-  let ck = keyOf(cur), bt = cur, bk = ck;
-  for (let it = 0; it < 30000; it++) {
-    if (it % 1500 === 0) await new Promise(r => setTimeout(r, 0));
-    let t = cur.slice(), moves = Math.random() < 0.3 ? 2 : 1, good = true;
-    for (let m = 0; m < moves && good; m++) {
-      const i = Math.floor(Math.random() * 11), L = Math.random() < 0.4 ? SW : FL;
-      t[i] = L[Math.floor(Math.random() * L.length)];
-      good = ok(t, i) || m === 0 && moves === 2;
-    }
-    if (!good || !formFit(t) || new Set(t.map(pidOf)).size < 11) continue;
-    const k = keyOf(t);
-    if (!gt(ck, k)) { cur = t; ck = k; if (gt(k, bk)) { bt = t; bk = k; } }
-    if (gt(bk, ck) && Math.random() < 0.002) { cur = bt; ck = bk; }
-  }
-  // 3. check every single swap until none helps
-  for (let improved = true; improved;) {
-    improved = false; await new Promise(r => setTimeout(r, 0));
-    for (let i = 0; i < 11 && !improved; i++) for (const c of FL) {
-      const t = bt.slice(); t[i] = c; if (!ok(t, i)) continue;
-      const k = keyOf(t); if (gt(k, bk)) { bt = t; bk = k; improved = true; break; }
-    }
-  }
-  const [form, match] = formFit(bt), E = effective(bt, series), slots = FORMS_CACHE[form];
-  const players = match.map((i, j) => { const c = bt[i]; return { slot: slots[j], id: c.id, name: c.name, rating: c.rating, color: c.color, position: c.position, nationId: c.nationId, leagueId: c.leagueId, clubId: c.clubId,
-    card: [c.attack, c.control, c.defense], chem: E[i].chem, eff: [E[i].a, E[i].c, E[i].d], tiebreak: E[i].t }; });
-  return { g: cnt(bt), groupCards: G.length, formation: form, chem: E.reduce((x, e) => x + e.chem, 0), players };
-}
 async function renderObjectives(fetch = true) {     // fetch: reload the shared list (not right after changing it)
   if (fetch) try { OBJ_SHARED = (await getJSON("objectives.json")).objectives || []; } catch (e) {}
   const box = $("objBody"), L = objList();
   const players = [...new Set(L.map(o => o.player || "Other"))];
-  let html = `<div class="card"><h2>Objectives</h2><p class="small" style="margin:4px 0 0">The game's Fatal My Club objectives, by the player they unlock. Tap a player, then an objective, for a team in every series. <b>Play these teams against the AI.</b></p>
-    <p class="small muted" style="margin:6px 0 0">Each team uses this season's boosts and updates by itself every season. Duels: as many of the objective's cards as fit. Matches: at least the number needed in the team (they don't have to win the duels). Objective cards are marked <span class="gold">▌</span>.</p>
-    <div style="margin-top:10px">${OBJ_FORM ? objFormHtml(players) : `<button class="btn" id="objAdd">Add Objective</button>`}</div></div>`;
+  let html = `<div class="card"><h2>Objectives</h2><p class="small" style="margin:4px 0 0">The game's Fatal My Club objectives, by the player they unlock. Tap a player, then an objective. <b>Play these teams against the AI</b>, over as many matches as it takes.</p>
+    <p class="small muted" style="margin:6px 0 0">Each team is the series' boosted best team with a safe number of objective cards swapped in: it keeps the best team's result against the Reddit team and stays within 2% of its in-game strength. Series 77 to 90 only. Matches objectives: the cards just need to be in the team. Teams update after every Best Teams build. Objective cards are marked <span class="gold">▌</span>.</p>
+    ${ghToken() ? `<div style="margin-top:10px">${OBJ_FORM ? objFormHtml(players) : `<button class="btn" id="objAdd">Add Objective</button>`}</div>` : ""}</div>`;
   if (!L.length) html += `<div class="card small muted">No objectives yet.</div>`;
   for (const pl of players) {
     const its = L.filter(o => (o.player || "Other") === pl), sid = "objp:" + pl;
@@ -1203,31 +1116,28 @@ async function renderObjectives(fetch = true) {     // fetch: reload the shared 
       return `<details class="tgrp" data-oo="${esc(oid)}"${OBJ_OPEN.has(oid) ? " open" : ""}><summary class="notc">${esc(objText(o))}</summary><div id="ob_${esc(o.id)}"><p class="small muted">Building…</p></div></details>`; }).join("")}</div></details>`;
   }
   box.innerHTML = html;
-  if (OBJ_FORM) wireObjForm(); else $("objAdd").onclick = () => { OBJ_FORM = true; renderObjectives(false); };
+  if (OBJ_FORM && ghToken()) wireObjForm(); else if ($("objAdd")) $("objAdd").onclick = () => { OBJ_FORM = true; renderObjectives(false); };
   box.querySelectorAll("details[data-op]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.op) : OBJ_OPEN.delete(x.dataset.op); });
   box.querySelectorAll("details[data-oo]").forEach(x => { x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.oo) : OBJ_OPEN.delete(x.dataset.oo); if (x.open) objFill(x.dataset.oo.slice(4)); }; if (x.open) objFill(x.dataset.oo.slice(4)); });
 }
 async function objFill(id) {
-  const o = objList().find(x => x.id === id); if (!o || !$("ob_" + id)) return;
-  const wk = WEEK && WEEK.week, ck = id + "|" + wk;
-  if (!OBJ_RES.has(ck)) OBJ_RES.set(ck, (async () => {
-    const out = [];
-    for (const s of (WEEK && WEEK.myclub) || []) {
-      let base = []; try { const d = await getJSON(`results/myclub_${s.key}.json`); if (d.week === wk) base = d.team.players.map(p => p.id); } catch (e) {}
-      const e2 = $("ob_" + id); if (e2) e2.innerHTML = `<p class="small muted">Building ${esc(s.key)} Series…</p>`;
-      out.push([s, await objBuild(o, s, base)]);
-    }
-    return out;
-  })());
-  const res = await OBJ_RES.get(ck);
-  const el = $("ob_" + id); if (!el) return;            // the tab may have redrawn while building
-  const mark = objIn(o);
-  el.innerHTML = res.map(([s, r]) => {
-    const ssid = "obj:" + id + ":" + s.key;
-    if (r.none) return `<div class="orow"><b>${esc(s.key)} Series</b> <span class="small muted">· ${r.msg || (r.groupCards ? "no team fits" : `no ${esc(objGroup(o))} cards under ${s.cap}`)}</span></div>`;
-    const short = o.kind === "matches" && r.g < o.min;
-    return `<details class="oteam" data-ot="${esc(ssid)}"${OBJ_OPEN.has(ssid) ? " open" : ""}><summary class="notc"><b>${esc(s.key)} Series</b> <span class="muted small">· ${r.g} ${esc(objGroup(o))} card${r.g === 1 ? "" : "s"} · ${esc(r.formation)} · ${r.chem} chem${short ? ` · can't reach ${o.min}` : ""}</span></summary>${playersTable(r.players, true, null, mark)}</details>`;
-  }).join("") + `<p style="margin:8px 0 4px"><button class="ghost" data-objdel="${esc(id)}">Remove Objective</button></p>`;
+  const o = objList().find(x => x.id === id), el = $("ob_" + id); if (!o || !el) return;
+  const wk = INDEX && INDEX.week, mark = objIn(o), got = [];
+  for (const f of (INDEX && INDEX.files || []).filter(f => f.startsWith(`objective_${id}_`))) {
+    try { const d = await getJSON("results/" + f); if (d.week === wk) got.push(d); } catch (e) {}
+  }
+  got.sort((a, b) => (a.series.cap || 0) - (b.series.cap || 0));
+  const ok = got.filter(d => d.team), skip = got.filter(d => !d.team);
+  let h = ok.map(d => {
+    const ssid = "obj:" + id + ":" + d.series.key, t = d.team;
+    const red = (d.reddit || []).map(r => pill(r.you_lead_first) + pill(r.they_lead_first)).join(" ");
+    return `<details class="oteam" data-ot="${esc(ssid)}"${OBJ_OPEN.has(ssid) ? " open" : ""}><summary class="notc"><b>${esc(d.series.key)} Series</b> <span class="muted small">· ${d.g} ${esc(objGroup(o))} card${d.g === 1 ? "" : "s"} · ${esc(t.formation || "")} · ${t.chem} chem</span></summary>
+      <p class="small muted" style="margin:6px 0">${red ? `Vs Reddit team (same as the best team): ${red} · ` : ""}${d.strength}% of the best team's in-game strength.</p>${playersTable(t.players, true, null, mark)}</details>`;
+  }).join("");
+  if (!got.length) h = `<p class="small muted">${o.shared ? "Building… teams appear about 15 minutes after an objective is added, and update after every Best Teams build." : "Teams are built on GitHub for shared objectives only. Ask the site owner to add this one."}</p>`;
+  else if (!ok.length) h = `<p class="small muted">No series can take ${esc(objGroup(o))} cards safely this season.</p>`;
+  if (skip.length) h += `<p class="small muted" style="margin:8px 0 0">Not realistic this season: ${skip.map(d => esc(d.series.key)).join(", ")} (no ${esc(objGroup(o))} card fits without weakening the team${o.kind === "matches" ? ` or fewer than ${o.min} fit` : ""}).</p>`;
+  el.innerHTML = h + `<p style="margin:8px 0 4px"><button class="ghost" data-objdel="${esc(id)}">Remove Objective</button></p>`;
   el.querySelectorAll("details[data-ot]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.ot) : OBJ_OPEN.delete(x.dataset.ot); });
   el.querySelector("[data-objdel]").onclick = async () => {
     if (o.shared && !ghToken()) { alert("This objective is shared with everyone. Only the site owner can remove it."); return; }
@@ -1278,7 +1188,7 @@ function wireObjForm() {
       $("oSave").disabled = true; $("oSave").textContent = "Saving…";
       try { await objPutShared(L => L.filter(x => x.id !== o.id).concat([o]), "Objective: " + o.player + " - " + objText(o)); }
       catch (e) { alert("Couldn't save it for everyone (" + e.message + "). Saved on this phone instead."); objSave(objLocal().filter(x => x.id !== o.id).concat([o])); }
-    } else objSave(objLocal().filter(x => x.id !== o.id).concat([o]));
+    } else { alert(`Objective teams are built on GitHub, so adding one needs GitHub connected:\n\nSeason Setup tab → "Connect GitHub".`); return; }
     OBJ_FORM = false; OBJ_OPEN.add("objp:" + o.player); OBJ_OPEN.add("obj:" + o.id); renderObjectives(false);
   };
   show();

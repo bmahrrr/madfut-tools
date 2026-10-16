@@ -101,11 +101,39 @@ def main():
         except Exception as e:
             print("season card list not saved:", e)
         return
+    if mode == "objplan":
+        # (objective, series) pairs to build: new objective, new season, or that series' best team changed
+        w = week(); out = []
+        objs = json.load(open(os.path.join(ROOT, "docs", "objectives.json"))).get("objectives", [])
+        force = len(sys.argv) > 2 and sys.argv[2] == "all"
+        for o in objs:
+            for s in w.get("myclub", []):
+                if not 77 <= (s.get("cap") or 99) <= 90: continue     # objectives are done in the 80-90 series (a little below at most)
+                try:
+                    pub = json.load(open(os.path.join(RES, f"myclub_{s['key']}.json")))
+                except FileNotFoundError:
+                    continue
+                if pub.get("week") != w.get("week"): continue
+                ids = [p["id"] for p in pub["team"]["players"]]
+                try:
+                    cur = json.load(open(os.path.join(RES, f"objective_{o['id']}_{s['key']}.json")))
+                    if not force and cur.get("week") == w.get("week") and cur.get("base_ids") == ids and cur.get("objective") == o:
+                        continue
+                except FileNotFoundError:
+                    pass
+                out.append({"id": o["id"], "key": s["key"]})
+        print(json.dumps(out))
+        return
     if mode == "index":
         w = week()
         keys = {("myclub_" + s["key"]) for s in w.get("myclub", [])} | {("sim_" + s["key"]) for s in w.get("sim", [])}
+        try:
+            objs = json.load(open(os.path.join(ROOT, "docs", "objectives.json")))["objectives"]
+        except FileNotFoundError:
+            objs = []
+        keys |= {f"objective_{o['id']}_{s['key']}" for o in objs for s in w.get("myclub", [])}
         files = sorted(f for f in os.listdir(RES) if f.endswith(".json") and f not in ("index.json", "week.json", "extras.json")
-                       and (not f.startswith(("myclub_", "sim_")) or f[:-5] in keys))
+                       and (not f.startswith(("myclub_", "sim_", "objective_")) or f[:-5] in keys))
         json.dump({"week": w.get("week"), "files": files,
                    "series": {"sim": w.get("sim", []), "myclub": [{k: v for k, v in s.items() if k != "opponents"} for s in w.get("myclub", [])]}},
                   open(os.path.join(RES, "index.json"), "w"), indent=1)
@@ -169,6 +197,25 @@ def main():
                             verify=3 if kind == "robust" else 0)
         save(f"custom_{stem}.json", {"mode": "custom", "request": req, "series": {k: v for k, v in s.items() if k != "opponents"},
                                      "opponents": [[c["name"] for c in o] for o in opps], "team": team})
+    elif mode == "objective":
+        # python scripts/build.py objective OBJ_ID KEY [SECONDS] -> docs/results/objective_<id>_<key>.json
+        from fatal.objective import build_objective
+        from fatal.core import describe
+        oid, key = sys.argv[2], sys.argv[3]
+        secs = float(sys.argv[4]) if len(sys.argv) > 4 else 60
+        obj = next(o for o in json.load(open(os.path.join(ROOT, "docs", "objectives.json")))["objectives"] if o["id"] == oid)
+        s = next(x for x in week()["myclub"] if x["key"] == key)
+        pub = json.load(open(os.path.join(RES, f"myclub_{key}.json")))
+        t = pub["team"]
+        refs = [[by_id[p["id"]] for p in v["players"] if p["id"] in by_id] for n, v in t.get("opponent_teams", {}).items() if n.startswith("reference")]
+        refs = [r for r in refs if len(r) == 11]
+        base_ids = [p["id"] for p in t["players"]]
+        print("Objective", oid, "series", key, "reddit teams:", len(refs))
+        r = build_objective(obj, s, owned, base_ids, refs, seconds=secs, seed=int(time.time() // 86400))
+        if "team_ids" in r:
+            r["team"] = describe([by_id[i] for i in r.pop("team_ids")], s)
+        r.update({"mode": "objective", "objective": obj, "series": {k: v for k, v in s.items() if k != "opponents"}, "base_ids": base_ids})
+        save(f"objective_{oid}_{key}.json", r)
     elif mode == "myclub":
         from fatal.myclub import build_myclub
         key = sys.argv[2]
