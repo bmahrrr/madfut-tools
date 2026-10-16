@@ -49,8 +49,10 @@ def main():
         c = cards.setdefault(p["id"], {"id": p["id"], "name": p["name"], "rating": p["rating"], "color": p["color"],
                                        "position": p.get("position") or p.get("slot"), "days": 0.0, "teams": set(), "seasons": {}})
         c["days"] += days; c["teams"].add(f"{wk}|{series}")
-        s = c["seasons"].setdefault(wk, {"myclub": 0.0, "sim": 0.0, "series": set()})
-        s[series.split("_")[0]] += days; s["series"].add(series)
+        s = c["seasons"].setdefault(wk, {"myclub": 0.0, "sim": 0.0, "series": {}})
+        s[series.split("_")[0]] += days
+        e = s["series"].setdefault(series, [0.0, p.get("slot") or p.get("position") or ""])   # days in that team, slot played
+        e[0] += days; e[1] = p.get("slot") or e[1]                                           # latest slot
     covered = set()
     for (wk, series), H in hist.items():
         start = datetime.datetime.fromisoformat(wk).replace(tzinfo=datetime.timezone.utc).timestamp()
@@ -71,7 +73,7 @@ def main():
     out = []
     for c in cards.values():
         c["days"] = round(c["days"], 1); c["teams"] = len(c["teams"])
-        c["seasons"] = {k: {"myclub": round(v["myclub"], 1), "sim": round(v["sim"], 1), "series": sorted(v["series"])} for k, v in c["seasons"].items()}
+        c["seasons"] = {k: {"myclub": round(v["myclub"], 1), "sim": round(v["sim"], 1), "series": {k2: [round(v2[0], 1), v2[1]] for k2, v2 in sorted(v["series"].items())}} for k, v in c["seasons"].items()}
         out.append(c)
     out.sort(key=lambda c: (-c["days"], -c["teams"], c["name"]))
     json.dump({"updated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "cards": out},
