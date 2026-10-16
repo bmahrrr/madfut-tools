@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016l";
+const APP_V = "20261016m";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -79,9 +79,9 @@ function installTip() {
   const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
   let off = false; try { off = localStorage.getItem("installTipOff") === "1"; } catch (e) {}
   if (standalone || off || !matchMedia("(max-width: 900px)").matches || $("installTip")) return;
-  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent), samsung = /SamsungBrowser/i.test(navigator.userAgent);
   const box = document.createElement("div"); box.className = "card"; box.id = "installTip";
-  box.innerHTML = `<p class="small" style="margin:0 0 8px"><b>Install as an app:</b> opens from your home screen and keeps working with poor signal mid-match. ${INSTALL_EV ? "" : ios ? "In Safari, tap <b>Share</b> then <b>Add to Home Screen</b>." : "In your browser menu, tap <b>Install app</b> or <b>Add to Home screen</b>."}</p>
+  box.innerHTML = `<p class="small" style="margin:0 0 8px"><b>Install as an app:</b> opens from your home screen and keeps working with poor signal mid-match. ${INSTALL_EV ? "" : ios ? "In Safari, tap <b>Share</b> then <b>Add to Home Screen</b>." : samsung ? "Tap the menu (<b>≡</b>), then <b>Add page to</b> → <b>Home screen</b> (or the install icon in the address bar)." : "In your browser menu (<b>⋮</b>), tap <b>Install app</b> or <b>Add to Home screen</b>."}</p>
     <div class="row">${INSTALL_EV ? `<button class="btn" id="installGo">Install</button>` : ""}<button class="ghost" id="installNo">Not now</button></div>`;
   const main = document.querySelector("main"); main.insertBefore(box, main.firstChild);
   $("installNo").onclick = () => { try { localStorage.setItem("installTipOff", "1"); } catch (e) {} box.remove(); };
@@ -598,7 +598,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016l"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016m"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -624,7 +624,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016l"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016m"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -973,7 +973,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016l");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016m");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
