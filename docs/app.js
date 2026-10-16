@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016d";
+const APP_V = "20261016e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -581,7 +581,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -607,7 +607,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -929,7 +929,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016d");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1054,13 +1054,13 @@ async function setupUsage() {
         days += md ? v[md] : v.myclub + v.sim;
         v.series.filter(x => !md || x.startsWith(md)).forEach(x => series.add(w + "|" + x));
       }
-      return { c, days: Math.round(days * 10) / 10, teams: series.size, list: [...series].map(x => x.split("|")) };
-    }).filter(x => x.days > 0).sort((a, b) => b.days - a.days || b.teams - a.teams);
+      return { c, days: Math.round(days), raw: days, teams: series.size, list: [...series].map(x => x.split("|")) };
+    }).filter(x => x.raw > 0).sort((a, b) => b.raw - a.raw || b.teams - a.teams);
     const label = s => (s.startsWith("myclub") ? "My Club " : "Sim ") + s.split("_")[1];
     $("uList").innerHTML = L.slice(0, shown).map((x, k) => { const c = BYID.get(x.c.id) || x.c;
       return `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${x.c.rating}</b></span><span class="nm"><b>${k + 1}. ${esc(x.c.name)}</b><span class="r">${esc(TYPE(x.c.color))}</span>
-        <small>${x.list.map(([w, s]) => `${label(s)}${wk ? "" : ` (S${seasonOf(w)})`}`).join(" · ")}</small></span>
-        <span style="text-align:right"><b class="big" style="font-size:22px">${x.days}</b><small class="muted" style="display:block">days · ${x.teams} team${x.teams === 1 ? "" : "s"}</small></span></div>`; }).join("")
+        <small>${x.teams} team${x.teams === 1 ? "" : "s"}: ${x.list.map(([w, s]) => `${label(s)}${wk ? "" : ` (S${seasonOf(w)})`}`).join(" · ")}</small></span>
+        <span class="ud"><b>${x.days || "<1"}</b><small>days</small></span></div>`; }).join("")
       || `<p class="small muted">Nothing for this choice yet.</p>`;
     $("uMore").hidden = L.length <= shown;
   };
