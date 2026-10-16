@@ -1,0 +1,89 @@
+name: Objective teams
+
+# The Objectives tab: for every objective (docs/objectives.json) and every My Club series from 77 to 90, the series'
+# best team with a safe number of objective cards swapped in. Runs when objectives change, and after every
+# Best Teams build (a new season or a changed best team means a new starting point).
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/objectives.json"
+  workflow_run:                 # right after every Best Teams build
+    workflows: ["Build teams"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Rebuild every objective team (type: all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: objectives
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      jobs: ${{ steps.list.outputs.jobs }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - id: list
+        run: |
+          J=$(python scripts/build.py objplan "${{ github.event.inputs.all }}")
+          echo "jobs=$J" >> $GITHUB_OUTPUT
+          echo "$J"
+
+  build:
+    needs: plan
+    if: ${{ needs.plan.outputs.jobs != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        job: ${{ fromJson(needs.plan.outputs.jobs) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -u scripts/build.py objective "${{ matrix.job.id }}" "${{ matrix.job.key }}" 120
+      - uses: actions/upload-artifact@v4
+        with:
+          name: objective_${{ matrix.job.id }}_${{ matrix.job.key }}
+          path: docs/results/objective_${{ matrix.job.id }}_${{ matrix.job.key }}.json
+
+  publish:
+    needs: build
+    if: ${{ always() && needs.build.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Save results
+        run: |
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            find artifacts -name 'objective_*.json' -exec cp {} docs/results/ \;
+            python3 scripts/build.py index
+            git add docs/results
+            git diff --cached --quiet && { echo "nothing new to save"; break; }
+            git commit -qm "Objective teams" && git push -q origin HEAD:main && { echo "saved"; break; }
+            echo "push raced with another build, retrying ($i)"; sleep $((5 + RANDOM % 15))
+          done
