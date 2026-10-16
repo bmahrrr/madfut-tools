@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016a";
+const APP_V = "20261016b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -550,12 +550,62 @@ async function solveMC() {
   $("solveOut").innerHTML = `<table><tr><th>Who leads first</th><th>Result for you</th></tr>
     <tr><td>You</td><td>${pill(LEVEL_NAME(r[0]))} <span class="small muted">${LEVEL_TEXT(r[0])}</span></td></tr>
     <tr><td>Them</td><td>${pill(LEVEL_NAME(r[1]))} <span class="small muted">${LEVEL_TEXT(r[1])}</span></td></tr></table>
-    <p class="small muted">Both sides playing perfectly. <a href="#" id="toMatch">Play it move by move in Match helper →</a></p>`;
+    <p class="small muted">Both sides playing perfectly. <a href="#" id="toMatch">Play it move by move in Match helper →</a></p>
+    <div class="row" style="margin-top:10px"><button class="ghost" id="pvA">Perfect game: you lead</button><button class="ghost" id="pvB">Perfect game: they lead</button><button class="ghost" id="keyBtn">Key cards</button></div>
+    <div id="mcExtra" style="margin-top:8px"></div>`;
   $("toMatch").onclick = e => { e.preventDefault(); document.querySelector('#tabs button[data-t="match"]').click(); };
+  const TA = state.A.slice(), TB = state.B.slice();
+  $("pvA").onclick = () => showPV(A, B, TA, TB, 0); $("pvB").onclick = () => showPV(A, B, TA, TB, 1);
+  $("keyBtn").onclick = () => keyCards(A, B, TA, TB, r);
+}
+// ---- the perfect game, move by move ----
+async function showPV(A, B, TA, TB, first) {
+  const box = $("mcExtra"); box.innerHTML = `<p class="muted small">Playing the perfect game… a few seconds</p>`;
+  const g = await ask({ type: "pv", A, B, first }), st = ["Attack", "Control", "Defence"], ctr = [2, 1, 0], v = (e, k) => [e.a, e.c, e.d][k];
+  let me = 0, them = 0;
+  const rows = g.steps.map((x, n) => {
+    if (x.r > 0) me++; if (x.r < 0) them++;
+    const res = x.r > 0 ? `<span class="ok">✓</span>` : x.r < 0 ? `<span class="bad">✗</span>` : `<span class="muted">=</span>`;
+    const txt = x.lead === "A"
+      ? `You lead <b>${esc(TA[x.i].name)}</b> ${st[x.s]} ${v(A[x.i], x.s)} · they answer <b>${esc(TB[x.j].name)}</b> ${st[ctr[x.s]]} ${v(B[x.j], ctr[x.s])}`
+      : `They lead <b>${esc(TB[x.j].name)}</b> ${st[x.s]} ${v(B[x.j], x.s)} · you answer <b>${esc(TA[x.i].name)}</b> ${st[ctr[x.s]]} ${v(A[x.i], ctr[x.s])}`;
+    return `<div class="opt"><span class="small"><b>${n + 1}.</b> ${txt}</span><span class="small" style="white-space:nowrap">${res} ${me}–${them}</span></div>`;
+  }).join("");
+  const fin = me + Math.max(g.tb, 0), fth = them + Math.max(-g.tb, 0);
+  const tbTxt = g.d < -1 || g.d > 1 ? "No tiebreak: the score is 2 or more apart." :
+    `Tiebreak: your <b>${esc(TA[g.ai].name)}</b> (${A[g.ai].t}) vs their <b>${esc(TB[g.bi].name)}</b> (${B[g.bi].t}) — ${g.tb > 0 ? "you win it" : g.tb < 0 ? "they win it" : "5 or less apart, no point"}.`;
+  box.innerHTML = `<h3>Perfect game · ${first === 0 ? "you lead first" : "they lead first"}</h3>${rows}
+    <p class="small" style="margin:8px 0 2px">${tbTxt}</p><p><b class="big" style="font-size:26px">${fin} – ${fth}</b></p>
+    <p class="small muted">Both sides play perfectly; where several moves are equally good it shows the one that wins its round, keeping high-tiebreak cards for later.</p>`;
+}
+// ---- key cards: which single cards decide the result ----
+let pool = [];
+function poolAsk(k, msg) {
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
+}
+async function keyCards(A, B, TA, TB, lv) {
+  const box = $("mcExtra"), base = lv.map(l => (l >= 3 ? 3 : l === 2 ? 2 : 0)), D = 1;
+  const tweak = (T, i, d) => T.map((e, k) => k === i ? Object.assign({}, e, { a: e.a + d, c: e.c + d, d: e.d + d, t: e.t + 3 * d }) : e);
+  const jobs = [...TB.map((_, j) => ({ side: "B", k: j })), ...TA.map((_, i) => ({ side: "A", k: i }))];
+  let done = 0; box.innerHTML = `<p class="muted small">Testing all 22 cards… <span id="kcProg">0</span>/22</p>`;
+  const res = await Promise.all(jobs.map((J, n) => poolAsk(n, { type: "o2", A: J.side === "A" ? tweak(A, J.k, D) : A, B: J.side === "B" ? tweak(B, J.k, -D) : B })
+    .then(o => { done++; const p = $("kcProg"); if (p) p.textContent = done; return Object.assign(J, { o }); })));
+  const word = { 3: "win", 2: "draw", 0: "lose" }, order = ["you lead", "they lead"];
+  const gain = J => [0, 1].filter(f => J.o[f] > base[f]).map(f => `${order[f]}: ${word[base[f]]} → <b>${word[J.o[f]]}</b>`).join(", ");
+  const n2 = J => [0, 1].filter(f => J.o[f] > base[f]).length;
+  const theirs = res.filter(J => J.side === "B" && gain(J)).sort((x, y) => n2(y) - n2(x)), mine = res.filter(J => J.side === "A" && gain(J)).sort((x, y) => n2(y) - n2(x));
+  const li = (J, T) => `<li><b>${esc(T[J.k].name)}</b> <span class="muted">(${esc(J.side === "A" ? "+" : "−")}${D} on every stat)</span> — ${gain(J)}</li>`;
+  box.innerHTML = `<h3>Key cards</h3>
+    <p class="small" style="margin:4px 0"><b>Their cards that decide it</b> — if this one card were ${D} weaker in every stat:</p>
+    ${theirs.length ? `<ul class="small" style="margin:0;padding-left:18px">${theirs.map(J => li(J, TB)).join("")}</ul>` : `<p class="small muted" style="margin:0">None — no single card of theirs is holding the result.</p>`}
+    <p class="small" style="margin:10px 0 4px"><b>Your weak links</b> — if this one card of yours were ${D} stronger in every stat:</p>
+    ${mine.length ? `<ul class="small" style="margin:0;padding-left:18px">${mine.map(J => li(J, TA)).join("")}</ul><p class="small muted" style="margin:6px 0 0">Upgrade these first: a better version (chem, boost or a stronger card) changes the result.</p>` : `<p class="small muted" style="margin:0">None — a small upgrade to any one card doesn't change the result.</p>`}
+    <p class="small muted" style="margin:8px 0 0">1 point is the smallest possible change: these cards are what the result hangs on.</p>`;
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -877,7 +927,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
