@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261016f">
+<meta name="app-version" content="20261016g">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#150f12">
@@ -162,7 +162,10 @@ details.sercard>.body{padding:12px 16px 16px}
 .uteam{display:grid;grid-template-columns:minmax(0,1fr) 34px 52px 52px;align-items:center;gap:6px;font-size:12.5px;padding:3px 3px 3px 0}
 .uteam .usl{color:var(--muted);font:700 12.5px/1 var(--display);letter-spacing:.5px}
 .ubar{height:5px;background:var(--line)}.ubar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--fire))}
-.ud2{text-align:right;color:var(--muted)}#uList .ud{text-align:right;padding-right:3px}#uList .ud b{font:800 italic 24px/1 var(--display)}#uList .ud small{display:block;color:var(--muted);font-size:11.5px}
+.ud2{text-align:right;color:var(--muted)}
+.prow.gmark{box-shadow:inset 3px 0 var(--gold)}.prow.gmark .pos{padding-left:6px}
+details.oteam{border-top:1px solid var(--line);padding:6px 0}details.oteam>summary{color:var(--text);font-weight:400;list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px;cursor:pointer}details.oteam>summary::after{content:"▾";color:var(--gold);margin-left:auto}details.oteam[open]>summary::after{content:"▴"}
+details.oteam>summary::-webkit-details-marker{display:none}.orow{border-top:1px solid var(--line);padding:8px 0}#objBody .tgrp>summary{font-weight:600}details.oteam .ores{margin-left:auto}#uList .ud{text-align:right;padding-right:3px}#uList .ud b{font:800 italic 24px/1 var(--display)}#uList .ud small{display:block;color:var(--muted);font-size:11.5px}
 .verdict{font:700 15px/1.2 var(--display);letter-spacing:.6px;text-transform:uppercase;color:var(--win);margin:0 0 8px}
 .verdict span{font:400 12.5px/1.3 var(--body);letter-spacing:0;text-transform:none;color:var(--muted)}
 .squad{margin:0 -16px;border-bottom:1px solid var(--line)}
@@ -191,6 +194,7 @@ details.sercard>.body{padding:12px 16px 16px}
 <div class="navwrap">
   <nav id="tabs">
     <button data-t="teams" class="on">Best teams</button>
+    <button data-t="obj">Objectives</button>
     <button data-t="mc">My Club compare</button>
     <button data-t="beat">Beat a team</button>
     <button data-t="match">Match helper</button>
@@ -203,6 +207,7 @@ details.sercard>.body{padding:12px 16px 16px}
 <main>
   <section id="teams" class="on"><div id="teamsBody"><p class="muted">Loading results…</p></div></section>
 
+  <section id="obj"><div id="objBody"><p class="muted">Loading…</p></div></section>
   <section id="beat">
     <div class="card">
       <h2>Beat a specific team</h2>
@@ -304,8 +309,8 @@ details.sercard>.body{padding:12px 16px 16px}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261016f"></script>
-<script src="sbc-solver.js?v=20261016f"></script>
-<script src="app.js?v=20261016f"></script>
+<script src="engine.js?v=20261016g"></script>
+<script src="sbc-solver.js?v=20261016g"></script>
+<script src="app.js?v=20261016g"></script>
 </body>
 </html>
