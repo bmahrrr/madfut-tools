@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016b";
+const APP_V = "20261016c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -581,7 +581,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -605,7 +605,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -927,7 +927,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1037,7 +1037,37 @@ function siteTotal() {          // every card on the site, counted as the Cards 
   const byT = new Map(); CARDS.filter(inCards).forEach(c => { const k = typeKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
   return [...byT].reduce((a, [t, cs]) => a + cardCount(t, cs), 0);
 }
+// ---------- Most used cards (docs/usage.json, made by scripts/usage.py) ----------
+async function setupUsage() {
+  let U; try { U = await getJSON("usage.json"); } catch (e) { $("uList").innerHTML = `<p class="small muted">No usage data yet.</p>`; return; }
+  const weeks = [...new Set(U.cards.flatMap(c => Object.keys(c.seasons)))].sort().reverse();
+  $("uSeason").innerHTML = `<option value="">All seasons</option>` + weeks.map(w => `<option value="${esc(w)}">${esc(seasonName(w))}</option>`).join("");
+  let shown = 25;
+  const draw = () => {
+    const wk = $("uSeason").value, md = $("uMode").value;
+    const L = U.cards.map(c => {
+      let days = 0, series = new Set();
+      for (const [w, v] of Object.entries(c.seasons)) {
+        if (wk && w !== wk) continue;
+        days += md ? v[md] : v.myclub + v.sim;
+        v.series.filter(x => !md || x.startsWith(md)).forEach(x => series.add(w + "|" + x));
+      }
+      return { c, days: Math.round(days * 10) / 10, teams: series.size, list: [...series].map(x => x.split("|")) };
+    }).filter(x => x.days > 0).sort((a, b) => b.days - a.days || b.teams - a.teams);
+    const label = s => (s.startsWith("myclub") ? "My Club " : "Sim ") + s.split("_")[1];
+    $("uList").innerHTML = L.slice(0, shown).map((x, k) => { const c = BYID.get(x.c.id) || x.c;
+      return `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${x.c.rating}</b></span><span class="nm"><b>${k + 1}. ${esc(x.c.name)}</b><span class="r">${esc(TYPE(x.c.color))}</span>
+        <small>${x.list.map(([w, s]) => `${label(s)}${wk ? "" : ` (S${seasonOf(w)})`}`).join(" · ")}</small></span>
+        <span style="text-align:right"><b class="big" style="font-size:22px">${x.days}</b><small class="muted" style="display:block">days · ${x.teams} team${x.teams === 1 ? "" : "s"}</small></span></div>`; }).join("")
+      || `<p class="small muted">Nothing for this choice yet.</p>`;
+    $("uMore").hidden = L.length <= shown;
+  };
+  $("uSeason").onchange = $("uMode").onchange = () => { shown = 25; draw(); };
+  $("uMore").onclick = () => { shown += 50; draw(); };
+  draw();
+}
 function setupCards() {
+  setupUsage();
   const real = CARDS.filter(inCards);
   const byT = new Map(); real.forEach(c => { const k = typeKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
   const cnt = new Map([...byT].map(([t, cs]) => [t, cardCount(t, cs)]));

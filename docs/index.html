@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261016b">
+<meta name="app-version" content="20261016c">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#150f12">
@@ -273,6 +273,11 @@ details.sercard>.body{padding:12px 16px 16px}
   </section>
 
   <section id="cards">
+    <details class="card" id="usageBox"><summary>Most Used Cards</summary>
+      <p class="small muted" style="margin:6px 0 8px">Cards in the Best Teams (everyone's teams), counted by the days each card was actually in a team. If a new card replaces one mid-season, each gets the days it was used. Updates with every build.</p>
+      <div class="fgrid" style="margin-bottom:8px"><label>Season<select id="uSeason"></select></label><label>Mode<select id="uMode"><option value="">My Club + Sim</option><option value="myclub">My Club</option><option value="sim">Sim</option></select></label></div>
+      <div id="uList"></div><div class="row" style="margin-top:8px"><button class="ghost" id="uMore">Show more</button></div>
+    </details>
     <div class="card">
       <h2>Every card on the site</h2>
       <p class="small muted" id="cardsInfo" style="margin:4px 0 8px"></p>
@@ -290,8 +295,8 @@ details.sercard>.body{padding:12px 16px 16px}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261016b"></script>
-<script src="sbc-solver.js?v=20261016b"></script>
-<script src="app.js?v=20261016b"></script>
+<script src="engine.js?v=20261016c"></script>
+<script src="sbc-solver.js?v=20261016c"></script>
+<script src="app.js?v=20261016c"></script>
 </body>
 </html>
