@@ -4,10 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261016k">
+<meta name="app-version" content="20261016l">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#150f12">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="MadFut Tools">
 <style>
 /* MadFut Tools — Fatal Night: ember-on-ink, skewed broadcast chips, outlined series numbers */
 :root{
@@ -259,6 +264,8 @@ details.oteam>summary::-webkit-details-marker{display:none}.orow{border-top:1px 
     <div class="card" id="matchSetup">
       <h2>Live match helper</h2>
       <p class="small muted">Uses the two teams from <b>My Club compare</b>. Pick who leads first, then follow the moves.</p>
+      <label class="small" style="display:block;margin:8px 0">Objective <select id="mObj"><option value="">None</option></select></label>
+      <p class="small muted" id="mObjNote" hidden style="margin:-2px 0 8px">Objective mode: when an objective card can be played without changing the result, it's suggested, picking the stat that wins its duel most often.</p>
       <div class="row"><button class="btn" id="iFirst">I lead first</button><button class="ghost" id="theyFirst">They lead first</button></div>
     </div>
     <div class="card" id="matchBox" hidden></div>
@@ -324,8 +331,8 @@ details.oteam>summary::-webkit-details-marker{display:none}.orow{border-top:1px 
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261016k"></script>
-<script src="sbc-solver.js?v=20261016k"></script>
-<script src="app.js?v=20261016k"></script>
+<script src="engine.js?v=20261016l"></script>
+<script src="sbc-solver.js?v=20261016l"></script>
+<script src="app.js?v=20261016l"></script>
 </body>
 </html>

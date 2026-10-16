@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261016k";
+const APP_V = "20261016l";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -71,6 +71,22 @@ async function selfUpdate() {         // a saved old copy of the site reloads it
   return false;
 }
 let DATA_UPDATED = "";
+if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));   // install as an app, works offline
+// a one-time tip to install the site as an app (phones only, not once installed or dismissed)
+let INSTALL_EV = null;
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); INSTALL_EV = e; const b = $("installTip"); if (b) b.remove(); installTip(); });
+function installTip() {
+  const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  let off = false; try { off = localStorage.getItem("installTipOff") === "1"; } catch (e) {}
+  if (standalone || off || !matchMedia("(max-width: 900px)").matches || $("installTip")) return;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const box = document.createElement("div"); box.className = "card"; box.id = "installTip";
+  box.innerHTML = `<p class="small" style="margin:0 0 8px"><b>Install as an app:</b> opens from your home screen and keeps working with poor signal mid-match. ${INSTALL_EV ? "" : ios ? "In Safari, tap <b>Share</b> then <b>Add to Home Screen</b>." : "In your browser menu, tap <b>Install app</b> or <b>Add to Home screen</b>."}</p>
+    <div class="row">${INSTALL_EV ? `<button class="btn" id="installGo">Install</button>` : ""}<button class="ghost" id="installNo">Not now</button></div>`;
+  const main = document.querySelector("main"); main.insertBefore(box, main.firstChild);
+  $("installNo").onclick = () => { try { localStorage.setItem("installTipOff", "1"); } catch (e) {} box.remove(); };
+  if (INSTALL_EV) $("installGo").onclick = async () => { INSTALL_EV.prompt(); await INSTALL_EV.userChoice; INSTALL_EV = null; box.remove(); };
+}
 async function init() {
   if (await selfUpdate()) return;
   $("appV").textContent = "Version " + APP_V;
@@ -86,7 +102,7 @@ async function init() {
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
-  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives();
+  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
 }
 
 // ---------- shared card UI ----------
@@ -582,7 +598,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016k"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261016l"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -608,7 +624,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261016k"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261016l"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -626,22 +642,43 @@ async function startMatch(first) {
   matchStep();
 }
 const myTurn = () => (M.n % 2 === 0) === (M.first === 0);
+// ---- objective mode: prefer objective cards (e.g. Lombardia FC) when they keep the same result ----
+let MOBJ = "";
+const mObjFn = () => { const o = MOBJ && objList().find(x => x.id === MOBJ); return o ? objIn(o) : null; };
+function fillMObj() {
+  const sel = $("mObj"); if (!sel) return;
+  const L = objList().filter(o => o.kind === "duels");
+  sel.innerHTML = `<option value="">None</option>` + L.map(o => `<option value="${esc(o.id)}">${esc(o.player)}: ${esc(objText(o))}</option>`).join("");
+  sel.value = L.some(o => o.id === MOBJ) ? MOBJ : ""; $("mObjNote").hidden = !sel.value;
+  sel.onchange = () => { MOBJ = sel.value; $("mObjNote").hidden = !MOBJ; if (M && M.A && $("matchBox") && !$("matchBox").hidden) matchStep(); };
+}
+const isObj = i => { const f = mObjFn(); return !!(f && state.A[i] && f(state.A[i])); };
+function beatShare(i, s) {           // share of their unplayed cards this lead beats
+  let w = 0, n = 0;
+  for (let k = 0; k < 11; k++) if (M.mb >> k & 1) { n++; if (duelR(i, k, s, true) > 0) w++; }
+  return n ? w / n : 0;
+}
 const vName = v => ["Losing", "Losing by 1", "Drawing", "Winning", "Winning"][v];
 async function matchStep() {
   const box = $("matchBox");
   if (M.n === 10) {
     const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb);
-    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div><p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<button class="ghost" onclick="startMatch(M.first)">Restart</button>`;
+    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div>${mObjFn() ? `<p class="gold">🎯 Objective duels won: ${M.obj || 0}</p>` : ""}<p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<button class="ghost" onclick="startMatch(M.first)">Restart</button>`;
     return;
   }
   const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
-  let html = `<div class="row"><span class="big">${M.me} – ${M.them}</span><span class="muted">Round ${M.n + 1}/10 · with perfect play you're ${pill(LEVEL_NAME(val))}</span></div>`;
+  let html = `<div class="row"><span class="big">${M.me} – ${M.them}</span><span class="muted">Round ${M.n + 1}/10 · with perfect play you're ${pill(LEVEL_NAME(val))}</span></div>${mObjFn() ? `<p class="small gold" style="margin:4px 0">🎯 Objective duels won this match: ${M.obj || 0}</p>` : ""}`;
   if (myTurn()) {
     box.innerHTML = html + `<p class="muted">Working out your best lead…</p>`;
     const opts = await ask({ type: "leads", ma: M.ma, mb: M.mb, d: M.d });
-    const best = opts[0];
-    html += `<div class="move">Lead <b>${esc(state.A[best.i].name)}</b> — ${STAT[best.s]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][best.s]}</div>`;
-    const alts = opts.filter(o => o.value === best.value).slice(1, 5);
+    let best = opts[0], objNote = "";
+    if (mObjFn()) {                     // same result, but led by an objective card that wins its duel most often
+      const cand = opts.filter(o => o.value === best.value && isObj(o.i)).map(o => Object.assign({ share: beatShare(o.i, o.s) }, o)).sort((x, y) => y.share - x.share);
+      if (cand.length && cand[0].share >= 0.5) { best = cand[0]; objNote = `<p class="small gold">🎯 Objective card · beats ${Math.round(best.share * 100)}% of their remaining cards with this stat · same result as the best lead</p>`; }
+      else objNote = `<p class="small muted">No objective card is a safe, likely-winning lead this round.</p>`;
+    }
+    html += `<div class="move">Lead <b>${esc(state.A[best.i].name)}</b> — ${STAT[best.s]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][best.s]}</div>` + objNote;
+    const alts = opts.filter(o => o.value === best.value && !(o.i === best.i && o.s === best.s)).slice(0, 4);
     if (alts.length) html += `<p class="small muted">Also fine: ${alts.map(o => `${esc(state.A[o.i].name)} ${STAT[o.s]}`).join(", ")}</p>`;
     html += `<h3>What did they answer with?</h3><div class="row">` + teamButtons("B", M.mb, j => `ansTheirs(${best.i},${best.s},${j})`) + `</div>`;
     html += `<p class="small muted">Played something else? <a href="#" onclick="pickMyLead();return false">Choose the lead you played</a></p>`;
@@ -696,7 +733,9 @@ function teamButtons(side, mask, fn) {
   return team.map((c, i) => (mask >> i & 1) ? `<button class="ghost" onclick="${fn(i)}">${esc(c.name)}${side === "B" && M.swapped.has(i) ? ` <span class="tag">swapped</span>` : ""}</button>` : "").join("");
 }
 function logHtml() { return M.log.length ? `<h3>Moves</h3><ol class="small">${M.log.map(l => `<li>${l}</li>`).join("")}</ol>` : ""; }
-function apply(i, j, r, text) { M.ma &= ~(1 << i); M.mb &= ~(1 << j); M.d += r; M.n++; if (r > 0) M.me++; if (r < 0) M.them++; M.log.push(text + (r > 0 ? " ✅" : r < 0 ? " ❌" : " ➖")); matchStep(); }
+function apply(i, j, r, text) { M.ma &= ~(1 << i); M.mb &= ~(1 << j); M.d += r; M.n++; if (r > 0) M.me++; if (r < 0) M.them++;
+  const ob = r > 0 && isObj(i); if (ob) M.obj = (M.obj || 0) + 1;
+  M.log.push(text + (r > 0 ? " ✅" : r < 0 ? " ❌" : " ➖") + (ob ? " 🎯" : "")); matchStep(); }
 window.ansTheirs = (i, s, j) => apply(i, j, duelR(i, j, s, true), `You led ${esc(state.A[i].name)} (${STAT[s]}) · they answered ${esc(M.TB[j].name)}`);
 window.pickMyLead = () => {
   const box = $("matchBox");
@@ -714,8 +753,12 @@ window.theirLead = j => {
 window.theirStat = async (j, s) => {
   const box = $("matchBox"); box.innerHTML = `<p class="muted">Working out your best answer…</p>`;
   const opts = await ask({ type: "answers", ma: M.ma, mb: M.mb, d: M.d, j, s });
-  const best = opts[0];
-  let html = `<div class="move">Answer with <b>${esc(state.A[best.i].name)}</b> (${STAT[COUNTER[s]]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][COUNTER[s]]}) — ${best.r > 0 ? "wins the round" : best.r < 0 ? "dump, loses the round" : "draws the round"}</div>`;
+  let best = opts[0], objNote = "";
+  if (mObjFn()) {                       // an objective card that wins this duel without changing the result
+    const o = opts.find(x => x.value === best.value && x.r > 0 && isObj(x.i));
+    if (o) { best = o; objNote = `<p class="small gold">🎯 Objective card · wins the duel · same result as the best answer</p>`; }
+  }
+  let html = `<div class="move">Answer with <b>${esc(state.A[best.i].name)}</b> (${STAT[COUNTER[s]]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][COUNTER[s]]}) — ${best.r > 0 ? "wins the round" : best.r < 0 ? "dump, loses the round" : "draws the round"}</div>` + objNote;
   html += `<div class="row"><button class="btn" onclick="ansMine(${j},${s},${best.i})">I played it</button></div>`;
   html += `<h3>Or tap the card you actually played</h3><div class="row">${teamButtons("A", M.ma, i => `ansMine(${j},${s},${i})`)}</div>`;
   box.innerHTML = html + logHtml();
@@ -930,7 +973,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016k");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261016l");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1116,7 +1159,7 @@ async function renderObjectives(fetch = true) {     // fetch: reload the shared 
       const oid = "obj:" + o.id;
       return `<details class="tgrp" data-oo="${esc(oid)}"${OBJ_OPEN.has(oid) ? " open" : ""}><summary class="notc">${esc(objText(o))}</summary><div id="ob_${esc(o.id)}"><p class="small muted">Building…</p></div></details>`; }).join("")}</div></details>`;
   }
-  box.innerHTML = html;
+  box.innerHTML = html; fillMObj();
   if (OBJ_FORM && ghToken()) wireObjForm(); else if ($("objAdd")) $("objAdd").onclick = () => { OBJ_FORM = true; renderObjectives(false); };
   box.querySelectorAll("details[data-op]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.op) : OBJ_OPEN.delete(x.dataset.op); });
   box.querySelectorAll("details[data-oo]").forEach(x => { x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.oo) : OBJ_OPEN.delete(x.dataset.oo); if (x.open) objFill(x.dataset.oo.slice(4)); }; if (x.open) objFill(x.dataset.oo.slice(4)); });
@@ -1132,12 +1175,23 @@ async function objFill(id) {
   let h = ok.map(d => {
     const ssid = "obj:" + id + ":" + d.series.key, t = d.team, mk = d.obj_ids ? (p => d.obj_ids.includes(p.id)) : mark;
     return `<details class="oteam" data-ot="${esc(ssid)}"${OBJ_OPEN.has(ssid) ? " open" : ""}><summary class="notc"><b>${esc(d.series.key)} Series</b> <span class="muted small">· ${d.g} ${esc(objGroup(o))} card${d.g === 1 ? "" : "s"} · ${esc(t.formation || "")} · ${t.chem} chem</span></summary>
-      <p class="small muted" style="margin:6px 0">${d.strength}% of the best team's in-game strength.</p>${playersTable(t.players, true, null, mk)}</details>`;
+      <p class="small muted" style="margin:6px 0">${d.strength}% of the best team's in-game strength.</p>${playersTable(t.players, true, null, mk)}
+      <p style="margin:8px 0 4px"><button class="ghost" data-objplay="${esc(d.series.key)}">Use This Team</button> <span class="small muted">Loads it in My Club Compare: add the AI's team, then Match Helper${o.kind === "duels" ? " suggests the objective cards" : ""}.</span></p></details>`;
   }).join("");
   if (!got.length) h = `<p class="small muted">${o.shared ? "Building… teams appear about 15 minutes after an objective is added, and update after every Best Teams build." : "Teams are built on GitHub for shared objectives only. Ask the site owner to add this one."}</p>`;
   else if (!ok.length) h = `<p class="small muted">No series can take ${esc(objGroup(o))} cards safely this season.</p>`;
   if (skip.length) h += `<p class="small muted" style="margin:8px 0 0">Not realistic this season: ${skip.map(d => esc(d.series.key)).join(", ")} (${o.kind === "matches" ? `fewer than ${o.min} ${esc(objGroup(o))} cards fit without weakening the team` : `${esc(objGroup(o))} cards are too weak for that cap, or don't fit without weakening the team`}).</p>`;
   el.innerHTML = h + `<p style="margin:8px 0 4px"><button class="ghost" data-objdel="${esc(id)}">Remove Objective</button></p>`;
+  el.querySelectorAll("[data-objplay]").forEach(b => b.onclick = () => {
+    const d = ok.find(x => x.series.key === b.dataset.objplay); if (!d) return;
+    if ($("mcWeek") && $("mcWeek").value) { $("mcWeek").value = ""; $("mcWeek").onchange(); }
+    state.A = d.team.players.map(p => BYID.get(p.id)).filter(Boolean); state.B = [];
+    $("mcSeries").value = d.series.key; drawMC();
+    $("solveOut").innerHTML = `<p class="small gold">Objective team loaded (${esc(d.series.key)} Series). Add the AI's team, then open Match Helper.</p>`;
+    if (o.kind === "duels") MOBJ = o.id;
+    fillMObj();
+    document.querySelector('#tabs button[data-t="mc"]').click(); window.scrollTo(0, 0);
+  });
   el.querySelectorAll("details[data-ot]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.ot) : OBJ_OPEN.delete(x.dataset.ot); });
   el.querySelector("[data-objdel]").onclick = async () => {
     if (o.shared && !ghToken()) { alert("This objective is shared with everyone. Only the site owner can remove it."); return; }
