@@ -143,8 +143,11 @@ def main():
         return
     allc = load_cards()
     NO = not_owned()
+    # "Don't have" an LTM means none of its levels (each maxed rating is its own card): leave them all out
+    ltm = {c["name"] for c in allc if c["id"] in NO and c.get("color") == "ltm"}
+    NO = NO | {c["id"] for c in allc if c.get("color") == "ltm" and c["name"] in ltm}
     owned = [c for c in allc if c.get("owned", True) and c["id"] not in NO]
-    no_names = [c["name"] + f" {c['rating']}" for c in allc if c["id"] in NO]
+    no_names = sorted({c["name"] + (" (every level)" if c.get("color") == "ltm" else f" {c['rating']}") for c in allc if c["id"] in NO})
     by_id = {c["id"]: c for c in allc}
     if mode == "sim":
         from fatal.sim import build_sim
