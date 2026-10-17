@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261018c";
+const APP_V = "20261018d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -598,7 +598,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -624,7 +624,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261018c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261018d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -857,30 +857,41 @@ function groupLabel(kind, id) {
   if (kind === "rarity") return id[0].toUpperCase() + id.slice(1);
   return groupSample(kind, id).join(", ") || `${kind} ${id}`;
 }
-function ruleText(r) {
-  const head = `${OPS[r.op]} ${r.n}`;
-  if (r.on === "color" || r.on === "rarity") return `${head} <b>${esc(groupLabel(r.on, r.id))}</b>`;
+function ruleText(r) {              // the game's own wording: "Olympiacos FC: Min 1", "ICON: Max 1"
+  const tail = `: <b>${OPS[r.op]} ${r.n}</b>`;
+  if (r.on === "color" || r.on === "rarity") return `${esc(["icon", "hero"].includes(String(r.id)) ? String(r.id).toUpperCase() : groupLabel(r.on, r.id))}${tail}`;
   const known = (r.on === "nation" && NATIONS[r.id]) || (r.on === "league" && LEAGUES[r.id]) || (r.on === "club" && CLUBS[r.id]);
-  if (known) return `${head} from <b>${esc(known)}</b>`;
-  return `${head} from <b>${esc(r.via || groupSample(r.on, r.id)[0] || r.id)}'s ${r.on}</b> <span class="muted">(${esc(groupSample(r.on, r.id).join(", "))})</span>`;
+  if (known) return `${esc(known)}${tail}`;
+  return `${esc(r.via || groupSample(r.on, r.id)[0] || r.id)}'s ${r.on}${tail} <span class="muted">(${esc(groupSample(r.on, r.id).join(", "))})</span>`;
 }
+const GAME_NUM = { min_rating: "Squad Rating", min_chem: "Chemistry", min_player_chem: "Player Chemistry", min_types: "Card Types",
+  min_card_rating: "Player Rating", max_card_rating: "Player Rating", min_nations: "Nations", max_nations: "Nations", min_leagues: "Leagues",
+  max_leagues: "Leagues", min_clubs: "Clubs", max_clubs: "Clubs", min_same_nation: "Same Nation", max_same_nation: "Same Nation",
+  min_same_league: "Same League", max_same_league: "Same League", min_same_club: "Same Club", max_same_club: "Same Club" };
 function itemText(it) {
   if (it.t === "rule") return ruleText(it.rule);
   if (it.t === "inc") { const c = BYID.get(it.id); return `Must include <b>${esc(c ? c.name + " " + c.rating : it.id)}</b>`; }
   const mm = it.key.startsWith("max_") ? "Max" : "Min";
-  return `${NUM_KEYS[it.key]}: <b>${mm} ${it.v}</b>`;
+  return `${GAME_NUM[it.key] || NUM_KEYS[it.key]}: <b>${mm} ${it.v}</b>`;
 }
 let FORMS_CACHE = null;
-const ADD_TYPES = [
-  ["min_rating", "Squad rating"], ["min_chem", "Team chemistry"], ["from", "Players from a club / nation / league"],
-  ["ctype", "Players of a card type (gold, rare, TOTW…)"], ["count", "Number of nations / leagues / clubs"],
-  ["same", "Same nation / league / club count"], ["min_player_chem", "Chemistry per player"], ["min_types", "Number of card types"],
-  ["prating", "Every player's rating"], ["inc", "Must include a player"]];
+const ADD_TYPES = [            // each with how the line reads in the game
+  ["min_rating", "Squad rating — e.g. Squad Rating: Min 84"], ["min_chem", "Team chemistry — e.g. Chemistry: Min 33"],
+  ["from", "Players from a club / nation / league — e.g. Arsenal: Min 1, Portugal: Min 4"],
+  ["ctype", "Players of a card type — e.g. TOTW: Min 1, ICON: Max 1, Gold: Min 11"],
+  ["count", "Number of nations / leagues / clubs — e.g. Nations: Min 5, Clubs: Max 4"],
+  ["same", "Players from the same nation / league / club — e.g. Same Nation: Min 3, Same Club: Max 2"],
+  ["min_player_chem", "Chemistry per player — e.g. Player Chemistry: Min 2"], ["min_types", "Number of card types — e.g. Card Types: Min 5"],
+  ["prating", "Every player's rating — e.g. Player Rating: Min 80"], ["inc", "Must include a specific player"]];
 function setupSBC() {
   $("sbcForm").innerHTML = Object.keys(FORMS_CACHE || {}).map(f => `<option>${f}</option>`).join("") + `<option value="any">Any (slower)</option>`;
   $("sbcForm").value = "4-3-3";
   $("aType").innerHTML = `<option value="">Choose…</option>` + ADD_TYPES.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
   $("aType").onchange = drawAddBody;
+  $("sbcQuick").onclick = () => {        // the usual hybrid lines in one tap (and Icons/Heroes allowed, since the SBC allows one)
+    for (const id of ["icon", "hero"]) { SB.items = SB.items.filter(x => !(x.t === "rule" && x.rule.on === "color" && x.rule.id === id)); SB.items.push({ t: "rule", rule: { on: "color", id, op: "<=", n: 1 } }); }
+    $("sbcIc").checked = true; drawSBCForm(); saveSBC();
+  };
   $("sbcAddBtn").onclick = () => { $("sbcAdd").hidden = false; $("sbcAddBtn").hidden = true; $("aType").value = ""; drawAddBody(); };
   $("sbcGo").onclick = () => { SB.exclude = []; runSBC(15); };
   $("sbcClear").onclick = () => { SB.items = []; SB.exclude = []; $("sbcOut").hidden = true; drawSBCForm(); saveSBC(); };
@@ -973,7 +984,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018c");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

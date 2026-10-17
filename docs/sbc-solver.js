@@ -29,7 +29,10 @@ function ruleMatch(c, r) {
     case "nation": return c.nationId === r.id;
     case "league": return c.leagueId === r.id;
     case "club": return c.clubId === r.id;
-    case "color": return sbcType(c) === String(r.id).replace("rare_", "");
+    case "color": {                // a Debut Icon counts as an ICON (so "ICON: Max 1" never allows an Icon plus a Debut Icon)
+      const id = String(r.id).replace("rare_", "");
+      return id === "icon" ? SBC_ICON.has(c.color) : sbcType(c) === id;
+    }
     case "rarity": return rarity(c) === r.id;
   }
   return false;
@@ -297,14 +300,20 @@ function annealSBC(req, cands, slots, opts = {}) {
   const pickCheap = (L) => L[Math.min(L.length - 1, Math.floor(-Math.log(1 - Math.random()) * Math.min(12, L.length)))];
   let best = null;
   const iters = opts.iters || 60000, restarts = opts.restarts || 4;
-  for (let rs = 0; rs < restarts; rs++) {
-    let sq = elig.map(L => pickCheap(L));
+  const init = opts.init && opts.init.every((i, k) => i >= 0 && eligSet[k].has(i)) ? opts.init : null;
+  const tEnd = opts.ms ? Date.now() + opts.ms : 0;
+  // fixed number of runs, or (with ms) as many runs as fit in the time - more runs, steadier results
+  for (let rs = 0; rs < restarts + (init ? 1 : 0) || (tEnd && Date.now() < tEnd); rs++) {      // a known squad gets an extra run of its own
+    let sq = init && rs === 0 ? init.slice() : elig.map(L => pickCheap(L));     // first run: improve a known good squad
     // put must-include cards in a slot they fit
     for (const id of incl) { const i = cands.findIndex(c => c.id === id); if (i < 0) continue; const k = slots.findIndex((sl, k) => eligSet[k].has(i)); if (k >= 0) sq[k] = i; }
     let cur = evaluate(sq);
-    let T = 300;
-    for (let it = 0; it < iters; it++) {
-      T = 300 * Math.pow(0.5 / 300, it / iters);
+    const T0 = init && rs === 0 ? 60 : 300;          // a known squad: explore near it (cooler start)
+    let T = T0;
+    if (init && rs === 0) { const e0 = evaluate(sq); if (e0.pen === 0) best = { cost: e0.cost, sq: sq.slice() }; }
+    const N = init && rs === 0 ? Math.ceil(iters / 4) : iters;        // polishing a known squad needs fewer steps
+    for (let it = 0; it < N; it++) {
+      T = T0 * Math.pow(0.5 / T0, it / N);
       const nsq = sq.slice(), mv = Math.random();
       if (mv < 0.25) {                                   // swap two slots
         const a = rnd(S), b = rnd(S); if (a === b || !eligSet[a].has(sq[b]) || !eligSet[b].has(sq[a])) continue;
@@ -475,8 +484,20 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
       offer(hybridSBC(req, pool, slots, forms.length > 1 ? 800 : 2500));
     }
     progress(`Searching ${form}${tag}…`);
-    const h = annealSBC(req, cands, slots, { iters: forms.length > 1 ? 40000 : 120000 });
-    const hs = h ? { cost: h.cost, sq: h.sq.map(i => cands[i]) } : null;
+    let ac = cands, init = null;
+    if (formBest) {                       // improve the linked-group squad: its cards and their club / league mates join the search
+      const ids = new Set(cands.map(c => c.id)), extra = [];
+      const add = c => { if (!ids.has(c.id)) { ids.add(c.id); extra.push(c); } };
+      formBest.sq.forEach(add);
+      const pr = req.priority || "gold_first";
+      for (const key of ["clubId", "leagueId"]) for (const g of new Set(formBest.sq.map(c => c[key])))
+        pool.filter(c => c[key] === g).sort((a, b) => sbcCost(a, pr) - sbcCost(b, pr)).slice(0, 12).forEach(add);
+      ac = cands.concat(extra);
+      const at = new Map(ac.map((c, i) => [c.id, i]));
+      init = formBest.sq.map(c => at.get(c.id));
+    }
+    const h = annealSBC(req, ac, slots, { iters: forms.length > 1 ? 40000 : 600000, restarts: forms.length > 1 ? 4 : 2, ms: forms.length > 1 ? 0 : timeLimit * 600, init });
+    const hs = h ? { cost: h.cost, sq: h.sq.map(i => ac[i]) } : null;
     if (hs && validSBC(req, hs.sq)) offer(hs);
     // exact solver: look for anything cheaper than the best squad known so far
     const cutoff = best ? best.cost - 0.5 : null;
@@ -485,7 +506,7 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
     if (!m) return;
     let res;
     // "Any" formation: share the time out (about twice the one-formation time in total) instead of the full limit each
-    const o = { time_limit: forms.length > 1 ? Math.max(3, timeLimit * 2 / forms.length) : timeLimit, mip_rel_gap: 0, presolve: "on", output_flag: false };
+    const o = { time_limit: forms.length > 1 ? Math.max(3, timeLimit * 2 / forms.length) : Math.max(3, timeLimit * 0.4), mip_rel_gap: 0, presolve: "on", output_flag: false };
     if (cutoff != null) o.objective_bound = cutoff;
     try { res = highs.solve(m.lp, Object.assign(o, extraOpts)); }
     catch (e) { throw new Error("Solver error: " + e.message); }
