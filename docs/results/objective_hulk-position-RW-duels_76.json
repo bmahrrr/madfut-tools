@@ -1,37 +1,83 @@
 {
  "g": 1,
  "obj_ids": [
-  "id253130"
+  "id200260"
  ],
- "strength": 99.9,
- "group_cards": 16,
+ "strength": 100.7,
+ "group_cards": 2,
  "reddit": [],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 32,
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id207935",
-    "name": "Dituro",
+    "id": "id242818",
+    "name": "Dahmen",
     "rating": 76,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 52,
-    "leagueId": 53,
-    "clubId": 468,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 100409,
     "card": [
      38,
-     42,
+     34,
      77
     ],
     "chem": 3,
     "eff": [
-     40,
-     44,
+     41,
+     38,
+     80
+    ],
+    "tiebreak": 155
+   },
+   {
+    "slot": "CB",
+    "id": "id190815",
+    "name": "Blind",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     70,
+     78,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     80,
+     77
+    ],
+    "tiebreak": 229
+   },
+   {
+    "slot": "CB",
+    "id": "id256942",
+    "name": "Martel",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 169,
+    "card": [
+     62,
+     68,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     65,
+     72,
      79
     ],
-    "tiebreak": 163
+    "tiebreak": 212
    },
    {
     "slot": "CB",
@@ -57,76 +103,7 @@
     "tiebreak": 226
    },
    {
-    "slot": "CB",
-    "id": "id274847",
-    "name": "Diehm",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 21,
-    "leagueId": 2215,
-    "clubId": 10029,
-    "card": [
-     68,
-     70,
-     75
-    ],
-    "chem": 2,
-    "eff": [
-     70,
-     71,
-     77
-    ],
-    "tiebreak": 216
-   },
-   {
-    "slot": "CB",
-    "id": "id267860",
-    "name": "Gómez",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 52,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     60,
-     67,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     62,
-     69,
-     78
-    ],
-    "tiebreak": 209
-   },
-   {
     "slot": "LM",
-    "id": "id253130",
-    "name": "Robert Navarro",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 448,
-    "card": [
-     75,
-     72,
-     47
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     74,
-     49
-    ],
-    "tiebreak": 200
-   },
-   {
-    "slot": "CM",
     "id": "id263041",
     "name": "Prass",
     "rating": 76,
@@ -150,26 +127,49 @@
    },
    {
     "slot": "CM",
-    "id": "id262510",
-    "name": "Turrientes",
+    "id": "id200260",
+    "name": "Berghuis",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 457,
+    "position": "RW",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
     "card": [
-     72,
-     74,
-     73
+     75,
+     79,
+     44
     ],
     "chem": 3,
     "eff": [
-     74,
-     76,
-     75
+     77,
+     81,
+     46
     ],
-    "tiebreak": 225
+    "tiebreak": 204
+   },
+   {
+    "slot": "CM",
+    "id": "id203483",
+    "name": "Klaassen",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     75,
+     71,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     73,
+     74
+    ],
+    "tiebreak": 224
    },
    {
     "slot": "RM",
@@ -242,26 +242,26 @@
    },
    {
     "slot": "ST",
-    "id": "id258775",
-    "name": "Sučić",
+    "id": "id205431",
+    "name": "Füllkrug",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 10,
-    "leagueId": 53,
-    "clubId": 457,
+    "position": "ST",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 38,
     "card": [
-     75,
-     75,
-     68
+     76,
+     68,
+     48
     ],
     "chem": 3,
     "eff": [
-     77,
-     77,
-     70
+     79,
+     72,
+     51
     ],
-    "tiebreak": 224
+    "tiebreak": 198
    }
   ]
  },
@@ -296,18 +296,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id207935",
-  "id267860",
-  "id256942",
+  "id242818",
+  "id263041",
   "id243354",
-  "id270670",
-  "id267430",
-  "id222390",
+  "id246836",
   "id208618",
   "id276602",
+  "id204497",
+  "id270670",
   "id210324",
-  "id260463"
+  "id50571625",
+  "id205431"
  ],
- "built": "2026-10-17 18:28 UTC",
+ "built": "2026-10-17 21:57 UTC",
  "week": "2026-10-19"
 }

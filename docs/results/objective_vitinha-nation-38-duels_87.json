@@ -2,84 +2,61 @@
  "g": 3,
  "obj_ids": [
   "id239818",
-  "id50593503",
-  "id1025"
+  "id1025",
+  "id50593503"
  ],
  "strength": 99.9,
  "group_cards": 4,
  "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
+  "formation": "4-2-3-1",
   "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id191694",
-    "name": "Campos",
-    "rating": 87,
-    "color": "hero",
+    "id": "id234577",
+    "name": "Diogo Costa",
+    "rating": 86,
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 114605,
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 236,
     "card": [
-     77,
-     68,
-     88
+     36,
+     38,
+     86
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     79,
-     70,
-     90
+     37,
+     39,
+     87
     ],
-    "tiebreak": 239
+    "tiebreak": 163
    },
    {
     "slot": "LB",
-    "id": "id50595413",
-    "name": "Bischof",
+    "id": "id275092",
+    "name": "Bompastor",
     "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "color": "hero",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 114605,
     "card": [
-     87,
-     88,
-     78
+     83,
+     84,
+     84
     ],
     "chem": 3,
     "eff": [
-     89,
-     90,
-     80
+     85,
+     86,
+     86
     ],
-    "tiebreak": 259
-   },
-   {
-    "slot": "CB",
-    "id": "id67322964",
-    "name": "Gullit",
-    "rating": 86,
-    "color": "debut_icon",
-    "position": "CAM",
-    "nationId": 34,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     84,
-     81,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     84,
-     82
-    ],
-    "tiebreak": 250
+    "tiebreak": 257
    },
    {
     "slot": "CB",
@@ -105,99 +82,53 @@
     "tiebreak": 220
    },
    {
+    "slot": "CB",
+    "id": "id50559326",
+    "name": "Konsa",
+    "rating": 86,
+    "color": "destined_for_glory",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1,
+    "card": [
+     71,
+     76,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     78,
+     90
+    ],
+    "tiebreak": 239
+   },
+   {
     "slot": "RB",
-    "id": "ltm_espart87",
-    "name": "Xavi Espart",
-    "rating": 87,
-    "color": "ltm",
+    "id": "id50542162",
+    "name": "João Cancelo",
+    "rating": 84,
+    "color": "totw_gold",
     "position": "RB",
-    "nationId": 45,
+    "nationId": 38,
     "leagueId": 53,
     "clubId": 241,
     "card": [
-     78,
-     85,
-     86
+     82,
+     84,
+     83
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     79,
+     84,
      86,
-     87
+     85
     ],
-    "tiebreak": 252
+    "tiebreak": 255
    },
    {
     "slot": "CDM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "LM",
-    "id": "id50601349",
-    "name": "Brown",
-    "rating": 87,
-    "color": "future_stars",
-    "position": "LB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     81,
-     83,
-     86
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     85,
-     88
-    ],
-    "tiebreak": 256
-   },
-   {
-    "slot": "CM",
-    "id": "id1025",
-    "name": "Rui Costa",
-    "rating": 87,
-    "color": "hero",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 114605,
-    "card": [
-     84,
-     86,
-     48
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     88,
-     50
-    ],
-    "tiebreak": 224
-   },
-   {
-    "slot": "CM",
     "id": "id50592947",
     "name": "Scott",
     "rating": 86,
@@ -220,27 +151,96 @@
     "tiebreak": 260
    },
    {
-    "slot": "RM",
-    "id": "id67230808",
-    "name": "Schweinsteiger",
-    "rating": 86,
-    "color": "debut_icon",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "slot": "CDM",
+    "id": "id53302",
+    "name": "De Rossi",
+    "rating": 87,
+    "color": "hero",
+    "position": "CDM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 114605,
     "card": [
      81,
-     80,
-     84
+     81,
+     86
     ],
     "chem": 3,
     "eff": [
      83,
-     82,
-     86
+     83,
+     88
     ],
-    "tiebreak": 251
+    "tiebreak": 254
+   },
+   {
+    "slot": "CAM",
+    "id": "id1025",
+    "name": "Rui Costa",
+    "rating": 87,
+    "color": "hero",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 114605,
+    "card": [
+     84,
+     86,
+     48
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     88,
+     50
+    ],
+    "tiebreak": 224
+   },
+   {
+    "slot": "CAM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
+    "card": [
+     86,
+     87,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     89,
+     71
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CAM",
+    "id": "id50554313",
+    "name": "Ødegaard",
+    "rating": 87,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 36,
+    "leagueId": 13,
+    "clubId": 1,
+    "card": [
+     84,
+     88,
+     65
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     90,
+     69
+    ],
+    "tiebreak": 243
    },
    {
     "slot": "ST",
@@ -299,17 +299,17 @@
  },
  "base_ids": [
   "id191694",
-  "id50601349",
   "id50559326",
-  "id137186",
-  "ltm_espart87",
-  "id50595413",
-  "id67230808",
-  "id50402434",
+  "id5740",
+  "id50752",
+  "id275092",
+  "id53302",
   "id50592947",
   "id15723",
-  "id67322964"
+  "id50554313",
+  "id226362",
+  "id10704"
  ],
- "built": "2026-10-17 18:27 UTC",
+ "built": "2026-10-17 21:56 UTC",
  "week": "2026-10-19"
 }

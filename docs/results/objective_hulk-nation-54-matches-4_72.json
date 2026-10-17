@@ -1,17 +1,18 @@
 {
- "g": 4,
+ "g": 5,
  "obj_ids": [
   "id207899",
-  "id240938",
   "id271893",
-  "id230665"
+  "id222388",
+  "id258563",
+  "id81943"
  ],
- "strength": 99.1,
+ "strength": 101.3,
  "group_cards": 328,
  "reddit": [],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 24,
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
@@ -28,36 +29,36 @@
      32,
      71
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
-     35,
-     32,
-     71
+     36,
+     33,
+     72
     ],
-    "tiebreak": 138
+    "tiebreak": 141
    },
    {
     "slot": "LB",
-    "id": "id239335",
-    "name": "Óscar",
-    "rating": 71,
+    "id": "id222388",
+    "name": "Paulo Azzi",
+    "rating": 72,
     "color": "rare_silver",
-    "position": "LM",
-    "nationId": 45,
-    "leagueId": 350,
-    "clubId": 113224,
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 32,
+    "clubId": 1744,
     "card": [
-     73,
-     74,
-     56
+     69,
+     64,
+     71
     ],
     "chem": 2,
     "eff": [
-     75,
-     76,
-     58
+     70,
+     65,
+     72
     ],
-    "tiebreak": 206
+    "tiebreak": 207
    },
    {
     "slot": "CB",
@@ -107,49 +108,49 @@
    },
    {
     "slot": "RB",
-    "id": "id271893",
-    "name": "Bruninha",
+    "id": "id272234",
+    "name": "Clau Blanco",
     "rating": 72,
     "color": "rare_silver",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 2221,
-    "clubId": 116310,
-    "card": [
-     69,
-     71,
-     71
-    ],
-    "chem": 1,
-    "eff": [
-     69,
-     71,
-     71
-    ],
-    "tiebreak": 211
-   },
-   {
-    "slot": "CDM",
-    "id": "id72364",
-    "name": "Carol Marín",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
+    "position": "LB",
     "nationId": 45,
     "leagueId": 2222,
-    "clubId": 461,
+    "clubId": 481,
     "card": [
-     72,
-     73,
-     61
+     70,
+     71,
+     70
     ],
     "chem": 3,
     "eff": [
-     75,
-     76,
-     64
+     73,
+     74,
+     73
     ],
-    "tiebreak": 212
+    "tiebreak": 217
+   },
+   {
+    "slot": "CDM",
+    "id": "id50578976",
+    "name": "Unai Vencedor",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 10846,
+    "card": [
+     71,
+     72,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     75,
+     71
+    ],
+    "tiebreak": 217
    },
    {
     "slot": "LM",
@@ -176,95 +177,95 @@
    },
    {
     "slot": "CM",
-    "id": "id50578976",
-    "name": "Unai Vencedor",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 45,
-    "leagueId": 54,
-    "clubId": 10846,
-    "card": [
-     71,
-     72,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     75,
-     71
-    ],
-    "tiebreak": 217
-   },
-   {
-    "slot": "CM",
-    "id": "id240938",
-    "name": "Junior Messias",
+    "id": "id81943",
+    "name": "Rodrigo Nestor",
     "rating": 72,
     "color": "rare_silver",
     "position": "CM",
     "nationId": 54,
-    "leagueId": 31,
-    "clubId": 110556,
+    "leagueId": 2267,
+    "clubId": 1598,
     "card": [
-     74,
-     72,
-     58
-    ],
-    "chem": 1,
-    "eff": [
-     74,
-     72,
-     58
-    ],
-    "tiebreak": 204
-   },
-   {
-    "slot": "RM",
-    "id": "id272234",
-    "name": "Clau Blanco",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 481,
-    "card": [
-     70,
      71,
-     70
+     72,
+     59
     ],
     "chem": 3,
     "eff": [
      73,
      74,
-     73
+     61
     ],
-    "tiebreak": 217
+    "tiebreak": 208
+   },
+   {
+    "slot": "CM",
+    "id": "id258563",
+    "name": "Caio Alexandre",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 2267,
+    "clubId": 1598,
+    "card": [
+     71,
+     70,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     72,
+     71
+    ],
+    "tiebreak": 216
+   },
+   {
+    "slot": "RM",
+    "id": "id271893",
+    "name": "Bruninha",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 2221,
+    "clubId": 116310,
+    "card": [
+     69,
+     71,
+     71
+    ],
+    "chem": 2,
+    "eff": [
+     70,
+     72,
+     72
+    ],
+    "tiebreak": 214
    },
    {
     "slot": "ST",
-    "id": "id230665",
-    "name": "Gustavo Sauer",
+    "id": "id272047",
+    "name": "Ana Franco",
     "rating": 72,
     "color": "rare_silver",
-    "position": "RM",
-    "nationId": 54,
-    "leagueId": 2012,
-    "clubId": 116361,
+    "position": "ST",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 132629,
     "card": [
-     71,
-     69,
-     57
+     73,
+     70,
+     49
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     71,
-     69,
-     57
+     76,
+     73,
+     52
     ],
-    "tiebreak": 197
+    "tiebreak": 198
    }
   ]
  },
@@ -300,18 +301,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id146296",
-  "id272228",
+  "id209960",
   "id244394",
   "id246352",
-  "id272234",
-  "id50578976",
-  "id239335",
-  "id244393",
-  "id72364",
+  "id272188",
+  "id272228",
   "id178088",
-  "id272138"
+  "id239335",
+  "id50572302",
+  "id277269",
+  "id272138",
+  "id272047"
  ],
- "built": "2026-10-17 18:28 UTC",
+ "built": "2026-10-17 21:56 UTC",
  "week": "2026-10-19"
 }

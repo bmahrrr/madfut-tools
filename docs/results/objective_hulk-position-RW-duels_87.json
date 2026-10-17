@@ -1,11 +1,11 @@
 {
  "g": 3,
  "obj_ids": [
-  "id246669",
+  "id27",
   "id251570",
-  "id27"
+  "id246669"
  ],
- "strength": 100.0,
+ "strength": 100.2,
  "group_cards": 3,
  "reddit": [],
  "team": {
@@ -37,29 +37,6 @@
    },
    {
     "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     76,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     88,
-     87
-    ],
-    "tiebreak": 253
-   },
-   {
-    "slot": "CB",
     "id": "id5740",
     "name": "Stam",
     "rating": 87,
@@ -80,6 +57,29 @@
      90
     ],
     "tiebreak": 223
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     88,
+     87
+    ],
+    "tiebreak": 253
    },
    {
     "slot": "CB",
@@ -106,49 +106,26 @@
    },
    {
     "slot": "LM",
-    "id": "id50601349",
-    "name": "Brown",
-    "rating": 87,
-    "color": "future_stars",
+    "id": "id275092",
+    "name": "Bompastor",
+    "rating": 86,
+    "color": "hero",
     "position": "LB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 114605,
     "card": [
-     81,
      83,
+     84,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     86,
      86
     ],
-    "chem": 3,
-    "eff": [
-     83,
-     85,
-     88
-    ],
-    "tiebreak": 256
-   },
-   {
-    "slot": "CM",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     87,
-     88,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     90,
-     80
-    ],
-    "tiebreak": 259
+    "tiebreak": 257
    },
    {
     "slot": "CM",
@@ -172,6 +149,29 @@
      83
     ],
     "tiebreak": 260
+   },
+   {
+    "slot": "CM",
+    "id": "id53302",
+    "name": "De Rossi",
+    "rating": 87,
+    "color": "hero",
+    "position": "CDM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 114605,
+    "card": [
+     81,
+     81,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     83,
+     88
+    ],
+    "tiebreak": 254
    },
    {
     "slot": "RM",
@@ -244,26 +244,26 @@
    },
    {
     "slot": "ST",
-    "id": "id67322964",
-    "name": "Gullit",
-    "rating": 86,
-    "color": "debut_icon",
+    "id": "id1201",
+    "name": "Zola",
+    "rating": 87,
+    "color": "hero",
     "position": "CAM",
-    "nationId": 34,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 27,
+    "leagueId": 13,
+    "clubId": 114605,
     "card": [
-     84,
-     81,
-     79
+     86,
+     85,
+     44
     ],
     "chem": 3,
     "eff": [
+     88,
      87,
-     84,
-     82
+     46
     ],
-    "tiebreak": 250
+    "tiebreak": 221
    }
   ]
  },
@@ -299,17 +299,17 @@
  },
  "base_ids": [
   "id191694",
-  "id50601349",
   "id50559326",
-  "id137186",
-  "ltm_espart87",
-  "id50595413",
-  "id67230808",
-  "id50402434",
+  "id5740",
+  "id50752",
+  "id275092",
+  "id53302",
   "id50592947",
   "id15723",
-  "id67322964"
+  "id50554313",
+  "id226362",
+  "id10704"
  ],
- "built": "2026-10-17 18:28 UTC",
+ "built": "2026-10-17 21:57 UTC",
  "week": "2026-10-19"
 }

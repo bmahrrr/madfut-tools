@@ -2,16 +2,16 @@
  "g": 4,
  "obj_ids": [
   "id47390",
-  "id207865",
+  "id28765",
   "id184943",
-  "id28765"
+  "id189362"
  ],
- "strength": 100.1,
+ "strength": 100.4,
  "group_cards": 495,
  "reddit": [],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 31,
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -35,29 +35,6 @@
      90
     ],
     "tiebreak": 239
-   },
-   {
-    "slot": "CB",
-    "id": "id207865",
-    "name": "Marquinhos",
-    "rating": 87,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     69,
-     74,
-     86
-    ],
-    "chem": 1,
-    "eff": [
-     69,
-     74,
-     86
-    ],
-    "tiebreak": 229
    },
    {
     "slot": "CB",
@@ -106,27 +83,73 @@
     "tiebreak": 253
    },
    {
-    "slot": "LM",
-    "id": "id50601349",
-    "name": "Brown",
+    "slot": "CB",
+    "id": "id229558",
+    "name": "Upamecano",
     "rating": 87,
-    "color": "future_stars",
-    "position": "LB",
-    "nationId": 21,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 18,
     "leagueId": 19,
     "clubId": 21,
     "card": [
-     81,
-     83,
+     66,
+     69,
      86
     ],
     "chem": 3,
     "eff": [
-     83,
-     85,
+     68,
+     71,
      88
     ],
-    "tiebreak": 256
+    "tiebreak": 227
+   },
+   {
+    "slot": "LM",
+    "id": "id275092",
+    "name": "Bompastor",
+    "rating": 86,
+    "color": "hero",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 114605,
+    "card": [
+     83,
+     84,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     86,
+     86
+    ],
+    "tiebreak": 257
+   },
+   {
+    "slot": "CM",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     87,
+     88,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     90,
+     80
+    ],
+    "tiebreak": 259
    },
    {
     "slot": "CM",
@@ -150,29 +173,6 @@
      79
     ],
     "tiebreak": 254
-   },
-   {
-    "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
-    "card": [
-     85,
-     88,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     90,
-     83
-    ],
-    "tiebreak": 260
    },
    {
     "slot": "RM",
@@ -222,49 +222,49 @@
    },
    {
     "slot": "CAM",
-    "id": "id50595413",
-    "name": "Bischof",
+    "id": "id50592947",
+    "name": "Scott",
     "rating": 86,
     "color": "future_stars",
     "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
     "card": [
-     87,
+     85,
      88,
-     78
+     81
     ],
     "chem": 3,
     "eff": [
-     89,
+     87,
      90,
-     80
+     83
     ],
-    "tiebreak": 259
+    "tiebreak": 260
    },
    {
     "slot": "ST",
-    "id": "id1201",
-    "name": "Zola",
-    "rating": 87,
-    "color": "hero",
-    "position": "CAM",
-    "nationId": 27,
-    "leagueId": 13,
-    "clubId": 114605,
+    "id": "id189362",
+    "name": "Hulk",
+    "rating": 85,
+    "color": "hall_of_fut",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 308,
+    "clubId": 132794,
     "card": [
-     86,
      85,
-     44
+     82,
+     51
     ],
     "chem": 3,
     "eff": [
-     88,
      87,
-     46
+     84,
+     53
     ],
-    "tiebreak": 221
+    "tiebreak": 224
    }
   ]
  },
@@ -301,17 +301,17 @@
  },
  "base_ids": [
   "id191694",
-  "id50601349",
   "id50559326",
-  "id137186",
-  "ltm_espart87",
-  "id50595413",
-  "id67230808",
-  "id50402434",
+  "id5740",
+  "id50752",
+  "id275092",
+  "id53302",
   "id50592947",
   "id15723",
-  "id67322964"
+  "id50554313",
+  "id226362",
+  "id10704"
  ],
- "built": "2026-10-17 18:27 UTC",
+ "built": "2026-10-17 21:56 UTC",
  "week": "2026-10-19"
 }

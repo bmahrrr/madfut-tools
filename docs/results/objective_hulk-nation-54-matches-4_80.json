@@ -1,63 +1,63 @@
 {
  "g": 4,
  "obj_ids": [
-  "id80170",
   "id258648",
-  "id236499",
-  "id223334"
+  "id223334",
+  "id80170",
+  "id236499"
  ],
- "strength": 100.7,
+ "strength": 100.2,
  "group_cards": 453,
  "reddit": [],
  "team": {
-  "formation": "4-2-3-1 (2)",
-  "chem": 29,
+  "formation": "4-1-4-1",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id50560437",
-    "name": "Robert Sánchez",
+    "id": "id240091",
+    "name": "Vicario",
     "rating": 80,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 45,
+    "nationId": 27,
     "leagueId": 31,
-    "clubId": 1745,
+    "clubId": 45,
     "card": [
-     39,
-     39,
+     38,
+     42,
      81
     ],
     "chem": 3,
     "eff": [
-     41,
-     41,
+     40,
+     44,
      85
     ],
-    "tiebreak": 165
+    "tiebreak": 167
    },
    {
     "slot": "LB",
-    "id": "id80170",
-    "name": "Wesley",
-    "rating": 80,
+    "id": "id263765",
+    "name": "Bischof",
+    "rating": 79,
     "color": "rare_gold",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 52,
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     76,
      77,
-     79
+     79,
+     66
     ],
     "chem": 3,
     "eff": [
-     78,
      79,
-     83
+     81,
+     68
     ],
-    "tiebreak": 238
+    "tiebreak": 228
    },
    {
     "slot": "CB",
@@ -107,26 +107,26 @@
    },
    {
     "slot": "RB",
-    "id": "evo_Lucas Vázquez_80",
-    "name": "Lucas Vázquez",
+    "id": "id80170",
+    "name": "Wesley",
     "rating": 80,
-    "color": "evo",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 52,
     "card": [
-     82,
-     83,
-     78
+     76,
+     77,
+     79
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     82,
-     83,
-     78
+     78,
+     79,
+     83
     ],
-    "tiebreak": 243
+    "tiebreak": 238
    },
    {
     "slot": "CDM",
@@ -152,7 +152,53 @@
     "tiebreak": 233
    },
    {
-    "slot": "CDM",
+    "slot": "LM",
+    "id": "id261865",
+    "name": "Miguel Gutiérrez",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     77,
+     78,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     80,
+     81
+    ],
+    "tiebreak": 240
+   },
+   {
+    "slot": "CM",
+    "id": "id225309",
+    "name": "Amiri",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 169,
+    "card": [
+     80,
+     81,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     82,
+     83,
+     63
+    ],
+    "tiebreak": 228
+   },
+   {
+    "slot": "CM",
     "id": "id236499",
     "name": "Douglas Luiz",
     "rating": 78,
@@ -175,96 +221,50 @@
     "tiebreak": 236
    },
    {
-    "slot": "LM",
-    "id": "id258966",
-    "name": "Cambiaso",
+    "slot": "RM",
+    "id": "evo_Lucas Vázquez_80",
+    "name": "Lucas Vázquez",
     "rating": 80,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 45,
+    "color": "evo",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     77,
-     78,
+     82,
+     83,
      78
     ],
     "chem": 3,
     "eff": [
-     79,
-     80,
-     82
+     84,
+     85,
+     80
     ],
-    "tiebreak": 239
-   },
-   {
-    "slot": "CAM",
-    "id": "id67388037",
-    "name": "Mastantuono",
-    "rating": 80,
-    "color": "totw_gold",
-    "position": "RM",
-    "nationId": 52,
-    "leagueId": 31,
-    "clubId": 110374,
-    "card": [
-     80,
-     80,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     82,
-     59
-    ],
-    "tiebreak": 221
-   },
-   {
-    "slot": "RM",
-    "id": "id216409",
-    "name": "Politano",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 48,
-    "card": [
-     80,
-     80,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     82,
-     59
-    ],
-    "tiebreak": 221
+    "tiebreak": 249
    },
    {
     "slot": "ST",
-    "id": "id261050",
-    "name": "Francisco Conceição",
+    "id": "id50564059",
+    "name": "Nkunku",
     "rating": 80,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 45,
+    "position": "ST",
+    "nationId": 18,
+    "leagueId": 19,
+    "clubId": 112172,
     "card": [
      81,
      79,
-     45
+     43
     ],
     "chem": 3,
     "eff": [
-     83,
-     81,
-     49
+     84,
+     82,
+     46
     ],
-    "tiebreak": 211
+    "tiebreak": 209
    }
   ]
  },
@@ -300,18 +300,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id255303",
-  "id202884",
-  "id258648",
+  "id50560437",
   "id232756",
-  "evo_Lucas Vázquez_80",
-  "id272153",
-  "id258966",
-  "id236499",
+  "id226851",
+  "id230918",
+  "id80170",
   "id50540109",
-  "id259075",
-  "id50404662"
+  "id275029",
+  "evo_Lucas Vázquez_80",
+  "id225309",
+  "id192318",
+  "id50564059"
  ],
- "built": "2026-10-17 18:27 UTC",
+ "built": "2026-10-17 21:57 UTC",
  "week": "2026-10-19"
 }

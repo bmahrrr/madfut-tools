@@ -3,12 +3,12 @@
  "obj_ids": [
   "id224987"
  ],
- "strength": 100.8,
+ "strength": 101.5,
  "group_cards": 1,
  "reddit": [],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 30,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -104,72 +104,72 @@
    },
    {
     "slot": "RB",
-    "id": "id231281",
-    "name": "Alexander-Arnold",
-    "rating": 84,
+    "id": "id233096",
+    "name": "Dumfries",
+    "rating": 83,
     "color": "rare_gold",
     "position": "RB",
-    "nationId": 14,
+    "nationId": 34,
     "leagueId": 53,
     "clubId": 243,
     "card": [
-     78,
-     84,
+     76,
+     75,
      82
     ],
     "chem": 3,
     "eff": [
-     81,
-     87,
+     79,
+     78,
      85
     ],
-    "tiebreak": 250
+    "tiebreak": 239
    },
    {
     "slot": "CDM",
-    "id": "id50598581",
-    "name": "Caruso",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 27,
-    "leagueId": 2222,
-    "clubId": 243,
+    "id": "ltm_espart84",
+    "name": "Xavi Espart",
+    "rating": 84,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
+     76,
      82,
-     83,
-     70
+     83
     ],
     "chem": 3,
     "eff": [
-     84,
+     79,
      85,
-     72
+     86
     ],
-    "tiebreak": 241
+    "tiebreak": 247
    },
    {
     "slot": "LM",
-    "id": "id50588927",
-    "name": "Álex Baena",
+    "id": "id50596036",
+    "name": "Moleiro",
     "rating": 84,
     "color": "totw_gold",
-    "position": "LM",
+    "position": "CAM",
     "nationId": 45,
     "leagueId": 53,
-    "clubId": 240,
+    "clubId": 483,
     "card": [
-     81,
-     83,
-     67
+     84,
+     82,
+     56
     ],
     "chem": 3,
     "eff": [
+     89,
      86,
-     87,
-     70
+     59
     ],
-    "tiebreak": 237
+    "tiebreak": 228
    },
    {
     "slot": "CM",
@@ -196,72 +196,72 @@
    },
    {
     "slot": "CM",
-    "id": "id50596036",
-    "name": "Moleiro",
+    "id": "id50598581",
+    "name": "Caruso",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 27,
+    "leagueId": 2222,
+    "clubId": 243,
+    "card": [
+     82,
+     83,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     85,
+     72
+    ],
+    "tiebreak": 241
+   },
+   {
+    "slot": "RM",
+    "id": "id231281",
+    "name": "Alexander-Arnold",
+    "rating": 84,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 14,
+    "leagueId": 53,
+    "clubId": 243,
+    "card": [
+     78,
+     84,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     87,
+     85
+    ],
+    "tiebreak": 250
+   },
+   {
+    "slot": "ST",
+    "id": "id50572365",
+    "name": "Beerensteyn",
     "rating": 84,
     "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 483,
+    "position": "ST",
+    "nationId": 34,
+    "leagueId": 2222,
+    "clubId": 243,
     "card": [
-     84,
-     82,
-     56
+     85,
+     78,
+     55
     ],
     "chem": 3,
     "eff": [
      89,
-     86,
-     59
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "RM",
-    "id": "id264725",
-    "name": "Eva Navarro",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 243,
-    "card": [
      81,
-     78,
-     81
+     57
     ],
-    "chem": 3,
-    "eff": [
-     83,
-     80,
-     83
-    ],
-    "tiebreak": 246
-   },
-   {
-    "slot": "ST",
-    "id": "id267530",
-    "name": "Brugts",
-    "rating": 84,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 34,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
-     79,
-     79,
-     82
-    ],
-    "chem": 2,
-    "eff": [
-     80,
-     80,
-     83
-    ],
-    "tiebreak": 243
+    "tiebreak": 224
    }
   ]
  },
@@ -296,18 +296,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id185122",
+  "id227204",
   "id50542162",
-  "id240130",
   "id50564136",
-  "id233096",
+  "id240130",
+  "ltm_espart84",
   "id50529429",
-  "id50596036",
-  "id231281",
-  "id50588927",
   "id50572365",
+  "id231281",
+  "id50596036",
+  "id50416920",
   "id67352494"
  ],
- "built": "2026-10-17 18:27 UTC",
+ "built": "2026-10-17 21:57 UTC",
  "week": "2026-10-19"
 }
