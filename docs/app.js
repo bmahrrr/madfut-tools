@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261017b";
+const APP_V = "20261018a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -478,7 +478,7 @@ function panelHtml(side) {
   else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key ? `<button class="ghost" data-beat="1" style="font-size:12.5px">Beat this team</button>` : ""}</div>`;
   return h;
 }
-const seriesInfo = s => s.key ? `Cap ${s.cap || "?"}${(s.boosts || []).length ? ` · ${s.boosts.length} boost${s.boosts.length > 1 ? "s" : ""} applied` : " · no boosts"}. Stats shown are in-game (boosts + chem). TB = tiebreak total.` : "No boosts applied.";
+const seriesInfo = s => s.key ? `Cap ${s.cap || "?"}${(n => n ? ` · ${n} boost${n > 1 ? "s" : ""} applied` : " · no boosts")((s.boosts || []).length + (s.bonuses || []).length)}. Stats shown are in-game (boosts + chem). TB = tiebreak total.` : "No boosts applied.";
 function drawMC() {
   $("mcInfo").innerHTML = seriesInfo(mcSeries());
   if ($("beatInfo")) $("beatInfo").innerHTML = seriesInfo(beatSeries());
@@ -598,7 +598,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261017b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -624,7 +624,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261017b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261018a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -973,7 +973,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261017b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1331,10 +1331,10 @@ const WSOPEN = new Set();                 // Season Setup series left open betwe
 function seriesCardHtml(type, i) {
   const s = WS[type][i], id = `${type}-${i}`, isMC = type === "myclub";
   const nb = (s.boosts || []).length, nbn = (s.bonuses || []).length, nr = (s.opponents || []).length;
-  const boostNames = (s.boosts || []).map(b => groupName(b.on, b.id)).join(" · ") || "No boosts yet";
+  const boostNames = [...(s.boosts || []).map(b => groupName(b.on, b.id)), ...(s.bonuses || []).map(b => `${b.min}+ ${BNKIND[b.kind] || b.kind}`)].join(" · ") || "No boosts yet";   // squad bonuses are boosts too
   const sub = [`${nb} boost${nb === 1 ? "" : "s"}`, nbn ? `${nbn} bonus${nbn === 1 ? "" : "es"}` : "", isMC ? `${nr} Reddit team${nr === 1 ? "" : "s"}` : ""].filter(Boolean).join(" · ");
   const isOpen = WSOPEN.has(id) || WSUI.open.startsWith(id + ":");
-  const warn = !nb ? `<span class="pill LOSS">Needs boosts</span>` : isMC && !nr ? `<span class="pill DRAW">No Reddit</span>` : `<span class="pill WIN">Ready</span>`;
+  const warn = !(nb + nbn) ? `<span class="pill LOSS">Needs boosts</span>` : isMC && !nr ? `<span class="pill DRAW">No Reddit</span>` : `<span class="pill WIN">Ready</span>`;
   let h = `<details class="card sercard" data-wser="${id}"${isOpen ? " open" : ""}><summary class="strip"><span class="k">${esc(s.key || "?")}</span><span class="mid"><b>${esc(boostNames)}</b><small>${esc(sub)}</small></span><span class="res">${warn}</span></summary><div class="body"><div class="row" style="justify-content:space-between">
     <label class="small muted">Series <input type="text" inputmode="numeric" data-f="key" data-s="${id}" value="${esc(s.key || "")}" style="width:80px"></label>
     <button class="x" data-delseries="${id}" title="Remove series">🗑</button></div>`;
@@ -1370,7 +1370,7 @@ function renderWeekForm() {
   $("wWeek").onchange = e => { WS.week = e.target.value; wsDraftSave(); renderWeekForm(); };
   box.querySelectorAll("[data-f]").forEach(inp => inp.onchange = () => {
     const s = S(inp.dataset.s);
-    s.key = inp.value.trim(); s.cap = /^\d+$/.test(s.key) ? +s.key : 99;   // the series number is the rating cap
+    s.key = inp.value.trim().toUpperCase(); s.cap = /^\d+$/.test(s.key) ? +s.key : 99;   // the series number is the rating cap; X = no cap
     redraw();
   });
   box.querySelectorAll("[data-delseries]").forEach(b => b.onclick = () => { const [t, i] = b.dataset.delseries.split("-"); if (confirm(`Remove the ${WS[t][+i].key || ""} series?`)) { WS[t].splice(+i, 1); WSUI.open = ""; WSOPEN.clear(); redraw(); } });
@@ -1381,7 +1381,7 @@ function renderWeekForm() {
   box.querySelectorAll("[data-close]").forEach(b => b.onclick = () => { WSUI.open = ""; renderWeekForm(); });
   box.querySelectorAll("[data-addseries]").forEach(b => b.onclick = () => {
     const k = prompt("Series (the rating cap, e.g. 81):"); if (!k) return;
-    const t = b.dataset.addseries, s = { key: k.trim(), cap: /^\d+$/.test(k.trim()) ? +k.trim() : 99, boosts: [] };
+    const t = b.dataset.addseries, s = { key: k.trim().toUpperCase(), cap: /^\d+$/.test(k.trim()) ? +k.trim() : 99, boosts: [] };
     if (t === "myclub") { s.opponents = []; s.minutes = 30; }
     WS[t].push(s); WSOPEN.add(`${t}-${WS[t].length - 1}`); redraw();
   });
