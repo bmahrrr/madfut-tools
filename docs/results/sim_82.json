@@ -5,17 +5,17 @@
   "cap": 82,
   "boosts": [
    {
-    "on": "club",
-    "id": 69,
-    "att": 2,
-    "ctl": 2,
-    "def": 2
-   },
-   {
-    "on": "club",
-    "id": 22,
+    "on": "league",
+    "id": 39,
     "att": 0,
     "ctl": 2,
+    "def": 0
+   },
+   {
+    "on": "nation",
+    "id": 7,
+    "att": 1,
+    "ctl": 1,
     "def": 1
    }
   ]
@@ -23,29 +23,51 @@
  "teams": [
   {
    "formation": "3-4-1-2",
-   "chem": 32,
+   "chem": 33,
    "players": [
     {
-     "id": "id247789",
-     "name": "Frohms",
-     "rating": 82,
+     "id": "id192563",
+     "name": "Leno",
+     "rating": 79,
      "color": "rare_gold",
      "position": "GK",
      "nationId": 21,
-     "leagueId": 2222,
-     "clubId": 243,
+     "leagueId": 13,
+     "clubId": 144,
      "card": [
-      32,
-      25,
-      83
+      36,
+      36,
+      80
      ],
      "chem": 3,
      "eff": [
-      34,
-      27,
-      85
+      38,
+      38,
+      82
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id256261",
+     "name": "Thiaw",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 13,
+     "card": [
+      61,
+      70,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      72,
+      83
+     ],
+     "slot": "CB"
     },
     {
      "id": "id50568180",
@@ -70,46 +92,24 @@
      "slot": "CB"
     },
     {
-     "id": "id50553308",
-     "name": "Lindelöf",
-     "rating": 82,
-     "color": "squad_foundations",
-     "position": "CB",
-     "nationId": 46,
-     "leagueId": 13,
-     "clubId": 2,
-     "card": [
-      67,
-      74,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      69,
-      76,
-      83
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id208333",
-     "name": "Can",
-     "rating": 81,
+     "id": "id212242",
+     "name": "Andrich",
+     "rating": 78,
      "color": "rare_gold",
      "position": "CB",
      "nationId": 21,
      "leagueId": 19,
-     "clubId": 22,
+     "clubId": 32,
      "card": [
-      73,
+      70,
       71,
-      81
+      78
      ],
      "chem": 3,
      "eff": [
-      75,
-      75,
-      84
+      72,
+      73,
+      80
      ],
      "slot": "CB"
     },
@@ -136,24 +136,24 @@
      "slot": "LM"
     },
     {
-     "id": "ltm_karetsas82",
-     "name": "Karetsas",
+     "id": "id220697",
+     "name": "Maddison",
      "rating": 82,
-     "color": "ltm",
-     "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 18,
      "card": [
-      79,
-      82,
-      42
+      81,
+      84,
+      55
      ],
      "chem": 3,
      "eff": [
-      81,
+      83,
       86,
-      45
+      57
      ],
      "slot": "CM"
     },
@@ -202,76 +202,76 @@
      "slot": "RM"
     },
     {
-     "id": "id220697",
-     "name": "Maddison",
-     "rating": 82,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 18,
+     "id": "id50519998",
+     "name": "Reus",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 21,
+     "leagueId": 39,
+     "clubId": 697,
      "card": [
       81,
-      84,
-      55
+      82,
+      57
      ],
      "chem": 3,
      "eff": [
       83,
       86,
-      57
+      59
      ],
      "slot": "CAM"
     },
     {
-     "id": "id50416920",
-     "name": "Schröder",
+     "id": "id251852",
+     "name": "Adeyemi",
      "rating": 82,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 46,
-     "leagueId": 2222,
-     "clubId": 243,
+     "color": "rare_gold",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      84,
-      74,
-      36
+      82,
+      76,
+      43
      ],
      "chem": 3,
      "eff": [
-      86,
-      76,
-      38
+      84,
+      78,
+      45
      ],
      "slot": "ST"
     },
     {
-     "id": "id259334",
-     "name": "Nerea Eizagirre",
-     "rating": 81,
+     "id": "id244257",
+     "name": "Burkardt",
+     "rating": 82,
      "color": "rare_gold",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 457,
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
      "card": [
       82,
-      80,
-      63
+      72,
+      49
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      83,
-      81,
-      64
+      84,
+      74,
+      51
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "control": 85.4,
-    "attack": 83.6,
-    "defence": 84.0,
+    "attack": 83.4,
+    "defence": 82.25,
     "control_cards": [
      86,
      86,
@@ -280,48 +280,70 @@
      85
     ],
     "attack_cards": [
-     86,
      84,
-     83,
+     84,
+     84,
      83,
      82
     ],
     "defence_cards": [
-     85,
      84,
-     84,
-     83
+     83,
+     82,
+     80
     ],
-    "chem": 32,
+    "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 230.6
+    "ctrl_total": 233.8
    }
   },
   {
    "formation": "3-1-4-2",
-   "chem": 32,
+   "chem": 33,
    "players": [
     {
-     "id": "id247789",
-     "name": "Frohms",
-     "rating": 82,
+     "id": "id192563",
+     "name": "Leno",
+     "rating": 79,
      "color": "rare_gold",
      "position": "GK",
      "nationId": 21,
-     "leagueId": 2222,
-     "clubId": 243,
+     "leagueId": 13,
+     "clubId": 144,
      "card": [
-      32,
-      25,
-      83
+      36,
+      36,
+      80
      ],
      "chem": 3,
      "eff": [
-      34,
-      27,
-      85
+      38,
+      38,
+      82
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id212242",
+     "name": "Andrich",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      70,
+      71,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      80
+     ],
+     "slot": "CB"
     },
     {
      "id": "id50568180",
@@ -346,45 +368,23 @@
      "slot": "CB"
     },
     {
-     "id": "id208333",
-     "name": "Can",
+     "id": "id256261",
+     "name": "Thiaw",
      "rating": 81,
      "color": "rare_gold",
      "position": "CB",
      "nationId": 21,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      73,
-      71,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      75,
-      84
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50553308",
-     "name": "Lindelöf",
-     "rating": 82,
-     "color": "squad_foundations",
-     "position": "CB",
-     "nationId": 46,
      "leagueId": 13,
-     "clubId": 2,
+     "clubId": 13,
      "card": [
-      67,
-      74,
+      61,
+      70,
       81
      ],
      "chem": 3,
      "eff": [
-      69,
-      76,
+      63,
+      72,
       83
      ],
      "slot": "CB"
@@ -434,6 +434,28 @@
      "slot": "LM"
     },
     {
+     "id": "id50519998",
+     "name": "Reus",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 21,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      81,
+      82,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      86,
+      59
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "id220697",
      "name": "Maddison",
      "rating": 82,
@@ -452,28 +474,6 @@
       83,
       86,
       57
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "ltm_karetsas82",
-     "name": "Karetsas",
-     "rating": 82,
-     "color": "ltm",
-     "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      79,
-      82,
-      42
-     ],
-     "chem": 3,
-     "eff": [
-      81,
-      86,
-      45
      ],
      "slot": "CM"
     },
@@ -500,54 +500,54 @@
      "slot": "RM"
     },
     {
-     "id": "id50416920",
-     "name": "Schröder",
+     "id": "id251852",
+     "name": "Adeyemi",
      "rating": 82,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 46,
-     "leagueId": 2222,
-     "clubId": 243,
+     "color": "rare_gold",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      84,
-      74,
-      36
+      82,
+      76,
+      43
      ],
      "chem": 3,
      "eff": [
-      86,
-      76,
-      38
+      84,
+      78,
+      45
      ],
      "slot": "ST"
     },
     {
-     "id": "id259334",
-     "name": "Nerea Eizagirre",
-     "rating": 81,
+     "id": "id244257",
+     "name": "Burkardt",
+     "rating": 82,
      "color": "rare_gold",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 457,
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
      "card": [
       82,
-      80,
-      63
+      72,
+      49
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      83,
-      81,
-      64
+      84,
+      74,
+      51
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "control": 85.4,
-    "attack": 83.75,
-    "defence": 82.6,
+    "attack": 83.5,
+    "defence": 81.2,
     "control_cards": [
      86,
      86,
@@ -556,90 +556,90 @@
      85
     ],
     "attack_cards": [
-     86,
      84,
-     83,
+     84,
+     84,
      82
     ],
     "defence_cards": [
-     85,
-     84,
      84,
      83,
+     82,
+     80,
      77
     ],
-    "chem": 32,
+    "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 230.6
+    "ctrl_total": 233.8
    }
   },
   {
    "formation": "3-5-2",
-   "chem": 32,
+   "chem": 33,
    "players": [
     {
-     "id": "id247789",
-     "name": "Frohms",
-     "rating": 82,
+     "id": "id192563",
+     "name": "Leno",
+     "rating": 79,
      "color": "rare_gold",
      "position": "GK",
      "nationId": 21,
-     "leagueId": 2222,
-     "clubId": 243,
+     "leagueId": 13,
+     "clubId": 144,
      "card": [
-      32,
-      25,
-      83
+      36,
+      36,
+      80
      ],
      "chem": 3,
      "eff": [
-      34,
-      27,
-      85
+      38,
+      38,
+      82
      ],
      "slot": "GK"
     },
     {
-     "id": "id208333",
-     "name": "Can",
+     "id": "id256261",
+     "name": "Thiaw",
      "rating": 81,
      "color": "rare_gold",
      "position": "CB",
      "nationId": 21,
-     "leagueId": 19,
-     "clubId": 22,
+     "leagueId": 13,
+     "clubId": 13,
      "card": [
-      73,
-      71,
+      61,
+      70,
       81
      ],
      "chem": 3,
      "eff": [
-      75,
-      75,
-      84
+      63,
+      72,
+      83
      ],
      "slot": "CB"
     },
     {
-     "id": "id50553308",
-     "name": "Lindelöf",
-     "rating": 82,
-     "color": "squad_foundations",
+     "id": "id212242",
+     "name": "Andrich",
+     "rating": 78,
+     "color": "rare_gold",
      "position": "CB",
-     "nationId": 46,
-     "leagueId": 13,
-     "clubId": 2,
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
      "card": [
-      67,
-      74,
-      81
+      70,
+      71,
+      78
      ],
      "chem": 3,
      "eff": [
-      69,
-      76,
-      83
+      72,
+      73,
+      80
      ],
      "slot": "CB"
     },
@@ -688,24 +688,24 @@
      "slot": "CDM"
     },
     {
-     "id": "ltm_karetsas82",
-     "name": "Karetsas",
-     "rating": 82,
-     "color": "ltm",
+     "id": "id50519998",
+     "name": "Reus",
+     "rating": 80,
+     "color": "totw_gold",
      "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
+     "nationId": 21,
+     "leagueId": 39,
+     "clubId": 697,
      "card": [
-      79,
+      81,
       82,
-      42
+      57
      ],
      "chem": 3,
      "eff": [
-      81,
+      83,
       86,
-      45
+      59
      ],
      "slot": "CDM"
     },
@@ -776,54 +776,54 @@
      "slot": "RM"
     },
     {
-     "id": "id259334",
-     "name": "Nerea Eizagirre",
-     "rating": 81,
+     "id": "id251852",
+     "name": "Adeyemi",
+     "rating": 82,
      "color": "rare_gold",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 457,
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
       82,
-      80,
-      63
+      76,
+      43
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      83,
-      81,
-      64
+      84,
+      78,
+      45
      ],
      "slot": "ST"
     },
     {
-     "id": "id50416920",
-     "name": "Schröder",
+     "id": "id244257",
+     "name": "Burkardt",
      "rating": 82,
-     "color": "totw_gold",
+     "color": "rare_gold",
      "position": "ST",
-     "nationId": 46,
-     "leagueId": 2222,
-     "clubId": 243,
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
      "card": [
-      84,
-      74,
-      36
+      82,
+      72,
+      49
      ],
      "chem": 3,
      "eff": [
-      86,
-      76,
-      38
+      84,
+      74,
+      51
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "control": 85.4,
-    "attack": 83.6,
-    "defence": 76.33,
+    "attack": 83.4,
+    "defence": 77.5,
     "control_cards": [
      86,
      86,
@@ -832,27 +832,27 @@
      85
     ],
     "attack_cards": [
-     86,
      84,
-     83,
+     84,
+     84,
      83,
      82
     ],
     "defence_cards": [
-     85,
-     84,
      84,
      83,
+     82,
+     80,
      77,
-     45
+     59
     ],
-    "chem": 32,
+    "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 230.6
+    "ctrl_total": 233.8
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-16 03:07 UTC",
- "week": "2026-10-12"
+ "built": "2026-10-17 17:25 UTC",
+ "week": "2026-10-19"
 }

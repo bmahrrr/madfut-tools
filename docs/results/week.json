@@ -1,237 +1,139 @@
 {
  "_help": "Edit this file each week, then commit. The teams rebuild automatically (Sim in a few minutes, My Club in about 50 minutes). See README for the format. My Club teams are built for the best worst case (mode 'robust'), then a final check compares them with the Reddit and hand-built teams against stress tests built for each; set \"mode\": \"standard\" on a series for the older, faster build.",
- "week": "2026-10-12",
+ "week": "2026-10-19",
  "myclub": [
   {
-   "key": "67",
-   "cap": 67,
+   "key": "72",
+   "cap": 72,
    "boosts": [
     {
      "on": "nation",
-     "id": 7,
-     "att": 0,
-     "ctl": 2,
+     "id": 45,
+     "att": 1,
+     "ctl": 1,
      "def": 1
     },
     {
-     "on": "nation",
-     "id": 27,
-     "att": 1,
-     "ctl": 1,
-     "def": 1
-    }
-   ],
-   "opponents": [
-    [
-     "id276035",
-     "id259551",
-     "id195065",
-     "id86098",
-     "id86445",
-     "id279473",
-     "id220488",
-     "id222909",
-     "id240233",
-     "id246713",
-     "id263619"
-    ]
-   ],
-   "minutes": 30
-  },
-  {
-   "key": "73",
-   "cap": 73,
-   "boosts": [
-    {
      "on": "league",
-     "id": 31,
-     "att": 1,
-     "ctl": 1,
-     "def": 1
-    }
-   ],
-   "bonuses": [
-    {
-     "kind": "nations",
-     "min": 8,
-     "att": 2,
-     "ctl": 0,
+     "id": 308,
+     "att": 0,
+     "ctl": 2,
      "def": 0
     }
    ],
-   "opponents": [
-    [
-     "id242755",
-     "id241628",
-     "id269276",
-     "id256949",
-     "id253177",
-     "id240938",
-     "id215449",
-     "id238370",
-     "id278668",
-     "id257771",
-     "id50587548"
-    ]
-   ],
+   "opponents": [],
    "minutes": 30
   },
   {
-   "key": "79",
-   "cap": 79,
+   "key": "76",
+   "cap": 76,
    "boosts": [
     {
      "on": "league",
-     "id": 39,
+     "id": 19,
+     "att": 0,
+     "ctl": 2,
+     "def": 0
+    },
+    {
+     "on": "nation",
+     "id": 21,
+     "att": 1,
+     "ctl": 0,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "80",
+   "cap": 80,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 18,
      "att": 1,
      "ctl": 1,
      "def": 1
     },
     {
      "on": "league",
-     "id": 350,
-     "att": 1,
+     "id": 31,
+     "att": 0,
      "ctl": 0,
      "def": 2
     }
    ],
-   "opponents": [
-    [
-     "id50596345",
-     "id225953",
-     "id195864",
-     "id219732",
-     "id245211",
-     "id193474",
-     "id253157",
-     "id208165",
-     "id235454",
-     "id226515",
-     "id243830"
-    ],
-    [
-     "id243830",
-     "id231318",
-     "id226515",
-     "id208165",
-     "id235454",
-     "id270559",
-     "id234239",
-     "id212729",
-     "id195864",
-     "id50596345",
-     "id216594"
-    ]
-   ],
+   "opponents": [],
    "minutes": 30
   },
   {
-   "key": "85",
-   "cap": 85,
+   "key": "84",
+   "cap": 84,
    "boosts": [
     {
      "on": "color",
      "id": "totw_gold",
      "att": 2,
-     "ctl": 2,
-     "def": 2
-    },
-    {
-     "on": "nation",
-     "id": 18,
-     "att": 0,
      "ctl": 1,
-     "def": 3
-    }
-   ],
-   "opponents": [
-    [
-     "id186627",
-     "id215590",
-     "id50596036",
-     "id50551331",
-     "id50402434",
-     "id50596510",
-     "id235883",
-     "id227346",
-     "id227316",
-     "id241486",
-     "id50603566"
-    ]
-   ],
-   "minutes": 30
-  },
-  {
-   "key": "88",
-   "cap": 88,
-   "boosts": [
-    {
-     "on": "club",
-     "id": 241,
-     "att": 1,
-     "ctl": 0,
-     "def": 2
+     "def": 0
     },
     {
      "on": "league",
-     "id": 2222,
+     "id": 53,
      "att": 1,
      "ctl": 1,
      "def": 1
     }
    ],
-   "opponents": [
-    [
-     "id262112",
-     "id120274",
-     "id23174",
-     "id162895",
-     "id237289",
-     "id121944",
-     "id50595413",
-     "id227190",
-     "id138956",
-     "new_Xavi Espart_88",
-     "id259532"
-    ]
-   ],
+   "opponents": [],
    "minutes": 30
   },
   {
-   "key": "90",
-   "cap": 90,
+   "key": "87",
+   "cap": 87,
    "boosts": [
     {
      "on": "club",
-     "id": 73,
-     "att": 2,
+     "id": 1,
+     "att": 1,
+     "ctl": 0,
+     "def": 2
+    },
+    {
+     "on": "nation",
+     "id": 34,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "89",
+   "cap": 89,
+   "boosts": [],
+   "opponents": [],
+   "minutes": 30,
+   "bonuses": [
+    {
+     "kind": "types",
+     "min": 5,
+     "att": 0,
      "ctl": 3,
      "def": 0
     },
     {
-     "on": "club",
-     "id": 21,
-     "att": 2,
-     "ctl": 2,
-     "def": 2
+     "kind": "clubs",
+     "min": 8,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
     }
-   ],
-   "opponents": [
-    [
-     "id202126",
-     "id50573494",
-     "evo_Rogers_90",
-     "id243075",
-     "id231443",
-     "id255253",
-     "evo_Can_89",
-     "id1183",
-     "id227190",
-     "id138956",
-     "id5479"
-    ]
-   ],
-   "minutes": 30
+   ]
   },
   {
    "key": "X",
@@ -239,77 +141,61 @@
    "boosts": [
     {
      "on": "nation",
-     "id": 18,
+     "id": 45,
      "att": 2,
-     "ctl": 2,
-     "def": 2
+     "ctl": 0,
+     "def": 3
     },
     {
-     "on": "nation",
-     "id": 21,
-     "att": 2,
-     "ctl": 2,
-     "def": 2
+     "on": "color",
+     "id": "hero",
+     "att": 3,
+     "ctl": 3,
+     "def": 3
     }
    ],
-   "opponents": [
-    [
-     "id190048",
-     "new_Rogers_93",
-     "new_Ngumoha_96",
-     "id1397",
-     "new_Xavi Espart_96",
-     "new_Karetsas_96",
-     "id50570879",
-     "id168473",
-     "new_Can_92",
-     "id010",
-     "id226293"
-    ]
-   ],
+   "opponents": [],
    "minutes": 30
   }
  ],
  "sim": [
   {
-   "key": "74",
-   "cap": 74,
-   "boosts": [
-    {
-     "on": "league",
-     "id": 16,
-     "att": 0,
-     "ctl": 3,
-     "def": 1
-    },
-    {
-     "on": "league",
-     "id": 17,
-     "att": 4,
-     "ctl": 4,
-     "def": 4
-    }
-   ]
-  },
-  {
-   "key": "77",
-   "cap": 77,
+   "key": "69",
+   "cap": 69,
    "boosts": [
     {
      "on": "league",
      "id": 19,
-     "att": 0,
-     "ctl": 1,
-     "def": 1
-    }
-   ],
-   "bonuses": [
-    {
-     "kind": "clubs",
-     "min": 11,
      "att": 1,
-     "ctl": 1,
+     "ctl": 0,
      "def": 1
+    },
+    {
+     "on": "league",
+     "id": 20,
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    }
+   ]
+  },
+  {
+   "key": "75",
+   "cap": 75,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 21,
+     "att": 0,
+     "ctl": 2,
+     "def": 0
+    },
+    {
+     "on": "nation",
+     "id": 34,
+     "att": 2,
+     "ctl": 2,
+     "def": 2
     }
    ]
   },
@@ -318,35 +204,15 @@
    "cap": 82,
    "boosts": [
     {
-     "on": "club",
-     "id": 69,
-     "att": 2,
-     "ctl": 2,
-     "def": 2
-    },
-    {
-     "on": "club",
-     "id": 22,
+     "on": "league",
+     "id": 39,
      "att": 0,
      "ctl": 2,
-     "def": 1
-    }
-   ]
-  },
-  {
-   "key": "84",
-   "cap": 84,
-   "boosts": [
-    {
-     "on": "nation",
-     "id": 54,
-     "att": 2,
-     "ctl": 1,
      "def": 0
     },
     {
      "on": "nation",
-     "id": 18,
+     "id": 7,
      "att": 1,
      "ctl": 1,
      "def": 1
@@ -354,19 +220,20 @@
    ]
   },
   {
-   "key": "86",
-   "cap": 86,
-   "boosts": [
+   "key": "85",
+   "cap": 85,
+   "boosts": [],
+   "bonuses": [
     {
-     "on": "nation",
-     "id": 14,
-     "att": 3,
-     "ctl": 0,
-     "def": 1
+     "kind": "leagues",
+     "min": 4,
+     "att": 0,
+     "ctl": 2,
+     "def": 0
     },
     {
-     "on": "league",
-     "id": 53,
+     "kind": "nations",
+     "min": 4,
      "att": 2,
      "ctl": 2,
      "def": 2
@@ -374,12 +241,32 @@
    ]
   },
   {
-   "key": "89",
-   "cap": 89,
+   "key": "88",
+   "cap": 88,
    "boosts": [
     {
-     "on": "league",
-     "id": 13,
+     "on": "club",
+     "id": 10,
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    },
+    {
+     "on": "club",
+     "id": 73,
+     "att": 3,
+     "ctl": 0,
+     "def": 0
+    }
+   ]
+  },
+  {
+   "key": "90",
+   "cap": 90,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 18,
      "att": 2,
      "ctl": 1,
      "def": 0
@@ -400,15 +287,15 @@
    "cap": 99,
    "boosts": [
     {
-     "on": "nation",
-     "id": 45,
+     "on": "color",
+     "id": "icon",
      "att": 2,
      "ctl": 2,
      "def": 2
     },
     {
      "on": "color",
-     "id": "totw_gold",
+     "id": "hero",
      "att": 3,
      "ctl": 3,
      "def": 3

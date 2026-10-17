@@ -1,0 +1,857 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "85",
+  "cap": 85,
+  "boosts": [],
+  "bonuses": [
+   {
+    "kind": "leagues",
+    "min": 4,
+    "att": 0,
+    "ctl": 2,
+    "def": 0
+   },
+   {
+    "kind": "nations",
+    "min": 4,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id262621",
+     "name": "Mamardashvili",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 20,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      34,
+      34,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      38,
+      40,
+      88
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id169721",
+     "name": "Richards",
+     "rating": 85,
+     "color": "hall_of_fut",
+     "position": "RB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 132794,
+     "card": [
+      72,
+      74,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      80,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      67,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50564136",
+     "name": "Romero",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      63,
+      66,
+      85
+     ],
+     "chem": 2,
+     "eff": [
+      66,
+      71,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      91,
+      73
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      92,
+      89
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50412322",
+     "name": "Dro Fernández",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      79
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      60
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      73
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50408698",
+     "name": "Kanjinga",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "ST",
+     "nationId": 110,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      87,
+      77,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      83,
+      48
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id267531",
+     "name": "Leuchter",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      84,
+      72,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      78,
+      40
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 92.0,
+    "attack": 88.8,
+    "defence": 88.25,
+    "control_cards": [
+     93,
+     92,
+     92,
+     92,
+     91
+    ],
+    "attack_cards": [
+     91,
+     90,
+     89,
+     88,
+     86
+    ],
+    "defence_cards": [
+     89,
+     88,
+     88,
+     88
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "ctrl_total": 253.6
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id262621",
+     "name": "Mamardashvili",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 20,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      34,
+      34,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      38,
+      40,
+      88
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id169721",
+     "name": "Richards",
+     "rating": 85,
+     "color": "hall_of_fut",
+     "position": "RB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 132794,
+     "card": [
+      72,
+      74,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      80,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50564136",
+     "name": "Romero",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      63,
+      66,
+      85
+     ],
+     "chem": 2,
+     "eff": [
+      66,
+      71,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      67,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      91,
+      73
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50412322",
+     "name": "Dro Fernández",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      79
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      92,
+      89
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      60
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      73
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id267531",
+     "name": "Leuchter",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      84,
+      72,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      78,
+      40
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50408698",
+     "name": "Kanjinga",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "ST",
+     "nationId": 110,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      87,
+      77,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      83,
+      48
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 92.0,
+    "attack": 88.8,
+    "defence": 88.25,
+    "control_cards": [
+     93,
+     92,
+     92,
+     92,
+     91
+    ],
+    "attack_cards": [
+     91,
+     90,
+     89,
+     88,
+     86
+    ],
+    "defence_cards": [
+     89,
+     88,
+     88,
+     88
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "ctrl_total": 253.6
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id262621",
+     "name": "Mamardashvili",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 20,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      34,
+      34,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      38,
+      40,
+      88
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      67,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50564136",
+     "name": "Romero",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      63,
+      66,
+      85
+     ],
+     "chem": 2,
+     "eff": [
+      66,
+      71,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id169721",
+     "name": "Richards",
+     "rating": 85,
+     "color": "hall_of_fut",
+     "position": "RB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 132794,
+     "card": [
+      72,
+      74,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      80,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id210035",
+     "name": "Grimaldo",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      85,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      91,
+      73
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      92,
+      89
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50412322",
+     "name": "Dro Fernández",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      79
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      60
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      73
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50408698",
+     "name": "Kanjinga",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "ST",
+     "nationId": 110,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      87,
+      77,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      83,
+      48
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id267531",
+     "name": "Leuchter",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      84,
+      72,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      78,
+      40
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 92.0,
+    "attack": 88.8,
+    "defence": 88.25,
+    "control_cards": [
+     93,
+     92,
+     92,
+     92,
+     91
+    ],
+    "attack_cards": [
+     91,
+     90,
+     89,
+     88,
+     86
+    ],
+    "defence_cards": [
+     89,
+     88,
+     88,
+     88
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "ctrl_total": 253.6
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-17 17:29 UTC",
+ "week": "2026-10-19"
+}
