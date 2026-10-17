@@ -1,0 +1,3376 @@
+{
+ "mode": "myclub",
+ "series": {
+  "key": "80",
+  "cap": 80,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 18,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   },
+   {
+    "on": "league",
+    "id": 31,
+    "att": 0,
+    "ctl": 0,
+    "def": 2
+   }
+  ],
+  "minutes": 30
+ },
+ "opponents": [],
+ "team": {
+  "formation": "4-1-4-1",
+  "chem": 28,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id255303",
+    "name": "Caprile",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "GK",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 1842,
+    "card": [
+     37,
+     36,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     39,
+     38,
+     85
+    ],
+    "tiebreak": 160
+   },
+   {
+    "slot": "LB",
+    "id": "id202884",
+    "name": "Spinazzola",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 48,
+    "card": [
+     76,
+     76,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     78,
+     83
+    ],
+    "tiebreak": 237
+   },
+   {
+    "slot": "CB",
+    "id": "id258648",
+    "name": "Carlos Augusto",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     76,
+     77,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     79,
+     83
+    ],
+    "tiebreak": 238
+   },
+   {
+    "slot": "CB",
+    "id": "id232756",
+    "name": "Tomori",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 31,
+    "clubId": 131681,
+    "card": [
+     62,
+     65,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     64,
+     67,
+     84
+    ],
+    "tiebreak": 213
+   },
+   {
+    "slot": "RB",
+    "id": "evo_Lucas Vázquez_80",
+    "name": "Lucas Vázquez",
+    "rating": 80,
+    "color": "evo",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     82,
+     83,
+     78
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     84,
+     79
+    ],
+    "tiebreak": 246
+   },
+   {
+    "slot": "CDM",
+    "id": "id272153",
+    "name": "Ainoa",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 457,
+    "card": [
+     74,
+     78,
+     72
+    ],
+    "chem": 1,
+    "eff": [
+     74,
+     78,
+     72
+    ],
+    "tiebreak": 224
+   },
+   {
+    "slot": "LM",
+    "id": "id258966",
+    "name": "Cambiaso",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     77,
+     78,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     80,
+     82
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "CM",
+    "id": "id236499",
+    "name": "Douglas Luiz",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     76,
+     79,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     81,
+     79
+    ],
+    "tiebreak": 236
+   },
+   {
+    "slot": "CM",
+    "id": "id50540109",
+    "name": "de Roon",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 31,
+    "clubId": 52,
+    "card": [
+     73,
+     76,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     78,
+     84
+    ],
+    "tiebreak": 235
+   },
+   {
+    "slot": "RM",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     75,
+     80,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     82,
+     79
+    ],
+    "tiebreak": 236
+   },
+   {
+    "slot": "ST",
+    "id": "id50404662",
+    "name": "Kramer",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "ST",
+    "nationId": 13,
+    "leagueId": 2215,
+    "clubId": 32,
+    "card": [
+     82,
+     70,
+     54
+    ],
+    "chem": 1,
+    "eff": [
+     82,
+     70,
+     54
+    ],
+    "tiebreak": 206
+   }
+  ],
+  "results": {
+   "counter 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "counter 2": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "counter 3": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "counter 4": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 5": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 6": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 7": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 8": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 2": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "DRAW"
+   },
+   "final check 1": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "DRAW"
+   }
+  },
+  "source": "Polished",
+  "mode": "robust",
+  "opponent_teams": {
+   "counter 1": {
+    "formation": "4-2-3-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id225149",
+      "name": "Butez",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       40,
+       43,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       43,
+       46,
+       84
+      ],
+      "tiebreak": 168
+     },
+     {
+      "slot": "LB",
+      "id": "id261865",
+      "name": "Miguel Gutiérrez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       77,
+       78,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       81
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CB",
+      "id": "id226851",
+      "name": "Pavard",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       70,
+       72,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       75,
+       84
+      ],
+      "tiebreak": 227
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       85,
+       80
+      ],
+      "tiebreak": 249
+     },
+     {
+      "slot": "CDM",
+      "id": "id254579",
+      "name": "Da Cunha",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       77,
+       77,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       80,
+       79
+      ],
+      "tiebreak": 234
+     },
+     {
+      "slot": "CDM",
+      "id": "id236499",
+      "name": "Douglas Luiz",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       76,
+       79,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       81,
+       79
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CAM",
+      "id": "id238744",
+      "name": "McKennie",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 95,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       77,
+       78,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       82
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CAM",
+      "id": "id246646",
+      "name": "Caqueret",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       74,
+       78,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       81,
+       79
+      ],
+      "tiebreak": 232
+     },
+     {
+      "slot": "CAM",
+      "id": "id213666",
+      "name": "Loftus-Cheek",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CAM",
+      "nationId": 14,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       77,
+       77,
+       76
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       79,
+       80
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "ST",
+      "id": "id236477",
+      "name": "Claude-Maurice",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 100409,
+      "card": [
+       76,
+       76,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       79,
+       70
+      ],
+      "tiebreak": 225
+     }
+    ]
+   },
+   "counter 2": {
+    "formation": "4-1-4-1",
+    "chem": 24,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id224836",
+      "name": "Milinković-Savić",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 51,
+      "leagueId": 31,
+      "clubId": 48,
+      "card": [
+       35,
+       34,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       37,
+       36,
+       85
+      ],
+      "tiebreak": 156
+     },
+     {
+      "slot": "LB",
+      "id": "id80170",
+      "name": "Wesley",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CB",
+      "id": "id230918",
+      "name": "Chalobah",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       63,
+       68,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       65,
+       70,
+       84
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       83,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 1,
+      "eff": [
+       79,
+       82,
+       63
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "LM",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 1,
+      "eff": [
+       81,
+       78,
+       58
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "CM",
+      "id": "id274246",
+      "name": "Miley",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       72,
+       75,
+       73
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       76,
+       74
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 2,
+      "eff": [
+       76,
+       77,
+       83
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "RM",
+      "id": "id216409",
+      "name": "Politano",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "RW",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 48,
+      "card": [
+       80,
+       80,
+       55
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       82,
+       59
+      ],
+      "tiebreak": 221
+     },
+     {
+      "slot": "ST",
+      "id": "id50404662",
+      "name": "Kramer",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 13,
+      "leagueId": 2215,
+      "clubId": 32,
+      "card": [
+       82,
+       70,
+       54
+      ],
+      "chem": 1,
+      "eff": [
+       82,
+       70,
+       54
+      ],
+      "tiebreak": 206
+     }
+    ]
+   },
+   "counter 3": {
+    "formation": "4-1-4-1",
+    "chem": 29,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id240091",
+      "name": "Vicario",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       38,
+       42,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       40,
+       44,
+       85
+      ],
+      "tiebreak": 167
+     },
+     {
+      "slot": "LB",
+      "id": "id258966",
+      "name": "Cambiaso",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       77,
+       78,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       82
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CB",
+      "id": "id266872",
+      "name": "Gatti",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       58,
+       59,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       60,
+       61,
+       83
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "RB",
+      "id": "id80170",
+      "name": "Wesley",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CDM",
+      "id": "id236499",
+      "name": "Douglas Luiz",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       76,
+       79,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       81,
+       79
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "LM",
+      "id": "id241508",
+      "name": "Damsgaard",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CAM",
+      "nationId": 13,
+      "leagueId": 13,
+      "clubId": 1925,
+      "card": [
+       77,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       83,
+       66
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 2,
+      "eff": [
+       76,
+       77,
+       83
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CM",
+      "id": "id229723",
+      "name": "Jensen",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 13,
+      "leagueId": 13,
+      "clubId": 1925,
+      "card": [
+       76,
+       80,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       82,
+       71
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "RM",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 1,
+      "eff": [
+       82,
+       83,
+       78
+      ],
+      "tiebreak": 243
+     },
+     {
+      "slot": "ST",
+      "id": "id50404662",
+      "name": "Kramer",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 13,
+      "leagueId": 2215,
+      "clubId": 32,
+      "card": [
+       82,
+       70,
+       54
+      ],
+      "chem": 2,
+      "eff": [
+       83,
+       71,
+       55
+      ],
+      "tiebreak": 209
+     }
+    ]
+   },
+   "counter 4": {
+    "formation": "4-1-4-1",
+    "chem": 26,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id240091",
+      "name": "Vicario",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       38,
+       42,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       40,
+       44,
+       85
+      ],
+      "tiebreak": 167
+     },
+     {
+      "slot": "LB",
+      "id": "id202884",
+      "name": "Spinazzola",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 48,
+      "card": [
+       76,
+       76,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       78,
+       83
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "CB",
+      "id": "id226851",
+      "name": "Pavard",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       70,
+       72,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       75,
+       84
+      ],
+      "tiebreak": 227
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "RB",
+      "id": "id80170",
+      "name": "Wesley",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CDM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 2,
+      "eff": [
+       76,
+       77,
+       83
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "LM",
+      "id": "id243593",
+      "name": "Laurienté",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LW",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 111974,
+      "card": [
+       81,
+       76,
+       38
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       79,
+       43
+      ],
+      "tiebreak": 201
+     },
+     {
+      "slot": "CM",
+      "id": "id246923",
+      "name": "Ramsey",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       78,
+       77,
+       68
+      ],
+      "chem": 1,
+      "eff": [
+       78,
+       77,
+       68
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CM",
+      "id": "id236499",
+      "name": "Douglas Luiz",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       76,
+       79,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       81,
+       79
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "RM",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 1,
+      "eff": [
+       82,
+       83,
+       78
+      ],
+      "tiebreak": 243
+     },
+     {
+      "slot": "ST",
+      "id": "id232498",
+      "name": "Isi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 480,
+      "card": [
+       79,
+       80,
+       43
+      ],
+      "chem": 1,
+      "eff": [
+       79,
+       80,
+       43
+      ],
+      "tiebreak": 202
+     }
+    ]
+   },
+   "counter 5": {
+    "formation": "4-1-4-1",
+    "chem": 26,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id240091",
+      "name": "Vicario",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       38,
+       42,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       40,
+       44,
+       85
+      ],
+      "tiebreak": 167
+     },
+     {
+      "slot": "LB",
+      "id": "id202884",
+      "name": "Spinazzola",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 48,
+      "card": [
+       76,
+       76,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       78,
+       83
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "CB",
+      "id": "id226851",
+      "name": "Pavard",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       70,
+       72,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       75,
+       84
+      ],
+      "tiebreak": 227
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "RB",
+      "id": "id80170",
+      "name": "Wesley",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CDM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 2,
+      "eff": [
+       76,
+       77,
+       83
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "LM",
+      "id": "id243593",
+      "name": "Laurienté",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LW",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 111974,
+      "card": [
+       81,
+       76,
+       38
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       79,
+       43
+      ],
+      "tiebreak": 201
+     },
+     {
+      "slot": "CM",
+      "id": "id246923",
+      "name": "Ramsey",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       78,
+       77,
+       68
+      ],
+      "chem": 1,
+      "eff": [
+       78,
+       77,
+       68
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CM",
+      "id": "id236499",
+      "name": "Douglas Luiz",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       76,
+       79,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       81,
+       79
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "RM",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 1,
+      "eff": [
+       82,
+       83,
+       78
+      ],
+      "tiebreak": 243
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 1,
+      "eff": [
+       81,
+       78,
+       52
+      ],
+      "tiebreak": 211
+     }
+    ]
+   },
+   "counter 6": {
+    "formation": "4-1-4-1",
+    "chem": 27,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id255303",
+      "name": "Caprile",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 1842,
+      "card": [
+       37,
+       36,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       38,
+       85
+      ],
+      "tiebreak": 160
+     },
+     {
+      "slot": "LB",
+      "id": "id202884",
+      "name": "Spinazzola",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 48,
+      "card": [
+       76,
+       76,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       78,
+       83
+      ],
+      "tiebreak": 237
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CB",
+      "id": "id232756",
+      "name": "Tomori",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       62,
+       65,
+       80
+      ],
+      "chem": 2,
+      "eff": [
+       63,
+       66,
+       83
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RB",
+      "id": "id258966",
+      "name": "Cambiaso",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       77,
+       78,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       82
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CDM",
+      "id": "id276887",
+      "name": "Isina Corte",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 132629,
+      "card": [
+       79,
+       76,
+       42
+      ],
+      "chem": 1,
+      "eff": [
+       79,
+       76,
+       42
+      ],
+      "tiebreak": 197
+     },
+     {
+      "slot": "LM",
+      "id": "id241508",
+      "name": "Damsgaard",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CAM",
+      "nationId": 13,
+      "leagueId": 13,
+      "clubId": 1925,
+      "card": [
+       77,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       83,
+       66
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 2,
+      "eff": [
+       76,
+       77,
+       83
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CM",
+      "id": "id229723",
+      "name": "Jensen",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 13,
+      "leagueId": 13,
+      "clubId": 1925,
+      "card": [
+       76,
+       80,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       82,
+       71
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "RM",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       83,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "ST",
+      "id": "id50404662",
+      "name": "Kramer",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 13,
+      "leagueId": 2215,
+      "clubId": 32,
+      "card": [
+       82,
+       70,
+       54
+      ],
+      "chem": 2,
+      "eff": [
+       83,
+       71,
+       55
+      ],
+      "tiebreak": 209
+     }
+    ]
+   },
+   "counter 7": {
+    "formation": "4-1-3-2",
+    "chem": 25,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id255303",
+      "name": "Caprile",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 1842,
+      "card": [
+       37,
+       36,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       38,
+       85
+      ],
+      "tiebreak": 160
+     },
+     {
+      "slot": "LB",
+      "id": "id243702",
+      "name": "Spence",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       72,
+       73,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       75,
+       83
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CB",
+      "id": "id232756",
+      "name": "Tomori",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       62,
+       65,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       64,
+       67,
+       84
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       83,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id260823",
+      "name": "Fagioli",
+      "rating": 76,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 110374,
+      "card": [
+       74,
+       79,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       81,
+       75
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "LM",
+      "id": "id258966",
+      "name": "Cambiaso",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       77,
+       78,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       82
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CM",
+      "id": "id50540109",
+      "name": "de Roon",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 34,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       73,
+       76,
+       80
+      ],
+      "chem": 2,
+      "eff": [
+       74,
+       77,
+       83
+      ],
+      "tiebreak": 232
+     },
+     {
+      "slot": "RM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 1,
+      "eff": [
+       79,
+       82,
+       63
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "ST",
+      "id": "id186146",
+      "name": "Welbeck",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       80,
+       74,
+       50
+      ],
+      "chem": 1,
+      "eff": [
+       80,
+       74,
+       50
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "ST",
+      "id": "id50404662",
+      "name": "Kramer",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 13,
+      "leagueId": 2215,
+      "clubId": 32,
+      "card": [
+       82,
+       70,
+       54
+      ],
+      "chem": 1,
+      "eff": [
+       82,
+       70,
+       54
+      ],
+      "tiebreak": 206
+     }
+    ]
+   },
+   "counter 8": {
+    "formation": "4-1-4-1",
+    "chem": 28,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id240091",
+      "name": "Vicario",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       38,
+       42,
+       81
+      ],
+      "chem": 1,
+      "eff": [
+       38,
+       42,
+       83
+      ],
+      "tiebreak": 161
+     },
+     {
+      "slot": "LB",
+      "id": "id216275",
+      "name": "Mwene",
+      "rating": 75,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       69,
+       71,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       73,
+       75
+      ],
+      "tiebreak": 219
+     },
+     {
+      "slot": "CB",
+      "id": "id223671",
+      "name": "Posch",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       64,
+       66,
+       77
+      ],
+      "chem": 3,
+      "eff": [
+       66,
+       68,
+       79
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 2,
+      "eff": [
+       77,
+       78,
+       82
+      ],
+      "tiebreak": 235
+     },
+     {
+      "slot": "RB",
+      "id": "id259075",
+      "name": "Yan Couto",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       75,
+       80,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       82,
+       79
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CDM",
+      "id": "id246646",
+      "name": "Caqueret",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       74,
+       78,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       81,
+       79
+      ],
+      "tiebreak": 232
+     },
+     {
+      "slot": "LM",
+      "id": "id261865",
+      "name": "Miguel Gutiérrez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       77,
+       78,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       81
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 1,
+      "eff": [
+       75,
+       76,
+       82
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CM",
+      "id": "id225309",
+      "name": "Amiri",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       80,
+       81,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       63
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "RM",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       85,
+       80
+      ],
+      "tiebreak": 249
+     },
+     {
+      "slot": "ST",
+      "id": "id50564059",
+      "name": "Nkunku",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 112172,
+      "card": [
+       81,
+       79,
+       43
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       82,
+       46
+      ],
+      "tiebreak": 209
+     }
+    ]
+   },
+   "fresh test 1": {
+    "formation": "4-1-3-2",
+    "chem": 26,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id255303",
+      "name": "Caprile",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 1842,
+      "card": [
+       37,
+       36,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       38,
+       85
+      ],
+      "tiebreak": 160
+     },
+     {
+      "slot": "LB",
+      "id": "id243702",
+      "name": "Spence",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 14,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       72,
+       73,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       75,
+       83
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CB",
+      "id": "id50574483",
+      "name": "Balerdi",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 52,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       63,
+       67,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       65,
+       69,
+       83
+      ],
+      "tiebreak": 215
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       83,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id260823",
+      "name": "Fagioli",
+      "rating": 76,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 110374,
+      "card": [
+       74,
+       79,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       81,
+       75
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "LM",
+      "id": "id258966",
+      "name": "Cambiaso",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       77,
+       78,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       82
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CM",
+      "id": "id50540109",
+      "name": "de Roon",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 34,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       73,
+       76,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       78,
+       84
+      ],
+      "tiebreak": 235
+     },
+     {
+      "slot": "RM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 1,
+      "eff": [
+       79,
+       82,
+       63
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "ST",
+      "id": "id186146",
+      "name": "Welbeck",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       80,
+       74,
+       50
+      ],
+      "chem": 1,
+      "eff": [
+       80,
+       74,
+       50
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "ST",
+      "id": "id50404662",
+      "name": "Kramer",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "ST",
+      "nationId": 13,
+      "leagueId": 2215,
+      "clubId": 32,
+      "card": [
+       82,
+       70,
+       54
+      ],
+      "chem": 1,
+      "eff": [
+       82,
+       70,
+       54
+      ],
+      "tiebreak": 206
+     }
+    ]
+   },
+   "fresh test 2": {
+    "formation": "4-1-4-1",
+    "chem": 26,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id240091",
+      "name": "Vicario",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       38,
+       42,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       40,
+       44,
+       85
+      ],
+      "tiebreak": 167
+     },
+     {
+      "slot": "LB",
+      "id": "id261865",
+      "name": "Miguel Gutiérrez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       77,
+       78,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       81
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 2,
+      "eff": [
+       77,
+       78,
+       82
+      ],
+      "tiebreak": 235
+     },
+     {
+      "slot": "CB",
+      "id": "id223671",
+      "name": "Posch",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       64,
+       66,
+       77
+      ],
+      "chem": 2,
+      "eff": [
+       65,
+       67,
+       78
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RB",
+      "id": "id258966",
+      "name": "Cambiaso",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       77,
+       78,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       82
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CDM",
+      "id": "id275029",
+      "name": "Maza",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CAM",
+      "nationId": 97,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       78,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       82,
+       64
+      ],
+      "tiebreak": 226
+     },
+     {
+      "slot": "LM",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 1,
+      "eff": [
+       81,
+       78,
+       52
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CM",
+      "id": "id246646",
+      "name": "Caqueret",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       74,
+       78,
+       74
+      ],
+      "chem": 2,
+      "eff": [
+       76,
+       80,
+       78
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 1,
+      "eff": [
+       75,
+       76,
+       82
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "RM",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       85,
+       80
+      ],
+      "tiebreak": 249
+     },
+     {
+      "slot": "ST",
+      "id": "id50564059",
+      "name": "Nkunku",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 112172,
+      "card": [
+       81,
+       79,
+       43
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       82,
+       46
+      ],
+      "tiebreak": 209
+     }
+    ]
+   },
+   "final check 1": {
+    "formation": "3-4-2-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id240091",
+      "name": "Vicario",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       38,
+       42,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       40,
+       44,
+       85
+      ],
+      "tiebreak": 167
+     },
+     {
+      "slot": "CB",
+      "id": "id223671",
+      "name": "Posch",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 4,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       64,
+       66,
+       77
+      ],
+      "chem": 3,
+      "eff": [
+       66,
+       68,
+       79
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "CB",
+      "id": "id266872",
+      "name": "Gatti",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       58,
+       59,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       60,
+       61,
+       83
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       83
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "LM",
+      "id": "id261865",
+      "name": "Miguel Gutiérrez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       77,
+       78,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       81
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "CM",
+      "id": "id50591516",
+      "name": "Sarr",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 136,
+      "leagueId": 31,
+      "clubId": 45,
+      "card": [
+       73,
+       77,
+       77
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       79,
+       81
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 1,
+      "eff": [
+       75,
+       76,
+       82
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "RM",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       85,
+       80
+      ],
+      "tiebreak": 249
+     },
+     {
+      "slot": "CAM",
+      "id": "id246646",
+      "name": "Caqueret",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       74,
+       78,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       81,
+       79
+      ],
+      "tiebreak": 232
+     },
+     {
+      "slot": "CAM",
+      "id": "id225309",
+      "name": "Amiri",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 21,
+      "leagueId": 19,
+      "clubId": 169,
+      "card": [
+       80,
+       81,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       63
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "ST",
+      "id": "id50564059",
+      "name": "Nkunku",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 18,
+      "leagueId": 19,
+      "clubId": 112172,
+      "card": [
+       81,
+       79,
+       43
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       82,
+       46
+      ],
+      "tiebreak": 209
+     }
+    ]
+   }
+  },
+  "plan": {
+   "guaranteed": "LOSS",
+   "safe": [
+    {
+     "slot": "GK",
+     "name": "Caprile",
+     "stat": "attack"
+    },
+    {
+     "slot": "GK",
+     "name": "Caprile",
+     "stat": "control"
+    },
+    {
+     "slot": "GK",
+     "name": "Caprile",
+     "stat": "defence"
+    },
+    {
+     "slot": "LB",
+     "name": "Spinazzola",
+     "stat": "attack"
+    },
+    {
+     "slot": "LB",
+     "name": "Spinazzola",
+     "stat": "control"
+    },
+    {
+     "slot": "LB",
+     "name": "Spinazzola",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Carlos Augusto",
+     "stat": "attack"
+    },
+    {
+     "slot": "CB",
+     "name": "Carlos Augusto",
+     "stat": "control"
+    },
+    {
+     "slot": "CB",
+     "name": "Carlos Augusto",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Tomori",
+     "stat": "attack"
+    },
+    {
+     "slot": "CB",
+     "name": "Tomori",
+     "stat": "control"
+    },
+    {
+     "slot": "CB",
+     "name": "Tomori",
+     "stat": "defence"
+    },
+    {
+     "slot": "RB",
+     "name": "Lucas Vázquez",
+     "stat": "attack"
+    },
+    {
+     "slot": "RB",
+     "name": "Lucas Vázquez",
+     "stat": "control"
+    },
+    {
+     "slot": "RB",
+     "name": "Lucas Vázquez",
+     "stat": "defence"
+    },
+    {
+     "slot": "CDM",
+     "name": "Ainoa",
+     "stat": "attack"
+    },
+    {
+     "slot": "CDM",
+     "name": "Ainoa",
+     "stat": "control"
+    },
+    {
+     "slot": "CDM",
+     "name": "Ainoa",
+     "stat": "defence"
+    },
+    {
+     "slot": "LM",
+     "name": "Cambiaso",
+     "stat": "attack"
+    },
+    {
+     "slot": "LM",
+     "name": "Cambiaso",
+     "stat": "control"
+    },
+    {
+     "slot": "LM",
+     "name": "Cambiaso",
+     "stat": "defence"
+    },
+    {
+     "slot": "CM",
+     "name": "Douglas Luiz",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "Douglas Luiz",
+     "stat": "control"
+    },
+    {
+     "slot": "CM",
+     "name": "Douglas Luiz",
+     "stat": "defence"
+    },
+    {
+     "slot": "CM",
+     "name": "de Roon",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "de Roon",
+     "stat": "control"
+    },
+    {
+     "slot": "CM",
+     "name": "de Roon",
+     "stat": "defence"
+    },
+    {
+     "slot": "RM",
+     "name": "Yan Couto",
+     "stat": "attack"
+    },
+    {
+     "slot": "RM",
+     "name": "Yan Couto",
+     "stat": "control"
+    },
+    {
+     "slot": "RM",
+     "name": "Yan Couto",
+     "stat": "defence"
+    },
+    {
+     "slot": "ST",
+     "name": "Kramer",
+     "stat": "attack"
+    },
+    {
+     "slot": "ST",
+     "name": "Kramer",
+     "stat": "control"
+    },
+    {
+     "slot": "ST",
+     "name": "Kramer",
+     "stat": "defence"
+    }
+   ],
+   "total_openers": 33,
+   "reddit": null,
+   "watch": [
+    {
+     "name": "Caprile",
+     "text": "Only use for defence (85); attack 39, control 38"
+    },
+    {
+     "name": "Kramer",
+     "text": "Never use for defence (54)"
+    }
+   ],
+   "low_tb": {
+    "name": "Caprile",
+    "tb": 160
+   },
+   "high_tb": {
+    "name": "Lucas Vázquez",
+    "tb": 246
+   }
+  }
+ },
+ "not_owned": [],
+ "built": "2026-10-17 18:20 UTC",
+ "week": "2026-10-19"
+}
