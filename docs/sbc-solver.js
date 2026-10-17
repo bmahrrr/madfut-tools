@@ -330,6 +330,87 @@ function annealSBC(req, cands, slots, opts = {}) {
   return best;
 }
 
+// ---------- hybrid search: groups of "perfect links" (+ an Icon) ----------
+// Many hybrid SBCs are solved by an Icon plus five pairs, each pair from the same club AND nation: with the Icon's +1
+// to every league, each pair card gets club 1 + nation 1 + league 1 = 3 chem (33 total). Without an Icon, groups of
+// three from one club and nation do the same. This builds those squads directly (cheapest first, every club / nation /
+// league rule covered) and hands the best one to the exact solver as the price to beat.
+function hybridSBC(req, pool, slots, ms = 2500) {
+  const t0 = Date.now(), pr = req.priority || "gold_first", rules = req.rules || [];
+  const cost = c => sbcCost(c, pr);
+  const fits = sq => {                      // can these cards fill distinct slots? (bipartite matching)
+    const match = new Array(slots.length).fill(-1);
+    const tr = (i, seen) => { for (let j = 0; j < slots.length; j++) if (!seen[j] && sq[i].P.has(slots[j])) { seen[j] = true; if (match[j] < 0 || tr(match[j], seen)) { match[j] = i; return true; } } return false; };
+    for (let i = 0; i < sq.length; i++) if (!tr(i, new Array(slots.length).fill(false))) return null;
+    return match;
+  };
+  const iconMax = rules.filter(r => r.on === "color" && String(r.id) === "icon" && r.op !== ">=").reduce((m, r) => Math.min(m, r.n), 11);
+  const icons = req.allow_icons && iconMax > 0 ? pool.filter(c => SBC_ICON.has(c.color)).sort((a, b) => cost(a) - cost(b)) : [];
+  // units: the cheapest 2 (and 3) different players sharing a club and a nation
+  const groups = new Map();
+  for (const c of pool) { if (SBC_AUTO.has(c.color)) continue; const k = c.clubId + "|" + c.nationId; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(c); }
+  const units = [];
+  for (const L of groups.values()) {
+    L.sort((a, b) => cost(a) - cost(b));
+    const seen = new Set(), U = [];
+    for (const c of L) { const pk = playerKey(c); if (seen.has(pk)) continue; seen.add(pk); U.push(c); if (U.length === 3) break; }
+    if (U.length >= 2) units.push({ cards: U.slice(0, 2), cost: cost(U[0]) + cost(U[1]) });
+    if (U.length >= 3) units.push({ cards: U.slice(0, 3), cost: cost(U[0]) + cost(U[1]) + cost(U[2]) });
+  }
+  // keep the cheapest units, plus the cheapest ones for every club / nation / league a rule asks for
+  const pick = new Set(), byCost = units.slice().sort((a, b) => a.cost - b.cost);
+  byCost.slice(0, 70).forEach(u => pick.add(u));
+  for (const r of rules) if (["club", "nation", "league"].includes(r.on) && r.op !== "<=") byCost.filter(u => u.cards.some(c => ruleMatch(c, r))).slice(0, 12).forEach(u => pick.add(u));
+  const U = [...pick].sort((a, b) => a.cost - b.cost);
+  const need = rules.filter(r => ["club", "nation", "league"].includes(r.on) && r.op !== "<=");
+  let best = null, nodes = 0;
+  const minUnit = U.length ? U[0].cost / U[0].cards.length : 0;
+  const tryHead = head => {                 // head: [] or [icon]
+    // Unmet club / nation / league rules are covered first (branching only on units that meet one), then the rest is
+    // filled with the cheapest units in order - far fewer squads to look at than trying everything.
+    const dfs = (start, sq, c0, used) => {
+      if (++nodes % 1024 === 0 && Date.now() - t0 > ms) return true;
+      if (sq.length === 11) {
+        const m = fits(sq); if (!m) return false;
+        const ord = m.map(i => sq[i]);
+        if (validSBC(req, ord) && (!best || c0 < best.cost)) best = { cost: c0, sq: ord };
+        return false;
+      }
+      const left = 11 - sq.length;
+      if (best && c0 + left * minUnit >= best.cost) return false;
+      const unmet = need.filter(r => sq.filter(x => ruleMatch(x, r)).length < r.n);
+      if (unmet.length > Math.floor(left / 2)) return false;
+      const ok = un => un.cards.length <= left && left - un.cards.length !== 1 && !un.cards.some(c => used.has(playerKey(c)));
+      const go = (un, next) => {
+        const nsq = sq.concat(un.cards);
+        if (!fits(nsq)) return false;
+        const nu = new Set(used); un.cards.forEach(c => nu.add(playerKey(c)));
+        return dfs(next, nsq, c0 + un.cost, nu);
+      };
+      if (unmet.length) {
+        const r = unmet[0];
+        for (const un of U) {
+          if (!ok(un) || !un.cards.some(c => ruleMatch(c, r))) continue;
+          if (best && c0 + un.cost >= best.cost) break;
+          if (go(un, start)) return true;
+        }
+        return false;
+      }
+      for (let u = start; u < U.length; u++) {
+        const un = U[u]; if (!ok(un)) continue;
+        if (best && c0 + un.cost >= best.cost) break;        // sorted by cost: nothing after is cheaper
+        if (go(un, u + 1)) return true;
+      }
+      return false;
+    };
+    return dfs(0, head.slice(), head.reduce((a, c) => a + cost(c), 0), new Set(head.map(playerKey)));
+  };
+  // pairs only reach 3 chem with an Icon's league bonus, so with Icons allowed try them first; without, triples only
+  for (const ic of icons.slice(0, 8)) if (tryHead([ic])) return best;
+  if (!best) tryHead([]);
+  return best;
+}
+
 // Independent check that a squad meets every requirement (used to verify every answer).
 function validSBC(req, sq) {
   if (sq.length !== 11 || sq.some(x => !x)) return false;
@@ -378,6 +459,11 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
     const h = annealSBC(req, cands, slots, { iters: forms.length > 1 ? 40000 : 120000 });
     let formBest = h ? { cost: h.cost, sq: h.sq.map(i => cands[i]) } : null;
     if (formBest && !validSBC(req, formBest.sq)) formBest = null;
+    if ((req.min_chem || 0) >= 25 || req.min_player_chem) {            // chem-heavy: also try Icon + perfect-link groups
+      progress(`Trying linked groups ${form}${tag}…`);
+      const hy = hybridSBC(req, pool, slots, forms.length > 1 ? 800 : 2500);
+      if (hy && (!formBest || hy.cost < formBest.cost)) formBest = hy;
+    }
     if (formBest && (!best || formBest.cost < best.cost)) { best = { cost: formBest.cost, form, sq: formBest.sq }; onPartial(sbcResult(best, false, FORMS, cands.length)); }
     // exact solver: look for anything cheaper than the best squad known so far
     const cutoff = best ? best.cost - 0.5 : null;
@@ -405,4 +491,4 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
   return sbcResult(best, proven, FORMS, cands.length);
 }
 
-if (typeof module !== "undefined") module.exports = { solveSBC, sbcChem, teamRatingOf, buildLP, sbcPool, sbcCandidates, annealSBC, validSBC };
+if (typeof module !== "undefined") module.exports = { solveSBC, sbcChem, teamRatingOf, buildLP, sbcPool, sbcCandidates, annealSBC, validSBC, hybridSBC };
