@@ -20,9 +20,9 @@ on:
 permissions:
   contents: write
 
-concurrency:
+concurrency:                 # never cancel a running build (a later save or the nightly run waits its turn)
   group: build-teams
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   plan:
@@ -32,9 +32,18 @@ jobs:
       myclub: ${{ steps.list.outputs.myclub }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - id: list
         run: |
-          python3 scripts/build.py list "${{ github.event.inputs.only || (github.event_name == 'schedule' && 'myclub') || 'all' }}" > keys.json
+          ONLY="${{ github.event.inputs.only || (github.event_name == 'schedule' && 'myclub') || 'all' }}"
+          # a save in Season Setup: a new season builds everything; later edits (e.g. a Reddit team added) only rebuild
+          # the series that changed. A change to the cards (extras.json) rebuilds everything.
+          if [ "${{ github.event_name }}" = "push" ] && ! git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep -q "config/extras.json"; then
+            ONLY=$(python3 scripts/changed_series.py "${{ github.event.before }}")
+          fi
+          echo "building: ${ONLY:-nothing}"
+          python3 scripts/build.py list "$ONLY" > keys.json
           echo "sim=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['sim']))")" >> $GITHUB_OUTPUT
           echo "myclub=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['myclub']))")" >> $GITHUB_OUTPUT
 
