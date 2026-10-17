@@ -5,12 +5,12 @@
   "id1025",
   "id50593503"
  ],
- "strength": 99.9,
+ "strength": 100.5,
  "group_cards": 4,
  "reddit": [],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 32,
+  "formation": "4-3-2-1",
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
@@ -37,26 +37,26 @@
    },
    {
     "slot": "LB",
-    "id": "id275092",
-    "name": "Bompastor",
-    "rating": 86,
-    "color": "hero",
+    "id": "id50601349",
+    "name": "Brown",
+    "rating": 87,
+    "color": "future_stars",
     "position": "LB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 114605,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
+     81,
      83,
-     84,
-     84
+     86
     ],
     "chem": 3,
     "eff": [
+     83,
      85,
-     86,
-     86
+     88
     ],
-    "tiebreak": 257
+    "tiebreak": 256
    },
    {
     "slot": "CB",
@@ -96,13 +96,13 @@
      76,
      86
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     74,
-     78,
-     90
+     73,
+     77,
+     89
     ],
-    "tiebreak": 239
+    "tiebreak": 236
    },
    {
     "slot": "RB",
@@ -128,30 +128,53 @@
     "tiebreak": 255
    },
    {
-    "slot": "CDM",
-    "id": "id50592947",
-    "name": "Scott",
+    "slot": "CM",
+    "id": "id50595413",
+    "name": "Bischof",
     "rating": 86,
     "color": "future_stars",
     "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     87,
+     88,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     90,
+     80
+    ],
+    "tiebreak": 259
+   },
+   {
+    "slot": "CM",
+    "id": "id28765",
+    "name": "Zé Roberto",
+    "rating": 87,
+    "color": "hero",
+    "position": "LM",
+    "nationId": 54,
+    "leagueId": 19,
+    "clubId": 114605,
     "card": [
      85,
-     88,
-     81
+     86,
+     77
     ],
     "chem": 3,
     "eff": [
      87,
-     90,
-     83
+     88,
+     79
     ],
-    "tiebreak": 260
+    "tiebreak": 254
    },
    {
-    "slot": "CDM",
+    "slot": "CM",
     "id": "id53302",
     "name": "De Rossi",
     "rating": 87,
@@ -175,6 +198,29 @@
    },
    {
     "slot": "CAM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
+     85,
+     88,
+     81
+    ],
+    "chem": 2,
+    "eff": [
+     86,
+     89,
+     82
+    ],
+    "tiebreak": 257
+   },
+   {
+    "slot": "CAM",
     "id": "id1025",
     "name": "Rui Costa",
     "rating": 87,
@@ -195,52 +241,6 @@
      50
     ],
     "tiebreak": 224
-   },
-   {
-    "slot": "CAM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CAM",
-    "id": "id50554313",
-    "name": "Ødegaard",
-    "rating": 87,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 36,
-    "leagueId": 13,
-    "clubId": 1,
-    "card": [
-     84,
-     88,
-     65
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     90,
-     69
-    ],
-    "tiebreak": 243
    },
    {
     "slot": "ST",
@@ -301,15 +301,15 @@
   "id191694",
   "id50559326",
   "id5740",
-  "id50752",
-  "id275092",
-  "id53302",
-  "id50592947",
+  "id227315",
+  "id256790",
   "id15723",
-  "id50554313",
+  "id50592947",
+  "id253436",
+  "id50595413",
   "id226362",
   "id10704"
  ],
- "built": "2026-10-17 21:56 UTC",
+ "built": "2026-10-17 22:47 UTC",
  "week": "2026-10-19"
 }

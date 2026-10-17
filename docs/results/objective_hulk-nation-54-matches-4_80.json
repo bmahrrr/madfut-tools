@@ -2,16 +2,16 @@
  "g": 4,
  "obj_ids": [
   "id258648",
-  "id223334",
+  "id259075",
   "id80170",
   "id236499"
  ],
- "strength": 100.2,
+ "strength": 100.3,
  "group_cards": 453,
  "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "4-4-1-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -38,26 +38,26 @@
    },
    {
     "slot": "LB",
-    "id": "id263765",
-    "name": "Bischof",
-    "rating": 79,
+    "id": "id80170",
+    "name": "Wesley",
+    "rating": 80,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 52,
     "card": [
+     76,
      77,
-     79,
-     66
+     79
     ],
     "chem": 3,
     "eff": [
+     78,
      79,
-     81,
-     68
+     83
     ],
-    "tiebreak": 228
+    "tiebreak": 238
    },
    {
     "slot": "CB",
@@ -107,49 +107,26 @@
    },
    {
     "slot": "RB",
-    "id": "id80170",
-    "name": "Wesley",
+    "id": "evo_Lucas Vázquez_80",
+    "name": "Lucas Vázquez",
     "rating": 80,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 52,
+    "color": "evo",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     76,
-     77,
-     79
+     82,
+     83,
+     78
     ],
     "chem": 3,
     "eff": [
-     78,
-     79,
-     83
+     84,
+     85,
+     80
     ],
-    "tiebreak": 238
-   },
-   {
-    "slot": "CDM",
-    "id": "id223334",
-    "name": "Joelinton",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 13,
-    "card": [
-     75,
-     76,
-     82
-    ],
-    "chem": 1,
-    "eff": [
-     75,
-     76,
-     82
-    ],
-    "tiebreak": 233
+    "tiebreak": 249
    },
    {
     "slot": "LM",
@@ -176,29 +153,6 @@
    },
    {
     "slot": "CM",
-    "id": "id225309",
-    "name": "Amiri",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 169,
-    "card": [
-     80,
-     81,
-     61
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     83,
-     63
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "CM",
     "id": "id236499",
     "name": "Douglas Luiz",
     "rating": 78,
@@ -221,27 +175,73 @@
     "tiebreak": 236
    },
    {
-    "slot": "RM",
-    "id": "evo_Lucas Vázquez_80",
-    "name": "Lucas Vázquez",
+    "slot": "CM",
+    "id": "id238744",
+    "name": "McKennie",
     "rating": 80,
-    "color": "evo",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 95,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     82,
-     83,
+     77,
+     78,
      78
     ],
     "chem": 3,
     "eff": [
-     84,
-     85,
-     80
+     79,
+     80,
+     82
     ],
-    "tiebreak": 249
+    "tiebreak": 239
+   },
+   {
+    "slot": "RM",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     75,
+     80,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     82,
+     79
+    ],
+    "tiebreak": 236
+   },
+   {
+    "slot": "CAM",
+    "id": "id67388037",
+    "name": "Mastantuono",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "RM",
+    "nationId": 52,
+    "leagueId": 31,
+    "clubId": 110374,
+    "card": [
+     80,
+     80,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     82,
+     82,
+     59
+    ],
+    "tiebreak": 221
    },
    {
     "slot": "ST",
@@ -258,13 +258,13 @@
      79,
      43
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     84,
-     82,
-     46
+     83,
+     81,
+     45
     ],
-    "tiebreak": 209
+    "tiebreak": 206
    }
   ]
  },
@@ -301,17 +301,17 @@
  },
  "base_ids": [
   "id50560437",
+  "id261865",
   "id232756",
   "id226851",
-  "id230918",
-  "id80170",
+  "id259075",
+  "id254579",
+  "id243593",
   "id50540109",
-  "id275029",
+  "id246646",
   "evo_Lucas Vázquez_80",
-  "id225309",
-  "id192318",
   "id50564059"
  ],
- "built": "2026-10-17 21:57 UTC",
+ "built": "2026-10-17 22:47 UTC",
  "week": "2026-10-19"
 }

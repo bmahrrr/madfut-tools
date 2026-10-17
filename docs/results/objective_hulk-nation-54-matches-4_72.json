@@ -1,87 +1,64 @@
 {
  "g": 5,
  "obj_ids": [
-  "id207899",
   "id271893",
-  "id222388",
-  "id258563",
-  "id81943"
+  "id279731",
+  "id240938",
+  "id81943",
+  "id258563"
  ],
- "strength": 101.3,
+ "strength": 101.7,
  "group_cards": 328,
  "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
+  "formation": "3-4-2-1",
   "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id207899",
-    "name": "Neto Volpi",
-    "rating": 70,
+    "id": "id146296",
+    "name": "Andrés Fernández",
+    "rating": 72,
     "color": "rare_silver",
     "position": "GK",
-    "nationId": 54,
-    "leagueId": 1003,
-    "clubId": 111722,
-    "card": [
-     35,
-     32,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     36,
-     33,
-     72
-    ],
-    "tiebreak": 141
-   },
-   {
-    "slot": "LB",
-    "id": "id222388",
-    "name": "Paulo Azzi",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 32,
-    "clubId": 1744,
-    "card": [
-     69,
-     64,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     70,
-     65,
-     72
-    ],
-    "tiebreak": 207
-   },
-   {
-    "slot": "CB",
-    "id": "id244394",
-    "name": "Clemente",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
     "nationId": 45,
     "leagueId": 54,
-    "clubId": 472,
+    "clubId": 1861,
     "card": [
-     72,
-     68,
-     71
+     36,
+     30,
+     73
     ],
     "chem": 3,
     "eff": [
-     75,
-     71,
-     74
+     39,
+     33,
+     76
     ],
-    "tiebreak": 217
+    "tiebreak": 145
+   },
+   {
+    "slot": "CB",
+    "id": "id279731",
+    "name": "Gabriel Moscardo",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 53,
+    "clubId": 452,
+    "card": [
+     63,
+     68,
+     71
+    ],
+    "chem": 2,
+    "eff": [
+     64,
+     69,
+     72
+    ],
+    "tiebreak": 205
    },
    {
     "slot": "CB",
@@ -107,48 +84,25 @@
     "tiebreak": 210
    },
    {
-    "slot": "RB",
-    "id": "id272234",
-    "name": "Clau Blanco",
+    "slot": "CB",
+    "id": "id244394",
+    "name": "Clemente",
     "rating": 72,
     "color": "rare_silver",
     "position": "LB",
     "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 481,
-    "card": [
-     70,
-     71,
-     70
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     74,
-     73
-    ],
-    "tiebreak": 217
-   },
-   {
-    "slot": "CDM",
-    "id": "id50578976",
-    "name": "Unai Vencedor",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 45,
     "leagueId": 54,
-    "clubId": 10846,
+    "clubId": 472,
     "card": [
-     71,
      72,
-     68
+     68,
+     71
     ],
     "chem": 3,
     "eff": [
-     74,
      75,
-     71
+     71,
+     74
     ],
     "tiebreak": 217
    },
@@ -177,29 +131,6 @@
    },
    {
     "slot": "CM",
-    "id": "id81943",
-    "name": "Rodrigo Nestor",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 2267,
-    "clubId": 1598,
-    "card": [
-     71,
-     72,
-     59
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     74,
-     61
-    ],
-    "tiebreak": 208
-   },
-   {
-    "slot": "CM",
     "id": "id258563",
     "name": "Caio Alexandre",
     "rating": 72,
@@ -220,6 +151,29 @@
      71
     ],
     "tiebreak": 216
+   },
+   {
+    "slot": "CM",
+    "id": "id72364",
+    "name": "Carol Marín",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 461,
+    "card": [
+     72,
+     73,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     76,
+     64
+    ],
+    "tiebreak": 212
    },
    {
     "slot": "RM",
@@ -243,6 +197,52 @@
      72
     ],
     "tiebreak": 214
+   },
+   {
+    "slot": "CAM",
+    "id": "id81943",
+    "name": "Rodrigo Nestor",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 2267,
+    "clubId": 1598,
+    "card": [
+     71,
+     72,
+     59
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     74,
+     61
+    ],
+    "tiebreak": 208
+   },
+   {
+    "slot": "CAM",
+    "id": "id240938",
+    "name": "Junior Messias",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 110556,
+    "card": [
+     74,
+     72,
+     58
+    ],
+    "chem": 2,
+    "eff": [
+     75,
+     73,
+     59
+    ],
+    "tiebreak": 207
    },
    {
     "slot": "ST",
@@ -301,18 +301,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id209960",
+  "id146296",
+  "id272228",
   "id244394",
   "id246352",
-  "id272188",
-  "id272228",
-  "id178088",
+  "id272234",
   "id239335",
-  "id50572302",
+  "id178088",
   "id277269",
   "id272138",
+  "id214942",
   "id272047"
  ],
- "built": "2026-10-17 21:56 UTC",
+ "built": "2026-10-17 22:47 UTC",
  "week": "2026-10-19"
 }

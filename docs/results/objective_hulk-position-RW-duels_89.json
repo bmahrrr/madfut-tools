@@ -1,7 +1,273 @@
 {
- "skip": "not safe",
- "group_cards": 1,
- "most": 0,
+ "g": 4,
+ "obj_ids": [
+  "id71557",
+  "id227102",
+  "id268513",
+  "evo_Diomande_89"
+ ],
+ "strength": 100.1,
+ "group_cards": 4,
+ "reddit": [],
+ "team": {
+  "formation": "4-2-4",
+  "chem": 30,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id191694",
+    "name": "Campos",
+    "rating": 87,
+    "color": "hero",
+    "position": "GK",
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 114605,
+    "card": [
+     77,
+     68,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     74,
+     91
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "LB",
+    "id": "id227323",
+    "name": "Reiten",
+    "rating": 86,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 36,
+    "leagueId": 2221,
+    "clubId": 116310,
+    "card": [
+     83,
+     84,
+     84
+    ],
+    "chem": 2,
+    "eff": [
+     85,
+     89,
+     86
+    ],
+    "tiebreak": 254
+   },
+   {
+    "slot": "CB",
+    "id": "id167680",
+    "name": "Koeman",
+    "rating": 89,
+    "color": "icon",
+    "position": "CB",
+    "nationId": 34,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     82,
+     82,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     88,
+     91
+    ],
+    "tiebreak": 258
+   },
+   {
+    "slot": "CB",
+    "id": "id50597687",
+    "name": "Pubill",
+    "rating": 89,
+    "color": "future_stars",
+    "position": "CB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 240,
+    "card": [
+     74,
+     77,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     83,
+     91
+    ],
+    "tiebreak": 245
+   },
+   {
+    "slot": "RB",
+    "id": "ltm_espart89",
+    "name": "Xavi Espart",
+    "rating": 89,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     80,
+     87,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     93,
+     91
+    ],
+    "tiebreak": 261
+   },
+   {
+    "slot": "CM",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     87,
+     88,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     94,
+     81
+    ],
+    "tiebreak": 259
+   },
+   {
+    "slot": "CM",
+    "id": "evo_Can_89",
+    "name": "Can",
+    "rating": 89,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     80,
+     89,
+     90
+    ],
+    "chem": 2,
+    "eff": [
+     82,
+     94,
+     92
+    ],
+    "tiebreak": 262
+   },
+   {
+    "slot": "LW",
+    "id": "evo_Diomande_89",
+    "name": "Diomande",
+    "rating": 89,
+    "color": "evo",
+    "position": "RW",
+    "nationId": 108,
+    "leagueId": 19,
+    "clubId": 112172,
+    "card": [
+     90,
+     89,
+     54
+    ],
+    "chem": 2,
+    "eff": [
+     92,
+     94,
+     56
+    ],
+    "tiebreak": 236
+   },
+   {
+    "slot": "ST",
+    "id": "id71557",
+    "name": "Bale",
+    "rating": 88,
+    "color": "icon",
+    "position": "RW",
+    "nationId": 50,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     88,
+     85,
+     66
+    ],
+    "chem": 3,
+    "eff": [
+     91,
+     91,
+     69
+    ],
+    "tiebreak": 245
+   },
+   {
+    "slot": "ST",
+    "id": "id268513",
+    "name": "Jairzinho",
+    "rating": 89,
+    "color": "icon",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     88,
+     85,
+     52
+    ],
+    "chem": 3,
+    "eff": [
+     91,
+     91,
+     55
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "RW",
+    "id": "id227102",
+    "name": "Graham Hansen",
+    "rating": 89,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 36,
+    "leagueId": 2222,
+    "clubId": 241,
+    "card": [
+     87,
+     88,
+     51
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     94,
+     54
+    ],
+    "tiebreak": 232
+   }
+  ]
+ },
  "mode": "objective",
  "objective": {
   "player": "Hulk",
@@ -36,16 +302,16 @@
  "base_ids": [
   "id67329765",
   "id50595413",
-  "id1183",
-  "id138956",
-  "id50597687",
-  "id50600784",
+  "id266690",
+  "id77676",
+  "id1615",
   "evo_Can_89",
-  "id237289",
+  "id50600784",
+  "ltm_espart89",
   "id50592947",
-  "id1238",
-  "id167134"
+  "id227263",
+  "id166676"
  ],
- "built": "2026-10-17 21:56 UTC",
+ "built": "2026-10-17 22:47 UTC",
  "week": "2026-10-19"
 }
