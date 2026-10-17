@@ -61,9 +61,9 @@ def main():
         only = (sys.argv[2] if len(sys.argv) > 2 else "all").strip().lower()
         if only in ("sim", "myclub"):
             out = {m: (v if m == only else []) for m, v in out.items()}
-        elif ":" in only:
-            m, _, k = only.partition(":")
-            out = {mm: [x for x in v if mm == m.strip() and x.lower() == k.strip()] for mm, v in out.items()}
+        elif ":" in only or only == "":          # one or more series: "myclub:79,sim:85" ("" = nothing)
+            want = {(m.strip(), k.strip()) for m, _, k in (x.partition(":") for x in only.split(",") if x.strip())}
+            out = {mm: [x for x in v if (mm, x.lower()) in want] for mm, v in out.items()}
         print(json.dumps(out))
         return
     if mode == "archive":
