@@ -84,8 +84,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      # the nightly search gets 150 minutes per series (public repo: Actions minutes are free); other builds use the series setting
-      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'schedule' && '150' || inputs.minutes }}
+      # every build is a deep search (public repo: Actions minutes are free): 165 minutes per series for a new season or a
+      # Reddit team, 150 for the nightly run, or the minutes typed in when started by hand
+      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'schedule' && '150' || inputs.minutes || '165' }}
       - name: Game plan
         run: node scripts/plan.js "docs/results/myclub_${{ matrix.key }}.json" || echo "game plan failed; the team is still saved"
       - uses: actions/upload-artifact@v4
