@@ -353,7 +353,7 @@ async function renderTeams() {
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
         <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added in Season Setup).<br>
         <b>Copy of This Team</b>: when the strongest stress test found is simply your own team (someone copying you).<br>
-        <b>Counter Teams</b>: stress tests. The builder searched every card under the cap for the team that does best against this one, improved this team, and repeated.<br>
+        <b>Counter Teams</b>: stress tests. Dozens of strong, different teams built from every card under the cap (every common formation, every way of splitting the 11 cards into attackers, controllers and defenders), plus teams searched to beat this one. The team was improved against all of them, and the search repeated.<br>
         <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
         <b>Final Check Teams</b>: stress tests built against the Reddit Team and the Hand-Built Team, so every option faces teams built to beat it. The team shown is whichever has the best worst case against all of these.<br>
         A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;

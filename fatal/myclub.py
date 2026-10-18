@@ -119,11 +119,28 @@ def evaluate(E, opps, weights, bound=None, robust=False, floor=None, order=None,
     return tot, lv
 
 
+def catscore(E):
+    """Best total when each card is given ONE stat it is used for (attack / control / defence), 3 or 4 cards per
+    stat. In this game every card is used once, to lead or to answer with one stat, so what wins is enough cards
+    that are very strong in each stat - not all-rounders. Far better than raw stat totals at telling which of two
+    teams wins (tested on the 76 series: teams built on it beat the old builder's team every time)."""
+    best = {(0, 0, 0): 0}
+    for e in E:
+        nxt = {}
+        for (a, c, d), v in best.items():
+            for q, cnt in ((0, a), (1, c), (2, d)):
+                if cnt >= 4: continue
+                k = (a + (q == 0), c + (q == 1), d + (q == 2)); w = v + e[q]
+                if nxt.get(k, -1) < w: nxt[k] = w
+        best = nxt
+    return max(v for k, v in best.items() if min(k) >= 3)
+
+
 def secondary(E):
     s = 0
     for k in range(3):
         v = sorted((e[k] for e in E), reverse=True); s += sum(v[:7])
-    return s + sum(e[3] for e in E) / 10
+    return catscore(E) * 10000 + s + sum(e[3] for e in E) / 10
 
 
 def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust=False):
@@ -224,8 +241,13 @@ def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None):
     return ck, cur
 
 
-def milp_seed(pool, rng=None, time_limit=60):
-    """A strong, chem-valid starting team: maximise total in-game stats with full chem."""
+ROLE = {"GK": "bD", "CB": "bD", "LB": "bD", "RB": "bD", "LWB": "bD", "RWB": "bD", "CDM": "bC", "CM": "bC", "CAM": "bC",
+        "LM": "bC", "RM": "bC", "ST": "bA", "CF": "bA", "LW": "bA", "RW": "bA"}
+
+
+def seed_cards(pool, series=None):
+    """Candidate cards for the seed programs: every position's best cards by each stat, full-chem cards, and every card
+    of a boosted nation / league / club."""
     chosen = {}
     positions = {p for f in FORMATIONS.values() for p in f}
     for p in positions:
@@ -233,17 +255,85 @@ def milp_seed(pool, rng=None, time_limit=60):
         for key in ("T3", "bA", "bC", "bD"):
             for x in sorted(el, key=lambda x: -x[key])[:25]: chosen[x["id"]] = x
     for x in pool.auto: chosen[x["id"]] = x
+    KEYS = {"nation": "nationId", "league": "leagueId", "club": "clubId"}
+    for b in (series or pool.series or {}).get("boosts", []):
+        k = KEYS.get(b.get("on"))
+        if k:
+            for x in pool.cards:
+                if x[k] == b["id"]: chosen[x["id"]] = x
     cards = []
     for i, c in enumerate(chosen.values()):
         c = dict(c); c["_i"] = i; cards.append(c)
-    best = None
-    for form in ("4-4-2", "4-3-3", "3-4-1-2", "4-2-3-1", "4-1-2-1-2 (2)", "3-5-2"):
-        sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"], chem_weight=lambda c, s: 6,
-                   time_limit=time_limit)
-        if sq:
-            tot = sum(e[0] + e[1] + e[2] for e in pool.eff(sq))
-            if best is None or tot > best[0]: best = (tot, sq)
-    return best[1] if best else None
+    return cards
+
+
+CAT_FORMS = ("3-4-3", "4-3-3", "4-4-2", "3-5-2", "3-4-1-2", "4-2-3-1", "4-1-2-1-2 (2)", "5-3-2", "4-3-3 (2)", "4-2-2-2",
+             "3-4-2-1", "4-4-2 (2)", "4-1-4-1", "5-2-1-2", "4-3-1-2", "3-1-4-2", "4-2-4", "5-4-1", "4-5-1", "4-3-2-1")
+SPLITS = ({0: (3, 3), 1: (4, 4), 2: (4, 4)}, {0: (4, 4), 1: (3, 3), 2: (4, 4)}, {0: (4, 4), 1: (4, 4), 2: (3, 3)})
+
+
+def cat_seeds(pool, series=None, seconds=300, log=None, time_limit=20):
+    """The main seed population: for each formation and each split of the 11 cards into 3/4/4 by the stat each card
+    is used for (attack / control / defence), the chem-valid team with the highest total of those stats.
+    Stops when the time is used up (formations in order of how often they win)."""
+    cards = seed_cards(pool, series)
+    t0 = time.time(); out, seen = [], set()
+    for cw in (4, 2):                       # chem weight 4 = full chem first; 2 = closer to the real chem bonus
+        for form in CAT_FORMS:
+            for bnd in SPLITS:
+                if time.time() - t0 > seconds: return out
+                sq = build(cards, FORMATIONS[form], lambda c, s: 0, chem_weight=lambda c, s, cw=cw: cw,
+                           cats=(lambda c: (c["bA"], c["bC"], c["bD"]), bnd), time_limit=time_limit, gap=0.002)
+                if not sq: continue
+                k = frozenset(c["id"] for c in sq)
+                if k in seen: continue
+                seen.add(k); out.append(sq)
+                if log: log(f"  seed: stat split {form} {[v[0] for v in bnd.values()]} chem {cw}")
+    return out
+
+
+def milp_seeds(pool, series=None, time_limit=15, log=None):
+    """Extra, different starting teams (other styles of team, also used as opponents):
+    - the strongest full-chem team (total in-game stats) for several formations;
+    - "specialists": each slot weighted to the stat that position duels with (defenders' defence, forwards' attack);
+    - one team built only from each boosted nation / league / club (the boosted cluster, e.g. Germany + Bundesliga)."""
+    cards = seed_cards(pool, series)
+    boosts = (series or pool.series or {}).get("boosts", [])
+    KEYS = {"nation": "nationId", "league": "leagueId", "club": "clubId"}
+    groups = []
+    for b in boosts:
+        k = KEYS.get(b.get("on"))
+        if k: groups.append((f"{b['on']} {b['id']}", lambda c, k=k, v=b["id"]: c[k] == v))
+    if len(groups) > 1:                      # all boosted cards together
+        gs = [f for _, f in groups]
+        groups.append(("boosted", lambda c, gs=gs: any(f(c) for f in gs)))
+    seeds, seen = [], set()
+    def add(sq, label):
+        if not sq: return
+        k = frozenset(c["id"] for c in sq)
+        if k in seen: return
+        seen.add(k); seeds.append(sq)
+        if log: log(f"  seed: {label}")
+    forms = ("4-4-2", "4-3-3", "3-4-3", "3-4-1-2", "4-2-3-1", "4-1-2-1-2 (2)", "3-5-2", "5-3-2")
+    best = []
+    for form in forms:
+        sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002)
+        if sq: best.append((sum(e[0] + e[1] + e[2] for e in pool.eff(sq)), form, sq))
+    for tot, form, sq in sorted(best, key=lambda z: -z[0])[:3]: add(sq, f"strongest {form}")
+    for form in ("4-4-2", "3-4-3", "5-3-2"):
+        sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"] + 2 * c[ROLE.get(s, "bC")], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002)
+        add(sq, f"specialists {form}")
+    for label, f in groups:
+        sub = [c for c in cards if f(c) or c["color"] in AUTO]
+        for form in ("4-4-2", "3-4-3"):
+            sq = build(sub, FORMATIONS[form], lambda c, s: c["T3"] + c[ROLE.get(s, "bC")], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002)
+            add(sq, f"{label} {form}")
+    return seeds
+
+
+def milp_seed(pool, rng=None, time_limit=60):
+    s = milp_seeds(pool, time_limit=time_limit)
+    return s[0] if s else None
 
 
 def _key(team):
@@ -269,6 +359,7 @@ def dedupe(out):
     count, new_res, new_teams = {}, {}, {}
     for old, new in keep:
         base = new.rstrip("0123456789").strip()
+        if base == "counter p": base = new = "counter"     # population teams are counter-teams too
         if base in ("counter", "fresh test", "final check"):
             count[base] = count.get(base, 0) + 1; new = f"{base} {count[base]}"
         new_res[new] = res[old]
@@ -308,14 +399,34 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     for o in opponents:
         v = [owned_ids.get(c["id"]) for c in o]
         if all(v) and fits(v): seeds.append(v)
-    ms = milp_seed(me)
-    if ms: seeds.append([owned_ids[c["id"]] for c in ms])
     opp_cards = dict(zip(names, opponents))   # every opponent team, saved so the site can show it
+    t_pop = time.time()
+    field_ids = {c["id"]: c for c in field.cards}
+    same_pool = len(me.cards) == len(field.cards)
+    # 1) a population of strong, different teams (any card: these are the teams other players can field)
+    pop = cat_seeds(field, series, seconds=min(T * 0.15, 1800), log=log)
+    pop += milp_seeds(field, series, log=log)
+    mine = pop if same_pool else cat_seeds(me, series, seconds=min(T * 0.08, 900), log=log) + milp_seeds(me, series, log=log)
+    if mode != "beat":
+        # 2) every population team is also an opponent: a team must hold up against all of them, not just against
+        #    teams found by improving one starting team (that missed simple strong teams)
+        Ep = [field.eff(t) for t in pop]
+        for k, t in enumerate(pop):
+            pool_opps.append(Ep[k]); weights.append(1); names.append(f"counter p{k+1}"); opp_cards[f"counter p{k+1}"] = t
+    # 3) start from the owned population teams that do best against everyone (worst case, then total)
+    def rr(t):
+        Et = me.eff(t); per = [play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps]
+        return (min(per), sum(per), secondary(Et)) if per else (0, 0, secondary(Et))
+    mine = [[owned_ids[c["id"]] for c in t] for t in mine if all(c["id"] in owned_ids for c in t)]
+    ranked = sorted(mine, key=rr, reverse=True)
+    log(f"  population: {len(pop)} teams, {len(mine)} starting teams, {time.time() - t_pop:.0f}s")
+    seeds += ranked[:6]
     if not pool_opps:          # nothing to beat yet: start from the seed's own mirror
         base = seeds[-1]
         pool_opps = [field.eff(base)]; weights = [1]; names = ["mirror"]; opp_cards["mirror"] = base
-    share = 0.95 if mode == "beat" else 0.45
-    verify_share = 0.1 if verify else 0
+    left = max(0.3, 1 - (time.time() - t_pop) / T)      # share of the time still available
+    share = (0.95 if mode == "beat" else 0.45) * left
+    verify_share = (0.1 if verify else 0) * left
     cands = []
     for k, sd in enumerate(seeds):
         b = optimize(me, sd, pool_opps, weights, T * (share - verify_share / 2) / max(1, len(seeds)), rng, log, f"seed{k}", robust)
@@ -324,19 +435,22 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     counters = []
     for rd in range(rounds):
         E = me.eff(team)
-        starts = list(opponents) + [team] + counters
+        # counter-teams start from the population teams that already do best against this team, from the team
+        # itself, from the opponents and from earlier counters
+        strong = sorted(pop, key=lambda t: -sum(play(field.eff(t), E, f)[0] for f in (0, 1)))[:4]
+        starts = list(opponents) + [team] + counters + strong
         start = rng.choice(starts)
         start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
-        br = optimize(field, start, [E], [1], T * 0.25 / rounds, rng, None, f"counter{rd}")
+        br = optimize(field, start, [E], [1], T * 0.25 * left / rounds, rng, None, f"counter{rd}")
         log(f"  counter-team {rd+1}: result vs my team {br[0][0]:+d}")
         if _key(br[1]) in {_key(x) for x in list(opponents) + counters}:
             log("    same as an earlier opponent: not added again")
-            b = optimize(me, team, pool_opps, weights, T * (0.30 - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
+            b = optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
             team = b[1]; continue
         counters.append(br[1])
         pool_opps.append(field.eff(br[1])); weights.append(1); names.append(f"counter {rd+1}")
         opp_cards[f"counter {rd+1}"] = br[1]
-        b = optimize(me, team, pool_opps, weights, T * (0.30 - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
+        b = optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
         team = b[1]
     E = me.eff(team)
     res = {}
@@ -386,7 +500,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         E = me.eff(team)
     if polish_share and mode != "beat":
         # systematic swap check of the chosen team against every opponent found so far
-        ck, pteam = polish(me, team, pool_opps, [1] * len(pool_opps), T * polish_share, log, rng=random.Random(seed + 7))
+        ck, pteam = polish(me, team, pool_opps, [1] * len(pool_opps), T * polish_share * left, log, rng=random.Random(seed + 7))
         if _key(pteam) != _key(team):
             # the improved team must also face stress tests built specifically against it
             Ep = me.eff(pteam); n_chk = max(verify, 2)

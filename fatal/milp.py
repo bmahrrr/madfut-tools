@@ -13,13 +13,16 @@ THRESH = {"n": (2, 5, 8), "l": (3, 5, 8), "k": (2, 4, 7)}
 def build(cards, slots, value, chem_weight=None, force_full=None, minimize=False,
           min_nations=0, min_types=0, distinct_clubs=False, group_rules=(), min_total_chem=None,
           min_player_chem=None, min_rating_sum=None, time_limit=120, exclude_pids=(),
-          distinct=None, max_same=None):
+          distinct=None, max_same=None, cats=None, gap=0):
     """cards: candidate cards; slots: list of 11 positions.
     value(card, slot) -> objective coefficient (or None if not allowed).
     chem_weight(card, slot) -> objective coefficient per chem point.
     force_full(card, slot) -> True if this card must be on full chem in this slot.
     group_rules: list of (kind, key, value, op, n) e.g. ("nation", "nationId", 54, ">=", 2)
                  kind "any" with key=None counts all cards matching a predicate function in value.
+    cats: (stats(card) -> (a, c, d), {0: (lo, hi), 1: (lo, hi), 2: (lo, hi)}): each picked card is also given ONE
+          stat it is used for (attack / control / defence) with lo..hi cards per stat; the objective gains
+          that stat (My Club: a team needs enough cards that are very strong in each stat).
     Returns list of 11 cards (slot order) or None."""
     cand = {}
     for k, s in enumerate(slots):
@@ -144,8 +147,21 @@ def build(cards, slots, value, chem_weight=None, force_full=None, minimize=False
         for g, mem in G.items(): prob += pulp.lpSum(Y[i] for i in mem) <= n
     if min_rating_sum:
         prob += pulp.lpSum(byi[i]["rating"] * Y[i] for i in used) >= min_rating_sum
+    if cats:
+        fn, bounds = cats
+        W = {}
+        for i in used:
+            st = fn(byi[i])
+            for q in range(3):
+                W[(i, q)] = pulp.LpVariable(f"w_{i}_{q}", cat="Binary")
+                obj.append(st[q] * W[(i, q)])
+            prob += pulp.lpSum(W[(i, q)] for q in range(3)) == Y[i]
+        for q, (lo, hi) in bounds.items():
+            e = pulp.lpSum(W[(i, q)] for i in used)
+            if lo is not None: prob += e >= lo
+            if hi is not None: prob += e <= hi
     prob += pulp.lpSum(obj)
-    prob.solve(pulp.HiGHS(msg=False, timeLimit=time_limit, gapRel=0, gapAbs=0.5))
+    prob.solve(pulp.HiGHS(msg=False, timeLimit=time_limit, gapRel=gap, gapAbs=0.5))
     if pulp.LpStatus[prob.status] not in ("Optimal",) and not any((v.value() or 0) > 0.5 for v in X.values()):
         return None
     sq = [None] * 11
