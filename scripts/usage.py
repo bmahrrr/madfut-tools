@@ -32,7 +32,7 @@ def main():
             continue
         for path in names:
             f = os.path.basename(path)
-            if not f.startswith(("myclub_", "sim_")) or not f.endswith(".json"): continue
+            if not f.startswith(("myclub_", "sim_")) or not f.endswith(".json") or "--" in f: continue   # "No LTMs" versions are extras
             try:
                 d = json.loads(git("show", f"{sha}:{path}"))
             except Exception:
