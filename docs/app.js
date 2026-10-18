@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261019c";
+const APP_V = "20261019d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -296,17 +296,31 @@ const vtag = (which, d) => !which ? "" : which === "mine"
 
 // ---------- Game plan (computed after each build by scripts/plan.js) ----------
 function planHtml(p) {
-  const chips = L => L.map(x => `<span class="chip">${esc(cap(x.name))} · ${esc(cap(x.stat))}</span>`).join(" ");
-  const keep = { WIN: "to keep the guaranteed win:", DRAW: "to keep the guaranteed draw:", LOSS: "(best option, but a perfect opponent can still win):" };
-  const verb = { WIN: "you win", DRAW: "you draw", LOSS: "you lose" };
+  const SC = ["a", "c", "d"], SN = ["Attack", "Control", "Defence"];
+  const tag = (s, v) => `<span class="gtag ${SC[s]}">${["ATT", "CTL", "DEF"][s]}${v != null ? " " + v : ""}</span>`;
+  const sIdx = st => ({ attack: 0, control: 1, defence: 2 })[st];
   const same = (a, b) => a && b && a.length === b.length && a.every((x, i) => x.name === b[i].name && x.stat === b[i].stat);
-  const lead = L => L.length >= p.total_openers ? `<p class="small muted" style="margin:2px 0">Any card: every opening lead gives the same result against perfect play.</p>` : `<div class="chips" style="margin:4px 0">${chips(L)}</div>`;
-  let h = `<details class="plan" open><summary>Game Plan</summary>`;
-  h += `<p class="small" style="margin:6px 0 0"><b>When you lead first</b>, open with one of these ${keep[p.guaranteed] || ":"}</p>${lead(p.safe)}`;
-  if (p.reddit && !same(p.reddit.safe, p.safe)) h += `<p class="small" style="margin:8px 0 0"><b>Against the Reddit Team</b> (${verb[p.reddit.guaranteed]} with perfect play), open with:</p>${lead(p.reddit.safe)}`;
-  h += `<p class="small" style="margin:8px 0 0"><b>When they lead first</b>, use Match Helper for the best answer each round.</p>`;
-  if (p.watch.length) h += `<p class="small" style="margin:8px 0 2px"><b>Cards to watch</b></p><ul class="small" style="margin:0;padding-left:18px">${p.watch.map(w => `<li><b>${esc(cap(w.name))}</b>: ${esc(w.text)}</li>`).join("")}</ul>`;
-  h += `<p class="small" style="margin:8px 0 4px"><b>Tiebreak</b>: your 11th (unplayed) card plays it. Play <b>${esc(cap(p.low_tb.name))}</b> (total ${p.low_tb.tb}) before the end. Highest total: <b>${esc(cap(p.high_tb.name))}</b> (${p.high_tb.tb}).</p></details>`;
+  const openers = L => L.length >= p.total_openers ? `<p class="small muted gnote">Any card works: every opening lead gives the same result.</p>`
+    : `<div class="gchips">${L.map(x => `<span class="gchip"><b>${esc(cap(x.name))}</b>${tag(sIdx(x.stat))}</span>`).join("")}</div>`;
+  let h = `<details class="plan gp" open><summary>Game Plan</summary>`;
+  h += `<div class="gtiles"><div class="gtile"><span>You lead first</span>${pill(p.guaranteed)}<small>with perfect play</small></div>
+    <div class="gtile"><span>They lead first</span><b class="gsm">Match Helper</b><small>for each answer</small></div></div>`;
+  h += `<div class="gsec"><h4>Open With</h4>${openers(p.safe)}</div>`;
+  if (p.reddit && !same(p.reddit.safe, p.safe)) h += `<div class="gsec"><h4>Vs Reddit Team ${pill(p.reddit.guaranteed)}</h4>${openers(p.reddit.safe)}</div>`;
+  const W = (p.watch || []).filter(w => w.s != null);
+  if (W.length) {
+    const un = W.filter(w => !w.beat.length), lo = W.filter(w => w.beat.length);
+    h += `<div class="gsec"><h4>Key Matchups</h4>`;
+    if (un.length) h += `<div class="glist">${un.map(w => `<div class="grow">${tag(w.s, w.v)}<div class="gtx"><b>${esc(cap(w.name))}</b></div><span class="gwin">Unbeatable</span></div>`).join("")}</div>`;
+    // cards with the same stat, value and the same card(s) that beat them share one row
+    const grp = new Map();
+    for (const w of lo) { const k = w.s + "|" + w.v + "|" + w.beat.map(x => x.name + x.rating).join(","); if (!grp.has(k)) grp.set(k, { ...w, names: [] }); grp.get(k).names.push(w.name); }
+    if (grp.size) h += `<div class="glist">${[...grp.values()].map(w => `<div class="grow">${tag(w.s, w.v)}<div class="gtx"><b>${w.names.map(n => esc(cap(n))).join(", ")}</b><span class="glose">Only lose${w.names.length > 1 ? "" : "s"} to <b>${w.beat.map(x => esc(cap(x.name))).join("</b> or <b>")}</b> <i>(${w.beat.map(x => x.v + (x.tie ? ", higher total" : "")).join(" / ")})</i></span></div></div>`).join("")}</div>`;
+    h += `</div>`;
+  } else if ((p.watch || []).length) h += `<div class="gsec"><h4>Key Matchups</h4><ul class="small" style="margin:0;padding-left:18px">${p.watch.map(w => `<li><b>${esc(cap(w.name))}</b>: ${esc(w.text)}</li>`).join("")}</ul></div>`;
+  h += `<div class="gsec"><h4>Tiebreak</h4><div class="gtiles"><div class="gtile"><span>Play early</span><b class="gsm">${esc(cap(p.low_tb.name))}</b><small>lowest total ${p.low_tb.tb}</small></div>
+    <div class="gtile"><span>Keep for last</span><b class="gsm">${esc(cap(p.high_tb.name))}</b><small>highest total ${p.high_tb.tb}</small></div></div>
+    <p class="small muted gnote">Your 11th, unplayed card plays the tiebreak.</p></div></details>`;
   return h;
 }
 
@@ -614,7 +628,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -640,7 +654,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261019c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261019d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1008,7 +1022,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019c");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

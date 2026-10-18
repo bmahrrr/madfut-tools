@@ -34,8 +34,9 @@ function matchups(t, series) {
       }
       const B = [...beat.values()].sort((a, b) => b.v[cs] - a.v[cs]);
       const what = `${STAT[s]} ${v}`;
-      if (!B.length) out.push({ name: p.name, rank: 0, text: `Unbeatable ${what}: no card in the series wins that duel${tie.size ? ` (${[...tie.keys()].slice(0, 2).join(", ")} can tie)` : ""}.` });
-      else if (B.length <= 2) out.push({ name: p.name, rank: B.length, text: `${what[0].toUpperCase() + what.slice(1)} only loses to ${B.map(x => `${label(x)} (${STAT[cs]} ${x.v[cs]}${x.v[cs] === v ? ", wins the tie on total" : ""})`).join(" and ")}.` });
+      const info = { s, v, beat: B.slice(0, 2).map(x => ({ name: x.name, rating: x.rating, v: x.v[cs], tie: x.v[cs] === v })), ties: [...tie.keys()].slice(0, 2) };
+      if (!B.length) out.push({ ...info, name: p.name, rank: 0, text: `Unbeatable ${what}: no card in the series wins that duel${tie.size ? ` (${[...tie.keys()].slice(0, 2).join(", ")} can tie)` : ""}.` });
+      else if (B.length <= 2) out.push({ ...info, name: p.name, rank: B.length, text: `${what[0].toUpperCase() + what.slice(1)} only loses to ${B.map(x => `${label(x)} (${STAT[cs]} ${x.v[cs]}${x.v[cs] === v ? ", wins the tie on total" : ""})`).join(" and ")}.` });
     }
   }
   return out.sort((a, b) => a.rank - b.rank);
