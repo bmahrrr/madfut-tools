@@ -71,7 +71,7 @@ jobs:
     needs: plan
     if: ${{ needs.plan.outputs.myclub != '[]' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 355
     strategy:
       fail-fast: false
       matrix:
