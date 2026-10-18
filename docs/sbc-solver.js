@@ -1,6 +1,7 @@
 // SBC solver that runs in the browser (inside sbcworker.js) using the HiGHS solver compiled to WebAssembly.
 // Finds the cheapest squad that meets every requirement, in your cost order:
-// golds first (lowest rated first), then cheap specials, then silvers, bronze last.
+// golds first (lowest rated first), then silvers / bronzes, then specials rated 83 or lower, then 84+ specials
+// (normal special packs give far more 83- specials than 84+).
 "use strict";
 
 const SBC_AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut"]);
@@ -19,7 +20,7 @@ function sbcCost(c, pr) {
   // Like coin prices: each rating point costs a little up to 80, then far more (a 90 costs ~5x an 80).
   const r = rarity(c), q = c.rating, steep = q > 80 ? 40 * (q - 80) * (q - 80) : 0;
   if (pr === "lowest_rating") return (r === "special" ? 300 : 0) + q * 10 + steep;
-  let base = { gold: 0, special: 400, silver: 600, bronze: 900 }[r];
+  let base = { gold: 0, silver: 400, bronze: 400, special: q >= 84 ? 1600 : 800 }[r];
   if (SBC_AUTO.has(c.color)) base = 2000;
   return base + q * 10 + steep;
 }
