@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261019a";
+const APP_V = "20261019b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -614,7 +614,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -640,7 +640,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261019a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261019b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1008,7 +1008,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1065,6 +1065,22 @@ function sbcChecks(req, sq) {
   for (const id of req.include || []) { const c = BYID.get(id); add(`Includes ${esc(c ? c.name : id)}`, sq.some(x => x.id === id)); }
   return list;
 }
+// Why a hybrid may be impossible (rules of thumb from experienced players), shown when no squad is found
+function sbcHints(req) {
+  const out = [], icons = !!req.allow_icons;
+  const clubs = [...new Set((req.rules || []).filter(r => r.on === "club" && r.op !== "<=" && r.n > 0).map(r => r.id))];
+  if (!icons && (req.min_chem || 0) >= 30 && (req.min_leagues || 0) >= 5 && clubs.length >= 5) {
+    const lg = new Map(clubs.map(k => [k, new Set(CARDS.filter(c => c.clubId === k && !NO_SBC.has(c.color)).map(c => c.leagueId))]));
+    const pairs = [];
+    for (let i = 0; i < clubs.length; i++) for (let j = i + 1; j < clubs.length; j++) if ([...lg.get(clubs[i])].some(l => lg.get(clubs[j]).has(l))) pairs.push([clubs[i], clubs[j]]);
+    const name = k => CLUBS[k] || k;
+    if (!pairs.length) out.push(`These ${clubs.length} clubs are all in different leagues. A full-chem squad like this usually needs an Icon or chem-booster cards (e.g. Squad Foundations): allow Icons, or add one.`);
+    else if (!pairs.some(([a, b]) => clubs.some(k => k !== a && k !== b && lg.get(k).size > 1)))
+      out.push(`Only ${name(pairs[0][0])} and ${name(pairs[0][1])} share a league, and none of the other clubs has players in a second league (e.g. a women's team), which this usually needs. Try allowing an Icon.`);
+  }
+  if (!icons && (req.min_leagues || 0) >= 6 && (req.min_nations || 0) >= 6) out.push("6 leagues and 6 nations on full chem without an Icon is rarely possible. Try allowing Icons.");
+  return out;
+}
 function drawSBCResult(working = false) {
   const out = $("sbcOut"), r = SB.last, req = SB.lastReq;
   const skip = SB.exclude.map(id => BYID.get(id)).filter(Boolean);
@@ -1072,7 +1088,8 @@ function drawSBCResult(working = false) {
   if (!r || r.none) {
     out.innerHTML = (r && r.timedOut
       ? `<p><b>No squad found yet.</b> It ran out of time before finding one.</p><button class="btn" id="sbcLonger">Search longer (up to 90 s)</button>`
-      : `<p><b>No squad meets all of these requirements</b> with the cards available${skip.length ? " after skipping the cards below" : ""}. Check the numbers, or allow special cards.</p>`) + skipHtml;
+      : `<p><b>No squad meets all of these requirements</b> with the cards available${skip.length ? " after skipping the cards below" : ""}. Check the numbers, or allow special cards.</p>`)
+      + sbcHints(req || {}).map(h => `<p class="small" style="margin:6px 0">💡 ${esc(h)}</p>`).join("") + skipHtml;
   } else {
     const sq = r.players.map(p => BYID.get(p.id));
     const checks = sbcChecks(req, sq), allOk = checks.every(c => c.ok);

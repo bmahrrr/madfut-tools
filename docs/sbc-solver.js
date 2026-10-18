@@ -439,6 +439,112 @@ function hybridSBC(req, pool, slots, ms = 2500) {
   return best;
 }
 
+// ---------- recipe search: the squads experienced players build for "N leagues / N nations" hybrids ----------
+// Named clubs, no Icon (5 leagues / 5 nations style). Two recipes, each built slot by slot for this formation:
+//  A: two named clubs from the SAME league (A, B) link through that league: a same-club-and-nation pair from A, plus
+//     a nation chain - pairs from two other named clubs (C, D) and one player from B, all one nation (5 of a nation);
+//     the last named club U has players in two leagues (e.g. a women's team): 3 from one league + 1 from the other who
+//     shares a nation with one of the 3 (adds leagues and nations). U can't be A or B.
+//  B: three named clubs (C, D, E) give a pair each, all one nation (6 of a nation: nation 2 + club 1), and 5 players
+//     from the two same-league clubs (3 + 2 or 2 + 3, any nations: club 1 + league 2).
+// Every squad is checked by validSBC, so a recipe can only miss, never return a wrong squad.
+function recipeSBC(req, pool, slots, ms = 1500) {
+  const t0 = Date.now(), pr = req.priority || "gold_first", cost = c => sbcCost(c, pr);
+  const clubs = [...new Set((req.rules || []).filter(r => r.on === "club" && r.op !== "<=" && r.n > 0).map(r => r.id))];
+  if (clubs.length < 3) return null;
+  const P = pool.filter(c => !SBC_AUTO.has(c.color)).sort((a, b) => cost(a) - cost(b));
+  const byClub = new Map(clubs.map(k => [k, P.filter(c => c.clubId === k)]));
+  const slotTypes = [...new Set(slots)];
+  const fits = sq => {
+    const match = new Array(slots.length).fill(-1);
+    const tr = (i, seen) => { for (let j = 0; j < slots.length; j++) if (!seen[j] && sq[i].P.has(slots[j])) { seen[j] = true; if (match[j] < 0 || tr(match[j], seen)) { match[j] = i; return true; } } return false; };
+    for (let i = 0; i < sq.length; i++) if (!tr(i, new Array(slots.length).fill(false))) return null;
+    return match;
+  };
+  // the cheapest cards that between them can play every position (2 per position, then the cheapest overall)
+  const diverse = (L, k) => {
+    const seen = new Set(), out = [], take = c => { const pk = playerKey(c); if (!seen.has(pk)) { seen.add(pk); out.push(c); } };
+    for (const st of slotTypes) { let n = 0; for (const c of L) { if (n >= 2) break; if (c.P.has(st) && !seen.has(playerKey(c))) { take(c); n++; } } }
+    for (const c of L) { if (out.length >= k) break; take(c); }
+    return out.sort((a, b) => cost(a) - cost(b));
+  };
+  const grp = cards => ({ cards, cost: cards.reduce((a, c) => a + cost(c), 0) });
+  const distinct = cards => new Set(cards.map(playerKey)).size === cards.length;
+  const combos = (L, k) => { const out = []; const rec = (s, cur) => { if (cur.length === k) { out.push(cur.slice()); return; } for (let i = s; i < L.length; i++) { cur.push(L[i]); rec(i + 1, cur); cur.pop(); } }; rec(0, []); return out; };
+  const pairs = (club, nat, k = 6) => {        // same club and nation (any league: a man + a woman counts too)
+    const L = diverse((byClub.get(club) || []).filter(c => c.nationId === nat), k);
+    return combos(L, 2).filter(distinct).filter(g => fits(g)).map(grp).sort((a, b) => a.cost - b.cost);
+  };
+  const leaguesOf = k => new Set((byClub.get(k) || []).map(c => c.leagueId));
+  let best = null;
+  const consider = sq => {
+    if (sq.length !== 11 || !distinct(sq)) return;
+    const m = fits(sq); if (!m) return;
+    const ord = m.map(i => sq[i]), c = ord.reduce((a, x) => a + cost(x), 0);
+    if ((!best || c < best.cost) && validSBC(req, ord)) best = { cost: c, sq: ord };
+  };
+  // depth-first over lists of groups (each list sorted by cost): cheapest combinations first, cost bound, slot check
+  const assemble = lists => {
+    const mins = lists.map(L => (L.length ? L[0].cost : Infinity));
+    const rest = mins.map((_, i) => mins.slice(i).reduce((a, b) => a + b, 0));
+    let n = 0;
+    const dfs = (i, cur, c0) => {
+      if (++n % 512 === 0 && Date.now() - t0 > ms) return true;
+      if (i === lists.length) { consider(cur); return false; }
+      for (const g of lists[i]) {
+        if (best && c0 + g.cost + (rest[i + 1] || 0) >= best.cost) break;
+        const nx = cur.concat(g.cards);
+        if (!distinct(nx) || !fits(nx)) continue;
+        if (dfs(i + 1, nx, c0 + g.cost)) return true;
+      }
+      return false;
+    };
+    return dfs(0, [], 0);
+  };
+  const nationsAt = k => new Set((byClub.get(k) || []).map(c => c.nationId));
+  for (let a = 0; a < clubs.length; a++) for (let b = 0; b < clubs.length; b++) {
+    if (a === b) continue;
+    const A = clubs[a], B = clubs[b];
+    for (const lg of [...leaguesOf(A)].filter(l => leaguesOf(B).has(l))) {       // e.g. Bayern + Dortmund (both genders share leagues too)
+    const others = clubs.filter(k => k !== A && k !== B);
+    // recipe B: a 5-player block from A + B (3 + 2) and a pair of one nation from each other named club
+    if (b > a && others.length === 3) {
+      const inA = diverse((byClub.get(A) || []).filter(c => c.leagueId === lg), 8), inB = diverse((byClub.get(B) || []).filter(c => c.leagueId === lg), 7);
+      const blocks = [];
+      for (const [X, Y] of [[inA, inB], [inB, inA]]) for (const x3 of combos(X.slice(0, 7), 3)) for (const y2 of combos(Y.slice(0, 6), 2)) { const g = [...x3, ...y2]; if (distinct(g) && fits(g)) blocks.push(grp(g)); }
+      blocks.sort((p, q) => p.cost - q.cost);
+      const nat3 = [...nationsAt(others[0])].filter(n => nationsAt(others[1]).has(n) && nationsAt(others[2]).has(n));
+      for (const N of nat3) {
+        const L = others.map(k => pairs(k, N).slice(0, 10)); if (L.some(x => !x.length)) continue;
+        if (assemble([...L, blocks.slice(0, 400)])) return best;
+      }
+    }
+    // recipe A: pair from A + chain (pairs from C and D + one from B, one nation) + two-league quad from U
+    if (others.length === 3) for (const U of others) {
+      const [C, D] = others.filter(k => k !== U), UL = byClub.get(U) || [];
+      const ulg = [...new Set(UL.map(c => c.leagueId))]; if (ulg.length < 2) continue;
+      const quads = [];
+      for (const l1 of ulg) for (const l2 of ulg) {
+        if (l1 === l2) continue;
+        const men = diverse(UL.filter(c => c.leagueId === l1), 8), women = diverse(UL.filter(c => c.leagueId === l2), 6);
+        for (const w of women) for (const t of combos(men, 3)) if (t.some(m => m.nationId === w.nationId)) { const g = [...t, w]; if (distinct(g) && fits(g)) quads.push(grp(g)); }
+      }
+      quads.sort((p, q) => p.cost - q.cost);
+      const pA = [];
+      for (const N of nationsAt(A)) pA.push(...pairs(A, N, 5).slice(0, 4));
+      pA.sort((p, q) => p.cost - q.cost);
+      for (const N of [...nationsAt(C)].filter(n => nationsAt(D).has(n) && nationsAt(B).has(n))) {
+        const sB = diverse((byClub.get(B) || []).filter(c => c.nationId === N), 5).map(c => grp([c]));
+        const L = [pairs(C, N).slice(0, 10), pairs(D, N).slice(0, 10), sB, pA.slice(0, 40), quads.slice(0, 200)];
+        if (L.some(x => !x.length)) continue;
+        if (assemble(L)) return best;
+      }
+    }
+    }
+  }
+  return best;
+}
+
 // Independent check that a squad meets every requirement (used to verify every answer).
 function validSBC(req, sq) {
   if (sq.length !== 11 || sq.some(x => !x)) return false;
@@ -489,6 +595,7 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
     if ((req.min_chem || 0) >= 25 || req.min_player_chem) {            // chem-heavy (the usual hybrid SBC): Icon + perfect-link groups first
       progress(`Building linked groups ${form}${tag}…`);
       offer(hybridSBC(req, pool, slots, forms.length > 1 ? 800 : 2500));
+      offer(recipeSBC(req, pool, slots, forms.length > 1 ? 600 : 2000));       // usually ~0.1 s; returns nothing when no recipe fits
     }
     progress(`Searching ${form}${tag}…`);
     let ac = cands, init = null;
@@ -533,4 +640,4 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
   return sbcResult(best, proven, FORMS, cands.length);
 }
 
-if (typeof module !== "undefined") module.exports = { solveSBC, sbcChem, teamRatingOf, buildLP, sbcPool, sbcCandidates, annealSBC, validSBC, hybridSBC };
+if (typeof module !== "undefined") module.exports = { sbcCost, recipeSBC, solveSBC, sbcChem, teamRatingOf, buildLP, sbcPool, sbcCandidates, annealSBC, validSBC, hybridSBC };
