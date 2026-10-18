@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261019b";
+const APP_V = "20261019c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -166,7 +166,7 @@ async function startBuild(req) {
     const box = $("ghBox"); if (box) box.scrollIntoView({ behavior: "smooth" });
     return;
   }
-  if (!confirm(`Start this build?\n\nIt runs on GitHub (you can close the site). The team appears in the Beat a team tab in about ${mins} minutes.`)) return;
+  if (!confirm(`Start this build?\n\nIt runs on GitHub, so you can close the site. Ready in about ${mins} minutes.`)) return;
   try {
     await ghPutFile(`config/requests/${stem}.json`, JSON.stringify(req, null, 1), `Build request: ${req.name}`);
     alert(`Started ✓\n\nCheck back in about ${mins} minutes. Progress: GitHub → Actions → "Custom build".`);
@@ -279,7 +279,7 @@ async function rebuildWithout(k, ids, afterGot) {
     return;
   }
   const mins = kind === "sim" ? 5 : 210;
-  if (!confirm(`${afterGot ? "Rebuild your version" : "Build your own version of"} the ${key} series without ${cardNames(ids).join(", ")}?\n\nIt runs on GitHub and takes about ${mins} minutes. Only you see it; everyone else keeps the full team. It lasts until the season ends.`)) return;
+  if (!confirm(`${afterGot ? "Rebuild your version" : "Build your own version of"} the ${key} series without ${cardNames(ids).join(", ")}?\n\nTakes about ${mins} minutes. Only you see it, and it lasts until the season ends.`)) return;
   try {
     const t = new Date(), pad = n => String(n).padStart(2, "0");
     await ghPutFile(`config/requests/rebuild-${kind}-${key}-${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}-${pad(t.getHours())}${pad(t.getMinutes())}${pad(t.getSeconds())}.json`,
@@ -297,7 +297,7 @@ const vtag = (which, d) => !which ? "" : which === "mine"
 // ---------- Game plan (computed after each build by scripts/plan.js) ----------
 function planHtml(p) {
   const chips = L => L.map(x => `<span class="chip">${esc(cap(x.name))} · ${esc(cap(x.stat))}</span>`).join(" ");
-  const keep = { WIN: "to keep the guaranteed win:", DRAW: "to keep the guaranteed draw:", LOSS: "— they do best, but a perfect opponent can still win:" };
+  const keep = { WIN: "to keep the guaranteed win:", DRAW: "to keep the guaranteed draw:", LOSS: "(best option, but a perfect opponent can still win):" };
   const verb = { WIN: "you win", DRAW: "you draw", LOSS: "you lose" };
   const same = (a, b) => a && b && a.length === b.length && a.every((x, i) => x.name === b[i].name && x.stat === b[i].stat);
   const lead = L => L.length >= p.total_openers ? `<p class="small muted" style="margin:2px 0">Any card: every opening lead gives the same result against perfect play.</p>` : `<div class="chips" style="margin:4px 0">${chips(L)}</div>`;
@@ -324,7 +324,7 @@ async function renderTeams() {
       ? `<div class="chips">${weeks.map((w, i) => { return w.files.length ? `<button class="chipbtn" data-vault="${i}"><b>${esc(seasonName(w.week))}</b><span>Week of ${esc(fmtDay(w.week))} · ${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`
             : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
-  OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>` + vaultBox;
+  OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:4px 0 0">Each series shows the team with the <b>best worst case</b>: the hardest team to beat, tested against dozens of teams built to beat it. To beat one specific team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>` + vaultBox;
   const files = V ? V.files : INDEX.files || [];
   // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_"));
@@ -355,10 +355,10 @@ async function renderTeams() {
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
         <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added in Season Setup).<br>
         <b>Copy of This Team</b>: when the strongest stress test found is simply your own team (someone copying you).<br>
-        <b>Counter Teams</b>: stress tests. Dozens of strong, different teams built from every card under the cap (every common formation, every way of splitting the 11 cards into attackers, controllers and defenders), plus teams searched to beat this one. The team was improved against all of them, and the search repeated.<br>
-        <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
-        <b>Final Check Teams</b>: stress tests built against the Reddit Team and the Hand-Built Team, so every option faces teams built to beat it. The team shown is whichever has the best worst case against all of these.<br>
-        A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
+        <b>Counter Teams</b>: dozens of strong teams from every formation, plus teams built to beat this one. The team was improved against all of them.<br>
+        <b>Fresh Stress Tests</b>: new counter teams made after the team was finished. The honest check.<br>
+        <b>Final Check Teams</b>: teams built to beat the Reddit and hand-built teams, so every option is tested fairly.<br>
+        Counter teams know exactly what you're using, so a loss to one is a worst case, not a normal match.</p></details>`;
       for (const vf of vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"))) {
         try {
           const vd = await getJSON(base + vf), vt = vd.team, lab = (vd.variant && vd.variant.label) || "Alternative";
@@ -367,7 +367,7 @@ async function renderTeams() {
             if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
           const gone = vd.not_owned || [];
           html += `<details class="oteam vteam"><summary><b>${esc(lab)} Version</b><span class="small muted">for players who don't own them${vd.same_as_full ? " · same as the full team" : ""}</span><span class="ores">${vw ? pill(vw.r) : ""}</span></summary>
-            <p class="meta" style="margin:6px 0">${esc(vt.formation || "")} · ${vt.chem} chem · ${vd.same_as_full ? "the full team already uses none of these cards, so it's the best team without them too." : "same deep search, built without these cards. It still has to face opponents who own them."}</p>
+            <p class="meta" style="margin:6px 0">${esc(vt.formation || "")} · ${vt.chem} chem · ${vd.same_as_full ? "the full team has none of these cards, so it's the same team." : "built without these cards, still tested against teams that have them."}</p>
             ${gone.length && !vd.same_as_full ? `<p class="small muted" style="margin:0 0 6px">Left out: ${esc(gone.slice(0, 12).join(", "))}${gone.length > 12 ? ` and ${gone.length - 12} more` : ""}</p>` : ""}
             ${vw ? `<div class="score">${box("Worst Case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who} · ${Object.keys(vt.results || {}).length} opponents`)}</div>` : ""}
             ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
@@ -480,15 +480,15 @@ function panelHtml(side) {
   if (btns.length) h += `<div class="small muted" style="margin-top:8px">Load a team:</div><div class="chips">${btns.map(b => `<button class="chipbtn" data-load="${side}:${b.k}"><b>${esc(b.t)}</b><span>${esc(cap(b.d))}</span></button>${b.del != null ? `<button class="x" data-unsave="${b.del}" title="Delete saved team">✕</button>` : ""}`).join("")}</div>`;
   h += `<div>${Array.from({ length: 11 }, (_, i) => {
     const c = team[i];
-    if (!c) return `<div class="slot"><span class="num">${i + 1}</span><span class="who muted">—</span></div>`;
+    if (!c) return `<div class="slot"><span class="num">${i + 1}</span><span class="who muted">-</span></div>`;
     const e = E[i];
     const alts = versions(c, side).length > 1;
     return `<div class="slot"><span class="num">${i + 1}</span><span class="who"><b>${esc(c.name)}</b> ${c.rating}${alts ? ` <button class="x" data-alt="${side}:${i}" title="Other versions of this player" style="font-size:13px;color:var(--accent)">⇄</button>` : ""}<br><span class="muted small">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(cName(c.clubId))}</span></span>
       <span class="st">A ${e.a} · C ${e.c} · D ${e.d}<br>Chem ${e.chem} · TB ${e.t}</span><button class="x" data-del="${side}:${i}">✕</button></div>`;
   }).join("")}</div>`;
-  if (team.length < 11) h += `<input type="text" id="q${side}" placeholder="Add a player — type a name" style="margin-top:10px"><ul class="sr" id="r${side}" hidden></ul>
+  if (team.length < 11) h += `<input type="text" id="q${side}" placeholder="Add a player: type a name" style="margin-top:10px"><ul class="sr" id="r${side}" hidden></ul>
     <details style="margin-top:8px"><summary class="small">Paste several names at once</summary>
-      <p class="small muted" style="margin:6px 0">Separate with commas or new lines. If a name has several versions, add the rating or club, e.g. <code>Costa 67</code> or <code>Sarr Neom</code>. You can also tap ⇄ on a player to switch version.</p>
+      <p class="small muted" style="margin:6px 0">Commas or new lines. Add a rating or club if needed, e.g. <code>Costa 67</code>. Tap ⇄ to switch version.</p>
       <textarea id="p${side}" placeholder="Radelet, Pupe, Coulibaly, …"></textarea>
       <div class="row" style="margin-top:6px"><button class="ghost" data-paste="${side}">Add these</button><span id="pm${side}" class="small"></span></div></details>`;
   else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key ? `<button class="ghost" data-beat="1" style="font-size:12.5px">Beat this team</button>` : ""}</div>`;
@@ -606,15 +606,15 @@ async function showPV(A, B, TA, TB, first) {
   }).join("");
   const fin = me + Math.max(g.tb, 0), fth = them + Math.max(-g.tb, 0);
   const tbTxt = g.d < -1 || g.d > 1 ? "No tiebreak: the score is 2 or more apart." :
-    `Tiebreak: your <b>${esc(TA[g.ai].name)}</b> (${A[g.ai].t}) vs their <b>${esc(TB[g.bi].name)}</b> (${B[g.bi].t}) — ${g.tb > 0 ? "you win it" : g.tb < 0 ? "they win it" : "5 or less apart, no point"}.`;
+    `Tiebreak: your <b>${esc(TA[g.ai].name)}</b> (${A[g.ai].t}) vs their <b>${esc(TB[g.bi].name)}</b> (${B[g.bi].t}): ${g.tb > 0 ? "you win it" : g.tb < 0 ? "they win it" : "5 or less apart, no point"}.`;
   box.innerHTML = `<h3>Perfect game · ${first === 0 ? "you lead first" : "they lead first"}</h3>${rows}
     <p class="small" style="margin:8px 0 2px">${tbTxt}</p><p><b class="big" style="font-size:26px">${fin} – ${fth}</b></p>
-    <p class="small muted">Both sides play perfectly; where several moves are equally good it shows the one that wins its round, keeping high-tiebreak cards for later.</p>`;
+    <p class="small muted">Both sides play perfectly. When moves are equal, it picks the one that wins the round.</p>`;
 }
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -630,17 +630,17 @@ async function keyCards(A, B, TA, TB, lv) {
   const gain = J => diff(J).map(f => `${order[f]}: ${word[base[f]]} → <b>${word[J.o[f]]}</b>`).join(", ");
   const theirs = res.filter(J => J.side === "B" && diff(J).length).sort((x, y) => diff(y).length - diff(x).length);
   const mine = res.filter(J => J.side === "A" && diff(J).length).sort((x, y) => diff(y).length - diff(x).length);
-  const li = (J, T) => `<li><b>${esc(T[J.k].name)}</b> — ${gain(J)}</li>`;
+  const li = (J, T) => `<li><b>${esc(T[J.k].name)}</b>: ${gain(J)}</li>`;
   box.innerHTML = `<h3>Key cards</h3>
-    <p class="small" style="margin:4px 0"><b>Their cards that decide it</b> — if this one card were ${D} weaker in every stat:</p>
-    ${theirs.length ? `<ul class="small" style="margin:0;padding-left:18px">${theirs.map(J => li(J, TB)).join("")}</ul>` : `<p class="small muted" style="margin:0">None — no single card of theirs is holding the result.</p>`}
-    <p class="small" style="margin:10px 0 4px"><b>Your cards holding the result</b> — if this one card of yours were ${D} weaker in every stat:</p>
-    ${mine.length ? `<ul class="small" style="margin:0;padding-left:18px">${mine.map(J => li(J, TA)).join("")}</ul><p class="small muted" style="margin:6px 0 0">Keep these exactly as they are (full chem, same version). Swapping one for a slightly weaker card, or losing a chem link, costs you the result.</p>` : `<p class="small muted" style="margin:0">None — the result survives any one of your cards being slightly weaker.</p>`}
+    <p class="small" style="margin:4px 0"><b>Their cards that decide it</b>: if this one card were ${D} weaker in every stat:</p>
+    ${theirs.length ? `<ul class="small" style="margin:0;padding-left:18px">${theirs.map(J => li(J, TB)).join("")}</ul>` : `<p class="small muted" style="margin:0">None. No single card of theirs decides it.</p>`}
+    <p class="small" style="margin:10px 0 4px"><b>Your cards holding the result</b>: if this one card of yours were ${D} weaker in every stat:</p>
+    ${mine.length ? `<ul class="small" style="margin:0;padding-left:18px">${mine.map(J => li(J, TA)).join("")}</ul><p class="small muted" style="margin:6px 0 0">Keep these exactly as they are (full chem, same version). Swapping one for a slightly weaker card, or losing a chem link, costs you the result.</p>` : `<p class="small muted" style="margin:0">None. The result survives any one of your cards being slightly weaker.</p>`}
     <p class="small muted" style="margin:8px 0 0">1 point is the smallest possible change: these cards are what the result hangs on.</p>`;
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261019b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261019c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -693,7 +693,7 @@ async function matchStep() {
       if (cand.length && cand[0].share >= 0.5) { best = cand[0]; objNote = `<p class="small gold">🎯 Objective card · beats ${Math.round(best.share * 100)}% of their remaining cards with this stat · same result as the best lead</p>`; }
       else objNote = `<p class="small muted">No objective card is a safe, likely-winning lead this round.</p>`;
     }
-    html += `<div class="move">Lead <b>${esc(state.A[best.i].name)}</b> — ${STAT[best.s]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][best.s]}</div>` + objNote;
+    html += `<div class="move">Lead <b>${esc(state.A[best.i].name)}</b>: ${STAT[best.s]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][best.s]}</div>` + objNote;
     const alts = opts.filter(o => o.value === best.value && !(o.i === best.i && o.s === best.s)).slice(0, 4);
     if (alts.length) html += `<p class="small muted">Also fine: ${alts.map(o => `${esc(state.A[o.i].name)} ${STAT[o.s]}`).join(", ")}</p>`;
     html += `<h3>What did they answer with?</h3><div class="row">` + teamButtons("B", M.mb, j => `ansTheirs(${best.i},${best.s},${j})`) + `</div>`;
@@ -730,7 +730,7 @@ window.swapFind = j => {
       .map(c => ({ c, e: swapEff(j, c) })).sort((x, y) => (y.e.a + y.e.c + y.e.d) - (x.e.a + x.e.c + x.e.d)).slice(0, 25);
     $("swRes").innerHTML = L.length ? L.map(({ c, e }, k) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="swapDo(${j},'${esc(c.id)}')">
         <b>${esc(c.name)} ${c.rating}${k === 0 ? ` <span class="tag">Strongest</span>` : ""}</b>
-        <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))} — in game ${e.a}/${e.c}/${e.d}, TB ${e.t}</span></button>`).join("")
+        <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))} · in game ${e.a}/${e.c}/${e.d}, TB ${e.t}</span></button>`).join("")
       : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
   };
   $("swQ").oninput = draw; $("swAny").onchange = draw; draw(); $("swQ").focus();
@@ -764,7 +764,7 @@ window.pickTheirAns = (i, s) => {
   $("matchBox").innerHTML = `<h3>What did they answer with?</h3><div class="row">${teamButtons("B", M.mb, j => `ansTheirs(${i},${s},${j})`)}</div>`;
 };
 window.theirLead = j => {
-  $("matchBox").innerHTML = `<h3>${esc(M.TB[j].name)} — which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="theirStat(${j},${s})">${STAT[s]} ${[M.B[j].a, M.B[j].c, M.B[j].d][s]}</button>`).join("")}</div>`;
+  $("matchBox").innerHTML = `<h3>${esc(M.TB[j].name)}: which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="theirStat(${j},${s})">${STAT[s]} ${[M.B[j].a, M.B[j].c, M.B[j].d][s]}</button>`).join("")}</div>`;
 };
 window.theirStat = async (j, s) => {
   const box = $("matchBox"); box.innerHTML = `<p class="muted">Working out your best answer…</p>`;
@@ -774,7 +774,7 @@ window.theirStat = async (j, s) => {
     const o = opts.find(x => x.value === best.value && x.r > 0 && isObj(x.i));
     if (o) { best = o; objNote = `<p class="small gold">🎯 Objective card · wins the duel · same result as the best answer</p>`; }
   }
-  let html = `<div class="move">Answer with <b>${esc(state.A[best.i].name)}</b> (${STAT[COUNTER[s]]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][COUNTER[s]]}) — ${best.r > 0 ? "wins the round" : best.r < 0 ? "dump, loses the round" : "draws the round"}</div>` + objNote;
+  let html = `<div class="move">Answer with <b>${esc(state.A[best.i].name)}</b> (${STAT[COUNTER[s]]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][COUNTER[s]]}): ${best.r > 0 ? "wins the round" : best.r < 0 ? "dump, loses the round" : "draws the round"}</div>` + objNote;
   html += `<div class="row"><button class="btn" onclick="ansMine(${j},${s},${best.i})">I played it</button></div>`;
   html += `<h3>Or tap the card you actually played</h3><div class="row">${teamButtons("A", M.ma, i => `ansMine(${j},${s},${i})`)}</div>`;
   box.innerHTML = html + logHtml();
@@ -823,7 +823,7 @@ function drawSim() {
   $("simA").innerHTML = A ? `<p class="small">${esc(A.formation)}</p>` + `<table>${A.players.map(p => `<tr><td>${p.slot}</td><td>${esc(p.name)}</td><td class="n">${p.eff.join("/")}</td></tr>`).join("")}</table>` : `<p class="muted small">No built team for this series yet.</p>`;
   const slots = SIM_FORMS[$("simFormB").value], E = effective(state.simB, simSeries());
   const ref = (simSeries().opponents || [])[0];
-  $("simB").innerHTML = (ref && !state.simB.length ? `<button class="ghost" id="simRef" style="font-size:12.5px;margin-bottom:8px">Load the Reddit Team</button>` : "") + `<table>${slots.map((s, i) => { const c = state.simB[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) : '<span class="muted">—</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`;
+  $("simB").innerHTML = (ref && !state.simB.length ? `<button class="ghost" id="simRef" style="font-size:12.5px;margin-bottom:8px">Load the Reddit Team</button>` : "") + `<table>${slots.map((s, i) => { const c = state.simB[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`;
   document.querySelectorAll("#simB .x").forEach(b => b.onclick = () => { state.simB.splice(+b.dataset.i, 1); drawSim(); });
   if ($("simRef")) $("simRef").onclick = () => {
     const f = simSeries().opponent_formation; if (f && SIM_FORMS[f]) $("simFormB").value = f;
@@ -894,13 +894,13 @@ function itemText(it) {
 }
 let FORMS_CACHE = null;
 const ADD_TYPES = [            // each with how the line reads in the game
-  ["min_rating", "Squad rating — e.g. Squad Rating: Min 84"], ["min_chem", "Team chemistry — e.g. Chemistry: Min 33"],
-  ["from", "Players from a club / nation / league — e.g. Arsenal: Min 1, Portugal: Min 4"],
-  ["ctype", "Players of a card type — e.g. TOTW: Min 1, ICON: Max 1, Gold: Min 11"],
-  ["count", "Number of nations / leagues / clubs — e.g. Nations: Min 5, Clubs: Max 4"],
-  ["same", "Players from the same nation / league / club — e.g. Same Nation: Min 3, Same Club: Max 2"],
-  ["min_player_chem", "Chemistry per player — e.g. Player Chemistry: Min 2"], ["types", "Number of card types — e.g. Card Types: Min 5"],
-  ["prating", "Every player's rating — e.g. Player Rating: Min 80"], ["inc", "Must include a specific player"]];
+  ["min_rating", "Squad rating (e.g. Squad Rating: Min 84)"], ["min_chem", "Team chemistry (e.g. Chemistry: Min 33)"],
+  ["from", "Players from a club / nation / league (e.g. Arsenal: Min 1)"],
+  ["ctype", "Players of a card type (e.g. TOTW: Min 1, ICON: Max 1)"],
+  ["count", "Number of nations / leagues / clubs (e.g. Nations: Min 5)"],
+  ["same", "Same nation / league / club (e.g. Same Nation: Min 3)"],
+  ["min_player_chem", "Chemistry per player (e.g. Player Chemistry: Min 2)"], ["types", "Number of card types (e.g. Card Types: Min 5)"],
+  ["prating", "Every player's rating (e.g. Player Rating: Min 80)"], ["inc", "Must include a specific player"]];
 function setupSBC() {
   $("sbcForm").innerHTML = Object.keys(FORMS_CACHE || {}).map(f => `<option>${f}</option>`).join("") + `<option value="any">Any (slower)</option>`;
   $("sbcForm").value = "4-3-3";
@@ -1008,7 +1008,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1074,11 +1074,11 @@ function sbcHints(req) {
     const pairs = [];
     for (let i = 0; i < clubs.length; i++) for (let j = i + 1; j < clubs.length; j++) if ([...lg.get(clubs[i])].some(l => lg.get(clubs[j]).has(l))) pairs.push([clubs[i], clubs[j]]);
     const name = k => CLUBS[k] || k;
-    if (!pairs.length) out.push(`These ${clubs.length} clubs are all in different leagues. A full-chem squad like this usually needs an Icon or chem-booster cards (e.g. Squad Foundations): allow Icons, or add one.`);
+    if (!pairs.length) out.push(`These ${clubs.length} clubs are all in different leagues, so this usually needs an Icon or chem boosters. Try allowing Icons.`);
     else if (!pairs.some(([a, b]) => clubs.some(k => k !== a && k !== b && lg.get(k).size > 1)))
-      out.push(`Only ${name(pairs[0][0])} and ${name(pairs[0][1])} share a league, and none of the other clubs has players in a second league (e.g. a women's team), which this usually needs. Try allowing an Icon.`);
+      out.push(`None of the other clubs has a second league (e.g. a women's team), which this usually needs. Try allowing an Icon.`);
   }
-  if (!icons && (req.min_leagues || 0) >= 6 && (req.min_nations || 0) >= 6) out.push("6 leagues and 6 nations on full chem without an Icon is rarely possible. Try allowing Icons.");
+  if (!icons && (req.min_leagues || 0) >= 6 && (req.min_nations || 0) >= 6) out.push("6 leagues and 6 nations without an Icon is rarely possible. Try allowing Icons.");
   return out;
 }
 function drawSBCResult(working = false) {
@@ -1095,12 +1095,12 @@ function drawSBCResult(working = false) {
     const checks = sbcChecks(req, sq), allOk = checks.every(c => c.ok);
     const head = working ? `<p><b>Squad found.</b> <span class="muted small" id="sbcWorking">Checking for a cheaper one…</span></p>`
       : r.proven ? `<p class="ok"><b>✓ Cheapest squad</b></p>`
-      : `<p><b>Good squad</b> <span class="muted small">— may be a slightly cheaper one.</span> <button class="ghost" id="sbcLonger" style="padding:4px 9px;font-size:12px">Search longer</button></p>`;
+      : `<p><b>Good squad</b> <span class="muted small">There may be a slightly cheaper one.</span> <button class="ghost" id="sbcLonger" style="padding:4px 9px;font-size:12px">Search longer</button></p>`;
     out.innerHTML = `<h2>${esc(r.formation)} · rating ${r.rating} · chem ${r.chem}</h2>${head}
       <table class="sq"><tr><th>Pos</th><th>Player</th><th>Chem</th><th></th></tr>${r.players.map(p =>
         `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(cName(p.clubId))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td class="n">${p.chem}</td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
       ${skipHtml}
-      <details ${allOk ? "" : "open"} style="margin-top:8px"><summary class="small ${allOk ? "ok" : "bad"}">${allOk ? "✓ Meets every requirement" : "✗ A requirement isn't met — please report it"}</summary><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul></details>`;
+      <details ${allOk ? "" : "open"} style="margin-top:8px"><summary class="small ${allOk ? "ok" : "bad"}">${allOk ? "✓ Meets every requirement" : "✗ A requirement isn't met. Please report it"}</summary><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul></details>`;
   }
   if (working) { out.querySelectorAll("[data-nohave],[data-undo]").forEach(b => b.disabled = true); return; }
   out.querySelectorAll("[data-nohave]").forEach(b => b.onclick = () => { SB.exclude.push(b.dataset.nohave); runSBC(15, Object.assign({}, SB.lastReq, { exclude: SB.exclude.slice() })); });
@@ -1202,8 +1202,8 @@ async function renderObjectives(fetch = true) {     // fetch: reload the shared 
   if (fetch) try { OBJ_SHARED = (await getJSON("objectives.json")).objectives || []; } catch (e) {}
   const box = $("objBody"), L = objList();
   const players = [...new Set(L.map(o => o.player || "Other"))];
-  let html = `<div class="card"><h2>Objectives</h2><p class="small" style="margin:4px 0 0">The game's Fatal My Club objectives, by the player they unlock. Tap a player, then an objective. <b>Play these teams against the AI</b>, over as many matches as it takes.</p>
-    <p class="small muted" style="margin:6px 0 0">Each team is the series' boosted best team with a safe number of objective cards swapped in. Duels: practically no weaker (at least 99.5% of the best team's in-game strength), and only objective cards strong enough to win duels at that cap count (best in-game stat within 2 of the best team's typical best stat), so only a few when they're unboosted. Matches: the cards just need to be in the team (at least 97%). Series 70 to 90. Teams update after every Best Teams build. Objective cards are marked <span class="gold">▌</span>.</p>
+  let html = `<div class="card"><h2>Objectives</h2><p class="small" style="margin:4px 0 0">Fatal My Club objectives, by the player they unlock. <b>Play these teams against the AI</b> until it's done.</p>
+    <p class="small muted" style="margin:6px 0 0">Each team is the series' best team with a safe number of objective cards swapped in, so it still wins. Updates after every build. Objective cards are marked <span class="gold">▌</span>.</p>
     ${ghToken() ? `<div style="margin-top:10px">${OBJ_FORM ? objFormHtml(players) : `<button class="btn" id="objAdd">Add Objective</button>`}</div>` : ""}</div>`;
   if (!L.length) html += `<div class="card small muted">No objectives yet.</div>`;
   for (const pl of players) {
@@ -1308,7 +1308,7 @@ function setupCards() {
   const special = [...cnt].filter(([t]) => !["gold", "silver", "bronze"].includes(t)).reduce((a, [, n]) => a + n, 0);
   const order = ["gold", "silver", "bronze", ...[...cnt.keys()].filter(t => !["gold", "silver", "bronze"].includes(t)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b)))];
   const total = [...cnt.values()].reduce((a, n) => a + n, 0);
-  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Compare these totals with your collection screen in the game. Evo, Elite Evo and LTM cards are added by hand and can't be used in SBCs. Each LTM counts once; its levels are listed inside.`;
+  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Evos, Elite Evos and LTMs are added by hand and can't be used in SBCs.`;
   $("cardsTypes").innerHTML = `<button class="ctile wide" data-ct="special" style="background:var(--grad);color:#1a0b05"><b>All special</b><span>${special.toLocaleString()}</span></button>` +
     order.map(t => `<button class="ctile" data-ct="${esc(t)}" style="${tgrad(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t).toLocaleString()}</span></button>`).join("");
   $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
@@ -1404,7 +1404,7 @@ function seriesCardHtml(type, i) {
     <div id="wPick" style="margin-top:8px"></div>${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add boost</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
   if (open === "bonus") h += `<div class="rulebox"><div class="row"><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><span class="small">+</span><select id="wBK"><option value="nations">Different nations</option><option value="leagues">Different leagues</option><option value="clubs">Different clubs</option><option value="types">Different card types</option></select></div>
     ${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add bonus</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
-  if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names (commas or new lines). Add a rating or club if a name has several versions, e.g. <code>Costa 67</code>, <code>Sarr Neom</code>.</p>
+  if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names. Add a rating or club if needed, e.g. <code>Costa 67</code>.</p>
     <textarea id="wRef"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add team</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
   return h + `</div></details>`;
 }
@@ -1487,7 +1487,7 @@ function renderWeekForm() {
     }
   }
   $("wNew").onclick = () => {
-    if (!confirm("Start a new season? This clears every series (each season has different ones), so you add this season's series, boosts and Reddit teams from scratch. Nothing is saved until you tap Save & rebuild.")) return;
+    if (!confirm("Start a new season? This clears every series. Nothing is saved until you tap Save & rebuild.")) return;
     // Seasons start every Saturday 17:00 UTC (Sunday 00:00 in Thailand); a season is keyed by the Monday after its start
     const W = 6048e5, start1 = Date.UTC(2026, 8, 26, 17), n = Math.floor((Date.now() - start1) / W);
     const key = new Date(start1 + n * W + 2 * 864e5).toISOString().slice(0, 10);
@@ -1505,13 +1505,13 @@ function renderWeekForm() {
     if (!ghToken()) { msg.innerHTML = `<span class="bad">Connect GitHub first (box below).</span>`; $("ghBox").scrollIntoView({ behavior: "smooth" }); return; }
     const bad = [...WS.myclub, ...WS.sim].find(s => !s.key || !s.cap);
     if (bad) { msg.innerHTML = `<span class="bad">Every series needs its number (e.g. 79).</span>`; return; }
-    if (!confirm(`Save this season's setup and rebuild every team?\n\nSim teams take about 10 minutes. My Club teams get the full deep search: about 3.5 hours, and each team appears as soon as it's done.`)) return;
+    if (!confirm(`Save and rebuild every team?\n\nSim: about 10 min. My Club: about 3.5 hours, each team appears when done.`)) return;
     msg.textContent = "Saving…";
     try {
       const f = await ghGetFile("config/week.json");
       await ghPutFile("config/week.json", JSON.stringify(WS, null, 1) + "\n", `Weekly setup ${WS.week || ""}`, f && f.sha);
       wsDraftClear();
-      msg.innerHTML = `<span class="ok">Saved ✓ Rebuilding now — Sim teams in about 10 minutes, My Club teams in about 2 hours, on the Best teams tab.</span>`;
+      msg.innerHTML = `<span class="ok">Saved ✓ Rebuilding now. Sim teams in about 10 min, My Club teams in about 3.5 hours.</span>`;
     } catch (e) { msg.innerHTML = `<span class="bad">Couldn't save: ${esc(e.message)}</span>`; }
   };
 }
@@ -1542,7 +1542,7 @@ async function renderSetup() {
       const r = await fetch(`https://api.github.com/repos/${REPO}`, { headers: { Authorization: `Bearer ${t}`, Accept: "application/vnd.github+json" } });
       const j = await r.json();
       if (!r.ok) throw new Error(j.message || r.status);
-      if (!(j.permissions && j.permissions.push)) throw new Error("this key can't change the repo — set Contents to Read and write");
+      if (!(j.permissions && j.permissions.push)) throw new Error("this key can't change the repo. Set Contents to Read and write");
       try { localStorage.setItem("ghToken", t); } catch (x) { throw new Error("couldn't save on this phone"); }
       $("ghIn").value = ""; $("ghMsg").innerHTML = `<span class="ok">Connected ✓</span>`; ghState();
       await wsLoad(); renderWeekForm();

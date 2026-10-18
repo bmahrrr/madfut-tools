@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261019b">
+<meta name="app-version" content="20261019c">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#150f12">
@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="MadFut Tools">
 <style>
-/* MadFut Tools — Fatal Night: ember-on-ink, skewed broadcast chips, outlined series numbers */
+/* MadFut Tools: Fatal Night: ember-on-ink, skewed broadcast chips, outlined series numbers */
 :root{
   --bg:#150f12;--panel:#1e1619;--field:#120c0e;--line:#33262b;--text:#f6ece6;--muted:#a8948d;
   --fire:#ff5b22;--gold:#ffb21e;--accent:#ffb21e;--on-accent:#1a0b05;--win:#3ddc97;--draw:#9fb3c8;--loss:#ff4d5e;
@@ -237,7 +237,7 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
   <section id="beat">
     <div class="card">
       <h2>Beat a specific team</h2>
-      <p class="small muted" style="margin:4px 0 10px">Load the team you want to beat (e.g. the Reddit team or a team you saved), then start a build. It runs on GitHub, so it keeps going if you close the site, and the finished team shows up below.</p>
+      <p class="small muted" style="margin:4px 0 10px">Load the team you want to beat, then start a build. It runs on GitHub, so you can close the site. The result shows below.</p>
       <div class="row"><label>Series <select id="beatSeries"></select></label></div>
       <p id="beatInfo" class="small muted" style="margin:8px 0 0"></p>
     </div>
@@ -271,7 +271,7 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
       <h2>Live match helper</h2>
       <p class="small muted">Uses the two teams from <b>My Club compare</b>. Pick who leads first, then follow the moves.</p>
       <label class="small" style="display:block;margin:8px 0">Objective <select id="mObj"><option value="">None</option></select></label>
-      <p class="small muted" id="mObjNote" hidden style="margin:-2px 0 8px">Objective mode: when an objective card can be played without changing the result, it's suggested, picking the stat that wins its duel most often.</p>
+      <p class="small muted" id="mObjNote" hidden style="margin:-2px 0 8px">Objective mode: suggests an objective card whenever it doesn't change the result.</p>
       <div class="row"><button class="btn" id="iFirst">I lead first</button><button class="ghost" id="theyFirst">They lead first</button></div>
     </div>
     <div class="card" id="matchBox" hidden></div>
@@ -281,7 +281,7 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
     <div class="card">
       <div class="row"><label>Season <select id="simWeek"></select></label></div>
       <div class="row" style="margin-top:8px"><label>Series <select id="simSeries"></select></label><label>Their formation <select id="simFormB"></select></label></div>
-      <p class="small muted">Pick the season first (this season or one from the Vault), then the series. Your team loads from that season's built Sim team. Add their 11 in formation order (GK first). Shows the chance of scoring per possession and match odds.</p>
+      <p class="small muted">Pick the season and series. Your team loads automatically. Add their 11 in formation order (GK first) to see the match odds.</p>
     </div>
     <div class="grid2">
       <div class="card"><h2>Your team</h2><div id="simA"></div></div>
@@ -315,7 +315,7 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="cards">
     <details class="card" id="usageBox"><summary>Most Used Cards</summary>
-      <p class="small muted" style="margin:6px 0 8px">Cards in the Best Teams (everyone's teams), ranked by days used. The big number is days on a team, added up across every team the card is in (2 teams for a full 7-day season = 14). If a new card replaces one mid-season, each gets the days it was used. Tap a card to see its teams. Updates with every build.</p>
+      <p class="small muted" style="margin:6px 0 8px">Cards in the Best Teams, ranked by days used. The big number is total days across all its teams (2 teams for a full season = 14). Tap a card to see its teams.</p>
       <div class="fgrid" style="margin-bottom:8px"><label>Season<select id="uSeason"></select></label><label>Mode<select id="uMode"><option value="">Both</option><option value="myclub">My Club</option><option value="sim">Sim</option></select></label></div>
       <input id="uFind" type="search" placeholder="Find a card" autocomplete="off" style="margin-bottom:8px">
       <div id="uList"></div><div class="row" style="margin-top:8px"><button class="ghost" id="uMore">Show more</button></div>
@@ -337,8 +337,8 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261019b"></script>
-<script src="sbc-solver.js?v=20261019b"></script>
-<script src="app.js?v=20261019b"></script>
+<script src="engine.js?v=20261019c"></script>
+<script src="sbc-solver.js?v=20261019c"></script>
+<script src="app.js?v=20261019c"></script>
 </body>
 </html>

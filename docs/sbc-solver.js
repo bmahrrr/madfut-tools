@@ -615,7 +615,7 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
     if (hs && validSBC(req, hs.sq)) offer(hs);
     // exact solver: look for anything cheaper than the best squad known so far
     const cutoff = best ? best.cost - 0.5 : null;
-    progress(best ? `Found a squad (${form}) — checking for a cheaper one${tag}…` : `Solving ${form}${tag}…`);
+    progress(best ? `Found a squad (${form}). Checking for a cheaper one${tag}…` : `Solving ${form}${tag}…`);
     const m = buildLP(req, cands, slots, 0);
     if (!m) return;
     let res;
