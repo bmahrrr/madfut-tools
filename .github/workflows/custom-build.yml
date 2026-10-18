@@ -38,7 +38,7 @@ jobs:
     needs: plan
     if: ${{ needs.plan.outputs.files != '[]' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 355
     strategy:
       fail-fast: false
       matrix:

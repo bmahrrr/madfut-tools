@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261018f";
+const APP_V = "20261018g";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -229,7 +229,7 @@ async function versionOf(k, f, d) {          // -> { d: the version to show, bar
   const ready = dm && sameSet(dm.not_owned_ids, m.ids); let which = "everyone";
   const names = esc(cardNames(m.ids).join(", ")), got = m.ids.map(id => `<button class="ghost small" data-got="${esc(k)}|${esc(id)}" data-all="${esc(m.ids.join(","))}" style="padding:3px 9px">Got ${esc(cardNames([id])[0])}</button>`).join("");
   let bar = `<div class="minebar">`;
-  if (!ready) bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names} is building (about ${k.startsWith("sim") ? 5 : 130} min). Showing everyone's team for now.</p>`;
+  if (!ready) bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names} is building (about ${k.startsWith("sim") ? 5 : 210} min). Showing everyone's team for now.</p>`;
   else if (viewOf(k) === "mine") { bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b>, built without ${names}. Everyone else sees the full team.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|everyone" style="padding:4px 10px;font-size:12.5px">Show Everyone's Team</button></div>`; d = dm; which = "mine"; }
   else bar += `<p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|mine" style="padding:4px 10px;font-size:12.5px">Show Your Version (without ${names})</button></div>`;
   bar += `<div class="row" style="margin:0 0 4px">${got}</div><div class="row" data-gotgo-row="${esc(k)}" hidden style="margin:4px 0"><button class="btn" data-gotgo="${esc(k)}" data-all="${esc(m.ids.join(","))}">Update Your Version</button></div><p class="small muted" style="margin:0 0 8px">Got cards since? Tap each one, then Update Your Version (one rebuild).</p></div>`;
@@ -278,7 +278,7 @@ async function rebuildWithout(k, ids, afterGot) {
     alert(`Rebuilding needs the site's GitHub connection (Season Setup tab → "Connect GitHub"), which only the site owner has.`);
     return;
   }
-  const mins = kind === "sim" ? 5 : 130;
+  const mins = kind === "sim" ? 5 : 210;
   if (!confirm(`${afterGot ? "Rebuild your version" : "Build your own version of"} the ${key} series without ${cardNames(ids).join(", ")}?\n\nIt runs on GitHub and takes about ${mins} minutes. Only you see it; everyone else keeps the full team. It lasts until the season ends.`)) return;
   try {
     const t = new Date(), pad = n => String(n).padStart(2, "0");
@@ -326,7 +326,9 @@ async function renderTeams() {
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
   OPPS = []; let html = `<div class="card"><h2>Best Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:4px 0 0">For each series: the team with the <b>best worst case</b>. It's judged by its worst result against the Reddit team and against stress-test teams built specifically to beat it, so it's the hardest team to oppose. To counter one particular team, use <b>Beat a team</b>.</p><p class="small muted" style="margin:6px 0 0">Stats are in-game (boosts + chem). TB = tiebreak total.</p></div>` + vaultBox;
   const files = V ? V.files : INDEX.files || [];
-  const mc = files.filter(f => f.startsWith("myclub_")), sim = files.filter(f => f.startsWith("sim_"));
+  // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
+  const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_"));
+  const vfiles = files.filter(f => f.startsWith("myclub_") && f.includes("--"));
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
   html += `<h3>Fatal My Club</h3>`;
   for (const f of mc) {
@@ -357,6 +359,18 @@ async function renderTeams() {
         <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
         <b>Final Check Teams</b>: stress tests built against the Reddit Team and the Hand-Built Team, so every option faces teams built to beat it. The team shown is whichever has the best worst case against all of these.<br>
         A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
+      for (const vf of vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"))) {
+        try {
+          const vd = await getJSON(base + vf), vt = vd.team, lab = (vd.variant && vd.variant.label) || "Alternative";
+          let vw = null;
+          for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
+            if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
+          html += `<details class="oteam vteam"><summary><b>${esc(lab)} Version</b><span class="small muted">for players without ${esc((vd.not_owned || []).join(", ") || lab)}</span><span class="ores">${vw ? pill(vw.r) : ""}</span></summary>
+            <p class="meta" style="margin:6px 0">${esc(vt.formation || "")} · ${vt.chem} chem · same deep search, built without those cards. It still has to face opponents who own them.</p>
+            ${vw ? `<div class="score">${box("Worst Case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who} · ${Object.keys(vt.results || {}).length} opponents`)}</div>` : ""}
+            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
+        } catch (e) {}
+      }
       html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div></details>`;
     } catch (e) {}
   }
@@ -598,7 +612,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -624,7 +638,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261018f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261018g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -992,7 +1006,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018f");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018g");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
