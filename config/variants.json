@@ -1,8 +1,6 @@
 {
- "_about": "Extra public versions of a series' Best Team for players without some cards. Same deep search, built with the listed cards left out (an LTM / Evo rule matches every level). Keyed by series key; a variant is built whenever that series is.",
+ "_about": "Extra public versions of each series' Best Team for players without some cards. Same deep search, built AFTER the all-cards teams, with the listed cards left out (every level of an LTM / Evo). '*' = every series; a series key adds its own. If the all-cards team already has none of those cards, it is simply reused.",
  "myclub": {
-  "89": [{"id": "noltm", "label": "No LTMs", "exclude": [{"color": "ltm"}]}],
-  "X": [{"id": "noltm", "label": "No LTMs", "exclude": [{"color": "ltm"}]}],
-  "80": [{"id": "novazquez", "label": "No Evo Vázquez", "exclude": [{"name": "Lucas Vázquez", "color": "evo"}]}]
+  "*": [{"id": "noltmevo", "label": "No LTMs or Evos", "exclude": [{"color": "ltm"}, {"color": "evo"}, {"color": "elite_evo"}]}]
  }
 }
