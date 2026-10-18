@@ -6,14 +6,18 @@ builder itself searches for (teams built specifically to beat the current best t
 The search is a local search over owned cards that respects positions and chemistry.
 """
 import collections, random, time
-from .core import AUTO, full_chem, FORMATIONS, boosted, effective, formation_fit, pid, describe, CTRL
+from .core import AUTO, ICON, full_chem, FORMATIONS, boosted, effective, formation_fit, pid, describe, CTRL
 from .game import play
 from .milp import build
 
 _fit_cache = {}
+MAX_ICONS = 5          # game rule: a My Club team holds at most 5 Icons (Debut Icons count)
+ICON_RULE = [(lambda c: c["color"] in ICON, "<=", MAX_ICONS)]
 
 
 def fits(team):
+    if sum(1 for x in team if x["color"] in ICON) > MAX_ICONS:
+        return False
     key = tuple(sorted(tuple(sorted(x["P"])) for x in team))
     v = _fit_cache.get(key)
     if v is None:
@@ -288,7 +292,7 @@ def cat_seeds(pool, series=None, seconds=300, log=None, time_limit=20):
             for bnd in SPLITS:
                 if time.time() - t0 > seconds: return out
                 sq = build(cards, FORMATIONS[form], lambda c, s: 0, chem_weight=lambda c, s, cw=cw: cw,
-                           cats=(lambda c: (c["bA"], c["bC"], c["bD"]), bnd), time_limit=time_limit, gap=0.002)
+                           cats=(lambda c: (c["bA"], c["bC"], c["bD"]), bnd), time_limit=time_limit, gap=0.002, group_rules=ICON_RULE)
                 if not sq: continue
                 k = frozenset(c["id"] for c in sq)
                 if k in seen: continue
@@ -322,16 +326,16 @@ def milp_seeds(pool, series=None, time_limit=15, log=None):
     forms = ("4-4-2", "4-3-3", "3-4-3", "3-4-1-2", "4-2-3-1", "4-1-2-1-2 (2)", "3-5-2", "5-3-2")
     best = []
     for form in forms:
-        sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002)
+        sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002, group_rules=ICON_RULE)
         if sq: best.append((sum(e[0] + e[1] + e[2] for e in pool.eff(sq)), form, sq))
     for tot, form, sq in sorted(best, key=lambda z: -z[0])[:3]: add(sq, f"strongest {form}")
     for form in ("4-4-2", "3-4-3", "5-3-2"):
-        sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"] + 2 * c[ROLE.get(s, "bC")], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002)
+        sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"] + 2 * c[ROLE.get(s, "bC")], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002, group_rules=ICON_RULE)
         add(sq, f"specialists {form}")
     for label, f in groups:
         sub = [c for c in cards if f(c) or c["color"] in AUTO]
         for form in ("4-4-2", "3-4-3"):
-            sq = build(sub, FORMATIONS[form], lambda c, s: c["T3"] + c[ROLE.get(s, "bC")], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002)
+            sq = build(sub, FORMATIONS[form], lambda c, s: c["T3"] + c[ROLE.get(s, "bC")], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002, group_rules=ICON_RULE)
             add(sq, f"{label} {form}")
     return seeds
 
