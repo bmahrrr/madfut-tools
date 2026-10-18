@@ -136,11 +136,16 @@ def catscore(E):
     return max(v for k, v in best.items() if min(k) >= 3)
 
 
-def secondary(E):
+def stat_strength(E):
+    """Raw stat strength (top 7 of each stat + tiebreak totals); the objective builder's % strength uses it."""
     s = 0
     for k in range(3):
         v = sorted((e[k] for e in E), reverse=True); s += sum(v[:7])
-    return catscore(E) * 10000 + s + sum(e[3] for e in E) / 10
+    return s + sum(e[3] for e in E) / 10
+
+
+def secondary(E):
+    return catscore(E) * 10000 + stat_strength(E)
 
 
 def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust=False):
