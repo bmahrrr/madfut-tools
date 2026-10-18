@@ -57,11 +57,6 @@ function plan(t, series) {
   }
   const pick = (W, g) => W.map((w, k) => ({ w, k })).filter(x => x.w >= g).map(x => ({ slot: t.players[Math.floor(x.k / 3)].slot, name: t.players[Math.floor(x.k / 3)].name, stat: STAT[x.k % 3] }));
   const watch = matchups(t, series);
-  t.players.forEach(p => {
-    const e = p.eff, weak = [0, 1, 2].filter(s => e[s] < 55), best = [0, 1, 2].sort((x, y) => e[y] - e[x])[0];
-    if (weak.length === 2) watch.push({ name: p.name, text: `Only use for ${STAT[best]} (${e[best]}); ${weak.map(s => `${STAT[s]} ${e[s]}`).join(", ")}` });
-    else if (weak.length === 1) watch.push({ name: p.name, text: `Never use for ${STAT[weak[0]]} (${e[weak[0]]})` });
-  });
   const byTB = [...t.players].sort((a, b) => a.tiebreak - b.tiebreak);
   const lv = ["LOSS", "LOSS", "DRAW", "WIN", "WIN"];
   return {
@@ -85,7 +80,7 @@ for (const f of process.argv.slice(watchOnly ? 3 : 2)) {
   if (!d.team || !d.team.opponent_teams) { console.log("skip", f); continue; }
   if (watchOnly) {
     if (!d.team.plan) { console.log("no plan yet", f); continue; }
-    d.team.plan.watch = matchups(d.team, d.series || {}).concat(weakNotes(d.team));
+    d.team.plan.watch = matchups(d.team, d.series || {});
     fs.writeFileSync(f, JSON.stringify(d, null, 1)); console.log(f, d.team.plan.watch.length, "notes"); continue;
   }
   const t0 = Date.now(); d.team.plan = plan(d.team, d.series || {});
