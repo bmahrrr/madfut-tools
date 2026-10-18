@@ -1,60 +1,60 @@
 {
  "g": 1,
  "obj_ids": [
-  "id50603455"
+  "id200260"
  ],
- "strength": 100.6,
- "group_cards": 7,
+ "strength": 100.7,
+ "group_cards": 2,
  "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 32,
+  "formation": "3-4-2-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id222511",
-    "name": "Unsain",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "GK",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 112670,
-    "card": [
-     40,
-     35,
-     76
-    ],
-    "chem": 2,
-    "eff": [
-     41,
-     36,
-     77
-    ],
-    "tiebreak": 154
-   },
-   {
-    "slot": "LB",
-    "id": "id263041",
-    "name": "Prass",
+    "id": "id199833",
+    "name": "Unnerstall",
     "rating": 76,
     "color": "rare_gold",
-    "position": "LB",
-    "nationId": 4,
-    "leagueId": 19,
-    "clubId": 10029,
+    "position": "GK",
+    "nationId": 21,
+    "leagueId": 10,
+    "clubId": 1908,
     "card": [
+     27,
+     23,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     30,
+     25,
+     80
+    ],
+    "tiebreak": 133
+   },
+   {
+    "slot": "CB",
+    "id": "id243354",
+    "name": "Sander",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 23,
+    "card": [
+     72,
      73,
-     74,
      75
     ],
     "chem": 3,
     "eff": [
      75,
-     78,
-     77
+     77,
+     78
     ],
-    "tiebreak": 228
+    "tiebreak": 226
    },
    {
     "slot": "CB",
@@ -81,29 +81,98 @@
    },
    {
     "slot": "CB",
-    "id": "id243354",
-    "name": "Sander",
-    "rating": 75,
+    "id": "id274847",
+    "name": "Diehm",
+    "rating": 76,
     "color": "rare_gold",
     "position": "CB",
     "nationId": 21,
-    "leagueId": 19,
-    "clubId": 23,
+    "leagueId": 2215,
+    "clubId": 10029,
     "card": [
+     68,
+     70,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     71,
      72,
+     78
+    ],
+    "tiebreak": 219
+   },
+   {
+    "slot": "LM",
+    "id": "id263041",
+    "name": "Prass",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 4,
+    "leagueId": 19,
+    "clubId": 10029,
+    "card": [
      73,
+     74,
      75
     ],
     "chem": 3,
     "eff": [
      75,
-     77,
-     78
+     78,
+     77
     ],
-    "tiebreak": 226
+    "tiebreak": 228
    },
    {
-    "slot": "RB",
+    "slot": "CM",
+    "id": "id200260",
+    "name": "Berghuis",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     75,
+     79,
+     44
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     81,
+     46
+    ],
+    "tiebreak": 204
+   },
+   {
+    "slot": "CM",
+    "id": "id190815",
+    "name": "Blind",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     70,
+     78,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     80,
+     77
+    ],
+    "tiebreak": 229
+   },
+   {
+    "slot": "RM",
     "id": "id208618",
     "name": "Lucas Vázquez",
     "rating": 74,
@@ -126,76 +195,7 @@
     "tiebreak": 231
    },
    {
-    "slot": "CDM",
-    "id": "id276119",
-    "name": "Remberg",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 28,
-    "card": [
-     67,
-     69,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     70,
-     73,
-     78
-    ],
-    "tiebreak": 217
-   },
-   {
-    "slot": "LM",
-    "id": "id224334",
-    "name": "Acuña",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 1876,
-    "card": [
-     75,
-     77,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     79,
-     77
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "CM",
-    "id": "id210324",
-    "name": "Hofmann",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     75,
-     76,
-     63
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     80,
-     66
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "CM",
+    "slot": "CAM",
     "id": "id276602",
     "name": "Ouédraogo",
     "rating": 76,
@@ -218,50 +218,50 @@
     "tiebreak": 222
    },
    {
-    "slot": "RM",
-    "id": "id50603455",
-    "name": "Nwaneri",
-    "rating": 75,
+    "slot": "CAM",
+    "id": "id210324",
+    "name": "Hofmann",
+    "rating": 76,
     "color": "rare_gold",
-    "position": "RW",
-    "nationId": 14,
+    "position": "CAM",
+    "nationId": 21,
     "leagueId": 19,
-    "clubId": 22,
+    "clubId": 32,
     "card": [
-     74,
-     74,
-     49
+     75,
+     76,
+     63
     ],
     "chem": 3,
     "eff": [
-     76,
      78,
-     51
+     80,
+     66
     ],
-    "tiebreak": 203
+    "tiebreak": 220
    },
    {
     "slot": "ST",
-    "id": "id245461",
-    "name": "Colidio",
-    "rating": 74,
-    "color": "rare_silver",
+    "id": "id205431",
+    "name": "Füllkrug",
+    "rating": 76,
+    "color": "rare_gold",
     "position": "ST",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 1876,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 38,
     "card": [
      76,
-     74,
-     50
+     68,
+     48
     ],
     "chem": 3,
     "eff": [
-     78,
-     76,
-     52
+     79,
+     72,
+     51
     ],
-    "tiebreak": 206
+    "tiebreak": 198
    }
   ]
  },
@@ -298,16 +298,16 @@
  "base_ids": [
   "id242818",
   "id243354",
-  "id264934",
   "id241847",
-  "id224334",
-  "id210324",
+  "id246836",
+  "id257540",
+  "id256942",
   "id276602",
   "id208618",
-  "id262240",
-  "id258715",
+  "id270670",
+  "id212188",
   "id50571625"
  ],
- "built": "2026-10-17 22:48 UTC",
+ "built": "2026-10-18 09:45 UTC",
  "week": "2026-10-19"
 }

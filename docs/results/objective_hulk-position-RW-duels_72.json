@@ -1,18 +1,16 @@
 {
- "g": 5,
+ "g": 3,
  "obj_ids": [
-  "id274357",
-  "id237997",
-  "id202651",
-  "id193165",
-  "id258730"
+  "id50408387",
+  "id258730",
+  "id202651"
  ],
- "strength": 99.7,
+ "strength": 101.0,
  "group_cards": 19,
  "reddit": [],
  "team": {
-  "formation": "4-3-3",
-  "chem": 29,
+  "formation": "4-1-4-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -85,26 +83,26 @@
    },
    {
     "slot": "CB",
-    "id": "id272188",
-    "name": "Lucía Martínez",
+    "id": "id222493",
+    "name": "Friedrich",
     "rating": 72,
     "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 131125,
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 1831,
     "card": [
-     65,
-     72,
-     69
+     49,
+     52,
+     73
     ],
     "chem": 3,
     "eff": [
-     68,
-     75,
-     72
+     51,
+     54,
+     75
     ],
-    "tiebreak": 212
+    "tiebreak": 180
    },
    {
     "slot": "RB",
@@ -130,27 +128,50 @@
     "tiebreak": 217
    },
    {
-    "slot": "CM",
-    "id": "id193165",
-    "name": "Corona",
+    "slot": "CDM",
+    "id": "id50578976",
+    "name": "Unai Vencedor",
     "rating": 72,
     "color": "rare_silver",
-    "position": "RW",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 1032,
+    "position": "CDM",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 10846,
     "card": [
-     70,
-     74,
-     64
-    ],
-    "chem": 2,
-    "eff": [
      71,
-     75,
-     65
+     72,
+     68
     ],
-    "tiebreak": 211
+    "chem": 3,
+    "eff": [
+     74,
+     75,
+     71
+    ],
+    "tiebreak": 217
+   },
+   {
+    "slot": "LM",
+    "id": "id50408387",
+    "name": "Pablo García",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 456,
+    "card": [
+     72,
+     67,
+     46
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     70,
+     49
+    ],
+    "tiebreak": 191
    },
    {
     "slot": "CM",
@@ -177,75 +198,29 @@
    },
    {
     "slot": "CM",
-    "id": "id274357",
-    "name": "Alarcón",
-    "rating": 71,
+    "id": "id215449",
+    "name": "Skov",
+    "rating": 72,
     "color": "rare_silver",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 10,
-    "clubId": 1903,
+    "position": "LB",
+    "nationId": 13,
+    "leagueId": 19,
+    "clubId": 1831,
     "card": [
-     71,
-     64,
-     33
-    ],
-    "chem": 3,
-    "eff": [
+     75,
      74,
-     67,
-     36
-    ],
-    "tiebreak": 174
-   },
-   {
-    "slot": "LW",
-    "id": "id237997",
-    "name": "Antuna",
-    "rating": 71,
-    "color": "rare_silver",
-    "position": "RW",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 1881,
-    "card": [
-     73,
-     65,
-     34
+     71
     ],
     "chem": 2,
     "eff": [
-     74,
-     66,
-     35
+     76,
+     75,
+     72
     ],
-    "tiebreak": 175
+    "tiebreak": 223
    },
    {
-    "slot": "ST",
-    "id": "id273934",
-    "name": "González",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "RW",
-    "nationId": 58,
-    "leagueId": 341,
-    "clubId": 110144,
-    "card": [
-     72,
-     69,
-     51
-    ],
-    "chem": 1,
-    "eff": [
-     72,
-     69,
-     51
-    ],
-    "tiebreak": 192
-   },
-   {
-    "slot": "RW",
+    "slot": "RM",
     "id": "id258730",
     "name": "Rodríguez",
     "rating": 72,
@@ -266,6 +241,29 @@
      58
     ],
     "tiebreak": 201
+   },
+   {
+    "slot": "ST",
+    "id": "id229286",
+    "name": "Skarke",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "ST",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 1831,
+    "card": [
+     74,
+     66,
+     49
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     68,
+     51
+    ],
+    "tiebreak": 195
    }
   ]
  },
@@ -301,17 +299,17 @@
  },
  "base_ids": [
   "id146296",
-  "id272228",
-  "id244394",
+  "id50407214",
+  "id222493",
   "id246352",
-  "id272234",
+  "id215449",
+  "id72364",
+  "id272047",
+  "id50572302",
   "id239335",
-  "id178088",
-  "id277269",
-  "id272138",
-  "id214942",
-  "id272047"
+  "id229286",
+  "id272138"
  ],
- "built": "2026-10-17 22:47 UTC",
+ "built": "2026-10-18 09:45 UTC",
  "week": "2026-10-19"
 }

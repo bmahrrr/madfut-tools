@@ -1,17 +1,14 @@
 {
- "g": 4,
+ "g": 1,
  "obj_ids": [
-  "id71557",
-  "id227102",
-  "id268513",
   "evo_Diomande_89"
  ],
- "strength": 100.1,
- "group_cards": 4,
+ "strength": 102.1,
+ "group_cards": 1,
  "reddit": [],
  "team": {
-  "formation": "4-2-4",
-  "chem": 30,
+  "formation": "4-2-1-3",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -38,26 +35,49 @@
    },
    {
     "slot": "LB",
-    "id": "id227323",
-    "name": "Reiten",
+    "id": "id50595413",
+    "name": "Bischof",
     "rating": 86,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 36,
-    "leagueId": 2221,
-    "clubId": 116310,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     83,
-     84,
-     84
+     87,
+     88,
+     78
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     85,
-     89,
-     86
+     90,
+     94,
+     81
     ],
-    "tiebreak": 254
+    "tiebreak": 259
+   },
+   {
+    "slot": "CB",
+    "id": "id1615",
+    "name": "Thuram",
+    "rating": 89,
+    "color": "icon",
+    "position": "RB",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     74,
+     75,
+     89
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     81,
+     92
+    ],
+    "tiebreak": 244
    },
    {
     "slot": "CB",
@@ -83,29 +103,6 @@
     "tiebreak": 258
    },
    {
-    "slot": "CB",
-    "id": "id50597687",
-    "name": "Pubill",
-    "rating": 89,
-    "color": "future_stars",
-    "position": "CB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 240,
-    "card": [
-     74,
-     77,
-     88
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     83,
-     91
-    ],
-    "tiebreak": 245
-   },
-   {
     "slot": "RB",
     "id": "ltm_espart89",
     "name": "Xavi Espart",
@@ -129,30 +126,30 @@
     "tiebreak": 261
    },
    {
-    "slot": "CM",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
+    "slot": "CDM",
+    "id": "id50568937",
+    "name": "Patri Guijarro",
+    "rating": 89,
+    "color": "totw_gold",
     "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
     "card": [
      87,
-     88,
-     78
+     86,
+     85
     ],
     "chem": 3,
     "eff": [
      90,
-     94,
-     81
+     92,
+     88
     ],
-    "tiebreak": 259
+    "tiebreak": 264
    },
    {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "evo_Can_89",
     "name": "Can",
     "rating": 89,
@@ -175,7 +172,76 @@
     "tiebreak": 262
    },
    {
+    "slot": "CAM",
+    "id": "id50600784",
+    "name": "Mainoo",
+    "rating": 89,
+    "color": "future_stars",
+    "position": "CDM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 11,
+    "card": [
+     83,
+     86,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     92,
+     90
+    ],
+    "tiebreak": 262
+   },
+   {
     "slot": "LW",
+    "id": "ltm_ngumoha89",
+    "name": "Ngumoha",
+    "rating": 89,
+    "color": "ltm",
+    "position": "LM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     89,
+     87,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     92,
+     93,
+     58
+    ],
+    "tiebreak": 237
+   },
+   {
+    "slot": "ST",
+    "id": "id1238",
+    "name": "Totti",
+    "rating": 89,
+    "color": "icon",
+    "position": "ST",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     89,
+     89,
+     45
+    ],
+    "chem": 3,
+    "eff": [
+     92,
+     95,
+     48
+    ],
+    "tiebreak": 229
+   },
+   {
+    "slot": "RW",
     "id": "evo_Diomande_89",
     "name": "Diomande",
     "rating": 89,
@@ -196,75 +262,6 @@
      56
     ],
     "tiebreak": 236
-   },
-   {
-    "slot": "ST",
-    "id": "id71557",
-    "name": "Bale",
-    "rating": 88,
-    "color": "icon",
-    "position": "RW",
-    "nationId": 50,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     88,
-     85,
-     66
-    ],
-    "chem": 3,
-    "eff": [
-     91,
-     91,
-     69
-    ],
-    "tiebreak": 245
-   },
-   {
-    "slot": "ST",
-    "id": "id268513",
-    "name": "Jairzinho",
-    "rating": 89,
-    "color": "icon",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     88,
-     85,
-     52
-    ],
-    "chem": 3,
-    "eff": [
-     91,
-     91,
-     55
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "RW",
-    "id": "id227102",
-    "name": "Graham Hansen",
-    "rating": 89,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 36,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
-     87,
-     88,
-     51
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     94,
-     54
-    ],
-    "tiebreak": 232
    }
   ]
  },
@@ -302,16 +299,16 @@
  "base_ids": [
   "id67329765",
   "id50595413",
-  "id266690",
-  "id77676",
+  "id138956",
+  "id1183",
+  "id261593",
   "id1615",
-  "evo_Can_89",
-  "id50600784",
   "ltm_espart89",
-  "id50592947",
-  "id227263",
-  "id166676"
+  "evo_Can_89",
+  "evo_Diomande_89",
+  "id167134",
+  "ltm_karetsas89"
  ],
- "built": "2026-10-17 22:47 UTC",
+ "built": "2026-10-18 09:45 UTC",
  "week": "2026-10-19"
 }
