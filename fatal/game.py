@@ -16,6 +16,7 @@ def _lib():
     L.level.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int]
     L.duelres.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
     L.outcome.argtypes = [ctypes.c_int, P, P, P, P]
+    L.margin.argtypes = [ctypes.c_int, P, P, P, P]
     return L
 
 
@@ -44,6 +45,22 @@ def play(a, b, first):
         if len(_cache) > 400000:
             _cache.clear()
         _cache[key] = v
+    return v
+
+
+_mcache = {}
+
+
+def margin(a, b, first):
+    """Exact final score difference for a (perfect play both sides). Finer than play(): a search signal."""
+    fa, fb, ta, tb, A, B, TA, TB = _arrs(a, b)
+    key = bytes(array.array("h", fa + fb + ta + tb + [first]))
+    v = _mcache.get(key)
+    if v is None:
+        v = L.margin(first, A, B, TA, TB)
+        if len(_mcache) > 400000:
+            _mcache.clear()
+        _mcache[key] = v
     return v
 
 

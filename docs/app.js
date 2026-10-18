@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261018d";
+const APP_V = "20261018e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -353,7 +353,7 @@ async function renderTeams() {
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
         <b>Reddit Reference Team</b>: the team posted on Reddit for this series (when added in Season Setup).<br>
         <b>Copy of This Team</b>: when the strongest stress test found is simply your own team (someone copying you).<br>
-        <b>Counter Teams</b>: stress tests. The builder searched every card under the cap for the team that does best against this one, improved this team, and repeated.<br>
+        <b>Counter Teams</b>: stress tests. Dozens of strong, different teams built from every card under the cap (every common formation, every way of splitting the 11 cards into attackers, controllers and defenders), plus teams searched to beat this one. The team was improved against all of them, and the search repeated.<br>
         <b>Fresh Stress Tests</b>: new counter teams searched after the team was finished and never used to build it — the honest check of how hard it is to beat.<br>
         <b>Final Check Teams</b>: stress tests built against the Reddit Team and the Hand-Built Team, so every option faces teams built to beat it. The team shown is whichever has the best worst case against all of these.<br>
         A counter team is built knowing exactly what you're using, so losing to one is a worst case, not what a normal opponent does.</p></details>`;
@@ -598,7 +598,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -624,7 +624,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261018d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261018e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -837,7 +837,7 @@ const NUM_KEYS = {   // key -> label
   min_card_rating: "Every player rated", max_card_rating: "Every player rated",
   min_nations: "Nations", max_nations: "Nations", min_leagues: "Leagues", max_leagues: "Leagues", min_clubs: "Clubs", max_clubs: "Clubs",
   min_same_nation: "Same nation", max_same_nation: "Same nation", min_same_league: "Same league", max_same_league: "Same league",
-  min_same_club: "Same club", max_same_club: "Same club" };
+  min_same_club: "Same club", max_same_club: "Same club", max_types: "Card types" };
 const SB = { items: [], exclude: [], last: null, lastReq: null, busy: false };
 const OPS = { ">=": "Min", "<=": "Max", "=": "Exactly" };
 const KIND = { nation: "Nation", league: "League", club: "Club", color: "Card type", rarity: "Rarity" };
@@ -867,12 +867,14 @@ function ruleText(r) {              // the game's own wording: "Olympiacos FC: M
 const GAME_NUM = { min_rating: "Squad Rating", min_chem: "Chemistry", min_player_chem: "Player Chemistry", min_types: "Card Types",
   min_card_rating: "Player Rating", max_card_rating: "Player Rating", min_nations: "Nations", max_nations: "Nations", min_leagues: "Leagues",
   max_leagues: "Leagues", min_clubs: "Clubs", max_clubs: "Clubs", min_same_nation: "Same Nation", max_same_nation: "Same Nation",
-  min_same_league: "Same League", max_same_league: "Same League", min_same_club: "Same Club", max_same_club: "Same Club" };
+  min_same_league: "Same League", max_same_league: "Same League", min_same_club: "Same Club", max_same_club: "Same Club", max_types: "Card Types" };
+const numBase = k => k.replace(/^(min|max|exact)_/, "");
 function itemText(it) {
   if (it.t === "rule") return ruleText(it.rule);
   if (it.t === "inc") { const c = BYID.get(it.id); return `Must include <b>${esc(c ? c.name + " " + c.rating : it.id)}</b>`; }
-  const mm = it.key.startsWith("max_") ? "Max" : "Min";
-  return `${GAME_NUM[it.key] || NUM_KEYS[it.key]}: <b>${mm} ${it.v}</b>`;
+  const mm = it.key.startsWith("max_") ? "Max" : it.key.startsWith("exact_") ? "Exactly" : "Min";
+  const k = it.key.startsWith("exact_") ? "min_" + numBase(it.key) : it.key;
+  return `${GAME_NUM[k] || NUM_KEYS[k]}: <b>${mm} ${it.v}</b>`;
 }
 let FORMS_CACHE = null;
 const ADD_TYPES = [            // each with how the line reads in the game
@@ -881,7 +883,7 @@ const ADD_TYPES = [            // each with how the line reads in the game
   ["ctype", "Players of a card type — e.g. TOTW: Min 1, ICON: Max 1, Gold: Min 11"],
   ["count", "Number of nations / leagues / clubs — e.g. Nations: Min 5, Clubs: Max 4"],
   ["same", "Players from the same nation / league / club — e.g. Same Nation: Min 3, Same Club: Max 2"],
-  ["min_player_chem", "Chemistry per player — e.g. Player Chemistry: Min 2"], ["min_types", "Number of card types — e.g. Card Types: Min 5"],
+  ["min_player_chem", "Chemistry per player — e.g. Player Chemistry: Min 2"], ["types", "Number of card types — e.g. Card Types: Min 5"],
   ["prating", "Every player's rating — e.g. Player Rating: Min 80"], ["inc", "Must include a specific player"]];
 function setupSBC() {
   $("sbcForm").innerHTML = Object.keys(FORMS_CACHE || {}).map(f => `<option>${f}</option>`).join("") + `<option value="any">Any (slower)</option>`;
@@ -900,20 +902,25 @@ function setupSBC() {
 }
 function closeAdd() { $("sbcAdd").hidden = true; $("sbcAddBtn").hidden = false; }
 function addItem(it) {
-  if (it.t === "num") SB.items = SB.items.filter(x => !(x.t === "num" && x.key === it.key));
+  // one line per requirement: Min and Max can sit together, Exactly replaces both (and is replaced by either)
+  if (it.t === "num") SB.items = SB.items.filter(x => !(x.t === "num" && numBase(x.key) === numBase(it.key) &&
+    (x.key === it.key || x.key.startsWith("exact_") || it.key.startsWith("exact_"))));
   SB.items.push(it); closeAdd(); drawSBCForm(); saveSBC();
 }
 const numBox = (id, val = "") => `<input type="number" inputmode="numeric" id="${id}" min="0" value="${val}" style="width:80px">`;
-const minMax = id => `<select id="${id}"><option value="min">Min</option><option value="max">Max</option></select>`;
+const minMax = id => `<select id="${id}"><option value="min">Min</option><option value="max">Max</option><option value="exact">Exactly</option></select>`;
 function drawAddBody() {
   const t = $("aType").value, box = $("aBody");
   const addBtn = `<button class="btn" id="aOk">Add</button> <button class="ghost" id="aCancel">Cancel</button>`;
   const done = () => { const c = $("aCancel"); if (c) c.onclick = closeAdd; };
   if (!t) { box.innerHTML = `<button class="ghost" id="aCancel">Cancel</button>`; done(); return; }
-  if (["min_rating", "min_chem", "min_player_chem", "min_types"].includes(t)) {
+  if (["min_rating", "min_chem", "min_player_chem"].includes(t)) {
     box.innerHTML = `<div class="row">Min ${numBox("aN")} ${addBtn}</div>`; done();
     $("aN").focus();
     $("aOk").onclick = () => { const v = +$("aN").value; if (v > 0) addItem({ t: "num", key: t, v }); };
+  } else if (t === "types") {
+    box.innerHTML = `<div class="row">${minMax("aM")} ${numBox("aN")} ${addBtn}</div>`; done();
+    $("aOk").onclick = () => { const v = +$("aN").value; if (v > 0) addItem({ t: "num", key: $("aM").value + "_types", v }); };
   } else if (t === "prating") {
     box.innerHTML = `<div class="row">${minMax("aM")} ${numBox("aN")} ${addBtn}</div>`; done();
     $("aOk").onclick = () => { const v = +$("aN").value; if (v > 0) addItem({ t: "num", key: $("aM").value + "_card_rating", v }); };
@@ -969,7 +976,8 @@ function readReq() {
   const req = { formation: $("sbcForm").value, priority: $("sbcPr").value, allow_specials: $("sbcSp").checked, allow_icons: $("sbcIc").checked,
     rules: [], include: [], exclude: SB.exclude.slice() };
   for (const it of SB.items) {
-    if (it.t === "num") req[it.key] = it.v;
+    if (it.t === "num" && it.key.startsWith("exact_")) req["min_" + numBase(it.key)] = req["max_" + numBase(it.key)] = it.v;
+    else if (it.t === "num") req[it.key] = it.v;
     else if (it.t === "rule") req.rules.push(it.rule);
     else if (it.t === "inc") req.include.push(it.id);
   }
@@ -984,7 +992,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018d");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1024,6 +1032,7 @@ function sbcChecks(req, sq) {
   if (req.min_chem) add(`Squad chem ${ch.reduce((a, b) => a + b, 0)} (min ${req.min_chem})`, ch.reduce((a, b) => a + b, 0) >= req.min_chem);
   if (req.min_player_chem) add(`Lowest player chem ${Math.min(...ch)} (min ${req.min_player_chem})`, Math.min(...ch) >= req.min_player_chem);
   if (req.min_types) add(`Card types ${cnt(sbcType)} (min ${req.min_types})`, cnt(sbcType) >= req.min_types);
+  if (req.max_types) add(`Card types ${cnt(sbcType)} (max ${req.max_types})`, cnt(sbcType) <= req.max_types);
   if (req.min_card_rating) add(`Lowest player ${Math.min(...sq.map(x => x.rating))} (min ${req.min_card_rating})`, sq.every(x => x.rating >= req.min_card_rating));
   if (req.max_card_rating) add(`Highest player ${Math.max(...sq.map(x => x.rating))} (max ${req.max_card_rating})`, sq.every(x => x.rating <= req.max_card_rating));
   for (const [kind, key] of [["nation", "nationId"], ["league", "leagueId"], ["club", "clubId"]]) {

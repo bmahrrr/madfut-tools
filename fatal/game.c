@@ -119,3 +119,17 @@ int outcome(int f, const int*a, const int*b, const int*ta, const int*tb){
     THR = 0; if (!win(full, full, 0, 1)) return -1;
     THR = 1; return win(full, full, 0, 2) ? 1 : 0;
 }
+// Exact final score difference for A (perfect play from both sides), by binary search on the threshold.
+// Used as a finer search signal than win/draw/loss (a loss by 1 is closer to a draw than a loss by 4).
+int margin(int f, const int*a, const int*b, const int*ta, const int*tb){
+    setup(f,a,b,ta,tb);
+    int full = (1<<N)-1, lo = -12, hi = 12;     // A can force >= lo, cannot force >= hi
+    THR = 1; if (win(full, full, 0, 2)) lo = 1; else hi = 1;
+    if (lo == -12){ THR = 0; if (win(full, full, 0, 1)) lo = 0; else hi = 0; }
+    int t = 0;
+    while (hi - lo > 1){
+        int m = (lo + hi) >> 1; if (m == lo) m++;
+        bump(); THR = m; if (win(full, full, 0, 3)) lo = m; else hi = m; t++;
+    }
+    return lo;
+}

@@ -9,7 +9,7 @@ time (with a second swap to repair chem when needed), and stop as soon as no swa
 Duels: as many as are safe (can be 0 -> series skipped). Matches: at least `min`, or the series is skipped.
 """
 import random, time
-from .myclub import Pool, fits, secondary
+from .myclub import Pool, fits, stat_strength as secondary
 from .game import play
 
 KEY = {"club": "clubId", "nation": "nationId", "league": "leagueId"}
