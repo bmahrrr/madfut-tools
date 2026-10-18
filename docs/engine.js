@@ -53,7 +53,7 @@ function squadBonus(team, bonuses) {
   return out;
 }
 
-// returns [{a,c,d,t,chem}] — in-game stats after boosts + chem, and tiebreak total (card total + chem)
+// returns [{a,c,d,t,chem}]: in-game stats after boosts + chem, and tiebreak total (card total + chem)
 function effective(team, series, fullChem = false) {
   const ch = fullChem ? team.map(() => 3) : chem(team);
   const sb = squadBonus(team, series && series.bonuses);
