@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261019c">
+<meta name="app-version" content="20261019d">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#150f12">
@@ -94,6 +94,20 @@ code{background:var(--field);padding:1px 6px;font-size:13px;color:var(--gold)}
 .minebar{border-left:3px solid var(--gold);background:linear-gradient(90deg,rgba(255,178,30,.10),transparent);padding:10px 12px;margin:4px 0 10px}
 .plan{border-left:3px solid var(--fire);background:linear-gradient(90deg,rgba(255,91,34,.10),transparent);padding:10px 12px 8px;margin:6px 0 12px}
 .plan>summary{font:700 17px/1 var(--display);letter-spacing:.9px;text-transform:uppercase;color:var(--gold)}
+.gp .gtiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px}
+.gp .gtile{background:var(--field);border:1px solid var(--line);padding:8px 10px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.gp .gtile>span{font:700 12px/1 var(--display);letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.gp .gtile small{color:var(--muted);font-size:11.5px}.gp .gsm{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gp .gtile .pill{align-self:flex-start}
+.gp .gsec{margin-top:12px}.gp h4{font:700 13px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.gp .gchips{display:flex;flex-wrap:wrap;gap:6px}.gp .gchip{display:inline-flex;align-items:center;gap:6px;background:#2a1a17;border:1px solid #4a2a20;padding:5px 8px;font-size:13px}
+.gtag{font:700 11.5px/1 var(--display);letter-spacing:.5px;padding:3px 5px 2px;background:var(--field);border-bottom:2px solid;white-space:nowrap}
+.gtag.a{border-color:var(--win)}.gtag.c{border-color:#4aa3ff}.gtag.d{border-color:var(--loss)}
+.gp .glist{display:flex;flex-direction:column;gap:4px;margin-bottom:6px}.gp .grow{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:10px;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--line)}
+.gp .gtx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.gp .grow .gtag{text-align:center}.gp .gwin{color:var(--win);font-weight:700;font-size:12.5px}
+.gp .glose{color:var(--muted);font-size:12.5px}.gp .glose b{color:var(--text);font-weight:600}.gp .glose i{font-style:normal;opacity:.8}
+.gp .gnote{margin:6px 0 0}
 .chip{display:inline-block;background:#2a1a17;border:1px solid #4a2a20;color:var(--text);padding:6px 10px;font-size:13px;font-weight:600;margin:2px 4px 2px 0}
 .chip>span{line-height:1.35}
 .opp{border-bottom:1px solid var(--line);padding:2px 0}
@@ -337,8 +351,8 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261019c"></script>
-<script src="sbc-solver.js?v=20261019c"></script>
-<script src="app.js?v=20261019c"></script>
+<script src="engine.js?v=20261019d"></script>
+<script src="sbc-solver.js?v=20261019d"></script>
+<script src="app.js?v=20261019d"></script>
 </body>
 </html>
