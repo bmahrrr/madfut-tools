@@ -66,6 +66,8 @@ jobs:
         with:
           name: sim_${{ matrix.key }}
           path: docs/results/sim_${{ matrix.key }}.json
+      - name: Publish this team now
+        run: bash scripts/publish_one.sh "docs/results/sim_${{ matrix.key }}.json" || echo "early publish failed; the final step publishes it"
 
   myclub:
     needs: plan
@@ -90,6 +92,8 @@ jobs:
         with:
           name: myclub_${{ matrix.key }}
           path: docs/results/myclub_${{ matrix.key }}.json
+      - name: Publish this team now
+        run: bash scripts/publish_one.sh "docs/results/myclub_${{ matrix.key }}.json" || echo "early publish failed; the final step publishes it"
 
   publish:
     needs: [sim, myclub]
