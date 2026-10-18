@@ -197,10 +197,15 @@ function buildLP(req, cands, slots, rsum) {
       row(ws.map(w => [1, w]), ">=", 1);
     }
   }
-  if (req.min_types) {
+  if (req.min_types || req.max_types) {
     const vs = [];
-    for (const ids of groupBy(sbcType).values()) { const v = "u" + uc++; ints.push(v); vs.push(v); row([[1, v], ...ysum(ids).map(([, x]) => [-1, x])], "<=", 0); }
-    row(vs.map(v => [1, v]), ">=", req.min_types);
+    for (const ids of groupBy(sbcType).values()) {
+      const v = "u" + uc++, t = ysum(ids); ints.push(v); vs.push(v);
+      if (req.min_types) row([[1, v], ...t.map(([, x]) => [-1, x])], "<=", 0);
+      if (req.max_types) t.forEach(([, x]) => row([[1, v], [-1, x]], ">=", 0));
+    }
+    if (req.min_types) row(vs.map(v => [1, v]), ">=", req.min_types);
+    if (req.max_types) row(vs.map(v => [1, v]), "<=", req.max_types);
   }
   for (const r of req.rules || []) {
     const t = ysum(used.filter(i => ruleMatch(cands[i], r)));
@@ -292,7 +297,7 @@ function annealSBC(req, cands, slots, opts = {}) {
       if (lo || hi) { const d = distinct(arr); if (lo && d < lo) pen += lo - d; if (hi && d > hi) pen += d - hi; }
       if (ms || mn) { const b = most(arr); if (ms && b > ms) pen += b - ms; if (mn && b < mn) pen += mn - b; }
     }
-    if (req.min_types) { const d = distinct(TY); if (d < req.min_types) pen += req.min_types - d; }
+    if (req.min_types || req.max_types) { const d = distinct(TY); if (req.min_types && d < req.min_types) pen += req.min_types - d; if (req.max_types && d > req.max_types) pen += d - req.max_types; }
     for (const id of incl) if (!sq.some(i => cands[i].id === id)) pen += 3;
     return { cost: c0, pen, score: c0 + W * pen };
   }
@@ -443,6 +448,7 @@ function validSBC(req, sq) {
   if (req.min_chem && chem < req.min_chem) return false;
   if (req.min_player_chem && ch.some(h => h < req.min_player_chem)) return false;
   if (req.min_types && new Set(sq.map(sbcType)).size < req.min_types) return false;
+  if (req.max_types && new Set(sq.map(sbcType)).size > req.max_types) return false;
   if (req.min_card_rating && sq.some(x => x.rating < req.min_card_rating)) return false;
   if (req.max_card_rating && sq.some(x => x.rating > req.max_card_rating)) return false;
   for (const [kind, key] of [["nation", "nationId"], ["league", "leagueId"], ["club", "clubId"]]) {
