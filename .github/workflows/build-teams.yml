@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       only:
-        description: "What to build: all, sim, myclub, or one series like myclub:79 or sim:84"
+        description: "What to build: all, sim, myclub, or series like myclub:79,sim:84 (myclub:79--noltmevo = only its No LTMs or Evos version)"
         default: "all"
       minutes:
         description: "My Club search minutes per series (empty = the series setting)"
