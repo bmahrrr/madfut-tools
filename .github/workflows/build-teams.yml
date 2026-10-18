@@ -143,7 +143,7 @@ jobs:
           path: artifacts
       - name: Collect results
         run: |
-          mkdir -p docs/results
+          mkdir -p docs/results artifacts
           python3 scripts/build.py archive
           find artifacts -name '*.json' -exec cp {} docs/results/ \;
           python3 scripts/build.py index
@@ -170,7 +170,7 @@ jobs:
           path: artifacts
       - name: Collect results
         run: |
-          mkdir -p docs/results
+          mkdir -p docs/results artifacts
           python3 scripts/build.py archive
           find artifacts -name '*.json' -exec cp {} docs/results/ \;
           python3 scripts/build.py index
