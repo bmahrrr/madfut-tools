@@ -1,38 +1,85 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
   "id239818",
-  "id1025"
+  "id1025",
+  "id50593503"
  ],
- "strength": 100.1,
+ "strength": 99.6,
  "group_cards": 4,
  "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 31,
+  "formation": "4-1-4-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id191694",
-    "name": "Campos",
-    "rating": 87,
-    "color": "hero",
+    "id": "id234577",
+    "name": "Diogo Costa",
+    "rating": 86,
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 114605,
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 236,
     "card": [
-     77,
-     68,
-     88
+     36,
+     38,
+     86
+    ],
+    "chem": 2,
+    "eff": [
+     37,
+     39,
+     87
+    ],
+    "tiebreak": 163
+   },
+   {
+    "slot": "LB",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     87,
+     88,
+     78
     ],
     "chem": 3,
     "eff": [
-     79,
-     70,
-     90
+     89,
+     90,
+     80
     ],
-    "tiebreak": 239
+    "tiebreak": 259
+   },
+   {
+    "slot": "CB",
+    "id": "id239818",
+    "name": "Rúben Dias",
+    "rating": 87,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 13,
+    "clubId": 10,
+    "card": [
+     59,
+     69,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     61,
+     71,
+     88
+    ],
+    "tiebreak": 220
    },
    {
     "slot": "CB",
@@ -58,50 +105,50 @@
     "tiebreak": 253
    },
    {
-    "slot": "CB",
-    "id": "id50559326",
-    "name": "Konsa",
-    "rating": 86,
-    "color": "destined_for_glory",
-    "position": "CB",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1,
+    "slot": "RB",
+    "id": "id50542162",
+    "name": "João Cancelo",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "RB",
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
-     71,
-     76,
-     86
+     82,
+     84,
+     83
     ],
     "chem": 3,
     "eff": [
-     74,
-     78,
-     90
+     84,
+     86,
+     85
     ],
-    "tiebreak": 239
+    "tiebreak": 255
    },
    {
-    "slot": "CB",
-    "id": "id239818",
-    "name": "Rúben Dias",
-    "rating": 87,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 38,
+    "slot": "CDM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
     "leagueId": 13,
-    "clubId": 10,
+    "clubId": 1943,
     "card": [
-     59,
-     69,
-     86
+     85,
+     88,
+     81
     ],
     "chem": 3,
     "eff": [
-     61,
-     71,
-     88
+     87,
+     90,
+     83
     ],
-    "tiebreak": 220
+    "tiebreak": 260
    },
    {
     "slot": "LM",
@@ -128,49 +175,49 @@
    },
    {
     "slot": "CM",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "id": "id1025",
+    "name": "Rui Costa",
+    "rating": 87,
+    "color": "hero",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 114605,
     "card": [
-     87,
-     88,
-     78
+     84,
+     86,
+     48
     ],
     "chem": 3,
     "eff": [
-     89,
-     90,
-     80
+     86,
+     88,
+     50
     ],
-    "tiebreak": 259
+    "tiebreak": 224
    },
    {
     "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
     "color": "future_stars",
-    "position": "CM",
+    "position": "CAM",
     "nationId": 14,
     "leagueId": 13,
-    "clubId": 1943,
+    "clubId": 144,
     "card": [
-     85,
-     88,
-     81
+     86,
+     87,
+     69
     ],
     "chem": 3,
     "eff": [
-     87,
-     90,
-     83
+     88,
+     89,
+     71
     ],
-    "tiebreak": 260
+    "tiebreak": 248
    },
    {
     "slot": "RM",
@@ -196,52 +243,6 @@
     "tiebreak": 251
    },
    {
-    "slot": "CAM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CAM",
-    "id": "id1025",
-    "name": "Rui Costa",
-    "rating": 87,
-    "color": "hero",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 114605,
-    "card": [
-     84,
-     86,
-     48
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     88,
-     50
-    ],
-    "tiebreak": 224
-   },
-   {
     "slot": "ST",
     "id": "id50593503",
     "name": "Kika Nazareth",
@@ -256,13 +257,13 @@
      85,
      66
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     86,
-     85,
-     66
+     88,
+     87,
+     68
     ],
-    "tiebreak": 237
+    "tiebreak": 243
    }
   ]
  },
@@ -298,17 +299,17 @@
  },
  "base_ids": [
   "id191694",
-  "id50752",
-  "id5740",
   "id50559326",
+  "id5740",
+  "id16619",
   "id50601349",
-  "id28765",
-  "id50554313",
-  "id15723",
-  "id50592947",
   "id50595413",
+  "id50592947",
+  "id15723",
+  "id50554313",
+  "id50402434",
   "id10704"
  ],
- "built": "2026-10-18 09:45 UTC",
+ "built": "2026-10-18 12:01 UTC",
  "week": "2026-10-19"
 }
