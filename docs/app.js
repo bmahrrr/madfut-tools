@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261018g";
+const APP_V = "20261018h";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -365,8 +365,10 @@ async function renderTeams() {
           let vw = null;
           for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
             if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
-          html += `<details class="oteam vteam"><summary><b>${esc(lab)} Version</b><span class="small muted">for players without ${esc((vd.not_owned || []).join(", ") || lab)}</span><span class="ores">${vw ? pill(vw.r) : ""}</span></summary>
-            <p class="meta" style="margin:6px 0">${esc(vt.formation || "")} · ${vt.chem} chem · same deep search, built without those cards. It still has to face opponents who own them.</p>
+          const gone = vd.not_owned || [];
+          html += `<details class="oteam vteam"><summary><b>${esc(lab)} Version</b><span class="small muted">for players who don't own them${vd.same_as_full ? " · same as the full team" : ""}</span><span class="ores">${vw ? pill(vw.r) : ""}</span></summary>
+            <p class="meta" style="margin:6px 0">${esc(vt.formation || "")} · ${vt.chem} chem · ${vd.same_as_full ? "the full team already uses none of these cards, so it's the best team without them too." : "same deep search, built without these cards. It still has to face opponents who own them."}</p>
+            ${gone.length && !vd.same_as_full ? `<p class="small muted" style="margin:0 0 6px">Left out: ${esc(gone.slice(0, 12).join(", "))}${gone.length > 12 ? ` and ${gone.length - 12} more` : ""}</p>` : ""}
             ${vw ? `<div class="score">${box("Worst Case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who} · ${Object.keys(vt.results || {}).length} opponents`)}</div>` : ""}
             ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
         } catch (e) {}
@@ -612,7 +614,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261018h"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -638,7 +640,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261018g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261018h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1006,7 +1008,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018g");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261018h");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
