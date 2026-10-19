@@ -3,14 +3,19 @@
  "obj_ids": [
   "id210385",
   "id50542162",
-  "id20801",
   "id50574092",
-  "id218667",
-  "id50605554"
+  "id20801",
+  "id50605554",
+  "id218667"
  ],
  "strength": 101.2,
  "group_cards": 9,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
   "formation": "4-1-2-1-2",
   "chem": 31,
@@ -63,29 +68,6 @@
    },
    {
     "slot": "CB",
-    "id": "id50605554",
-    "name": "Renato Veiga",
-    "rating": 84,
-    "color": "destined_for_glory",
-    "position": "CB",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 483,
-    "card": [
-     74,
-     77,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     80,
-     86
-    ],
-    "tiebreak": 240
-   },
-   {
-    "slot": "CB",
     "id": "id67377753",
     "name": "Álvaro Carreras",
     "rating": 83,
@@ -106,6 +88,29 @@
      85
     ],
     "tiebreak": 247
+   },
+   {
+    "slot": "CB",
+    "id": "id50605554",
+    "name": "Renato Veiga",
+    "rating": 84,
+    "color": "destined_for_glory",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 483,
+    "card": [
+     74,
+     77,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     80,
+     86
+    ],
+    "tiebreak": 240
    },
    {
     "slot": "RB",
@@ -303,16 +308,16 @@
  "base_ids": [
   "id227204",
   "id50542162",
-  "id50564136",
   "id240130",
+  "id50564136",
   "id231281",
   "id50529429",
-  "id50588927",
-  "id50572365",
   "id50596036",
-  "id50416920",
-  "id67352494"
+  "id50572365",
+  "id50588927",
+  "id67352494",
+  "id50416920"
  ],
- "built": "2026-10-19 03:04 UTC",
+ "built": "2026-10-19 07:53 UTC",
  "week": "2026-10-19"
 }

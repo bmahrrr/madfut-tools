@@ -1,40 +1,45 @@
 {
  "g": 4,
  "obj_ids": [
-  "id223334",
   "id258648",
-  "id80170",
-  "id259075"
+  "id236499",
+  "id230658",
+  "id80170"
  ],
- "strength": 100.5,
+ "strength": 103.0,
  "group_cards": 453,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "4-2-3-1 (2)",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id50560437",
-    "name": "Robert Sánchez",
+    "id": "id240091",
+    "name": "Vicario",
     "rating": 80,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 45,
+    "nationId": 27,
     "leagueId": 31,
-    "clubId": 1745,
+    "clubId": 45,
     "card": [
-     39,
-     39,
+     38,
+     42,
      81
     ],
     "chem": 3,
     "eff": [
-     41,
-     41,
+     40,
+     44,
      85
     ],
-    "tiebreak": 165
+    "tiebreak": 167
    },
    {
     "slot": "LB",
@@ -130,26 +135,49 @@
    },
    {
     "slot": "CDM",
-    "id": "id50603785",
-    "name": "Sara Ortega",
-    "rating": 80,
-    "color": "totw_gold",
-    "position": "LM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 448,
+    "id": "id230658",
+    "name": "Arthur",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     81,
-     80,
-     62
+     74,
+     79,
+     71
     ],
     "chem": 3,
     "eff": [
-     83,
-     82,
-     64
+     76,
+     81,
+     75
     ],
-    "tiebreak": 229
+    "tiebreak": 230
+   },
+   {
+    "slot": "CDM",
+    "id": "id236499",
+    "name": "Douglas Luiz",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     76,
+     79,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     81,
+     79
+    ],
+    "tiebreak": 236
    },
    {
     "slot": "LM",
@@ -175,96 +203,73 @@
     "tiebreak": 240
    },
    {
-    "slot": "CM",
-    "id": "id246287",
-    "name": "Ángela Sosa",
+    "slot": "CAM",
+    "id": "id67388037",
+    "name": "Mastantuono",
     "rating": 80,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 116334,
+    "color": "totw_gold",
+    "position": "RM",
+    "nationId": 52,
+    "leagueId": 31,
+    "clubId": 110374,
     "card": [
-     79,
-     82,
-     63
+     80,
+     80,
+     55
     ],
     "chem": 3,
     "eff": [
-     81,
-     84,
-     65
+     82,
+     82,
+     59
     ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CM",
-    "id": "id223334",
-    "name": "Joelinton",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 13,
-    "card": [
-     75,
-     76,
-     82
-    ],
-    "chem": 1,
-    "eff": [
-     75,
-     76,
-     82
-    ],
-    "tiebreak": 233
+    "tiebreak": 221
    },
    {
     "slot": "RM",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
+    "id": "id216409",
+    "name": "Politano",
+    "rating": 80,
     "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
+    "position": "RW",
+    "nationId": 27,
     "leagueId": 31,
-    "clubId": 1745,
+    "clubId": 48,
     "card": [
-     75,
      80,
-     75
+     80,
+     55
     ],
     "chem": 3,
     "eff": [
-     77,
      82,
-     79
+     82,
+     59
     ],
-    "tiebreak": 236
+    "tiebreak": 221
    },
    {
     "slot": "ST",
-    "id": "id262545",
-    "name": "Amaiur Sarriegi",
+    "id": "id50564059",
+    "name": "Nkunku",
     "rating": 80,
     "color": "rare_gold",
     "position": "ST",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 240,
+    "nationId": 18,
+    "leagueId": 19,
+    "clubId": 112172,
     "card": [
      81,
-     78,
-     52
+     79,
+     43
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
      83,
-     80,
-     54
+     81,
+     45
     ],
-    "tiebreak": 217
+    "tiebreak": 206
    }
   ]
  },
@@ -301,17 +306,17 @@
  },
  "base_ids": [
   "id50560437",
-  "id261865",
   "id230918",
   "id226851",
   "id232756",
-  "id243702",
-  "id243593",
-  "id246287",
-  "id50603785",
+  "id74774",
+  "id261865",
+  "id244050",
+  "id50540109",
   "evo_Lucas Vázquez_80",
-  "id262545"
+  "id50594290",
+  "id266886"
  ],
- "built": "2026-10-19 03:04 UTC",
+ "built": "2026-10-19 07:53 UTC",
  "week": "2026-10-19"
 }

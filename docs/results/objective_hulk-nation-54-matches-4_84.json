@@ -3,12 +3,17 @@
  "obj_ids": [
   "id210257",
   "id240130",
-  "id272009",
-  "id226890"
+  "id266866",
+  "id272009"
  ],
- "strength": 101.6,
+ "strength": 101.4,
  "group_cards": 480,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
   "formation": "4-1-4-1",
   "chem": 29,
@@ -130,26 +135,26 @@
    },
    {
     "slot": "CDM",
-    "id": "ltm_espart84",
-    "name": "Xavi Espart",
+    "id": "id50529429",
+    "name": "Isco",
     "rating": 84,
-    "color": "ltm",
-    "position": "RB",
+    "color": "totw_gold",
+    "position": "CAM",
     "nationId": 45,
     "leagueId": 53,
-    "clubId": 241,
+    "clubId": 449,
     "card": [
-     76,
      82,
-     83
+     85,
+     59
     ],
     "chem": 3,
     "eff": [
-     79,
-     85,
-     86
+     87,
+     89,
+     62
     ],
-    "tiebreak": 247
+    "tiebreak": 232
    },
    {
     "slot": "LM",
@@ -176,29 +181,6 @@
    },
    {
     "slot": "CM",
-    "id": "id50529429",
-    "name": "Isco",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     82,
-     85,
-     59
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     89,
-     62
-    ],
-    "tiebreak": 232
-   },
-   {
-    "slot": "CM",
     "id": "id50596036",
     "name": "Moleiro",
     "rating": 84,
@@ -219,6 +201,29 @@
      59
     ],
     "tiebreak": 228
+   },
+   {
+    "slot": "CM",
+    "id": "id266866",
+    "name": "Éderson",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 115845,
+    "card": [
+     77,
+     78,
+     80
+    ],
+    "chem": 1,
+    "eff": [
+     77,
+     78,
+     80
+    ],
+    "tiebreak": 235
    },
    {
     "slot": "RM",
@@ -245,26 +250,26 @@
    },
    {
     "slot": "ST",
-    "id": "id226890",
-    "name": "Marta",
+    "id": "id230142",
+    "name": "Oyarzabal",
     "rating": 84,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 54,
-    "leagueId": 2221,
-    "clubId": 112606,
+    "position": "ST",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 457,
     "card": [
-     83,
-     83,
-     46
+     84,
+     81,
+     48
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     83,
-     83,
-     46
+     87,
+     84,
+     51
     ],
-    "tiebreak": 212
+    "tiebreak": 219
    }
   ]
  },
@@ -302,16 +307,16 @@
  "base_ids": [
   "id227204",
   "id50542162",
-  "id50564136",
   "id240130",
+  "id50564136",
   "id231281",
   "id50529429",
-  "id50588927",
-  "id50572365",
   "id50596036",
-  "id50416920",
-  "id67352494"
+  "id50572365",
+  "id50588927",
+  "id67352494",
+  "id50416920"
  ],
- "built": "2026-10-19 03:04 UTC",
+ "built": "2026-10-19 07:53 UTC",
  "week": "2026-10-19"
 }

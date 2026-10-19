@@ -5,9 +5,14 @@
   "id1025",
   "id50593503"
  ],
- "strength": 99.6,
+ "strength": 100.1,
  "group_cards": 4,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
   "formation": "4-1-4-1",
   "chem": 32,
@@ -175,29 +180,6 @@
    },
    {
     "slot": "CM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CM",
     "id": "id1025",
     "name": "Rui Costa",
     "rating": 87,
@@ -218,6 +200,29 @@
      50
     ],
     "tiebreak": 224
+   },
+   {
+    "slot": "CM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
+    "card": [
+     86,
+     87,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     89,
+     71
+    ],
+    "tiebreak": 248
    },
    {
     "slot": "RM",
@@ -299,17 +304,17 @@
  },
  "base_ids": [
   "id191694",
-  "id16619",
   "id5740",
   "id50559326",
+  "id16619",
+  "id50595413",
   "id50601349",
-  "id50402434",
+  "id50592947",
   "id50554313",
   "id15723",
-  "id50592947",
-  "id50595413",
-  "id10704"
+  "id10704",
+  "id330"
  ],
- "built": "2026-10-19 03:04 UTC",
+ "built": "2026-10-19 07:53 UTC",
  "week": "2026-10-19"
 }

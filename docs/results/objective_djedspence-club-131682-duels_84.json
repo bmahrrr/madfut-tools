@@ -5,7 +5,12 @@
  ],
  "strength": 102.1,
  "group_cards": 1,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
   "formation": "4-1-4-1",
   "chem": 31,
@@ -58,6 +63,29 @@
    },
    {
     "slot": "CB",
+    "id": "id50605554",
+    "name": "Renato Veiga",
+    "rating": 84,
+    "color": "destined_for_glory",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 483,
+    "card": [
+     74,
+     77,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     80,
+     86
+    ],
+    "tiebreak": 240
+   },
+   {
+    "slot": "CB",
     "id": "id67377753",
     "name": "Álvaro Carreras",
     "rating": 83,
@@ -78,29 +106,6 @@
      85
     ],
     "tiebreak": 247
-   },
-   {
-    "slot": "CB",
-    "id": "id50564136",
-    "name": "Romero",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CB",
-    "nationId": 52,
-    "leagueId": 53,
-    "clubId": 240,
-    "card": [
-     63,
-     66,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     68,
-     70,
-     88
-    ],
-    "tiebreak": 220
    },
    {
     "slot": "RB",
@@ -173,29 +178,6 @@
    },
    {
     "slot": "CM",
-    "id": "id50529429",
-    "name": "Isco",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     82,
-     85,
-     59
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     89,
-     62
-    ],
-    "tiebreak": 232
-   },
-   {
-    "slot": "CM",
     "id": "id50596036",
     "name": "Moleiro",
     "rating": 84,
@@ -216,6 +198,29 @@
      59
     ],
     "tiebreak": 228
+   },
+   {
+    "slot": "CM",
+    "id": "id50529429",
+    "name": "Isco",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 449,
+    "card": [
+     82,
+     85,
+     59
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     89,
+     62
+    ],
+    "tiebreak": 232
    },
    {
     "slot": "RM",
@@ -298,16 +303,16 @@
  "base_ids": [
   "id227204",
   "id50542162",
-  "id50564136",
   "id240130",
+  "id50564136",
   "id231281",
   "id50529429",
-  "id50588927",
-  "id50572365",
   "id50596036",
-  "id50416920",
-  "id67352494"
+  "id50572365",
+  "id50588927",
+  "id67352494",
+  "id50416920"
  ],
- "built": "2026-10-19 03:04 UTC",
+ "built": "2026-10-19 07:53 UTC",
  "week": "2026-10-19"
 }

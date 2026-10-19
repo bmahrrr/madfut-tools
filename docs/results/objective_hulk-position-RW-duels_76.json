@@ -5,7 +5,12 @@
  ],
  "strength": 101.1,
  "group_cards": 2,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
   "formation": "3-4-2-1",
   "chem": 33,
@@ -32,6 +37,29 @@
      80
     ],
     "tiebreak": 155
+   },
+   {
+    "slot": "CB",
+    "id": "id256942",
+    "name": "Martel",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 169,
+    "card": [
+     62,
+     68,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     65,
+     72,
+     79
+    ],
+    "tiebreak": 212
    },
    {
     "slot": "CB",
@@ -80,29 +108,6 @@
     "tiebreak": 229
    },
    {
-    "slot": "CB",
-    "id": "id256942",
-    "name": "Martel",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 169,
-    "card": [
-     62,
-     68,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     65,
-     72,
-     79
-    ],
-    "tiebreak": 212
-   },
-   {
     "slot": "LM",
     "id": "id263041",
     "name": "Prass",
@@ -127,29 +132,6 @@
    },
    {
     "slot": "CM",
-    "id": "id203483",
-    "name": "Klaassen",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 34,
-    "leagueId": 10,
-    "clubId": 245,
-    "card": [
-     75,
-     71,
-     72
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     73,
-     74
-    ],
-    "tiebreak": 224
-   },
-   {
-    "slot": "CM",
     "id": "id210324",
     "name": "Hofmann",
     "rating": 76,
@@ -170,6 +152,29 @@
      66
     ],
     "tiebreak": 220
+   },
+   {
+    "slot": "CM",
+    "id": "id203483",
+    "name": "Klaassen",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     75,
+     71,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     73,
+     74
+    ],
+    "tiebreak": 224
    },
    {
     "slot": "RM",
@@ -196,29 +201,6 @@
    },
    {
     "slot": "CAM",
-    "id": "id276602",
-    "name": "Ouédraogo",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 112172,
-    "card": [
-     78,
-     78,
-     60
-    ],
-    "chem": 3,
-    "eff": [
-     81,
-     82,
-     63
-    ],
-    "tiebreak": 222
-   },
-   {
-    "slot": "CAM",
     "id": "id200260",
     "name": "Berghuis",
     "rating": 76,
@@ -239,6 +221,29 @@
      46
     ],
     "tiebreak": 204
+   },
+   {
+    "slot": "CAM",
+    "id": "id276602",
+    "name": "Ouédraogo",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 112172,
+    "card": [
+     78,
+     78,
+     60
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     82,
+     63
+    ],
+    "tiebreak": 222
    },
    {
     "slot": "ST",
@@ -297,17 +302,17 @@
  },
  "base_ids": [
   "id242818",
-  "id243354",
-  "id241847",
   "id246836",
+  "id241847",
+  "id243354",
   "id257540",
-  "id204497",
+  "id270670",
   "id276602",
   "id208618",
-  "id270670",
+  "id204497",
   "id212188",
   "id50571625"
  ],
- "built": "2026-10-19 03:04 UTC",
+ "built": "2026-10-19 07:53 UTC",
  "week": "2026-10-19"
 }
