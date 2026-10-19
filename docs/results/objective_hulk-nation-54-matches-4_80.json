@@ -2,8 +2,8 @@
  "g": 4,
  "obj_ids": [
   "id258648",
+  "id259075",
   "id236499",
-  "id230658",
   "id80170"
  ],
  "strength": 103.0,
@@ -15,7 +15,7 @@
   }
  ],
  "team": {
-  "formation": "4-2-3-1 (2)",
+  "formation": "4-4-1-1",
   "chem": 32,
   "players": [
    {
@@ -134,52 +134,6 @@
     "tiebreak": 249
    },
    {
-    "slot": "CDM",
-    "id": "id230658",
-    "name": "Arthur",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     74,
-     79,
-     71
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     81,
-     75
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CDM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     76,
-     79,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     81,
-     79
-    ],
-    "tiebreak": 236
-   },
-   {
     "slot": "LM",
     "id": "id261865",
     "name": "Miguel Gutiérrez",
@@ -203,6 +157,75 @@
     "tiebreak": 240
    },
    {
+    "slot": "CM",
+    "id": "id236499",
+    "name": "Douglas Luiz",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     76,
+     79,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     81,
+     79
+    ],
+    "tiebreak": 236
+   },
+   {
+    "slot": "CM",
+    "id": "id238744",
+    "name": "McKennie",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 95,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     77,
+     78,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     80,
+     82
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "RM",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     75,
+     80,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     82,
+     79
+    ],
+    "tiebreak": 236
+   },
+   {
     "slot": "CAM",
     "id": "id67388037",
     "name": "Mastantuono",
@@ -212,29 +235,6 @@
     "nationId": 52,
     "leagueId": 31,
     "clubId": 110374,
-    "card": [
-     80,
-     80,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     82,
-     59
-    ],
-    "tiebreak": 221
-   },
-   {
-    "slot": "RM",
-    "id": "id216409",
-    "name": "Politano",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 48,
     "card": [
      80,
      80,
@@ -306,17 +306,17 @@
  },
  "base_ids": [
   "id50560437",
-  "id230918",
-  "id226851",
   "id232756",
-  "id74774",
+  "id226851",
+  "id230918",
+  "id50540109",
   "id261865",
   "id244050",
-  "id50540109",
+  "id74774",
   "evo_Lucas Vázquez_80",
-  "id50594290",
-  "id266886"
+  "id266886",
+  "id50594290"
  ],
- "built": "2026-10-19 07:53 UTC",
+ "built": "2026-10-19 22:37 UTC",
  "week": "2026-10-19"
 }
