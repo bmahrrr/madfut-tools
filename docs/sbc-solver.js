@@ -620,6 +620,15 @@ function chemSearch(req, pool, slots, ms = 3000, opts = {}) {
   const cellLevel = r => r.on === "nation" || r.on === "league" || r.on === "club";      // same answer for every card in a cell
   const cellRule = (cl, r) => cellLevel(r) ? ruleMatch(cl.sample, r) : cl.cards.some(c => ruleMatch(c, r));
   const ruleCells = need1.map(r => cells.filter(cl => cellRule(cl, r)).sort((a, b) => a.cost[0] - b.cost[0]));
+  // pairs: two players from one club and nation (club +1 and nation +1 at once; the usual way to stretch a nation
+  // across leagues). Same cell twice, or a men's + women's player of the same club.
+  const units = [];
+  for (const cl of cells) if (cl.cards.length >= 2) units.push({ cls: [cl, cl], c: cl.cost[0] + cl.cost[1] });
+  for (const L of index(cl => cl.k * 4096 + cl.n).values()) for (let a = 0; a < L.length; a++) for (let b = a + 1; b < L.length && b < a + 4; b++) if (L[a].l !== L[b].l) units.push({ cls: [L[a], L[b]], c: L[a].cost[0] + L[b].cost[0] });
+  units.sort((a, b) => a.c - b.c);
+  const unitsBy = (f) => { const m = new Map(); for (const u of units) { const g = f(u.cls[0]); if (!m.has(g)) m.set(g, []); const L = m.get(g); if (L.length < 40) L.push(u); } return m; };
+  const uByN = unitsBy(cl => cl.n), uByK = unitsBy(cl => cl.k);
+  const uByRule = need1.map(r => units.filter(u => u.cls.some(cl => cellRule(cl, r))).slice(0, 30));
   const minL = req.min_leagues || 0, maxL = req.max_leagues || 11, minN = req.min_nations || 0, maxN = req.max_nations || 11;
   const minK = req.min_clubs || 0, maxK = req.max_clubs || 11;
   const msN = req.max_same_nation || 11, msL = req.max_same_league || 11, msK = req.max_same_club || 11;
@@ -720,9 +729,26 @@ function chemSearch(req, pool, slots, ms = 3000, opts = {}) {
       const pv = alive(); if (pv !== false) opts.push({ cl, p: pv + (noise ? noise * rand() : 0), c: cl.cost[0] });
       pop();
     }
+    // pair moves (see units): toward the weakest player's nation or club, or an unmet requirement
+    if (sq.length && 11 - sq.length >= 2) {
+      let worst = null, wv = 0;
+      for (const cl of sq) { const v = strict ? need(cl) : 3 - chemOf(cl); if (v > wv) { wv = v; worst = cl; } }
+      const uc = [];
+      if (worst) uc.push(...(uByN.get(worst.n) || []).slice(0, 30), ...(uByK.get(worst.k) || []).slice(0, 12));
+      need1.forEach((ru, i) => { if (ruleCount(ru) < ru.n) uc.push(...uByRule[i].slice(0, 15)); });
+      const seenU = new Set();
+      for (const u of uc) {
+        const [a, b] = u.cls, key = a.id + "|" + b.id; if (seenU.has(key)) continue; seenU.add(key);
+        add(a); add(b);
+        if ((mult.get(a.id) || 0) <= a.cards.length && (mult.get(b.id) || 0) <= b.cards.length && fitsPos()) { const pv = alive(); if (pv !== false) opts.push({ cls: [a, b], p: pv + (noise ? noise * rand() : 0), c: u.c }); }
+        pop(); pop();
+      }
+    }
     opts.sort((a, b) => a.p - b.p || a.c - b.c);
     for (let i = 0; i < Math.min(W, opts.length) && i <= budget; i++) {
-      add(opts[i].cl); dfs(W, budget - i); pop();
+      const o = opts[i];
+      if (o.cls) { add(o.cls[0]); add(o.cls[1]); dfs(W, budget - i); pop(); pop(); }
+      else { add(o.cl); dfs(W, budget - i); pop(); }
       if (out) return;
     }
   };
@@ -854,6 +880,108 @@ function planSearch(req, pool, slots, ms = 8000, popts = {}) {
   return best;
 }
 
+// ---------- cell model: an exact search over "how many players from each cell" ----------
+// Cards with the same league, nation and club give the same chem, so the solver only picks how many to take from
+// each such cell (and for which positions); the cards themselves are chosen at the end. Far smaller than one
+// variable per card per slot, which lets the exact solver finish hard full-chem hybrids on a focused card pool
+// (e.g. only cards from the named clubs). Full chem only, no Icons; nation / league / club rules only.
+function cellModelOK(req) {
+  const full = (req.min_chem || 0) >= 33 || (req.min_player_chem || 0) >= 3;
+  return full && !req.min_rating && !req.min_types && !req.max_types && !(req.include || []).length &&
+    (req.rules || []).every(r => r.on === "nation" || r.on === "league" || r.on === "club");
+}
+function cellSBC(highs, req, pool, slots, timeLimit = 10) {
+  if (!cellModelOK(req)) return null;
+  const pr = req.priority || "gold_first", cost = c => sbcCost(c, pr);
+  const PT = [...new Set(slots)], dem = new Map(PT.map(p => [p, slots.filter(s => s === p).length]));
+  const cellMap = new Map(), cells = [];
+  for (const c of pool.filter(c => !SBC_AUTO.has(c.color) && PT.some(p => c.P.has(p))).sort((a, b) => cost(a) - cost(b))) {
+    const key = c.leagueId + "|" + c.nationId + "|" + c.clubId;
+    let cl = cellMap.get(key); if (!cl) { cl = { i: cells.length, l: c.leagueId, n: c.nationId, k: c.clubId, cards: [], keys: new Set() }; cellMap.set(key, cl); cells.push(cl); }
+    const pk = playerKey(c); if (cl.keys.has(pk) || cl.cards.length >= 24) continue; cl.keys.add(pk); cl.cards.push(c);
+  }
+  if (cells.length > 2500) return null;
+  const rows = [], ints = [], bins = [], bounds = []; let rc = 0;
+  const row = (t, op, rhs) => { if (!t.length) { return; } rows.push(` r${rc++}: ` + wrap(t.map(([a, v], j) => (j ? (a >= 0 ? "+ " : "- ") : (a < 0 ? "- " : "")) + (Math.abs(a) === 1 ? "" : Math.abs(a) + " ") + v).join(" ")) + ` ${op} ${rhs}`); };
+  const X = [], obj = [];
+  for (const cl of cells) {
+    cl.vars = [];
+    PT.forEach((p, pi) => {
+      const L = cl.cards.filter(c => c.P.has(p)); if (!L.length) return;
+      const v = `x${cl.i}_${pi}`; ints.push(v); bounds.push(` 0 <= ${v} <= ${Math.min(dem.get(p), L.length)}`);
+      cl.vars.push(v); X.push({ v, cl, p }); obj.push([cost(L[0]), v]);
+    });
+    cl.u = "u" + cl.i; bins.push(cl.u);
+    row(cl.vars.map(v => [1, v]), "<=", cl.cards.length);
+    row([...cl.vars.map(v => [1, v]), [-11, cl.u]], "<=", 0);
+    row([...cl.vars.map(v => [-1, v]), [1, cl.u]], "<=", 0);
+  }
+  for (const p of PT) row(X.filter(x => x.p === p).map(x => [1, x.v]), "=", dem.get(p));
+  const groups = { n: new Map(), l: new Map(), k: new Map() };
+  for (const cl of cells) for (const [t, g] of [["n", cl.n], ["l", cl.l], ["k", cl.k]]) { if (!groups[t].has(g)) groups[t].set(g, []); groups[t].get(g).push(cl); }
+  const Z = new Map(); let zc = 0;
+  for (const t of ["n", "l", "k"]) for (const [g, mem] of groups[t]) {
+    const terms = mem.flatMap(cl => cl.vars.map(v => [1, v])), maxP = mem.reduce((a, cl) => a + cl.cards.length, 0);
+    const zs = [];
+    // g: the group is in the squad (set by any of its cells). A step at t players needs t - 1 OTHER players: written as
+    // (t-1) z <= count - g, which is the same at whole numbers but much tighter for the solver's estimates
+    const gv = "g" + zc++; bins.push(gv); mem.forEach(cl => row([[1, gv], [-1, cl.u]], ">=", 0));
+    for (const th of THRESH[t]) { if (maxP < th) break; const z = "z" + zc++; bins.push(z); zs.push(z); row([...terms, [-th, z]], ">=", 0); if (!cellSBC.loose) row([...terms, [-(th - 1), z], [-1, gv]], ">=", 0); if (zs.length > 1) row([[1, z], [-1, zs[zs.length - 2]]], "<=", 0); }
+    Z.set(t + g, zs);
+  }
+  // every cell in use: 3 chem from its nation, league and club counts
+  for (const cl of cells) row([...[...(Z.get("n" + cl.n) || []), ...(Z.get("l" + cl.l) || []), ...(Z.get("k" + cl.k) || [])].map(z => [1, z]), [-3, cl.u]], ">=", 0);
+  let wc = 0;
+  for (const [kind, t] of [["nation", "n"], ["league", "l"], ["club", "k"]]) {
+    const lo = req[`min_${kind}s`], hi = req[`max_${kind}s`], ms = req[`max_same_${kind}`], mn = req[`min_same_${kind}`];
+    if (lo || hi) {
+      const ws = [];
+      for (const mem of groups[t].values()) {
+        const w = "w" + wc++; bins.push(w); ws.push(w);
+        if (lo) row([[1, w], ...mem.map(cl => [-1, cl.u])], "<=", 0);
+        if (hi) mem.forEach(cl => row([[1, w], [-1, cl.u]], ">=", 0));
+      }
+      if (lo) row(ws.map(w => [1, w]), ">=", lo);
+      if (hi) row(ws.map(w => [1, w]), "<=", hi);
+    }
+    if (ms) for (const mem of groups[t].values()) row(mem.flatMap(cl => cl.vars.map(v => [1, v])), "<=", ms);
+    if (mn) { const ws = []; for (const mem of groups[t].values()) { const w = "w" + wc++; bins.push(w); ws.push(w); row([...mem.flatMap(cl => cl.vars.map(v => [1, v])), [-mn, w]], ">=", 0); } row(ws.map(w => [1, w]), ">=", 1); }
+  }
+  for (const r of req.rules || []) {
+    const t = cells.filter(cl => ruleMatch(cl.cards[0], r)).flatMap(cl => cl.vars.map(v => [1, v]));
+    if (!t.length) { if (r.op !== "<=" && r.n > 0) return null; continue; }
+    row(t, r.op === "<=" ? "<=" : r.op === "=" ? "=" : ">=", r.n);
+  }
+  const lp = ["Minimize", " obj: " + wrap(obj.map(([a, v], j) => (j ? "+ " : "") + a + " " + v).join(" ")), "Subject To", ...rows, "Bounds", ...bounds,
+    "General", ...chunk(ints), "Binary", ...chunk(bins), "End"].join("\n");
+  let res;
+  try { res = highs.solve(lp, Object.assign({ time_limit: Math.max(1, timeLimit), mip_rel_gap: 1, presolve: "on", output_flag: false }, cellSBC.opts || {})); } catch (e) { return null; }
+  if (!res.Columns || !(res.Status === "Optimal" || res.Status === "Time limit reached")) return null;
+  // cards: the cheapest that fill the slots with these many from each cell (min-cost flow: cell -> card -> slot)
+  const cnt = new Map();
+  for (const x of X) { const v = res.Columns[x.v]; if (v && v.Primal > 0.5) cnt.set(x.cl, (cnt.get(x.cl) || 0) + Math.round(v.Primal)); }
+  const used = [...cnt.keys()]; if (used.reduce((a, cl) => a + cnt.get(cl), 0) !== 11) return null;
+  const cardN = []; used.forEach((cl, ci) => cl.cards.forEach(c => cardN.push({ ci, c, w: cost(c) })));
+  const S0 = 0, C0 = 1, D0 = C0 + used.length, T0 = D0 + cardN.length, SK = T0 + slots.length, V = SK + 1;
+  const G = Array.from({ length: V }, () => []);
+  const edge = (u, v, cap, w) => { G[u].push({ v, cap, w, r: G[v].length }); G[v].push({ v: u, cap: 0, w: -w, r: G[u].length - 1 }); };
+  used.forEach((cl, ci) => edge(S0, C0 + ci, cnt.get(cl), 0));
+  cardN.forEach((cn, j) => { edge(C0 + cn.ci, D0 + j, 1, cn.w); slots.forEach((s, k) => { if (cn.c.P.has(s)) edge(D0 + j, T0 + k, 1, 0); }); });
+  slots.forEach((s, k) => edge(T0 + k, SK, 1, 0));
+  let tot = 0;
+  for (let f = 0; f < 11; f++) {
+    const dist = new Array(V).fill(Infinity), prev = new Array(V).fill(null), inq = new Array(V).fill(false), q = [S0]; dist[S0] = 0;
+    while (q.length) { const u = q.shift(); inq[u] = false; G[u].forEach((e, ei) => { if (e.cap > 0 && dist[u] + e.w < dist[e.v]) { dist[e.v] = dist[u] + e.w; prev[e.v] = [u, ei]; if (!inq[e.v]) { inq[e.v] = true; q.push(e.v); } } }); }
+    if (dist[SK] === Infinity) return null;
+    for (let v = SK; v !== S0; v = prev[v][0]) { const [u, ei] = prev[v], e = G[u][ei]; e.cap--; G[v][e.r].cap++; }
+    tot += dist[SK];
+  }
+  const sq = new Array(11).fill(null);
+  cardN.forEach((cn, j) => G[D0 + j].forEach(e => { if (e.v >= T0 && e.v < SK && e.cap === 0 && G[e.v][e.r].cap > 0) sq[e.v - T0] = cn.c; }));
+  if (sq.includes(null) || !validSBC(req, sq)) return null;
+  return { cost: tot, sq };
+}
+
 // Independent check that a squad meets every requirement (used to verify every answer).
 function validSBC(req, sq) {
   if (sq.length !== 11 || sq.some(x => !x)) return false;
@@ -919,7 +1047,12 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
         progress(`Building high-chem squads ${form}${tag}…`);
         // with a squad rating: only cards at the rating or above (always enough); the steps after this make it cheaper
         const hp = req.min_rating ? pool.filter(c => c.rating >= req.min_rating) : pool;
-        offer(hardSearch(req, hp, slots, forms.length > 1 ? 2500 : timeLimit * (req.min_rating ? 350 : 650)));
+        offer(hardSearch(req, hp, slots, forms.length > 1 ? 2500 : timeLimit * (req.min_rating ? 350 : 300)));
+        // still nothing: the exact cell model on just the cards the rules name (e.g. only players from the 5 clubs)
+        if (!formBest && forms.length === 1 && cellModelOK(req)) {
+          const rp = pool.filter(c => (req.rules || []).some(r => r.op !== "<=" && r.n > 0 && ruleMatch(c, r)));
+          if (rp.length >= 11 && rp.length <= 4000) { progress(`Checking every squad from the named ${req.rules.some(r => r.on === "club") ? "clubs" : "nations"}…`); offer(cellSBC(highs, req, rp, slots, timeLimit * 0.55)); }
+        }
       }
     }
     progress(`Searching ${form}${tag}…`);
@@ -967,4 +1100,4 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
   return sbcResult(best, proven, FORMS, cands.length);
 }
 
-if (typeof module !== "undefined") module.exports = { sbcCost, recipeSBC, chemSearch, planSearch, hardSearch, solveSBC, sbcChem, teamRatingOf, buildLP, sbcPool, sbcCandidates, annealSBC, validSBC, hybridSBC };
+if (typeof module !== "undefined") module.exports = { sbcCost, recipeSBC, chemSearch, planSearch, hardSearch, cellSBC, ruleMatch, solveSBC, sbcChem, teamRatingOf, buildLP, sbcPool, sbcCandidates, annealSBC, validSBC, hybridSBC };
