@@ -727,11 +727,6 @@ function chemSearch(req, pool, slots, ms = 3000, opts = {}) {
     }
   };
   // limited discrepancy search: follow the best-scored option, allowing a few detours anywhere in the squad
-  if (req._check) {                        // debug: is a known squad's every prefix still alive?
-    const outv = [];
-    for (const c of req._check) { const cl = cellOf.get(c.leagueId + "|" + c.nationId + "|" + c.clubId); if (!cl) { outv.push("nocell " + c.name); continue; } add(cl); outv.push(c.name + ":" + alive()); }
-    return outv;
-  }
   // first a full pass, then restarts that mix up the order a little (a different first choice can matter a lot)
   let bb = 0, rs = opts.rs0 || 0, noise = 0, seed = opts.seed || 12345;
   const rand = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
@@ -769,10 +764,10 @@ function planSearch(req, pool, slots, ms = 8000, popts = {}) {
   const rules = (req.rules || []).filter(r => r.op !== "<=" && r.n > 0);
   const lo = Math.max(1, req.min_leagues || 1), hi = Math.min(req.max_leagues || 11, lo + 1);
   // leagues for each required nation / club / league: most matching cards first, then the bigger league
-  const ruleLeagues = rules.map(r => {
-    const m = new Map(); P.forEach(c => { if (ruleMatch(c, r)) m.set(c.leagueId, (m.get(c.leagueId) || 0) + 1); });
-    return [...m.keys()].sort((a, b) => (m.get(b) - m.get(a)) || (size.get(b) - size.get(a))).slice(0, 4);
-  });
+  // a league that has players for several rules (e.g. Ligue 1 for Congo, Cameroon and Ghana) can hold them all in one block
+  const ruleCnt = rules.map(r => { const m = new Map(); P.forEach(c => { if (ruleMatch(c, r)) m.set(c.leagueId, (m.get(c.leagueId) || 0) + 1); }); return m; });
+  const cover = l => ruleCnt.filter(m => m.has(l)).length;
+  const ruleLeagues = ruleCnt.map(m => [...m.keys()].sort((a, b) => (cover(b) - cover(a)) || (Math.min(3, m.get(b)) - Math.min(3, m.get(a))) || (size.get(b) - size.get(a))).slice(0, 5));
   // extra leagues: share the most nations with the rule cards' leagues (the links between leagues are nations)
   const anchor = new Set(ruleLeagues.flatMap(L => L.slice(0, 2)));
   const natsIn = new Map(); P.forEach(c => { if (!natsIn.has(c.leagueId)) natsIn.set(c.leagueId, new Map()); const m = natsIn.get(c.leagueId); m.set(c.nationId, (m.get(c.nationId) || 0) + 1); });
@@ -787,26 +782,36 @@ function planSearch(req, pool, slots, ms = 8000, popts = {}) {
   // big men's + women's league pairs (Premier League + WSL, LALIGA + Liga F, ...): one player in each, linked by a club
   const pairCnt = new Map();
   for (const L of lgOfClub.values()) if (L.size === 2) { const [a, b] = [...L].sort((x, y) => x - y); const k = a + "|" + b; pairCnt.set(k, (pairCnt.get(k) || 0) + 1); }
-  const pairs = [...pairCnt].filter(e => e[1] >= 3).sort((a, b) => b[1] - a[1]).slice(0, 3).flatMap(e => e[0].split("|").map(Number));
-  // (a rule's second league, e.g. its women's team, can be an extra too: the set only ever holds each league once)
-  const extras = [...new Set([...ruleLeagues.flatMap(L => L.slice(1, 2)), ...[...twin.keys()].sort((a, b) => twin.get(b) - twin.get(a)).slice(0, 3), ...pairs, ...extras0])].slice(0, 14);
+  const pairs = [...pairCnt].filter(e => e[1] >= 3).sort((a, b) => b[1] - a[1]).slice(0, 4).map(e => e[0].split("|").map(Number));
+  // extras come in units: a men's + women's pair counts as one choice. (A rule's second league, e.g. its women's team,
+  // can be an extra too: the set only ever holds each league once.)
+  const singles = [...new Set([...ruleLeagues.flatMap(L => L.slice(1, 2)), ...[...twin.keys()].sort((a, b) => twin.get(b) - twin.get(a)).slice(0, 3), ...extras0])].slice(0, 10);
+  const units = [];
+  for (let i = 0; i < Math.max(pairs.length, singles.length); i++) { if (pairs[i]) units.push(pairs[i]); if (singles[i] != null) units.push([singles[i]]); }
+  const extras = [...new Set(units.flat())];
   // league sets: one league per rule, then extras to reach the league count; lower rank = more promising
   const sets = [], seenSet = new Set();
   const pushSet = (S, rank) => { const k = [...S].sort((a, b) => a - b).join(","); if (!seenSet.has(k)) { seenSet.add(k); sets.push({ L: [...S], rank }); } };
   const addExtras = (S, rank) => {
     for (let m = lo; m <= hi; m++) {
       if (S.size > m) continue;
-      const ex = extras.filter(l => !S.has(l)), k = m - S.size;
-      const rec = (j, T, rk) => { if (T.length === k) { pushSet(new Set([...S, ...T]), rank + rk + (m - lo) * 4); return; } for (let q = j; q < ex.length; q++) rec(q + 1, T.concat(ex[q]), rk + q); };
-      rec(0, [], 0);
+      const k = m - S.size;
+      const rec = (j, T, rk) => {
+        if (T.size === k) { pushSet(new Set([...S, ...T]), rank + rk + (m - lo) * 4); return; }
+        for (let q = j; q < units.length; q++) {
+          const add = units[q].filter(l => !S.has(l) && !T.has(l)); if (!add.length || T.size + add.length > k) continue;
+          rec(q + 1, new Set([...T, ...add]), rk + q);
+        }
+      };
+      rec(0, new Set(), 0);
     }
   };
   const pickRules = (i, S, rank) => {
-    if (i === rules.length) { addExtras(S, rank); return; }
+    if (i === rules.length) { addExtras(S, rank + 6 * Math.max(0, S.size - 1)); return; }      // fewer rule leagues: one block holds them
     ruleLeagues[i].forEach((l, q) => { const S2 = new Set(S); S2.add(l); pickRules(i + 1, S2, rank + q * 2); });
   };
   pickRules(0, new Set(), 0);
-  sets.sort((a, b) => a.rank - b.rank); sets.length = Math.min(sets.length, 150);
+  sets.sort((a, b) => a.rank - b.rank); sets.length = Math.min(sets.length, 250);
   // which leagues share a club (a men's and a women's team): a league with 1 player needs that link for club chem
   const shareClub = new Set();
   for (const L of lgOfClub.values()) if (L.size > 1) for (const a of L) for (const b of L) if (a !== b) shareClub.add(a + "|" + b);
@@ -814,12 +819,15 @@ function planSearch(req, pool, slots, ms = 8000, popts = {}) {
   // (3, 5, 8) before the in-between ones (4, 6, 7: only useful for club or nation counts)
   const shapeCache = new Map(), permCache = new Map();
   const shapes = m => { if (shapeCache.has(m)) return shapeCache.get(m); const out = []; const rec = (left, k, maxv, cur) => { if (k === 0) { if (!left) out.push(cur); return; } for (let v = Math.min(maxv, left - (k - 1)); v >= 1; v--) rec(left - v, k - 1, v, cur.concat(v)); }; rec(11, m, 8, []);
-    const sc = sh => sh.filter(v => v < 3).reduce((a, v) => a + v, 0) * 10 + sh.filter(v => v === 4 || v > 5 && v < 8).length * 7; out.sort((a, b) => sc(a) - sc(b)); shapeCache.set(m, out); return out; };
+    // chem the players still need from nation + club (3 minus their league chem, summed), plus a little per league of
+    // 1-2 players (each needs a club link): smallest first
+    const lv3 = v => (v >= 8 ? 3 : v >= 5 ? 2 : v >= 3 ? 1 : 0), sc = sh => sh.reduce((a, v) => a + (3 - lv3(v)) * v, 0) + 3 * sh.filter(v => v < 3).length + sh.filter(v => v === 4 || v === 6).length * 2;
+    out.sort((a, b) => sc(a) - sc(b)); shapeCache.set(m, out); return out; };
   const perms = A => { const key = A.join(","); if (permCache.has(key)) return permCache.get(key); const out = new Set(); const rec = (cur, rest) => { if (!rest.length) { out.add(cur.join(",")); return; } rest.forEach((v, i) => rec(cur.concat(v), rest.slice(0, i).concat(rest.slice(i + 1)))); }; rec([], A); const r = [...out].map(x => x.split(",").map(Number)); permCache.set(key, r); return r; };
   const jobs = [];
   sets.forEach(({ L: S }, si) => {
     const byCap = S.slice().sort((a, b) => size.get(b) - size.get(a));          // biggest league gets the biggest count first
-    shapes(S.length).slice(0, 12).forEach((sh, hi2) => perms(sh).forEach(pm => {
+    shapes(S.length).slice(0, 20).forEach((sh, hi2) => perms(sh).forEach(pm => {
       // a league with one player needs club chem from a club it shares with another league in the set
       if (pm.some((v, i) => v === 1 && !byCap.some(l2 => l2 !== byCap[i] && shareClub.has(byCap[i] + "|" + l2)))) return;
       let dev = 0; for (let i = 0; i < pm.length; i++) dev += Math.abs(pm[i] - sh[i]);
@@ -831,7 +839,6 @@ function planSearch(req, pool, slots, ms = 8000, popts = {}) {
   const byLg = new Map(); P.filter(c => ST.some(s => c.P.has(s))).sort((a, b) => cost(a) - cost(b)).forEach(c => { if (!byLg.has(c.leagueId)) byLg.set(c.leagueId, []); byLg.get(c.leagueId).push(c); });
   const poolOf = plan => [...plan.keys()].flatMap(l => byLg.get(l) || []).sort((a, b) => cost(a) - cost(b));
   let best = null, tries = 0;
-  if (typeof process !== "undefined" && process.env && process.env.PSDBG) console.error("sets", sets.length, "jobs", jobs.length, "setup", Date.now() - t0, "ruleLeagues", JSON.stringify(ruleLeagues), "extras", extras.join(","));
   for (let slice = popts.from ? 150 : 40; Date.now() - t0 < ms && jobs.length; slice *= 3) {
     for (const j of jobs) {
       if (j.done) continue;
@@ -840,7 +847,7 @@ function planSearch(req, pool, slots, ms = 8000, popts = {}) {
       const r = chemSearch(req, pool, slots, Math.min(slice, left), o);
       if (o.exhausted) j.done = true;
       tries++;
-      if (r && (!best || r.cost < best.cost)) { best = r; if (typeof process !== "undefined" && process.env && process.env.PSDBG) console.error("found at try", tries, "slice", slice, JSON.stringify([...j.plan])); return best; }
+      if (r && (!best || r.cost < best.cost)) { best = r; return best; }
     }
     if (jobs.every(j => j.done)) break;
   }
@@ -908,9 +915,11 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
       progress(`Building linked groups ${form}${tag}…`);
       offer(hybridSBC(req, pool, slots, forms.length > 1 ? 800 : 2500));
       offer(recipeSBC(req, pool, slots, forms.length > 1 ? 600 : 2000));       // usually ~0.1 s; returns nothing when no recipe fits
-      if (!formBest && !req.min_rating && !req.min_types && !req.max_types && !(req.include || []).length) {   // the hard ones (obscure nations / clubs, 4-5 leagues and nations, no Icons)
+      if (!formBest && !req.min_types && !req.max_types && !(req.include || []).length) {   // the hard ones (obscure nations / clubs, 4-5 leagues and nations, no Icons)
         progress(`Building high-chem squads ${form}${tag}…`);
-        offer(hardSearch(req, pool, slots, forms.length > 1 ? 2500 : timeLimit * 650));
+        // with a squad rating: only cards at the rating or above (always enough); the steps after this make it cheaper
+        const hp = req.min_rating ? pool.filter(c => c.rating >= req.min_rating) : pool;
+        offer(hardSearch(req, hp, slots, forms.length > 1 ? 2500 : timeLimit * (req.min_rating ? 350 : 650)));
       }
     }
     progress(`Searching ${form}${tag}…`);
