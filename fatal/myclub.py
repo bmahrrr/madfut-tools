@@ -88,6 +88,16 @@ class Pool:
         return new if fits(new) else None
 
 
+def pair_score(a, b):
+    """One opponent, both lead orders, as one number: 3 x (results) minus 1 per loss, so a loss in one lead order is
+    worse than drawing both (WW 6 > WD 3 > DD 0 > WL -1 > DL -4 > LL -8). The builder prefers teams that can't lose."""
+    return 3 * (a + b) - (a < 0) - (b < 0)
+
+
+def pscore(E, O):
+    return pair_score(play(E, O, 0)[0], play(E, O, 1)[0])
+
+
 def evaluate(E, opps, weights, bound=None, robust=False, floor=None, order=None, need=None):
     """Score a team against opponents. Normal: weighted sum of results (+1 win, 0 draw, -1 loss
     for each lead order). Robust: the worst result against any single opponent comes first.
@@ -98,16 +108,17 @@ def evaluate(E, opps, weights, bound=None, robust=False, floor=None, order=None,
     beat it and the total can no longer reach it (the team can only be worse)."""
     tot = lv = 0
     if robust:
-        worst = 9
+        worst = 99
         idx = list(order) if order is not None else list(range(len(opps)))
         if need is not None and floor is None: floor = need[0]
         rem = sum(2 * weights[k] for k in idx)
         for n, k in enumerate(idx):
             O, w = opps[k], weights[k]
-            s = 0
+            oo = []
             for f in (0, 1):
                 o, l = play(E, O, f)
-                s += o; tot += w * o; lv += w * l
+                oo.append(o); tot += w * o; lv += w * l
+            s = pair_score(*oo)
             worst = min(worst, s); rem -= 2 * w
             if (floor is not None and s < floor) or (need is not None and worst <= need[0] and tot + rem < need[1]):
                 if order is not None and n: order.insert(0, order.pop(order.index(k)))
@@ -424,7 +435,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
             pool_opps.append(Ep[k]); weights.append(1); names.append(f"counter p{k+1}"); opp_cards[f"counter p{k+1}"] = t
     # 3) start from the owned population teams that do best against everyone (worst case, then total)
     def rr(t):
-        Et = me.eff(t); per = [play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps]
+        Et = me.eff(t); per = [pscore(Et, O) for O in pool_opps]
         return (min(per), sum(per), secondary(Et)) if per else (0, 0, secondary(Et))
     mine = [[owned_ids[c["id"]] for c in t] for t in mine if all(c["id"] in owned_ids for c in t)]
     ranked = sorted(mine, key=rr, reverse=True)
@@ -495,7 +506,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                 i += 1
                 pool_opps.append(field.eff(br[1])); names.append(f"final check {i}"); opp_cards[f"final check {i}"] = br[1]
         def worst_case(Et):         # worst result vs any opponent, then total results, then in-game stats
-            per = [play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps]
+            per = [pscore(Et, O) for O in pool_opps]
             return (min(per), sum(per), secondary(Et))
         best_key = worst_case(E)
         log(f"  built team: worst case {best_key}")
@@ -519,7 +530,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                 br = optimize(field, start, [Ep], [1], max(20, T * 0.1 / n_chk), vr, None, f"pcheck{k}")
                 nm = f"final check {sum(1 for n in names if n.startswith('final check')) + 1}"
                 pool_opps.append(field.eff(br[1])); names.append(nm); opp_cards[nm] = br[1]
-            key = lambda Et: (lambda per: (min(per), sum(per), secondary(Et)))([play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps])
+            key = lambda Et: (lambda per: (min(per), sum(per), secondary(Et)))([pscore(Et, O) for O in pool_opps])
             ko, kp = key(E), key(Ep)
             log(f"  polished team {kp} vs chosen team {ko}")
             if kp[:2] > ko[:2]:
@@ -527,7 +538,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     if mode != "beat":
         # every other version of each player in the team (e.g. Can 89 Evo -> Can 92 Elite Evo): a swap is kept when it
         # is at least as good on worst case and total against EVERY opponent found, and better overall
-        vkey = lambda Et: (lambda per: (min(per), sum(per), secondary(Et)))([play(Et, O, 0)[0] + play(Et, O, 1)[0] for O in pool_opps])
+        vkey = lambda Et: (lambda per: (min(per), sum(per), secondary(Et)))([pscore(Et, O) for O in pool_opps])
         by_pid = collections.defaultdict(list)
         for c in me.cards: by_pid[c["pid"]].append(c)
         ck = vkey(E); improved = True
