@@ -1,17 +1,17 @@
 {
  "g": 5,
  "obj_ids": [
-  "id279731",
+  "id73864",
   "id258563",
   "id81943",
   "id271893",
-  "id240938"
+  "id222388"
  ],
- "strength": 101.0,
+ "strength": 100.9,
  "group_cards": 328,
  "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
+  "formation": "4-1-4-1",
   "chem": 30,
   "players": [
    {
@@ -38,6 +38,29 @@
     "tiebreak": 145
    },
    {
+    "slot": "LB",
+    "id": "id222388",
+    "name": "Paulo Azzi",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 32,
+    "clubId": 1744,
+    "card": [
+     69,
+     64,
+     71
+    ],
+    "chem": 2,
+    "eff": [
+     70,
+     65,
+     72
+    ],
+    "tiebreak": 207
+   },
+   {
     "slot": "CB",
     "id": "id244394",
     "name": "Clemente",
@@ -62,29 +85,6 @@
    },
    {
     "slot": "CB",
-    "id": "id279731",
-    "name": "Gabriel Moscardo",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 53,
-    "clubId": 452,
-    "card": [
-     63,
-     68,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     64,
-     69,
-     72
-    ],
-    "tiebreak": 205
-   },
-   {
-    "slot": "CB",
     "id": "id246352",
     "name": "Hugo Guillamón",
     "rating": 70,
@@ -105,6 +105,52 @@
      76
     ],
     "tiebreak": 210
+   },
+   {
+    "slot": "RB",
+    "id": "id272234",
+    "name": "Clau Blanco",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 481,
+    "card": [
+     70,
+     71,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     74,
+     73
+    ],
+    "tiebreak": 217
+   },
+   {
+    "slot": "CDM",
+    "id": "id72364",
+    "name": "Carol Marín",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 461,
+    "card": [
+     72,
+     73,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     76,
+     64
+    ],
+    "tiebreak": 212
    },
    {
     "slot": "LM",
@@ -131,6 +177,29 @@
    },
    {
     "slot": "CM",
+    "id": "id81943",
+    "name": "Rodrigo Nestor",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 2267,
+    "clubId": 1598,
+    "card": [
+     71,
+     72,
+     59
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     74,
+     61
+    ],
+    "tiebreak": 208
+   },
+   {
+    "slot": "CM",
     "id": "id258563",
     "name": "Caio Alexandre",
     "rating": 72,
@@ -151,29 +220,6 @@
      71
     ],
     "tiebreak": 216
-   },
-   {
-    "slot": "CM",
-    "id": "id72364",
-    "name": "Carol Marín",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 461,
-    "card": [
-     72,
-     73,
-     61
-    ],
-    "chem": 3,
-    "eff": [
-     75,
-     76,
-     64
-    ],
-    "tiebreak": 212
    },
    {
     "slot": "RM",
@@ -199,73 +245,27 @@
     "tiebreak": 214
    },
    {
-    "slot": "CAM",
-    "id": "id240938",
-    "name": "Junior Messias",
+    "slot": "ST",
+    "id": "id73864",
+    "name": "Juan",
     "rating": 72,
     "color": "rare_silver",
-    "position": "CM",
+    "position": "ST",
     "nationId": 54,
-    "leagueId": 31,
-    "clubId": 110556,
+    "leagueId": 68,
+    "clubId": 101026,
     "card": [
      74,
-     72,
-     58
+     70,
+     37
     ],
     "chem": 2,
     "eff": [
      75,
-     73,
-     59
-    ],
-    "tiebreak": 207
-   },
-   {
-    "slot": "CAM",
-    "id": "id81943",
-    "name": "Rodrigo Nestor",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 2267,
-    "clubId": 1598,
-    "card": [
      71,
-     72,
-     59
+     38
     ],
-    "chem": 3,
-    "eff": [
-     73,
-     74,
-     61
-    ],
-    "tiebreak": 208
-   },
-   {
-    "slot": "ST",
-    "id": "id272047",
-    "name": "Ana Franco",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "ST",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 132629,
-    "card": [
-     73,
-     70,
-     49
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     73,
-     52
-    ],
-    "tiebreak": 198
+    "tiebreak": 184
    }
   ]
  },
@@ -303,16 +303,16 @@
  "base_ids": [
   "id146296",
   "id50407214",
-  "id222493",
   "id246352",
+  "id222493",
   "id215449",
   "id72364",
-  "id272047",
+  "id272138",
   "id50572302",
   "id239335",
   "id229286",
-  "id272138"
+  "id272047"
  ],
- "built": "2026-10-18 09:45 UTC",
+ "built": "2026-10-19 03:04 UTC",
  "week": "2026-10-19"
 }

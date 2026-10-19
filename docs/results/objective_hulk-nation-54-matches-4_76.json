@@ -1,18 +1,18 @@
 {
  "g": 5,
  "obj_ids": [
-  "id244661",
-  "id263815",
+  "id181019",
   "id212462",
+  "id232805",
   "id195093",
-  "id181019"
+  "id244661"
  ],
- "strength": 100.2,
+ "strength": 100.8,
  "group_cards": 398,
  "reddit": [],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 32,
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -39,49 +39,49 @@
    },
    {
     "slot": "LB",
-    "id": "id212462",
-    "name": "Alex Telles",
+    "id": "id263041",
+    "name": "Prass",
     "rating": 76,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
+    "nationId": 4,
+    "leagueId": 19,
+    "clubId": 10029,
     "card": [
-     75,
-     75,
+     73,
+     74,
      75
     ],
     "chem": 3,
     "eff": [
-     77,
-     77,
+     75,
+     78,
      77
     ],
-    "tiebreak": 231
+    "tiebreak": 228
    },
    {
     "slot": "CB",
-    "id": "id256942",
-    "name": "Martel",
-    "rating": 76,
+    "id": "id232805",
+    "name": "Bernardo",
+    "rating": 75,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 21,
+    "position": "LB",
+    "nationId": 54,
     "leagueId": 19,
-    "clubId": 169,
+    "clubId": 10029,
     "card": [
-     62,
-     68,
-     76
+     64,
+     64,
+     75
     ],
     "chem": 3,
     "eff": [
-     65,
-     72,
-     79
+     66,
+     68,
+     77
     ],
-    "tiebreak": 212
+    "tiebreak": 209
    },
    {
     "slot": "CB",
@@ -108,75 +108,29 @@
    },
    {
     "slot": "RB",
-    "id": "id208618",
-    "name": "Lucas Vázquez",
-    "rating": 74,
-    "color": "rare_silver",
+    "id": "id244661",
+    "name": "Vitinho",
+    "rating": 76,
+    "color": "rare_gold",
     "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 54,
+    "leagueId": 1014,
+    "clubId": 517,
     "card": [
-     76,
-     77,
-     72
+     68,
+     70,
+     74
     ],
     "chem": 3,
     "eff": [
-     78,
-     81,
-     74
+     70,
+     72,
+     76
     ],
-    "tiebreak": 231
+    "tiebreak": 218
    },
    {
     "slot": "CDM",
-    "id": "id181019",
-    "name": "Éverton Ribeiro",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 2267,
-    "clubId": 1598,
-    "card": [
-     75,
-     77,
-     51
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     79,
-     53
-    ],
-    "tiebreak": 209
-   },
-   {
-    "slot": "LM",
-    "id": "id263815",
-    "name": "Abner Vinícius",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 66,
-    "card": [
-     71,
-     73,
-     75
-    ],
-    "chem": 2,
-    "eff": [
-     72,
-     74,
-     76
-    ],
-    "tiebreak": 222
-   },
-   {
-    "slot": "CM",
     "id": "id276602",
     "name": "Ouédraogo",
     "rating": 76,
@@ -197,6 +151,52 @@
      63
     ],
     "tiebreak": 222
+   },
+   {
+    "slot": "LM",
+    "id": "id212462",
+    "name": "Alex Telles",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 1014,
+    "clubId": 517,
+    "card": [
+     75,
+     75,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     77,
+     77
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "CM",
+    "id": "id181019",
+    "name": "Éverton Ribeiro",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 2267,
+    "clubId": 1598,
+    "card": [
+     75,
+     77,
+     51
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     79,
+     53
+    ],
+    "tiebreak": 209
    },
    {
     "slot": "CM",
@@ -223,26 +223,26 @@
    },
    {
     "slot": "RM",
-    "id": "id244661",
-    "name": "Vitinho",
-    "rating": 76,
-    "color": "rare_gold",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
     "position": "RB",
-    "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     68,
-     70,
-     74
+     76,
+     77,
+     72
     ],
     "chem": 3,
     "eff": [
-     70,
-     72,
-     76
+     78,
+     81,
+     74
     ],
-    "tiebreak": 218
+    "tiebreak": 231
    },
    {
     "slot": "ST",
@@ -306,13 +306,13 @@
   "id241847",
   "id246836",
   "id257540",
-  "id256942",
+  "id204497",
   "id276602",
   "id208618",
   "id270670",
   "id212188",
   "id50571625"
  ],
- "built": "2026-10-18 09:45 UTC",
+ "built": "2026-10-19 03:04 UTC",
  "week": "2026-10-19"
 }

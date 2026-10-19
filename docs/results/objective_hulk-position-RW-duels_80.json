@@ -1,84 +1,60 @@
 {
- "g": 2,
+ "g": 1,
  "obj_ids": [
-  "id243780",
   "id216409"
  ],
  "strength": 100.3,
  "group_cards": 5,
  "reddit": [],
  "team": {
-  "formation": "4-1-2-1-2",
-  "chem": 32,
+  "formation": "4-1-4-1",
+  "chem": 29,
   "players": [
    {
     "slot": "GK",
-    "id": "id240091",
-    "name": "Vicario",
+    "id": "id50560437",
+    "name": "Robert Sánchez",
     "rating": 80,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
+    "nationId": 45,
     "leagueId": 31,
-    "clubId": 45,
+    "clubId": 1745,
     "card": [
-     38,
-     42,
+     39,
+     39,
      81
     ],
     "chem": 3,
     "eff": [
-     40,
-     44,
+     41,
+     41,
      85
     ],
-    "tiebreak": 167
+    "tiebreak": 165
    },
    {
     "slot": "LB",
-    "id": "id261865",
-    "name": "Miguel Gutiérrez",
+    "id": "id258966",
+    "name": "Cambiaso",
     "rating": 80,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
      77,
      78,
-     79
+     78
     ],
     "chem": 3,
     "eff": [
      79,
      80,
-     81
+     82
     ],
-    "tiebreak": 240
-   },
-   {
-    "slot": "CB",
-    "id": "id226851",
-    "name": "Pavard",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     70,
-     72,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     75,
-     84
-    ],
-    "tiebreak": 227
+    "tiebreak": 239
    },
    {
     "slot": "CB",
@@ -102,6 +78,29 @@
      83
     ],
     "tiebreak": 238
+   },
+   {
+    "slot": "CB",
+    "id": "id226851",
+    "name": "Pavard",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     70,
+     72,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     75,
+     84
+    ],
+    "tiebreak": 227
    },
    {
     "slot": "RB",
@@ -128,49 +127,95 @@
    },
    {
     "slot": "CDM",
-    "id": "ltm_espart80",
-    "name": "Xavi Espart",
+    "id": "id246287",
+    "name": "Ángela Sosa",
     "rating": 80,
-    "color": "ltm",
-    "position": "RB",
+    "color": "rare_gold",
+    "position": "CM",
     "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
+    "leagueId": 2222,
+    "clubId": 116334,
     "card": [
-     72,
-     78,
-     79
+     79,
+     82,
+     63
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     74,
      80,
-     81
+     83,
+     64
     ],
-    "tiebreak": 235
+    "tiebreak": 227
    },
    {
     "slot": "LM",
-    "id": "id270728",
-    "name": "Carlos Romero",
+    "id": "id261865",
+    "name": "Miguel Gutiérrez",
     "rating": 80,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 45,
-    "leagueId": 53,
-    "clubId": 483,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     78,
      77,
+     78,
      79
     ],
     "chem": 3,
     "eff": [
-     80,
      79,
+     80,
      81
     ],
     "tiebreak": 240
+   },
+   {
+    "slot": "CM",
+    "id": "id50540109",
+    "name": "de Roon",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 31,
+    "clubId": 52,
+    "card": [
+     73,
+     76,
+     80
+    ],
+    "chem": 2,
+    "eff": [
+     74,
+     77,
+     83
+    ],
+    "tiebreak": 232
+   },
+   {
+    "slot": "CM",
+    "id": "id243780",
+    "name": "Lee Kang In",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 167,
+    "leagueId": 53,
+    "clubId": 240,
+    "card": [
+     79,
+     81,
+     53
+    ],
+    "chem": 1,
+    "eff": [
+     79,
+     81,
+     53
+    ],
+    "tiebreak": 213
    },
    {
     "slot": "RM",
@@ -196,29 +241,6 @@
     "tiebreak": 221
    },
    {
-    "slot": "CAM",
-    "id": "id243780",
-    "name": "Lee Kang In",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 167,
-    "leagueId": 53,
-    "clubId": 240,
-    "card": [
-     79,
-     81,
-     53
-    ],
-    "chem": 2,
-    "eff": [
-     80,
-     82,
-     54
-    ],
-    "tiebreak": 216
-   },
-   {
     "slot": "ST",
     "id": "id262545",
     "name": "Amaiur Sarriegi",
@@ -240,29 +262,6 @@
      54
     ],
     "tiebreak": 217
-   },
-   {
-    "slot": "ST",
-    "id": "id261050",
-    "name": "Francisco Conceição",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     81,
-     79,
-     45
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     81,
-     49
-    ],
-    "tiebreak": 211
    }
   ]
  },
@@ -299,16 +298,16 @@
  "base_ids": [
   "id50560437",
   "id261865",
-  "id232756",
-  "id226851",
   "id230918",
+  "id226851",
+  "id232756",
   "id243702",
   "id243593",
-  "id50603785",
   "id246287",
+  "id50603785",
   "evo_Lucas Vázquez_80",
   "id262545"
  ],
- "built": "2026-10-18 09:45 UTC",
+ "built": "2026-10-19 03:04 UTC",
  "week": "2026-10-19"
 }

@@ -3,81 +3,58 @@
  "obj_ids": [
   "evo_Diomande_89"
  ],
- "strength": 102.1,
+ "strength": 101.9,
  "group_cards": 1,
  "reddit": [],
  "team": {
   "formation": "4-2-1-3",
-  "chem": 31,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id191694",
-    "name": "Campos",
-    "rating": 87,
-    "color": "hero",
+    "id": "id67329765",
+    "name": "David Raya",
+    "rating": 89,
+    "color": "totw_gold",
     "position": "GK",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 114605,
+    "nationId": 45,
+    "leagueId": 13,
+    "clubId": 1,
     "card": [
-     77,
-     68,
-     88
+     46,
+     48,
+     90
     ],
     "chem": 3,
     "eff": [
-     80,
-     74,
-     91
+     49,
+     54,
+     93
     ],
-    "tiebreak": 239
+    "tiebreak": 190
    },
    {
     "slot": "LB",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     87,
-     88,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     94,
-     81
-    ],
-    "tiebreak": 259
-   },
-   {
-    "slot": "CB",
-    "id": "id1615",
-    "name": "Thuram",
+    "id": "id176676",
+    "name": "Marcelo",
     "rating": 89,
     "color": "icon",
-    "position": "RB",
-    "nationId": 18,
+    "position": "LB",
+    "nationId": 54,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     74,
-     75,
-     89
+     83,
+     87,
+     87
     ],
     "chem": 3,
     "eff": [
-     77,
-     81,
-     92
+     86,
+     93,
+     90
     ],
-    "tiebreak": 244
+    "tiebreak": 263
    },
    {
     "slot": "CB",
@@ -103,27 +80,50 @@
     "tiebreak": 258
    },
    {
-    "slot": "RB",
-    "id": "ltm_espart89",
-    "name": "Xavi Espart",
+    "slot": "CB",
+    "id": "id50597687",
+    "name": "Pubill",
     "rating": 89,
-    "color": "ltm",
-    "position": "RB",
+    "color": "future_stars",
+    "position": "CB",
     "nationId": 45,
     "leagueId": 53,
-    "clubId": 241,
+    "clubId": 240,
     "card": [
-     80,
-     87,
+     74,
+     77,
      88
     ],
     "chem": 3,
     "eff": [
+     77,
      83,
-     93,
      91
     ],
-    "tiebreak": 261
+    "tiebreak": 245
+   },
+   {
+    "slot": "RB",
+    "id": "id135455",
+    "name": "Maicon",
+    "rating": 88,
+    "color": "icon",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     83,
+     81,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     87,
+     90
+    ],
+    "tiebreak": 257
    },
    {
     "slot": "CDM",
@@ -163,59 +163,59 @@
      89,
      90
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     82,
-     94,
-     92
+     83,
+     95,
+     93
     ],
-    "tiebreak": 262
+    "tiebreak": 265
    },
    {
     "slot": "CAM",
-    "id": "id50600784",
-    "name": "Mainoo",
-    "rating": 89,
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
     "color": "future_stars",
-    "position": "CDM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 11,
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     83,
-     86,
-     87
+     87,
+     88,
+     78
     ],
     "chem": 3,
     "eff": [
-     86,
-     92,
-     90
+     90,
+     94,
+     81
     ],
-    "tiebreak": 262
+    "tiebreak": 259
    },
    {
     "slot": "LW",
-    "id": "ltm_ngumoha89",
-    "name": "Ngumoha",
+    "id": "id167425",
+    "name": "Abedi Pelé",
     "rating": 89,
-    "color": "ltm",
-    "position": "LM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 9,
+    "color": "hero",
+    "position": "CAM",
+    "nationId": 117,
+    "leagueId": 16,
+    "clubId": 114605,
     "card": [
-     89,
      87,
-     55
+     88,
+     50
     ],
     "chem": 3,
     "eff": [
-     92,
-     93,
-     58
+     90,
+     94,
+     53
     ],
-    "tiebreak": 237
+    "tiebreak": 231
    },
    {
     "slot": "ST",
@@ -299,16 +299,16 @@
  "base_ids": [
   "id67329765",
   "id50595413",
-  "id138956",
-  "id1183",
   "id261593",
+  "id1183",
+  "id138956",
   "id1615",
-  "ltm_espart89",
   "evo_Can_89",
+  "ltm_espart89",
   "evo_Diomande_89",
   "id167134",
   "ltm_karetsas89"
  ],
- "built": "2026-10-18 09:45 UTC",
+ "built": "2026-10-19 03:05 UTC",
  "week": "2026-10-19"
 }
