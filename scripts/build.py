@@ -77,7 +77,16 @@ def main():
     if mode == "list":
         w = week()
         out = {m: [s["key"] for s in w.get(m, [])] for m in ("sim", "myclub")}
-        out["variants"] = variant_keys("myclub", out["myclub"])     # "No LTMs or Evos" versions: built after the all-cards teams
+        # "No LTMs or Evos" versions: built once per season, after the all-cards teams (never rebuilt nightly).
+        # A version already built this season is skipped unless asked for by name ("myclub:89--noltmevo").
+        def built(k):
+            try:
+                return json.load(open(os.path.join(RES, f"myclub_{k}.json"))).get("week") == w.get("week")
+            except Exception:
+                return False
+        out["variants"] = variant_keys("myclub", out["myclub"])
+        named = {x.split(":", 1)[1].strip().lower() for x in (sys.argv[2] if len(sys.argv) > 2 else "").split(",") if "--" in x}
+        out["variants"] = [k for k in out["variants"] if k.lower() in named or not built(k)]
         only = (sys.argv[2] if len(sys.argv) > 2 else "all").strip().lower()
         grp = lambda m: "myclub" if m == "variants" else m      # a series' variants follow its My Club team
         if only in ("sim", "myclub"):
