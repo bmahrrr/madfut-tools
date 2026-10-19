@@ -19508,20 +19508,91 @@
    "reddit": null,
    "watch": [
     {
-     "name": "Dahmen",
-     "text": "Only use for defence (80); attack 41, control 38"
+     "s": 0,
+     "v": 81,
+     "beat": [],
+     "ties": [],
+     "name": "Ouédraogo",
+     "rank": 0,
+     "text": "Unbeatable attack 81: no card in the series wins that duel."
     },
     {
-     "name": "Pieper",
-     "text": "Never use for attack (52)"
+     "s": 1,
+     "v": 82,
+     "beat": [],
+     "ties": [],
+     "name": "Ouédraogo",
+     "rank": 0,
+     "text": "Unbeatable control 82: no card in the series wins that duel."
     },
     {
-     "name": "Werner",
-     "text": "Never use for defence (43)"
-    },
-    {
+     "s": 0,
+     "v": 81,
+     "beat": [],
+     "ties": [],
      "name": "Kühn",
-     "text": "Never use for defence (53)"
+     "rank": 0,
+     "text": "Unbeatable attack 81: no card in the series wins that duel."
+    },
+    {
+     "s": 1,
+     "v": 81,
+     "beat": [
+      {
+       "name": "Ouédraogo",
+       "rating": 76,
+       "v": 82,
+       "tie": false
+      }
+     ],
+     "ties": [],
+     "name": "Lucas Vázquez",
+     "rank": 1,
+     "text": "Control 81 only loses to Ouédraogo 76 (control 82)."
+    },
+    {
+     "s": 2,
+     "v": 81,
+     "beat": [
+      {
+       "name": "Kühn",
+       "rating": 76,
+       "v": 81,
+       "tie": true
+      },
+      {
+       "name": "Ouédraogo",
+       "rating": 76,
+       "v": 81,
+       "tie": true
+      }
+     ],
+     "ties": [],
+     "name": "Wedemeyer",
+     "rank": 2,
+     "text": "Defence 81 only loses to Kühn 76 (attack 81, wins the tie on total) and Ouédraogo 76 (attack 81, wins the tie on total)."
+    },
+    {
+     "s": 2,
+     "v": 81,
+     "beat": [
+      {
+       "name": "Kühn",
+       "rating": 76,
+       "v": 81,
+       "tie": true
+      },
+      {
+       "name": "Ouédraogo",
+       "rating": 76,
+       "v": 81,
+       "tie": true
+      }
+     ],
+     "ties": [],
+     "name": "Pieper",
+     "rank": 2,
+     "text": "Defence 81 only loses to Kühn 76 (attack 81, wins the tie on total) and Ouédraogo 76 (attack 81, wins the tie on total)."
     }
    ],
    "low_tb": {
