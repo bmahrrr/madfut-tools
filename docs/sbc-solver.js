@@ -982,6 +982,132 @@ function cellSBC(highs, req, pool, slots, timeLimit = 10) {
   return { cost: tot, sq };
 }
 
+// ---------- link template: the shape most hard 33-chem hybrids take (no Icons) ----------
+// 11 = a 4-player club block + a 3-player league block + two 2-player club pairs:
+//  - club block: 4 from one club (club +2). All in one league (league +1), or 3 in one league + 1 from the club's other
+//    league (e.g. its women's team) who shares a nation with one of the 3.
+//  - league block: a same-club, same-nation pair plus one "link" player, all in one league (league +1).
+//  - two pairs, each from one club and of the link player's nation (club +1). With the link player that nation has 5
+//    (nation +2), which carries the pairs and the link player.
+// Any clubs, nations and leagues: the rules only decide which pieces are tried first. Every squad is checked by
+// validSBC, so this can only miss, never return a wrong squad.
+function linkSBC(req, pool, slots, ms = 3000) {
+  if (!cellModelOK(req)) return null;
+  const t0 = Date.now(), pr = req.priority || "gold_first", cost = c => sbcCost(c, pr);
+  const ST = [...new Set(slots)];
+  const P = pool.filter(c => !SBC_AUTO.has(c.color) && ST.some(s => c.P.has(s))).sort((a, b) => cost(a) - cost(b));
+  const rules = (req.rules || []).filter(r => r.op !== "<=" && r.n > 0);
+  const fits = sq => {
+    const match = new Array(slots.length).fill(-1);
+    const tr = (i, seen) => { for (let j = 0; j < slots.length; j++) if (!seen[j] && sq[i].P.has(slots[j])) { seen[j] = true; if (match[j] < 0 || tr(match[j], seen)) { match[j] = i; return true; } } return false; };
+    for (let i = 0; i < sq.length; i++) if (!tr(i, new Array(slots.length).fill(false))) return null;
+    return match;
+  };
+  const group = key => { const m = new Map(); for (const c of P) { const k = key(c); if (!m.has(k)) m.set(k, []); const L = m.get(k); if (!L.some(x => playerKey(x) === playerKey(c))) L.push(c); } return m; };
+  const byCN = group(c => c.clubId + "|" + c.nationId), byClub = group(c => c.clubId);
+  const cov = cards => rules.map(r => cards.some(c => ruleMatch(c, r)));
+  const pieceCost = cards => cards.reduce((a, c) => a + cost(c), 0);
+  // the cheapest few cards of a list that can fill different positions
+  const diverse = (L, k) => { const out = [], seen = new Set();
+    for (const c of L) if (out.length < 4 && rules.some(r => ruleMatch(c, r)) && !rules.every(r => r.on === "club")) { seen.add(c.id); out.push(c); }   // players a nation rule asks for first
+    for (const st of ST) { let n = 0; for (const c of L) { if (n >= 2) break; if (c.P.has(st) && !seen.has(c.id)) { seen.add(c.id); out.push(c); n++; } } } for (const c of L) { if (out.length >= k) break; if (!seen.has(c.id)) { seen.add(c.id); out.push(c); } } return out.sort((a, b) => cost(a) - cost(b)); };
+  const combos = (L, k) => { const out = []; const rec = (s, cur) => { if (cur.length === k) { out.push(cur.slice()); return; } for (let i = s; i < L.length; i++) { cur.push(L[i]); rec(i + 1, cur); cur.pop(); } }; rec(0, []); return out; };
+  // pairs: same club and nation (any leagues)
+  const pairsByNat = new Map(), pairsInLeague = new Map();
+  for (const L of byCN.values()) {
+    if (L.length < 2) continue;
+    for (const g of combos(diverse(L, 5), 2)) {
+      const pc = { cards: g, cost: pieceCost(g), nat: g[0].nationId };
+      if (!pairsByNat.has(pc.nat)) pairsByNat.set(pc.nat, []); pairsByNat.get(pc.nat).push(pc);
+      if (g[0].leagueId === g[1].leagueId) { const l = g[0].leagueId; if (!pairsInLeague.has(l)) pairsInLeague.set(l, []); pairsInLeague.get(l).push(pc); }
+    }
+  }
+  for (const m of [pairsByNat, pairsInLeague]) for (const L of m.values()) L.sort((a, b) => a.cost - b.cost);
+  // club blocks of 4
+  const quads = [];
+  // clubs worth a block: those with players a rule asks for, plus the 40 cheapest others
+  const cheapClubs = new Set([...byClub.entries()].filter(([k, L]) => L.length >= 4).sort((a, b) => pieceCost(a[1].slice(0, 4)) - pieceCost(b[1].slice(0, 4))).slice(0, 40).map(e => e[0]));
+  for (const [club, L] of byClub) {
+    if (L.length < 4 || !(cheapClubs.has(club) || L.some(c => rules.some(r => ruleMatch(c, r))))) continue;
+    const start = quads.length;
+    const byLg = new Map(); L.forEach(c => { if (!byLg.has(c.leagueId)) byLg.set(c.leagueId, []); byLg.get(c.leagueId).push(c); });
+    for (const [l1, A] of byLg) {
+      const a = diverse(A, 7);
+      if (A.length >= 4) for (const g of combos(a, 4)) quads.push(g);
+      for (const [l2, B] of byLg) if (l2 !== l1 && A.length >= 3) for (const w of diverse(B, 6)) for (const g of combos(a, 3)) if (g.some(x => x.nationId === w.nationId)) quads.push([...g, w]);
+    }
+    // each club's own quads cheapest first, ranked so clubs take turns
+    const mine = quads.splice(start).filter(g => fits(g)).map(g => ({ cards: g, cost: pieceCost(g), nc: cov(g).filter(Boolean).length, nn: new Set(g.map(c => c.nationId)).size }))
+      .sort((a, b) => b.nc - a.nc || ((req.min_nations || 0) >= 4 ? b.nn - a.nn : 0) || a.cost - b.cost).slice(0, 60);
+    mine.forEach((q, i) => { q.rank = i; quads.push(q); });
+  }
+  const Q = quads.sort((a, b) => b.nc - a.nc || a.rank - b.rank || a.cost - b.cost);
+  const singlesBy = group(c => c.nationId + "|" + c.leagueId);
+  // chain nations: at least two pairs, best when they cover rules
+  const chainNats = [...pairsByNat.keys()].filter(n => pairsByNat.get(n).length >= 2)
+    .map(n => ({ n, sc: rules.filter(r => P.some(c => c.nationId === n && ruleMatch(c, r))).length * 1000 - pairsByNat.get(n)[0].cost / 100 }))
+    .sort((a, b) => b.sc - a.sc).map(e => e.n);
+  let best = null, n = 0;
+  const done = () => (++n % 64 === 0 && Date.now() - t0 > ms);
+  const covered = (cur) => rules.map(r => cur.some(c => ruleMatch(c, r)));
+  // can the rules still open be covered by the pieces left? (each piece is one club; only the block pair brings a
+  // nation other than N)
+  const openOf = cur => rules.filter(r => !cur.some(c => ruleMatch(c, r)));
+  const feasible = (cur, pieces, bpLeft) => {
+    const o = openOf(cur);
+    if (o.filter(r => r.on === "club").length > pieces || o.filter(r => r.on === "league").length > pieces ||
+      o.filter(r => r.on === "nation" && r.id !== N0).length > (bpLeft ? 1 : 0)) return false;
+    // nations: only the block pair can still bring one besides N; leagues: at most 1 (block) + 2 per pair left
+    const nats = new Set(cur.map(c => c.nationId)); nats.add(N0);
+    if (nats.size + (bpLeft ? 1 : 0) < (req.min_nations || 0)) return false;
+    const pairsLeft = Math.min(2, pieces - (bpLeft ? 2 : pieces >= 3 ? 1 : 0));
+    return new Set(cur.map(c => c.leagueId)).size + (bpLeft ? 1 : 0) + 2 * pairsLeft >= (req.min_leagues || 0);
+  };
+  let N0 = null;
+  // pieces covering an open rule first; when every piece left has to cover one (as many open club or league rules
+  // as pieces), only those
+  const order = (L, cur, k, pieces) => {
+    const o = openOf(cur), h = x => o.some(r => (x.cards || [x]).some(c => ruleMatch(c, r)));
+    const must = o.filter(r => r.on === "club").length >= pieces || o.filter(r => r.on === "league").length >= pieces;
+    const a = L.filter(h).slice(0, 40); return must ? a : a.concat(L.filter(x => !h(x)).slice(0, k));
+  };
+  for (const N of chainNats) {
+    N0 = N;
+    const NPall = pairsByNat.get(N);
+    for (const q of Q) {
+      if (done()) return best;
+      if (!feasible(q.cards, 4, true)) continue;
+      // league block: a pair in league X + a link player of nation N in X
+      for (const [X, BP] of pairsInLeague) {
+        const links0 = singlesBy.get(N + "|" + X); if (!links0) continue;
+        for (const bp of order(BP, q.cards, 12, 4)) {
+          const cur0 = q.cards.concat(bp.cards);
+          if (!feasible(cur0, 3, false) || new Set(cur0.map(playerKey)).size !== 6 || !fits(cur0)) continue;
+          for (const s of order(links0, cur0, 6, 3)) {
+            const cur1 = cur0.concat(s);
+            if (!feasible(cur1, 2, false) || new Set(cur1.map(playerKey)).size !== cur1.length || !fits(cur1)) continue;
+            const NP = order(NPall, cur1, 30, 2);
+            for (let i = 0; i < NP.length; i++) {
+              const c2 = cur1.concat(NP[i].cards);
+              if (!feasible(c2, 1, false) || new Set(c2.map(playerKey)).size !== c2.length || !fits(c2)) continue;
+              if (done()) return best;
+              for (let j = i + 1; j < NP.length; j++) {
+                const sq = c2.concat(NP[j].cards);
+                if (new Set(sq.map(playerKey)).size !== 11) continue;
+                const c = pieceCost(sq); if (best && c >= best.cost) continue;
+                const m = fits(sq); if (!m) continue;
+                const ord = m.map(k => sq[k]);
+                if (validSBC(req, ord)) { best = { cost: c, sq: ord }; return best; }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return best;
+}
+
 // Independent check that a squad meets every requirement (used to verify every answer).
 function validSBC(req, sq) {
   if (sq.length !== 11 || sq.some(x => !x)) return false;
@@ -1047,7 +1173,8 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
         progress(`Building high-chem squads ${form}${tag}…`);
         // with a squad rating: only cards at the rating or above (always enough); the steps after this make it cheaper
         const hp = req.min_rating ? pool.filter(c => c.rating >= req.min_rating) : pool;
-        offer(hardSearch(req, hp, slots, forms.length > 1 ? 2500 : timeLimit * (req.min_rating ? 350 : 300)));
+        offer(linkSBC(req, hp, slots, forms.length > 1 ? 800 : Math.min(5000, timeLimit * 200)));
+        if (!formBest) offer(hardSearch(req, hp, slots, forms.length > 1 ? 2500 : timeLimit * (req.min_rating ? 350 : 300)));
         // still nothing: the exact cell model on just the cards the rules name (e.g. only players from the 5 clubs)
         if (!formBest && forms.length === 1 && cellModelOK(req)) {
           const rp = pool.filter(c => (req.rules || []).some(r => r.op !== "<=" && r.n > 0 && ruleMatch(c, r)));
@@ -1100,4 +1227,4 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
   return sbcResult(best, proven, FORMS, cands.length);
 }
 
-if (typeof module !== "undefined") module.exports = { sbcCost, recipeSBC, chemSearch, planSearch, hardSearch, cellSBC, ruleMatch, solveSBC, sbcChem, teamRatingOf, buildLP, sbcPool, sbcCandidates, annealSBC, validSBC, hybridSBC };
+if (typeof module !== "undefined") module.exports = { sbcCost, recipeSBC, chemSearch, planSearch, hardSearch, cellSBC, linkSBC, ruleMatch, solveSBC, sbcChem, teamRatingOf, buildLP, sbcPool, sbcCandidates, annealSBC, validSBC, hybridSBC };
