@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261019d";
+const APP_V = "20261019e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -295,7 +295,7 @@ const vtag = (which, d) => !which ? "" : which === "mine"
   : `<p class="vtag">Everyone's team <span>· assumes every card</span></p>`;
 
 // ---------- Game plan (computed after each build by scripts/plan.js) ----------
-function planHtml(p) {
+function planHtml(p, results) {
   const SC = ["a", "c", "d"], SN = ["Attack", "Control", "Defence"];
   const tag = (s, v) => `<span class="gtag ${SC[s]}">${["ATT", "CTL", "DEF"][s]}${v != null ? " " + v : ""}</span>`;
   const sIdx = st => ({ attack: 0, control: 1, defence: 2 })[st];
@@ -303,9 +303,12 @@ function planHtml(p) {
   const openers = L => L.length >= p.total_openers ? `<p class="small muted gnote">Any card works: every opening lead gives the same result.</p>`
     : `<div class="gchips">${L.map(x => `<span class="gchip"><b>${esc(cap(x.name))}</b>${tag(sIdx(x.stat))}</span>`).join("")}</div>`;
   let h = `<details class="plan gp" open><summary>Game Plan</summary>`;
-  h += `<div class="gtiles"><div class="gtile"><span>You lead first</span>${pill(p.guaranteed)}<small>with perfect play</small></div>
-    <div class="gtile"><span>They lead first</span><b class="gsm">Match Helper</b><small>for each answer</small></div></div>`;
-  h += `<div class="gsec"><h4>Open With</h4>${openers(p.safe)}</div>`;
+  // results against every test team, split by who leads first
+  const R = Object.values(results || {}), cnt = (k, r) => R.filter(v => v[k] === r).length;
+  const tile = (label, k) => { const w = ["LOSS", "DRAW", "WIN"].find(r => cnt(k, r)) || "DRAW";
+    return `<div class="gtile"><span>${label}</span>${pill(w)}<small>worst of ${R.length} test teams</small><small class="gwdl"><b class="w">${cnt(k, "WIN")}W</b> <b class="d">${cnt(k, "DRAW")}D</b> <b class="l">${cnt(k, "LOSS")}L</b></small></div>`; };
+  if (R.length) h += `<div class="gtiles">${tile("You lead first", "you_lead_first")}${tile("They lead first", "they_lead_first")}</div>`;
+  h += `<div class="gsec"><h4>Open With</h4>${openers(p.safe)}<p class="small muted gnote">They lead first? Use Match Helper for each answer.</p></div>`;
   if (p.reddit && !same(p.reddit.safe, p.safe)) h += `<div class="gsec"><h4>Vs Reddit Team ${pill(p.reddit.guaranteed)}</h4>${openers(p.reddit.safe)}</div>`;
   const W = (p.watch || []).filter(w => w.s != null);
   if (W.length) {
@@ -363,7 +366,7 @@ async function renderTeams() {
       else if (t.source === "Polished") html += `<p class="verdict">✓ Improved <span>· a card-by-card swap check found a better team, then passed new stress tests</span></p>`;
       const box = (label, inner, note) => `<div class="sc"><span>${label}</span>${inner}${note ? `<small>${note}</small>` : ""}</div>`;
       if (refs.length || worst) html += `<div class="score">${refs.length ? box("VS Reddit Team", refs.map(([k, v]) => `${pill(v.you_lead_first)}${pill(v.they_lead_first)}`).join(" "), "You lead · they lead") : box("VS Reddit Team", `<span class="muted small">Not added</span>`)}${worst ? box("Worst Case", pill(worst.r), `${esc(resultLabel(worst.k))}, ${worst.who}${t.mode !== "robust" ? ". Built before worst-case mode" : ""}`) : ""}</div>`;
-      if (t.plan) html += planHtml(t.plan);
+      if (t.plan) html += planHtml(t.plan, t.results);
       html += nh + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
       if (t.results) html += `<details style="margin-top:6px"><summary class="small">All Results and What They Mean</summary><p class="small muted" style="margin:6px 0 2px">Tap any opponent to see their team. Results: you lead first, they lead first.</p>${oppList(t, wser)}<p class="small" style="margin:10px 0 6px">
@@ -384,7 +387,7 @@ async function renderTeams() {
             <p class="meta" style="margin:6px 0">${esc(vt.formation || "")} · ${vt.chem} chem · ${vd.same_as_full ? "the full team has none of these cards, so it's the same team." : "built without these cards, still tested against teams that have them."}</p>
             ${gone.length && !vd.same_as_full ? `<p class="small muted" style="margin:0 0 6px">Left out: ${esc(gone.slice(0, 12).join(", "))}${gone.length > 12 ? ` and ${gone.length - 12} more` : ""}</p>` : ""}
             ${vw ? `<div class="score">${box("Worst Case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who} · ${Object.keys(vt.results || {}).length} opponents`)}</div>` : ""}
-            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
+            ${vt.plan ? planHtml(vt.plan, vt.results) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
         } catch (e) {}
       }
       html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div></details>`;
@@ -425,7 +428,7 @@ let MCW = { week: "", base: "results/", myclub: [], files: [] };   // the week M
 function mcSeries() { const k = $("mcSeries").value; return MCW.myclub.find(s => s.key === k) || { boosts: [], key: "" }; }
 function beatSeries() { const k = $("beatSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [], key: "" }; }
 const serOf = side => side === "T" ? beatSeries() : mcSeries();
-const SIDE = { A: "Your team", B: "Their team", T: "Team to beat" };
+const SIDE = { A: "1. Your team", B: "2. Their team", T: "Team to beat" };
 const short = ids => ids.map(id => BYID.get(id)).filter(Boolean).slice(0, 3).map(c => c.name).join(", ") + "…";
 function savedTeams() { try { return JSON.parse(localStorage.getItem("mcSaved") || "[]"); } catch (e) { return []; } }
 function setSaved(list) { try { localStorage.setItem("mcSaved", JSON.stringify(list)); } catch (e) {} }
@@ -510,7 +513,7 @@ function panelHtml(side) {
 }
 const seriesInfo = s => s.key ? `Cap ${s.cap || "?"}${(n => n ? ` · ${n} boost${n > 1 ? "s" : ""} applied` : " · no boosts")((s.boosts || []).length + (s.bonuses || []).length)}. Stats shown are in-game (boosts + chem). TB = tiebreak total.` : "No boosts applied.";
 function drawMC() {
-  $("mcInfo").innerHTML = seriesInfo(mcSeries());
+  $("mcInfo").innerHTML = `<b>Add two teams:</b> yours (1) and theirs (2), then tap Compare.<br>` + seriesInfo(mcSeries());
   if ($("beatInfo")) $("beatInfo").innerHTML = seriesInfo(beatSeries());
   for (const side of ["A", "B", "T"]) if ($("panel" + side)) $("panel" + side).innerHTML = panelHtml(side);
   document.querySelectorAll("[data-clear]").forEach(b => b.onclick = () => { state[b.dataset.clear] = []; drawMC(); });
@@ -628,7 +631,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -654,7 +657,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261019d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261019e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1022,7 +1025,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019d");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
