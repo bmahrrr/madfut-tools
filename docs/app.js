@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261019e";
+const APP_V = "20261019f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -631,7 +631,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261019f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -657,7 +657,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261019e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261019f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1025,7 +1025,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019e");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261019f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1049,7 +1049,10 @@ async function runSBC(timeLimit, reqOverride) {
   out.innerHTML = `<p class="muted">${msg}</p>`;
   const per = req.formation === "any" ? Math.max(5, Math.round(timeLimit / 3)) : timeLimit;
   try {
-    const m = await sbcSolve(req, per, t => msg = t, p => { hasPartial = true; SB.last = p.result; SB.lastReq = req; SB.lastSeconds = p.seconds; drawSBCResult(true); });
+    const onPart = p => { hasPartial = true; SB.last = p.result; SB.lastReq = req; SB.lastSeconds = p.seconds; drawSBCResult(true); };
+    let m = await sbcSolve(req, per, t => msg = t, onPart);
+    // nothing yet: hard ones (obscure nations or clubs, 33 chem) often need longer, so keep going once by itself
+    if (m.result.none && per < 60) m = await sbcSolve(req, req.formation === "any" ? 30 : 60, t => msg = "Hard one, searching longer. " + t, onPart);
     SB.last = m.result; SB.lastReq = req; SB.lastSeconds = m.seconds;
     drawSBCResult();
   } catch (e) {
@@ -1096,6 +1099,7 @@ function sbcHints(req) {
       out.push(`None of the other clubs has a second league (e.g. a women's team), which this usually needs. Try allowing an Icon.`);
   }
   if (!icons && (req.min_leagues || 0) >= 6 && (req.min_nations || 0) >= 6) out.push("6 leagues and 6 nations without an Icon is rarely possible. Try allowing Icons.");
+  if ((req.min_types || 0) > 3 && !req.allow_specials) out.push(`Card types: Min ${req.min_types} needs special cards (bronze, silver and gold are only 3 types). Allow special cards.`);
   return out;
 }
 function drawSBCResult(working = false) {
@@ -1105,7 +1109,7 @@ function drawSBCResult(working = false) {
   if (!r || r.none) {
     out.innerHTML = (r && r.timedOut
       ? `<p><b>No squad found yet.</b> It ran out of time before finding one.</p><button class="btn" id="sbcLonger">Search longer (up to 90 s)</button>`
-      : `<p><b>No squad meets all of these requirements</b> with the cards available${skip.length ? " after skipping the cards below" : ""}. Check the numbers, or allow special cards.</p>`)
+      : `<p><b>No squad found</b>${skip.length ? " after skipping the cards below" : ""}. It may not be possible with these cards. Check the numbers, or allow special cards or Icons.</p><button class="btn" id="sbcLonger">Search longer (up to 90 s)</button>`)
       + sbcHints(req || {}).map(h => `<p class="small" style="margin:6px 0">💡 ${esc(h)}</p>`).join("") + skipHtml;
   } else {
     const sq = r.players.map(p => BYID.get(p.id));
