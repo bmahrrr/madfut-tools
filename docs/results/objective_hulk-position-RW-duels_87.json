@@ -1,12 +1,13 @@
 {
- "g": 3,
+ "g": 4,
  "obj_ids": [
+  "id50603069",
   "id251570",
   "id246669",
   "id27"
  ],
- "strength": 100.6,
- "group_cards": 3,
+ "strength": 100.0,
+ "group_cards": 4,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -15,7 +16,7 @@
  ],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 33,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -36,52 +37,6 @@
     "eff": [
      79,
      70,
-     90
-    ],
-    "tiebreak": 239
-   },
-   {
-    "slot": "CB",
-    "id": "id5740",
-    "name": "Stam",
-    "rating": 87,
-    "color": "hero",
-    "position": "CB",
-    "nationId": 34,
-    "leagueId": 13,
-    "clubId": 114605,
-    "card": [
-     66,
-     64,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     69,
-     67,
-     90
-    ],
-    "tiebreak": 223
-   },
-   {
-    "slot": "CB",
-    "id": "id50559326",
-    "name": "Konsa",
-    "rating": 86,
-    "color": "destined_for_glory",
-    "position": "CB",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1,
-    "card": [
-     71,
-     76,
-     86
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     78,
      90
     ],
     "tiebreak": 239
@@ -110,6 +65,52 @@
     "tiebreak": 253
    },
    {
+    "slot": "CB",
+    "id": "id50559326",
+    "name": "Konsa",
+    "rating": 86,
+    "color": "destined_for_glory",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1,
+    "card": [
+     71,
+     76,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     78,
+     90
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "CB",
+    "id": "id207865",
+    "name": "Marquinhos",
+    "rating": 87,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     69,
+     74,
+     86
+    ],
+    "chem": 2,
+    "eff": [
+     70,
+     75,
+     87
+    ],
+    "tiebreak": 232
+   },
+   {
     "slot": "LM",
     "id": "id50601349",
     "name": "Brown",
@@ -134,49 +135,49 @@
    },
    {
     "slot": "CM",
-    "id": "id50595413",
-    "name": "Bischof",
+    "id": "id251570",
+    "name": "Cherki",
     "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 13,
+    "clubId": 10,
     "card": [
-     87,
-     88,
-     78
+     84,
+     86,
+     44
     ],
     "chem": 3,
     "eff": [
-     89,
-     90,
-     80
+     86,
+     88,
+     46
     ],
-    "tiebreak": 259
+    "tiebreak": 220
    },
    {
     "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
+    "id": "id50603069",
+    "name": "Doué",
+    "rating": 87,
+    "color": "star_performer",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 73,
     "card": [
-     85,
-     88,
-     81
+     86,
+     83,
+     59
     ],
     "chem": 3,
     "eff": [
-     87,
-     90,
-     83
+     88,
+     85,
+     61
     ],
-    "tiebreak": 260
+    "tiebreak": 234
    },
    {
     "slot": "RM",
@@ -226,26 +227,26 @@
    },
    {
     "slot": "CAM",
-    "id": "id251570",
-    "name": "Cherki",
+    "id": "id50595413",
+    "name": "Bischof",
     "rating": 86,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 18,
-    "leagueId": 13,
-    "clubId": 10,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     84,
-     86,
-     44
+     87,
+     88,
+     78
     ],
     "chem": 3,
     "eff": [
-     86,
-     88,
-     46
+     89,
+     90,
+     80
     ],
-    "tiebreak": 220
+    "tiebreak": 259
    },
    {
     "slot": "ST",
@@ -304,17 +305,17 @@
  },
  "base_ids": [
   "id191694",
-  "id16619",
-  "id50559326",
   "id5740",
-  "id50595413",
-  "id50601349",
-  "id50554313",
+  "id50559326",
+  "id16619",
   "id50592947",
+  "id50601349",
+  "id50595413",
+  "id50554313",
   "id15723",
-  "id330",
-  "id10704"
+  "id10704",
+  "id330"
  ],
- "built": "2026-10-19 22:37 UTC",
+ "built": "2026-10-20 22:50 UTC",
  "week": "2026-10-19"
 }
