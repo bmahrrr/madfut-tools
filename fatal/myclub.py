@@ -6,7 +6,7 @@ builder itself searches for (teams built specifically to beat the current best t
 The search is a local search over owned cards that respects positions and chemistry.
 """
 import collections, random, time
-from .core import AUTO, ICON, full_chem, FORMATIONS, boosted, effective, formation_fit, pid, describe, CTRL
+from .core import AUTO, ICON, full_chem, FORMATIONS, boosted, effective, formation_fit, pid, describe, CTRL, CHEM_BONUS
 from .game import play
 from .milp import build
 
@@ -88,6 +88,55 @@ class Pool:
         return new if fits(new) else None
 
 
+class Unbeat:
+    """Unbeatable cards: a card's attack / control / defence that NO card in the series can beat in that duel (attack
+    vs defence, control vs control), even at its best: boosts, full chem and every squad bonus. A tie on the stat
+    goes to the higher card total, so an equal stat only counts if no card at that stat has a higher total; an exact
+    tie is allowed (nothing WINS it). Same test as the site's Cards to Watch.
+    The owner's rule for a team: 5 cards unbeatable in the SAME stat (every lead you make wins), plus the best
+    tiebreak card kept back (the last card decides a 5-5 or 5-6 game)."""
+    CTR = (2, 1, 0)
+
+    def __init__(self, field, series):
+        bon = [0, 0, 0]
+        for b in series.get("bonuses") or []:
+            bon[0] += b.get("att", 0); bon[1] += b.get("ctl", 0); bon[2] += b.get("def", 0)
+        self.bon = bon
+        self.maxV, self.maxT = [], []
+        for q in range(3):
+            cs = self.CTR[q]
+            best, tot = -99, -1
+            for x in field.cards:
+                v = (x["bA"], x["bC"], x["bD"])[cs] + 2 + bon[cs]
+                t = x["attack"] + x["control"] + x["defense"] + 6
+                if v > best: best, tot = v, t
+                elif v == best and t > tot: tot = t
+            self.maxV.append(best); self.maxT.append(tot)
+
+    def ok(self, q, v, tot):
+        return v > self.maxV[q] or (v == self.maxV[q] and tot >= self.maxT[q])
+
+    def key(self, E):
+        """(tier, unbeatable count in the best stat, tiebreak total, stat). tier 1 = at least 5 unbeatable in one
+        stat; the tiebreak is the best total among the cards left after keeping the 5 (lowest-total) unbeatables."""
+        best = (0, 0, 0, -1)
+        for q in range(3):
+            U = sorted((i for i, e in enumerate(E) if self.ok(q, e[q], e[3])), key=lambda i: E[i][3])
+            if len(U) >= 5:
+                keep = set(U[:5]); tb = max(e[3] for i, e in enumerate(E) if i not in keep)
+                k = (1, min(len(U), 6), tb, q)
+            else:
+                k = (0, len(U), 0, q)
+            if k[:3] > best[:3]: best = k
+        return best
+
+    def full_key(self, E, per):
+        """Ranking used everywhere: 5 unbeatable in one stat + best tiebreak first (owner's rule), then the worst
+        result against every test team, then total results and stats. Below tier 1 the test results come first."""
+        k = self.key(E); w, s = (min(per), sum(per)) if per else (0, 0)
+        return (1, k[2], w, s, secondary(E)) if k[0] else (0, w, k[1], s, secondary(E))
+
+
 def pair_score(a, b):
     """One opponent, both lead orders, as one number: 3 x (results) minus 1 per loss, so a loss in one lead order is
     worse than drawing both (WW 6 > WD 3 > DD 0 > WL -1 > DL -4 > LL -8). The builder prefers teams that can't lose."""
@@ -163,9 +212,11 @@ def secondary(E):
     return catscore(E) * 10000 + stat_strength(E)
 
 
-def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust=False):
+def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust=False, guard=None):
+    """guard(E) -> tuple: when given, no move may lower it (keeps a team's unbeatable cards and tiebreak)."""
     cur = seed[:]
     E = pool.eff(cur)
+    g0 = guard(E) if guard else None
     order = list(range(len(opps))) if robust else None
     o, l = evaluate(E, opps, weights, robust=robust)
     ckey = (o, l, secondary(E)); best = (ckey, cur[:])
@@ -179,6 +230,7 @@ def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust
             n2 = pool.propose(new, rng)
             if n2 is not None: new = n2
         E2 = pool.eff(new)
+        if guard and guard(E2) < g0: continue
         r = evaluate(E2, opps, weights, bound=None if robust else ckey[0] - 1, robust=robust,
                      need=ckey[0] if robust else None, order=order)
         if r is None: continue
@@ -194,7 +246,7 @@ def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust
     return best
 
 
-def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None):
+def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None, guard=None):
     """Systematic check of the finished team: try every promising single-card swap, judged on
     (worst case, total results) against every opponent. Candidates: cards linked to the team by
     nation/league/club, full-chem cards (Icons, Heroes...) and the strongest cards; a swap must not
@@ -207,6 +259,7 @@ def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None):
         E = pool.eff(tm); r = evaluate(E, opps, weights, robust=True)
         return (r[0], secondary(E))
     cur = team[:]; ck = score(cur)
+    g0 = guard(pool.eff(cur)) if guard else None
     def cands(tm):
         seen = {}
         for x in tm:
@@ -241,6 +294,7 @@ def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None):
             new = base[:i] + [c] + base[i + 1:]
             tried += 1
             E2 = pool.eff(new)
+            if guard and guard(E2) < g0: continue
             r = evaluate(E2, opps, weights, robust=True, need=bkey[0], order=order)
             if r is None: continue
             k2 = (r[0], secondary(E2))
@@ -351,6 +405,55 @@ def milp_seeds(pool, series=None, time_limit=15, log=None):
     return seeds
 
 
+def unbeat_seeds(pool, series, ub, forms=None, time_limit=20, log=None, seconds=900):
+    """The owner's team shape, built directly: for each stat and formation, the team with the most cards unbeatable
+    in that stat (up to 5, each on full chem), then the best tiebreak card kept apart from them, then the strongest
+    rest. Exact program over the strongest cards for every position (seed_cards), not a search."""
+    import pulp
+    bon = ub.bon
+    # the strongest cards for every position, plus every card that can be unbeatable and its nation / league / club
+    # mates (the links that put it on chem)
+    cards = seed_cards(pool, series); have = {c["id"] for c in cards}
+    able = [x for x in pool.cards if any(ub.ok(q, (x["bA"], x["bC"], x["bD"])[q] + 2 + bon[q], x["attack"] + x["control"] + x["defense"] + 6) for q in range(3))]
+    extra_cards = {x["id"]: x for x in able}
+    for x in able:
+        for k in ("nationId", "leagueId", "clubId"):
+            for y in pool.by[k][x[k]][:30]: extra_cards[y["id"]] = y
+    for y in extra_cards.values():
+        if y["id"] not in have: y = dict(y); y["_i"] = len(cards); cards.append(y); have.add(y["id"])
+    t0 = time.time(); out, seen = [], set()
+    for q in (0, 2, 1):
+        if sum(1 for x in able if ub.ok(q, (x["bA"], x["bC"], x["bD"])[q] + 2 + bon[q], x["attack"] + x["control"] + x["defense"] + 6)) < 5:
+            continue                      # fewer than 5 cards in the series can be unbeatable in this stat
+        def extra(prob, X, Y, H, byi, used, obj, q=q):
+            F, T = {}, {}
+            for i in used:
+                x = byi[i]
+                base = (x["bA"], x["bC"], x["bD"])[q] + bon[q]; tot0 = x["attack"] + x["control"] + x["defense"]
+                # the lowest chem at which the card is still unbeatable (chem 2 is often enough)
+                need = next((ch for ch in (1, 2, 3) if ub.ok(q, base + CHEM_BONUS[ch], tot0 + 3 * CHEM_BONUS[ch])), None)
+                if need is not None and not full_chem(x):
+                    F[i] = pulp.LpVariable(f"f_{i}", cat="Binary"); prob += F[i] <= Y[i]; prob += H[i] >= need * F[i]
+                elif need is not None:
+                    F[i] = pulp.LpVariable(f"f_{i}", cat="Binary"); prob += F[i] <= Y[i]
+                T[i] = pulp.LpVariable(f"t_{i}", cat="Binary"); prob += T[i] <= Y[i]; prob += H[i] >= 3 * T[i]
+                if i in F: prob += F[i] + T[i] <= 1
+                obj.append((tot0 + 6) * T[i])
+            u = pulp.LpVariable("u_unbeat", 0, 5)
+            prob += u <= pulp.lpSum(F.values()); prob += pulp.lpSum(T.values()) == 1
+            obj.append(100000 * u)
+        for form in forms or CAT_FORMS:
+            if time.time() - t0 > seconds: return out
+            sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"] / 50, chem_weight=lambda c, s: 1, time_limit=time_limit,
+                       gap=0.0005, group_rules=ICON_RULE, extra=extra)
+            if not sq: continue
+            k = frozenset(c["id"] for c in sq)
+            if k in seen: continue
+            seen.add(k); out.append(sq)
+            if log: log(f"  seed: unbeatable {'ACD'[q]} {form} -> {ub.key(pool.eff(sq))}")
+    return out
+
+
 def milp_seed(pool, rng=None, time_limit=60):
     s = milp_seeds(pool, time_limit=time_limit)
     return s[0] if s else None
@@ -424,9 +527,15 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     field_ids = {c["id"]: c for c in field.cards}
     same_pool = len(me.cards) == len(field.cards)
     # 1) a population of strong, different teams (any card: these are the teams other players can field)
+    # 0) the owner's shape first: 5 cards unbeatable in one stat + the best tiebreak card (exact programs)
+    ub = Unbeat(field, series)
+    useeds = unbeat_seeds(field, series, ub, seconds=min(T * 0.12, 1500), log=log)
     pop = cat_seeds(field, series, seconds=min(T * 0.15, 1800), log=log)
     pop += milp_seeds(field, series, log=log)
-    mine = pop if same_pool else cat_seeds(me, series, seconds=min(T * 0.08, 900), log=log) + milp_seeds(me, series, log=log)
+    pop += useeds
+    mine = pop if same_pool else cat_seeds(me, series, seconds=min(T * 0.08, 900), log=log) + milp_seeds(me, series, log=log) + \
+        unbeat_seeds(me, series, ub, seconds=min(T * 0.08, 900), log=log)
+    shape = lambda E: (lambda k: (k[0], k[2] if k[0] else k[1]))(ub.key(E))   # guard: tier, then tiebreak (or count)
     if mode != "beat":
         # 2) every population team is also an opponent: a team must hold up against all of them, not just against
         #    teams found by improving one starting team (that missed simple strong teams)
@@ -436,11 +545,15 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     # 3) start from the owned population teams that do best against everyone (worst case, then total)
     def rr(t):
         Et = me.eff(t); per = [pscore(Et, O) for O in pool_opps]
-        return (min(per), sum(per), secondary(Et)) if per else (0, 0, secondary(Et))
+        return ub.full_key(Et, per)
     mine = [[owned_ids[c["id"]] for c in t] for t in mine if all(c["id"] in owned_ids for c in t)]
     ranked = sorted(mine, key=rr, reverse=True)
     log(f"  population: {len(pop)} teams, {len(mine)} starting teams, {time.time() - t_pop:.0f}s")
     seeds += ranked[:6]
+    ushape = [t for t in ranked if ub.key(me.eff(t))[0]][:3]       # the best owned teams of the owner's shape
+    for t in ushape:
+        if t not in seeds: seeds.append(t)
+    log(f"  unbeatable-shape teams: {len([t for t in mine if ub.key(me.eff(t))[0]])}, best {ub.key(me.eff(ranked[0])) if ranked else None}")
     if not pool_opps:          # nothing to beat yet: start from the seed's own mirror
         base = seeds[-1]
         pool_opps = [field.eff(base)]; weights = [1]; names = ["mirror"]; opp_cards["mirror"] = base
@@ -449,9 +562,12 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     verify_share = (0.1 if verify else 0) * left
     cands = []
     for k, sd in enumerate(seeds):
-        b = optimize(me, sd, pool_opps, weights, T * (share - verify_share / 2) / max(1, len(seeds)), rng, log, f"seed{k}", robust)
+        g = shape if ub.key(me.eff(sd))[0] else None      # a seed of the owner's shape keeps it while improving
+        b = optimize(me, sd, pool_opps, weights, T * (share - verify_share / 2) / max(1, len(seeds)), rng, log, f"seed{k}", robust, guard=g)
         cands.append(b)
-    best = max(cands, key=lambda b: b[0]); team = best[1]
+    fk = lambda t: ub.full_key(me.eff(t), [pscore(me.eff(t), O) for O in pool_opps])
+    team = max((b[1] for b in cands), key=fk)
+    ubest = max((b[1] for b in cands if ub.key(me.eff(b[1]))[0]), key=fk, default=None)
     counters = []
     for rd in range(rounds):
         E = me.eff(team)
@@ -462,15 +578,16 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         start = rng.choice(starts)
         start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
         br = optimize(field, start, [E], [1], T * 0.25 * left / rounds, rng, None, f"counter{rd}")
+        tg = shape if ub.key(E)[0] else None
         log(f"  counter-team {rd+1}: result vs my team {br[0][0]:+d}")
         if _key(br[1]) in {_key(x) for x in list(opponents) + counters}:
             log("    same as an earlier opponent: not added again")
-            b = optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
+            b = optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust, guard=tg)
             team = b[1]; continue
         counters.append(br[1])
         pool_opps.append(field.eff(br[1])); weights.append(1); names.append(f"counter {rd+1}")
         opp_cards[f"counter {rd+1}"] = br[1]
-        b = optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust)
+        b = optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust, guard=tg)
         team = b[1]
     E = me.eff(team)
     res = {}
@@ -488,6 +605,8 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         res[f"fresh test {k+1}"] = {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
         log(f"  fresh test {k+1}: {res[f'fresh test {k+1}']}")
     source = "builder"
+    if ubest is not None and _key(ubest) != _key(team):      # the best team of the owner's shape always reaches the final check
+        candidates = [("Unbeatable", ubest)] + list(candidates)
     if candidates:              # final check: the builder's team vs the Reddit / hand-built teams
         # Fair test: each candidate also gets stress-test teams built specifically against IT, then every
         # team is scored on the same full set of opponents and the best worst case wins.
@@ -505,9 +624,8 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                 br = optimize(field, start, [Ec], [1], max(20, T * 0.1 / n_chk), vr, None, f"check{i}")
                 i += 1
                 pool_opps.append(field.eff(br[1])); names.append(f"final check {i}"); opp_cards[f"final check {i}"] = br[1]
-        def worst_case(Et):         # worst result vs any opponent, then total results, then in-game stats
-            per = [pscore(Et, O) for O in pool_opps]
-            return (min(per), sum(per), secondary(Et))
+        def worst_case(Et):         # owner's shape first, then worst result vs any opponent, total results, stats
+            return ub.full_key(Et, [pscore(Et, O) for O in pool_opps])
         best_key = worst_case(E)
         log(f"  built team: worst case {best_key}")
         for label, cand in valid:
@@ -515,12 +633,13 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
             log(f"  {label}: worst case {k}")
             # best worst case wins; equal worst case -> more wins/draws over all opponents -> stronger stats.
             # The current team ("Previous Best", always last) keeps its place on a full tie.
-            if k > best_key or (label == "Previous Best" and k[:2] >= best_key[:2]):
+            if k > best_key or (label == "Previous Best" and k[:4] >= best_key[:4]):
                 best_key, team, source = k, cand, label
         E = me.eff(team)
     if polish_share and mode != "beat":
         # systematic swap check of the chosen team against every opponent found so far
-        ck, pteam = polish(me, team, pool_opps, [1] * len(pool_opps), T * polish_share * left, log, rng=random.Random(seed + 7))
+        ck, pteam = polish(me, team, pool_opps, [1] * len(pool_opps), T * polish_share * left, log, rng=random.Random(seed + 7),
+                           guard=shape if ub.key(E)[0] else None)
         if _key(pteam) != _key(team):
             # the improved team must also face stress tests built specifically against it
             Ep = me.eff(pteam); n_chk = max(verify, 2)
@@ -530,15 +649,15 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                 br = optimize(field, start, [Ep], [1], max(20, T * 0.1 / n_chk), vr, None, f"pcheck{k}")
                 nm = f"final check {sum(1 for n in names if n.startswith('final check')) + 1}"
                 pool_opps.append(field.eff(br[1])); names.append(nm); opp_cards[nm] = br[1]
-            key = lambda Et: (lambda per: (min(per), sum(per), secondary(Et)))([pscore(Et, O) for O in pool_opps])
+            key = lambda Et: ub.full_key(Et, [pscore(Et, O) for O in pool_opps])
             ko, kp = key(E), key(Ep)
             log(f"  polished team {kp} vs chosen team {ko}")
-            if kp[:2] > ko[:2]:
+            if kp[:4] > ko[:4]:
                 team, source, E = pteam, "Polished", Ep
     if mode != "beat":
         # every other version of each player in the team (e.g. Can 89 Evo -> Can 92 Elite Evo): a swap is kept when it
         # is at least as good on worst case and total against EVERY opponent found, and better overall
-        vkey = lambda Et: (lambda per: (min(per), sum(per), secondary(Et)))([pscore(Et, O) for O in pool_opps])
+        vkey = lambda Et: ub.full_key(Et, [pscore(Et, O) for O in pool_opps])
         by_pid = collections.defaultdict(list)
         for c in me.cards: by_pid[c["pid"]].append(c)
         ck = vkey(E); improved = True
@@ -550,7 +669,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                     t = team[:i] + [v] + team[i + 1:]
                     if not fits(t): continue
                     Et = me.eff(t); k = vkey(Et)
-                    if k[:2] >= ck[:2] and k > ck:
+                    if k[:4] >= ck[:4] and k > ck:
                         log(f"  version swap: {c['name']} {c['rating']} -> {v['rating']} {k} vs {ck}")
                         team, E, ck, improved = t, Et, k, True
                         if source == "builder": source = "Polished"
@@ -561,6 +680,8 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     out = describe(team, series)
     out["results"] = res
     out["source"] = source
+    k = ub.key(me.eff(team))
+    out["shape"] = {"unbeatable": k[1], "stat": ("attack", "control", "defence")[k[3]] if k[3] >= 0 else None, "tiebreak": k[2] if k[0] else None}
     out["mode"] = mode
     out["opponent_teams"] = {}
     for n, cards in opp_cards.items():
