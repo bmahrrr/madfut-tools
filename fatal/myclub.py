@@ -422,9 +422,64 @@ def unbeat_seeds(pool, series, ub, forms=None, time_limit=20, log=None, seconds=
     for y in extra_cards.values():
         if y["id"] not in have: y = dict(y); y["_i"] = len(cards); cards.append(y); have.add(y["id"])
     t0 = time.time(); out, seen = [], set()
+    tot0 = lambda x: x["attack"] + x["control"] + x["defense"]
+    def need_of(x, q):                    # the lowest chem at which the card is unbeatable in stat q (None: never)
+        if full_chem(x): return 3 if ub.ok(q, (x["bA"], x["bC"], x["bD"])[q] + 2 + bon[q], tot0(x) + 6) else None
+        return next((ch for ch in (1, 2, 3) if ub.ok(q, (x["bA"], x["bC"], x["bD"])[q] + bon[q] + CHEM_BONUS[ch], tot0(x) + 3 * CHEM_BONUS[ch])), None)
+    def add(sq, label):
+        if not sq: return False
+        k = frozenset(c["id"] for c in sq)
+        if k in seen: return False
+        seen.add(k); out.append(sq)
+        if log: log(f"  seed: {label} -> {ub.key(pool.eff(sq))}")
+        return ub.key(pool.eff(sq))[0] == 1
     for q in (0, 2, 1):
-        if sum(1 for x in able if ub.ok(q, (x["bA"], x["bC"], x["bD"])[q] + 2 + bon[q], x["attack"] + x["control"] + x["defense"] + 6)) < 5:
-            continue                      # fewer than 5 cards in the series can be unbeatable in this stat
+        ableq = [x for x in able if need_of(x, q) is not None]
+        pids = sorted({x["pid"] for x in ableq})
+        if len(pids) < 5:
+            continue                      # fewer than 5 players in the series can be unbeatable in this stat
+        # Lock-in: every group of 5 such players (closest-linked groups first), each forced into the team on the chem
+        # it needs; the program then only picks the other 6 (best tiebreak card, then strength) or proves the group
+        # can't work. Small programs, so this finds a 5-unbeatable team whenever one exists (time permitting).
+        import itertools
+        rep = {p: [x for x in ableq if x["pid"] == p] for p in pids}
+        link = lambda a, b: sum(1 for k in ("nationId", "leagueId", "clubId") if any(x[k] == y[k] for x in rep[a] for y in rep[b]))
+        groups = sorted(itertools.combinations(pids, 5), key=lambda g: -sum(link(a, b) for a, b in itertools.combinations(g, 2)))
+        found = 0
+        for g in groups[:3000]:
+            if time.time() - t0 > seconds * 0.7 or found >= 6: break
+            gset = set(g); ids = {x["id"] for p in g for x in rep[p]}
+            for form in forms or CAT_FORMS:
+                slots = FORMATIONS[form]
+                # quick check: the 5 can take 5 different slots of this formation
+                P = [set().union(*(x["P"] for x in rep[p])) for p in g]
+                match = [-1] * len(slots)
+                def tr(i, seen2):
+                    for j, sl in enumerate(slots):
+                        if sl in P[i] and j not in seen2:
+                            seen2.add(j)
+                            if match[j] < 0 or tr(match[j], seen2): match[j] = i; return True
+                    return False
+                if not all(tr(i, set()) for i in range(5)): continue
+                def extra(prob, X, Y, H, byi, used, obj, q=q, ids=ids, gset=gset):
+                    T = {}
+                    for i in used:
+                        x = byi[i]
+                        if x["id"] in ids:
+                            nd = need_of(x, q)
+                            if nd and not full_chem(x): prob += H[i] >= nd * Y[i]
+                        elif x["pid"] not in gset:
+                            T[i] = pulp.LpVariable(f"t_{i}", cat="Binary"); prob += T[i] <= Y[i]; prob += H[i] >= 3 * T[i]
+                            obj.append((tot0(x) + 6) * T[i])
+                    prob += pulp.lpSum(T.values()) == 1
+                rules = ICON_RULE + [(lambda c, p=p, ids=ids: c["pid"] == p and c["id"] in ids, ">=", 1) for p in g]
+                sq = build(cards, slots, lambda c, s: c["T3"] / 50, chem_weight=lambda c, s: 0.01, time_limit=8,
+                           gap=0.001, group_rules=rules, extra=extra)
+                if sq and add(sq, f"unbeatable {'ACD'[q]} locked {form}"):
+                    hits = getattr(add, "hits", 0) + 1; add.hits = hits     # every formation for this group: the
+                    if hits >= 8: break                                    # tiebreak card differs by formation
+            if getattr(add, "hits", 0): found += 1; add.hits = 0
+        if found: continue
         def extra(prob, X, Y, H, byi, used, obj, q=q):
             F, T = {}, {}
             for i in used:
@@ -446,11 +501,7 @@ def unbeat_seeds(pool, series, ub, forms=None, time_limit=20, log=None, seconds=
             if time.time() - t0 > seconds: return out
             sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"] / 50, chem_weight=lambda c, s: 1, time_limit=time_limit,
                        gap=0.0005, group_rules=ICON_RULE, extra=extra)
-            if not sq: continue
-            k = frozenset(c["id"] for c in sq)
-            if k in seen: continue
-            seen.add(k); out.append(sq)
-            if log: log(f"  seed: unbeatable {'ACD'[q]} {form} -> {ub.key(pool.eff(sq))}")
+            add(sq, f"unbeatable {'ACD'[q]} {form}")
     return out
 
 
