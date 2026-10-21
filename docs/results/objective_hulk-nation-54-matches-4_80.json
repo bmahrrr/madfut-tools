@@ -1,45 +1,45 @@
 {
  "g": 4,
  "obj_ids": [
-  "id259075",
   "id258648",
-  "id236499",
-  "id80170"
+  "id223334",
+  "id80170",
+  "id259075"
  ],
- "strength": 103.0,
+ "strength": 100.1,
  "group_cards": 453,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
+   "you_lead_first": "DRAW",
    "they_lead_first": "DRAW"
   }
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 30,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id240091",
-    "name": "Vicario",
+    "id": "id50560437",
+    "name": "Robert Sánchez",
     "rating": 80,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
+    "nationId": 45,
     "leagueId": 31,
-    "clubId": 45,
+    "clubId": 1745,
     "card": [
-     38,
-     42,
+     39,
+     39,
      81
     ],
     "chem": 3,
     "eff": [
-     40,
-     44,
+     41,
+     41,
      85
     ],
-    "tiebreak": 167
+    "tiebreak": 165
    },
    {
     "slot": "LB",
@@ -112,49 +112,49 @@
    },
    {
     "slot": "RB",
-    "id": "evo_Lucas Vázquez_80",
-    "name": "Lucas Vázquez",
-    "rating": 80,
-    "color": "evo",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
+    "color": "rare_gold",
     "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
-     82,
-     83,
-     78
+     75,
+     80,
+     75
     ],
     "chem": 3,
     "eff": [
-     84,
-     85,
-     80
+     77,
+     82,
+     79
     ],
-    "tiebreak": 249
+    "tiebreak": 236
    },
    {
     "slot": "CDM",
-    "id": "id50519998",
-    "name": "Reus",
+    "id": "id50603785",
+    "name": "Sara Ortega",
     "rating": 80,
     "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 21,
-    "leagueId": 39,
-    "clubId": 697,
+    "position": "LM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 448,
     "card": [
      81,
-     82,
-     57
+     80,
+     62
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     81,
+     83,
      82,
-     57
+     64
     ],
-    "tiebreak": 220
+    "tiebreak": 229
    },
    {
     "slot": "LM",
@@ -181,95 +181,95 @@
    },
    {
     "slot": "CM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     76,
-     79,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     81,
-     79
-    ],
-    "tiebreak": 236
-   },
-   {
-    "slot": "CM",
-    "id": "id225309",
-    "name": "Amiri",
+    "id": "id246287",
+    "name": "Ángela Sosa",
     "rating": 80,
     "color": "rare_gold",
     "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 169,
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 116334,
     "card": [
-     80,
-     81,
-     61
-    ],
-    "chem": 2,
-    "eff": [
-     81,
+     79,
      82,
-     62
-    ],
-    "tiebreak": 225
-   },
-   {
-    "slot": "RM",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     75,
-     80,
-     75
+     63
     ],
     "chem": 3,
     "eff": [
-     77,
-     82,
-     79
+     81,
+     84,
+     65
     ],
-    "tiebreak": 236
+    "tiebreak": 230
+   },
+   {
+    "slot": "CM",
+    "id": "id223334",
+    "name": "Joelinton",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 13,
+    "card": [
+     75,
+     76,
+     82
+    ],
+    "chem": 1,
+    "eff": [
+     75,
+     76,
+     82
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "RM",
+    "id": "evo_Lucas Vázquez_80",
+    "name": "Lucas Vázquez",
+    "rating": 80,
+    "color": "evo",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     82,
+     83,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     85,
+     80
+    ],
+    "tiebreak": 249
    },
    {
     "slot": "ST",
-    "id": "id261050",
-    "name": "Francisco Conceição",
+    "id": "id262545",
+    "name": "Amaiur Sarriegi",
     "rating": 80,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 45,
+    "position": "ST",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 240,
     "card": [
      81,
-     79,
-     45
+     78,
+     52
     ],
     "chem": 3,
     "eff": [
      83,
-     81,
-     49
+     80,
+     54
     ],
-    "tiebreak": 211
+    "tiebreak": 217
    }
   ]
  },
@@ -306,17 +306,17 @@
  },
  "base_ids": [
   "id50560437",
-  "id230918",
+  "id258648",
   "id226851",
-  "id232756",
-  "id74774",
+  "id230918",
   "id261865",
-  "id244050",
-  "id50540109",
+  "id246287",
+  "id50603785",
   "evo_Lucas Vázquez_80",
-  "id50594290",
-  "id266886"
+  "id243593",
+  "id262545",
+  "id259075"
  ],
- "built": "2026-10-20 22:50 UTC",
+ "built": "2026-10-21 03:26 UTC",
  "week": "2026-10-19"
 }
