@@ -112,19 +112,25 @@ class Unbeat:
                 if v > best: best, tot = v, t
                 elif v == best and t > tot: tot = t
             self.maxV.append(best); self.maxT.append(tot)
+        # the highest card total in the series (full chem): a tiebreak card within 5 of it can't lose the tiebreak
+        self.maxTotal = max(x["attack"] + x["control"] + x["defense"] + 6 for x in field.cards)
 
     def ok(self, q, v, tot):
         return v > self.maxV[q] or (v == self.maxV[q] and tot >= self.maxT[q])
 
     def key(self, E):
         """(tier, unbeatable count in the best stat, tiebreak total, stat). tier 1 = at least 5 unbeatable in one
-        stat; the tiebreak is the best total among the cards left after keeping the 5 (lowest-total) unbeatables."""
+        stat AND a tiebreak card that can't lose the tiebreak; the tiebreak is the best total among the cards left
+        after keeping the 5 (lowest-total) unbeatables."""
         best = (0, 0, 0, -1)
         for q in range(3):
             U = sorted((i for i, e in enumerate(E) if self.ok(q, e[q], e[3])), key=lambda i: E[i][3])
             if len(U) >= 5:
                 keep = set(U[:5]); tb = max(e[3] for i, e in enumerate(E) if i not in keep)
-                k = (1, min(len(U), 6), tb, q)
+                # tier 1 only when the tiebreak card can't lose the tiebreak (no card totals more than 5 above it):
+                # 5 unbeatable leads only guarantee 5 points, the last card has to hold the rest (72 lost 38 of 124
+                # test teams with a 217 tiebreak against a 232 best total)
+                k = (1, min(len(U), 6), tb, q) if tb >= self.maxTotal - 5 else (0, len(U), 0, q)
             else:
                 k = (0, len(U), 0, q)
             if k[:3] > best[:3]: best = k
