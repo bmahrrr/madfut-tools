@@ -3,7 +3,8 @@
 // copy is kept and used when the network fails. Google Fonts are kept too. Nothing else is touched.
 const CACHE = "madfut-tools-v1";
 const CORE = ["./", "index.html", "app.js", "engine.js", "worker.js", "sbc-solver.js", "sbcworker.js", "cards.json", "names.json",
-  "formations.json", "objectives.json", "results/index.json", "results/week.json", "results/extras.json", "manifest.webmanifest", "icon-192.png"];
+  "formations.json", "objectives.json", "results/index.json", "results/week.json", "results/extras.json", "manifest.webmanifest", "icon-192.png",
+  "vendor/highs.js", "vendor/highs.wasm"];                              // the SBC solver works offline from the first visit
 const key = url => { const u = new URL(url); return u.origin + u.pathname; };     // ?v= / ?t= don't make new copies
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(CORE.map(p => fetch(p, { cache: "no-store" }).then(r => r.ok && c.put(key(new URL(p, self.registration.scope)), r)).catch(() => {})))));
