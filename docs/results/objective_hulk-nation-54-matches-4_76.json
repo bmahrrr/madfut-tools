@@ -1,9 +1,8 @@
 {
- "g": 5,
+ "g": 4,
  "obj_ids": [
-  "id263815",
+  "id244661",
   "id232805",
-  "id230658",
   "id212462",
   "id246186"
  ],
@@ -16,8 +15,8 @@
   }
  ],
  "team": {
-  "formation": "4-3-2-1",
-  "chem": 31,
+  "formation": "4-1-4-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -44,26 +43,26 @@
    },
    {
     "slot": "LB",
-    "id": "id212462",
-    "name": "Alex Telles",
+    "id": "id263041",
+    "name": "Prass",
     "rating": 76,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
+    "nationId": 4,
+    "leagueId": 19,
+    "clubId": 10029,
     "card": [
-     75,
-     75,
+     73,
+     74,
      75
     ],
     "chem": 3,
     "eff": [
-     77,
-     77,
+     75,
+     78,
      77
     ],
-    "tiebreak": 231
+    "tiebreak": 228
    },
    {
     "slot": "CB",
@@ -135,76 +134,53 @@
     "tiebreak": 231
    },
    {
-    "slot": "CM",
-    "id": "id263041",
-    "name": "Prass",
+    "slot": "CDM",
+    "id": "id270670",
+    "name": "Chaïbi",
     "rating": 76,
     "color": "rare_gold",
-    "position": "LB",
-    "nationId": 4,
+    "position": "CAM",
+    "nationId": 97,
     "leagueId": 19,
-    "clubId": 10029,
+    "clubId": 1824,
     "card": [
      73,
-     74,
-     75
+     77,
+     69
     ],
     "chem": 3,
     "eff": [
      75,
-     78,
-     77
+     81,
+     71
     ],
-    "tiebreak": 228
+    "tiebreak": 225
    },
    {
-    "slot": "CM",
-    "id": "id263815",
-    "name": "Abner Vinícius",
+    "slot": "LM",
+    "id": "id212462",
+    "name": "Alex Telles",
     "rating": 76,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 54,
-    "leagueId": 16,
-    "clubId": 66,
+    "leagueId": 1014,
+    "clubId": 517,
     "card": [
-     71,
-     73,
+     75,
+     75,
      75
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     72,
-     74,
-     76
+     77,
+     77,
+     77
     ],
-    "tiebreak": 222
+    "tiebreak": 231
    },
    {
     "slot": "CM",
-    "id": "id230658",
-    "name": "Arthur",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     74,
-     79,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     75,
-     80,
-     72
-    ],
-    "tiebreak": 227
-   },
-   {
-    "slot": "CAM",
     "id": "id210324",
     "name": "Hofmann",
     "rating": 76,
@@ -227,7 +203,7 @@
     "tiebreak": 220
    },
    {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id276602",
     "name": "Ouédraogo",
     "rating": 76,
@@ -248,6 +224,29 @@
      63
     ],
     "tiebreak": 222
+   },
+   {
+    "slot": "RM",
+    "id": "id244661",
+    "name": "Vitinho",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 1014,
+    "clubId": 517,
+    "card": [
+     68,
+     70,
+     74
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     72,
+     76
+    ],
+    "tiebreak": 218
    },
    {
     "slot": "ST",
@@ -307,9 +306,9 @@
  },
  "base_ids": [
   "id242818",
+  "id241847",
   "id256942",
   "id246836",
-  "id241847",
   "id257540",
   "id243354",
   "id276602",
@@ -318,6 +317,6 @@
   "id212188",
   "id50571625"
  ],
- "built": "2026-10-21 03:26 UTC",
+ "built": "2026-10-21 22:47 UTC",
  "week": "2026-10-19"
 }

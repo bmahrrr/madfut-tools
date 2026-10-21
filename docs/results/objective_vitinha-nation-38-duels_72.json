@@ -1,11 +1,20 @@
 {
- "g": 2,
+ "g": 11,
  "obj_ids": [
-  "id244020",
-  "id233061"
+  "id244316",
+  "id258276",
+  "id251434",
+  "id263670",
+  "id231390",
+  "id258698",
+  "id270109",
+  "id233061",
+  "id236639",
+  "id262411",
+  "id209289"
  ],
- "strength": 99.8,
- "group_cards": 20,
+ "strength": 100.4,
+ "group_cards": 15,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -13,77 +22,54 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 25,
+  "formation": "4-2-3-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id244020",
-    "name": "André Ferreira",
-    "rating": 72,
+    "id": "id244316",
+    "name": "Luís Maximiano",
+    "rating": 71,
     "color": "rare_silver",
     "position": "GK",
     "nationId": 38,
-    "leagueId": 308,
-    "clubId": 1900,
+    "leagueId": 350,
+    "clubId": 131798,
     "card": [
-     34,
-     29,
-     73
-    ],
-    "chem": 2,
-    "eff": [
      35,
-     32,
+     33,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     37,
+     35,
      74
     ],
-    "tiebreak": 139
+    "tiebreak": 146
    },
    {
     "slot": "LB",
-    "id": "id275395",
-    "name": "Boucly",
+    "id": "id209289",
+    "name": "Kévin Rodrigues",
     "rating": 72,
     "color": "rare_silver",
     "position": "LB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 1738,
+    "nationId": 38,
+    "leagueId": 68,
+    "clubId": 101025,
     "card": [
-     69,
+     72,
      71,
      71
     ],
     "chem": 3,
     "eff": [
-     71,
+     74,
      73,
      73
     ],
-    "tiebreak": 217
-   },
-   {
-    "slot": "CB",
-    "id": "id241941",
-    "name": "Nsoki",
-    "rating": 71,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 19,
-    "clubId": 1831,
-    "card": [
-     59,
-     63,
-     70
-    ],
-    "chem": 3,
-    "eff": [
-     61,
-     65,
-     72
-    ],
-    "tiebreak": 198
+    "tiebreak": 220
    },
    {
     "slot": "CB",
@@ -100,13 +86,36 @@
      50,
      72
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
+     53,
      52,
-     51,
-     73
+     74
     ],
-    "tiebreak": 176
+    "tiebreak": 179
+   },
+   {
+    "slot": "CB",
+    "id": "id251434",
+    "name": "Pedro Álvaro",
+    "rating": 71,
+    "color": "rare_silver",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 2012,
+    "clubId": 111724,
+    "card": [
+     47,
+     48,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     49,
+     50,
+     74
+    ],
+    "tiebreak": 173
    },
    {
     "slot": "RB",
@@ -123,128 +132,128 @@
      72,
      70
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     68,
-     73,
-     71
+     69,
+     74,
+     72
     ],
-    "tiebreak": 212
+    "tiebreak": 215
    },
    {
     "slot": "CDM",
-    "id": "id270049",
-    "name": "Gavory",
+    "id": "id262411",
+    "name": "Miguel Crespo",
     "rating": 72,
     "color": "rare_silver",
     "position": "CM",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 1809,
-    "card": [
-     72,
-     72,
-     59
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     74,
-     61
-    ],
-    "tiebreak": 209
-   },
-   {
-    "slot": "LM",
-    "id": "id209289",
-    "name": "Kévin Rodrigues",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
     "nationId": 38,
-    "leagueId": 68,
-    "clubId": 101025,
+    "leagueId": 350,
+    "clubId": 112883,
     "card": [
-     72,
+     69,
      71,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     73,
-     72,
      72
     ],
-    "tiebreak": 217
-   },
-   {
-    "slot": "CM",
-    "id": "id265915",
-    "name": "Bourgouin",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 70,
-    "card": [
-     75,
-     73,
-     56
-    ],
     "chem": 3,
     "eff": [
-     77,
-     75,
-     58
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CM",
-    "id": "id245035",
-    "name": "Gomes",
-    "rating": 71,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 32,
-    "clubId": 1843,
-    "card": [
-     74,
-     72,
-     69
-    ],
-    "chem": 2,
-    "eff": [
-     75,
+     71,
      73,
-     70
+     74
     ],
     "tiebreak": 218
    },
    {
-    "slot": "RM",
-    "id": "id215449",
-    "name": "Skov",
+    "slot": "CDM",
+    "id": "id236639",
+    "name": "Xeka",
     "rating": 72,
     "color": "rare_silver",
-    "position": "LB",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 1831,
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 10020,
     "card": [
-     75,
-     74,
-     71
+     65,
+     70,
+     68
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     75,
+     67,
      74,
-     71
+     70
     ],
-    "tiebreak": 220
+    "tiebreak": 209
+   },
+   {
+    "slot": "CAM",
+    "id": "id270109",
+    "name": "Martim Neto",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 468,
+    "card": [
+     72,
+     71,
+     60
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     73,
+     62
+    ],
+    "tiebreak": 209
+   },
+   {
+    "slot": "CAM",
+    "id": "id258698",
+    "name": "Afonso Sousa",
+    "rating": 71,
+    "color": "rare_silver",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 68,
+    "clubId": 748,
+    "card": [
+     72,
+     70,
+     54
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     72,
+     56
+    ],
+    "tiebreak": 202
+   },
+   {
+    "slot": "CAM",
+    "id": "id231390",
+    "name": "Diogo Gonçalves",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 68,
+    "clubId": 101033,
+    "card": [
+     72,
+     70,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     72,
+     63
+    ],
+    "tiebreak": 209
    },
    {
     "slot": "ST",
@@ -261,13 +270,13 @@
      72,
      59
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
+     75,
      74,
-     73,
-     60
+     61
     ],
-    "tiebreak": 207
+    "tiebreak": 210
    }
   ]
  },
@@ -302,18 +311,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id265028",
-  "id241941",
-  "id219956",
-  "id50586981",
+  "id146296",
+  "id272228",
+  "id244394",
+  "id246352",
   "id215449",
-  "id245035",
-  "id275395",
-  "id265915",
-  "id270049",
-  "id235926",
-  "id266183"
+  "id239335",
+  "id271267",
+  "id272138",
+  "id229286",
+  "id266183",
+  "id178088"
  ],
- "built": "2026-10-21 08:11 UTC",
+ "built": "2026-10-21 22:47 UTC",
  "week": "2026-10-19"
 }

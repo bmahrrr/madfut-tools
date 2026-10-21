@@ -1,10 +1,12 @@
 {
- "g": 2,
+ "g": 4,
  "obj_ids": [
+  "id50408387",
+  "id202651",
   "id193165",
-  "id237997"
+  "id258730"
  ],
- "strength": 99.5,
+ "strength": 100.7,
  "group_cards": 19,
  "reddit": [
   {
@@ -14,217 +16,171 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 28,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id265028",
-    "name": "Fischer",
+    "id": "id146296",
+    "name": "Andrés Fernández",
     "rating": 72,
     "color": "rare_silver",
     "position": "GK",
-    "nationId": 21,
-    "leagueId": 2215,
-    "clubId": 38,
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 1861,
     "card": [
-     31,
-     34,
+     36,
+     30,
      73
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     32,
-     35,
-     74
+     39,
+     33,
+     76
     ],
-    "tiebreak": 141
+    "tiebreak": 145
    },
    {
     "slot": "LB",
-    "id": "id275395",
-    "name": "Boucly",
+    "id": "id272228",
+    "name": "Pisco",
     "rating": 72,
     "color": "rare_silver",
     "position": "LB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 1738,
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 116332,
     "card": [
-     69,
+     70,
      71,
      71
     ],
     "chem": 3,
     "eff": [
-     71,
      73,
-     73
+     74,
+     74
+    ],
+    "tiebreak": 218
+   },
+   {
+    "slot": "CB",
+    "id": "id244394",
+    "name": "Clemente",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 472,
+    "card": [
+     72,
+     68,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     71,
+     74
     ],
     "tiebreak": 217
    },
    {
     "slot": "CB",
-    "id": "id241941",
-    "name": "Nsoki",
-    "rating": 71,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 19,
-    "clubId": 1831,
-    "card": [
-     59,
-     63,
-     70
-    ],
-    "chem": 3,
-    "eff": [
-     61,
-     65,
-     72
-    ],
-    "tiebreak": 198
-   },
-   {
-    "slot": "CB",
-    "id": "id224796",
-    "name": "Rodríguez",
+    "id": "id272188",
+    "name": "Lucía Martínez",
     "rating": 72,
     "color": "rare_silver",
     "position": "CDM",
-    "nationId": 52,
-    "leagueId": 341,
-    "clubId": 1032,
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 131125,
     "card": [
-     64,
      65,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     65,
-     66,
-     72
-    ],
-    "tiebreak": 203
-   },
-   {
-    "slot": "RB",
-    "id": "id215449",
-    "name": "Skov",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 1831,
-    "card": [
-     75,
-     74,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     76,
-     75,
-     72
-    ],
-    "tiebreak": 223
-   },
-   {
-    "slot": "CDM",
-    "id": "id270049",
-    "name": "Gavory",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 1809,
-    "card": [
-     72,
-     72,
-     59
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     74,
-     61
-    ],
-    "tiebreak": 209
-   },
-   {
-    "slot": "LM",
-    "id": "id237997",
-    "name": "Antuna",
-    "rating": 71,
-    "color": "rare_silver",
-    "position": "RW",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 1881,
-    "card": [
-     73,
-     65,
-     34
-    ],
-    "chem": 2,
-    "eff": [
-     74,
-     66,
-     35
-    ],
-    "tiebreak": 175
-   },
-   {
-    "slot": "CM",
-    "id": "id265915",
-    "name": "Bourgouin",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 70,
-    "card": [
-     75,
-     73,
-     56
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     75,
-     58
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CM",
-    "id": "id245035",
-    "name": "Gomes",
-    "rating": 71,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 32,
-    "clubId": 1843,
-    "card": [
-     74,
      72,
      69
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
+     68,
      75,
-     73,
-     70
+     72
     ],
-    "tiebreak": 218
+    "tiebreak": 212
    },
    {
-    "slot": "RM",
+    "slot": "RB",
+    "id": "id229839",
+    "name": "Chávez",
+    "rating": 71,
+    "color": "rare_silver",
+    "position": "RB",
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 1032,
+    "card": [
+     60,
+     66,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     62,
+     68,
+     72
+    ],
+    "tiebreak": 202
+   },
+   {
+    "slot": "CDM",
+    "id": "id50578976",
+    "name": "Unai Vencedor",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 10846,
+    "card": [
+     71,
+     72,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     75,
+     71
+    ],
+    "tiebreak": 217
+   },
+   {
+    "slot": "LM",
+    "id": "id50408387",
+    "name": "Pablo García",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 456,
+    "card": [
+     72,
+     67,
+     46
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     70,
+     49
+    ],
+    "tiebreak": 191
+   },
+   {
+    "slot": "CM",
     "id": "id193165",
     "name": "Corona",
     "rating": 72,
@@ -247,27 +203,73 @@
     "tiebreak": 214
    },
    {
-    "slot": "ST",
-    "id": "id266183",
-    "name": "Njinmah",
-    "rating": 72,
+    "slot": "CM",
+    "id": "id202651",
+    "name": "Suso",
+    "rating": 71,
     "color": "rare_silver",
-    "position": "ST",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 38,
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 1968,
     "card": [
-     75,
-     66,
-     34
+     71,
+     72,
+     33
     ],
     "chem": 3,
     "eff": [
-     77,
-     68,
+     74,
+     75,
      36
     ],
-    "tiebreak": 181
+    "tiebreak": 182
+   },
+   {
+    "slot": "RM",
+    "id": "id258730",
+    "name": "Rodríguez",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 463,
+    "card": [
+     71,
+     69,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     72,
+     58
+    ],
+    "tiebreak": 201
+   },
+   {
+    "slot": "ST",
+    "id": "id273934",
+    "name": "González",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 58,
+    "leagueId": 341,
+    "clubId": 110144,
+    "card": [
+     72,
+     69,
+     51
+    ],
+    "chem": 1,
+    "eff": [
+     72,
+     69,
+     51
+    ],
+    "tiebreak": 192
    }
   ]
  },
@@ -302,18 +304,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id265028",
-  "id241941",
-  "id219956",
-  "id50586981",
+  "id146296",
+  "id272228",
+  "id244394",
+  "id246352",
   "id215449",
-  "id245035",
-  "id275395",
-  "id265915",
-  "id270049",
-  "id235926",
-  "id266183"
+  "id239335",
+  "id271267",
+  "id272138",
+  "id229286",
+  "id266183",
+  "id178088"
  ],
- "built": "2026-10-21 08:11 UTC",
+ "built": "2026-10-21 22:47 UTC",
  "week": "2026-10-19"
 }

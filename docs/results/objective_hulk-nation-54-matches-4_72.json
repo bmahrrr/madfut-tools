@@ -1,13 +1,13 @@
 {
  "g": 5,
  "obj_ids": [
-  "id207899",
-  "id235758",
-  "id271893",
+  "id258563",
   "id81943",
-  "id73864"
+  "id240938",
+  "id73864",
+  "id271893"
  ],
- "strength": 99.6,
+ "strength": 101.6,
  "group_cards": 328,
  "reddit": [
   {
@@ -16,103 +16,172 @@
   }
  ],
  "team": {
-  "formation": "4-3-3",
-  "chem": 27,
+  "formation": "3-4-2-1",
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id207899",
-    "name": "Neto Volpi",
-    "rating": 70,
+    "id": "id146296",
+    "name": "Andrés Fernández",
+    "rating": 72,
     "color": "rare_silver",
     "position": "GK",
-    "nationId": 54,
-    "leagueId": 1003,
-    "clubId": 111722,
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 1861,
     "card": [
-     35,
-     32,
-     71
-    ],
-    "chem": 2,
-    "eff": [
      36,
-     33,
-     72
+     30,
+     73
     ],
-    "tiebreak": 141
+    "chem": 3,
+    "eff": [
+     39,
+     33,
+     76
+    ],
+    "tiebreak": 145
    },
    {
-    "slot": "LB",
-    "id": "id275395",
-    "name": "Boucly",
+    "slot": "CB",
+    "id": "id246352",
+    "name": "Hugo Guillamón",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 459,
+    "card": [
+     65,
+     66,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     68,
+     69,
+     76
+    ],
+    "tiebreak": 210
+   },
+   {
+    "slot": "CB",
+    "id": "id272188",
+    "name": "Lucía Martínez",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 131125,
+    "card": [
+     65,
+     72,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     68,
+     75,
+     72
+    ],
+    "tiebreak": 212
+   },
+   {
+    "slot": "CB",
+    "id": "id244394",
+    "name": "Clemente",
     "rating": 72,
     "color": "rare_silver",
     "position": "LB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 1738,
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 472,
     "card": [
-     69,
-     71,
+     72,
+     68,
      71
     ],
     "chem": 3,
     "eff": [
+     75,
      71,
-     73,
-     73
+     74
     ],
     "tiebreak": 217
    },
    {
-    "slot": "CB",
-    "id": "id241941",
-    "name": "Nsoki",
-    "rating": 71,
+    "slot": "LM",
+    "id": "id272228",
+    "name": "Pisco",
+    "rating": 72,
     "color": "rare_silver",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 19,
-    "clubId": 1831,
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 116332,
     "card": [
-     59,
-     63,
-     70
+     70,
+     71,
+     71
     ],
     "chem": 3,
     "eff": [
-     61,
-     65,
-     72
+     73,
+     74,
+     74
     ],
-    "tiebreak": 198
+    "tiebreak": 218
    },
    {
-    "slot": "CB",
-    "id": "id235758",
-    "name": "David Duarte",
+    "slot": "CM",
+    "id": "id72364",
+    "name": "Carol Marín",
     "rating": 72,
     "color": "rare_silver",
-    "position": "CB",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 461,
+    "card": [
+     72,
+     73,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     76,
+     64
+    ],
+    "tiebreak": 212
+   },
+   {
+    "slot": "CM",
+    "id": "id258563",
+    "name": "Caio Alexandre",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CDM",
     "nationId": 54,
     "leagueId": 2267,
     "clubId": 1598,
     "card": [
-     41,
-     44,
-     72
+     71,
+     70,
+     69
     ],
     "chem": 3,
     "eff": [
-     43,
-     46,
-     74
+     73,
+     72,
+     71
     ],
-    "tiebreak": 163
+    "tiebreak": 216
    },
    {
-    "slot": "RB",
+    "slot": "RM",
     "id": "id271893",
     "name": "Bruninha",
     "rating": 72,
@@ -135,76 +204,30 @@
     "tiebreak": 214
    },
    {
-    "slot": "CM",
-    "id": "id270049",
-    "name": "Gavory",
+    "slot": "CAM",
+    "id": "id240938",
+    "name": "Junior Messias",
     "rating": 72,
     "color": "rare_silver",
     "position": "CM",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 1809,
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 110556,
     "card": [
-     72,
-     72,
-     59
-    ],
-    "chem": 3,
-    "eff": [
      74,
-     74,
-     61
-    ],
-    "tiebreak": 209
-   },
-   {
-    "slot": "CM",
-    "id": "id265915",
-    "name": "Bourgouin",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 70,
-    "card": [
-     75,
-     73,
-     56
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     75,
+     72,
      58
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CM",
-    "id": "id245035",
-    "name": "Gomes",
-    "rating": 71,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 32,
-    "clubId": 1843,
-    "card": [
-     74,
-     72,
-     69
     ],
     "chem": 2,
     "eff": [
      75,
      73,
-     70
+     59
     ],
-    "tiebreak": 218
+    "tiebreak": 207
    },
    {
-    "slot": "LW",
+    "slot": "CAM",
     "id": "id81943",
     "name": "Rodrigo Nestor",
     "rating": 72,
@@ -248,29 +271,6 @@
      38
     ],
     "tiebreak": 184
-   },
-   {
-    "slot": "RW",
-    "id": "id215449",
-    "name": "Skov",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 1831,
-    "card": [
-     75,
-     74,
-     71
-    ],
-    "chem": 1,
-    "eff": [
-     75,
-     74,
-     71
-    ],
-    "tiebreak": 220
    }
   ]
  },
@@ -306,18 +306,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id265028",
-  "id241941",
-  "id219956",
-  "id50586981",
+  "id146296",
+  "id272228",
+  "id244394",
+  "id246352",
   "id215449",
-  "id245035",
-  "id275395",
-  "id265915",
-  "id270049",
-  "id235926",
-  "id266183"
+  "id239335",
+  "id271267",
+  "id272138",
+  "id229286",
+  "id266183",
+  "id178088"
  ],
- "built": "2026-10-21 08:11 UTC",
+ "built": "2026-10-21 22:47 UTC",
  "week": "2026-10-19"
 }
