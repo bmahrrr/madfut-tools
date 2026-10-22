@@ -32,6 +32,7 @@ function ruleMatch(c, r) {
     case "club": return c.clubId === r.id;
     case "color": {                // a Debut Icon counts as an ICON (so "ICON: Max 1" never allows an Icon plus a Debut Icon)
       const id = String(r.id).replace("rare_", "");
+      if (id === "iconhero") return SBC_ICON.has(c.color) || SBC_HERO.has(c.color);   // "Icons and Heroes: Max 1"
       return id === "icon" ? SBC_ICON.has(c.color) : sbcType(c) === id;
     }
     case "rarity": return rarity(c) === r.id;
@@ -370,7 +371,7 @@ function hybridSBC(req, pool, slots, ms = 2500) {
     for (let i = 0; i < sq.length; i++) if (!tr(i, new Array(slots.length).fill(false))) return null;
     return match;
   };
-  const iconMax = rules.filter(r => r.on === "color" && String(r.id) === "icon" && r.op !== ">=").reduce((m, r) => Math.min(m, r.n), 11);
+  const iconMax = rules.filter(r => r.on === "color" && ["icon", "iconhero"].includes(String(r.id)) && r.op !== ">=").reduce((m, r) => Math.min(m, r.n), 11);
   const icons = req.allow_icons && iconMax > 0 ? pool.filter(c => SBC_ICON.has(c.color)).sort((a, b) => cost(a) - cost(b)) : [];
   // units: the cheapest 2 (and 3) different players sharing a club and a nation
   const groups = new Map();
