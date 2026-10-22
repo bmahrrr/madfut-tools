@@ -24,29 +24,73 @@
  "teams": [
   {
    "formation": "3-4-1-2",
-   "chem": 32,
+   "chem": 33,
    "players": [
     {
-     "id": "id262621",
-     "name": "Mamardashvili",
-     "rating": 83,
+     "id": "id238212",
+     "name": "Campbell",
+     "rating": 81,
      "color": "rare_gold",
      "position": "GK",
-     "nationId": 20,
-     "leagueId": 13,
-     "clubId": 9,
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
      "card": [
-      34,
-      34,
+      38,
+      39,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      42,
+      45,
+      86
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id169721",
+     "name": "Richards",
+     "rating": 85,
+     "color": "hall_of_fut",
+     "position": "RB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 132794,
+     "card": [
+      72,
+      74,
       84
      ],
      "chem": 3,
      "eff": [
-      38,
-      40,
+      76,
+      80,
       88
      ],
-     "slot": "GK"
+     "slot": "CB"
+    },
+    {
+     "id": "id256261",
+     "name": "Thiaw",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 13,
+     "card": [
+      61,
+      70,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      76,
+      85
+     ],
+     "slot": "CB"
     },
     {
      "id": "id67229397",
@@ -69,6 +113,216 @@
       89
      ],
      "slot": "CB"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      92,
+      40
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50412322",
+     "name": "Dro Fernández",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      79
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      92,
+      89
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      60
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      73
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id267531",
+     "name": "Leuchter",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      84,
+      72,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      78,
+      40
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50408698",
+     "name": "Kanjinga",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "ST",
+     "nationId": 110,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      87,
+      77,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      83,
+      48
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 92.2,
+    "attack": 89.2,
+    "defence": 87.0,
+    "control_cards": [
+     93,
+     92,
+     92,
+     92,
+     92
+    ],
+    "attack_cards": [
+     91,
+     90,
+     89,
+     88,
+     88
+    ],
+    "defence_cards": [
+     89,
+     88,
+     86,
+     85
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 247.6
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id238212",
+     "name": "Campbell",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      38,
+      39,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      42,
+      45,
+      86
+     ],
+     "slot": "GK"
     },
     {
      "id": "id227678",
@@ -93,278 +347,24 @@
      "slot": "CB"
     },
     {
-     "id": "id50564136",
-     "name": "Romero",
-     "rating": 84,
-     "color": "totw_gold",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      63,
-      66,
-      85
-     ],
-     "chem": 2,
-     "eff": [
-      66,
-      71,
-      88
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id210035",
-     "name": "Grimaldo",
-     "rating": 85,
+     "id": "id256261",
+     "name": "Thiaw",
+     "rating": 81,
      "color": "rare_gold",
-     "position": "LM",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      82,
-      85,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      86,
-      91,
-      73
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id50412322",
-     "name": "Dro Fernández",
-     "rating": 85,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 16,
-     "clubId": 73,
-     "card": [
-      85,
-      86,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      92,
-      79
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "evo_Can_85",
-     "name": "Can",
-     "rating": 85,
-     "color": "evo",
-     "position": "CDM",
+     "position": "CB",
      "nationId": 21,
      "leagueId": 13,
-     "clubId": 9,
+     "clubId": 13,
      "card": [
+      61,
+      70,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      65,
       76,
-      86,
       85
-     ],
-     "chem": 3,
-     "eff": [
-      80,
-      92,
-      89
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id50596510",
-     "name": "Akliouche",
-     "rating": 85,
-     "color": "destined_for_glory",
-     "position": "CAM",
-     "nationId": 18,
-     "leagueId": 16,
-     "clubId": 73,
-     "card": [
-      85,
-      86,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      92,
-      60
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id50402434",
-     "name": "King",
-     "rating": 85,
-     "color": "future_stars",
-     "position": "CAM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 144,
-     "card": [
-      86,
-      87,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      93,
-      73
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "id50408698",
-     "name": "Kanjinga",
-     "rating": 85,
-     "color": "future_stars",
-     "position": "ST",
-     "nationId": 110,
-     "leagueId": 2218,
-     "clubId": 73,
-     "card": [
-      87,
-      77,
-      44
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      83,
-      48
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id267531",
-     "name": "Leuchter",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2218,
-     "clubId": 73,
-     "card": [
-      84,
-      72,
-      36
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      78,
-      40
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 92.0,
-    "attack": 88.8,
-    "defence": 88.25,
-    "control_cards": [
-     93,
-     92,
-     92,
-     92,
-     91
-    ],
-    "attack_cards": [
-     91,
-     90,
-     89,
-     88,
-     86
-    ],
-    "defence_cards": [
-     89,
-     88,
-     88,
-     88
-    ],
-    "chem": 32,
-    "ctrl_not_full": 0,
-    "ctrl_total": 253.6
-   }
-  },
-  {
-   "formation": "3-4-1-2",
-   "chem": 32,
-   "players": [
-    {
-     "id": "id262621",
-     "name": "Mamardashvili",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "GK",
-     "nationId": 20,
-     "leagueId": 13,
-     "clubId": 9,
-     "card": [
-      34,
-      34,
-      84
-     ],
-     "chem": 3,
-     "eff": [
-      38,
-      40,
-      88
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id50564136",
-     "name": "Romero",
-     "rating": 84,
-     "color": "totw_gold",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      63,
-      66,
-      85
-     ],
-     "chem": 2,
-     "eff": [
-      66,
-      71,
-      88
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id241159",
-     "name": "Guéhi",
-     "rating": 85,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 10,
-     "card": [
-      63,
-      71,
-      84
-     ],
-     "chem": 3,
-     "eff": [
-      67,
-      77,
-      88
      ],
      "slot": "CB"
     },
@@ -391,48 +391,26 @@
      "slot": "CB"
     },
     {
-     "id": "id210035",
-     "name": "Grimaldo",
-     "rating": 85,
-     "color": "rare_gold",
-     "position": "LM",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 240,
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
      "card": [
-      82,
-      85,
-      69
+      84,
+      86,
+      36
      ],
      "chem": 3,
      "eff": [
-      86,
-      91,
-      73
+      88,
+      92,
+      40
      ],
      "slot": "LM"
-    },
-    {
-     "id": "evo_Can_85",
-     "name": "Can",
-     "rating": 85,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 9,
-     "card": [
-      76,
-      86,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      80,
-      92,
-      89
-     ],
-     "slot": "CM"
     },
     {
      "id": "id50412322",
@@ -453,6 +431,28 @@
       89,
       92,
       79
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      92,
+      89
      ],
      "slot": "CM"
     },
@@ -501,28 +501,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id267531",
-     "name": "Leuchter",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2218,
-     "clubId": 73,
-     "card": [
-      84,
-      72,
-      36
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      78,
-      40
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id50408698",
      "name": "Kanjinga",
      "rating": 85,
@@ -543,40 +521,62 @@
       48
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id267531",
+     "name": "Leuchter",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      84,
+      72,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      78,
+      40
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 92.0,
-    "attack": 88.8,
-    "defence": 88.25,
+    "control": 92.2,
+    "attack": 89.2,
+    "defence": 87.0,
     "control_cards": [
      93,
      92,
      92,
      92,
-     91
+     92
     ],
     "attack_cards": [
      91,
      90,
      89,
      88,
-     86
+     88
     ],
     "defence_cards": [
      89,
      88,
-     88,
-     88
+     86,
+     85
     ],
-    "chem": 32,
+    "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 253.6
+    "ctrl_total": 247.6
    }
   },
   {
    "formation": "3-4-1-2",
-   "chem": 32,
+   "chem": 33,
    "players": [
     {
      "id": "id262621",
@@ -623,68 +623,68 @@
      "slot": "CB"
     },
     {
-     "id": "id227678",
-     "name": "Konsa",
-     "rating": 84,
+     "id": "id267371",
+     "name": "Nielsen",
+     "rating": 78,
      "color": "rare_gold",
      "position": "CB",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      60,
+      61,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      67,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id169721",
+     "name": "Richards",
+     "rating": 85,
+     "color": "hall_of_fut",
+     "position": "RB",
      "nationId": 14,
      "leagueId": 13,
-     "clubId": 1,
+     "clubId": 132794,
      "card": [
-      67,
-      73,
+      72,
+      74,
       84
      ],
      "chem": 3,
      "eff": [
-      71,
-      79,
+      76,
+      80,
       88
      ],
      "slot": "CB"
     },
     {
-     "id": "id50564136",
-     "name": "Romero",
+     "id": "id50414682",
+     "name": "Rader",
      "rating": 84,
-     "color": "totw_gold",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 53,
-     "clubId": 240,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
      "card": [
-      63,
-      66,
-      85
-     ],
-     "chem": 2,
-     "eff": [
-      66,
-      71,
-      88
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id210035",
-     "name": "Grimaldo",
-     "rating": 85,
-     "color": "rare_gold",
-     "position": "LM",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      82,
-      85,
-      69
+      84,
+      86,
+      36
      ],
      "chem": 3,
      "eff": [
-      86,
-      91,
-      73
+      88,
+      92,
+      40
      ],
      "slot": "LM"
     },
@@ -822,36 +822,36 @@
     }
    ],
    "metrics": {
-    "control": 92.0,
-    "attack": 88.8,
-    "defence": 88.25,
+    "control": 92.2,
+    "attack": 89.2,
+    "defence": 87.0,
     "control_cards": [
      93,
      92,
      92,
      92,
-     91
+     92
     ],
     "attack_cards": [
      91,
      90,
      89,
      88,
-     86
+     88
     ],
     "defence_cards": [
      89,
      88,
      88,
-     88
+     83
     ],
-    "chem": 32,
+    "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 253.6
+    "ctrl_total": 247.6
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-17 22:05 UTC",
+ "built": "2026-10-22 05:24 UTC",
  "week": "2026-10-19"
 }
