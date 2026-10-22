@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261022b";
+const APP_V = "20261022c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -631,7 +631,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261022b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261022c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -657,7 +657,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261022b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261022c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1030,7 +1030,27 @@ const NAME_ALIAS = { "luxembourg": "luxemburg", "bosnia": "bosnia herzegovina", 
   "north korea": "korea dpr", "usa": "united states", "us": "united states", "uae": "united arab emirates", "czechia": "czech republic",
   "turkey": "turkiye", "ireland": "republic of ireland", "cote d ivoire": "ivory coast", "china": "china pr", "central african republic": "car",
   "st kitts and nevis": "st kitts nevis", "saint kitts and nevis": "st kitts nevis", "palestine": "palestinian authority", "holland": "netherlands",
-  "trinidad": "trinidad and tobago", "drc": "dr congo", "congo dr": "dr congo", "curacao": "curacao", "guinea bissau": "guinea bissau" };
+  "trinidad": "trinidad and tobago", "drc": "dr congo", "congo dr": "dr congo", "curacao": "curacao", "guinea bissau": "guinea bissau",
+  // clubs the game shortens: full name typed -> the game's name
+  "sporting gijon": "r sporting", "gijon": "r sporting", "real sporting": "r sporting", "racing santander": "r racing club", "real racing club": "r racing club",
+  "union saint gilloise": "r union st g", "union st gilloise": "r union st g", "union sg": "r union st g", "royale union saint gilloise": "r union st g",
+  "paris saint germain": "psg", "paris sg": "psg", "olympique lyonnais": "ol", "lyon": "ol", "olympique de marseille": "om", "marseille": "om",
+  "lille": "losc", "lille osc": "losc", "tottenham": "spurs", "tottenham hotspur": "spurs", "nottingham forest": "nott m forest", "forest": "nott m forest",
+  "borussia monchengladbach": "m gladbach", "monchengladbach": "m gladbach", "gladbach": "m gladbach", "queens park rangers": "qpr",
+  "psv eindhoven": "psv", "az alkmaar": "az", "los angeles fc": "lafc", "steaua": "fcsb", "steaua bucuresti": "fcsb", "sochaux": "fcsm",
+  "dc united": "d c united", "lask linz": "lask", "independiente del valle": "idv", "newells old boys": "newell s", "newells": "newell s",
+  "nec nijmegen": "n e c nijmegen", "nec": "n e c nijmegen", "fc copenhagen": "f c kobenhavn", "copenhagen": "f c kobenhavn", "kobenhavn": "f c kobenhavn",
+  "st patricks athletic": "st pats", "st patricks": "st pats", "celta vigo": "celta", "maritimo": "maritimo m", "qingdao west coast": "qingdao w coast",
+  "sonnenhof grossaspach": "s grossaspach", "grossaspach": "s grossaspach", "u craiova": "univ craiova", "universitatea craiova": "univ craiova",
+  "u cluj": "fc univ cluj", "universitatea cluj": "fc univ cluj", "charleroi": "sp charleroi", "sporting charleroi": "sp charleroi",
+  "alaves": "d alaves", "deportivo alaves": "d alaves", "argentinos juniors": "argentinos jrs", "universidad catolica": "uni catolica",
+  "atletico nacional": "atl nacional", "melbourne victory": "melb victory", "wellington phoenix": "well phoenix", "racing louisville": "rac louisville",
+  "alemannia aachen": "aleman aachen", "real oviedo": "r oviedo", "real valladolid": "r valladolid cf", "valladolid": "r valladolid cf",
+  "independiente petrolero": "ind petrolero", "independiente rivadavia": "ind rivadavia", "independiente medellin": "indep medellin",
+  "independiente santa fe": "indep santa fe", "santa fe": "indep santa fe", "deportivo cuenca": "dep cuenca", "deportivo la guaira": "dep la guaira",
+  "deportivo riestra": "dep riestra", "costa adeje tenerife": "c adeje tenerife" };
+const NAME_EXP = { r: "real", atl: "atletico", ind: "independiente", indep: "independiente", dep: "deportivo", aleman: "alemannia", melb: "melbourne",
+  sp: "sporting", univ: "universidad", uni: "universidad", rac: "racing", well: "wellington", jrs: "juniors", utd: "united", wed: "wednesday", man: "manchester", ath: "athletic" };
 let NAME_IDX = null;
 function nameIndex() {
   if (NAME_IDX) return NAME_IDX;
@@ -1038,19 +1058,26 @@ function nameIndex() {
   CARDS.forEach(c => { if (c._extra || NO_SBC.has(c.color)) return; has.nation.add(c.nationId); has.league.add(c.leagueId); has.club.add(c.clubId); });
   NAME_IDX = [];
   for (const [kind, names] of [["nation", NATIONS], ["league", LEAGUES], ["club", CLUBS]])
-    for (const [id, label] of Object.entries(names)) if (has[kind].has(+id)) NAME_IDX.push({ kind, id: +id, label, k: nkey(label) });
+    for (const [id, label] of Object.entries(names)) if (has[kind].has(+id)) {
+      const k = nkey(label), k2 = k.split(" ").map(w => NAME_EXP[w] || w).join(" ");      // "Sheffield Wed" also as "sheffield wednesday"
+      const lg = kind === "club" ? [...new Set(CARDS.filter(c => c.clubId === +id).map(c => lName(c.leagueId)))].join(", ") : "";
+      NAME_IDX.push({ kind, id: +id, label, k, k2, lg });
+    }
   return NAME_IDX;
 }
 // best match for a typed name: exact first (nation, then league, then club), then a unique start or part of a name
 function resolveName(text, kinds = ["nation", "league", "club"]) {
   let k = nkey(text); k = NAME_ALIAS[k] || k; if (!k) return null;
   const idx = nameIndex().filter(x => kinds.includes(x.kind)), order = x => kinds.indexOf(x.kind);
-  const tiers = [x => x.k === k, x => x.k.startsWith(k + " ") || x.k.endsWith(" " + k), x => x.k.startsWith(k), x => x.k.includes(k)];
+  const kx = k.split(" ").map(w => NAME_EXP[w] || w).join(" ");      // typed "Man City" also as "manchester city"
+  const any = f => x => f(x.k, k) || f(x.k2, k) || (kx !== k && (f(x.k, kx) || f(x.k2, kx)));
+  const tiers = [any((t, q) => t === q), any((t, q) => t.startsWith(q + " ") || t.endsWith(" " + q)), any((t, q) => t.startsWith(q)), any((t, q) => t.includes(q))];
   for (const [i, f] of tiers.entries()) {
-    const m = idx.filter(f).sort((a, b) => order(a) - order(b));
+    let m = idx.filter(f).sort((a, b) => order(a) - order(b));
     if (!m.length) continue;
-    if (i === 0 || m.length === 1) return m[0];
-    return { amb: m.slice(0, 6) };
+    if (i === 0) m = m.filter(x => x.kind === m[0].kind);         // exact: a nation beats a club of the same name
+    if (m.length === 1) return m[0];
+    return { amb: m.slice(0, 6) };                                // e.g. BK Häcken men's and women's: ask which
   }
   return null;
 }
@@ -1107,7 +1134,7 @@ function drawPaste() {
   p.items.forEach(it => lines.push(`<li class="ok">✓ ${itemText(it)}</li>`));
   if (p.icons === false) lines.push(`<li class="ok">✓ No Icons or Heroes</li>`);
   if (p.specials === false) lines.push(`<li class="ok">✓ No special cards</li>`);
-  p.amb.forEach(a => lines.push(`<li>Which <b>${esc(a.text)}</b>? ${a.opts.map((o, i) => `<button class="ghost" style="padding:3px 8px;font-size:12px;margin:2px" data-pick="${esc(a.key)}" data-i="${i}">${esc(o.label)} <span class="muted">(${o.kind})</span></button>`).join("")}</li>`));
+  p.amb.forEach(a => lines.push(`<li>Which <b>${esc(a.text)}</b>? ${a.opts.map((o, i) => `<button class="ghost" style="padding:3px 8px;font-size:12px;margin:2px" data-pick="${esc(a.key)}" data-i="${i}">${esc(o.label)} <span class="muted">(${esc(o.lg || o.kind)})</span></button>`).join("")}</li>`));
   p.skipped.forEach(x => lines.push(`<li class="bad">✗ Not understood: ${esc(x)}</li>`));
   box.innerHTML = lines.length ? `<ul class="small" style="padding-left:18px;margin:6px 0">${lines.join("")}</ul>` : "";
   box.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => { const a = p.amb.find(x => x.key === b.dataset.pick); PASTE.picks[a.key] = a.opts[+b.dataset.i]; drawPaste(); });
@@ -1181,7 +1208,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261022b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261022c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
