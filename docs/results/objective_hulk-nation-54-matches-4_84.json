@@ -43,26 +43,26 @@
    },
    {
     "slot": "LB",
-    "id": "id67377753",
-    "name": "Álvaro Carreras",
-    "rating": 83,
+    "id": "id50542162",
+    "name": "João Cancelo",
+    "rating": 84,
     "color": "totw_gold",
-    "position": "LB",
-    "nationId": 45,
+    "position": "RB",
+    "nationId": 38,
     "leagueId": 53,
-    "clubId": 243,
+    "clubId": 241,
     "card": [
-     79,
-     80,
-     82
+     82,
+     84,
+     83
     ],
     "chem": 3,
     "eff": [
-     84,
-     84,
-     85
+     87,
+     88,
+     86
     ],
-    "tiebreak": 247
+    "tiebreak": 255
    },
    {
     "slot": "CB",
@@ -135,6 +135,52 @@
    },
    {
     "slot": "CDM",
+    "id": "ltm_espart84",
+    "name": "Xavi Espart",
+    "rating": 84,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     76,
+     82,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     85,
+     86
+    ],
+    "tiebreak": 247
+   },
+   {
+    "slot": "LM",
+    "id": "id50596036",
+    "name": "Moleiro",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 483,
+    "card": [
+     84,
+     82,
+     56
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     86,
+     59
+    ],
+    "tiebreak": 228
+   },
+   {
+    "slot": "CM",
     "id": "id50529429",
     "name": "Isco",
     "rating": 84,
@@ -155,52 +201,6 @@
      62
     ],
     "tiebreak": 232
-   },
-   {
-    "slot": "LM",
-    "id": "id50542162",
-    "name": "João Cancelo",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "RB",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 241,
-    "card": [
-     82,
-     84,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     88,
-     86
-    ],
-    "tiebreak": 255
-   },
-   {
-    "slot": "CM",
-    "id": "id218667",
-    "name": "Bernardo Silva",
-    "rating": 84,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 243,
-    "card": [
-     81,
-     84,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     87,
-     71
-    ],
-    "tiebreak": 239
    },
    {
     "slot": "CM",
@@ -310,13 +310,13 @@
   "id204525",
   "id50406968",
   "id231281",
-  "id50596036",
   "id267530",
+  "id50596036",
   "id50574092",
+  "id50536618",
   "id67330561",
-  "id50572365",
-  "id50536618"
+  "id50572365"
  ],
- "built": "2026-10-21 22:48 UTC",
+ "built": "2026-10-22 10:15 UTC",
  "week": "2026-10-19"
 }

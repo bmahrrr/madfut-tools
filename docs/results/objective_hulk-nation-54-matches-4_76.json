@@ -1,12 +1,13 @@
 {
- "g": 4,
+ "g": 5,
  "obj_ids": [
-  "id244661",
-  "id232805",
   "id212462",
-  "id246186"
+  "id181019",
+  "id232805",
+  "id195093",
+  "id244661"
  ],
- "strength": 100.3,
+ "strength": 100.8,
  "group_cards": 398,
  "reddit": [
   {
@@ -66,29 +67,6 @@
    },
    {
     "slot": "CB",
-    "id": "id243354",
-    "name": "Sander",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 23,
-    "card": [
-     72,
-     73,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     75,
-     77,
-     78
-    ],
-    "tiebreak": 226
-   },
-   {
-    "slot": "CB",
     "id": "id232805",
     "name": "Bernardo",
     "rating": 75,
@@ -111,50 +89,73 @@
     "tiebreak": 209
    },
    {
-    "slot": "RB",
-    "id": "id208618",
-    "name": "Lucas Vázquez",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     76,
-     77,
-     72
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     81,
-     74
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CDM",
-    "id": "id270670",
-    "name": "Chaïbi",
-    "rating": 76,
+    "slot": "CB",
+    "id": "id243354",
+    "name": "Sander",
+    "rating": 75,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 97,
+    "position": "CB",
+    "nationId": 21,
     "leagueId": 19,
-    "clubId": 1824,
+    "clubId": 23,
     "card": [
+     72,
      73,
-     77,
-     69
+     75
     ],
     "chem": 3,
     "eff": [
      75,
-     81,
-     71
+     77,
+     78
     ],
-    "tiebreak": 225
+    "tiebreak": 226
+   },
+   {
+    "slot": "RB",
+    "id": "id244661",
+    "name": "Vitinho",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 1014,
+    "clubId": 517,
+    "card": [
+     68,
+     70,
+     74
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     72,
+     76
+    ],
+    "tiebreak": 218
+   },
+   {
+    "slot": "CDM",
+    "id": "id181019",
+    "name": "Éverton Ribeiro",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 2267,
+    "clubId": 1598,
+    "card": [
+     75,
+     77,
+     51
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     79,
+     53
+    ],
+    "tiebreak": 209
    },
    {
     "slot": "LM",
@@ -227,49 +228,49 @@
    },
    {
     "slot": "RM",
-    "id": "id244661",
-    "name": "Vitinho",
-    "rating": 76,
-    "color": "rare_gold",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
     "position": "RB",
-    "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     68,
-     70,
-     74
+     76,
+     77,
+     72
     ],
     "chem": 3,
     "eff": [
-     70,
-     72,
-     76
+     78,
+     81,
+     74
     ],
-    "tiebreak": 218
+    "tiebreak": 231
    },
    {
     "slot": "ST",
-    "id": "id246186",
-    "name": "Arthur Cabral",
-    "rating": 75,
+    "id": "id195093",
+    "name": "Willian José",
+    "rating": 76,
     "color": "rare_gold",
     "position": "ST",
     "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
+    "leagueId": 2267,
+    "clubId": 1598,
     "card": [
-     74,
+     76,
      66,
-     39
+     46
     ],
     "chem": 3,
     "eff": [
-     76,
+     78,
      68,
-     41
+     48
     ],
-    "tiebreak": 185
+    "tiebreak": 194
    }
   ]
  },
@@ -306,17 +307,17 @@
  },
  "base_ids": [
   "id242818",
-  "id241847",
-  "id256942",
-  "id246836",
-  "id257540",
   "id243354",
+  "id246836",
+  "id241847",
+  "id257540",
+  "id204497",
   "id276602",
   "id208618",
   "id270670",
   "id212188",
   "id50571625"
  ],
- "built": "2026-10-21 22:47 UTC",
+ "built": "2026-10-22 10:14 UTC",
  "week": "2026-10-19"
 }

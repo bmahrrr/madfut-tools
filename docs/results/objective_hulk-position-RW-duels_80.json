@@ -3,17 +3,17 @@
  "obj_ids": [
   "id216409"
  ],
- "strength": 99.8,
+ "strength": 100.1,
  "group_cards": 5,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
+   "you_lead_first": "DRAW",
+   "they_lead_first": "WIN"
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 29,
+  "formation": "3-4-3",
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
@@ -39,27 +39,27 @@
     "tiebreak": 165
    },
    {
-    "slot": "LB",
-    "id": "id258966",
-    "name": "Cambiaso",
-    "rating": 80,
+    "slot": "CB",
+    "id": "id272203",
+    "name": "Maddi Torre",
+    "rating": 79,
     "color": "rare_gold",
-    "position": "LB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 45,
+    "position": "CB",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 448,
     "card": [
-     77,
-     78,
-     78
+     65,
+     73,
+     79
     ],
     "chem": 3,
     "eff": [
-     79,
-     80,
-     82
+     67,
+     75,
+     81
     ],
-    "tiebreak": 239
+    "tiebreak": 223
    },
    {
     "slot": "CB",
@@ -108,7 +108,76 @@
     "tiebreak": 227
    },
    {
-    "slot": "RB",
+    "slot": "LM",
+    "id": "id258966",
+    "name": "Cambiaso",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     77,
+     78,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     80,
+     82
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "CM",
+    "id": "id246287",
+    "name": "Ángela Sosa",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 116334,
+    "card": [
+     79,
+     82,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     84,
+     65
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "CM",
+    "id": "id50571688",
+    "name": "Holse",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "RW",
+    "nationId": 13,
+    "leagueId": 39,
+    "clubId": 113018,
+    "card": [
+     80,
+     80,
+     65
+    ],
+    "chem": 1,
+    "eff": [
+     80,
+     80,
+     65
+    ],
+    "tiebreak": 225
+   },
+   {
+    "slot": "RM",
     "id": "evo_Lucas Vázquez_80",
     "name": "Lucas Vázquez",
     "rating": 80,
@@ -131,99 +200,53 @@
     "tiebreak": 249
    },
    {
-    "slot": "CDM",
-    "id": "id50540109",
-    "name": "de Roon",
+    "slot": "LW",
+    "id": "id50603848",
+    "name": "Cecilia Marcos",
     "rating": 80,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 34,
-    "leagueId": 31,
-    "clubId": 52,
-    "card": [
-     73,
-     76,
-     80
-    ],
-    "chem": 2,
-    "eff": [
-     74,
-     77,
-     83
-    ],
-    "tiebreak": 232
-   },
-   {
-    "slot": "LM",
-    "id": "id261865",
-    "name": "Miguel Gutiérrez",
-    "rating": 80,
-    "color": "rare_gold",
+    "color": "totw_gold",
     "position": "LB",
     "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "leagueId": 2222,
+    "clubId": 457,
     "card": [
-     77,
-     78,
-     79
+     82,
+     81,
+     77
     ],
     "chem": 3,
     "eff": [
-     79,
-     80,
-     81
+     84,
+     83,
+     79
     ],
-    "tiebreak": 240
+    "tiebreak": 246
    },
    {
-    "slot": "CM",
-    "id": "id243780",
-    "name": "Lee Kang In",
+    "slot": "ST",
+    "id": "id50404662",
+    "name": "Kramer",
     "rating": 80,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 167,
-    "leagueId": 53,
-    "clubId": 240,
+    "color": "totw_gold",
+    "position": "ST",
+    "nationId": 13,
+    "leagueId": 2215,
+    "clubId": 32,
     "card": [
-     79,
-     81,
-     53
-    ],
-    "chem": 1,
-    "eff": [
-     79,
-     81,
-     53
-    ],
-    "tiebreak": 213
-   },
-   {
-    "slot": "CM",
-    "id": "id246287",
-    "name": "Ángela Sosa",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 116334,
-    "card": [
-     79,
      82,
-     63
+     70,
+     54
     ],
     "chem": 2,
     "eff": [
-     80,
      83,
-     64
+     71,
+     55
     ],
-    "tiebreak": 227
+    "tiebreak": 209
    },
    {
-    "slot": "RM",
+    "slot": "RW",
     "id": "id216409",
     "name": "Politano",
     "rating": 80,
@@ -244,29 +267,6 @@
      59
     ],
     "tiebreak": 221
-   },
-   {
-    "slot": "ST",
-    "id": "id262545",
-    "name": "Amaiur Sarriegi",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "ST",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 240,
-    "card": [
-     81,
-     78,
-     52
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     80,
-     54
-    ],
-    "tiebreak": 217
    }
   ]
  },
@@ -303,16 +303,16 @@
  "base_ids": [
   "id50560437",
   "id230918",
+  "id50597771",
   "id226851",
   "id258648",
-  "id261865",
   "id50603785",
   "id246287",
   "evo_Lucas Vázquez_80",
-  "id243593",
-  "id262545",
+  "id50603848",
+  "id50404662",
   "id259075"
  ],
- "built": "2026-10-21 22:47 UTC",
+ "built": "2026-10-22 10:14 UTC",
  "week": "2026-10-19"
 }
