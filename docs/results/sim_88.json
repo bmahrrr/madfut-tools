@@ -70,28 +70,6 @@
      "slot": "CB"
     },
     {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      62,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      66,
-      64,
-      92
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id140601",
      "name": "Vidić",
      "rating": 88,
@@ -110,6 +88,28 @@
       63,
       64,
       91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      92
      ],
      "slot": "CB"
     },
@@ -136,6 +136,28 @@
      "slot": "LM"
     },
     {
+     "id": "evo_Groß_88",
+     "name": "Groß",
+     "rating": 88,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      87,
+      89,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      91,
+      84
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "id50592947",
      "name": "Scott",
      "rating": 86,
@@ -154,28 +176,6 @@
       87,
       90,
       83
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id50595413",
-     "name": "Bischof",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 21,
-     "card": [
-      87,
-      88,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      90,
-      80
      ],
      "slot": "CM"
     },
@@ -269,12 +269,12 @@
     }
    ],
    "metrics": {
-    "control": 90.2,
+    "control": 90.4,
     "attack": 88.6,
     "defence": 91.0,
     "control_cards": [
      91,
-     90,
+     91,
      90,
      90,
      90
@@ -294,7 +294,7 @@
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 242.0
+    "ctrl_total": 243.0
    }
   },
   {
@@ -324,6 +324,28 @@
      "slot": "GK"
     },
     {
+     "id": "id161840",
+     "name": "Fernando Hierro",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      73,
+      72,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      74,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "id138956",
      "name": "Chiellini",
      "rating": 88,
@@ -368,50 +390,6 @@
      "slot": "CB"
     },
     {
-     "id": "id243029",
-     "name": "Campbell",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      60,
-      60,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      62,
-      62,
-      90
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50595413",
-     "name": "Bischof",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 21,
-     "card": [
-      87,
-      88,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      90,
-      80
-     ],
-     "slot": "CDM"
-    },
-    {
      "id": "id50592947",
      "name": "Scott",
      "rating": 86,
@@ -430,6 +408,28 @@
       87,
       90,
       83
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "evo_Groß_88",
+     "name": "Groß",
+     "rating": 88,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      87,
+      89,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      91,
+      84
      ],
      "slot": "CDM"
     },
@@ -500,6 +500,28 @@
      "slot": "RM"
     },
     {
+     "id": "id262112",
+     "name": "van Persie",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      86,
+      51
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id82092",
      "name": "Kempes",
      "rating": 88,
@@ -520,37 +542,15 @@
       55
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id120274",
-     "name": "Di Natale",
-     "rating": 88,
-     "color": "hero",
-     "position": "ST",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 114605,
-     "card": [
-      89,
-      85,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      87,
-      50
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 90.2,
+    "control": 90.4,
     "attack": 88.6,
-    "defence": 87.83,
+    "defence": 88.5,
     "control_cards": [
      91,
-     90,
+     91,
      90,
      90,
      90
@@ -567,12 +567,12 @@
      91,
      91,
      90,
-     83,
-     80
+     84,
+     83
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 242.0
+    "ctrl_total": 243.0
    }
   },
   {
@@ -602,46 +602,24 @@
      "slot": "GK"
     },
     {
-     "id": "id247819",
-     "name": "Schlotterbeck",
-     "rating": 87,
-     "color": "rare_gold",
+     "id": "id140601",
+     "name": "Vidić",
+     "rating": 88,
+     "color": "icon",
      "position": "CB",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 22,
+     "nationId": 51,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      71,
-      75,
-      86
+      61,
+      62,
+      89
      ],
      "chem": 3,
      "eff": [
-      73,
-      77,
-      88
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id227254",
-     "name": "Greenwood",
-     "rating": 85,
-     "color": "rare_gold",
-     "position": "LB",
-     "nationId": 14,
-     "leagueId": 2216,
-     "clubId": 10,
-     "card": [
-      69,
-      75,
-      84
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      79,
-      88
+      63,
+      64,
+      91
      ],
      "slot": "CB"
     },
@@ -668,24 +646,46 @@
      "slot": "CB"
     },
     {
-     "id": "id50592947",
-     "name": "Scott",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
+     "id": "id243029",
+     "name": "Campbell",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
      "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1943,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      85,
-      88,
-      81
+      60,
+      60,
+      88
      ],
      "chem": 3,
      "eff": [
+      62,
+      62,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Groß_88",
+     "name": "Groß",
+     "rating": 88,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
       87,
-      90,
-      83
+      89,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      91,
+      84
      ],
      "slot": "CDM"
     },
@@ -734,22 +734,22 @@
      "slot": "CM"
     },
     {
-     "id": "id245830",
-     "name": "Hasegawa",
-     "rating": 88,
-     "color": "rare_gold",
-     "position": "CDM",
-     "nationId": 163,
-     "leagueId": 2216,
-     "clubId": 10,
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
      "card": [
-      80,
-      86,
-      79
+      85,
+      88,
+      81
      ],
      "chem": 3,
      "eff": [
-      84,
+      87,
       90,
       83
      ],
@@ -778,28 +778,6 @@
      "slot": "RM"
     },
     {
-     "id": "id262112",
-     "name": "van Persie",
-     "rating": 88,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      84,
-      49
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      86,
-      51
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id82092",
      "name": "Kempes",
      "rating": 88,
@@ -820,14 +798,36 @@
       55
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id262112",
+     "name": "van Persie",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      86,
+      51
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 90.0,
+    "control": 90.2,
     "attack": 88.75,
-    "defence": 88.4,
+    "defence": 89.6,
     "control_cards": [
-     90,
+     91,
      90,
      90,
      90,
@@ -842,17 +842,17 @@
     "defence_cards": [
      92,
      91,
-     88,
-     88,
-     83
+     91,
+     90,
+     84
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 249.4
+    "ctrl_total": 250.8
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-17 21:56 UTC",
+ "built": "2026-10-22 05:17 UTC",
  "week": "2026-10-19"
 }
