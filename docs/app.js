@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261022c";
+const APP_V = "20261022d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -631,7 +631,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261022c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261022d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -657,7 +657,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261022c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261022d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1050,7 +1050,7 @@ const NAME_ALIAS = { "luxembourg": "luxemburg", "bosnia": "bosnia herzegovina", 
   "independiente santa fe": "indep santa fe", "santa fe": "indep santa fe", "deportivo cuenca": "dep cuenca", "deportivo la guaira": "dep la guaira",
   "deportivo riestra": "dep riestra", "costa adeje tenerife": "c adeje tenerife" };
 const NAME_EXP = { r: "real", atl: "atletico", ind: "independiente", indep: "independiente", dep: "deportivo", aleman: "alemannia", melb: "melbourne",
-  sp: "sporting", univ: "universidad", uni: "universidad", rac: "racing", well: "wellington", jrs: "juniors", utd: "united", wed: "wednesday", man: "manchester", ath: "athletic" };
+  sp: "sporting", univ: "universidad", uni: "universidad", rac: "racing", well: "wellington", ws: "western sydney", jrs: "juniors", utd: "united", wed: "wednesday", man: "manchester", ath: "athletic" };
 let NAME_IDX = null;
 function nameIndex() {
   if (NAME_IDX) return NAME_IDX;
@@ -1071,7 +1071,7 @@ function resolveName(text, kinds = ["nation", "league", "club"]) {
   const idx = nameIndex().filter(x => kinds.includes(x.kind)), order = x => kinds.indexOf(x.kind);
   const kx = k.split(" ").map(w => NAME_EXP[w] || w).join(" ");      // typed "Man City" also as "manchester city"
   const any = f => x => f(x.k, k) || f(x.k2, k) || (kx !== k && (f(x.k, kx) || f(x.k2, kx)));
-  const tiers = [any((t, q) => t === q), any((t, q) => t.startsWith(q + " ") || t.endsWith(" " + q)), any((t, q) => t.startsWith(q)), any((t, q) => t.includes(q))];
+  const tiers = [any((t, q) => t === q), any((t, q) => t.startsWith(q + " ") || t.endsWith(" " + q)), any((t, q) => t.startsWith(q)), any((t, q) => t.includes(q)), any((t, q) => t.length > 3 && q.startsWith(t + " "))]   // last: "Central Coast Mariners" -> "Central Coast";
   for (const [i, f] of tiers.entries()) {
     let m = idx.filter(f).sort((a, b) => order(a) - order(b));
     if (!m.length) continue;
@@ -1208,7 +1208,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261022c");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261022d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
