@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261020b";
+const APP_V = "20261022a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -631,7 +631,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261020b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261022a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -657,7 +657,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261020b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261022a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -892,6 +892,8 @@ function groupLabel(kind, id) {
 }
 function ruleText(r) {              // the game's own wording: "Olympiacos FC: Min 1", "ICON: Max 1"
   const tail = `: <b>${OPS[r.op]} ${r.n}</b>`;
+  if (r.on === "color" && String(r.id) === "iconhero") return `Icons and Heroes${tail}`;
+  if (r.on === "rarity" && r.id === "special") return `Special Cards${tail}`;
   if (r.on === "color" || r.on === "rarity") return `${esc(["icon", "hero"].includes(String(r.id)) ? String(r.id).toUpperCase() : groupLabel(r.on, r.id))}${tail}`;
   const known = (r.on === "nation" && NATIONS[r.id]) || (r.on === "league" && LEAGUES[r.id]) || (r.on === "club" && CLUBS[r.id]);
   if (known) return `${esc(known)}${tail}`;
@@ -930,15 +932,21 @@ function setupSBC() {
   $("sbcAddBtn").onclick = () => { $("sbcAdd").hidden = false; $("sbcAddBtn").hidden = true; $("aType").value = ""; drawAddBody(); };
   $("sbcGo").onclick = () => { SB.exclude = []; runSBC(15); };
   $("sbcClear").onclick = () => { SB.items = []; SB.exclude = []; $("sbcOut").hidden = true; drawSBCForm(); saveSBC(); };
+  $("sbcPasteBtn").onclick = () => { $("sbcPaste").hidden = false; $("sbcPasteBtn").hidden = true; PASTE.picks = {}; $("pText").value = ""; drawPaste(); $("pText").focus(); };
+  $("pText").oninput = () => { PASTE.picks = {}; drawPaste(); };
+  $("pUse").onclick = usePaste;
+  $("pCancel").onclick = () => { $("sbcPaste").hidden = true; $("sbcPasteBtn").hidden = false; };
+  setupCheck();
   ["sbcForm", "sbcPr", "sbcSp", "sbcIc"].forEach(id => $(id).addEventListener("change", saveSBC));
   loadSBC(); drawSBCForm();
 }
 function closeAdd() { $("sbcAdd").hidden = true; $("sbcAddBtn").hidden = false; }
-function addItem(it) {
+function addItem(it, keepOpen) {
   // one line per requirement: Min and Max can sit together, Exactly replaces both (and is replaced by either)
   if (it.t === "num") SB.items = SB.items.filter(x => !(x.t === "num" && numBase(x.key) === numBase(it.key) &&
     (x.key === it.key || x.key.startsWith("exact_") || it.key.startsWith("exact_"))));
-  SB.items.push(it); closeAdd(); drawSBCForm(); saveSBC();
+  if (it.t === "rule") SB.items = SB.items.filter(x => !(x.t === "rule" && x.rule.on === it.rule.on && x.rule.id === it.rule.id && x.rule.op === it.rule.op));
+  SB.items.push(it); if (!keepOpen) closeAdd(); drawSBCForm(); saveSBC();
 }
 const numBox = (id, val = "") => `<input type="number" inputmode="numeric" id="${id}" min="0" value="${val}" style="width:80px">`;
 const minMax = id => `<select id="${id}"><option value="min">Min</option><option value="max">Max</option><option value="exact">Exactly</option></select>`;
@@ -975,8 +983,9 @@ function drawAddBody() {
   } else if (t === "from") {
     box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
       <select id="aK"><option value="club">Club</option><option value="nation">Nation</option><option value="league">League</option></select></div>
-      <input type="text" id="aQ" placeholder="Type the club / nation / league name, or a player from it" style="margin-top:8px"><ul class="sr" id="aSr" hidden></ul>
-      <div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
+      <input type="text" id="aQ" placeholder="Type a name, or several with commas" style="margin-top:8px"><ul class="sr" id="aSr" hidden></ul>
+      <p class="small muted" id="aMsg" style="margin:6px 0 0">Tap a match to add it, then type the next. Or type several names with commas and tap Add all.</p>
+      <div class="row" style="margin-top:8px"><button class="btn" id="aAll" hidden>Add all</button><button class="ghost" id="aCancel">Done</button></div>`; done();
     const inp = $("aQ"), ul = $("aSr");
     const refresh = () => {
       const kind = $("aK").value, q = inp.value.trim().toLowerCase(); if (q.length < 2) { ul.hidden = true; return; }
@@ -991,18 +1000,165 @@ function drawAddBody() {
         return `<li data-id="${id}" data-via="${esc(via || "")}">${label} <span class="muted small">${esc(groupSample(kind, id).join(", "))}</span></li>`;
       }).join("");
     };
-    inp.oninput = refresh; $("aK").onchange = refresh; inp.focus();
+    const many = () => inp.value.split(/[,;\n]/).map(x => x.trim()).filter(Boolean);
+    const onType = () => { const m = many(); $("aAll").hidden = m.length < 2; $("aAll").textContent = `Add all ${m.length}`; if (m.length < 2) refresh(); else ul.hidden = true; };
+    inp.oninput = onType; $("aK").onchange = onType; inp.focus();
     ul.onclick = e => {
       const li = e.target.closest("li"); if (!li) return;
       const rule = { on: $("aK").value, id: +li.dataset.id, op: $("aOp").value, n: +$("aN").value || 0 };
       if (li.dataset.via) rule.via = li.dataset.via;
-      addItem({ t: "rule", rule });
+      addItem({ t: "rule", rule }, true);
+      $("aMsg").innerHTML = `Added <b>${ruleText(rule)}</b>. Type the next one, or tap Done.`;
+      inp.value = ""; ul.hidden = true; inp.focus();
+    };
+    $("aAll").onclick = () => {
+      const kind = $("aK").value, ok = [], miss = [];
+      for (const name of many()) {
+        const r = resolveName(name, [kind]);
+        if (r && r.id != null) { addItem({ t: "rule", rule: { on: kind, id: r.id, op: $("aOp").value, n: +$("aN").value || 0 } }, true); ok.push(r.label); }
+        else miss.push(name);
+      }
+      $("aMsg").innerHTML = (ok.length ? `Added ${ok.length}: ${esc(ok.join(", "))}.` : "") + (miss.length ? ` <span class="bad">Couldn't find: ${esc(miss.join(", "))}. Type it on its own to pick from the list.</span>` : "");
+      inp.value = miss.join(", "); onType(); inp.focus();
     };
   }
 }
+// ---------- names typed by hand: "Bosnia", "Luxembourg", "trinidad & tobago" ----------
+const nkey = t => norm(t).replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim();
+const NAME_ALIAS = { "luxembourg": "luxemburg", "bosnia": "bosnia herzegovina", "bosnia and herzegovina": "bosnia herzegovina",
+  "cape verde": "cape verde islands", "north macedonia": "fyr macedonia", "macedonia": "fyr macedonia", "south korea": "korea republic",
+  "north korea": "korea dpr", "usa": "united states", "us": "united states", "uae": "united arab emirates", "czechia": "czech republic",
+  "turkey": "turkiye", "ireland": "republic of ireland", "cote d ivoire": "ivory coast", "china": "china pr", "central african republic": "car",
+  "st kitts and nevis": "st kitts nevis", "saint kitts and nevis": "st kitts nevis", "palestine": "palestinian authority", "holland": "netherlands",
+  "trinidad": "trinidad and tobago", "drc": "dr congo", "congo dr": "dr congo", "curacao": "curacao", "guinea bissau": "guinea bissau" };
+let NAME_IDX = null;
+function nameIndex() {
+  if (NAME_IDX) return NAME_IDX;
+  const has = { nation: new Set(), league: new Set(), club: new Set() };
+  CARDS.forEach(c => { if (c._extra || NO_SBC.has(c.color)) return; has.nation.add(c.nationId); has.league.add(c.leagueId); has.club.add(c.clubId); });
+  NAME_IDX = [];
+  for (const [kind, names] of [["nation", NATIONS], ["league", LEAGUES], ["club", CLUBS]])
+    for (const [id, label] of Object.entries(names)) if (has[kind].has(+id)) NAME_IDX.push({ kind, id: +id, label, k: nkey(label) });
+  return NAME_IDX;
+}
+// best match for a typed name: exact first (nation, then league, then club), then a unique start or part of a name
+function resolveName(text, kinds = ["nation", "league", "club"]) {
+  let k = nkey(text); k = NAME_ALIAS[k] || k; if (!k) return null;
+  const idx = nameIndex().filter(x => kinds.includes(x.kind)), order = x => kinds.indexOf(x.kind);
+  const tiers = [x => x.k === k, x => x.k.startsWith(k + " ") || x.k.endsWith(" " + k), x => x.k.startsWith(k), x => x.k.includes(k)];
+  for (const [i, f] of tiers.entries()) {
+    const m = idx.filter(f).sort((a, b) => order(a) - order(b));
+    if (!m.length) continue;
+    if (i === 0 || m.length === 1) return m[0];
+    return { amb: m.slice(0, 6) };
+  }
+  return null;
+}
+// ---------- paste a whole SBC: "Leagues: Min 5", "Zimbabwe: Min 1", "Icons and Heroes: Max 0", "Formation: 3-5-2" ----------
+const OPWORD = { min: ">=", max: "<=", exactly: "=", exact: "=" };
+function parseSBCText(text, picks = {}) {
+  const out = { items: [], formation: null, icons: null, specials: null, notes: [], amb: [], skipped: [] };
+  const num = (key, op, v) => out.items.push({ t: "num", key: (op === "<=" ? "max_" : op === "=" ? "exact_" : "min_") + key, v });
+  const rule = (on, id, op, n) => out.items.push({ t: "rule", rule: { on, id, op, n } });
+  const types = [...new Set(CARDS.filter(c => !c._extra && !NO_SBC.has(c.color)).map(sbcType))];
+  const lines = String(text).split(/\n/).map(l => l.replace(/[*_•]/g, "").replace(/^\s*[-–]\s*/, "").trim()).filter(Boolean);
+  lines.forEach((line, li) => {
+    const fm = line.match(/^formation\s*:?\s*(\d(?:-\d){2,4})/i) || line.match(/^(\d(?:-\d){2,4})$/);
+    if (fm) { out.formation = fm[1]; return; }
+    let m = line.match(/^(.*?)\s*:\s*(min|max|exactly|exact)?\s*(\d+)\b/i);
+    let names = null, op = ">=", n = 1, label = "";
+    if (m) { label = m[1]; op = OPWORD[(m[2] || "min").toLowerCase()]; n = +m[3]; }
+    else if ((m = line.match(/from each\s*:\s*(.+)$/i))) names = m[1];
+    else if (/[,;]/.test(line) || resolveName(line)) names = line;      // a bare list of names: Min 1 each
+    else { if (line.split(/\s+/).length < 3 && !/^(requirements|how to enter|solution|rules)$/i.test(line)) out.skipped.push(line); return; }
+    const L = nkey(label);
+    if (!names) {
+      if (/^number of players/.test(L)) return;
+      if (/^(team|squad) rating$|^rating$/.test(L)) return num("rating", ">=", n);
+      if (/^(team |squad )?chem(istry)?$/.test(L)) return num("chem", ">=", n);
+      if (/^player chem(istry)?$|^chem(istry)? per player$/.test(L)) return num("player_chem", ">=", n);
+      if (/^(leagues|nations|clubs)$/.test(L)) return num(L, op, n);
+      if ((m = L.match(/^same (league|nation|club)$/))) return num("same_" + m[1], op, n);
+      if (/^card types$/.test(L)) return num("types", op, n);
+      if (/^player rating$/.test(L)) return num("card_rating", op, n);
+      if (/^icons? (and )?heroe?s?$/.test(L)) { if (op === "<=" && n === 0) out.icons = false; else { out.icons = true; rule("color", "iconhero", op, n); } return; }
+      if (/^icons?$/.test(L)) { if (op === "<=" && n === 0) return; out.icons = true; return rule("color", "icon", op, n); }
+      if (/^heroe?s?$/.test(L)) { if (op === "<=" && n === 0) return; out.icons = true; return rule("color", "hero", op, n); }
+      if (/^special( cards?)?$|^specials$/.test(L)) { if (op === "<=" && n === 0) out.specials = false; else { if (op !== "<=") out.specials = true; rule("rarity", "special", op, n); } return; }
+      if ((m = L.match(/^(rare )?(gold|silver|bronze)( cards?)?$/))) return rule("rarity", m[2], op, n);
+      const ct = types.find(t => nkey(TYPE(t)) === L || nkey(t) === L);
+      if (ct) { if (op !== "<=") out.specials = true; return rule("color", ct, op, n); }
+      names = label;
+    }
+    names.split(/[,;]/).map(x => x.trim()).filter(Boolean).forEach((nm, j) => {
+      const key = li + ":" + j, r = picks[key] || resolveName(nm);
+      if (r && r.id != null) rule(r.kind, r.id, op, n);
+      else if (r && r.amb) out.amb.push({ key, text: nm, opts: r.amb });
+      else out.skipped.push(nm);
+    });
+  });
+  return out;
+}
+const PASTE = { picks: {} };
+function drawPaste() {
+  const p = parseSBCText($("pText").value, PASTE.picks), box = $("pPrev");
+  const lines = [];
+  if (p.formation) lines.push(`<li class="ok">✓ Formation: <b>${esc(p.formation)}</b>${FORMS_CACHE && !FORMS_CACHE[p.formation] ? ' <span class="bad">(not on the list)</span>' : ""}</li>`);
+  p.items.forEach(it => lines.push(`<li class="ok">✓ ${itemText(it)}</li>`));
+  if (p.icons === false) lines.push(`<li class="ok">✓ No Icons or Heroes</li>`);
+  if (p.specials === false) lines.push(`<li class="ok">✓ No special cards</li>`);
+  p.amb.forEach(a => lines.push(`<li>Which <b>${esc(a.text)}</b>? ${a.opts.map((o, i) => `<button class="ghost" style="padding:3px 8px;font-size:12px;margin:2px" data-pick="${esc(a.key)}" data-i="${i}">${esc(o.label)} <span class="muted">(${o.kind})</span></button>`).join("")}</li>`));
+  p.skipped.forEach(x => lines.push(`<li class="bad">✗ Not understood: ${esc(x)}</li>`));
+  box.innerHTML = lines.length ? `<ul class="small" style="padding-left:18px;margin:6px 0">${lines.join("")}</ul>` : "";
+  box.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => { const a = p.amb.find(x => x.key === b.dataset.pick); PASTE.picks[a.key] = a.opts[+b.dataset.i]; drawPaste(); });
+  $("pUse").disabled = !(p.items.length || p.formation || p.icons === false || p.specials === false) || p.amb.length > 0;
+  return p;
+}
+function usePaste() {
+  const p = drawPaste(); if ($("pUse").disabled) return;
+  SB.items = []; p.items.forEach(it => addItem(it, true));
+  if (p.formation && FORMS_CACHE && FORMS_CACHE[p.formation]) $("sbcForm").value = p.formation;
+  if (p.icons != null) $("sbcIc").checked = p.icons;
+  if (p.specials != null) $("sbcSp").checked = p.specials;
+  $("sbcPaste").hidden = true; $("sbcPasteBtn").hidden = false; drawSBCForm(); saveSBC();
+}
+// ---------- check a squad against the requirements above ----------
+const CHK = { ids: [] };
+function saveChk() { try { localStorage.setItem("sbcCheck", JSON.stringify(CHK.ids)); } catch (e) {} }
+function drawCheck() {
+  const sq = CHK.ids.map(id => BYID.get(id)).filter(Boolean), out = $("chkOut");
+  if (!sq.length) { out.innerHTML = `<p class="small muted">Add the 11 players from the squad. It's checked against the requirements above.</p>`; return; }
+  const ch = sbcChem(sq), req = readReq();
+  const rows = sq.map((c, i) => `<tr><td class="wrap"><b>${esc(c.name)}</b> ${c.rating}<br><span class="muted small">${esc(TYPE(c.color))} · ${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></td><td class="n">${ch[i]}</td><td><button class="x" data-cdel="${i}">✕</button></td></tr>`).join("");
+  const checks = [{ label: `Players ${sq.length} (need 11)`, ok: sq.length === 11 }];
+  const dup = sq.length - new Set(sq.map(c => c.baseId || c.name)).size;
+  if (dup) checks.push({ label: `Same player twice`, ok: false });
+  const wantsSpecial = (req.rules || []).some(r => r.op !== "<=" && (r.on === "color" || (r.on === "rarity" && r.id === "special")));
+  if (!req.allow_icons) { const n = sq.filter(c => ["icon", "debut_icon", "hero", "hall_of_fut"].includes(c.color)).length; checks.push({ label: `No Icons or Heroes: ${n}`, ok: n === 0 }); }
+  if (!req.allow_specials && !wantsSpecial) { const n = sq.filter(c => !["icon", "debut_icon", "hero", "hall_of_fut"].includes(c.color) && !["gold", "silver", "bronze"].includes(sbcType(c))).length; checks.push({ label: `No special cards: ${n}`, ok: n === 0 }); }
+  checks.push(...sbcChecks(req, sq));
+  const allOk = sq.length === 11 && checks.every(c => c.ok);
+  out.innerHTML = `<p><b>Rating ${teamRatingOf(sq.map(c => c.rating))} · Chem ${ch.reduce((a, b) => a + b, 0)}</b></p>
+    <table class="sq"><tr><th>Player</th><th>Chem</th><th></th></tr>${rows}</table>
+    <p class="${allOk ? "ok" : "bad"}" style="margin:10px 0 4px"><b>${allOk ? "✓ Meets every requirement" : sq.length < 11 ? `${11 - sq.length} more to add` : "✗ Doesn't meet every requirement"}</b></p>
+    <ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("")}</ul>`;
+  out.querySelectorAll("[data-cdel]").forEach(b => b.onclick = () => { CHK.ids.splice(+b.dataset.cdel, 1); saveChk(); drawCheck(); });
+}
+function setupCheck() {
+  try { CHK.ids = JSON.parse(localStorage.getItem("sbcCheck") || "[]").filter(id => BYID.has(id)); } catch (e) {}
+  hookSearch("chkQ", "chkSr", c => {
+    if (c._extra || NO_SBC.has(c.color)) { alert(`${TYPE(c.color)} cards can't be used in SBCs.`); return; }
+    if (CHK.ids.length >= 11) { alert("The squad already has 11. Remove one first."); return; }
+    CHK.ids.push(c.id); saveChk(); drawCheck(); $("chkQ").focus();
+  });
+  $("chkLast").onclick = () => { if (!SB.last || SB.last.none) { alert("Solve an SBC first."); return; } CHK.ids = SB.last.players.map(p => p.id); saveChk(); drawCheck(); };
+  $("chkClear").onclick = () => { CHK.ids = []; saveChk(); drawCheck(); };
+  drawCheck();
+}
 function drawSBCForm() {
+  if ($("chkOut")) drawCheck();
   $("sbcList").innerHTML = SB.items.length ? SB.items.map((it, i) => `<div class="req"><span>${itemText(it)}</span><button class="x" data-del="${i}">✕</button></div>`).join("")
-    : `<p class="muted small">No requirements yet. Tap <b>+ Add requirement</b> for each line on the SBC.</p>`;
+    : `<p class="muted small">No requirements yet. Tap <b>+ Add requirement</b>, or <b>Paste requirements</b> to add them all at once.</p>`;
   document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { SB.items.splice(+b.dataset.del, 1); drawSBCForm(); saveSBC(); });
 }
 function readReq() {
@@ -1025,7 +1181,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261020b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261022a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
