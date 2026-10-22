@@ -1,12 +1,12 @@
 {
  "g": 4,
  "obj_ids": [
-  "id80170",
-  "id223334",
   "id258648",
-  "id259075"
+  "id259075",
+  "id80170",
+  "id223334"
  ],
- "strength": 100.2,
+ "strength": 99.9,
  "group_cards": 453,
  "reddit": [
   {
@@ -43,26 +43,26 @@
    },
    {
     "slot": "LB",
-    "id": "id80170",
-    "name": "Wesley",
+    "id": "id50603848",
+    "name": "Cecilia Marcos",
     "rating": 80,
-    "color": "rare_gold",
+    "color": "totw_gold",
     "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 52,
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 457,
     "card": [
-     76,
-     77,
-     79
+     82,
+     81,
+     77
     ],
     "chem": 3,
     "eff": [
-     78,
-     79,
-     83
+     84,
+     83,
+     79
     ],
-    "tiebreak": 238
+    "tiebreak": 246
    },
    {
     "slot": "CB",
@@ -112,75 +112,29 @@
    },
    {
     "slot": "RB",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
-    "color": "rare_gold",
+    "id": "evo_Lucas Vázquez_80",
+    "name": "Lucas Vázquez",
+    "rating": 80,
+    "color": "evo",
     "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     75,
-     80,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     82,
-     79
-    ],
-    "tiebreak": 236
-   },
-   {
-    "slot": "CDM",
-    "id": "id50603785",
-    "name": "Sara Ortega",
-    "rating": 80,
-    "color": "totw_gold",
-    "position": "LM",
     "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 448,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     81,
-     80,
-     62
-    ],
-    "chem": 3,
-    "eff": [
+     82,
      83,
-     82,
-     64
-    ],
-    "tiebreak": 229
-   },
-   {
-    "slot": "LM",
-    "id": "id50603848",
-    "name": "Cecilia Marcos",
-    "rating": 80,
-    "color": "totw_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 457,
-    "card": [
-     82,
-     81,
-     77
+     78
     ],
     "chem": 3,
     "eff": [
      84,
-     83,
-     79
+     85,
+     80
     ],
-    "tiebreak": 246
+    "tiebreak": 249
    },
    {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "id246287",
     "name": "Ángela Sosa",
     "rating": 80,
@@ -201,6 +155,52 @@
      65
     ],
     "tiebreak": 230
+   },
+   {
+    "slot": "LM",
+    "id": "id80170",
+    "name": "Wesley",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 52,
+    "card": [
+     76,
+     77,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     79,
+     83
+    ],
+    "tiebreak": 238
+   },
+   {
+    "slot": "CM",
+    "id": "id50603785",
+    "name": "Sara Ortega",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "LM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 448,
+    "card": [
+     81,
+     80,
+     62
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     82,
+     64
+    ],
+    "tiebreak": 229
    },
    {
     "slot": "CM",
@@ -227,26 +227,26 @@
    },
    {
     "slot": "RM",
-    "id": "evo_Lucas Vázquez_80",
-    "name": "Lucas Vázquez",
-    "rating": 80,
-    "color": "evo",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
+    "color": "rare_gold",
     "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
-     82,
-     83,
-     78
+     75,
+     80,
+     75
     ],
     "chem": 3,
     "eff": [
-     84,
-     85,
-     80
+     77,
+     82,
+     79
     ],
-    "tiebreak": 249
+    "tiebreak": 236
    },
    {
     "slot": "ST",
@@ -306,17 +306,17 @@
  },
  "base_ids": [
   "id50560437",
-  "id230918",
-  "id50597771",
-  "id226851",
   "id258648",
+  "id226851",
+  "id50597771",
+  "id80170",
   "id50603785",
-  "id246287",
+  "id50540109",
   "evo_Lucas Vázquez_80",
   "id50603848",
   "id50404662",
-  "id259075"
+  "id246287"
  ],
- "built": "2026-10-22 10:14 UTC",
+ "built": "2026-10-22 22:40 UTC",
  "week": "2026-10-19"
 }

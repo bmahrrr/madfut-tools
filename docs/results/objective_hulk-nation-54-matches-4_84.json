@@ -3,10 +3,10 @@
  "obj_ids": [
   "id210257",
   "id223334",
-  "id255475",
-  "id240130"
+  "id240130",
+  "id255475"
  ],
- "strength": 101.8,
+ "strength": 102.1,
  "group_cards": 481,
  "reddit": [
   {
@@ -16,7 +16,7 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 29,
+  "chem": 28,
   "players": [
    {
     "slot": "GK",
@@ -66,6 +66,29 @@
    },
    {
     "slot": "CB",
+    "id": "id67377753",
+    "name": "Álvaro Carreras",
+    "rating": 83,
+    "color": "totw_gold",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 243,
+    "card": [
+     79,
+     80,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     84,
+     85
+    ],
+    "tiebreak": 247
+   },
+   {
+    "slot": "CB",
     "id": "id240130",
     "name": "Éder Militão",
     "rating": 84,
@@ -86,29 +109,6 @@
      87
     ],
     "tiebreak": 229
-   },
-   {
-    "slot": "CB",
-    "id": "id50406968",
-    "name": "Ganiou",
-    "rating": 82,
-    "color": "squad_foundations",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
-    "card": [
-     69,
-     68,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     71,
-     70,
-     83
-    ],
-    "tiebreak": 224
    },
    {
     "slot": "RB",
@@ -250,26 +250,26 @@
    },
    {
     "slot": "ST",
-    "id": "id50536618",
-    "name": "Thauvin",
+    "id": "id50572365",
+    "name": "Beerensteyn",
     "rating": 84,
     "color": "totw_gold",
-    "position": "RW",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
+    "position": "ST",
+    "nationId": 34,
+    "leagueId": 2222,
+    "clubId": 243,
     "card": [
-     84,
-     84,
-     52
+     85,
+     78,
+     55
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
      88,
-     87,
-     54
+     80,
+     56
     ],
-    "tiebreak": 226
+    "tiebreak": 221
    }
   ]
  },
@@ -310,13 +310,13 @@
   "id204525",
   "id50406968",
   "id231281",
-  "id267530",
   "id50596036",
+  "id267530",
+  "id50572365",
   "id50574092",
-  "id50536618",
   "id67330561",
-  "id50572365"
+  "id50536618"
  ],
- "built": "2026-10-22 10:15 UTC",
+ "built": "2026-10-22 22:39 UTC",
  "week": "2026-10-19"
 }
