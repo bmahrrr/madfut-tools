@@ -1,13 +1,13 @@
 {
  "g": 5,
  "obj_ids": [
-  "id240938",
+  "id207899",
+  "id279731",
   "id81943",
   "id258563",
-  "id73864",
   "id271893"
  ],
- "strength": 102.0,
+ "strength": 101.4,
  "group_cards": 328,
  "reddit": [
   {
@@ -16,103 +16,34 @@
   }
  ],
  "team": {
-  "formation": "3-4-2-1",
+  "formation": "4-1-4-1",
   "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id146296",
-    "name": "Andrés Fernández",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "GK",
-    "nationId": 45,
-    "leagueId": 54,
-    "clubId": 1861,
-    "card": [
-     36,
-     30,
-     73
-    ],
-    "chem": 3,
-    "eff": [
-     39,
-     33,
-     76
-    ],
-    "tiebreak": 145
-   },
-   {
-    "slot": "CB",
-    "id": "id246352",
-    "name": "Hugo Guillamón",
+    "id": "id207899",
+    "name": "Neto Volpi",
     "rating": 70,
     "color": "rare_silver",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 54,
-    "clubId": 459,
+    "position": "GK",
+    "nationId": 54,
+    "leagueId": 1003,
+    "clubId": 111722,
     "card": [
-     65,
-     66,
-     73
-    ],
-    "chem": 3,
-    "eff": [
-     68,
-     69,
-     76
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CB",
-    "id": "id272188",
-    "name": "Lucía Martínez",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 131125,
-    "card": [
-     65,
-     72,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     68,
-     75,
-     72
-    ],
-    "tiebreak": 212
-   },
-   {
-    "slot": "CB",
-    "id": "id244394",
-    "name": "Clemente",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 54,
-    "clubId": 472,
-    "card": [
-     72,
-     68,
+     35,
+     32,
      71
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     75,
-     71,
-     74
+     36,
+     33,
+     72
     ],
-    "tiebreak": 217
+    "tiebreak": 141
    },
    {
-    "slot": "LM",
+    "slot": "LB",
     "id": "id272228",
     "name": "Pisco",
     "rating": 72,
@@ -135,7 +66,76 @@
     "tiebreak": 218
    },
    {
-    "slot": "CM",
+    "slot": "CB",
+    "id": "id198023",
+    "name": "Ximo Navarro",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 242,
+    "card": [
+     66,
+     65,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     69,
+     68,
+     74
+    ],
+    "tiebreak": 208
+   },
+   {
+    "slot": "CB",
+    "id": "id279731",
+    "name": "Gabriel Moscardo",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 53,
+    "clubId": 452,
+    "card": [
+     63,
+     68,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     65,
+     70,
+     73
+    ],
+    "tiebreak": 208
+   },
+   {
+    "slot": "RB",
+    "id": "id271893",
+    "name": "Bruninha",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 2221,
+    "clubId": 116310,
+    "card": [
+     69,
+     71,
+     71
+    ],
+    "chem": 2,
+    "eff": [
+     70,
+     72,
+     72
+    ],
+    "tiebreak": 214
+   },
+   {
+    "slot": "CDM",
     "id": "id258563",
     "name": "Caio Alexandre",
     "rating": 72,
@@ -156,6 +156,29 @@
      71
     ],
     "tiebreak": 216
+   },
+   {
+    "slot": "LM",
+    "id": "id239335",
+    "name": "Óscar",
+    "rating": 71,
+    "color": "rare_silver",
+    "position": "LM",
+    "nationId": 45,
+    "leagueId": 350,
+    "clubId": 113224,
+    "card": [
+     73,
+     74,
+     56
+    ],
+    "chem": 2,
+    "eff": [
+     75,
+     76,
+     58
+    ],
+    "tiebreak": 206
    },
    {
     "slot": "CM",
@@ -181,30 +204,7 @@
     "tiebreak": 212
    },
    {
-    "slot": "RM",
-    "id": "id271893",
-    "name": "Bruninha",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 2221,
-    "clubId": 116310,
-    "card": [
-     69,
-     71,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     70,
-     72,
-     72
-    ],
-    "tiebreak": 214
-   },
-   {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id81943",
     "name": "Rodrigo Nestor",
     "rating": 72,
@@ -227,50 +227,50 @@
     "tiebreak": 208
    },
    {
-    "slot": "CAM",
-    "id": "id240938",
-    "name": "Junior Messias",
+    "slot": "RM",
+    "id": "id256341",
+    "name": "Francho Serrano",
     "rating": 72,
     "color": "rare_silver",
     "position": "CM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 110556,
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 1860,
     "card": [
-     74,
-     72,
-     58
+     71,
+     70,
+     69
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     75,
+     74,
      73,
-     59
+     72
     ],
-    "tiebreak": 207
+    "tiebreak": 216
    },
    {
     "slot": "ST",
-    "id": "id73864",
-    "name": "Juan",
+    "id": "id272047",
+    "name": "Ana Franco",
     "rating": 72,
     "color": "rare_silver",
     "position": "ST",
-    "nationId": 54,
-    "leagueId": 68,
-    "clubId": 101026,
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 132629,
     "card": [
-     74,
+     73,
      70,
-     37
+     49
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     75,
-     71,
-     38
+     76,
+     73,
+     52
     ],
-    "tiebreak": 184
+    "tiebreak": 198
    }
   ]
  },
@@ -308,16 +308,16 @@
  "base_ids": [
   "id146296",
   "id239335",
-  "id244394",
+  "id222493",
   "id246352",
   "id215449",
-  "id72364",
-  "id272138",
   "id271267",
   "id178088",
-  "id229286",
+  "id272228",
+  "id272047",
+  "id272138",
   "id266183"
  ],
- "built": "2026-10-22 22:39 UTC",
+ "built": "2026-10-23 23:28 UTC",
  "week": "2026-10-19"
 }

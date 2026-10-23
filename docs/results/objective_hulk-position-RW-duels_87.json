@@ -1,12 +1,11 @@
 {
- "g": 4,
+ "g": 3,
  "obj_ids": [
   "id251570",
-  "id50603069",
-  "id246669",
-  "id27"
+  "id27",
+  "id246669"
  ],
- "strength": 100.0,
+ "strength": 99.7,
  "group_cards": 4,
  "reddit": [
   {
@@ -16,7 +15,7 @@
  ],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 32,
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -40,6 +39,29 @@
      90
     ],
     "tiebreak": 239
+   },
+   {
+    "slot": "CB",
+    "id": "id012",
+    "name": "David Luiz",
+    "rating": 87,
+    "color": "evo",
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 1,
+    "card": [
+     74,
+     80,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     82,
+     92
+    ],
+    "tiebreak": 248
    },
    {
     "slot": "CB",
@@ -86,29 +108,6 @@
      90
     ],
     "tiebreak": 239
-   },
-   {
-    "slot": "CB",
-    "id": "id207865",
-    "name": "Marquinhos",
-    "rating": 87,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     69,
-     74,
-     86
-    ],
-    "chem": 2,
-    "eff": [
-     70,
-     75,
-     87
-    ],
-    "tiebreak": 232
    },
    {
     "slot": "LM",
@@ -158,26 +157,26 @@
    },
    {
     "slot": "CM",
-    "id": "id50603069",
-    "name": "Doué",
-    "rating": 87,
-    "color": "star_performer",
-    "position": "RW",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 73,
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
     "card": [
-     86,
-     83,
-     59
+     85,
+     88,
+     81
     ],
     "chem": 3,
     "eff": [
-     88,
-     85,
-     61
+     87,
+     90,
+     83
     ],
-    "tiebreak": 234
+    "tiebreak": 260
    },
    {
     "slot": "RM",
@@ -204,29 +203,6 @@
    },
    {
     "slot": "CAM",
-    "id": "id27",
-    "name": "Cole",
-    "rating": 87,
-    "color": "hero",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 114605,
-    "card": [
-     86,
-     86,
-     53
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     88,
-     55
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CAM",
     "id": "id251570",
     "name": "Cherki",
     "rating": 86,
@@ -247,6 +223,29 @@
      46
     ],
     "tiebreak": 220
+   },
+   {
+    "slot": "CAM",
+    "id": "id27",
+    "name": "Cole",
+    "rating": 87,
+    "color": "hero",
+    "position": "RW",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 114605,
+    "card": [
+     86,
+     86,
+     53
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     88,
+     55
+    ],
+    "tiebreak": 231
    },
    {
     "slot": "ST",
@@ -305,17 +304,17 @@
  },
  "base_ids": [
   "id191694",
-  "id16619",
   "id50559326",
-  "id5740",
-  "id50595413",
+  "evo_Can_85",
+  "id012",
   "id50601349",
-  "id50554313",
+  "id50402434",
   "id50592947",
   "id15723",
-  "id330",
+  "id50554313",
+  "id50595413",
   "id10704"
  ],
- "built": "2026-10-22 22:39 UTC",
+ "built": "2026-10-23 23:28 UTC",
  "week": "2026-10-19"
 }

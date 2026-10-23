@@ -1,13 +1,12 @@
 {
- "g": 5,
+ "g": 4,
  "obj_ids": [
-  "id274357",
-  "id202651",
-  "id50408387",
   "id258730",
+  "id50408387",
+  "id202651",
   "id193165"
  ],
- "strength": 99.9,
+ "strength": 100.3,
  "group_cards": 19,
  "reddit": [
   {
@@ -16,8 +15,8 @@
   }
  ],
  "team": {
-  "formation": "4-3-3",
-  "chem": 31,
+  "formation": "4-1-4-1",
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
@@ -44,26 +43,26 @@
    },
    {
     "slot": "LB",
-    "id": "id272228",
-    "name": "Pisco",
+    "id": "id215449",
+    "name": "Skov",
     "rating": 72,
     "color": "rare_silver",
     "position": "LB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 116332,
+    "nationId": 13,
+    "leagueId": 19,
+    "clubId": 1831,
     "card": [
-     70,
-     71,
+     75,
+     74,
      71
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     73,
+     75,
      74,
-     74
+     71
     ],
-    "tiebreak": 218
+    "tiebreak": 220
    },
    {
     "slot": "CB",
@@ -90,49 +89,95 @@
    },
    {
     "slot": "CB",
-    "id": "id272188",
-    "name": "Lucía Martínez",
+    "id": "id79725",
+    "name": "Dudek",
     "rating": 72,
     "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 131125,
+    "position": "CB",
+    "nationId": 13,
+    "leagueId": 2215,
+    "clubId": 112172,
     "card": [
-     65,
-     72,
+     60,
+     63,
+     72
+    ],
+    "chem": 1,
+    "eff": [
+     60,
+     63,
+     72
+    ],
+    "tiebreak": 195
+   },
+   {
+    "slot": "RB",
+    "id": "id256341",
+    "name": "Francho Serrano",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 1860,
+    "card": [
+     71,
+     70,
      69
     ],
     "chem": 3,
     "eff": [
-     68,
-     75,
+     74,
+     73,
      72
     ],
-    "tiebreak": 212
+    "tiebreak": 216
    },
    {
-    "slot": "RB",
-    "id": "id229839",
-    "name": "Chávez",
-    "rating": 71,
+    "slot": "CDM",
+    "id": "id255394",
+    "name": "Ambríz",
+    "rating": 72,
     "color": "rare_silver",
-    "position": "RB",
+    "position": "CDM",
     "nationId": 83,
     "leagueId": 341,
     "clubId": 1032,
     "card": [
-     60,
-     66,
+     61,
+     65,
      70
     ],
     "chem": 3,
     "eff": [
-     62,
-     68,
+     63,
+     67,
      72
     ],
     "tiebreak": 202
+   },
+   {
+    "slot": "LM",
+    "id": "id50408387",
+    "name": "Pablo García",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 456,
+    "card": [
+     72,
+     67,
+     46
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     70,
+     49
+    ],
+    "tiebreak": 191
    },
    {
     "slot": "CM",
@@ -181,50 +226,27 @@
     "tiebreak": 182
    },
    {
-    "slot": "CM",
-    "id": "id274357",
-    "name": "Alarcón",
-    "rating": 71,
-    "color": "rare_silver",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 10,
-    "clubId": 1903,
-    "card": [
-     71,
-     64,
-     33
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     67,
-     36
-    ],
-    "tiebreak": 174
-   },
-   {
-    "slot": "LW",
-    "id": "id50408387",
-    "name": "Pablo García",
-    "rating": 70,
+    "slot": "RM",
+    "id": "id258730",
+    "name": "Rodríguez",
+    "rating": 72,
     "color": "rare_silver",
     "position": "RW",
     "nationId": 45,
     "leagueId": 53,
-    "clubId": 456,
+    "clubId": 463,
     "card": [
-     72,
-     67,
-     46
+     71,
+     69,
+     55
     ],
     "chem": 3,
     "eff": [
-     75,
-     70,
-     49
+     74,
+     72,
+     58
     ],
-    "tiebreak": 191
+    "tiebreak": 201
    },
    {
     "slot": "ST",
@@ -248,29 +270,6 @@
      51
     ],
     "tiebreak": 192
-   },
-   {
-    "slot": "RW",
-    "id": "id258730",
-    "name": "Rodríguez",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 463,
-    "card": [
-     71,
-     69,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     72,
-     58
-    ],
-    "tiebreak": 201
    }
   ]
  },
@@ -307,16 +306,16 @@
  "base_ids": [
   "id146296",
   "id239335",
-  "id244394",
+  "id222493",
   "id246352",
   "id215449",
-  "id72364",
-  "id272138",
   "id271267",
   "id178088",
-  "id229286",
+  "id272228",
+  "id272047",
+  "id272138",
   "id266183"
  ],
- "built": "2026-10-22 22:39 UTC",
+ "built": "2026-10-23 23:28 UTC",
  "week": "2026-10-19"
 }

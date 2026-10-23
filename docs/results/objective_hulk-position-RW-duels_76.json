@@ -3,7 +3,7 @@
  "obj_ids": [
   "id200260"
  ],
- "strength": 100.6,
+ "strength": 101.1,
  "group_cards": 2,
  "reddit": [
   {
@@ -13,7 +13,7 @@
  ],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 32,
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -40,29 +40,6 @@
    },
    {
     "slot": "CB",
-    "id": "id256942",
-    "name": "Martel",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 169,
-    "card": [
-     62,
-     68,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     65,
-     72,
-     79
-    ],
-    "tiebreak": 212
-   },
-   {
-    "slot": "CB",
     "id": "id190815",
     "name": "Blind",
     "rating": 75,
@@ -86,26 +63,49 @@
    },
    {
     "slot": "CB",
-    "id": "id274847",
-    "name": "Diehm",
+    "id": "id256942",
+    "name": "Martel",
     "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 169,
+    "card": [
+     62,
+     68,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     65,
+     72,
+     79
+    ],
+    "tiebreak": 212
+   },
+   {
+    "slot": "CB",
+    "id": "id243354",
+    "name": "Sander",
+    "rating": 75,
     "color": "rare_gold",
     "position": "CB",
     "nationId": 21,
-    "leagueId": 2215,
-    "clubId": 10029,
+    "leagueId": 19,
+    "clubId": 23,
     "card": [
-     68,
-     70,
+     72,
+     73,
      75
     ],
     "chem": 3,
     "eff": [
-     71,
-     72,
+     75,
+     77,
      78
     ],
-    "tiebreak": 219
+    "tiebreak": 226
    },
    {
     "slot": "LM",
@@ -155,26 +155,26 @@
    },
    {
     "slot": "CM",
-    "id": "id243354",
-    "name": "Sander",
-    "rating": 75,
+    "id": "id203483",
+    "name": "Klaassen",
+    "rating": 76,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 23,
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
     "card": [
-     72,
-     73,
-     75
+     75,
+     71,
+     72
     ],
     "chem": 3,
     "eff": [
-     75,
      77,
-     78
+     73,
+     74
     ],
-    "tiebreak": 226
+    "tiebreak": 224
    },
    {
     "slot": "RM",
@@ -201,29 +201,6 @@
    },
    {
     "slot": "CAM",
-    "id": "id210324",
-    "name": "Hofmann",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     75,
-     76,
-     63
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     80,
-     66
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "CAM",
     "id": "id276602",
     "name": "Ouédraogo",
     "rating": 76,
@@ -246,27 +223,50 @@
     "tiebreak": 222
    },
    {
-    "slot": "ST",
-    "id": "id239361",
-    "name": "de Wit",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 34,
-    "leagueId": 10,
-    "clubId": 1903,
+    "slot": "CAM",
+    "id": "id210324",
+    "name": "Hofmann",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     73,
-     69,
-     71
+     75,
+     76,
+     63
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     74,
-     70,
-     72
+     78,
+     80,
+     66
     ],
-    "tiebreak": 216
+    "tiebreak": 220
+   },
+   {
+    "slot": "ST",
+    "id": "id205431",
+    "name": "Füllkrug",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 38,
+    "card": [
+     76,
+     68,
+     48
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     72,
+     51
+    ],
+    "tiebreak": 198
    }
   ]
  },
@@ -302,17 +302,17 @@
  },
  "base_ids": [
   "id242818",
-  "id241847",
-  "id246836",
   "id243354",
-  "id270670",
-  "id276602",
-  "id210324",
-  "id208618",
+  "id246836",
+  "id241847",
+  "id257540",
   "id204497",
+  "id276602",
+  "id208618",
+  "id270670",
   "id212188",
   "id50571625"
  ],
- "built": "2026-10-22 22:39 UTC",
+ "built": "2026-10-23 23:28 UTC",
  "week": "2026-10-19"
 }

@@ -2,18 +2,18 @@
  "g": 11,
  "obj_ids": [
   "id244316",
-  "id258698",
-  "id251434",
-  "id263670",
   "id231390",
-  "id233061",
+  "id263670",
+  "id251434",
   "id258276",
-  "id270109",
+  "id233061",
   "id209289",
   "id236639",
+  "id209449",
+  "id270109",
   "id262411"
  ],
- "strength": 100.9,
+ "strength": 100.5,
  "group_cards": 15,
  "reddit": [
   {
@@ -22,7 +22,7 @@
   }
  ],
  "team": {
-  "formation": "4-2-3-1",
+  "formation": "4-1-4-1",
   "chem": 33,
   "players": [
    {
@@ -73,29 +73,6 @@
    },
    {
     "slot": "CB",
-    "id": "id263670",
-    "name": "Bernardo Vital",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 38,
-    "leagueId": 66,
-    "clubId": 110745,
-    "card": [
-     51,
-     50,
-     72
-    ],
-    "chem": 3,
-    "eff": [
-     53,
-     52,
-     74
-    ],
-    "tiebreak": 179
-   },
-   {
-    "slot": "CB",
     "id": "id251434",
     "name": "Pedro Álvaro",
     "rating": 71,
@@ -116,6 +93,29 @@
      74
     ],
     "tiebreak": 173
+   },
+   {
+    "slot": "CB",
+    "id": "id263670",
+    "name": "Bernardo Vital",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 66,
+    "clubId": 110745,
+    "card": [
+     51,
+     50,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     53,
+     52,
+     74
+    ],
+    "tiebreak": 179
    },
    {
     "slot": "RB",
@@ -164,53 +164,7 @@
     "tiebreak": 218
    },
    {
-    "slot": "CDM",
-    "id": "id236639",
-    "name": "Xeka",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 10020,
-    "card": [
-     65,
-     70,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     74,
-     70
-    ],
-    "tiebreak": 209
-   },
-   {
-    "slot": "CAM",
-    "id": "id270109",
-    "name": "Martim Neto",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 468,
-    "card": [
-     72,
-     71,
-     60
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     73,
-     62
-    ],
-    "tiebreak": 209
-   },
-   {
-    "slot": "CAM",
+    "slot": "LM",
     "id": "id231390",
     "name": "Diogo Gonçalves",
     "rating": 72,
@@ -233,27 +187,73 @@
     "tiebreak": 209
    },
    {
-    "slot": "CAM",
-    "id": "id258698",
-    "name": "Afonso Sousa",
-    "rating": 71,
+    "slot": "CM",
+    "id": "id270109",
+    "name": "Martim Neto",
+    "rating": 72,
     "color": "rare_silver",
-    "position": "CAM",
+    "position": "CM",
     "nationId": 38,
-    "leagueId": 68,
-    "clubId": 748,
+    "leagueId": 53,
+    "clubId": 468,
     "card": [
      72,
-     70,
-     54
+     71,
+     60
     ],
     "chem": 3,
     "eff": [
      74,
-     72,
-     56
+     73,
+     62
     ],
-    "tiebreak": 202
+    "tiebreak": 209
+   },
+   {
+    "slot": "CM",
+    "id": "id236639",
+    "name": "Xeka",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 10020,
+    "card": [
+     65,
+     70,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     74,
+     70
+    ],
+    "tiebreak": 209
+   },
+   {
+    "slot": "RM",
+    "id": "id209449",
+    "name": "Gerso",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "RM",
+    "nationId": 38,
+    "leagueId": 83,
+    "clubId": 110765,
+    "card": [
+     73,
+     64,
+     46
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     66,
+     48
+    ],
+    "tiebreak": 189
    },
    {
     "slot": "ST",
@@ -313,16 +313,16 @@
  "base_ids": [
   "id146296",
   "id239335",
-  "id244394",
+  "id222493",
   "id246352",
   "id215449",
-  "id72364",
-  "id272138",
   "id271267",
   "id178088",
-  "id229286",
+  "id272228",
+  "id272047",
+  "id272138",
   "id266183"
  ],
- "built": "2026-10-22 22:39 UTC",
+ "built": "2026-10-23 23:28 UTC",
  "week": "2026-10-19"
 }

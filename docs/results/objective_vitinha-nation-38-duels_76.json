@@ -3,7 +3,7 @@
  "obj_ids": [
   "id212442"
  ],
- "strength": 100.2,
+ "strength": 100.6,
  "group_cards": 2,
  "reddit": [
   {
@@ -13,7 +13,7 @@
  ],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 33,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -37,6 +37,29 @@
      78
     ],
     "tiebreak": 153
+   },
+   {
+    "slot": "CB",
+    "id": "id256942",
+    "name": "Martel",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 169,
+    "card": [
+     62,
+     68,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     65,
+     72,
+     79
+    ],
+    "tiebreak": 212
    },
    {
     "slot": "CB",
@@ -85,76 +108,7 @@
     "tiebreak": 226
    },
    {
-    "slot": "CB",
-    "id": "id256942",
-    "name": "Martel",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 169,
-    "card": [
-     62,
-     68,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     65,
-     72,
-     79
-    ],
-    "tiebreak": 212
-   },
-   {
     "slot": "LM",
-    "id": "id261224",
-    "name": "Hugo Bueno",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 14,
-    "clubId": 110,
-    "card": [
-     69,
-     74,
-     74
-    ],
-    "chem": 3,
-    "eff": [
-     71,
-     76,
-     76
-    ],
-    "tiebreak": 223
-   },
-   {
-    "slot": "CM",
-    "id": "id270670",
-    "name": "Chaïbi",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 97,
-    "leagueId": 19,
-    "clubId": 1824,
-    "card": [
-     73,
-     77,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     75,
-     81,
-     71
-    ],
-    "tiebreak": 225
-   },
-   {
-    "slot": "CM",
     "id": "id263041",
     "name": "Prass",
     "rating": 76,
@@ -175,6 +129,52 @@
      77
     ],
     "tiebreak": 228
+   },
+   {
+    "slot": "CM",
+    "id": "id210324",
+    "name": "Hofmann",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     75,
+     76,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     80,
+     66
+    ],
+    "tiebreak": 220
+   },
+   {
+    "slot": "CM",
+    "id": "id236792",
+    "name": "Souček",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 12,
+    "leagueId": 14,
+    "clubId": 19,
+    "card": [
+     70,
+     68,
+     76
+    ],
+    "chem": 2,
+    "eff": [
+     71,
+     69,
+     77
+    ],
+    "tiebreak": 217
    },
    {
     "slot": "RM",
@@ -201,29 +201,6 @@
    },
    {
     "slot": "CAM",
-    "id": "id210324",
-    "name": "Hofmann",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     75,
-     76,
-     63
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     80,
-     66
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "CAM",
     "id": "id276602",
     "name": "Ouédraogo",
     "rating": 76,
@@ -246,27 +223,50 @@
     "tiebreak": 222
    },
    {
-    "slot": "ST",
-    "id": "id205431",
-    "name": "Füllkrug",
+    "slot": "CAM",
+    "id": "id270670",
+    "name": "Chaïbi",
     "rating": 76,
     "color": "rare_gold",
-    "position": "ST",
-    "nationId": 21,
+    "position": "CAM",
+    "nationId": 97,
     "leagueId": 19,
-    "clubId": 38,
+    "clubId": 1824,
     "card": [
-     76,
-     68,
-     48
+     73,
+     77,
+     69
     ],
     "chem": 3,
     "eff": [
-     79,
-     72,
-     51
+     75,
+     81,
+     71
     ],
-    "tiebreak": 198
+    "tiebreak": 225
+   },
+   {
+    "slot": "ST",
+    "id": "id246618",
+    "name": "Hložek",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 12,
+    "leagueId": 19,
+    "clubId": 10029,
+    "card": [
+     75,
+     73,
+     38
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     77,
+     40
+    ],
+    "tiebreak": 192
    }
   ]
  },
@@ -302,17 +302,17 @@
  },
  "base_ids": [
   "id242818",
-  "id241847",
-  "id246836",
   "id243354",
-  "id270670",
-  "id276602",
-  "id210324",
-  "id208618",
+  "id246836",
+  "id241847",
+  "id257540",
   "id204497",
+  "id276602",
+  "id208618",
+  "id270670",
   "id212188",
   "id50571625"
  ],
- "built": "2026-10-22 22:39 UTC",
+ "built": "2026-10-23 23:28 UTC",
  "week": "2026-10-19"
 }
