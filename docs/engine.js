@@ -10,6 +10,7 @@ const DEF = new Set(["LB", "RB", "CDM", "CB", "GK"]);
 function cardType(c) { return String(c.color).replace("rare_", ""); }
 
 const SOLO = x => x.specialChem === "solo";      // always full chem, adds nothing to anyone else (e.g. Evo Jones)
+const AUTOX = x => AUTO.has(x.color) || x.specialChem === "auto";   // also Heroes-club cards that aren't Heroes (SBC Premium Sara): full chem, +1 nation, +1 league
 function chem(team) {
   const nat = new Map(), lg = new Map(), club = new Map();
   let icons = 0;
@@ -17,12 +18,12 @@ function chem(team) {
   for (const x of team) {
     if (SOLO(x)) continue;
     inc(nat, x.nationId);
-    if (!AUTO.has(x.color)) inc(club, x.clubId);
+    if (!AUTOX(x)) inc(club, x.clubId);
     if (ICON.has(x.color)) { icons++; continue; }
     inc(lg, x.leagueId, x.specialChem === "league2" ? 2 : 1);
   }
   return team.map(x => {
-    if (AUTO.has(x.color) || SOLO(x)) return 3;
+    if (AUTOX(x) || SOLO(x)) return 3;
     const n = nat.get(x.nationId) || 0, l = (lg.get(x.leagueId) || 0) + icons, k = club.get(x.clubId) || 0;
     const p = (n >= 8 ? 3 : n >= 5 ? 2 : n >= 2 ? 1 : 0) + (l >= 8 ? 3 : l >= 5 ? 2 : l >= 3 ? 1 : 0) + (k >= 7 ? 3 : k >= 4 ? 2 : k >= 2 ? 1 : 0);
     return Math.min(3, p);
