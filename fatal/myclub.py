@@ -404,7 +404,7 @@ def milp_seeds(pool, series=None, time_limit=15, log=None):
         sq = build(cards, FORMATIONS[form], lambda c, s: c["T3"] + 2 * c[ROLE.get(s, "bC")], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002, group_rules=ICON_RULE)
         add(sq, f"specialists {form}")
     for label, f in groups:
-        sub = [c for c in cards if f(c) or c["color"] in AUTO]
+        sub = [c for c in cards if f(c) or full_chem(c)]
         for form in ("4-4-2", "3-4-3"):
             sq = build(sub, FORMATIONS[form], lambda c, s: c["T3"] + c[ROLE.get(s, "bC")], chem_weight=lambda c, s: 6, time_limit=time_limit, gap=0.002, group_rules=ICON_RULE)
             add(sq, f"{label} {form}")

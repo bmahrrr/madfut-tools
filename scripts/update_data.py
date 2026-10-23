@@ -195,10 +195,14 @@ def main():
                 if p["id"] not in by_id:
                     by_id[p["id"]] = p; new += 1
             print(kind, "cards:", len(got), "new:", new)
-    COLOR_ALIAS = {"evo_elite": "elite_evo"}      # the source calls Elite Evos "evo_elite"; the site and builders use "elite_evo"
+    COLOR_ALIAS = {"evo_elite": "elite_evo"}
+    HEROES_CLUB = 114605      # the source calls Elite Evos "evo_elite"; the site and builders use "elite_evo"
     for p in by_id.values():
         if p.get("color") in COLOR_ALIAS:
             p["color"] = COLOR_ALIAS[p["color"]]
+        # cards in the Heroes club that aren't Heroes (SBC Premium Sara, Dobrin): automatically full chem in the game
+        if p.get("clubId") == HEROES_CLUB and p.get("color") not in ("hero", "hall_of_fut", "icon", "debut_icon") and not p.get("specialChem"):
+            p["specialChem"] = "auto"
     cards = [[p.get(k, "" if k in ("altPositions", "specialChem") else None) for k in FIELDS]
              for p in by_id.values() if p.get("rating") is not None and p.get("attack") is not None]
     cards.sort(key=lambda c: (-c[2], c[1]))

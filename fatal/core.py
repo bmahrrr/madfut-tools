@@ -95,7 +95,8 @@ def solo(x):
 
 
 def full_chem(x):
-    return x["color"] in AUTO or solo(x)
+    # "auto": a card in the Heroes club that isn't a Hero (e.g. SBC Premium Sara): full chem, +1 nation, +1 league
+    return x["color"] in AUTO or solo(x) or x.get("specialChem") == "auto"
 
 
 def chem(team):

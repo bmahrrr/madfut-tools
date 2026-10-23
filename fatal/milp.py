@@ -63,7 +63,7 @@ def build(cards, slots, value, chem_weight=None, force_full=None, minimize=False
         cnt["n"][x["nationId"]].append((i, 1))
         if x["color"] not in ICON:
             cnt["l"][x["leagueId"]].append((i, 2 if x.get("specialChem") == "league2" else 1))
-        if x["color"] not in AUTO:
+        if not full_chem(x):
             cnt["k"][x["clubId"]].append((i, 1))
     Z = {}
     need_chem = chem_weight is not None or force_full is not None or min_total_chem or min_player_chem
