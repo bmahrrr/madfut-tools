@@ -49,7 +49,8 @@ function squadBonus(team, bonuses) {
     else if (b.kind === "clubs") n = new Set(team.map(x => x.clubId)).size;
     else if (b.kind === "leagues") n = new Set(team.map(x => x.leagueId)).size;
     else if (b.kind === "types") n = new Set(team.map(cardType)).size;
-    if (n >= b.min) { out[0] += b.att || 0; out[1] += b.ctl || 0; out[2] += b.def || 0; }
+    const met = (b.min != null || b.max != null) && !(b.min != null && n < b.min) && !(b.max != null && n > b.max);   // "max": at most (e.g. Max 3 clubs)
+    if (met) { out[0] += b.att || 0; out[1] += b.ctl || 0; out[2] += b.def || 0; }
   }
   return out;
 }

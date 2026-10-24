@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261024a";
+const APP_V = "20261025a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -631,7 +631,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261024a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261025a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -657,7 +657,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261024a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261025a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1217,7 +1217,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261024a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261025a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1581,6 +1581,7 @@ function drawCards() {
 let WS = null, WSUI = { open: "" };
 const BKIND = { nation: "Nation", league: "League", club: "Club", color: "Card type" };
 const BNKIND = { nations: "different nations", leagues: "different leagues", clubs: "different clubs", types: "different card types" };
+const bonusTxt = b => b.max != null ? `Max ${b.max} ${BNKIND[b.kind] || b.kind}` : `${b.min}+ ${BNKIND[b.kind] || b.kind}`;
 const groupName = (on, id) => on === "nation" ? nName(id) : on === "league" ? lName(id) : on === "club" ? cName(id) : TYPE(id);
 const statTxt = o => `A +${o.att || 0} · C +${o.ctl || 0} · D +${o.def || 0}`;
 function wsDraftSave() { try { localStorage.setItem("weekDraft", JSON.stringify(WS)); } catch (e) {} }
@@ -1597,7 +1598,7 @@ const WSOPEN = new Set();                 // Season Setup series left open betwe
 function seriesCardHtml(type, i) {
   const s = WS[type][i], id = `${type}-${i}`, isMC = type === "myclub";
   const nb = (s.boosts || []).length, nbn = (s.bonuses || []).length, nr = (s.opponents || []).length;
-  const boostNames = [...(s.boosts || []).map(b => groupName(b.on, b.id)), ...(s.bonuses || []).map(b => `${b.min}+ ${BNKIND[b.kind] || b.kind}`)].join(" · ") || "No boosts yet";   // squad bonuses are boosts too
+  const boostNames = [...(s.boosts || []).map(b => groupName(b.on, b.id)), ...(s.bonuses || []).map(bonusTxt)].join(" · ") || "No boosts yet";   // squad bonuses are boosts too
   const sub = [`${nb} boost${nb === 1 ? "" : "s"}`, nbn ? `${nbn} bonus${nbn === 1 ? "" : "es"}` : "", isMC ? `${nr} Reddit team${nr === 1 ? "" : "s"}` : ""].filter(Boolean).join(" · ");
   const isOpen = WSOPEN.has(id) || WSUI.open.startsWith(id + ":");
   const warn = !(nb + nbn) ? `<span class="pill LOSS">Needs boosts</span>` : isMC && !nr ? `<span class="pill DRAW">No Reddit</span>` : `<span class="pill WIN">Ready</span>`;
@@ -1607,7 +1608,7 @@ function seriesCardHtml(type, i) {
   h += `<div class="small" style="margin-top:8px"><b>Boosts</b></div>` + ((s.boosts || []).map((b, j) =>
     `<div class="req"><span>${esc(BKIND[b.on])}: <b>${esc(groupName(b.on, b.id))}</b> <span class="muted">${statTxt(b)}</span></span><button class="x" data-delb="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
   h += `<div class="small" style="margin-top:8px"><b>Squad bonuses</b></div>` + ((s.bonuses || []).map((b, j) =>
-    `<div class="req"><span>${b.min}+ ${esc(BNKIND[b.kind] || b.kind)} <span class="muted">${statTxt(b)}</span></span><button class="x" data-delbn="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
+    `<div class="req"><span>${esc(bonusTxt(b))} <span class="muted">${statTxt(b)}</span></span><button class="x" data-delbn="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
   if (isMC) h += `<div class="small" style="margin-top:8px"><b>Reddit reference teams</b></div>` + ((s.opponents || []).map((t, j) =>
     `<div class="req"><span>${esc(short(t))}</span><button class="x" data-delref="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None (optional)</p>`);
   const open = WSUI.open.startsWith(id + ":") ? WSUI.open.split(":")[1] : "";
@@ -1615,7 +1616,7 @@ function seriesCardHtml(type, i) {
   const nums = `<div class="row" style="margin-top:8px"><label class="small">A <input type="number" inputmode="numeric" id="wA" value="0" style="width:62px"></label><label class="small">C <input type="number" inputmode="numeric" id="wC" value="0" style="width:62px"></label><label class="small">D <input type="number" inputmode="numeric" id="wD" value="0" style="width:62px"></label></div>`;
   if (open === "boost") h += `<div class="rulebox"><div class="row"><select id="wKind"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select></div>
     <div id="wPick" style="margin-top:8px"></div>${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add boost</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
-  if (open === "bonus") h += `<div class="rulebox"><div class="row"><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><span class="small">+</span><select id="wBK"><option value="nations">Different nations</option><option value="leagues">Different leagues</option><option value="clubs">Different clubs</option><option value="types">Different card types</option></select></div>
+  if (open === "bonus") h += `<div class="rulebox"><div class="row"><select id="wBM"><option value="min">Min</option><option value="max">Max</option></select><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><select id="wBK"><option value="nations">Different nations</option><option value="leagues">Different leagues</option><option value="clubs">Different clubs</option><option value="types">Different card types</option></select></div>
     ${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add bonus</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
   if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names. Add a rating or club if needed, e.g. <code>Costa 67</code>.</p>
     <textarea id="wRef"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add team</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
@@ -1687,7 +1688,7 @@ function renderWeekForm() {
     } else if (what === "bonus") {
       $("wAdd").onclick = () => {
         const mn = num("wMin"); if (!mn) { $("wMsg").innerHTML = `<span class="bad">Enter how many are needed.</span>`; return; }
-        (s.bonuses = s.bonuses || []).push({ kind: $("wBK").value, min: mn, att: num("wA"), ctl: num("wC"), def: num("wD") });
+        (s.bonuses = s.bonuses || []).push(Object.assign({ kind: $("wBK").value }, $("wBM").value === "max" ? { max: mn } : { min: mn }, { att: num("wA"), ctl: num("wC"), def: num("wD") }));
         WSUI.open = ""; redraw();
       };
     } else if (what === "ref") {
