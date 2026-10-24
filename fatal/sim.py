@@ -50,6 +50,8 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
     maxC = max(x["C"] for x in pool if x["P"] & CTRL)
     ctrlc = [x for x in pool if (x["P"] & CTRL) and x["C"] >= maxC - margin]
     nat = {x["nationId"] for x in ctrlc}; lg = {x["leagueId"] for x in ctrlc}; cl = {x["clubId"] for x in ctrlc}
+    maxA = max(x["A"] for x in pool if x["P"] & ATT)
+    natA = {x["nationId"] for x in pool if (x["P"] & ATT) and x["A"] >= maxA - 4}     # nations of the best attackers
     results = []
     bonus_variants = [{}]
     for b in series.get("bonuses", []):
@@ -78,6 +80,16 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
                 cand |= {x["_i"] for x in sorted(el, key=lambda x: -key(x))[:topk]}
                 cand |= {x["_i"] for x in el if x["clubId"] in cl or full_chem(x) or
                          (x["leagueId"] in lg and key(x) >= maxC - 6) or (x["nationId"] in nat and key(x) >= maxC - 4)}
+                # weak link cards: the best few per league of the control cards, and per nation + league pair
+                # (e.g. a 55 Moroccan CB in the Saudi league linking a Saudi-league CAM and a Moroccan ST; 71 series)
+                byg = {}
+                for x in el:
+                    if x["leagueId"] in lg:
+                        byg.setdefault(("l", x["leagueId"]), []).append(x)
+                        if x["nationId"] in nat or x["nationId"] in natA:
+                            byg.setdefault(("p", x["nationId"], x["leagueId"]), []).append(x)
+                for g, L in byg.items():
+                    cand |= {x["_i"] for x in sorted(L, key=lambda x: -key(x))[:5 if g[0] == "l" else 3]}
         cards_f = [pool[i] for i in cand]
 
         def value(c, s):
