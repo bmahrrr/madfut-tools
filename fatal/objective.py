@@ -9,7 +9,7 @@ time (with a second swap to repair chem when needed), and stop as soon as no swa
 Duels: as many as are safe (can be 0 -> series skipped). Matches: at least `min`, or the series is skipped.
 """
 import random, time
-from .myclub import Pool, fits, stat_strength as secondary
+from .myclub import Pool, fits, set_icon_limit, stat_strength as secondary
 from .game import play
 
 KEY = {"club": "clubId", "nation": "nationId", "league": "leagueId"}
@@ -18,6 +18,7 @@ MAX_DROP = {"duels": 0.005, "matches": 0.03}   # duels: practically no weaker; m
 
 
 def build_objective(obj, series, owned_cards, base_ids, refs, seconds=60, seed=1, log=print):
+    set_icon_limit(series)
     rng = random.Random(seed)
     me = Pool(series, owned_cards)
     by = {c["id"]: c for c in me.cards}

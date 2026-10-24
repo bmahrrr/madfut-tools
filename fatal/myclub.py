@@ -11,8 +11,17 @@ from .game import play
 from .milp import build
 
 _fit_cache = {}
-MAX_ICONS = 5          # game rule: a My Club team holds at most 5 Icons (Debut Icons count)
+MAX_ICONS = 5          # game rule: a My Club team holds at most 5 Icons (Debut Icons count); no limit in the X series
 ICON_RULE = [(lambda c: c["color"] in ICON, "<=", MAX_ICONS)]
+
+
+def set_icon_limit(series):
+    """The X series (no rating cap) has no Icon limit; every other series keeps 5."""
+    global MAX_ICONS, ICON_RULE
+    if str(series.get("key", "")).split("--")[0].upper() == "X" or (series.get("cap") or 0) >= 99:
+        MAX_ICONS, ICON_RULE = 11, []
+    else:
+        MAX_ICONS, ICON_RULE = 5, [(lambda c: c["color"] in ICON, "<=", 5)]
 
 
 def fits(team):
@@ -562,6 +571,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                 and the built team are scored on the SAME opponents (references, counters, fresh tests) and
                 the one with the best worst case is returned, so copying the Reddit team wins when it is best.
     Returns dict with the team, formation and results against every opponent tested."""
+    set_icon_limit(series)
     rng = random.Random(seed)
     robust = mode == "robust"
     if mode == "beat":
