@@ -1,7 +1,163 @@
 {
  "_help": "Edit this file each week, then commit. The teams rebuild automatically (Sim in a few minutes, My Club in about 50 minutes). See README for the format. My Club teams are built for the best worst case (mode 'robust'), then a final check compares them with the Reddit and hand-built teams against stress tests built for each; set \"mode\": \"standard\" on a series for the older, faster build.",
  "week": "2026-10-26",
- "myclub": [],
+ "myclub": [
+  {
+   "key": "68",
+   "cap": 68,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 34,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    },
+    {
+     "on": "nation",
+     "id": 38,
+     "att": 0,
+     "ctl": 2,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "75",
+   "cap": 75,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 53,
+     "att": 0,
+     "ctl": 2,
+     "def": 0
+    },
+    {
+     "on": "nation",
+     "id": 27,
+     "att": 2,
+     "ctl": 0,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "79",
+   "cap": 79,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 45,
+     "att": 2,
+     "ctl": 1,
+     "def": 0
+    },
+    {
+     "on": "club",
+     "id": 5,
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "83",
+   "cap": 83,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 54,
+     "att": 2,
+     "ctl": 1,
+     "def": 0
+    },
+    {
+     "on": "league",
+     "id": 31,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "86",
+   "cap": 86,
+   "boosts": [
+    {
+     "on": "club",
+     "id": 243,
+     "att": 3,
+     "ctl": 1,
+     "def": 0
+    },
+    {
+     "on": "club",
+     "id": 11,
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "88",
+   "cap": 88,
+   "boosts": [],
+   "opponents": [],
+   "minutes": 30,
+   "bonuses": [
+    {
+     "kind": "types",
+     "min": 5,
+     "att": 0,
+     "ctl": 0,
+     "def": 2
+    },
+    {
+     "kind": "nations",
+     "min": 8,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "X",
+   "cap": 99,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 18,
+     "att": 0,
+     "ctl": 2,
+     "def": 3
+    },
+    {
+     "on": "color",
+     "id": "icon",
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  }
+ ],
  "sim": [
   {
    "key": "71",
