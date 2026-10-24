@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261023a";
+const APP_V = "20261024a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -631,7 +631,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261023a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261024a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -657,7 +657,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261023a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261024a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -941,12 +941,21 @@ function setupSBC() {
   loadSBC(); drawSBCForm();
 }
 function closeAdd() { $("sbcAdd").hidden = true; $("sbcAddBtn").hidden = false; }
+// a line that can only be met with special cards (Card Types 4+, TOTW, Special Cards: Min 1...) turns "Allow special cards" on
+const ICONISH = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "iconhero"]);
+function needsSpecials(it) {
+  if (it.t === "num") return /^(min|exact)_types$/.test(it.key) && it.v > 3;
+  if (it.t !== "rule" || it.rule.op === "<=" || !(it.rule.n > 0)) return false;
+  return (it.rule.on === "color" && !ICONISH.has(String(it.rule.id))) || (it.rule.on === "rarity" && it.rule.id === "special");
+}
 function addItem(it, keepOpen) {
   // one line per requirement: Min and Max can sit together, Exactly replaces both (and is replaced by either)
   if (it.t === "num") SB.items = SB.items.filter(x => !(x.t === "num" && numBase(x.key) === numBase(it.key) &&
     (x.key === it.key || x.key.startsWith("exact_") || it.key.startsWith("exact_"))));
   if (it.t === "rule") SB.items = SB.items.filter(x => !(x.t === "rule" && x.rule.on === it.rule.on && x.rule.id === it.rule.id && x.rule.op === it.rule.op));
-  SB.items.push(it); if (!keepOpen) closeAdd(); drawSBCForm(); saveSBC();
+  SB.items.push(it);
+  if (needsSpecials(it)) $("sbcSp").checked = true;
+  if (!keepOpen) closeAdd(); drawSBCForm(); saveSBC();
 }
 const numBox = (id, val = "") => `<input type="number" inputmode="numeric" id="${id}" min="0" value="${val}" style="width:80px">`;
 const minMax = id => `<select id="${id}"><option value="min">Min</option><option value="max">Max</option><option value="exact">Exactly</option></select>`;
@@ -1189,7 +1198,7 @@ function drawSBCForm() {
   document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { SB.items.splice(+b.dataset.del, 1); drawSBCForm(); saveSBC(); });
 }
 function readReq() {
-  const req = { formation: $("sbcForm").value, priority: $("sbcPr").value, allow_specials: $("sbcSp").checked, allow_icons: $("sbcIc").checked,
+  const req = { formation: $("sbcForm").value, priority: $("sbcPr").value, allow_specials: $("sbcSp").checked || SB.items.some(needsSpecials), allow_icons: $("sbcIc").checked,
     rules: [], include: [], exclude: SB.exclude.slice() };
   for (const it of SB.items) {
     if (it.t === "num" && it.key.startsWith("exact_")) req["min_" + numBase(it.key)] = req["max_" + numBase(it.key)] = it.v;
@@ -1208,7 +1217,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261023a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261024a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
