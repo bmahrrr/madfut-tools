@@ -1,0 +1,859 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "77",
+  "cap": 77,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 52,
+    "att": 0,
+    "ctl": 2,
+    "def": 1
+   },
+   {
+    "on": "nation",
+    "id": 54,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id50562318",
+     "name": "Lucas Perri",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      32,
+      31,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      35,
+      81
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id228708",
+     "name": "Martínez Quarta",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      70,
+      69,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      78
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246033",
+     "name": "Sosa",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101085,
+     "card": [
+      65,
+      69,
+      77
+     ],
+     "chem": 2,
+     "eff": [
+      66,
+      72,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id232805",
+     "name": "Bernardo",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 54,
+     "leagueId": 19,
+     "clubId": 10029,
+     "card": [
+      64,
+      64,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      68,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id224334",
+     "name": "Acuña",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      75,
+      77,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      81,
+      78
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id230658",
+     "name": "Arthur",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      83,
+      75
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id253175",
+     "name": "Luana",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 54,
+     "leagueId": 2221,
+     "clubId": 112606,
+     "card": [
+      75,
+      78,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      82,
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      84,
+      79
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id209297",
+     "name": "Fred",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 54,
+     "leagueId": 1014,
+     "clubId": 1035,
+     "card": [
+      76,
+      78,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      82,
+      75
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id195093",
+     "name": "Willian José",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2267,
+     "clubId": 1598,
+     "card": [
+      76,
+      66,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      70,
+      50
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id238422",
+     "name": "Gabi Nunes",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2221,
+     "clubId": 112606,
+     "card": [
+      78,
+      74,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      78,
+      51
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 82.4,
+    "attack": 79.6,
+    "defence": 79.25,
+    "control_cards": [
+     84,
+     83,
+     82,
+     82,
+     81
+    ],
+    "attack_cards": [
+     82,
+     80,
+     80,
+     79,
+     77
+    ],
+    "defence_cards": [
+     81,
+     79,
+     79,
+     78
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "ctrl_total": 236.0
+   }
+  },
+  {
+   "formation": "5-2-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id50562318",
+     "name": "Lucas Perri",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      32,
+      31,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      35,
+      81
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id224334",
+     "name": "Acuña",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      75,
+      77,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      81,
+      78
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id228708",
+     "name": "Martínez Quarta",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      70,
+      69,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      78
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74871",
+     "name": "Arthur Chaves",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 19,
+     "clubId": 10029,
+     "card": [
+      54,
+      53,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      57,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246033",
+     "name": "Sosa",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101085,
+     "card": [
+      65,
+      69,
+      77
+     ],
+     "chem": 2,
+     "eff": [
+      66,
+      72,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      84,
+      79
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id253175",
+     "name": "Luana",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 54,
+     "leagueId": 2221,
+     "clubId": 112606,
+     "card": [
+      75,
+      78,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      82,
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id230658",
+     "name": "Arthur",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      83,
+      75
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id209297",
+     "name": "Fred",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 54,
+     "leagueId": 1014,
+     "clubId": 1035,
+     "card": [
+      76,
+      78,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      82,
+      75
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id230601",
+     "name": "Cryzan",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2012,
+     "clubId": 111724,
+     "card": [
+      76,
+      73,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      77,
+      40
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id238422",
+     "name": "Gabi Nunes",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2221,
+     "clubId": 112606,
+     "card": [
+      78,
+      74,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      78,
+      51
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 82.4,
+    "attack": 79.6,
+    "defence": 79.0,
+    "control_cards": [
+     84,
+     83,
+     82,
+     82,
+     81
+    ],
+    "attack_cards": [
+     82,
+     80,
+     80,
+     79,
+     77
+    ],
+    "defence_cards": [
+     81,
+     79,
+     79,
+     79,
+     78,
+     78
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "ctrl_total": 236.0
+   }
+  },
+  {
+   "formation": "5-3-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id50562318",
+     "name": "Lucas Perri",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      32,
+      31,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      35,
+      81
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id224334",
+     "name": "Acuña",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      75,
+      77,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      81,
+      78
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id232805",
+     "name": "Bernardo",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 54,
+     "leagueId": 19,
+     "clubId": 10029,
+     "card": [
+      64,
+      64,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      68,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246033",
+     "name": "Sosa",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101085,
+     "card": [
+      65,
+      69,
+      77
+     ],
+     "chem": 2,
+     "eff": [
+      66,
+      72,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id228708",
+     "name": "Martínez Quarta",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      70,
+      69,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      78
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      84,
+      79
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id253175",
+     "name": "Luana",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 54,
+     "leagueId": 2221,
+     "clubId": 112606,
+     "card": [
+      75,
+      78,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      82,
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id230658",
+     "name": "Arthur",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      83,
+      75
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id209297",
+     "name": "Fred",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 54,
+     "leagueId": 1014,
+     "clubId": 1035,
+     "card": [
+      76,
+      78,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      82,
+      75
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id238422",
+     "name": "Gabi Nunes",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2221,
+     "clubId": 112606,
+     "card": [
+      78,
+      74,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      78,
+      51
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id198635",
+     "name": "Silva",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 54,
+     "leagueId": 2012,
+     "clubId": 116360,
+     "card": [
+      76,
+      70,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      74,
+      40
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 82.4,
+    "attack": 79.5,
+    "defence": 79.0,
+    "control_cards": [
+     84,
+     83,
+     82,
+     82,
+     81
+    ],
+    "attack_cards": [
+     82,
+     80,
+     79,
+     77
+    ],
+    "defence_cards": [
+     81,
+     79,
+     79,
+     79,
+     78,
+     78
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "ctrl_total": 236.0
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-24 17:26 UTC",
+ "week": "2026-10-26"
+}

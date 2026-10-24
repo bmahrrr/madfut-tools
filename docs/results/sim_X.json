@@ -6,17 +6,17 @@
   "boosts": [
    {
     "on": "color",
-    "id": "icon",
-    "att": 2,
-    "ctl": 2,
-    "def": 2
+    "id": "halloween",
+    "att": 5,
+    "ctl": 5,
+    "def": 5
    },
    {
     "on": "color",
-    "id": "hero",
-    "att": 3,
-    "ctl": 3,
-    "def": 3
+    "id": "halloween_hero",
+    "att": 5,
+    "ctl": 5,
+    "def": 5
    }
   ]
  },
@@ -26,90 +26,90 @@
    "chem": 33,
    "players": [
     {
-     "id": "id226293",
-     "name": "Angerer",
+     "id": "id1179",
+     "name": "Buffon",
      "rating": 92,
      "color": "icon",
      "position": "GK",
-     "nationId": 21,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      41,
-      33,
-      93
-     ],
-     "chem": 3,
-     "eff": [
-      45,
-      37,
-      97
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id238439",
-     "name": "Maldini",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
      "nationId": 27,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      69,
-      74,
+      42,
+      36,
+      93
+     ],
+     "chem": 3,
+     "eff": [
+      44,
+      38,
+      95
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id83891820",
+     "name": "Stam",
+     "rating": 88,
+     "color": "halloween_hero",
+     "position": "CDM",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      68,
+      72,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      79,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id014",
+     "name": "David Luiz",
+     "rating": 93,
+     "color": "elite_evo",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 5,
+     "card": [
+      76,
+      85,
+      93
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      87,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Can_92",
+     "name": "Can",
+     "rating": 92,
+     "color": "elite_evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      90,
       92
      ],
      "chem": 3,
      "eff": [
-      73,
-      78,
-      96
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id168473",
-     "name": "Beckenbauer",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      81,
-      86,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      85,
-      90,
-      95
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id261593",
-     "name": "Kohler",
-     "rating": 89,
-     "color": "hero",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 114605,
-     "card": [
-      62,
-      63,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      67,
-      68,
-      95
+      84,
+      92,
+      94
      ],
      "slot": "CB"
     },
@@ -151,9 +151,9 @@
      ],
      "chem": 3,
      "eff": [
+      93,
       95,
-      97,
-      78
+      76
      ],
      "slot": "CM"
     },
@@ -202,46 +202,46 @@
      "slot": "RM"
     },
     {
-     "id": "id190042",
-     "name": "Maradona",
-     "rating": 95,
-     "color": "icon",
+     "id": "new_Rogers_93",
+     "name": "Rogers",
+     "rating": 93,
+     "color": "elite_evo",
      "position": "CAM",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 5,
      "card": [
       93,
-      92,
-      47
+      93,
+      73
      ],
      "chem": 3,
      "eff": [
-      97,
-      96,
-      51
+      95,
+      95,
+      75
      ],
      "slot": "CAM"
     },
     {
-     "id": "id37576",
-     "name": "Ronaldo",
-     "rating": 94,
-     "color": "icon",
-     "position": "ST",
+     "id": "id100896715",
+     "name": "Raphinha",
+     "rating": 90,
+     "color": "halloween",
+     "position": "CAM",
      "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      93,
-      84,
-      47
+      89,
+      88,
+      59
      ],
      "chem": 3,
      "eff": [
-      97,
-      88,
-      51
+      96,
+      95,
+      66
      ],
      "slot": "ST"
     },
@@ -261,40 +261,40 @@
      ],
      "chem": 3,
      "eff": [
-      97,
       95,
-      64
+      93,
+      62
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 96.6,
-    "attack": 96.2,
-    "defence": 95.75,
+    "control": 96.0,
+    "attack": 95.2,
+    "defence": 94.75,
     "control_cards": [
      98,
-     97,
      96,
-     96,
-     96
-    ],
-    "attack_cards": [
-     97,
-     97,
-     97,
-     97,
-     93
-    ],
-    "defence_cards": [
-     97,
      96,
      95,
      95
     ],
+    "attack_cards": [
+     97,
+     96,
+     95,
+     95,
+     93
+    ],
+    "defence_cards": [
+     95,
+     95,
+     95,
+     94
+    ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 265.2
+    "ctrl_total": 268.2
    }
   },
   {
@@ -317,75 +317,75 @@
      ],
      "chem": 3,
      "eff": [
-      45,
-      37,
-      97
+      43,
+      35,
+      95
      ],
      "slot": "GK"
     },
     {
-     "id": "id261593",
-     "name": "Kohler",
-     "rating": 89,
-     "color": "hero",
-     "position": "CB",
+     "id": "new_Can_92",
+     "name": "Can",
+     "rating": 92,
+     "color": "elite_evo",
+     "position": "CDM",
      "nationId": 21,
      "leagueId": 19,
-     "clubId": 114605,
+     "clubId": 22,
      "card": [
-      62,
-      63,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      67,
-      68,
-      95
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id166906",
-     "name": "Baresi",
-     "rating": 91,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      66,
-      75,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      79,
-      95
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id238439",
-     "name": "Maldini",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      69,
-      74,
+      82,
+      90,
       92
      ],
      "chem": 3,
      "eff": [
-      73,
-      78,
-      96
+      84,
+      92,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id84113342",
+     "name": "Scott",
+     "rating": 87,
+     "color": "halloween_hero",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 114605,
+     "card": [
+      81,
+      81,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      88,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id83891820",
+     "name": "Stam",
+     "rating": 88,
+     "color": "halloween_hero",
+     "position": "CDM",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      68,
+      72,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      79,
+      95
      ],
      "slot": "CB"
     },
@@ -434,6 +434,28 @@
      "slot": "LM"
     },
     {
+     "id": "id011",
+     "name": "Dobrin",
+     "rating": 93,
+     "color": "sbc_premium",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 114605,
+     "card": [
+      91,
+      93,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      95,
+      73
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "id1397",
      "name": "Zidane",
      "rating": 94,
@@ -449,9 +471,9 @@
      ],
      "chem": 3,
      "eff": [
+      93,
       95,
-      97,
-      78
+      76
      ],
      "slot": "CM"
     },
@@ -475,102 +497,80 @@
       98,
       81
      ],
-     "slot": "CM"
-    },
-    {
-     "id": "id247553",
-     "name": "Garrincha",
-     "rating": 93,
-     "color": "icon",
-     "position": "RW",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      90,
-      92,
-      44
-     ],
-     "chem": 3,
-     "eff": [
-      94,
-      96,
-      48
-     ],
      "slot": "RM"
     },
     {
-     "id": "id237067",
-     "name": "Pelé",
-     "rating": 95,
-     "color": "icon",
+     "id": "id100896715",
+     "name": "Raphinha",
+     "rating": 90,
+     "color": "halloween",
      "position": "CAM",
      "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      93,
-      91,
-      60
+      89,
+      88,
+      59
      ],
      "chem": 3,
      "eff": [
-      97,
+      96,
       95,
-      64
+      66
      ],
      "slot": "ST"
     },
     {
-     "id": "id190042",
-     "name": "Maradona",
-     "rating": 95,
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
      "color": "icon",
-     "position": "CAM",
-     "nationId": 52,
+     "position": "ST",
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
       93,
-      92,
+      84,
       47
      ],
      "chem": 3,
      "eff": [
-      97,
-      96,
-      51
+      95,
+      86,
+      49
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 96.6,
-    "attack": 96.25,
-    "defence": 96.0,
+    "control": 96.0,
+    "attack": 95.25,
+    "defence": 94.6,
     "control_cards": [
      98,
-     97,
      96,
-     96,
-     96
-    ],
-    "attack_cards": [
-     97,
-     97,
-     97,
-     94
-    ],
-    "defence_cards": [
-     97,
-     97,
      96,
      95,
      95
     ],
+    "attack_cards": [
+     97,
+     96,
+     95,
+     93
+    ],
+    "defence_cards": [
+     97,
+     95,
+     95,
+     94,
+     92
+    ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 264.0
+    "ctrl_total": 267.4
    }
   },
   {
@@ -593,75 +593,75 @@
      ],
      "chem": 3,
      "eff": [
-      46,
-      40,
-      97
+      44,
+      38,
+      95
      ],
      "slot": "GK"
     },
     {
-     "id": "id166906",
-     "name": "Baresi",
-     "rating": 91,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "id": "id83891820",
+     "name": "Stam",
+     "rating": 88,
+     "color": "halloween_hero",
+     "position": "CDM",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 114605,
      "card": [
-      66,
-      75,
-      91
+      68,
+      72,
+      88
      ],
      "chem": 3,
      "eff": [
-      70,
+      75,
       79,
       95
      ],
      "slot": "CB"
     },
     {
-     "id": "id168473",
-     "name": "Beckenbauer",
+     "id": "id014",
+     "name": "David Luiz",
      "rating": 93,
-     "color": "icon",
+     "color": "elite_evo",
      "position": "CB",
-     "nationId": 21,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 5,
      "card": [
-      81,
-      86,
-      91
+      76,
+      85,
+      93
      ],
      "chem": 3,
      "eff": [
-      85,
-      90,
+      78,
+      87,
       95
      ],
      "slot": "CB"
     },
     {
-     "id": "id238439",
-     "name": "Maldini",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "id": "new_Can_92",
+     "name": "Can",
+     "rating": 92,
+     "color": "elite_evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
      "card": [
-      69,
-      74,
+      82,
+      90,
       92
      ],
      "chem": 3,
      "eff": [
-      73,
-      78,
-      96
+      84,
+      92,
+      94
      ],
      "slot": "CB"
     },
@@ -732,48 +732,70 @@
      "slot": "LM"
     },
     {
-     "id": "id1397",
-     "name": "Zidane",
-     "rating": 94,
-     "color": "icon",
+     "id": "new_Rogers_93",
+     "name": "Rogers",
+     "rating": 93,
+     "color": "elite_evo",
      "position": "CAM",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 5,
      "card": [
-      91,
       93,
-      74
+      93,
+      73
      ],
      "chem": 3,
      "eff": [
       95,
-      97,
-      78
+      95,
+      75
      ],
      "slot": "CAM"
     },
     {
-     "id": "id247553",
-     "name": "Garrincha",
-     "rating": 93,
-     "color": "icon",
-     "position": "RW",
+     "id": "id100896715",
+     "name": "Raphinha",
+     "rating": 90,
+     "color": "halloween",
+     "position": "CAM",
      "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      90,
-      92,
-      44
+      89,
+      88,
+      59
      ],
      "chem": 3,
      "eff": [
-      94,
       96,
-      48
+      95,
+      66
      ],
      "slot": "RM"
+    },
+    {
+     "id": "id190042",
+     "name": "Maradona",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      92,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      94,
+      49
+     ],
+     "slot": "ST"
     },
     {
      "id": "id237067",
@@ -791,68 +813,46 @@
      ],
      "chem": 3,
      "eff": [
-      97,
       95,
-      64
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id37576",
-     "name": "Ronaldo",
-     "rating": 94,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
       93,
-      84,
-      47
-     ],
-     "chem": 3,
-     "eff": [
-      97,
-      88,
-      51
+      62
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 96.6,
-    "attack": 96.0,
-    "defence": 93.5,
+    "control": 96.0,
+    "attack": 95.6,
+    "defence": 92.83,
     "control_cards": [
      98,
-     97,
      96,
      96,
-     96
+     95,
+     95
     ],
     "attack_cards": [
      97,
-     97,
-     97,
-     95,
-     94
-    ],
-    "defence_cards": [
-     97,
-     97,
      96,
      95,
      95,
+     95
+    ],
+    "defence_cards": [
+     97,
+     95,
+     95,
+     95,
+     94,
      81
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 264.0
+    "ctrl_total": 266.8
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-22 05:29 UTC",
- "week": "2026-10-19"
+ "built": "2026-10-24 17:21 UTC",
+ "week": "2026-10-26"
 }
