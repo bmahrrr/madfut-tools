@@ -140,8 +140,15 @@ def boosted(c, boosts):
     return a, k, d
 
 
+def bonus_met(b, n):
+    if b.get("min") is not None and n < b["min"]: return False
+    if b.get("max") is not None and n > b["max"]: return False
+    return b.get("min") is not None or b.get("max") is not None
+
+
 def squad_bonus(team, bonuses):
-    """Squad-wide bonuses, e.g. {"kind": "nations", "min": 8, "att": 2} or kind clubs/leagues/types."""
+    """Squad-wide bonuses, e.g. {"kind": "nations", "min": 8, "att": 2} or kind clubs/leagues/types.
+    "max" instead of "min" = at most that many, e.g. {"kind": "clubs", "max": 3, "ctl": 2} (Max 3 clubs)."""
     out = [0, 0, 0]
     for b in bonuses or []:
         if b["kind"] == "nations": n = len({x["nationId"] for x in team})
@@ -149,7 +156,7 @@ def squad_bonus(team, bonuses):
         elif b["kind"] == "leagues": n = len({x["leagueId"] for x in team})
         elif b["kind"] == "types": n = len({card_type(x) for x in team})
         else: continue
-        if n >= b["min"]:
+        if bonus_met(b, n):
             out[0] += b.get("att", 0); out[1] += b.get("ctl", 0); out[2] += b.get("def", 0)
     return out
 

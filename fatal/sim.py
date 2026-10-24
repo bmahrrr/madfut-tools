@@ -54,14 +54,17 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
     bonus_variants = [{}]
     for b in series.get("bonuses", []):
         k = b["kind"]
-        def with_bonus(v, k=k, b=b):         # the same build, but forced to earn this bonus
+        mx = b.get("max")
+        def with_bonus(v, k=k, b=b, mx=mx):  # the same build, but forced to earn this bonus
             v = dict(v)
-            if k == "nations": v["min_nations"] = b["min"]
+            if mx is not None:               # "Max 3 clubs": at most that many different
+                d = dict(v.get("distinct") or {}); lo = (d.get(k[:-1]) or (None, None))[0]; d[k[:-1]] = (lo, mx); v["distinct"] = d
+            elif k == "nations": v["min_nations"] = b["min"]
             elif k == "types": v["min_types"] = b["min"]
             elif k in ("clubs", "leagues"):
-                d = dict(v.get("distinct") or {}); d[k[:-1]] = (b["min"], None); v["distinct"] = d
+                d = dict(v.get("distinct") or {}); d[k[:-1]] = (b["min"], (d.get(k[:-1]) or (None, None))[1]); v["distinct"] = d
             return v
-        if k in ("nations", "types", "clubs", "leagues"):
+        if k in ("nations", "clubs", "leagues") or (k == "types" and mx is None):
             bonus_variants = bonus_variants + [with_bonus(v) for v in bonus_variants]
     for form in formations:
         slots = FORMATIONS[form]
