@@ -20,7 +20,8 @@
     "ctl": 2,
     "def": 2
    }
-  ]
+  ],
+  "opponents": []
  },
  "teams": [
   {
@@ -602,28 +603,6 @@
      "slot": "GK"
     },
     {
-     "id": "id67375554",
-     "name": "Lúcio",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      71,
-      71,
-      84
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      75,
-      88
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id67229397",
      "name": "Pepe",
      "rating": 85,
@@ -642,6 +621,28 @@
       63,
       65,
       89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      75,
+      88
      ],
      "slot": "CB"
     },
@@ -778,28 +779,6 @@
      "slot": "RM"
     },
     {
-     "id": "id330",
-     "name": "Keane",
-     "rating": 86,
-     "color": "hero",
-     "position": "ST",
-     "nationId": 25,
-     "leagueId": 13,
-     "clubId": 114605,
-     "card": [
-      87,
-      79,
-      47
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      83,
-      51
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id67336134",
      "name": "White",
      "rating": 86,
@@ -818,6 +797,28 @@
       89,
       79,
       62
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50408698",
+     "name": "Kanjinga",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "ST",
+     "nationId": 110,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      87,
+      77,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      81,
+      48
      ],
      "slot": "ST"
     }
@@ -855,6 +856,6 @@
   }
  ],
  "not_owned": [],
- "built": "2026-10-24 17:23 UTC",
+ "built": "2026-10-25 07:44 UTC",
  "week": "2026-10-26"
 }
