@@ -578,12 +578,12 @@ def dedupe(out):
     for old, new in keep:
         base = new.rstrip("0123456789").strip()
         if base == "counter p": base = new = "counter"     # population teams are counter-teams too
-        if base in ("counter", "fresh test", "final check"):
+        if base in ("counter", "fresh test", "final check", "balanced"):
             count[base] = count.get(base, 0) + 1; new = f"{base} {count[base]}"
         new_res[new] = res[old]
         if old in teams: new_teams[new] = teams[old]
-    order_rank = lambda n: ["reference", "target", "mirror", "counter", "fresh test", "final check"].index(
-        next(b for b in ["reference", "target", "mirror", "counter", "fresh test", "final check"] if n.startswith(b)))
+    KINDS = ["reference", "target", "mirror", "balanced", "counter", "fresh test", "final check"]
+    order_rank = lambda n: next((KINDS.index(b) for b in KINDS if n.startswith(b)), len(KINDS))
     out["results"] = dict(sorted(new_res.items(), key=lambda kv: (order_rank(kv[0]), int("0" + "".join(ch for ch in kv[0] if ch.isdigit())))))
     if teams: out["opponent_teams"] = {n: new_teams[n] for n in out["results"] if n in new_teams}
     return out

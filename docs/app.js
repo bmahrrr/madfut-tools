@@ -132,7 +132,7 @@ function pill(r) { return `<span class="pill ${r}">${cap(String(r).toLowerCase()
 
 // ---------- custom builds (run on GitHub) ----------
 const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit Reference Team $1").replace(/^counter (\d+)$/, "Counter Team $1")
-  .replace(/^mirror$/, "Copy of This Team").replace(/^target (\d+)$/, "Team to Beat").replace(/^fresh test (\d+)$/, "Fresh Stress Test $1").replace(/^final check (\d+)$/, "Final Check Team $1");
+  .replace(/^mirror$/, "Copy of This Team").replace(/^balanced (\d+)$/, "Balanced Full-Chem Team $1").replace(/^target (\d+)$/, "Team to Beat").replace(/^fresh test (\d+)$/, "Fresh Stress Test $1").replace(/^final check (\d+)$/, "Final Check Team $1");
 // The site can start builds itself with a GitHub key saved on this phone only (Weekly setup → Connect GitHub).
 const ghToken = () => { try { return localStorage.getItem("ghToken") || ""; } catch (e) { return ""; } };
 async function ghGetFile(path) {          // { text, sha } of a file on main, or null
