@@ -111,6 +111,7 @@ class Unbeat:
         for b in series.get("bonuses") or []:
             bon[0] += b.get("att", 0); bon[1] += b.get("ctl", 0); bon[2] += b.get("def", 0)
         self.bon = bon
+        self.n_ref = 0
         self.maxV, self.maxT = [], []
         for q in range(3):
             cs = self.CTR[q]
@@ -146,10 +147,12 @@ class Unbeat:
         return best
 
     def full_key(self, E, per):
-        """Ranking used everywhere: 5 unbeatable in one stat + best tiebreak first (owner's rule), then the worst
-        result against every test team, then total results and stats. Below tier 1 the test results come first."""
+        """Ranking used everywhere (owner's order): 5 unbeatable in one stat + an unlosable tiebreak first; then the
+        result against the Reddit team(s) (most players copy them); then the worst result against every test team;
+        then total results and stats. per[:n_ref] are the Reddit teams' scores."""
         k = self.key(E); w, s = (min(per), sum(per)) if per else (0, 0)
-        return (1, k[2], w, s, secondary(E)) if k[0] else (0, w, k[1], s, secondary(E))
+        ref = sum(per[:self.n_ref]) if self.n_ref else 0
+        return (1, k[2], ref, w, s, secondary(E)) if k[0] else (0, ref, w, k[1], s, secondary(E))
 
 
 def pair_score(a, b):
@@ -624,7 +627,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     T = minutes * 60
     owned_ids = {c["id"]: c for c in me.cards}
     pool_opps = [field.eff(o) for o in opponents]
-    weights = [1 if mode == "beat" else 3] * len(pool_opps)
+    weights = [1 if mode == "beat" else 10] * len(pool_opps)      # the Reddit team counts most: most players copy it
     names = [f"{'target' if mode == 'beat' else 'reference'} {i+1}" for i in range(len(pool_opps))]
     seeds = []
     for o in opponents:
@@ -637,6 +640,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     # 1) a population of strong, different teams (any card: these are the teams other players can field)
     # 0) the owner's shape first: 5 cards unbeatable in one stat + the best tiebreak card (exact programs)
     ub = Unbeat(field, series)
+    ub.n_ref = len(opponents)
     useeds = unbeat_seeds(field, series, ub, seconds=min(T * 0.12, 1500), log=log)
     pop = cat_seeds(field, series, seconds=min(T * 0.15, 1800), log=log)
     bal = balanced_teams(field, series, log=log, seconds=min(T * 0.06, 600))
@@ -751,7 +755,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
             log(f"  {label}: worst case {k}")
             # best worst case wins; equal worst case -> more wins/draws over all opponents -> stronger stats.
             # The current team ("Previous Best", always last) keeps its place on a full tie.
-            if k > best_key or (label == "Previous Best" and k[:4] >= best_key[:4]):
+            if k > best_key or (label == "Previous Best" and k[:5] >= best_key[:5]):
                 best_key, team, source = k, cand, label
         E = me.eff(team)
     if polish_share and mode != "beat":
@@ -770,7 +774,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
             key = lambda Et: ub.full_key(Et, [pscore(Et, O) for O in pool_opps])
             ko, kp = key(E), key(Ep)
             log(f"  polished team {kp} vs chosen team {ko}")
-            if kp[:4] > ko[:4]:
+            if kp[:5] > ko[:5]:
                 team, source, E = pteam, "Polished", Ep
     if mode != "beat":
         # every other version of each player in the team (e.g. Can 89 Evo -> Can 92 Elite Evo): a swap is kept when it
@@ -787,7 +791,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                     t = team[:i] + [v] + team[i + 1:]
                     if not fits(t): continue
                     Et = me.eff(t); k = vkey(Et)
-                    if k[:4] >= ck[:4] and k > ck:
+                    if k[:5] >= ck[:5] and k > ck:
                         log(f"  version swap: {c['name']} {c['rating']} -> {v['rating']} {k} vs {ck}")
                         team, E, ck, improved = t, Et, k, True
                         if source == "builder": source = "Polished"
@@ -819,8 +823,8 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                     tc = team_chem(t)
                     if tc <= cc: continue
                     Et = me.eff(t); k = vkey(Et)
-                    if k[:4] >= ck[:4]:
-                        log(f"  chem swap: {team[i]['name']} {team[i]['rating']} (chem {ch[i]}) -> {c['name']} {c['rating']}, team chem {cc} -> {tc}, {k[:4]} vs {ck[:4]}")
+                    if k[:5] >= ck[:5]:
+                        log(f"  chem swap: {team[i]['name']} {team[i]['rating']} (chem {ch[i]}) -> {c['name']} {c['rating']}, team chem {cc} -> {tc}, {k[:5]} vs {ck[:5]}")
                         team, E, ck, cc, improved = t, Et, k, tc, True
                         if source == "builder": source = "Polished"
                         break
