@@ -157,7 +157,7 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         sig = (form, tuple(sorted(c["id"] for c in sq)))
         if sig in seen: continue
         seen.add(sig); top.append((ev, form, sq))
-        if len(top) == 4: break
+        if len(top) == 6: break
     for ev, form, sq in top:
         slots = FORMATIONS[form]
         p = polish(sq, slots, series, pool, polish_seconds)
