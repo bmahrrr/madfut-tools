@@ -53,6 +53,28 @@ def _pool(series, cards):
     return pool
 
 
+OPP = None      # profile of the strongest teams in the series (set by build_sim): what our team plays against
+
+
+def _beat(x, ys):
+    """Chance x beats a random value from ys = [(value, weight)] (a tie counts half)."""
+    return sum(w * (1 if x > y else 0.5 if x == y else 0) for y, w in ys)
+
+
+def opp_profile(teams):
+    """teams: [(team, slots, series)]. Their control, attack (weighted by who attacks) and defence values."""
+    C, A, D = [], [], []
+    n = len(teams)
+    for team, slots, series in teams:
+        E, _ = effective(team, series)
+        W = attack_weights(slots, [x["position"] for x in team])
+        ci = [i for i, s in enumerate(slots) if s in CTRL]; di = [i for i, s in enumerate(slots) if s in DEF]
+        C += [(E[i][1], 1 / (n * len(ci))) for i in ci]
+        D += [(E[i][2], 1 / (n * len(di))) for i in di]
+        A += [(E[i][0], W[i] / n) for i in range(len(slots)) if W[i] > 0]
+    return {"C": C, "A": A, "D": D}
+
+
 def evaluate(team, slots, series):
     E, ch = effective(team, series)
     C = [E[i][1] for i, s in enumerate(slots) if s in CTRL]
@@ -65,7 +87,14 @@ def evaluate(team, slots, series):
     DT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in DEF)
     bad = sum(1 for i, s in enumerate(slots) if s in CTRL and ch[i] < 3)
     m = lambda v: sum(v) / len(v) if v else 0
-    return {"control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2),
+    net = None
+    if OPP:          # how it actually plays against the strongest teams: we win control, then score; or they score
+        di = [i for i, s in enumerate(slots) if s in DEF]
+        h = m([_beat(c, OPP["C"]) for c in C])
+        f = sum(W[i] * _beat(E[i][0], OPP["D"]) for i in range(len(slots)) if W[i] > 0)
+        g = m([1 - _beat(E[i][2], OPP["A"]) for i in di])
+        net = round(h * f - (1 - h) * g, 4)
+    return {"control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net,
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
             "defence_cards": sorted(D, reverse=True), "chem": sum(ch), "ctrl_not_full": bad,
             "ctrl_total": round(CT / len(C), 2) if C else 0,
@@ -73,10 +102,11 @@ def evaluate(team, slots, series):
 
 
 def rank_key(ev):
-    """Owner's order, strictly one after the other: highest Control, then the control cards' totals; then highest
-    Attack, then the attackers' totals; then highest Defence, then the defenders' totals; then chem."""
-    return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(ev["attack"], 2), round(ev.get("att_total", 0), 2),
-            round(ev["defence"], 2), round(ev.get("def_total", 0), 2), ev["chem"])
+    """Owner's order: highest Control (then the control cards' totals); then how the team actually does against the
+    strongest teams in the series (attack and defence weighed the way the game plays them); then Attack, then its
+    total; then Defence, then its total; then chem."""
+    return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9,
+            round(ev["attack"], 2), round(ev.get("att_total", 0), 2), round(ev["defence"], 2), round(ev.get("def_total", 0), 2), ev["chem"])
 
 
 def sim_key(ev):
@@ -149,11 +179,15 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
                          (x["leagueId"] in lg and key(x) >= maxC - 6) or (x["nationId"] in nat and key(x) >= maxC - 4)}
         cards_f = [pool[i] for i in cand]
 
+        sw = attack_weights(slots, list(slots))
+        slot_w = {}
+        for k2, sl in enumerate(slots): slot_w[sl] = max(slot_w.get(sl, 0), sw[k2])
+
         def value(c, s):
             T = (c["A"] + c["C"] + c["D"]) / 400
             v = 0                     # control first, then attack, then defence (each with its total as the tiebreak)
             if s in CTRL: v += 1000 * (c["C"] + T)
-            if s in ATT: v += 20 * (c["A"] + T)
+            if s in ATT: v += 100 * slot_w.get(s, 0.2) * (c["A"] + T)
             if s in DEF: v += 0.5 * (c["D"] + T)
             return v
 
@@ -183,6 +217,19 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             if sq:
                 ev = evaluate(sq, slots, series); results.append((ev, form, sq))
                 log(f"  Reddit {k+1} as {form}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
+    # the strongest teams found (Reddit teams included) are what our team is measured against from here on
+    global OPP
+    OPP = None
+    results.sort(key=lambda r: sim_key(r[0]), reverse=True)
+    prof, sigs = [], set()
+    for ev, form, sq in results:
+        sg = (form, frozenset(c["id"] for c in sq))
+        if sg in sigs: continue
+        sigs.add(sg); prof.append((sq, FORMATIONS[form], series))
+        if len(prof) == 6: break
+    if prof:
+        OPP = opp_profile(prof)
+        results = [(evaluate(sq, FORMATIONS[form], series), form, sq) for ev, form, sq in results]
     # polish the best few by swapping single cards with any card in the series
     results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     seen, top = set(), []
