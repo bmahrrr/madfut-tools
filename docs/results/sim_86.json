@@ -21,7 +21,21 @@
     "def": 2
    }
   ],
-  "opponents": []
+  "opponents": [
+   [
+    "id252154",
+    "id50595413",
+    "id67229397",
+    "id240277",
+    "id67310399",
+    "id247788",
+    "id50508651",
+    "id50592947",
+    "id50402434",
+    "id239261",
+    "id330"
+   ]
+  ]
  },
  "teams": [
   {
@@ -51,28 +65,6 @@
      "slot": "GK"
     },
     {
-     "id": "id67229397",
-     "name": "Pepe",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      59,
-      61,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      63,
-      65,
-      89
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id67310399",
      "name": "Varane",
      "rating": 86,
@@ -95,24 +87,46 @@
      "slot": "CB"
     },
     {
-     "id": "id67375554",
-     "name": "Lúcio",
+     "id": "id67229397",
+     "name": "Pepe",
      "rating": 85,
      "color": "debut_icon",
      "position": "CB",
-     "nationId": 54,
+     "nationId": 38,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      71,
-      71,
-      84
+      59,
+      61,
+      85
      ],
      "chem": 3,
      "eff": [
-      75,
-      75,
-      88
+      63,
+      65,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50752",
+     "name": "King",
+     "rating": 86,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      67,
+      70,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      91
      ],
      "slot": "CB"
     },
@@ -227,6 +241,28 @@
      "slot": "CAM"
     },
     {
+     "id": "id67335223",
+     "name": "Sinclair",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 70,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      80,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      84,
+      59
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id67336134",
      "name": "White",
      "rating": 86,
@@ -247,34 +283,12 @@
       62
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id1845",
-     "name": "Solskjær",
-     "rating": 86,
-     "color": "hero",
-     "position": "ST",
-     "nationId": 36,
-     "leagueId": 13,
-     "clubId": 114605,
-     "card": [
-      87,
-      77,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      81,
-      52
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 91.4,
-    "attack": 90.0,
-    "defence": 89.0,
+    "attack": 89.8,
+    "defence": 89.75,
     "control_cards": [
      94,
      92,
@@ -284,16 +298,16 @@
     ],
     "attack_cards": [
      92,
-     91,
+     90,
      89,
      89,
      89
     ],
     "defence_cards": [
+     91,
      90,
      89,
-     89,
-     88
+     89
     ],
     "chem": 33,
     "ctrl_not_full": 0,
@@ -327,24 +341,24 @@
      "slot": "GK"
     },
     {
-     "id": "id264886",
-     "name": "Viggósdóttir",
-     "rating": 84,
-     "color": "rare_gold",
+     "id": "id67310399",
+     "name": "Varane",
+     "rating": 86,
+     "color": "debut_icon",
      "position": "CB",
-     "nationId": 24,
-     "leagueId": 2215,
-     "clubId": 21,
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      63,
-      66,
-      84
+      64,
+      67,
+      85
      ],
      "chem": 3,
      "eff": [
       68,
-      72,
-      88
+      71,
+      89
      ],
      "slot": "CB"
     },
@@ -371,24 +385,24 @@
      "slot": "CB"
     },
     {
-     "id": "id67310399",
-     "name": "Varane",
-     "rating": 86,
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
      "color": "debut_icon",
      "position": "CB",
-     "nationId": 18,
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      64,
-      67,
-      85
+      71,
+      71,
+      84
      ],
      "chem": 3,
      "eff": [
-      68,
-      71,
-      89
+      75,
+      75,
+      88
      ],
      "slot": "CB"
     },
@@ -603,28 +617,6 @@
      "slot": "GK"
     },
     {
-     "id": "id67229397",
-     "name": "Pepe",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      59,
-      61,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      63,
-      65,
-      89
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id67375554",
      "name": "Lúcio",
      "rating": 85,
@@ -643,6 +635,28 @@
       75,
       75,
       88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      65,
+      89
      ],
      "slot": "CB"
     },
@@ -779,6 +793,28 @@
      "slot": "RM"
     },
     {
+     "id": "id330",
+     "name": "Keane",
+     "rating": 86,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 25,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      87,
+      79,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      83,
+      51
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id67336134",
      "name": "White",
      "rating": 86,
@@ -797,28 +833,6 @@
       89,
       79,
       62
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id50408698",
-     "name": "Kanjinga",
-     "rating": 85,
-     "color": "future_stars",
-     "position": "ST",
-     "nationId": 110,
-     "leagueId": 2218,
-     "clubId": 73,
-     "card": [
-      87,
-      77,
-      44
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      81,
-      48
      ],
      "slot": "ST"
     }
@@ -856,6 +870,6 @@
   }
  ],
  "not_owned": [],
- "built": "2026-10-25 07:44 UTC",
+ "built": "2026-10-25 11:23 UTC",
  "week": "2026-10-26"
 }
