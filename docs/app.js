@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261025b";
+const APP_V = "20261025c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -631,7 +631,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261025b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261025c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -657,7 +657,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261025b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261025c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1217,7 +1217,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261025b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261025c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1599,7 +1599,7 @@ function seriesCardHtml(type, i) {
   const s = WS[type][i], id = `${type}-${i}`, isMC = type === "myclub";
   const nb = (s.boosts || []).length, nbn = (s.bonuses || []).length, nr = (s.opponents || []).length;
   const boostNames = [...(s.boosts || []).map(b => groupName(b.on, b.id)), ...(s.bonuses || []).map(bonusTxt)].join(" · ") || "No boosts yet";   // squad bonuses are boosts too
-  const sub = [`${nb} boost${nb === 1 ? "" : "s"}`, nbn ? `${nbn} bonus${nbn === 1 ? "" : "es"}` : "", isMC ? `${nr} Reddit team${nr === 1 ? "" : "s"}` : ""].filter(Boolean).join(" · ");
+  const sub = [`${nb} boost${nb === 1 ? "" : "s"}`, nbn ? `${nbn} bonus${nbn === 1 ? "" : "es"}` : "", `${nr} Reddit team${nr === 1 ? "" : "s"}`].filter(Boolean).join(" · ");
   const isOpen = WSOPEN.has(id) || WSUI.open.startsWith(id + ":");
   const warn = !(nb + nbn) ? `<span class="pill LOSS">Needs boosts</span>` : isMC && !nr ? `<span class="pill DRAW">No Reddit</span>` : `<span class="pill WIN">Ready</span>`;
   let h = `<details class="card sercard" data-wser="${id}"${isOpen ? " open" : ""}><summary class="strip"><span class="k">${esc(s.key || "?")}</span><span class="mid"><b>${esc(boostNames)}</b><small>${esc(sub)}</small></span><span class="res">${warn}</span></summary><div class="body"><div class="row" style="justify-content:space-between">
@@ -1609,10 +1609,10 @@ function seriesCardHtml(type, i) {
     `<div class="req"><span>${esc(BKIND[b.on])}: <b>${esc(groupName(b.on, b.id))}</b> <span class="muted">${statTxt(b)}</span></span><button class="x" data-delb="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
   h += `<div class="small" style="margin-top:8px"><b>Squad bonuses</b></div>` + ((s.bonuses || []).map((b, j) =>
     `<div class="req"><span>${esc(bonusTxt(b))} <span class="muted">${statTxt(b)}</span></span><button class="x" data-delbn="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
-  if (isMC) h += `<div class="small" style="margin-top:8px"><b>Reddit reference teams</b></div>` + ((s.opponents || []).map((t, j) =>
+  h += `<div class="small" style="margin-top:8px"><b>Reddit reference teams</b></div>` + ((s.opponents || []).map((t, j) =>
     `<div class="req"><span>${esc(short(t))}</span><button class="x" data-delref="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None (optional)</p>`);
   const open = WSUI.open.startsWith(id + ":") ? WSUI.open.split(":")[1] : "";
-  h += `<div class="row" style="margin-top:8px"><button class="ghost" data-open="${id}:boost" style="font-size:12.5px">+ Boost</button><button class="ghost" data-open="${id}:bonus" style="font-size:12.5px">+ Squad bonus</button>${isMC ? `<button class="ghost" data-open="${id}:ref" style="font-size:12.5px">+ Reddit team</button>` : ""}</div>`;
+  h += `<div class="row" style="margin-top:8px"><button class="ghost" data-open="${id}:boost" style="font-size:12.5px">+ Boost</button><button class="ghost" data-open="${id}:bonus" style="font-size:12.5px">+ Squad bonus</button><button class="ghost" data-open="${id}:ref" style="font-size:12.5px">+ Reddit team</button></div>`;
   const nums = `<div class="row" style="margin-top:8px"><label class="small">A <input type="number" inputmode="numeric" id="wA" value="0" style="width:62px"></label><label class="small">C <input type="number" inputmode="numeric" id="wC" value="0" style="width:62px"></label><label class="small">D <input type="number" inputmode="numeric" id="wD" value="0" style="width:62px"></label></div>`;
   if (open === "boost") h += `<div class="rulebox"><div class="row"><select id="wKind"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select></div>
     <div id="wPick" style="margin-top:8px"></div>${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add boost</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
