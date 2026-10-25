@@ -38,7 +38,285 @@
  },
  "teams": [
   {
-   "formation": "3-4-1-2",
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id488",
+     "name": "Kahn",
+     "rating": 91,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      39,
+      32,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      42,
+      37,
+      95
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id166906",
+     "name": "Baresi",
+     "rating": 91,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      66,
+      75,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      80,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67310399",
+     "name": "Varane",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      67,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      72,
+      88
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id247819",
+     "name": "Schlotterbeck",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      71,
+      75,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      80,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id10535",
+     "name": "Xavi",
+     "rating": 91,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      87,
+      91,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      96,
+      71
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id191190",
+     "name": "Rivellino",
+     "rating": 90,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      90,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      95,
+      53
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id227006",
+     "name": "Sawa",
+     "rating": 91,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 163,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      88,
+      90,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      95,
+      82
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_karetsas91",
+     "name": "Karetsas",
+     "rating": 91,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      87,
+      91,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      96,
+      69
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "elite_Diomande_91",
+     "name": "Diomande",
+     "rating": 91,
+     "color": "elite_evo",
+     "position": "RW",
+     "nationId": 108,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      92,
+      91,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      96,
+      59
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id243075",
+     "name": "Rummenigge",
+     "rating": 90,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      84,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      89,
+      62
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id192181",
+     "name": "van Basten",
+     "rating": 91,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      80,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      85,
+      47
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 95.6,
+    "attack": 93.75,
+    "defence": 87.4,
+    "control_cards": [
+     96,
+     96,
+     96,
+     95,
+     95
+    ],
+    "attack_cards": [
+     95,
+     94,
+     94,
+     92
+    ],
+    "defence_cards": [
+     95,
+     94,
+     89,
+     88,
+     71
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 254.0,
+    "att_total": 240.25,
+    "def_total": 228.8
+   }
+  },
+  {
+   "formation": "3-1-4-2",
    "chem": 33,
    "players": [
     {
@@ -64,23 +342,23 @@
      "slot": "GK"
     },
     {
-     "id": "id1183",
-     "name": "Cannavaro",
-     "rating": 89,
+     "id": "id167135",
+     "name": "Carlos Alberto",
+     "rating": 91,
      "color": "icon",
-     "position": "CB",
-     "nationId": 27,
+     "position": "RB",
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      62,
-      64,
+      79,
+      82,
       90
      ],
      "chem": 3,
      "eff": [
-      65,
-      69,
+      82,
+      87,
       93
      ],
      "slot": "CB"
@@ -108,26 +386,48 @@
      "slot": "CB"
     },
     {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
      "color": "icon",
      "position": "CB",
      "nationId": 27,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      64,
       62,
+      64,
       90
      ],
      "chem": 3,
      "eff": [
-      67,
-      67,
+      65,
+      69,
       93
      ],
      "slot": "CB"
+    },
+    {
+     "id": "id10535",
+     "name": "Xavi",
+     "rating": 91,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      87,
+      91,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      96,
+      71
+     ],
+     "slot": "CDM"
     },
     {
      "id": "id191190",
@@ -152,6 +452,28 @@
      "slot": "LM"
     },
     {
+     "id": "id227006",
+     "name": "Sawa",
+     "rating": 91,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 163,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      88,
+      90,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      95,
+      82
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "ltm_karetsas91",
      "name": "Karetsas",
      "rating": 91,
@@ -170,28 +492,6 @@
       90,
       96,
       69
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id10535",
-     "name": "Xavi",
-     "rating": 91,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      87,
-      91,
-      68
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      96,
-      71
      ],
      "slot": "CM"
     },
@@ -216,28 +516,6 @@
       59
      ],
      "slot": "RM"
-    },
-    {
-     "id": "id227006",
-     "name": "Sawa",
-     "rating": 91,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 163,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      88,
-      90,
-      79
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      95,
-      82
-     ],
-     "slot": "CAM"
     },
     {
      "id": "id50563395",
@@ -286,8 +564,8 @@
    ],
    "metrics": {
     "control": 95.6,
-    "attack": 93.2,
-    "defence": 93.25,
+    "attack": 93.75,
+    "defence": 88.8,
     "control_cards": [
      96,
      96,
@@ -299,18 +577,20 @@
      95,
      94,
      94,
-     92,
-     91
+     92
     ],
     "defence_cards": [
      94,
      93,
      93,
-     93
+     93,
+     71
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 254.0
+    "ctrl_total": 254.0,
+    "att_total": 240.0,
+    "def_total": 232.0
    }
   },
   {
@@ -586,287 +866,13 @@
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 254.0
-   }
-  },
-  {
-   "formation": "3-1-4-2",
-   "chem": 33,
-   "players": [
-    {
-     "id": "id192119",
-     "name": "Courtois",
-     "rating": 90,
-     "color": "rare_gold",
-     "position": "GK",
-     "nationId": 7,
-     "leagueId": 53,
-     "clubId": 243,
-     "card": [
-      38,
-      32,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      41,
-      37,
-      93
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id166906",
-     "name": "Baresi",
-     "rating": 91,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      66,
-      75,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      69,
-      80,
-      94
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      62,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      67,
-      67,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id167135",
-     "name": "Carlos Alberto",
-     "rating": 91,
-     "color": "icon",
-     "position": "RB",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      79,
-      82,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      82,
-      87,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id10535",
-     "name": "Xavi",
-     "rating": 91,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      87,
-      91,
-      68
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      96,
-      71
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id191190",
-     "name": "Rivellino",
-     "rating": 90,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      90,
-      50
-     ],
-     "chem": 3,
-     "eff": [
-      92,
-      95,
-      53
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id227006",
-     "name": "Sawa",
-     "rating": 91,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 163,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      88,
-      90,
-      79
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      95,
-      82
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "ltm_karetsas91",
-     "name": "Karetsas",
-     "rating": 91,
-     "color": "ltm",
-     "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      87,
-      91,
-      66
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      96,
-      69
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "elite_Diomande_91",
-     "name": "Diomande",
-     "rating": 91,
-     "color": "elite_evo",
-     "position": "RW",
-     "nationId": 108,
-     "leagueId": 53,
-     "clubId": 243,
-     "card": [
-      92,
-      91,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      95,
-      96,
-      59
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id50563395",
-     "name": "Mbappé",
-     "rating": 91,
-     "color": "destined_for_glory",
-     "position": "ST",
-     "nationId": 18,
-     "leagueId": 53,
-     "clubId": 243,
-     "card": [
-      91,
-      85,
-      38
-     ],
-     "chem": 3,
-     "eff": [
-      94,
-      90,
-      41
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id192181",
-     "name": "van Basten",
-     "rating": 91,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      91,
-      80,
-      44
-     ],
-     "chem": 3,
-     "eff": [
-      94,
-      85,
-      47
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 95.6,
-    "attack": 93.75,
-    "defence": 88.8,
-    "control_cards": [
-     96,
-     96,
-     96,
-     95,
-     95
-    ],
-    "attack_cards": [
-     95,
-     94,
-     94,
-     92
-    ],
-    "defence_cards": [
-     94,
-     93,
-     93,
-     93,
-     71
-    ],
-    "chem": 33,
-    "ctrl_not_full": 0,
-    "ctrl_total": 254.0
+    "ctrl_total": 254.0,
+    "att_total": 245.8,
+    "def_total": 221.75
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-25 07:43 UTC",
+ "built": "2026-10-25 12:04 UTC",
  "week": "2026-10-26"
 }
