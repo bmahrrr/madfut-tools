@@ -688,7 +688,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
             for k in range(n_chk):
                 start = vr.choice(list(opponents) + [cand, team] + counters)
                 start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
-                br = optimize(field, start, [Ec], [1], max(20, T * 0.1 / n_chk), vr, None, f"check{i}")
+                br = optimize(field, start, [Ec], [1], max(20, min(T * 0.1, 600) / n_chk), vr, None, f"check{i}")   # capped: a long search must still finish inside the 6-hour job limit
                 i += 1
                 pool_opps.append(field.eff(br[1])); names.append(f"final check {i}"); opp_cards[f"final check {i}"] = br[1]
         def worst_case(Et):         # owner's shape first, then worst result vs any opponent, total results, stats
@@ -713,7 +713,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
             for k in range(n_chk):
                 start = vr.choice(list(opponents) + [pteam, team] + counters)
                 start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
-                br = optimize(field, start, [Ep], [1], max(20, T * 0.1 / n_chk), vr, None, f"pcheck{k}")
+                br = optimize(field, start, [Ep], [1], max(20, min(T * 0.1, 600) / n_chk), vr, None, f"pcheck{k}")
                 nm = f"final check {sum(1 for n in names if n.startswith('final check')) + 1}"
                 pool_opps.append(field.eff(br[1])); names.append(nm); opp_cards[nm] = br[1]
             key = lambda Et: ub.full_key(Et, [pscore(Et, O) for O in pool_opps])
