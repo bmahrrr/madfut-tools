@@ -420,6 +420,35 @@ def milp_seeds(pool, series=None, time_limit=15, log=None):
     return seeds
 
 
+BAL_FORMS = ("4-4-2", "4-3-3", "3-4-3", "3-4-1-2", "4-2-3-1", "4-1-2-1-2", "3-5-2", "5-3-2", "4-5-1", "4-2-2-2",
+             "3-4-2-1", "5-2-1-2", "4-1-4-1", "4-3-2-1")
+
+
+def balanced_teams(pool, series=None, forms=BAL_FORMS, time_limit=12, log=None, seconds=600):
+    """Teams like the ones people actually field (and Reddit posts): every card on full chem, strong in every stat.
+    Two kinds per formation: the highest total stats, and each slot weighted to the stat its position duels with."""
+    cards = seed_cards(pool, series)
+    out, seen, t0 = [], set(), time.time()
+    full = lambda c, s: True
+    for form in forms:
+        for label, val in (("balanced", lambda c, s: c["T3"]),
+                           ("balanced specialists", lambda c, s: c["T3"] + c[ROLE.get(s, "bC")])):
+            if time.time() - t0 > seconds: break
+            sq = build(cards, FORMATIONS[form], val, chem_weight=lambda c, s: 1, force_full=full, time_limit=time_limit,
+                       gap=0.002, group_rules=ICON_RULE)
+            if not sq: continue
+            k = frozenset(c["id"] for c in sq)
+            if k in seen: continue
+            seen.add(k); out.append(sq)
+            if log: log(f"  {label} {form}")
+    return out
+
+
+def team_chem(team):
+    from .core import chem
+    return sum(chem(team))
+
+
 def unbeat_seeds(pool, series, ub, forms=None, time_limit=20, log=None, seconds=900):
     """The owner's team shape, built directly: for each stat and formation, the team with the most cards unbeatable
     in that stat (up to 5, each on full chem), then the best tiebreak card kept apart from them, then the strongest
@@ -549,12 +578,12 @@ def dedupe(out):
     for old, new in keep:
         base = new.rstrip("0123456789").strip()
         if base == "counter p": base = new = "counter"     # population teams are counter-teams too
-        if base in ("counter", "fresh test", "final check"):
+        if base in ("counter", "fresh test", "final check", "balanced"):
             count[base] = count.get(base, 0) + 1; new = f"{base} {count[base]}"
         new_res[new] = res[old]
         if old in teams: new_teams[new] = teams[old]
-    order_rank = lambda n: ["reference", "target", "mirror", "counter", "fresh test", "final check"].index(
-        next(b for b in ["reference", "target", "mirror", "counter", "fresh test", "final check"] if n.startswith(b)))
+    KINDS = ["reference", "target", "mirror", "balanced", "counter", "fresh test", "final check"]
+    order_rank = lambda n: next((KINDS.index(b) for b in KINDS if n.startswith(b)), len(KINDS))
     out["results"] = dict(sorted(new_res.items(), key=lambda kv: (order_rank(kv[0]), int("0" + "".join(ch for ch in kv[0] if ch.isdigit())))))
     if teams: out["opponent_teams"] = {n: new_teams[n] for n in out["results"] if n in new_teams}
     return out
@@ -598,6 +627,12 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     ub = Unbeat(field, series)
     useeds = unbeat_seeds(field, series, ub, seconds=min(T * 0.12, 1500), log=log)
     pop = cat_seeds(field, series, seconds=min(T * 0.15, 1800), log=log)
+    bal = balanced_teams(field, series, log=log, seconds=min(T * 0.06, 600))
+    if mode != "beat":
+        for k, t in enumerate(bal):
+            pool_opps.append(field.eff(t)); weights.append(3); names.append(f"balanced {k+1}"); opp_cards[f"balanced {k+1}"] = t
+    bal_mine = bal if same_pool else balanced_teams(me, series, seconds=min(T * 0.04, 400))
+    bal_mine = [[owned_ids[c["id"]] for c in t] for t in bal_mine if all(c["id"] in owned_ids for c in t)]
     pop += milp_seeds(field, series, log=log)
     pop += useeds
     mine = pop if same_pool else cat_seeds(me, series, seconds=min(T * 0.08, 900), log=log) + milp_seeds(me, series, log=log) + \
@@ -674,6 +709,10 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     source = "builder"
     if ubest is not None and _key(ubest) != _key(team):      # the best team of the owner's shape always reaches the final check
         candidates = [("Unbeatable", ubest)] + list(candidates)
+    if mode != "beat" and bal_mine:      # the best full-chem balanced teams also reach the final check
+        bk = lambda t: ub.full_key(me.eff(t), [pscore(me.eff(t), O) for O in pool_opps])
+        for t in sorted(bal_mine, key=bk, reverse=True)[:2]:
+            if _key(t) != _key(team): candidates = list(candidates) + [("Balanced", t)]
     if candidates:              # final check: the builder's team vs the Reddit / hand-built teams
         # Fair test: each candidate also gets stress-test teams built specifically against IT, then every
         # team is scored on the same full set of opponents and the best worst case wins.
@@ -741,6 +780,39 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                         team, E, ck, improved = t, Et, k, True
                         if source == "builder": source = "Polished"
                         break
+                if improved: break
+    if mode != "beat":
+        # chem: a card below full chem stays only if it changes a result. Try each such card's slot with full-chem
+        # options (the best cards for that position, and cards linking to the rest of the team); keep a swap when the
+        # results against every test team are no worse (owner's shape included) and the team's chem goes up.
+        from .core import chem as chem_of
+        vkey = lambda Et: ub.full_key(Et, [pscore(Et, O) for O in pool_opps])
+        ck, cc, t0c = vkey(E), team_chem(team), time.time()
+        improved = True
+        while improved and time.time() - t0c < min(T * 0.08, 900):
+            improved = False
+            ch = chem_of(team)
+            for i in sorted(range(11), key=lambda i: ch[i]):
+                if ch[i] >= 3: continue
+                opts = {}
+                for p in team[i]["P"]:
+                    for c in me.pos_top.get(p, []): opts[c["id"]] = c
+                for y in team:
+                    for key in ("nationId", "leagueId", "clubId"):
+                        for c in me.by[key][y[key]][:25]: opts[c["id"]] = c
+                for c in opts.values():
+                    if c["id"] == team[i]["id"] or any(z["pid"] == c["pid"] for k2, z in enumerate(team) if k2 != i): continue
+                    t = team[:i] + [c] + team[i + 1:]
+                    if not fits(t): continue
+                    tc = team_chem(t)
+                    if tc <= cc: continue
+                    Et = me.eff(t); k = vkey(Et)
+                    if k[:4] >= ck[:4]:
+                        log(f"  chem swap: {team[i]['name']} {team[i]['rating']} (chem {ch[i]}) -> {c['name']} {c['rating']}, team chem {cc} -> {tc}, {k[:4]} vs {ck[:4]}")
+                        team, E, ck, cc, improved = t, Et, k, tc, True
+                        if source == "builder": source = "Polished"
+                        break
+                    if time.time() - t0c > min(T * 0.08, 900): break
                 if improved: break
     res = {n: {"you_lead_first": lab[play(E, O, 0)[0]], "they_lead_first": lab[play(E, O, 1)[0]]}
            for n, O in zip(names, pool_opps)}
