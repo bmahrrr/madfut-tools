@@ -287,6 +287,7 @@
     "control": 82.4,
     "attack": 80.31,
     "defence": 77.25,
+    "net": 0.0139,
     "control_cards": [
      84,
      83,
@@ -568,6 +569,7 @@
     "control": 82.4,
     "attack": 80.31,
     "defence": 77.25,
+    "net": 0.0139,
     "control_cards": [
      84,
      83,
@@ -598,7 +600,7 @@
    }
   },
   {
-   "formation": "3-5-2",
+   "formation": "5-2-1-2",
    "chem": 32,
    "players": [
     {
@@ -624,26 +626,26 @@
      "slot": "GK"
     },
     {
-     "id": "id228708",
-     "name": "Martínez Quarta",
+     "id": "id224334",
+     "name": "Acuña",
      "rating": 76,
      "color": "rare_gold",
-     "position": "CB",
+     "position": "LB",
      "nationId": 52,
      "leagueId": 353,
      "clubId": 1876,
      "card": [
-      70,
-      69,
+      75,
+      77,
       75
      ],
      "chem": 3,
      "eff": [
-      72,
-      73,
+      77,
+      81,
       78
      ],
-     "slot": "CB"
+     "slot": "LB"
     },
     {
      "id": "id272723",
@@ -690,26 +692,48 @@
      "slot": "CB"
     },
     {
-     "id": "id253175",
-     "name": "Luana",
+     "id": "id228708",
+     "name": "Martínez Quarta",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      70,
+      69,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      78
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
      "rating": 77,
      "color": "rare_gold",
-     "position": "CM",
+     "position": "RB",
      "nationId": 54,
-     "leagueId": 2221,
-     "clubId": 112606,
+     "leagueId": 31,
+     "clubId": 1745,
      "card": [
       75,
-      78,
-      64
+      80,
+      75
      ],
      "chem": 3,
      "eff": [
       79,
-      82,
-      68
+      84,
+      79
      ],
-     "slot": "CDM"
+     "slot": "RB"
     },
     {
      "id": "id230658",
@@ -731,29 +755,29 @@
       83,
       75
      ],
-     "slot": "CDM"
+     "slot": "CM"
     },
     {
-     "id": "id224334",
-     "name": "Acuña",
-     "rating": 76,
+     "id": "id253175",
+     "name": "Luana",
+     "rating": 77,
      "color": "rare_gold",
-     "position": "LB",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 1876,
+     "position": "CM",
+     "nationId": 54,
+     "leagueId": 2221,
+     "clubId": 112606,
      "card": [
       75,
-      77,
-      75
+      78,
+      64
      ],
      "chem": 3,
      "eff": [
-      77,
-      81,
-      78
+      79,
+      82,
+      68
      ],
-     "slot": "LM"
+     "slot": "CM"
     },
     {
      "id": "id209297",
@@ -776,28 +800,6 @@
       75
      ],
      "slot": "CAM"
-    },
-    {
-     "id": "id259075",
-     "name": "Yan Couto",
-     "rating": 77,
-     "color": "rare_gold",
-     "position": "RB",
-     "nationId": 54,
-     "leagueId": 31,
-     "clubId": 1745,
-     "card": [
-      75,
-      80,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      79,
-      84,
-      79
-     ],
-     "slot": "RM"
     },
     {
      "id": "id238422",
@@ -846,8 +848,9 @@
    ],
    "metrics": {
     "control": 82.4,
-    "attack": 80.31,
-    "defence": 75.33,
+    "attack": 79.75,
+    "defence": 77.67,
+    "net": 0.0045,
     "control_cards": [
      84,
      83,
@@ -860,27 +863,25 @@
      81,
      80,
      79,
-     79,
-     77,
      72
     ],
     "defence_cards": [
      81,
      79,
+     79,
      78,
-     75,
-     71,
-     68
+     78,
+     71
     ],
     "chem": 32,
     "ctrl_not_full": 0,
     "ctrl_total": 236.0,
-    "att_total": 217.28,
-    "def_total": 206.5
+    "att_total": 212.42,
+    "def_total": 208.67
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-25 12:24 UTC",
+ "built": "2026-10-25 13:21 UTC",
  "week": "2026-10-26"
 }
