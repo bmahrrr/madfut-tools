@@ -227,7 +227,16 @@ def secondary(E):
     return catscore(E) * 10000 + stat_strength(E)
 
 
+DEADLINE = None     # hard finish time for one build (set by build_myclub): late steps shrink to fit, so a build never
+                    # runs past GitHub's 6-hour job limit and loses its team (88 was cut off twice)
+
+
+def _fit(seconds):
+    return seconds if DEADLINE is None else max(2, min(seconds, DEADLINE - time.time()))
+
+
 def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust=False, guard=None):
+    seconds = _fit(seconds)
     """guard(E) -> tuple: when given, no move may lower it (keeps a team's unbeatable cards and tiebreak)."""
     cur = seed[:]
     E = pool.eff(cur)
@@ -268,6 +277,7 @@ def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None, 
     lower the team's chemistry. Swaps that tie are kept as stepping stones and searched one level
     deeper (full-chem cards first, they unlock links), so two-card changes like 'an Icon + the card
     its league link puts on full chem' are found too."""
+    seconds = _fit(seconds)
     t0 = time.time(); order = list(range(len(opps)))
     chem = lambda tm: sum(effective(tm, pool.series)[1])
     def score(tm):
@@ -601,6 +611,8 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                 the one with the best worst case is returned, so copying the Reddit team wins when it is best.
     Returns dict with the team, formation and results against every opponent tested."""
     set_icon_limit(series)
+    global DEADLINE
+    DEADLINE = time.time() + minutes * 60 * 1.25 + 900     # 165 min -> ~3.7 h; the job limit is 5.9 h
     rng = random.Random(seed)
     robust = mode == "robust"
     if mode == "beat":
@@ -789,7 +801,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         vkey = lambda Et: ub.full_key(Et, [pscore(Et, O) for O in pool_opps])
         ck, cc, t0c = vkey(E), team_chem(team), time.time()
         improved = True
-        while improved and time.time() - t0c < min(T * 0.08, 900):
+        while improved and time.time() - t0c < min(T * 0.08, 900) and (DEADLINE is None or time.time() < DEADLINE + 600):
             improved = False
             ch = chem_of(team)
             for i in sorted(range(11), key=lambda i: ch[i]):
