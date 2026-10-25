@@ -18,6 +18,21 @@
     "ctl": 2,
     "def": 2
    }
+  ],
+  "opponents": [
+   [
+    "id50562318",
+    "id224334",
+    "id228708",
+    "id272723",
+    "id272951",
+    "id259075",
+    "id230658",
+    "id253175",
+    "id209297",
+    "id238422",
+    "id233959"
+   ]
   ]
  },
  "teams": [
@@ -46,6 +61,28 @@
       81
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id50573233",
+     "name": "Igor Julio",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 14,
+     "clubId": 1796,
+     "card": [
+      54,
+      59,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      63,
+      79
+     ],
+     "slot": "CB"
     },
     {
      "id": "id228708",
@@ -92,28 +129,6 @@
      "slot": "CB"
     },
     {
-     "id": "id232805",
-     "name": "Bernardo",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "LB",
-     "nationId": 54,
-     "leagueId": 19,
-     "clubId": 10029,
-     "card": [
-      64,
-      64,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      68,
-      79
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id224334",
      "name": "Acuña",
      "rating": 76,
@@ -136,28 +151,6 @@
      "slot": "LM"
     },
     {
-     "id": "id230658",
-     "name": "Arthur",
-     "rating": 76,
-     "color": "rare_gold",
-     "position": "CDM",
-     "nationId": 54,
-     "leagueId": 31,
-     "clubId": 45,
-     "card": [
-      74,
-      79,
-      71
-     ],
-     "chem": 3,
-     "eff": [
-      78,
-      83,
-      75
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id253175",
      "name": "Luana",
      "rating": 77,
@@ -176,6 +169,28 @@
       79,
       82,
       68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id230658",
+     "name": "Arthur",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      74,
+      79,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      83,
+      75
      ],
      "slot": "CM"
     },
@@ -224,28 +239,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id195093",
-     "name": "Willian José",
-     "rating": 76,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 54,
-     "leagueId": 2267,
-     "clubId": 1598,
-     "card": [
-      76,
-      66,
-      46
-     ],
-     "chem": 3,
-     "eff": [
-      80,
-      70,
-      50
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id238422",
      "name": "Gabi Nunes",
      "rating": 77,
@@ -264,6 +257,28 @@
       82,
       78,
       51
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id195093",
+     "name": "Willian José",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2267,
+     "clubId": 1598,
+     "card": [
+      76,
+      66,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      70,
+      50
      ],
      "slot": "ST"
     }
@@ -368,28 +383,6 @@
      "slot": "CB"
     },
     {
-     "id": "id74871",
-     "name": "Arthur Chaves",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 54,
-     "leagueId": 19,
-     "clubId": 10029,
-     "card": [
-      54,
-      53,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      58,
-      57,
-      79
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id246033",
      "name": "Sosa",
      "rating": 77,
@@ -407,6 +400,28 @@
      "eff": [
       66,
       72,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74871",
+     "name": "Arthur Chaves",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 19,
+     "clubId": 10029,
+     "card": [
+      54,
+      53,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      57,
       79
      ],
      "slot": "CB"
@@ -500,28 +515,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id230601",
-     "name": "Cryzan",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 54,
-     "leagueId": 2012,
-     "clubId": 111724,
-     "card": [
-      76,
-      73,
-      36
-     ],
-     "chem": 3,
-     "eff": [
-      80,
-      77,
-      40
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id238422",
      "name": "Gabi Nunes",
      "rating": 77,
@@ -540,6 +533,28 @@
       82,
       78,
       51
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id198635",
+     "name": "Silva",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 54,
+     "leagueId": 2012,
+     "clubId": 116360,
+     "card": [
+      76,
+      70,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      74,
+      40
      ],
      "slot": "ST"
     }
@@ -624,28 +639,6 @@
      "slot": "LB"
     },
     {
-     "id": "id232805",
-     "name": "Bernardo",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "LB",
-     "nationId": 54,
-     "leagueId": 19,
-     "clubId": 10029,
-     "card": [
-      64,
-      64,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      68,
-      79
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id246033",
      "name": "Sosa",
      "rating": 77,
@@ -663,6 +656,28 @@
      "eff": [
       66,
       72,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50573233",
+     "name": "Igor Julio",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 14,
+     "clubId": 1796,
+     "card": [
+      54,
+      59,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      63,
       79
      ],
      "slot": "CB"
@@ -800,24 +815,24 @@
      "slot": "ST"
     },
     {
-     "id": "id198635",
-     "name": "Silva",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "LM",
+     "id": "id195093",
+     "name": "Willian José",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "ST",
      "nationId": 54,
-     "leagueId": 2012,
-     "clubId": 116360,
+     "leagueId": 2267,
+     "clubId": 1598,
      "card": [
       76,
-      70,
-      36
+      66,
+      46
      ],
      "chem": 3,
      "eff": [
       80,
-      74,
-      40
+      70,
+      50
      ],
      "slot": "ST"
     }
@@ -854,6 +869,6 @@
   }
  ],
  "not_owned": [],
- "built": "2026-10-24 17:26 UTC",
+ "built": "2026-10-25 07:45 UTC",
  "week": "2026-10-26"
 }
