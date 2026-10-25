@@ -2,17 +2,22 @@
  "g": 5,
  "obj_ids": [
   "id224987",
-  "id229237",
   "id50575350",
-  "id210406",
-  "id203574"
+  "id229237",
+  "id203574",
+  "id210406"
  ],
- "strength": 101.5,
+ "strength": 102.0,
  "group_cards": 5,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "WIN"
+  }
+ ],
  "team": {
-  "formation": "4-2-3-1 (2)",
-  "chem": 30,
+  "formation": "4-1-4-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -52,13 +57,13 @@
      80,
      82
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     80,
      81,
-     83
+     82,
+     84
     ],
-    "tiebreak": 244
+    "tiebreak": 247
    },
    {
     "slot": "CB",
@@ -131,29 +136,6 @@
    },
    {
     "slot": "CDM",
-    "id": "ltm_espart83",
-    "name": "Xavi Espart",
-    "rating": 83,
-    "color": "ltm",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
-    "card": [
-     75,
-     81,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     83,
-     84
-    ],
-    "tiebreak": 244
-   },
-   {
-    "slot": "CDM",
     "id": "id210406",
     "name": "Zieliński",
     "rating": 82,
@@ -199,73 +181,96 @@
     "tiebreak": 250
    },
    {
-    "slot": "CAM",
-    "id": "id50572598",
-    "name": "Pedro Gonçalves",
+    "slot": "CM",
+    "id": "id264309",
+    "name": "Güler",
     "rating": 83,
-    "color": "otw",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
+    "color": "rare_gold",
+    "position": "RM",
+    "nationId": 48,
+    "leagueId": 53,
+    "clubId": 243,
     "card": [
      82,
-     82,
-     63
+     84,
+     53
     ],
     "chem": 3,
     "eff": [
-     85,
-     85,
-     66
+     84,
+     86,
+     55
     ],
-    "tiebreak": 233
+    "tiebreak": 225
+   },
+   {
+    "slot": "CM",
+    "id": "id266866",
+    "name": "Éderson",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 115845,
+    "card": [
+     77,
+     78,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     82,
+     82,
+     83
+    ],
+    "tiebreak": 241
    },
    {
     "slot": "RM",
-    "id": "id84137646",
-    "name": "Gabriel Martinelli",
-    "rating": 82,
-    "color": "totw_gold",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 350,
-    "clubId": 605,
-    "card": [
-     82,
-     79,
-     52
-    ],
-    "chem": 2,
-    "eff": [
-     85,
-     81,
-     53
-    ],
-    "tiebreak": 216
-   },
-   {
-    "slot": "ST",
-    "id": "id222737",
-    "name": "Malcom",
-    "rating": 82,
+    "id": "id255475",
+    "name": "Antony",
+    "rating": 81,
     "color": "rare_gold",
     "position": "RW",
     "nationId": 54,
-    "leagueId": 350,
-    "clubId": 605,
+    "leagueId": 53,
+    "clubId": 449,
     "card": [
      82,
-     81,
+     80,
+     50
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     83,
+     52
+    ],
+    "tiebreak": 218
+   },
+   {
+    "slot": "ST",
+    "id": "id50583500",
+    "name": "Adeyemi",
+    "rating": 83,
+    "color": "otw",
+    "position": "RM",
+    "nationId": 21,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     84,
+     78,
      45
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     85,
-     83,
-     46
+     86,
+     80,
+     47
     ],
-    "tiebreak": 211
+    "tiebreak": 213
    }
   ]
  },
@@ -301,17 +306,17 @@
  },
  "base_ids": [
   "id193080",
-  "id210514",
-  "id244263",
-  "id229237",
   "id50575350",
-  "id216435",
-  "id50583500",
-  "id50575428",
+  "id229237",
+  "id244263",
+  "id210514",
   "id197781",
+  "id236632",
+  "id257279",
+  "id50575428",
   "id255475",
-  "id67352494"
+  "id50583500"
  ],
- "built": "2026-10-24 23:11 UTC",
+ "built": "2026-10-25 18:21 UTC",
  "week": "2026-10-26"
 }

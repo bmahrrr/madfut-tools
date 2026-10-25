@@ -1,13 +1,17 @@
 {
- "g": 3,
+ "g": 2,
  "obj_ids": [
-  "id78012",
   "id251570",
   "id189362"
  ],
- "strength": 100.1,
+ "strength": 100.2,
  "group_cards": 6,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "DRAW",
+   "they_lead_first": "WIN"
+  }
+ ],
  "team": {
   "formation": "4-1-4-1",
   "chem": 31,
@@ -37,49 +41,49 @@
    },
    {
     "slot": "LB",
-    "id": "id225375",
-    "name": "Laimer",
-    "rating": 85,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 4,
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
     "leagueId": 19,
     "clubId": 21,
     "card": [
-     76,
-     77,
-     84
-    ],
-    "chem": 2,
-    "eff": [
-     77,
-     78,
-     85
-    ],
-    "tiebreak": 240
-   },
-   {
-    "slot": "CB",
-    "id": "id67310399",
-    "name": "Varane",
-    "rating": 86,
-    "color": "debut_icon",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     64,
-     67,
-     85
+     87,
+     88,
+     78
     ],
     "chem": 3,
     "eff": [
-     66,
-     69,
+     89,
+     90,
+     80
+    ],
+    "tiebreak": 259
+   },
+   {
+    "slot": "CB",
+    "id": "id50752",
+    "name": "King",
+    "rating": 86,
+    "color": "hero",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 114605,
+    "card": [
+     67,
+     70,
      87
     ],
-    "tiebreak": 222
+    "chem": 3,
+    "eff": [
+     69,
+     72,
+     89
+    ],
+    "tiebreak": 230
    },
    {
     "slot": "CB",
@@ -106,26 +110,26 @@
    },
    {
     "slot": "RB",
-    "id": "id231281",
-    "name": "Alexander-Arnold",
-    "rating": 84,
+    "id": "id225375",
+    "name": "Laimer",
+    "rating": 85,
     "color": "rare_gold",
     "position": "RB",
-    "nationId": 14,
-    "leagueId": 53,
-    "clubId": 243,
+    "nationId": 4,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     78,
-     84,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     87,
+     76,
+     77,
      84
     ],
-    "tiebreak": 250
+    "chem": 2,
+    "eff": [
+     77,
+     78,
+     85
+    ],
+    "tiebreak": 240
    },
    {
     "slot": "CDM",
@@ -175,6 +179,52 @@
    },
    {
     "slot": "CM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
+    "card": [
+     86,
+     87,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     89,
+     71
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CM",
+    "id": "id67355727",
+    "name": "Nmecha",
+    "rating": 86,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 22,
+    "card": [
+     83,
+     81,
+     84
+    ],
+    "chem": 2,
+    "eff": [
+     84,
+     82,
+     85
+    ],
+    "tiebreak": 251
+   },
+   {
+    "slot": "RM",
     "id": "id251570",
     "name": "Cherki",
     "rating": 86,
@@ -195,52 +245,6 @@
      46
     ],
     "tiebreak": 220
-   },
-   {
-    "slot": "CM",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     87,
-     88,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     90,
-     80
-    ],
-    "tiebreak": 259
-   },
-   {
-    "slot": "RM",
-    "id": "id78012",
-    "name": "Diomande",
-    "rating": 84,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 108,
-    "leagueId": 53,
-    "clubId": 243,
-    "card": [
-     83,
-     79,
-     49
-    ],
-    "chem": 2,
-    "eff": [
-     87,
-     81,
-     50
-    ],
-    "tiebreak": 214
    },
    {
     "slot": "ST",
@@ -299,17 +303,17 @@
  },
  "base_ids": [
   "id44897",
-  "id50595413",
-  "id50752",
+  "id50610428",
   "evo_Can_85",
-  "id225375",
+  "id50752",
+  "id67230808",
   "id50402434",
-  "id50592947",
+  "id227327",
   "id15723",
-  "id67129153",
-  "id50416920",
+  "id50592947",
+  "id50595413",
   "id50572365"
  ],
- "built": "2026-10-24 23:11 UTC",
+ "built": "2026-10-25 18:22 UTC",
  "week": "2026-10-26"
 }

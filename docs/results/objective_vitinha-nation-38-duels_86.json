@@ -3,17 +3,22 @@
  "obj_ids": [
   "id234577",
   "id67229397",
+  "id50602505",
   "id218667",
   "id50414596",
-  "id50602505",
   "id50593503"
  ],
- "strength": 100.1,
+ "strength": 99.8,
  "group_cards": 7,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "3-4-2-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -39,27 +44,27 @@
     "tiebreak": 166
    },
    {
-    "slot": "LB",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "slot": "CB",
+    "id": "id67229397",
+    "name": "Pepe",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     87,
-     88,
-     78
+     59,
+     61,
+     85
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     88,
-     89,
-     79
+     61,
+     63,
+     87
     ],
-    "tiebreak": 256
+    "tiebreak": 211
    },
    {
     "slot": "CB",
@@ -86,72 +91,26 @@
    },
    {
     "slot": "CB",
-    "id": "id67229397",
-    "name": "Pepe",
-    "rating": 85,
-    "color": "debut_icon",
+    "id": "id50752",
+    "name": "King",
+    "rating": 86,
+    "color": "hero",
     "position": "CB",
-    "nationId": 38,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 114605,
     "card": [
-     59,
-     61,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     61,
-     63,
+     67,
+     70,
      87
     ],
-    "tiebreak": 211
-   },
-   {
-    "slot": "RB",
-    "id": "id67359754",
-    "name": "Zambrotta",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "RB",
-    "nationId": 27,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     75,
-     77,
-     84
-    ],
     "chem": 3,
     "eff": [
-     77,
-     79,
-     86
+     69,
+     72,
+     89
     ],
-    "tiebreak": 242
-   },
-   {
-    "slot": "CDM",
-    "id": "id50602505",
-    "name": "Mateus Fernandes",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 13,
-    "clubId": 18,
-    "card": [
-     85,
-     85,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     87,
-     78
-    ],
-    "tiebreak": 252
+    "tiebreak": 230
    },
    {
     "slot": "LM",
@@ -201,29 +160,6 @@
    },
    {
     "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
-    "card": [
-     85,
-     88,
-     81
-    ],
-    "chem": 2,
-    "eff": [
-     86,
-     89,
-     82
-    ],
-    "tiebreak": 257
-   },
-   {
-    "slot": "RM",
     "id": "id218667",
     "name": "Bernardo Silva",
     "rating": 84,
@@ -244,6 +180,75 @@
      70
     ],
     "tiebreak": 239
+   },
+   {
+    "slot": "RM",
+    "id": "id67230808",
+    "name": "Schweinsteiger",
+    "rating": 86,
+    "color": "debut_icon",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     81,
+     80,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     82,
+     86
+    ],
+    "tiebreak": 251
+   },
+   {
+    "slot": "CAM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
+     85,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     90,
+     83
+    ],
+    "tiebreak": 260
+   },
+   {
+    "slot": "CAM",
+    "id": "id50602505",
+    "name": "Mateus Fernandes",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 13,
+    "clubId": 18,
+    "card": [
+     85,
+     85,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     87,
+     78
+    ],
+    "tiebreak": 252
    },
    {
     "slot": "ST",
@@ -302,17 +307,17 @@
  },
  "base_ids": [
   "id44897",
-  "id50595413",
-  "id50752",
+  "id50610428",
   "evo_Can_85",
-  "id225375",
+  "id50752",
+  "id67230808",
   "id50402434",
-  "id50592947",
+  "id227327",
   "id15723",
-  "id67129153",
-  "id50416920",
+  "id50592947",
+  "id50595413",
   "id50572365"
  ],
- "built": "2026-10-24 23:12 UTC",
+ "built": "2026-10-25 18:21 UTC",
  "week": "2026-10-26"
 }

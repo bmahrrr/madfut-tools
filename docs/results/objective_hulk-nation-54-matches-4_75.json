@@ -1,12 +1,12 @@
 {
  "g": 4,
  "obj_ids": [
-  "id225475",
   "id232805",
-  "id270068",
-  "id84630"
+  "id225475",
+  "id84630",
+  "id240938"
  ],
- "strength": 99.1,
+ "strength": 100.1,
  "group_cards": 383,
  "reddit": [
   {
@@ -16,7 +16,7 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 24,
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
@@ -66,29 +66,6 @@
    },
    {
     "slot": "CB",
-    "id": "id266551",
-    "name": "George",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 1808,
-    "card": [
-     62,
-     67,
-     78
-    ],
-    "chem": 1,
-    "eff": [
-     62,
-     67,
-     78
-    ],
-    "tiebreak": 207
-   },
-   {
-    "slot": "CB",
     "id": "id232805",
     "name": "Bernardo",
     "rating": 75,
@@ -109,6 +86,29 @@
      75
     ],
     "tiebreak": 203
+   },
+   {
+    "slot": "CB",
+    "id": "id266551",
+    "name": "George",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 14,
+    "leagueId": 2216,
+    "clubId": 1808,
+    "card": [
+     62,
+     67,
+     78
+    ],
+    "chem": 1,
+    "eff": [
+     62,
+     67,
+     78
+    ],
+    "tiebreak": 207
    },
    {
     "slot": "RB",
@@ -135,52 +135,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id252060",
-    "name": "Pobega",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 189,
-    "card": [
-     74,
-     71,
-     73
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     73,
-     76
-    ],
-    "tiebreak": 224
-   },
-   {
-    "slot": "LM",
-    "id": "id84630",
-    "name": "Kaiki",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     65,
-     68,
-     74
-    ],
-    "chem": 2,
-    "eff": [
-     66,
-     69,
-     75
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CM",
     "id": "id225475",
     "name": "Hernani",
     "rating": 74,
@@ -201,6 +155,52 @@
      74
     ],
     "tiebreak": 219
+   },
+   {
+    "slot": "LM",
+    "id": "id84630",
+    "name": "Kaiki",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     65,
+     68,
+     74
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     70,
+     76
+    ],
+    "tiebreak": 213
+   },
+   {
+    "slot": "CM",
+    "id": "id240938",
+    "name": "Junior Messias",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 110556,
+    "card": [
+     74,
+     72,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     74,
+     60
+    ],
+    "tiebreak": 210
    },
    {
     "slot": "CM",
@@ -227,26 +227,26 @@
    },
    {
     "slot": "RM",
-    "id": "id270068",
-    "name": "Cadu",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "LM",
-    "nationId": 54,
-    "leagueId": 2211,
-    "clubId": 1874,
+    "id": "id212404",
+    "name": "Bernardeschi",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "RM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 189,
     "card": [
-     73,
-     72,
-     67
+     75,
+     77,
+     55
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     73,
-     72,
-     67
+     79,
+     79,
+     58
     ],
-    "tiebreak": 212
+    "tiebreak": 213
    },
    {
     "slot": "ST",
@@ -306,17 +306,17 @@
  },
  "base_ids": [
   "id247796",
-  "id220534",
-  "id190815",
+  "id258976",
   "id266551",
-  "id50590554",
-  "id224982",
-  "id252060",
+  "id220534",
   "id235374",
-  "id265705",
-  "id240797",
-  "id212404"
+  "id265292",
+  "id50590554",
+  "id212404",
+  "id224982",
+  "id269276",
+  "id240797"
  ],
- "built": "2026-10-25 07:42 UTC",
+ "built": "2026-10-25 18:21 UTC",
  "week": "2026-10-26"
 }

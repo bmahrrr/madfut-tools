@@ -1,66 +1,66 @@
 {
  "g": 2,
  "obj_ids": [
-  "id266969",
-  "id263929"
+  "id263929",
+  "id266969"
  ],
  "strength": 100.0,
  "group_cards": 12,
  "reddit": [
   {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "DRAW"
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 32,
+  "chem": 26,
   "players": [
    {
     "slot": "GK",
-    "id": "id247796",
-    "name": "Roebuck",
+    "id": "id203042",
+    "name": "Butland",
     "rating": 75,
     "color": "rare_gold",
     "position": "GK",
     "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 2,
+    "leagueId": 13,
+    "clubId": 1952,
     "card": [
      38,
-     29,
+     38,
      76
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     40,
-     31,
-     78
+     38,
+     38,
+     76
     ],
-    "tiebreak": 149
+    "tiebreak": 152
    },
    {
     "slot": "LB",
-    "id": "id258714",
-    "name": "Valeri",
+    "id": "id201389",
+    "name": "Biraghi",
     "rating": 75,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 27,
     "leagueId": 31,
-    "clubId": 50,
+    "clubId": 54,
     "card": [
-     72,
-     72,
-     73
+     73,
+     75,
+     74
     ],
     "chem": 3,
     "eff": [
-     76,
-     74,
-     76
+     77,
+     77,
+     77
     ],
-    "tiebreak": 223
+    "tiebreak": 228
    },
    {
     "slot": "CB",
@@ -77,13 +77,13 @@
      67,
      78
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     63,
-     68,
-     79
+     62,
+     67,
+     78
     ],
-    "tiebreak": 210
+    "tiebreak": 207
    },
    {
     "slot": "CB",
@@ -133,6 +133,52 @@
    },
    {
     "slot": "CDM",
+    "id": "id253162",
+    "name": "Caviglia",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 50,
+    "card": [
+     71,
+     75,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     77,
+     74
+    ],
+    "tiebreak": 223
+   },
+   {
+    "slot": "LM",
+    "id": "id230977",
+    "name": "Almirón",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 58,
+    "leagueId": 39,
+    "clubId": 112885,
+    "card": [
+     75,
+     72,
+     55
+    ],
+    "chem": 0,
+    "eff": [
+     72,
+     69,
+     52
+    ],
+    "tiebreak": 193
+   },
+   {
+    "slot": "CM",
     "id": "id252060",
     "name": "Pobega",
     "rating": 74,
@@ -153,52 +199,6 @@
      76
     ],
     "tiebreak": 224
-   },
-   {
-    "slot": "LM",
-    "id": "id201389",
-    "name": "Biraghi",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 54,
-    "card": [
-     73,
-     75,
-     74
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     77,
-     77
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "CM",
-    "id": "id266918",
-    "name": "Kearns",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 2,
-    "card": [
-     71,
-     75,
-     60
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     77,
-     62
-    ],
-    "tiebreak": 212
    },
    {
     "slot": "CM",
@@ -303,17 +303,17 @@
  },
  "base_ids": [
   "id247796",
-  "id220534",
-  "id190815",
+  "id258976",
   "id266551",
-  "id50590554",
-  "id224982",
-  "id252060",
+  "id220534",
   "id235374",
-  "id265705",
-  "id240797",
-  "id212404"
+  "id265292",
+  "id50590554",
+  "id212404",
+  "id224982",
+  "id269276",
+  "id240797"
  ],
- "built": "2026-10-25 07:42 UTC",
+ "built": "2026-10-25 18:21 UTC",
  "week": "2026-10-26"
 }
