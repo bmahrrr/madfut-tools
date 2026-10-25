@@ -853,8 +853,8 @@ function runSim() {
   const slots = SIM_FORMS[$("simFormB").value], E = effective(state.simB, simSeries());
   const R2 = slots.map((s, i) => ({ slot: s, pos: state.simB[i].position, a: E[i].a, c: E[i].c, d: E[i].d }));
   const m = simMatch(R1, R2);
-  const odds = matchOdds(m.scoreA, m.scoreB, 10);
-  $("simOut").innerHTML = `<p>Control duels won: <b>${(m.control * 100).toFixed(0)}%</b><br>You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>.</p><p class="small">If a match has ~10 possessions: win <b>${odds[0]}%</b> · draw <b>${odds[1]}%</b> · loss <b>${odds[2]}%</b></p>`;
+  const odds = matchOdds(m.scoreA, m.scoreB, 7);
+  $("simOut").innerHTML = `<p>Control duels won: <b>${(m.control * 100).toFixed(0)}%</b><br>You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>.</p><p class="small">If a match has ~7 possessions: win <b>${odds[0]}%</b> · draw <b>${odds[1]}%</b> · loss <b>${odds[2]}%</b></p>`;
 }
 function matchOdds(p, q, n) {
   const C = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };

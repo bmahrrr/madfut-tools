@@ -139,7 +139,7 @@ def polish(team, slots, series, pool, seconds=60, stats=None):
     return team
 
 
-def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200, log=print, refs=(), polish_seconds=90):
+def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200, log=print, refs=(), polish_seconds=90, n_reddit=None):
     """refs: Reddit teams (lists of cards). Each is tried in every formation, and the best teams found (theirs and
     ours) are then polished by single-card swaps over the whole series, so the result is never worse than theirs."""
     """margin: control-position shortlist = every card within `margin` control of the best (2 was too narrow:
@@ -206,6 +206,7 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             log(f"  {form} {bv or ''}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
     # Reddit teams: their 11 cards placed in each formation (the same program, just on those 11 cards)
     byid = {c["id"]: c for c in pool}
+    ref_sigs = set()
     for k, ref in enumerate(refs or []):
         rc = [byid.get(c["id"]) for c in ref]
         if not all(rc):
@@ -215,7 +216,7 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             sq = build(rc, slots, lambda c, s: (1000 * c["C"] if s in CTRL else 0) + (3 * c["A"] if s in ATT else 0) + (c["D"] if s in DEF else 0),
                        time_limit=10)
             if sq:
-                ev = evaluate(sq, slots, series); results.append((ev, form, sq))
+                ev = evaluate(sq, slots, series); results.append((ev, form, sq)); (ref_sigs.add((form, frozenset(c["id"] for c in sq))) if n_reddit is None or k < n_reddit else None)
                 log(f"  Reddit {k+1} as {form}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
     # the strongest teams found (Reddit teams included) are what our team is measured against from here on
     global OPP
@@ -226,7 +227,8 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         sg = (form, frozenset(c["id"] for c in sq))
         if sg in sigs: continue
         sigs.add(sg); prof.append((sq, FORMATIONS[form], series))
-        if len(prof) == 6: break
+        if sg in ref_sigs: prof += [(sq, FORMATIONS[form], series)] * 2     # Reddit teams count 3x: most players copy them
+        if len(sigs) == 6: break
     if prof:
         OPP = opp_profile(prof)
         results = [(evaluate(sq, FORMATIONS[form], series), form, sq) for ev, form, sq in results]
