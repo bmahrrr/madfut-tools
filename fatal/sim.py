@@ -4,7 +4,8 @@ Priority (as agreed): the highest possible Control in every control position (LM
 CAM, CM, CDM, LB, RB), all on full chem; then the best Attack (ST, CAM, wingers, wide mids, full-backs);
 then the best Defence (full backs, CDM, CB, GK).
 """
-from .core import (CTRL, ATT, DEF, AUTO, full_chem, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe)
+import time
+from .core import (CTRL, ATT, DEF, AUTO, full_chem, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe, pid)
 from .milp import build
 
 # In Fatal Sim the attacker is picked at random from the attacking positions, and full-backs can be picked too
@@ -42,7 +43,38 @@ def rank_key(ev):
     return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(3 * ev["attack"] + ev["defence"], 2), ev["chem"])
 
 
-def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200, log=print):
+def sim_key(ev):
+    """Teams with every control card on full chem first, then rank_key."""
+    return (ev["ctrl_not_full"] == 0, rank_key(ev))
+
+
+def polish(team, slots, series, pool, seconds=60):
+    """Swap one card at a time for ANY card in the series (every rating, every link) while the team gets better.
+    Catches what the shortlist misses, e.g. a 55 link card that lets a better control card on full chem."""
+    t0 = time.time()
+    cand = {s: [c for c in pool if s in c["P"]] for s in set(slots)}
+    team = list(team); best = sim_key(evaluate(team, slots, series))
+    improved = True
+    while improved and time.time() - t0 < seconds:
+        improved = False
+        for i in range(len(slots)):
+            used = {pid(x) for k, x in enumerate(team) if k != i}
+            for c in cand[slots[i]]:
+                if c["id"] == team[i]["id"] or pid(c) in used:
+                    continue
+                trial = team[:i] + [c] + team[i + 1:]
+                k = sim_key(evaluate(trial, slots, series))
+                if k > best:
+                    team, best, improved = trial, k, True
+                    used = {pid(x) for kk, x in enumerate(team) if kk != i}
+            if time.time() - t0 > seconds:
+                break
+    return team
+
+
+def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200, log=print, refs=(), polish_seconds=90):
+    """refs: Reddit teams (lists of cards). Each is tried in every formation, and the best teams found (theirs and
+    ours) are then polished by single-card swaps over the whole series, so the result is never worse than theirs."""
     """margin: control-position shortlist = every card within `margin` control of the best (2 was too narrow:
     it missed Beste at LM in the 77 series)."""
     formations = formations or series.get("formations") or SIM_FORMATIONS
@@ -101,7 +133,35 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             ev = evaluate(sq, slots, series)
             results.append((ev, form, sq))
             log(f"  {form} {bv or ''}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
-    results.sort(key=lambda r: rank_key(r[0]), reverse=True)
+    # Reddit teams: their 11 cards placed in each formation (the same program, just on those 11 cards)
+    byid = {c["id"]: c for c in pool}
+    for k, ref in enumerate(refs or []):
+        rc = [byid.get(c["id"]) for c in ref]
+        if not all(rc):
+            log(f"  Reddit team {k+1}: has cards above the cap, skipped"); continue
+        for form in formations:
+            slots = FORMATIONS[form]
+            sq = build(rc, slots, lambda c, s: (1000 * c["C"] if s in CTRL else 0) + (3 * c["A"] if s in ATT else 0) + (c["D"] if s in DEF else 0),
+                       time_limit=10)
+            if sq:
+                ev = evaluate(sq, slots, series); results.append((ev, form, sq))
+                log(f"  Reddit {k+1} as {form}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
+    # polish the best few by swapping single cards with any card in the series
+    results.sort(key=lambda r: sim_key(r[0]), reverse=True)
+    seen, top = set(), []
+    for ev, form, sq in results:
+        sig = (form, tuple(sorted(c["id"] for c in sq)))
+        if sig in seen: continue
+        seen.add(sig); top.append((ev, form, sq))
+        if len(top) == 4: break
+    for ev, form, sq in top:
+        slots = FORMATIONS[form]
+        p = polish(sq, slots, series, pool, polish_seconds)
+        pe = evaluate(p, slots, series)
+        if sim_key(pe) > sim_key(ev):
+            log(f"  polished {form}: control {ev['control']} -> {pe['control']}, attack {ev['attack']} -> {pe['attack']}")
+            results.append((pe, form, p))
+    results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     results = [r for r in results if r[0]["ctrl_not_full"] == 0] or results
     out = []
     for ev, form, sq in results[:3]:

@@ -188,7 +188,8 @@ def main():
         key = sys.argv[2]
         s = next(x for x in week()["sim"] if x["key"] == key)
         print("Sim", key)
-        teams = build_sim(s, owned)
+        refs = [resolve_team(t, by_id, allc) for t in s.get("opponents", [])]
+        teams = build_sim(s, owned, refs=refs)
         try:                                # keep this season's previous team if the new search did worse
             from fatal.sim import evaluate, _slot_rows
             from fatal.core import FORMATIONS
