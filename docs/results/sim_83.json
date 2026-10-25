@@ -18,6 +18,21 @@
     "ctl": 1,
     "def": 1
    }
+  ],
+  "opponents": [
+   [
+    "id261848",
+    "id271944",
+    "id205452",
+    "id232488",
+    "id210514",
+    "id197781",
+    "id50575428",
+    "id264309",
+    "id50598581",
+    "id240717",
+    "id50416920"
+   ]
   ]
  },
  "teams": [
@@ -298,7 +313,7 @@
    }
   },
   {
-   "formation": "3-1-4-2",
+   "formation": "3-4-1-2",
    "chem": 33,
    "players": [
     {
@@ -390,6 +405,282 @@
      "slot": "CB"
     },
     {
+     "id": "id210514",
+     "name": "João Cancelo",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      80,
+      83,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      85,
+      83
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id197781",
+     "name": "Isco",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      80,
+      84,
+      58
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      86,
+      60
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id264309",
+     "name": "Güler",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "RM",
+     "nationId": 48,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      82,
+      84,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50575428",
+     "name": "Lee Kang In",
+     "rating": 83,
+     "color": "otw",
+     "position": "RW",
+     "nationId": 167,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      84,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      59
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50598581",
+     "name": "Caruso",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      82,
+      83,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      86,
+      73
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50416920",
+     "name": "Schröder",
+     "rating": 82,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 46,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      84,
+      74,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      77,
+      39
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id240717",
+     "name": "Beerensteyn",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      84,
+      77,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      80,
+      57
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 85.8,
+    "attack": 85.0,
+    "defence": 85.0,
+    "control_cards": [
+     86,
+     86,
+     86,
+     86,
+     85
+    ],
+    "attack_cards": [
+     87,
+     87,
+     85,
+     84,
+     82
+    ],
+    "defence_cards": [
+     85,
+     85,
+     85,
+     85
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 235.2
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id261848",
+     "name": "Inês Pereira",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 38,
+     "leagueId": 2222,
+     "clubId": 242,
+     "card": [
+      32,
+      27,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      35,
+      30,
+      85
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id205452",
+     "name": "Rüdiger",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      65,
+      69,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      71,
+      85
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id271944",
+     "name": "María Méndez",
+     "rating": 83,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 243,
+     "card": [
+      65,
+      68,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      71,
+      85
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id232488",
+     "name": "Romero",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      59,
+      63,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      65,
+      85
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "id50598581",
      "name": "Caruso",
      "rating": 83,
@@ -434,28 +725,6 @@
      "slot": "LM"
     },
     {
-     "id": "id50575428",
-     "name": "Lee Kang In",
-     "rating": 83,
-     "color": "otw",
-     "position": "RW",
-     "nationId": 167,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      82,
-      84,
-      57
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      86,
-      59
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id197781",
      "name": "Isco",
      "rating": 83,
@@ -474,6 +743,28 @@
       82,
       86,
       60
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50575428",
+     "name": "Lee Kang In",
+     "rating": 83,
+     "color": "otw",
+     "position": "RW",
+     "nationId": 167,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      82,
+      84,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      59
      ],
      "slot": "CM"
     },
@@ -572,287 +863,9 @@
     "ctrl_not_full": 0,
     "ctrl_total": 235.2
    }
-  },
-  {
-   "formation": "3-5-2",
-   "chem": 33,
-   "players": [
-    {
-     "id": "id261848",
-     "name": "Inês Pereira",
-     "rating": 81,
-     "color": "rare_gold",
-     "position": "GK",
-     "nationId": 38,
-     "leagueId": 2222,
-     "clubId": 242,
-     "card": [
-      32,
-      27,
-      82
-     ],
-     "chem": 3,
-     "eff": [
-      35,
-      30,
-      85
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id271944",
-     "name": "María Méndez",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 243,
-     "card": [
-      65,
-      68,
-      82
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      71,
-      85
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id232488",
-     "name": "Romero",
-     "rating": 82,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      59,
-      63,
-      83
-     ],
-     "chem": 3,
-     "eff": [
-      61,
-      65,
-      85
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id205452",
-     "name": "Rüdiger",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 53,
-     "clubId": 243,
-     "card": [
-      65,
-      69,
-      83
-     ],
-     "chem": 3,
-     "eff": [
-      67,
-      71,
-      85
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50598581",
-     "name": "Caruso",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 27,
-     "leagueId": 2222,
-     "clubId": 243,
-     "card": [
-      82,
-      83,
-      70
-     ],
-     "chem": 3,
-     "eff": [
-      85,
-      86,
-      73
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id197781",
-     "name": "Isco",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 449,
-     "card": [
-      80,
-      84,
-      58
-     ],
-     "chem": 3,
-     "eff": [
-      82,
-      86,
-      60
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id210514",
-     "name": "João Cancelo",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "LB",
-     "nationId": 38,
-     "leagueId": 53,
-     "clubId": 241,
-     "card": [
-      80,
-      83,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      82,
-      85,
-      83
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id264309",
-     "name": "Güler",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "RM",
-     "nationId": 48,
-     "leagueId": 53,
-     "clubId": 243,
-     "card": [
-      82,
-      84,
-      53
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      86,
-      55
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "id50575428",
-     "name": "Lee Kang In",
-     "rating": 83,
-     "color": "otw",
-     "position": "RW",
-     "nationId": 167,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      82,
-      84,
-      57
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      86,
-      59
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id50416920",
-     "name": "Schröder",
-     "rating": 82,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 46,
-     "leagueId": 2222,
-     "clubId": 243,
-     "card": [
-      84,
-      74,
-      36
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      77,
-      39
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id240717",
-     "name": "Beerensteyn",
-     "rating": 83,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2222,
-     "clubId": 243,
-     "card": [
-      84,
-      77,
-      54
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      80,
-      57
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 85.8,
-    "attack": 84.8,
-    "defence": 78.83,
-    "control_cards": [
-     86,
-     86,
-     86,
-     86,
-     85
-    ],
-    "attack_cards": [
-     87,
-     87,
-     84,
-     84,
-     82
-    ],
-    "defence_cards": [
-     85,
-     85,
-     85,
-     85,
-     73,
-     60
-    ],
-    "chem": 33,
-    "ctrl_not_full": 0,
-    "ctrl_total": 235.2
-   }
   }
  ],
  "not_owned": [],
- "built": "2026-10-24 17:27 UTC",
+ "built": "2026-10-25 07:49 UTC",
  "week": "2026-10-26"
 }
