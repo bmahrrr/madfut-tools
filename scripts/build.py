@@ -189,6 +189,13 @@ def main():
         s = next(x for x in week()["sim"] if x["key"] == key)
         print("Sim", key)
         refs = [resolve_team(t, by_id, allc) for t in s.get("opponents", [])]
+        try:                                # this season's current team is a starting point too (it gets polished)
+            prev = json.load(open(os.path.join(RES, f"sim_{key}.json")))
+            if prev.get("week") == week().get("week") and prev.get("teams"):
+                sq = [by_id[p["id"]] for p in prev["teams"][0]["players"] if p["id"] in by_id]
+                if len(sq) == 11 and all(c["id"] not in NO for c in sq): refs.append(sq)
+        except Exception as e:
+            print("no previous sim team to start from:", e)
         teams = build_sim(s, owned, refs=refs)
         try:                                # keep this season's previous team if the new search did worse
             from fatal.sim import evaluate, _slot_rows
