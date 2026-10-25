@@ -1,40 +1,45 @@
 {
  "g": 4,
  "obj_ids": [
-  "id84630",
+  "id225475",
   "id232805",
   "id270068",
-  "id211625"
+  "id84630"
  ],
- "strength": 99.5,
+ "strength": 99.1,
  "group_cards": 383,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 27,
+  "chem": 24,
   "players": [
    {
     "slot": "GK",
-    "id": "id227087",
-    "name": "Giuliani",
+    "id": "id203042",
+    "name": "Butland",
     "rating": 75,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
-    "leagueId": 2215,
-    "clubId": 36,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1952,
     "card": [
-     33,
-     29,
+     38,
+     38,
      76
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     36,
-     30,
-     78
+     38,
+     38,
+     76
     ],
-    "tiebreak": 141
+    "tiebreak": 152
    },
    {
     "slot": "LB",
@@ -61,6 +66,29 @@
    },
    {
     "slot": "CB",
+    "id": "id266551",
+    "name": "George",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 14,
+    "leagueId": 2216,
+    "clubId": 1808,
+    "card": [
+     62,
+     67,
+     78
+    ],
+    "chem": 1,
+    "eff": [
+     62,
+     67,
+     78
+    ],
+    "tiebreak": 207
+   },
+   {
+    "slot": "CB",
     "id": "id232805",
     "name": "Bernardo",
     "rating": 75,
@@ -81,29 +109,6 @@
      75
     ],
     "tiebreak": 203
-   },
-   {
-    "slot": "CB",
-    "id": "id219670",
-    "name": "Piovi",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 52,
-    "leagueId": 341,
-    "clubId": 1878,
-    "card": [
-     70,
-     69,
-     72
-    ],
-    "chem": 3,
-    "eff": [
-     72,
-     71,
-     74
-    ],
-    "tiebreak": 217
    },
    {
     "slot": "RB",
@@ -130,75 +135,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id211625",
-    "name": "Rodrigo Dourado",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 341,
-    "clubId": 113134,
-    "card": [
-     59,
-     68,
-     73
-    ],
-    "chem": 2,
-    "eff": [
-     60,
-     69,
-     74
-    ],
-    "tiebreak": 203
-   },
-   {
-    "slot": "LM",
-    "id": "id84630",
-    "name": "Kaiki",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     65,
-     68,
-     74
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     70,
-     76
-    ],
-    "tiebreak": 213
-   },
-   {
-    "slot": "CM",
-    "id": "id247450",
-    "name": "Palavecino",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 52,
-    "leagueId": 341,
-    "clubId": 1878,
-    "card": [
-     74,
-     77,
-     65
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     79,
-     67
-    ],
-    "tiebreak": 222
-   },
-   {
-    "slot": "CM",
     "id": "id252060",
     "name": "Pobega",
     "rating": 74,
@@ -219,6 +155,75 @@
      76
     ],
     "tiebreak": 224
+   },
+   {
+    "slot": "LM",
+    "id": "id84630",
+    "name": "Kaiki",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     65,
+     68,
+     74
+    ],
+    "chem": 2,
+    "eff": [
+     66,
+     69,
+     75
+    ],
+    "tiebreak": 210
+   },
+   {
+    "slot": "CM",
+    "id": "id225475",
+    "name": "Hernani",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 32,
+    "clubId": 1843,
+    "card": [
+     70,
+     71,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     73,
+     74
+    ],
+    "tiebreak": 219
+   },
+   {
+    "slot": "CM",
+    "id": "id224982",
+    "name": "Palumbo",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 27,
+    "leagueId": 32,
+    "clubId": 1843,
+    "card": [
+     74,
+     74,
+     67
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     76,
+     70
+    ],
+    "tiebreak": 221
    },
    {
     "slot": "RM",
@@ -245,26 +250,26 @@
    },
    {
     "slot": "ST",
-    "id": "id255611",
-    "name": "Maldini",
+    "id": "id240797",
+    "name": "Tramoni",
     "rating": 74,
     "color": "rare_silver",
-    "position": "ST",
+    "position": "CAM",
     "nationId": 27,
-    "leagueId": 31,
-    "clubId": 1842,
+    "leagueId": 32,
+    "clubId": 110738,
     "card": [
-     73,
      75,
-     46
+     72,
+     53
     ],
     "chem": 3,
     "eff": [
-     77,
-     77,
-     49
+     79,
+     74,
+     56
     ],
-    "tiebreak": 200
+    "tiebreak": 206
    }
   ]
  },
@@ -300,18 +305,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id227087",
-  "id219670",
-  "id255874",
+  "id247796",
   "id220534",
-  "id235374",
-  "id252060",
+  "id190815",
+  "id266551",
   "id50590554",
-  "id212404",
-  "id247450",
-  "id269276",
-  "id240797"
+  "id224982",
+  "id252060",
+  "id235374",
+  "id265705",
+  "id240797",
+  "id212404"
  ],
- "built": "2026-10-24 23:11 UTC",
+ "built": "2026-10-25 07:42 UTC",
  "week": "2026-10-26"
 }

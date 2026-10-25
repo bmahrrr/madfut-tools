@@ -1,84 +1,89 @@
 {
  "g": 2,
  "obj_ids": [
-  "id263929",
-  "id266969"
+  "id266969",
+  "id263929"
  ],
- "strength": 99.8,
+ "strength": 100.0,
  "group_cards": 12,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "DRAW",
+   "they_lead_first": "DRAW"
+  }
+ ],
  "team": {
-  "formation": "4-1-2-1-2",
-  "chem": 28,
+  "formation": "4-1-4-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id227087",
-    "name": "Giuliani",
+    "id": "id247796",
+    "name": "Roebuck",
     "rating": 75,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
-    "leagueId": 2215,
-    "clubId": 36,
+    "nationId": 14,
+    "leagueId": 2216,
+    "clubId": 2,
     "card": [
-     33,
+     38,
      29,
      76
     ],
     "chem": 3,
     "eff": [
-     37,
+     40,
      31,
-     79
+     78
     ],
-    "tiebreak": 144
+    "tiebreak": 149
    },
    {
     "slot": "LB",
-    "id": "id258976",
-    "name": "Parisi",
+    "id": "id258714",
+    "name": "Valeri",
     "rating": 75,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 27,
     "leagueId": 31,
-    "clubId": 110374,
+    "clubId": 50,
     "card": [
-     71,
      72,
-     74
+     72,
+     73
     ],
     "chem": 3,
     "eff": [
-     75,
+     76,
      74,
-     77
+     76
     ],
     "tiebreak": 223
    },
    {
     "slot": "CB",
-    "id": "id219670",
-    "name": "Piovi",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 52,
-    "leagueId": 341,
-    "clubId": 1878,
+    "id": "id266551",
+    "name": "George",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 14,
+    "leagueId": 2216,
+    "clubId": 1808,
     "card": [
-     70,
-     69,
-     72
+     62,
+     67,
+     78
     ],
     "chem": 2,
     "eff": [
-     71,
-     70,
-     73
+     63,
+     68,
+     79
     ],
-    "tiebreak": 214
+    "tiebreak": 210
    },
    {
     "slot": "CB",
@@ -173,6 +178,52 @@
     "tiebreak": 228
    },
    {
+    "slot": "CM",
+    "id": "id266918",
+    "name": "Kearns",
+    "rating": 73,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 2216,
+    "clubId": 2,
+    "card": [
+     71,
+     75,
+     60
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     77,
+     62
+    ],
+    "tiebreak": 212
+   },
+   {
+    "slot": "CM",
+    "id": "id224982",
+    "name": "Palumbo",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 27,
+    "leagueId": 32,
+    "clubId": 1843,
+    "card": [
+     74,
+     74,
+     67
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     76,
+     70
+    ],
+    "tiebreak": 221
+   },
+   {
     "slot": "RM",
     "id": "id263929",
     "name": "Cancellieri",
@@ -194,52 +245,6 @@
      48
     ],
     "tiebreak": 196
-   },
-   {
-    "slot": "CAM",
-    "id": "id247450",
-    "name": "Palavecino",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 52,
-    "leagueId": 341,
-    "clubId": 1878,
-    "card": [
-     74,
-     77,
-     65
-    ],
-    "chem": 2,
-    "eff": [
-     75,
-     78,
-     66
-    ],
-    "tiebreak": 219
-   },
-   {
-    "slot": "ST",
-    "id": "id241463",
-    "name": "Dani Raba",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 461,
-    "card": [
-     72,
-     73,
-     47
-    ],
-    "chem": 0,
-    "eff": [
-     69,
-     72,
-     44
-    ],
-    "tiebreak": 183
    },
    {
     "slot": "ST",
@@ -297,18 +302,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id227087",
-  "id219670",
-  "id255874",
+  "id247796",
   "id220534",
-  "id235374",
-  "id252060",
+  "id190815",
+  "id266551",
   "id50590554",
-  "id212404",
-  "id247450",
-  "id269276",
-  "id240797"
+  "id224982",
+  "id252060",
+  "id235374",
+  "id265705",
+  "id240797",
+  "id212404"
  ],
- "built": "2026-10-24 23:11 UTC",
+ "built": "2026-10-25 07:42 UTC",
  "week": "2026-10-26"
 }

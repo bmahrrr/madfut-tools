@@ -1,38 +1,43 @@
 {
  "g": 2,
  "obj_ids": [
-  "id225201",
-  "id246044"
+  "id246044",
+  "id225201"
  ],
- "strength": 99.8,
+ "strength": 101.6,
  "group_cards": 4,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
   "formation": "4-3-3 (4)",
-  "chem": 30,
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
-    "id": "id206585",
-    "name": "Kepa",
+    "id": "id270821",
+    "name": "Penders",
     "rating": 78,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 45,
+    "nationId": 7,
     "leagueId": 13,
-    "clubId": 1,
+    "clubId": 5,
     "card": [
-     37,
+     33,
      41,
      79
     ],
     "chem": 3,
     "eff": [
-     41,
-     44,
-     81
+     37,
+     45,
+     83
     ],
-    "tiebreak": 163
+    "tiebreak": 159
    },
    {
     "slot": "LB",
@@ -59,29 +64,6 @@
    },
    {
     "slot": "CB",
-    "id": "id248695",
-    "name": "Fofana",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     60,
-     65,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     64,
-     69,
-     83
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CB",
     "id": "id192638",
     "name": "Marcos Alonso",
     "rating": 79,
@@ -102,6 +84,29 @@
      81
     ],
     "tiebreak": 235
+   },
+   {
+    "slot": "CB",
+    "id": "id272978",
+    "name": "Hato",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 34,
+    "leagueId": 13,
+    "clubId": 5,
+    "card": [
+     66,
+     71,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     75,
+     81
+    ],
+    "tiebreak": 220
    },
    {
     "slot": "RB",
@@ -128,26 +133,26 @@
    },
    {
     "slot": "CM",
-    "id": "id279604",
-    "name": "Jauregizar",
-    "rating": 79,
+    "id": "id200260",
+    "name": "Berghuis",
+    "rating": 76,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 448,
+    "position": "RW",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
     "card": [
-     76,
      75,
-     77
+     79,
+     44
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     80,
-     78,
-     79
+     75,
+     79,
+     44
     ],
-    "tiebreak": 234
+    "tiebreak": 198
    },
    {
     "slot": "CM",
@@ -233,13 +238,13 @@
      78,
      66
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     81,
-     81,
-     68
+     80,
+     80,
+     67
     ],
-    "tiebreak": 227
+    "tiebreak": 224
    },
    {
     "slot": "RW",
@@ -297,18 +302,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id270821",
+  "id257235",
   "id258371",
-  "id192638",
   "id248695",
-  "id259307",
-  "id241811",
+  "id264103",
+  "ltm_espart79",
   "id263370",
-  "id225201",
   "id266032",
+  "id246672",
+  "id225201",
   "id270407",
-  "id76042"
+  "id50596345"
  ],
- "built": "2026-10-24 23:11 UTC",
+ "built": "2026-10-25 07:42 UTC",
  "week": "2026-10-26"
 }

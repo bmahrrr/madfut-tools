@@ -1,18 +1,22 @@
 {
- "g": 5,
+ "g": 4,
  "obj_ids": [
   "id279709",
-  "id234505",
-  "id259075",
+  "id272505",
   "id50562314",
   "id273463"
  ],
- "strength": 100.0,
+ "strength": 102.8,
  "group_cards": 441,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
   "formation": "4-1-3-2",
-  "chem": 29,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -29,13 +33,13 @@
      41,
      79
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     36,
-     44,
-     82
+     37,
+     45,
+     83
     ],
-    "tiebreak": 156
+    "tiebreak": 159
    },
    {
     "slot": "LB",
@@ -98,36 +102,36 @@
      71,
      79
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     61,
-     72,
-     80
+     60,
+     71,
+     79
     ],
-    "tiebreak": 213
+    "tiebreak": 210
    },
    {
     "slot": "RB",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
+    "id": "id259307",
+    "name": "Gusto",
+    "rating": 79,
     "color": "rare_gold",
     "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
+    "nationId": 18,
+    "leagueId": 13,
+    "clubId": 5,
     "card": [
-     75,
-     80,
-     75
+     72,
+     76,
+     78
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
      76,
-     81,
-     76
+     80,
+     82
     ],
-    "tiebreak": 233
+    "tiebreak": 232
    },
    {
     "slot": "CDM",
@@ -200,49 +204,49 @@
    },
    {
     "slot": "RM",
-    "id": "id225201",
-    "name": "Berenguer",
+    "id": "id259377",
+    "name": "Yeremy Pino",
     "rating": 79,
     "color": "rare_gold",
-    "position": "RW",
+    "position": "LW",
     "nationId": 45,
-    "leagueId": 53,
-    "clubId": 448,
+    "leagueId": 13,
+    "clubId": 1799,
     "card": [
-     79,
      77,
-     66
+     80,
+     40
     ],
     "chem": 3,
     "eff": [
+     81,
      83,
-     80,
-     68
+     42
     ],
-    "tiebreak": 228
+    "tiebreak": 203
    },
    {
     "slot": "ST",
-    "id": "id234505",
-    "name": "Evander",
+    "id": "id272505",
+    "name": "Endrick",
     "rating": 79,
     "color": "rare_gold",
-    "position": "CAM",
+    "position": "ST",
     "nationId": 54,
-    "leagueId": 39,
-    "clubId": 113149,
+    "leagueId": 53,
+    "clubId": 243,
     "card": [
-     78,
-     79,
-     64
-    ],
-    "chem": 2,
-    "eff": [
-     79,
      80,
-     65
+     71,
+     38
     ],
-    "tiebreak": 224
+    "chem": 3,
+    "eff": [
+     82,
+     73,
+     40
+    ],
+    "tiebreak": 195
    },
    {
     "slot": "ST",
@@ -301,18 +305,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id270821",
+  "id257235",
   "id258371",
-  "id192638",
   "id248695",
-  "id259307",
-  "id241811",
+  "id264103",
+  "ltm_espart79",
   "id263370",
-  "id225201",
   "id266032",
+  "id246672",
+  "id225201",
   "id270407",
-  "id76042"
+  "id50596345"
  ],
- "built": "2026-10-24 23:12 UTC",
+ "built": "2026-10-25 07:42 UTC",
  "week": "2026-10-26"
 }
