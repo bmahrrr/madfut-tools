@@ -4,7 +4,7 @@ const AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut"]);
 const ICON = new Set(["icon", "debut_icon"]);
 const CHEM_BONUS = { 0: -3, 1: 0, 2: 1, 3: 2 };
 const CTRL = new Set(["LM", "LW", "RM", "RW", "CAM", "CM", "CDM", "LB", "RB"]);
-const ATT = new Set(["ST", "CAM", "LW", "LM", "RW", "RM", "CF", "LB", "RB"]);   // Sim: full-backs can be picked to attack too
+const ATT = new Set(["ST", "CAM", "LW", "LM", "RW", "RM", "CF"]);   // Sim attackers (full-backs never attack)
 const DEF = new Set(["LB", "RB", "CDM", "CB", "GK"]);
 
 function cardType(c) { return String(c.color).replace("rare_", ""); }
@@ -157,15 +157,39 @@ const LEVEL_NAME = l => (l >= 3 ? "WIN" : l === 2 ? "DRAW" : "LOSS");
 // ---------------- Sim head-to-head ----------------
 // One possession: random control card vs random control card; the winner's random attacker
 // vs the loser's random defender. Ties: random choice of attack / defence / total comparison.
-function simMatch(R1, R2) {      // R = [{slot, a, c, d, t}]
+// Each possession 3 control cards are picked; the attack needs 3 cards not picked for control. With fewer than 3
+// natural attackers left (always in 5-3-2) the game fills in by MAIN position: CM first, then CDM, ... (same as fatal/sim.py)
+const FILL = [["ST", "CF"], ["LW", "RW"], ["CAM"], ["LM", "RM"], ["CM"], ["CDM"], ["LB", "RB"], ["CB"], ["GK"]];
+function attackWeights(R) {
+  const n = R.length, N = [], C = [];
+  R.forEach((r, i) => { if (ATT.has(r.slot)) N.push(i); if (CTRL.has(r.slot)) C.push(i); });
+  const picks = [];
+  if (C.length < 3) picks.push(C.slice());
+  else for (let a = 0; a < C.length; a++) for (let b = a + 1; b < C.length; b++) for (let c = b + 1; c < C.length; c++) picks.push([C[a], C[b], C[c]]);
+  const w = new Array(n).fill(0);
+  for (const P of picks) {
+    const avail = N.filter(i => !P.includes(i));
+    if (avail.length >= 3) { avail.forEach(i => w[i] += 1 / avail.length); continue; }
+    avail.forEach(i => w[i] += 1 / 3);
+    let need = 3 - avail.length;
+    const rest = [...Array(n).keys()].filter(i => !P.includes(i) && !avail.includes(i));
+    for (const lvl of FILL) {
+      if (need <= 0) break;
+      const g = rest.filter(i => lvl.includes(R[i].pos || R[i].slot)); if (!g.length) continue;
+      const take = Math.min(need, g.length); g.forEach(i => w[i] += take / g.length / 3); need -= take;
+    }
+  }
+  return w.map(x => x / picks.length);
+}
+function simMatch(R1, R2) {      // R = [{slot, pos (card's main position), a, c, d, t}]
   const cmpv = (x, y) => (x > y ? 1 : x === y ? 0.5 : 0);
   const tieBreak = (x, y) => (cmpv(x.a, y.a) + cmpv(x.d, y.d) + cmpv(x.a + x.c + x.d, y.a + y.c + y.d)) / 3;
   const C1 = R1.filter(r => CTRL.has(r.slot)), C2 = R2.filter(r => CTRL.has(r.slot));
-  const A1 = R1.filter(r => ATT.has(r.slot)), A2 = R2.filter(r => ATT.has(r.slot));
+  const W1 = attackWeights(R1), W2 = attackWeights(R2);
   const D1 = R1.filter(r => DEF.has(r.slot)), D2 = R2.filter(r => DEF.has(r.slot));
   let pc = 0;
   for (const x of C1) for (const y of C2) pc += x.c !== y.c ? (x.c > y.c ? 1 : 0) : tieBreak(x, y);
   pc /= C1.length * C2.length;
-  const pa = (A, D) => { let s = 0; for (const x of A) for (const y of D) s += x.a !== y.d ? (x.a > y.d ? 1 : 0) : tieBreak(x, y); return s / (A.length * D.length); };
-  return { control: pc, scoreA: pc * pa(A1, D2), scoreB: (1 - pc) * pa(A2, D1) };
+  const pa = (R, W, D) => { let s = 0; R.forEach((x, i) => { if (!W[i]) return; let t = 0; for (const y of D) t += x.a !== y.d ? (x.a > y.d ? 1 : 0) : tieBreak(x, y); s += W[i] * t / D.length; }); return s; };
+  return { control: pc, scoreA: pc * pa(R1, W1, D2), scoreB: (1 - pc) * pa(R2, W2, D1) };
 }

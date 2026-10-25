@@ -8,8 +8,38 @@ import time
 from .core import (CTRL, ATT, DEF, AUTO, full_chem, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe, pid)
 from .milp import build
 
-# In Fatal Sim the attacker is picked at random from the attacking positions, and full-backs can be picked too
-ATT = ATT | {"LB", "RB"}
+import itertools
+
+# Fatal Sim (confirmed by the Reddit team maker): attackers are LM/LW, RM/RW, CAM and ST (full-backs never attack);
+# defenders are CB, LB/RB, GK and CDM. Each possession 3 control cards are picked; the attack needs 3 cards that were
+# not picked for control. When fewer than 3 natural attackers are left (always in 5-3-2), the game fills the attack
+# with the cards whose MAIN position is most attacking (CM first, then CDM, ...), wherever they are played.
+FILL = [{"ST", "CF"}, {"LW", "RW"}, {"CAM"}, {"LM", "RM"}, {"CM"}, {"CDM"}, {"LB", "RB"}, {"CB"}, {"GK"}]
+
+
+def attack_weights(slots, mainpos):
+    """Chance that each of the 11 cards is the attacker in a possession (sums to 1)."""
+    n = len(slots)
+    N = [i for i, s in enumerate(slots) if s in ATT]
+    C = [i for i, s in enumerate(slots) if s in CTRL]
+    picks = list(itertools.combinations(C, 3)) if len(C) >= 3 else [tuple(C)]
+    w = [0.0] * n
+    for P in picks:
+        avail = [i for i in N if i not in P]
+        if len(avail) >= 3:
+            for i in avail: w[i] += 1 / len(avail)
+            continue
+        for i in avail: w[i] += 1 / 3
+        need = 3 - len(avail)
+        rest = [i for i in range(n) if i not in P and i not in avail]
+        for lvl in FILL:
+            if need <= 0: break
+            g = [i for i in rest if mainpos[i] in lvl]
+            if not g: continue
+            share = min(need, len(g)) / len(g)
+            for i in g: w[i] += share / 3
+            need -= min(need, len(g))
+    return [x / len(picks) for x in w]
 
 
 def _pool(series, cards):
@@ -27,17 +57,19 @@ def evaluate(team, slots, series):
     E, ch = effective(team, series)
     C = [E[i][1] for i, s in enumerate(slots) if s in CTRL]
     CT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in CTRL)   # control duels tie -> total stats
-    A = [E[i][0] for i, s in enumerate(slots) if s in ATT]
+    W = attack_weights(slots, [x["position"] for x in team])
+    A = [E[i][0] for i in range(len(slots)) if W[i] > 0]
     D = [E[i][2] for i, s in enumerate(slots) if s in DEF]
-    AT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in ATT)   # attack duels tie -> total stats
+    att_exp = sum(W[i] * E[i][0] for i in range(len(slots)))                     # expected attack of the attacker
+    AT = sum(W[i] * (E[i][0] + E[i][1] + E[i][2]) for i in range(len(slots)))     # attack duels tie -> total stats
     DT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in DEF)
     bad = sum(1 for i, s in enumerate(slots) if s in CTRL and ch[i] < 3)
     m = lambda v: sum(v) / len(v) if v else 0
-    return {"control": round(m(C), 2), "attack": round(m(A), 2), "defence": round(m(D), 2),
+    return {"control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2),
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
             "defence_cards": sorted(D, reverse=True), "chem": sum(ch), "ctrl_not_full": bad,
             "ctrl_total": round(CT / len(C), 2) if C else 0,
-            "att_total": round(AT / len(A), 2) if A else 0, "def_total": round(DT / len(D), 2) if D else 0}
+            "att_total": round(AT, 2), "def_total": round(DT / len(D), 2) if D else 0}
 
 
 def rank_key(ev):
@@ -52,7 +84,7 @@ def sim_key(ev):
     return (ev["ctrl_not_full"] == 0, rank_key(ev))
 
 
-def polish(team, slots, series, pool, seconds=60):
+def polish(team, slots, series, pool, seconds=60, stats=None):
     """Swap one card at a time for ANY card in the series (every rating, every link) while the team gets better.
     Catches what the shortlist misses, e.g. a 55 link card that lets a better control card on full chem."""
     t0 = time.time()
@@ -68,6 +100,7 @@ def polish(team, slots, series, pool, seconds=60):
                     continue
                 trial = team[:i] + [c] + team[i + 1:]
                 k = sim_key(evaluate(trial, slots, series))
+                if stats is not None: stats["checked"] = stats.get("checked", 0) + 1
                 if k > best:
                     team, best, improved = trial, k, True
                     used = {pid(x) for kk, x in enumerate(team) if kk != i}
@@ -167,6 +200,17 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             results.append((pe, form, p))
     results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     results = [r for r in results if r[0]["ctrl_not_full"] == 0] or results
+    # swap check on the team that will be published: every card in the series tried in every slot until no single
+    # swap is better (control, then attack, then defence, each then its total)
+    if results:
+        ev, form, sq = results[0]; slots = FORMATIONS[form]; st = {}
+        p = polish(sq, slots, series, pool, 600, stats=st)
+        pe = evaluate(p, slots, series)
+        if sim_key(pe) > sim_key(ev):
+            log(f"  swap check improved {form}: attack {ev['attack']} -> {pe['attack']}, defence {ev['defence']} -> {pe['defence']}")
+            results[0] = (pe, form, p)
+        results[0][0]["swaps_checked"] = st.get("checked", 0)
+        log(f"  swap check: {st.get('checked', 0)} swaps tried on the final team")
     out = []
     for ev, form, sq in results[:3]:
         d = describe(sq, series)
