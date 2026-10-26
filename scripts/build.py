@@ -303,8 +303,26 @@ def main():
                 cands.append(("Previous Best", [by_id[p["id"]] for p in prev["team"]["players"] if p["id"] in by_id]))
         except Exception as e:
             print("no previous team:", e)
-        team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind, seed=int(time.time() // 86400),
-                            verify=3 if kind == "robust" else 0, candidates=cands)
+            prev = None
+        # safety net: the builder has its own deadline (minutes x 1.25 + 15 min); if a step still runs 45 minutes past
+        # it, stop and keep the current team, so the job never hits the 6-hour limit and the other steps still run
+        import signal
+        def _late(*_): raise TimeoutError
+        signal.signal(signal.SIGALRM, _late)
+        signal.alarm(int(minutes * 60 * 1.25 + 900 + 2700))
+        try:
+            team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind, seed=int(time.time() // 86400),
+                                verify=3 if kind == "robust" else 0, candidates=cands)
+        except TimeoutError:
+            print("time limit reached: the current team stays")
+            return
+        finally:
+            signal.alarm(0)
+        try:                                # same 11 cards as the current team: keep its slots so nothing moves on the site
+            if prev and sorted(p["id"] for p in prev["team"]["players"]) == sorted(p["id"] for p in team["players"]):
+                team.update({k: prev["team"][k] for k in ("formation", "players", "chem") if k in prev["team"]})
+        except Exception as e:
+            print("could not keep the slots:", e)
         out = {"mode": "myclub", "series": {k: v for k, v in s.items() if k != "opponents"},
                "opponents": [[c["name"] for c in o] for o in opps], "team": team, "not_owned": no_names}
         if variant: out["variant"] = {"id": vid, "label": variant["label"]}
