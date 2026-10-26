@@ -65,26 +65,26 @@
    },
    {
     "slot": "LB",
-    "id": "id206006",
-    "name": "Alioski",
+    "id": "evo_Jones_68",
+    "name": "Jones",
     "rating": 68,
-    "color": "rare_silver",
+    "color": "evo",
     "position": "LB",
-    "nationId": 19,
-    "leagueId": 189,
-    "clubId": 10032,
+    "nationId": 32,
+    "leagueId": 60,
+    "clubId": 112764,
     "card": [
-     70,
-     70,
-     67
+     71,
+     69,
+     66
     ],
     "chem": 3,
     "eff": [
-     72,
-     72,
-     69
+     73,
+     71,
+     68
     ],
-    "tiebreak": 213
+    "tiebreak": 212
    },
    {
     "slot": "CB",
@@ -180,52 +180,29 @@
    },
    {
     "slot": "LM",
-    "id": "id209264",
-    "name": "Finne",
+    "id": "id206006",
+    "name": "Alioski",
     "rating": 68,
     "color": "rare_silver",
-    "position": "ST",
-    "nationId": 36,
-    "leagueId": 41,
-    "clubId": 919,
+    "position": "LB",
+    "nationId": 19,
+    "leagueId": 189,
+    "clubId": 10032,
     "card": [
      70,
-     64,
-     33
+     70,
+     67
     ],
     "chem": 3,
     "eff": [
      72,
-     66,
-     35
+     72,
+     69
     ],
-    "tiebreak": 173
+    "tiebreak": 213
    },
    {
     "slot": "RM",
-    "id": "evo_Jones_68",
-    "name": "Jones",
-    "rating": 68,
-    "color": "evo",
-    "position": "LB",
-    "nationId": 32,
-    "leagueId": 60,
-    "clubId": 112764,
-    "card": [
-     71,
-     69,
-     66
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     71,
-     68
-    ],
-    "tiebreak": 212
-   },
-   {
-    "slot": "CAM",
     "id": "id230736",
     "name": "Kitolano",
     "rating": 67,
@@ -248,7 +225,7 @@
     "tiebreak": 198
    },
    {
-    "slot": "ST",
+    "slot": "CAM",
     "id": "id277376",
     "name": "Cassano",
     "rating": 68,
@@ -292,6 +269,29 @@
      47
     ],
     "tiebreak": 182
+   },
+   {
+    "slot": "ST",
+    "id": "id209264",
+    "name": "Finne",
+    "rating": 68,
+    "color": "rare_silver",
+    "position": "ST",
+    "nationId": 36,
+    "leagueId": 41,
+    "clubId": 919,
+    "card": [
+     70,
+     64,
+     33
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     66,
+     35
+    ],
+    "tiebreak": 173
    }
   ],
   "results": {
@@ -40549,32 +40549,32 @@
    "safe": [
     {
      "slot": "LB",
-     "name": "Alioski",
-     "stat": "attack"
-    },
-    {
-     "slot": "LM",
-     "name": "Finne",
-     "stat": "attack"
-    },
-    {
-     "slot": "RM",
      "name": "Jones",
      "stat": "attack"
     },
     {
-     "slot": "CAM",
+     "slot": "LM",
+     "name": "Alioski",
+     "stat": "attack"
+    },
+    {
+     "slot": "RM",
      "name": "Kitolano",
      "stat": "attack"
     },
     {
-     "slot": "ST",
+     "slot": "CAM",
      "name": "Cassano",
      "stat": "attack"
     },
     {
      "slot": "ST",
      "name": "Gulbrandsen",
+     "stat": "attack"
+    },
+    {
+     "slot": "ST",
+     "name": "Finne",
      "stat": "attack"
     }
    ],
@@ -40584,26 +40584,21 @@
     "safe": [
      {
       "slot": "LB",
-      "name": "Alioski",
-      "stat": "attack"
-     },
-     {
-      "slot": "LM",
-      "name": "Finne",
-      "stat": "attack"
-     },
-     {
-      "slot": "RM",
       "name": "Jones",
       "stat": "attack"
      },
      {
-      "slot": "CAM",
+      "slot": "LM",
+      "name": "Alioski",
+      "stat": "attack"
+     },
+     {
+      "slot": "RM",
       "name": "Kitolano",
       "stat": "attack"
      },
      {
-      "slot": "ST",
+      "slot": "CAM",
       "name": "Cassano",
       "stat": "attack"
      },
@@ -40611,28 +40606,15 @@
       "slot": "ST",
       "name": "Gulbrandsen",
       "stat": "attack"
+     },
+     {
+      "slot": "ST",
+      "name": "Finne",
+      "stat": "attack"
      }
     ]
    },
    "watch": [
-    {
-     "s": 0,
-     "v": 72,
-     "beat": [],
-     "ties": [],
-     "name": "Alioski",
-     "rank": 0,
-     "text": "Unbeatable attack 72: no card in the series wins that duel."
-    },
-    {
-     "s": 0,
-     "v": 72,
-     "beat": [],
-     "ties": [],
-     "name": "Finne",
-     "rank": 0,
-     "text": "Unbeatable attack 72: no card in the series wins that duel."
-    },
     {
      "s": 0,
      "v": 73,
@@ -40647,6 +40629,15 @@
      "v": 72,
      "beat": [],
      "ties": [],
+     "name": "Alioski",
+     "rank": 0,
+     "text": "Unbeatable attack 72: no card in the series wins that duel."
+    },
+    {
+     "s": 0,
+     "v": 72,
+     "beat": [],
+     "ties": [],
      "name": "Kitolano",
      "rank": 0,
      "text": "Unbeatable attack 72: no card in the series wins that duel."
@@ -40666,6 +40657,15 @@
      "beat": [],
      "ties": [],
      "name": "Gulbrandsen",
+     "rank": 0,
+     "text": "Unbeatable attack 72: no card in the series wins that duel."
+    },
+    {
+     "s": 0,
+     "v": 72,
+     "beat": [],
+     "ties": [],
+     "name": "Finne",
      "rank": 0,
      "text": "Unbeatable attack 72: no card in the series wins that duel."
     }

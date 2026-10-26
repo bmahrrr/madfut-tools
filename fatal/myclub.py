@@ -154,6 +154,24 @@ class Unbeat:
         ref = sum(per[:self.n_ref]) if self.n_ref else 0
         return (1, k[2], ref, w, s, secondary(E)) if k[0] else (0, ref, w, k[1], s, secondary(E))
 
+    def full_key_min(self, E, opps, need):
+        """full_key(E, scores vs opps), or None as soon as it can't reach need[:5] (a worse team usually fails within
+        a few games instead of playing every test team: each game is a solver run of up to ~2 s)."""
+        k = self.key(E)
+        head = (1, k[2]) if k[0] else (0,)
+        nh = tuple(need[:len(head)])
+        if head < nh: return None
+        eq, ri = head == nh, len(head)          # ri: where the Reddit result sits in the key; the worst result follows
+        per = [pscore(E, O) for O in opps[:self.n_ref]]
+        if eq:
+            if sum(per) < need[ri]: return None
+            eq = sum(per) == need[ri]
+            if eq and per and min(per) < need[ri + 1]: return None
+        for O in opps[self.n_ref:]:
+            per.append(pscore(E, O))
+            if eq and per[-1] < need[ri + 1]: return None
+        return self.full_key(E, per)
+
 
 def pair_score(a, b):
     """One opponent, both lead orders, as one number: 3 x (results) minus 1 per loss, so a loss in one lead order is
@@ -236,6 +254,20 @@ DEADLINE = None     # hard finish time for one build (set by build_myclub): late
 
 def _fit(seconds):
     return seconds if DEADLINE is None else max(2, min(seconds, DEADLINE - time.time()))
+
+
+def timed_rank(items, keyfn, seconds, pre=None):
+    """items sorted best first by keyfn, but scoring stops after `seconds` (the game solver is slow: up to ~2 s a
+    game); items not scored by then follow the scored ones, in the order of the cheap key `pre`."""
+    seconds = _fit(seconds)
+    order = sorted(items, key=pre, reverse=True) if pre else list(items)
+    t0, scored, rest = time.time(), [], []
+    for i, t in enumerate(order):
+        if time.time() - t0 > seconds:
+            rest = order[i:]; break
+        scored.append((keyfn(t), t))
+    scored.sort(key=lambda x: x[0], reverse=True)     # stable: equal keys keep the cheap order
+    return [t for _, t in scored] + rest
 
 
 def optimize(pool, seed, opps, weights, seconds, rng, log=None, label="", robust=False, guard=None):
@@ -661,11 +693,14 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         for k, t in enumerate(pop):
             pool_opps.append(Ep[k]); weights.append(1); names.append(f"counter p{k+1}"); opp_cards[f"counter p{k+1}"] = t
     # 3) start from the owned population teams that do best against everyone (worst case, then total)
+    # ranked on the Reddit and balanced teams only, time-boxed: every game is a solver run, and ranking every
+    # starting team against every population team grew with the square of the population (88 ran past 6 hours)
+    n_rank = len(opponents) + len(bal)
     def rr(t):
-        Et = me.eff(t); per = [pscore(Et, O) for O in pool_opps]
+        Et = me.eff(t); per = [pscore(Et, O) for O in pool_opps[:n_rank]]
         return ub.full_key(Et, per)
     mine = [[owned_ids[c["id"]] for c in t] for t in mine if all(c["id"] in owned_ids for c in t)]
-    ranked = sorted(mine, key=rr, reverse=True)
+    ranked = timed_rank(mine, rr, min(T * 0.05, 600), pre=lambda t: ub.key(me.eff(t)))
     log(f"  population: {len(pop)} teams, {len(mine)} starting teams, {time.time() - t_pop:.0f}s")
     seeds += ranked[:6]
     ushape = [t for t in ranked if ub.key(me.eff(t))[0]][:3]       # the best owned teams of the owner's shape
@@ -691,7 +726,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         E = me.eff(team)
         # counter-teams start from the population teams that already do best against this team, from the team
         # itself, from the opponents and from earlier counters
-        strong = sorted(pop, key=lambda t: -sum(play(field.eff(t), E, f)[0] for f in (0, 1)))[:4]
+        strong = timed_rank(pop, lambda t: sum(play(field.eff(t), E, f)[0] for f in (0, 1)), min(T * 0.01, 90))[:4]
         starts = list(opponents) + [team] + counters + strong
         start = rng.choice(starts)
         start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
@@ -727,7 +762,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         candidates = [("Unbeatable", ubest)] + list(candidates)
     if mode != "beat" and bal_mine:      # the best full-chem balanced teams also reach the final check
         bk = lambda t: ub.full_key(me.eff(t), [pscore(me.eff(t), O) for O in pool_opps])
-        for t in sorted(bal_mine, key=bk, reverse=True)[:2]:
+        for t in timed_rank(bal_mine, bk, min(T * 0.02, 240))[:2]:
             if _key(t) != _key(team): candidates = list(candidates) + [("Balanced", t)]
     if candidates:              # final check: the builder's team vs the Reddit / hand-built teams
         # Fair test: each candidate also gets stress-test teams built specifically against IT, then every
@@ -783,15 +818,16 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         by_pid = collections.defaultdict(list)
         for c in me.cards: by_pid[c["pid"]].append(c)
         ck = vkey(E); improved = True
-        while improved:
+        while improved and (DEADLINE is None or time.time() < DEADLINE + 600):
             improved = False
             for i, c in enumerate(team):
                 for v in by_pid[c["pid"]]:
                     if v["id"] == c["id"]: continue
                     t = team[:i] + [v] + team[i + 1:]
                     if not fits(t): continue
-                    Et = me.eff(t); k = vkey(Et)
-                    if k[:5] >= ck[:5] and k > ck:
+                    if DEADLINE is not None and time.time() > DEADLINE + 600: break
+                    Et = me.eff(t); k = ub.full_key_min(Et, pool_opps, ck)
+                    if k is not None and k[:5] >= ck[:5] and k > ck:
                         log(f"  version swap: {c['name']} {c['rating']} -> {v['rating']} {k} vs {ck}")
                         team, E, ck, improved = t, Et, k, True
                         if source == "builder": source = "Polished"
@@ -822,8 +858,8 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
                     if not fits(t): continue
                     tc = team_chem(t)
                     if tc <= cc: continue
-                    Et = me.eff(t); k = vkey(Et)
-                    if k[:5] >= ck[:5]:
+                    Et = me.eff(t); k = ub.full_key_min(Et, pool_opps, ck)
+                    if k is not None and k[:5] >= ck[:5]:
                         log(f"  chem swap: {team[i]['name']} {team[i]['rating']} (chem {ch[i]}) -> {c['name']} {c['rating']}, team chem {cc} -> {tc}, {k[:5]} vs {ck[:5]}")
                         team, E, ck, cc, improved = t, Et, k, tc, True
                         if source == "builder": source = "Polished"
