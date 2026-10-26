@@ -3,7 +3,7 @@
  "obj_ids": [
   "id3622"
  ],
- "strength": 101.0,
+ "strength": 101.2,
  "group_cards": 1,
  "reddit": [
   {
@@ -12,8 +12,8 @@
   }
  ],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 33,
+  "formation": "4-1-4-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -53,13 +53,13 @@
      88,
      78
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
+     89,
      90,
-     91,
-     83
+     82
     ],
-    "tiebreak": 259
+    "tiebreak": 256
    },
    {
     "slot": "CB",
@@ -86,52 +86,98 @@
    },
    {
     "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     76,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     89,
-     90
-    ],
-    "tiebreak": 253
-   },
-   {
-    "slot": "RB",
-    "id": "id135455",
-    "name": "Maicon",
+    "id": "id138956",
+    "name": "Chiellini",
     "rating": 88,
     "color": "icon",
-    "position": "RB",
-    "nationId": 54,
+    "position": "CB",
+    "nationId": 27,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     83,
-     81,
+     64,
+     62,
+     90
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     65,
+     95
+    ],
+    "tiebreak": 222
+   },
+   {
+    "slot": "RB",
+    "id": "new_Xavi Espart_88",
+    "name": "Xavi Espart",
+    "rating": 88,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     79,
+     86,
      87
     ],
     "chem": 3,
     "eff": [
-     86,
-     84,
+     82,
+     89,
      92
     ],
-    "tiebreak": 257
+    "tiebreak": 258
    },
    {
     "slot": "CDM",
+    "id": "id237289",
+    "name": "Patri Guijarro",
+    "rating": 88,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
+    "card": [
+     86,
+     85,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     88,
+     91
+    ],
+    "tiebreak": 263
+   },
+   {
+    "slot": "LM",
+    "id": "ltm_ngumoha88",
+    "name": "Ngumoha",
+    "rating": 88,
+    "color": "ltm",
+    "position": "LM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     88,
+     86,
+     54
+    ],
+    "chem": 3,
+    "eff": [
+     91,
+     89,
+     59
+    ],
+    "tiebreak": 234
+   },
+   {
+    "slot": "CM",
     "id": "evo_Groß_88",
     "name": "Groß",
     "rating": 88,
@@ -154,76 +200,7 @@
     "tiebreak": 264
    },
    {
-    "slot": "CDM",
-    "id": "id238427",
-    "name": "Vieira",
-    "rating": 88,
-    "color": "icon",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     81,
-     81,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     84,
-     92
-    ],
-    "tiebreak": 255
-   },
-   {
-    "slot": "CAM",
-    "id": "id23174",
-    "name": "Riquelme",
-    "rating": 88,
-    "color": "icon",
-    "position": "CAM",
-    "nationId": 52,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     86,
-     89,
-     39
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     92,
-     44
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "CAM",
-    "id": "id50568420",
-    "name": "Szoboszlai",
-    "rating": 88,
-    "color": "halloween",
-    "position": "RB",
-    "nationId": 23,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     85,
-     86,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     92
-    ],
-    "tiebreak": 264
-   },
-   {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id50592947",
     "name": "Scott",
     "rating": 86,
@@ -244,6 +221,29 @@
      86
     ],
     "tiebreak": 260
+   },
+   {
+    "slot": "RM",
+    "id": "id50568420",
+    "name": "Szoboszlai",
+    "rating": 88,
+    "color": "halloween",
+    "position": "RB",
+    "nationId": 23,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     85,
+     86,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     89,
+     92
+    ],
+    "tiebreak": 264
    },
    {
     "slot": "ST",
@@ -303,17 +303,17 @@
  },
  "base_ids": [
   "id48940",
-  "id138956",
-  "id140601",
   "id251483",
-  "id50595413",
-  "id120274",
-  "id274750",
+  "id140601",
+  "id138956",
   "evo_Groß_88",
-  "id50568420",
   "id82092",
-  "id262112"
+  "id274750",
+  "id50595413",
+  "id50568420",
+  "id262112",
+  "id120274"
  ],
- "built": "2026-10-26 06:23 UTC",
+ "built": "2026-10-26 08:03 UTC",
  "week": "2026-10-26"
 }
