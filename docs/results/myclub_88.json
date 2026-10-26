@@ -66,26 +66,26 @@
    },
    {
     "slot": "CB",
-    "id": "id138956",
-    "name": "Chiellini",
+    "id": "id251483",
+    "name": "Kompany",
     "rating": 88,
-    "color": "icon",
+    "color": "hero",
     "position": "CB",
-    "nationId": 27,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 7,
+    "leagueId": 13,
+    "clubId": 114605,
     "card": [
-     64,
-     62,
-     90
+     68,
+     68,
+     88
     ],
     "chem": 3,
     "eff": [
-     67,
-     65,
-     95
+     71,
+     71,
+     93
     ],
-    "tiebreak": 222
+    "tiebreak": 230
    },
    {
     "slot": "CB",
@@ -112,70 +112,70 @@
    },
    {
     "slot": "CB",
-    "id": "id251483",
-    "name": "Kompany",
+    "id": "id138956",
+    "name": "Chiellini",
     "rating": 88,
-    "color": "hero",
+    "color": "icon",
     "position": "CB",
-    "nationId": 7,
-    "leagueId": 13,
-    "clubId": 114605,
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     68,
-     68,
-     88
+     64,
+     62,
+     90
     ],
     "chem": 3,
     "eff": [
-     71,
-     71,
-     93
+     67,
+     65,
+     95
     ],
-    "tiebreak": 230
+    "tiebreak": 222
    },
    {
     "slot": "CDM",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
+    "id": "evo_Groß_88",
+    "name": "Groß",
+    "rating": 88,
+    "color": "evo",
+    "position": "CDM",
     "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
      87,
-     88,
-     78
+     89,
+     82
     ],
     "chem": 3,
     "eff": [
      90,
-     91,
-     83
+     92,
+     87
     ],
-    "tiebreak": 259
+    "tiebreak": 264
    },
    {
     "slot": "LM",
-    "id": "id120274",
-    "name": "Di Natale",
+    "id": "id82092",
+    "name": "Kempes",
     "rating": 88,
-    "color": "hero",
+    "color": "icon",
     "position": "ST",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 114605,
+    "nationId": 52,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
      89,
-     85,
-     48
+     80,
+     53
     ],
     "chem": 3,
     "eff": [
      92,
-     88,
-     53
+     83,
+     58
     ],
     "tiebreak": 228
    },
@@ -204,26 +204,26 @@
    },
    {
     "slot": "CM",
-    "id": "evo_Groß_88",
-    "name": "Groß",
-    "rating": 88,
-    "color": "evo",
-    "position": "CDM",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
     "nationId": 21,
-    "leagueId": 13,
-    "clubId": 1808,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
      87,
-     89,
-     82
+     88,
+     78
     ],
     "chem": 3,
     "eff": [
      90,
-     92,
-     87
+     91,
+     83
     ],
-    "tiebreak": 264
+    "tiebreak": 259
    },
    {
     "slot": "RM",
@@ -250,29 +250,6 @@
    },
    {
     "slot": "ST",
-    "id": "id82092",
-    "name": "Kempes",
-    "rating": 88,
-    "color": "icon",
-    "position": "ST",
-    "nationId": 52,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     89,
-     80,
-     53
-    ],
-    "chem": 3,
-    "eff": [
-     92,
-     83,
-     58
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "ST",
     "id": "id262112",
     "name": "van Persie",
     "rating": 88,
@@ -291,6 +268,29 @@
      92,
      87,
      54
+    ],
+    "tiebreak": 228
+   },
+   {
+    "slot": "ST",
+    "id": "id120274",
+    "name": "Di Natale",
+    "rating": 88,
+    "color": "hero",
+    "position": "ST",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 114605,
+    "card": [
+     89,
+     85,
+     48
+    ],
+    "chem": 3,
+    "eff": [
+     92,
+     88,
+     53
     ],
     "tiebreak": 228
    }
@@ -52127,7 +52127,7 @@
     },
     {
      "slot": "CB",
-     "name": "Chiellini",
+     "name": "Kompany",
      "stat": "defence"
     },
     {
@@ -52137,7 +52137,7 @@
     },
     {
      "slot": "CB",
-     "name": "Kompany",
+     "name": "Chiellini",
      "stat": "defence"
     },
     {
@@ -52147,36 +52147,7 @@
     }
    ],
    "total_openers": 33,
-   "reddit": {
-    "guaranteed": "DRAW",
-    "safe": [
-     {
-      "slot": "GK",
-      "name": "Čech",
-      "stat": "defence"
-     },
-     {
-      "slot": "CB",
-      "name": "Chiellini",
-      "stat": "defence"
-     },
-     {
-      "slot": "CB",
-      "name": "Vidić",
-      "stat": "defence"
-     },
-     {
-      "slot": "CB",
-      "name": "Kompany",
-      "stat": "defence"
-     },
-     {
-      "slot": "RM",
-      "name": "Szoboszlai",
-      "stat": "defence"
-     }
-    ]
-   },
+   "reddit": null,
    "watch": [
     {
      "s": 2,
@@ -52189,12 +52160,12 @@
     },
     {
      "s": 2,
-     "v": 95,
+     "v": 93,
      "beat": [],
      "ties": [],
-     "name": "Chiellini",
+     "name": "Kompany",
      "rank": 0,
-     "text": "Unbeatable defence 95: no card in the series wins that duel."
+     "text": "Unbeatable defence 93: no card in the series wins that duel."
     },
     {
      "s": 2,
@@ -52207,12 +52178,12 @@
     },
     {
      "s": 2,
-     "v": 93,
+     "v": 95,
      "beat": [],
      "ties": [],
-     "name": "Kompany",
+     "name": "Chiellini",
      "rank": 0,
-     "text": "Unbeatable defence 93: no card in the series wins that duel."
+     "text": "Unbeatable defence 95: no card in the series wins that duel."
     },
     {
      "s": 1,
