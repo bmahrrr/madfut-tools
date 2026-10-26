@@ -1,12 +1,12 @@
 {
  "g": 4,
  "obj_ids": [
+  "id50602057",
   "id266866",
-  "id236632",
-  "id258648",
-  "id255475"
+  "id252042",
+  "id258648"
  ],
- "strength": 102.0,
+ "strength": 100.3,
  "group_cards": 474,
  "reddit": [
   {
@@ -15,54 +15,31 @@
   }
  ],
  "team": {
-  "formation": "4-2-1-3",
-  "chem": 32,
+  "formation": "3-4-2-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id193080",
-    "name": "De Gea",
+    "id": "id224987",
+    "name": "Provedel",
     "rating": 83,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 45,
+    "nationId": 27,
     "leagueId": 31,
-    "clubId": 110374,
+    "clubId": 131682,
     "card": [
      37,
-     34,
+     37,
      84
     ],
     "chem": 3,
     "eff": [
      40,
-     37,
+     40,
      87
     ],
-    "tiebreak": 161
-   },
-   {
-    "slot": "LB",
-    "id": "id210514",
-    "name": "João Cancelo",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 241,
-    "card": [
-     80,
-     83,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     85,
-     83
-    ],
-    "tiebreak": 250
+    "tiebreak": 164
    },
    {
     "slot": "CB",
@@ -89,52 +66,75 @@
    },
    {
     "slot": "CB",
-    "id": "id229237",
-    "name": "Akanji",
-    "rating": 83,
+    "id": "id217870",
+    "name": "Di Lorenzo",
+    "rating": 82,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 47,
+    "position": "RB",
+    "nationId": 27,
     "leagueId": 31,
-    "clubId": 131682,
+    "clubId": 48,
     "card": [
-     64,
-     71,
-     83
+     74,
+     72,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     75,
+     84
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "CB",
+    "id": "id50606840",
+    "name": "Vušković",
+    "rating": 83,
+    "color": "otw",
+    "position": "CB",
+    "nationId": 10,
+    "leagueId": 13,
+    "clubId": 1808,
+    "card": [
+     65,
+     65,
+     84
     ],
     "chem": 3,
     "eff": [
      67,
-     74,
+     67,
      86
     ],
-    "tiebreak": 224
+    "tiebreak": 220
    },
    {
-    "slot": "RB",
-    "id": "id50575350",
-    "name": "Spence",
+    "slot": "LM",
+    "id": "id50602057",
+    "name": "Savinho",
     "rating": 83,
     "color": "otw",
-    "position": "LB",
-    "nationId": 14,
-    "leagueId": 31,
-    "clubId": 131682,
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 18,
     "card": [
-     75,
-     77,
-     82
+     82,
+     81,
+     40
     ],
     "chem": 3,
     "eff": [
-     78,
-     80,
-     85
+     86,
+     84,
+     42
     ],
-    "tiebreak": 240
+    "tiebreak": 209
    },
    {
-    "slot": "CDM",
+    "slot": "CM",
     "id": "id266866",
     "name": "Éderson",
     "rating": 82,
@@ -157,119 +157,119 @@
     "tiebreak": 241
    },
    {
-    "slot": "CDM",
-    "id": "ltm_espart83",
-    "name": "Xavi Espart",
-    "rating": 83,
-    "color": "ltm",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
+    "slot": "CM",
+    "id": "id50522413",
+    "name": "Groß",
+    "rating": 81,
+    "color": "totw_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
-     75,
-     81,
-     82
+     79,
+     83,
+     75
     ],
     "chem": 3,
     "eff": [
+     81,
+     85,
+     77
+    ],
+    "tiebreak": 243
+   },
+   {
+    "slot": "RM",
+    "id": "id243576",
+    "name": "Pedro Porro",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 13,
+    "clubId": 18,
+    "card": [
      77,
-     83,
-     84
+     80,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     82,
+     83
     ],
     "tiebreak": 244
    },
    {
     "slot": "CAM",
-    "id": "id50572598",
-    "name": "Pedro Gonçalves",
-    "rating": 83,
-    "color": "otw",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
+    "id": "id220697",
+    "name": "Maddison",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 18,
     "card": [
-     82,
-     82,
-     63
+     81,
+     84,
+     55
     ],
     "chem": 3,
     "eff": [
-     85,
-     85,
-     66
+     83,
+     86,
+     57
     ],
-    "tiebreak": 233
+    "tiebreak": 226
    },
    {
-    "slot": "LW",
-    "id": "id236632",
-    "name": "David Neres",
-    "rating": 81,
+    "slot": "CAM",
+    "id": "id227236",
+    "name": "Zambo Anguissa",
+    "rating": 82,
     "color": "rare_gold",
-    "position": "LW",
-    "nationId": 54,
+    "position": "CM",
+    "nationId": 103,
     "leagueId": 31,
     "clubId": 48,
     "card": [
-     81,
-     78,
-     46
+     79,
+     77,
+     80
     ],
     "chem": 3,
     "eff": [
-     86,
      82,
-     49
+     80,
+     83
     ],
-    "tiebreak": 211
+    "tiebreak": 242
    },
    {
     "slot": "ST",
-    "id": "id227796",
-    "name": "Pulisic",
+    "id": "id252042",
+    "name": "João Pedro",
     "rating": 83,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 95,
-    "leagueId": 31,
-    "clubId": 131681,
+    "position": "ST",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 5,
     "card": [
      83,
-     81,
-     49
+     77,
+     43
     ],
     "chem": 3,
     "eff": [
-     86,
-     84,
-     52
-    ],
-    "tiebreak": 219
-   },
-   {
-    "slot": "RW",
-    "id": "id255475",
-    "name": "Antony",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     82,
+     87,
      80,
-     50
+     45
     ],
-    "chem": 2,
-    "eff": [
-     85,
-     82,
-     51
-    ],
-    "tiebreak": 215
+    "tiebreak": 209
    }
   ]
  },
@@ -305,18 +305,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id193080",
-  "id50575350",
-  "id229237",
+  "id224987",
+  "id50606840",
   "id244263",
-  "id210514",
-  "id197781",
-  "id236632",
-  "id257279",
-  "id50575428",
-  "id255475",
-  "id50583500"
+  "id229237",
+  "id50522413",
+  "id50602057",
+  "id227236",
+  "id220697",
+  "id238744",
+  "id252042",
+  "id227796"
  ],
- "built": "2026-10-25 18:21 UTC",
+ "built": "2026-10-26 06:23 UTC",
  "week": "2026-10-26"
 }

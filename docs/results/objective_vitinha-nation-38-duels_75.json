@@ -1,16 +1,17 @@
 {
- "g": 8,
+ "g": 9,
  "obj_ids": [
   "id212442",
   "id258607",
-  "id231391",
-  "id50579377",
-  "id261831",
-  "id211368",
+  "id263829",
+  "id227890",
   "id230767",
-  "id227890"
+  "id263828",
+  "id231391",
+  "id261831",
+  "id50579377"
  ],
- "strength": 100.1,
+ "strength": 100.2,
  "group_cards": 17,
  "reddit": [
   {
@@ -19,8 +20,8 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 32,
+  "formation": "4-1-2-1-2",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -162,52 +163,52 @@
    },
    {
     "slot": "LM",
-    "id": "id211368",
-    "name": "Bruma",
+    "id": "id201389",
+    "name": "Biraghi",
     "rating": 75,
     "color": "rare_gold",
-    "position": "LW",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 234,
-    "card": [
-     75,
-     72,
-     37
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     74,
-     39
-    ],
-    "tiebreak": 190
-   },
-   {
-    "slot": "CM",
-    "id": "id252060",
-    "name": "Pobega",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "CDM",
+    "position": "LB",
     "nationId": 27,
     "leagueId": 31,
-    "clubId": 189,
+    "clubId": 54,
     "card": [
-     74,
-     71,
-     73
+     73,
+     75,
+     74
+    ],
+    "chem": 2,
+    "eff": [
+     76,
+     76,
+     76
+    ],
+    "tiebreak": 225
+   },
+   {
+    "slot": "RM",
+    "id": "id263828",
+    "name": "Roger Fernandes",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 607,
+    "card": [
+     76,
+     70,
+     55
     ],
     "chem": 3,
     "eff": [
      78,
-     73,
-     76
+     72,
+     57
     ],
-    "tiebreak": 224
+    "tiebreak": 207
    },
    {
-    "slot": "CM",
+    "slot": "CAM",
     "id": "id231391",
     "name": "João Carvalho",
     "rating": 75,
@@ -228,29 +229,6 @@
      38
     ],
     "tiebreak": 191
-   },
-   {
-    "slot": "RM",
-    "id": "id212404",
-    "name": "Bernardeschi",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "RM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 189,
-    "card": [
-     75,
-     77,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     79,
-     58
-    ],
-    "tiebreak": 213
    },
    {
     "slot": "ST",
@@ -274,6 +252,29 @@
      67
     ],
     "tiebreak": 219
+   },
+   {
+    "slot": "ST",
+    "id": "id263829",
+    "name": "Vitinha",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 110556,
+    "card": [
+     75,
+     70,
+     43
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     72,
+     45
+    ],
+    "tiebreak": 194
    }
   ]
  },
@@ -309,17 +310,17 @@
  },
  "base_ids": [
   "id247796",
-  "id258976",
+  "id201389",
   "id266551",
   "id220534",
   "id235374",
   "id265292",
   "id50590554",
   "id212404",
-  "id224982",
-  "id269276",
-  "id240797"
+  "id269312",
+  "id240797",
+  "id269276"
  ],
- "built": "2026-10-25 18:21 UTC",
+ "built": "2026-10-26 06:23 UTC",
  "week": "2026-10-26"
 }

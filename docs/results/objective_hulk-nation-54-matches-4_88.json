@@ -2,16 +2,21 @@
  "g": 4,
  "obj_ids": [
   "id192190",
-  "id135455",
+  "id50558541",
   "id28765",
-  "id50558541"
+  "id135455"
  ],
  "strength": 100.4,
  "group_cards": 505,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "DRAW",
+   "they_lead_first": "DRAW"
+  }
+ ],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 33,
+  "formation": "4-3-2-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -84,26 +89,26 @@
    },
    {
     "slot": "CB",
-    "id": "id161840",
-    "name": "Fernando Hierro",
+    "id": "id238443",
+    "name": "Blanc",
     "rating": 88,
     "color": "icon",
     "position": "CB",
-    "nationId": 45,
+    "nationId": 18,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     73,
-     72,
-     88
+     77,
+     76,
+     87
     ],
     "chem": 3,
     "eff": [
-     76,
-     75,
-     93
+     80,
+     79,
+     92
     ],
-    "tiebreak": 239
+    "tiebreak": 246
    },
    {
     "slot": "RB",
@@ -129,7 +134,30 @@
     "tiebreak": 257
    },
    {
-    "slot": "CDM",
+    "slot": "CM",
+    "id": "id237289",
+    "name": "Patri Guijarro",
+    "rating": 88,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
+    "card": [
+     86,
+     85,
+     86
+    ],
+    "chem": 2,
+    "eff": [
+     88,
+     87,
+     90
+    ],
+    "tiebreak": 260
+   },
+   {
+    "slot": "CM",
     "id": "evo_Groß_88",
     "name": "Groß",
     "rating": 88,
@@ -152,7 +180,7 @@
     "tiebreak": 264
    },
    {
-    "slot": "CDM",
+    "slot": "CM",
     "id": "id192190",
     "name": "Dunga",
     "rating": 88,
@@ -176,26 +204,26 @@
    },
    {
     "slot": "CAM",
-    "id": "id171877",
-    "name": "Hamšík",
-    "rating": 87,
-    "color": "hero",
-    "position": "CAM",
-    "nationId": 43,
-    "leagueId": 31,
-    "clubId": 114605,
+    "id": "id50568420",
+    "name": "Szoboszlai",
+    "rating": 88,
+    "color": "halloween",
+    "position": "RB",
+    "nationId": 23,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
+     85,
      86,
-     86,
-     75
+     87
     ],
     "chem": 3,
     "eff": [
+     88,
      89,
-     89,
-     80
+     92
     ],
-    "tiebreak": 253
+    "tiebreak": 264
    },
    {
     "slot": "CAM",
@@ -219,29 +247,6 @@
      86
     ],
     "tiebreak": 260
-   },
-   {
-    "slot": "CAM",
-    "id": "id50568420",
-    "name": "Szoboszlai",
-    "rating": 88,
-    "color": "halloween",
-    "position": "RB",
-    "nationId": 23,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     85,
-     86,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     92
-    ],
-    "tiebreak": 264
    },
    {
     "slot": "ST",
@@ -302,17 +307,17 @@
  },
  "base_ids": [
   "id48940",
-  "id251483",
-  "id140601",
   "id138956",
-  "evo_Groß_88",
-  "id82092",
-  "id274750",
+  "id140601",
+  "id251483",
   "id50595413",
+  "id120274",
+  "id274750",
+  "evo_Groß_88",
   "id50568420",
-  "id262112",
-  "id120274"
+  "id82092",
+  "id262112"
  ],
- "built": "2026-10-24 23:11 UTC",
+ "built": "2026-10-26 06:23 UTC",
  "week": "2026-10-26"
 }

@@ -1,12 +1,12 @@
 {
  "g": 4,
  "obj_ids": [
-  "id273136",
+  "id179944",
   "id67375554",
-  "id184943",
-  "id189362"
+  "id189362",
+  "id184943"
  ],
- "strength": 99.9,
+ "strength": 100.5,
  "group_cards": 492,
  "reddit": [
   {
@@ -16,30 +16,30 @@
  ],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 32,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id273136",
-    "name": "Lorena",
-    "rating": 85,
-    "color": "rare_gold",
+    "id": "id44897",
+    "name": "Dudek",
+    "rating": 86,
+    "color": "hero",
     "position": "GK",
-    "nationId": 54,
-    "leagueId": 2221,
-    "clubId": 116309,
+    "nationId": 37,
+    "leagueId": 13,
+    "clubId": 114605,
     "card": [
-     37,
      41,
-     85
+     31,
+     87
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     38,
-     42,
-     86
+     43,
+     33,
+     89
     ],
-    "tiebreak": 166
+    "tiebreak": 165
    },
    {
     "slot": "CB",
@@ -89,72 +89,49 @@
    },
    {
     "slot": "CB",
-    "id": "id50610428",
-    "name": "Jeltsch",
+    "id": "id179944",
+    "name": "David Luiz",
     "rating": 85,
-    "color": "future_stars",
+    "color": "hall_of_fut",
     "position": "CB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 36,
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 132794,
     "card": [
-     68,
-     72,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     70,
-     74,
-     87
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "LM",
-    "id": "id67230808",
-    "name": "Schweinsteiger",
-    "rating": 86,
-    "color": "debut_icon",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     81,
-     80,
+     73,
+     76,
      84
     ],
     "chem": 3,
     "eff": [
-     83,
-     82,
+     75,
+     78,
      86
     ],
-    "tiebreak": 251
+    "tiebreak": 239
    },
    {
-    "slot": "CM",
-    "id": "id50595413",
-    "name": "Bischof",
+    "slot": "LM",
+    "id": "id275092",
+    "name": "Bompastor",
     "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "color": "hero",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 114605,
     "card": [
-     87,
-     88,
-     78
+     83,
+     84,
+     84
     ],
     "chem": 3,
     "eff": [
-     89,
-     90,
-     80
+     85,
+     86,
+     86
     ],
-    "tiebreak": 259
+    "tiebreak": 257
    },
    {
     "slot": "CM",
@@ -178,6 +155,29 @@
      83
     ],
     "tiebreak": 260
+   },
+   {
+    "slot": "CM",
+    "id": "id50608342",
+    "name": "Manzambi",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 47,
+    "leagueId": 13,
+    "clubId": 2,
+    "card": [
+     86,
+     85,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     87,
+     78
+    ],
+    "tiebreak": 253
    },
    {
     "slot": "RM",
@@ -204,29 +204,6 @@
    },
    {
     "slot": "CAM",
-    "id": "id50603487",
-    "name": "Vobian",
-    "rating": 86,
-    "color": "halloween",
-    "position": "LM",
-    "nationId": 21,
-    "leagueId": 2215,
-    "clubId": 25,
-    "card": [
-     85,
-     86,
-     63
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     88,
-     65
-    ],
-    "tiebreak": 240
-   },
-   {
-    "slot": "CAM",
     "id": "id50402434",
     "name": "King",
     "rating": 85,
@@ -247,6 +224,29 @@
      71
     ],
     "tiebreak": 248
+   },
+   {
+    "slot": "CAM",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     87,
+     88,
+     78
+    ],
+    "chem": 1,
+    "eff": [
+     87,
+     88,
+     78
+    ],
+    "tiebreak": 253
    },
    {
     "slot": "ST",
@@ -306,17 +306,17 @@
  },
  "base_ids": [
   "id44897",
-  "id50610428",
-  "evo_Can_85",
+  "id50595413",
   "id50752",
-  "id67230808",
+  "evo_Can_85",
+  "id225375",
   "id50402434",
-  "id227327",
+  "id67230808",
   "id15723",
   "id50592947",
-  "id50595413",
-  "id50572365"
+  "id50572365",
+  "id50416920"
  ],
- "built": "2026-10-25 18:21 UTC",
+ "built": "2026-10-26 06:23 UTC",
  "week": "2026-10-26"
 }

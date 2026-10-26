@@ -1,15 +1,16 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
-  "id251570",
-  "id189362"
+  "id78012",
+  "id189362",
+  "id251570"
  ],
  "strength": 100.2,
  "group_cards": 6,
  "reddit": [
   {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "WIN"
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
@@ -18,49 +19,72 @@
   "players": [
    {
     "slot": "GK",
-    "id": "id44897",
-    "name": "Dudek",
+    "id": "id259532",
+    "name": "Joan García",
     "rating": 86,
-    "color": "hero",
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 37,
-    "leagueId": 13,
-    "clubId": 114605,
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
-     41,
-     31,
-     87
+     36,
+     38,
+     86
     ],
     "chem": 3,
     "eff": [
-     43,
-     33,
-     89
+     38,
+     40,
+     88
     ],
-    "tiebreak": 165
+    "tiebreak": 166
    },
    {
     "slot": "LB",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "id": "id50560266",
+    "name": "Mendy",
+    "rating": 85,
+    "color": "heritage",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 53,
+    "clubId": 243,
     "card": [
-     87,
-     88,
-     78
+     80,
+     79,
+     84
     ],
     "chem": 3,
     "eff": [
-     89,
-     90,
-     80
+     85,
+     82,
+     86
     ],
-    "tiebreak": 259
+    "tiebreak": 249
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
+     85
+    ],
+    "chem": 2,
+    "eff": [
+     77,
+     87,
+     86
+    ],
+    "tiebreak": 250
    },
    {
     "slot": "CB",
@@ -86,73 +110,50 @@
     "tiebreak": 230
    },
    {
-    "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
+    "slot": "RB",
+    "id": "ltm_espart86",
+    "name": "Xavi Espart",
+    "rating": 86,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
-     76,
-     86,
+     78,
+     84,
      85
     ],
     "chem": 3,
     "eff": [
-     78,
-     88,
+     80,
+     86,
      87
     ],
     "tiebreak": 253
    },
    {
-    "slot": "RB",
-    "id": "id225375",
-    "name": "Laimer",
-    "rating": 85,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 4,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     76,
-     77,
-     84
-    ],
-    "chem": 2,
-    "eff": [
-     77,
-     78,
-     85
-    ],
-    "tiebreak": 240
-   },
-   {
     "slot": "CDM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
     "color": "future_stars",
-    "position": "CM",
+    "position": "CAM",
     "nationId": 14,
     "leagueId": 13,
-    "clubId": 1943,
+    "clubId": 144,
     "card": [
-     85,
-     88,
-     81
+     86,
+     87,
+     69
     ],
     "chem": 3,
     "eff": [
-     87,
-     90,
-     83
+     88,
+     89,
+     71
     ],
-    "tiebreak": 260
+    "tiebreak": 248
    },
    {
     "slot": "LM",
@@ -179,52 +180,6 @@
    },
    {
     "slot": "CM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CM",
-    "id": "id67355727",
-    "name": "Nmecha",
-    "rating": 86,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 22,
-    "card": [
-     83,
-     81,
-     84
-    ],
-    "chem": 2,
-    "eff": [
-     84,
-     82,
-     85
-    ],
-    "tiebreak": 251
-   },
-   {
-    "slot": "RM",
     "id": "id251570",
     "name": "Cherki",
     "rating": 86,
@@ -245,6 +200,52 @@
      46
     ],
     "tiebreak": 220
+   },
+   {
+    "slot": "CM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
+     85,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     90,
+     83
+    ],
+    "tiebreak": 260
+   },
+   {
+    "slot": "RM",
+    "id": "id78012",
+    "name": "Diomande",
+    "rating": 84,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 108,
+    "leagueId": 53,
+    "clubId": 243,
+    "card": [
+     83,
+     79,
+     49
+    ],
+    "chem": 2,
+    "eff": [
+     87,
+     81,
+     50
+    ],
+    "tiebreak": 214
    },
    {
     "slot": "ST",
@@ -303,17 +304,17 @@
  },
  "base_ids": [
   "id44897",
-  "id50610428",
-  "evo_Can_85",
+  "id50595413",
   "id50752",
-  "id67230808",
+  "evo_Can_85",
+  "id225375",
   "id50402434",
-  "id227327",
+  "id67230808",
   "id15723",
   "id50592947",
-  "id50595413",
-  "id50572365"
+  "id50572365",
+  "id50416920"
  ],
- "built": "2026-10-25 18:22 UTC",
+ "built": "2026-10-26 06:23 UTC",
  "week": "2026-10-26"
 }

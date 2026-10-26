@@ -3,11 +3,16 @@
  "obj_ids": [
   "id71557"
  ],
- "strength": 101.1,
+ "strength": 101.0,
  "group_cards": 1,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "DRAW",
+   "they_lead_first": "DRAW"
+  }
+ ],
  "team": {
-  "formation": "4-3-2-1",
+  "formation": "4-2-3-1",
   "chem": 33,
   "players": [
    {
@@ -58,26 +63,26 @@
    },
    {
     "slot": "CB",
-    "id": "id138956",
-    "name": "Chiellini",
+    "id": "id161840",
+    "name": "Fernando Hierro",
     "rating": 88,
     "color": "icon",
     "position": "CB",
-    "nationId": 27,
+    "nationId": 45,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     64,
-     62,
-     90
+     73,
+     72,
+     88
     ],
     "chem": 3,
     "eff": [
-     67,
-     65,
-     95
+     76,
+     75,
+     93
     ],
-    "tiebreak": 222
+    "tiebreak": 239
    },
    {
     "slot": "CB",
@@ -126,30 +131,30 @@
     "tiebreak": 257
    },
    {
-    "slot": "CM",
-    "id": "new_Xavi Espart_88",
-    "name": "Xavi Espart",
+    "slot": "CDM",
+    "id": "evo_Groß_88",
+    "name": "Groß",
     "rating": 88,
-    "color": "ltm",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
-     79,
-     86,
-     87
+     87,
+     89,
+     82
     ],
     "chem": 3,
     "eff": [
-     82,
-     89,
-     92
+     90,
+     92,
+     87
     ],
-    "tiebreak": 258
+    "tiebreak": 264
    },
    {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "id237289",
     "name": "Patri Guijarro",
     "rating": 88,
@@ -172,25 +177,48 @@
     "tiebreak": 263
    },
    {
-    "slot": "CM",
-    "id": "evo_Groß_88",
-    "name": "Groß",
-    "rating": 88,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 1808,
+    "slot": "CAM",
+    "id": "id171877",
+    "name": "Hamšík",
+    "rating": 87,
+    "color": "hero",
+    "position": "CAM",
+    "nationId": 43,
+    "leagueId": 31,
+    "clubId": 114605,
     "card": [
-     87,
-     89,
-     82
+     86,
+     86,
+     75
     ],
     "chem": 3,
     "eff": [
-     90,
-     92,
+     89,
+     89,
+     80
+    ],
+    "tiebreak": 253
+   },
+   {
+    "slot": "CAM",
+    "id": "id50568420",
+    "name": "Szoboszlai",
+    "rating": 88,
+    "color": "halloween",
+    "position": "RB",
+    "nationId": 23,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     85,
+     86,
      87
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     89,
+     92
     ],
     "tiebreak": 264
    },
@@ -216,29 +244,6 @@
      86
     ],
     "tiebreak": 260
-   },
-   {
-    "slot": "CAM",
-    "id": "id50568420",
-    "name": "Szoboszlai",
-    "rating": 88,
-    "color": "halloween",
-    "position": "RB",
-    "nationId": 23,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     85,
-     86,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     92
-    ],
-    "tiebreak": 264
    },
    {
     "slot": "ST",
@@ -298,17 +303,17 @@
  },
  "base_ids": [
   "id48940",
-  "id251483",
-  "id140601",
   "id138956",
-  "evo_Groß_88",
-  "id82092",
-  "id274750",
+  "id140601",
+  "id251483",
   "id50595413",
+  "id120274",
+  "id274750",
+  "evo_Groß_88",
   "id50568420",
-  "id262112",
-  "id120274"
+  "id82092",
+  "id262112"
  ],
- "built": "2026-10-24 23:11 UTC",
+ "built": "2026-10-26 06:23 UTC",
  "week": "2026-10-26"
 }
