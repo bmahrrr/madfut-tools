@@ -1,10 +1,10 @@
 {
  "g": 4,
  "obj_ids": [
+  "id273136",
   "id179944",
-  "id67375554",
-  "id189362",
-  "id184943"
+  "id184943",
+  "id67335759"
  ],
  "strength": 100.5,
  "group_cards": 492,
@@ -15,54 +15,54 @@
   }
  ],
  "team": {
-  "formation": "3-4-2-1",
+  "formation": "4-2-3-1",
   "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id44897",
-    "name": "Dudek",
-    "rating": 86,
-    "color": "hero",
-    "position": "GK",
-    "nationId": 37,
-    "leagueId": 13,
-    "clubId": 114605,
-    "card": [
-     41,
-     31,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     43,
-     33,
-     89
-    ],
-    "tiebreak": 165
-   },
-   {
-    "slot": "CB",
-    "id": "id67375554",
-    "name": "Lúcio",
+    "id": "id273136",
+    "name": "Lorena",
     "rating": 85,
-    "color": "debut_icon",
-    "position": "CB",
+    "color": "rare_gold",
+    "position": "GK",
     "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "leagueId": 2221,
+    "clubId": 116309,
     "card": [
-     71,
-     71,
-     84
+     37,
+     41,
+     85
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     73,
-     73,
+     38,
+     42,
      86
     ],
-    "tiebreak": 232
+    "tiebreak": 166
+   },
+   {
+    "slot": "LB",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     87,
+     88,
+     78
+    ],
+    "chem": 2,
+    "eff": [
+     88,
+     89,
+     79
+    ],
+    "tiebreak": 256
    },
    {
     "slot": "CB",
@@ -111,30 +111,76 @@
     "tiebreak": 239
    },
    {
-    "slot": "LM",
-    "id": "id275092",
-    "name": "Bompastor",
-    "rating": 86,
-    "color": "hero",
-    "position": "LB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 114605,
+    "slot": "RB",
+    "id": "id67359754",
+    "name": "Zambrotta",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     83,
-     84,
+     75,
+     77,
      84
     ],
     "chem": 3,
     "eff": [
-     85,
-     86,
+     77,
+     79,
      86
     ],
-    "tiebreak": 257
+    "tiebreak": 242
    },
    {
-    "slot": "CM",
+    "slot": "CDM",
+    "id": "id67335759",
+    "name": "Formiga",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     79,
+     82,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     84,
+     85
+    ],
+    "tiebreak": 250
+   },
+   {
+    "slot": "CDM",
+    "id": "id184943",
+    "name": "Ramires",
+    "rating": 86,
+    "color": "hero",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 114605,
+    "card": [
+     81,
+     82,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     84,
+     86
+    ],
+    "tiebreak": 253
+   },
+   {
+    "slot": "CAM",
     "id": "id50592947",
     "name": "Scott",
     "rating": 86,
@@ -157,7 +203,7 @@
     "tiebreak": 260
    },
    {
-    "slot": "CM",
+    "slot": "CAM",
     "id": "id50608342",
     "name": "Manzambi",
     "rating": 85,
@@ -176,29 +222,6 @@
      88,
      87,
      78
-    ],
-    "tiebreak": 253
-   },
-   {
-    "slot": "RM",
-    "id": "id184943",
-    "name": "Ramires",
-    "rating": 86,
-    "color": "hero",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 114605,
-    "card": [
-     81,
-     82,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     84,
-     86
     ],
     "tiebreak": 253
    },
@@ -226,50 +249,27 @@
     "tiebreak": 248
    },
    {
-    "slot": "CAM",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     87,
-     88,
-     78
-    ],
-    "chem": 1,
-    "eff": [
-     87,
-     88,
-     78
-    ],
-    "tiebreak": 253
-   },
-   {
     "slot": "ST",
-    "id": "id189362",
-    "name": "Hulk",
-    "rating": 85,
-    "color": "hall_of_fut",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 308,
-    "clubId": 132794,
+    "id": "id50574662",
+    "name": "Mbeumo",
+    "rating": 86,
+    "color": "destined_for_glory",
+    "position": "RM",
+    "nationId": 103,
+    "leagueId": 13,
+    "clubId": 11,
     "card": [
      85,
      82,
-     51
+     54
     ],
     "chem": 3,
     "eff": [
-     87,
-     84,
-     53
+     89,
+     86,
+     58
     ],
-    "tiebreak": 224
+    "tiebreak": 227
    }
   ]
  },
@@ -311,12 +311,12 @@
   "evo_Can_85",
   "id225375",
   "id50402434",
-  "id67230808",
-  "id15723",
+  "id227327",
   "id50592947",
+  "id15723",
   "id50572365",
-  "id50416920"
+  "id67335223"
  ],
- "built": "2026-10-26 06:23 UTC",
+ "built": "2026-10-27 02:15 UTC",
  "week": "2026-10-26"
 }
