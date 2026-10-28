@@ -287,7 +287,7 @@
     "control": 82.4,
     "attack": 80.31,
     "defence": 77.25,
-    "net": 0.0157,
+    "net": 0.0147,
     "control_cards": [
      84,
      83,
@@ -569,7 +569,7 @@
     "control": 82.4,
     "attack": 80.31,
     "defence": 77.25,
-    "net": 0.0157,
+    "net": 0.0147,
     "control_cards": [
      84,
      83,
@@ -600,7 +600,7 @@
    }
   },
   {
-   "formation": "5-2-1-2",
+   "formation": "3-1-4-2",
    "chem": 32,
    "players": [
     {
@@ -626,26 +626,26 @@
      "slot": "GK"
     },
     {
-     "id": "id224334",
-     "name": "Acuña",
+     "id": "id272723",
+     "name": "Di Lollo",
      "rating": 76,
      "color": "rare_gold",
-     "position": "LB",
+     "position": "CB",
      "nationId": 52,
      "leagueId": 353,
-     "clubId": 1876,
+     "clubId": 1877,
      "card": [
-      75,
-      77,
-      75
+      50,
+      46,
+      76
      ],
      "chem": 3,
      "eff": [
-      77,
-      81,
-      78
+      52,
+      50,
+      79
      ],
-     "slot": "LB"
+     "slot": "CB"
     },
     {
      "id": "id228708",
@@ -666,28 +666,6 @@
       72,
       73,
       78
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id272723",
-     "name": "Di Lollo",
-     "rating": 76,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 1877,
-     "card": [
-      50,
-      46,
-      76
-     ],
-     "chem": 3,
-     "eff": [
-      52,
-      50,
-      79
      ],
      "slot": "CB"
     },
@@ -714,48 +692,48 @@
      "slot": "CB"
     },
     {
-     "id": "id259075",
-     "name": "Yan Couto",
+     "id": "id209297",
+     "name": "Fred",
      "rating": 77,
      "color": "rare_gold",
-     "position": "RB",
+     "position": "CM",
      "nationId": 54,
-     "leagueId": 31,
-     "clubId": 1745,
+     "leagueId": 1014,
+     "clubId": 1035,
      "card": [
-      75,
-      80,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      79,
-      84,
-      79
-     ],
-     "slot": "RB"
-    },
-    {
-     "id": "id230658",
-     "name": "Arthur",
-     "rating": 76,
-     "color": "rare_gold",
-     "position": "CDM",
-     "nationId": 54,
-     "leagueId": 31,
-     "clubId": 45,
-     "card": [
-      74,
-      79,
+      76,
+      78,
       71
      ],
      "chem": 3,
      "eff": [
-      78,
-      83,
+      80,
+      82,
       75
      ],
-     "slot": "CM"
+     "slot": "CDM"
+    },
+    {
+     "id": "id224334",
+     "name": "Acuña",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      75,
+      77,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      81,
+      78
+     ],
+     "slot": "LM"
     },
     {
      "id": "id253175",
@@ -780,26 +758,48 @@
      "slot": "CM"
     },
     {
-     "id": "id209297",
-     "name": "Fred",
-     "rating": 77,
+     "id": "id230658",
+     "name": "Arthur",
+     "rating": 76,
      "color": "rare_gold",
-     "position": "CM",
+     "position": "CDM",
      "nationId": 54,
-     "leagueId": 1014,
-     "clubId": 1035,
+     "leagueId": 31,
+     "clubId": 45,
      "card": [
-      76,
-      78,
+      74,
+      79,
       71
      ],
      "chem": 3,
      "eff": [
-      80,
-      82,
+      78,
+      83,
       75
      ],
-     "slot": "CAM"
+     "slot": "CM"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      84,
+      79
+     ],
+     "slot": "RM"
     },
     {
      "id": "id238422",
@@ -848,9 +848,9 @@
    ],
    "metrics": {
     "control": 82.4,
-    "attack": 79.75,
-    "defence": 77.67,
-    "net": 0.0082,
+    "attack": 80.09,
+    "defence": 76.8,
+    "net": -0.0088,
     "control_cards": [
      84,
      83,
@@ -863,25 +863,26 @@
      81,
      80,
      79,
+     79,
+     77,
      72
     ],
     "defence_cards": [
      81,
      79,
-     79,
      78,
-     78,
+     75,
      71
     ],
     "chem": 32,
     "ctrl_not_full": 0,
     "ctrl_total": 236.0,
-    "att_total": 212.42,
-    "def_total": 208.67
+    "att_total": 215.63,
+    "def_total": 202.2
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-28 04:17 UTC",
+ "built": "2026-10-28 08:48 UTC",
  "week": "2026-10-26"
 }
