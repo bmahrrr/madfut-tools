@@ -1,16 +1,17 @@
 {
- "g": 4,
+ "g": 5,
  "obj_ids": [
   "id224987",
-  "id50575350",
+  "id229237",
   "id203574",
-  "id229237"
+  "id50575350",
+  "id210406"
  ],
- "strength": 100.3,
+ "strength": 101.6,
  "group_cards": 5,
  "reddit": [
   {
-   "you_lead_first": "DRAW",
+   "you_lead_first": "LOSS",
    "they_lead_first": "WIN"
   }
  ],
@@ -66,29 +67,6 @@
    },
    {
     "slot": "CB",
-    "id": "id229237",
-    "name": "Akanji",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 47,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     64,
-     71,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     74,
-     86
-    ],
-    "tiebreak": 224
-   },
-   {
-    "slot": "CB",
     "id": "id203574",
     "name": "Stones",
     "rating": 82,
@@ -111,163 +89,186 @@
     "tiebreak": 228
    },
    {
-    "slot": "RB",
-    "id": "id243576",
-    "name": "Pedro Porro",
+    "slot": "CB",
+    "id": "id229237",
+    "name": "Akanji",
     "rating": 83,
     "color": "rare_gold",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 13,
-    "clubId": 18,
+    "position": "CB",
+    "nationId": 47,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     77,
+     64,
+     71,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     74,
+     86
+    ],
+    "tiebreak": 224
+   },
+   {
+    "slot": "RB",
+    "id": "id210514",
+    "name": "João Cancelo",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
      80,
+     83,
      81
     ],
     "chem": 3,
     "eff": [
-     79,
      82,
+     85,
      83
     ],
-    "tiebreak": 244
+    "tiebreak": 250
    },
    {
     "slot": "CDM",
-    "id": "id50541306",
-    "name": "Goretzka",
-    "rating": 82,
+    "id": "id264309",
+    "name": "Güler",
+    "rating": 83,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 2,
+    "position": "RM",
+    "nationId": 48,
+    "leagueId": 53,
+    "clubId": 243,
+    "card": [
+     82,
+     84,
+     53
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     86,
+     55
+    ],
+    "tiebreak": 225
+   },
+   {
+    "slot": "LM",
+    "id": "id67377753",
+    "name": "Álvaro Carreras",
+    "rating": 83,
+    "color": "totw_gold",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 243,
     "card": [
      79,
-     79,
+     80,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     82,
+     84
+    ],
+    "tiebreak": 247
+   },
+   {
+    "slot": "CM",
+    "id": "id210406",
+    "name": "Zieliński",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 37,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     80,
+     81,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     84,
+     71
+    ],
+    "tiebreak": 235
+   },
+   {
+    "slot": "CM",
+    "id": "id266866",
+    "name": "Éderson",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 115845,
+    "card": [
+     77,
+     78,
      80
     ],
     "chem": 3,
     "eff": [
-     81,
-     81,
-     82
-    ],
-    "tiebreak": 244
-   },
-   {
-    "slot": "LM",
-    "id": "id50572598",
-    "name": "Pedro Gonçalves",
-    "rating": 83,
-    "color": "otw",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
-    "card": [
      82,
      82,
-     63
+     83
     ],
-    "chem": 3,
-    "eff": [
-     85,
-     85,
-     66
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "CM",
-    "id": "id220697",
-    "name": "Maddison",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 18,
-    "card": [
-     81,
-     84,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     86,
-     57
-    ],
-    "tiebreak": 226
-   },
-   {
-    "slot": "CM",
-    "id": "id236015",
-    "name": "Gibbs-White",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 14,
-    "card": [
-     81,
-     83,
-     64
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     85,
-     66
-    ],
-    "tiebreak": 234
+    "tiebreak": 241
    },
    {
     "slot": "RM",
-    "id": "id210881",
-    "name": "McGinn",
-    "rating": 83,
+    "id": "id255475",
+    "name": "Antony",
+    "rating": 81,
     "color": "rare_gold",
-    "position": "RM",
-    "nationId": 42,
-    "leagueId": 13,
-    "clubId": 2,
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 53,
+    "clubId": 449,
     "card": [
-     81,
+     82,
      80,
-     77
+     50
     ],
     "chem": 3,
     "eff": [
+     86,
      83,
-     82,
-     79
+     52
     ],
-    "tiebreak": 244
+    "tiebreak": 218
    },
    {
     "slot": "ST",
-    "id": "id50404645",
-    "name": "Rodrigo Mora",
+    "id": "id50583500",
+    "name": "Adeyemi",
     "rating": 83,
     "color": "otw",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 52,
+    "position": "RM",
+    "nationId": 21,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
-     80,
-     81,
-     46
+     84,
+     78,
+     45
     ],
     "chem": 3,
     "eff": [
-     83,
-     84,
-     49
+     86,
+     80,
+     47
     ],
     "tiebreak": 213
    }
@@ -304,18 +305,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id224987",
+  "id262621",
+  "id50592556",
   "id50606840",
-  "id244263",
-  "id229237",
+  "id232488",
+  "id210514",
   "id50522413",
-  "id50602057",
-  "id227236",
-  "id220697",
-  "id238744",
-  "id252042",
-  "id227796"
+  "id50583500",
+  "id50575428",
+  "id197781",
+  "id255475",
+  "id252042"
  ],
- "built": "2026-10-26 06:23 UTC",
+ "built": "2026-10-28 01:42 UTC",
  "week": "2026-10-26"
 }
