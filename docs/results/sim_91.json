@@ -42,68 +42,46 @@
    "chem": 33,
    "players": [
     {
-     "id": "id488",
-     "name": "Kahn",
-     "rating": 91,
-     "color": "icon",
+     "id": "id192119",
+     "name": "Courtois",
+     "rating": 90,
+     "color": "rare_gold",
      "position": "GK",
-     "nationId": 21,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 7,
+     "leagueId": 53,
+     "clubId": 243,
      "card": [
-      39,
+      38,
       32,
-      92
+      90
      ],
      "chem": 3,
      "eff": [
-      42,
+      41,
       37,
-      95
+      93
      ],
      "slot": "GK"
     },
     {
-     "id": "id247819",
-     "name": "Schlotterbeck",
-     "rating": 87,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      71,
-      75,
-      86
-     ],
-     "chem": 3,
-     "eff": [
-      74,
-      80,
-      89
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id67310399",
-     "name": "Varane",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 18,
+     "id": "id167135",
+     "name": "Carlos Alberto",
+     "rating": 91,
+     "color": "icon",
+     "position": "RB",
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      64,
-      67,
-      85
+      79,
+      82,
+      90
      ],
      "chem": 3,
      "eff": [
-      67,
-      72,
-      88
+      82,
+      87,
+      93
      ],
      "slot": "CB"
     },
@@ -126,6 +104,28 @@
       69,
       80,
       94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      69,
+      93
      ],
      "slot": "CB"
     },
@@ -240,28 +240,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id192181",
-     "name": "van Basten",
-     "rating": 91,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      91,
-      80,
-      44
-     ],
-     "chem": 3,
-     "eff": [
-      94,
-      85,
-      47
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id243075",
      "name": "Rummenigge",
      "rating": 90,
@@ -282,13 +260,35 @@
       62
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id50563395",
+     "name": "Mbappé",
+     "rating": 91,
+     "color": "destined_for_glory",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      91,
+      85,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      90,
+      41
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 95.6,
     "attack": 93.4,
-    "defence": 91.5,
-    "net": 0.0361,
+    "defence": 93.25,
+    "net": 0.0134,
     "control_cards": [
      96,
      96,
@@ -305,17 +305,17 @@
      90
     ],
     "defence_cards": [
-     95,
      94,
-     89,
-     88
+     93,
+     93,
+     93
     ],
     "chem": 33,
     "ctrl_not_full": 0,
     "ctrl_total": 254.0,
-    "att_total": 242.16,
-    "def_total": 221.75,
-    "swaps_checked": 49709
+    "att_total": 241.85,
+    "def_total": 225.75,
+    "swaps_checked": 49710
    }
   },
   {
@@ -603,68 +603,68 @@
    "chem": 33,
    "players": [
     {
-     "id": "id192119",
-     "name": "Courtois",
-     "rating": 90,
-     "color": "rare_gold",
+     "id": "id488",
+     "name": "Kahn",
+     "rating": 91,
+     "color": "icon",
      "position": "GK",
-     "nationId": 7,
-     "leagueId": 53,
-     "clubId": 243,
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      38,
+      39,
       32,
-      90
+      92
      ],
      "chem": 3,
      "eff": [
-      41,
+      42,
       37,
-      93
+      95
      ],
      "slot": "GK"
     },
     {
-     "id": "id167135",
-     "name": "Carlos Alberto",
-     "rating": 91,
-     "color": "icon",
-     "position": "RB",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "id": "id247819",
+     "name": "Schlotterbeck",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
      "card": [
-      79,
-      82,
-      90
+      71,
+      75,
+      86
      ],
      "chem": 3,
      "eff": [
-      82,
-      87,
-      93
+      74,
+      80,
+      89
      ],
      "slot": "CB"
     },
     {
-     "id": "id1183",
-     "name": "Cannavaro",
-     "rating": 89,
-     "color": "icon",
+     "id": "id67310399",
+     "name": "Varane",
+     "rating": 86,
+     "color": "debut_icon",
      "position": "CB",
-     "nationId": 27,
+     "nationId": 18,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      62,
       64,
-      90
+      67,
+      85
      ],
      "chem": 3,
      "eff": [
-      65,
-      69,
-      93
+      67,
+      72,
+      88
      ],
      "slot": "CB"
     },
@@ -801,6 +801,28 @@
      "slot": "CAM"
     },
     {
+     "id": "id192181",
+     "name": "van Basten",
+     "rating": 91,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      80,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      85,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id243075",
      "name": "Rummenigge",
      "rating": 90,
@@ -821,35 +843,13 @@
       62
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id50563395",
-     "name": "Mbappé",
-     "rating": 91,
-     "color": "destined_for_glory",
-     "position": "ST",
-     "nationId": 18,
-     "leagueId": 53,
-     "clubId": 243,
-     "card": [
-      91,
-      85,
-      38
-     ],
-     "chem": 3,
-     "eff": [
-      94,
-      90,
-      41
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 95.6,
     "attack": 93.4,
-    "defence": 93.25,
-    "net": 0.0134,
+    "defence": 91.5,
+    "net": 0.0361,
     "control_cards": [
      96,
      96,
@@ -866,20 +866,20 @@
      90
     ],
     "defence_cards": [
+     95,
      94,
-     93,
-     93,
-     93
+     89,
+     88
     ],
     "chem": 33,
     "ctrl_not_full": 0,
     "ctrl_total": 254.0,
-    "att_total": 241.85,
-    "def_total": 225.75
+    "att_total": 242.16,
+    "def_total": 221.75
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-28 04:12 UTC",
+ "built": "2026-10-28 08:45 UTC",
  "week": "2026-10-26"
 }
