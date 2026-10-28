@@ -102,11 +102,14 @@ def evaluate(team, slots, series):
 
 
 def rank_key(ev):
-    """Owner's order: highest Control (then the control cards' totals); then how the team actually does against the
-    strongest teams in the series (attack and defence weighed the way the game plays them); then Attack, then its
-    total; then Defence, then its total; then chem."""
-    return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9,
-            round(ev["attack"], 2), round(ev.get("att_total", 0), 2), round(ev["defence"], 2), round(ev.get("def_total", 0), 2), ev["chem"])
+    """Owner's order: highest Control (then the control cards' totals); then Attack before Defence. A small defence
+    gain never beats an attack gain: defence only counts a third as much (a 1-point attack gain beats up to a 3-point
+    defence loss, so a tiny attack gain can't cost a big defence drop). Then Attack, its total, Defence, its total,
+    match strength against the strongest teams, chem."""
+    a, d = ev["attack"], ev["defence"]
+    return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(a + d / 3, 2),
+            round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
+            ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
 
 
 def sim_key(ev):
