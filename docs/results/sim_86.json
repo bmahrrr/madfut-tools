@@ -39,52 +39,52 @@
  },
  "teams": [
   {
-   "formation": "3-4-1-2",
+   "formation": "5-2-1-2",
    "chem": 33,
    "players": [
     {
-     "id": "id16254",
-     "name": "Howard",
+     "id": "id245956",
+     "name": "Endler",
      "rating": 85,
-     "color": "hero",
+     "color": "rare_gold",
      "position": "GK",
-     "nationId": 95,
-     "leagueId": 13,
-     "clubId": 114605,
+     "nationId": 55,
+     "leagueId": 2218,
+     "clubId": 66,
      "card": [
-      42,
       35,
-      86
-     ],
-     "chem": 3,
-     "eff": [
-      46,
-      39,
-      90
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id67310399",
-     "name": "Varane",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      67,
+      31,
       85
      ],
      "chem": 3,
      "eff": [
-      68,
-      71,
+      39,
+      35,
       89
      ],
-     "slot": "CB"
+     "slot": "GK"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      94,
+      82
+     ],
+     "slot": "LB"
     },
     {
      "id": "id67229397",
@@ -109,48 +109,70 @@
      "slot": "CB"
     },
     {
-     "id": "id50752",
-     "name": "King",
-     "rating": 86,
-     "color": "hero",
+     "id": "id50610428",
+     "name": "Jeltsch",
+     "rating": 85,
+     "color": "future_stars",
      "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 114605,
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 36,
      "card": [
-      67,
-      70,
-      87
+      68,
+      72,
+      85
      ],
      "chem": 3,
      "eff": [
-      71,
-      74,
-      91
+      72,
+      76,
+      89
      ],
      "slot": "CB"
     },
     {
-     "id": "id50603487",
-     "name": "Vobian",
+     "id": "id67310399",
+     "name": "Varane",
      "rating": 86,
-     "color": "halloween",
-     "position": "LM",
-     "nationId": 21,
-     "leagueId": 2215,
-     "clubId": 25,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      85,
-      86,
-      63
+      64,
+      67,
+      85
      ],
      "chem": 3,
      "eff": [
-      89,
-      90,
-      67
+      68,
+      71,
+      89
      ],
-     "slot": "LM"
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Rall_86",
+     "name": "Rall",
+     "rating": 86,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 21,
+     "leagueId": 2215,
+     "clubId": 36,
+     "card": [
+      82,
+      88,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      92,
+      89
+     ],
+     "slot": "RB"
     },
     {
      "id": "id50609599",
@@ -197,50 +219,50 @@
      "slot": "CM"
     },
     {
-     "id": "id50596510",
-     "name": "Akliouche",
+     "id": "id50402434",
+     "name": "King",
      "rating": 85,
-     "color": "destined_for_glory",
-     "position": "CAM",
-     "nationId": 18,
-     "leagueId": 16,
-     "clubId": 73,
-     "card": [
-      85,
-      86,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      90,
-      60
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id50595413",
-     "name": "Bischof",
-     "rating": 86,
      "color": "future_stars",
-     "position": "CM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 21,
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
      "card": [
+      86,
       87,
-      88,
-      78
+      69
      ],
      "chem": 3,
      "eff": [
-      92,
-      94,
-      82
+      90,
+      91,
+      73
      ],
      "slot": "CAM"
     },
     {
+     "id": "id239261",
+     "name": "Larsson",
+     "rating": 86,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 46,
+     "leagueId": 50,
+     "clubId": 114605,
+     "card": [
+      87,
+      76,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      80,
+      55
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id67335223",
      "name": "Sinclair",
      "rating": 86,
@@ -261,90 +283,135 @@
       59
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id67336134",
-     "name": "White",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "ST",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      85,
-      75,
-      58
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      79,
-      62
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 91.4,
-    "attack": 89.67,
-    "defence": 89.75,
-    "net": 0.0835,
+    "control": 92.0,
+    "attack": 90.4,
+    "defence": 87.83,
+    "net": 0.0199,
     "control_cards": [
      94,
      92,
+     92,
      91,
-     90,
-     90
+     91
     ],
     "attack_cards": [
      92,
+     91,
      90,
      90,
-     89,
-     89,
-     89,
+     90,
      89
     ],
     "defence_cards": [
-     91,
-     90,
      89,
-     89
+     89,
+     89,
+     89,
+     89,
+     82
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 256.0,
-    "att_total": 239.39,
-    "def_total": 214.0,
-    "swaps_checked": 48916
+    "ctrl_total": 263.2,
+    "att_total": 239.87,
+    "def_total": 230.0,
+    "swaps_checked": 45445
    }
   },
   {
-   "formation": "3-1-4-2",
+   "formation": "5-2-1-2",
    "chem": 33,
    "players": [
     {
-     "id": "id16254",
-     "name": "Howard",
-     "rating": 85,
-     "color": "hero",
+     "id": "id227087",
+     "name": "Giuliani",
+     "rating": 75,
+     "color": "rare_gold",
      "position": "GK",
-     "nationId": 95,
-     "leagueId": 13,
-     "clubId": 114605,
+     "nationId": 27,
+     "leagueId": 2215,
+     "clubId": 36,
      "card": [
-      42,
-      35,
-      86
+      33,
+      29,
+      76
      ],
      "chem": 3,
      "eff": [
-      46,
-      39,
-      90
+      37,
+      33,
+      80
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      94,
+      82
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id250955",
+     "name": "Stanišić",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 10,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      64,
+      69,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      75,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id240277",
+     "name": "Gabbia",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 131681,
+     "card": [
+      53,
+      62,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      66,
+      84
+     ],
+     "slot": "CB"
     },
     {
      "id": "id67310399",
@@ -369,48 +436,26 @@
      "slot": "CB"
     },
     {
-     "id": "id67229397",
-     "name": "Pepe",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "id": "evo_Rall_86",
+     "name": "Rall",
+     "rating": 86,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 21,
+     "leagueId": 2215,
+     "clubId": 36,
      "card": [
-      59,
-      61,
+      82,
+      88,
       85
      ],
      "chem": 3,
      "eff": [
-      63,
-      65,
+      86,
+      92,
       89
      ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50752",
-     "name": "King",
-     "rating": 86,
-     "color": "hero",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 114605,
-     "card": [
-      67,
-      70,
-      87
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      74,
-      91
-     ],
-     "slot": "CB"
+     "slot": "RB"
     },
     {
      "id": "id50592947",
@@ -432,461 +477,416 @@
       92,
       85
      ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id50603487",
-     "name": "Vobian",
-     "rating": 86,
-     "color": "halloween",
-     "position": "LM",
-     "nationId": 21,
-     "leagueId": 2215,
-     "clubId": 25,
-     "card": [
-      85,
-      86,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      90,
-      67
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id50595413",
-     "name": "Bischof",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 21,
-     "card": [
-      87,
-      88,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      92,
-      94,
-      82
-     ],
      "slot": "CM"
     },
     {
-     "id": "id50609599",
-     "name": "Yohannes",
+     "id": "id50508651",
+     "name": "Modrić",
      "rating": 86,
-     "color": "future_stars",
+     "color": "totw_gold",
      "position": "CM",
-     "nationId": 95,
-     "leagueId": 2218,
-     "clubId": 66,
+     "nationId": 10,
+     "leagueId": 31,
+     "clubId": 131681,
      "card": [
-      86,
+      83,
       87,
-      76
+      71
      ],
      "chem": 3,
      "eff": [
-      90,
+      87,
       91,
-      80
+      75
      ],
      "slot": "CM"
     },
     {
-     "id": "id50596510",
-     "name": "Akliouche",
+     "id": "id50402434",
+     "name": "King",
      "rating": 85,
-     "color": "destined_for_glory",
+     "color": "future_stars",
      "position": "CAM",
-     "nationId": 18,
-     "leagueId": 16,
-     "clubId": 73,
-     "card": [
-      85,
-      86,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      90,
-      60
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id67335223",
-     "name": "Sinclair",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "ST",
-     "nationId": 70,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      86,
-      80,
-      55
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      84,
-      59
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id67336134",
-     "name": "White",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "ST",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      85,
-      75,
-      58
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      79,
-      62
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 91.4,
-    "attack": 89.46,
-    "defence": 88.8,
-    "net": 0.0301,
-    "control_cards": [
-     94,
-     92,
-     91,
-     90,
-     90
-    ],
-    "attack_cards": [
-     92,
-     90,
-     90,
-     89,
-     89,
-     89,
-     89
-    ],
-    "defence_cards": [
-     91,
-     90,
-     89,
-     89,
-     85
-    ],
-    "chem": 33,
-    "ctrl_not_full": 0,
-    "ctrl_total": 256.0,
-    "att_total": 237.6,
-    "def_total": 224.4
-   }
-  },
-  {
-   "formation": "3-5-2",
-   "chem": 33,
-   "players": [
-    {
-     "id": "id16254",
-     "name": "Howard",
-     "rating": 85,
-     "color": "hero",
-     "position": "GK",
-     "nationId": 95,
-     "leagueId": 13,
-     "clubId": 114605,
-     "card": [
-      42,
-      35,
-      86
-     ],
-     "chem": 3,
-     "eff": [
-      46,
-      39,
-      90
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id67310399",
-     "name": "Varane",
-     "rating": 86,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      67,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      71,
-      89
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id67229397",
-     "name": "Pepe",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      59,
-      61,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      63,
-      65,
-      89
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50752",
-     "name": "King",
-     "rating": 86,
-     "color": "hero",
-     "position": "CB",
      "nationId": 14,
      "leagueId": 13,
-     "clubId": 114605,
-     "card": [
-      67,
-      70,
-      87
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      74,
-      91
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50609599",
-     "name": "Yohannes",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 95,
-     "leagueId": 2218,
-     "clubId": 66,
+     "clubId": 144,
      "card": [
       86,
       87,
-      76
+      69
      ],
      "chem": 3,
      "eff": [
       90,
       91,
-      80
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id50592947",
-     "name": "Scott",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1943,
-     "card": [
-      85,
-      88,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      92,
-      85
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id50603487",
-     "name": "Vobian",
-     "rating": 86,
-     "color": "halloween",
-     "position": "LM",
-     "nationId": 21,
-     "leagueId": 2215,
-     "clubId": 25,
-     "card": [
-      85,
-      86,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      90,
-      67
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id50595413",
-     "name": "Bischof",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 21,
-     "card": [
-      87,
-      88,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      92,
-      94,
-      82
+      73
      ],
      "slot": "CAM"
     },
     {
-     "id": "id50596510",
-     "name": "Akliouche",
-     "rating": 85,
-     "color": "destined_for_glory",
-     "position": "CAM",
-     "nationId": 18,
-     "leagueId": 16,
-     "clubId": 73,
-     "card": [
-      85,
-      86,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      90,
-      60
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id67335223",
-     "name": "Sinclair",
+     "id": "id1845",
+     "name": "Solskjær",
      "rating": 86,
-     "color": "debut_icon",
+     "color": "hero",
      "position": "ST",
-     "nationId": 70,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 114605,
      "card": [
-      86,
-      80,
-      55
+      87,
+      77,
+      48
      ],
      "chem": 3,
      "eff": [
-      90,
-      84,
-      59
+      91,
+      81,
+      52
      ],
      "slot": "ST"
     },
     {
-     "id": "id67336134",
-     "name": "White",
+     "id": "id330",
+     "name": "Keane",
      "rating": 86,
-     "color": "debut_icon",
+     "color": "hero",
      "position": "ST",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 25,
+     "leagueId": 13,
+     "clubId": 114605,
      "card": [
-      85,
-      75,
-      58
+      87,
+      79,
+      47
      ],
      "chem": 3,
      "eff": [
-      89,
-      79,
-      62
+      91,
+      83,
+      51
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 91.4,
-    "attack": 89.67,
-    "defence": 87.33,
-    "net": 0.0138,
+    "control": 92.0,
+    "attack": 90.53,
+    "defence": 84.5,
+    "net": -0.0162,
     "control_cards": [
      94,
      92,
+     92,
      91,
-     90,
-     90
+     91
     ],
     "attack_cards": [
      92,
-     90,
-     90,
-     89,
-     89,
-     89,
-     89
-    ],
-    "defence_cards": [
+     91,
      91,
      90,
      89,
+     87
+    ],
+    "defence_cards": [
      89,
-     85,
+     89,
+     84,
+     83,
+     82,
      80
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 256.0,
-    "att_total": 239.39,
-    "def_total": 230.5
+    "ctrl_total": 261.6,
+    "att_total": 236.0,
+    "def_total": 224.5
+   }
+  },
+  {
+   "formation": "5-3-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id227087",
+     "name": "Giuliani",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 27,
+     "leagueId": 2215,
+     "clubId": 36,
+     "card": [
+      33,
+      29,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      37,
+      33,
+      80
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      94,
+      82
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id240277",
+     "name": "Gabbia",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 131681,
+     "card": [
+      53,
+      62,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      66,
+      84
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67310399",
+     "name": "Varane",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      67,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      71,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id250955",
+     "name": "Stanišić",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 10,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      64,
+      69,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      75,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Rall_86",
+     "name": "Rall",
+     "rating": 86,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 21,
+     "leagueId": 2215,
+     "clubId": 36,
+     "card": [
+      82,
+      88,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      92,
+      89
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      85
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50508651",
+     "name": "Modrić",
+     "rating": 86,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 10,
+     "leagueId": 31,
+     "clubId": 131681,
+     "card": [
+      83,
+      87,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      91,
+      75
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      91,
+      73
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id1845",
+     "name": "Solskjær",
+     "rating": 86,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      87,
+      77,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      81,
+      52
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id330",
+     "name": "Keane",
+     "rating": 86,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 25,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      87,
+      79,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      83,
+      51
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 92.0,
+    "attack": 90.53,
+    "defence": 84.5,
+    "net": -0.0162,
+    "control_cards": [
+     94,
+     92,
+     92,
+     91,
+     91
+    ],
+    "attack_cards": [
+     92,
+     91,
+     91,
+     90,
+     89,
+     87
+    ],
+    "defence_cards": [
+     89,
+     89,
+     84,
+     83,
+     82,
+     80
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 261.6,
+    "att_total": 236.0,
+    "def_total": 224.5
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-28 08:53 UTC",
+ "built": "2026-10-29 16:38 UTC",
  "week": "2026-10-26"
 }
