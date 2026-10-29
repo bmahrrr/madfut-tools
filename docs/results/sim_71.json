@@ -63,28 +63,6 @@
      "slot": "GK"
     },
     {
-     "id": "id209196",
-     "name": "Ziereis",
-     "rating": 69,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 351,
-     "clubId": 111397,
-     "card": [
-      45,
-      54,
-      68
-     ],
-     "chem": 2,
-     "eff": [
-      46,
-      55,
-      69
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id235514",
      "name": "Al Rubaie",
      "rating": 65,
@@ -103,6 +81,28 @@
       44,
       46,
       66
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id209196",
+     "name": "Ziereis",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      45,
+      54,
+      68
+     ],
+     "chem": 2,
+     "eff": [
+      46,
+      55,
+      69
      ],
      "slot": "CB"
     },
@@ -239,28 +239,6 @@
      "slot": "RM"
     },
     {
-     "id": "id246459",
-     "name": "Daramy",
-     "rating": 69,
-     "color": "rare_silver",
-     "position": "ST",
-     "nationId": 13,
-     "leagueId": 17,
-     "clubId": 379,
-     "card": [
-      71,
-      67,
-      33
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      71,
-      37
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id255579",
      "name": "El Kachati",
      "rating": 70,
@@ -281,13 +259,35 @@
       39
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id246459",
+     "name": "Daramy",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 13,
+     "leagueId": 17,
+     "clubId": 379,
+     "card": [
+      71,
+      67,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      71,
+      37
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 75.4,
     "attack": 74.95,
     "defence": 68.8,
-    "net": 0.0282,
+    "net": 0.0391,
     "control_cards": [
      76,
      76,
@@ -569,7 +569,7 @@
     "control": 75.4,
     "attack": 74.95,
     "defence": 68.8,
-    "net": 0.0282,
+    "net": 0.0391,
     "control_cards": [
      76,
      76,
@@ -600,8 +600,8 @@
    }
   },
   {
-   "formation": "3-1-4-2",
-   "chem": 27,
+   "formation": "3-4-1-2",
+   "chem": 29,
    "players": [
     {
      "id": "id203423",
@@ -661,57 +661,35 @@
       44,
       64
      ],
-     "chem": 2,
-     "eff": [
-      43,
-      45,
-      65
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id253276",
-     "name": "Abascal",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 60,
-     "leagueId": 350,
-     "clubId": 113037,
-     "card": [
-      53,
-      56,
-      71
-     ],
-     "chem": 1,
-     "eff": [
-      53,
-      56,
-      71
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id241238",
-     "name": "Deminguet",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "CDM",
-     "nationId": 18,
-     "leagueId": 17,
-     "clubId": 68,
-     "card": [
-      68,
-      71,
-      67
-     ],
      "chem": 3,
      "eff": [
-      72,
-      75,
-      71
+      44,
+      46,
+      66
      ],
-     "slot": "CDM"
+     "slot": "CB"
+    },
+    {
+     "id": "id210843",
+     "name": "Kadish",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 183,
+     "leagueId": 350,
+     "clubId": 607,
+     "card": [
+      62,
+      62,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      63,
+      63,
+      70
+     ],
+     "slot": "CB"
     },
     {
      "id": "id72136",
@@ -736,28 +714,6 @@
      "slot": "LM"
     },
     {
-     "id": "id239335",
-     "name": "Óscar",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 45,
-     "leagueId": 350,
-     "clubId": 113224,
-     "card": [
-      73,
-      74,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      76,
-      58
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id70477",
      "name": "Tabibou",
      "rating": 69,
@@ -776,6 +732,28 @@
       69,
       75,
       58
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id241238",
+     "name": "Deminguet",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 68,
+     "card": [
+      68,
+      71,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      71
      ],
      "slot": "CM"
     },
@@ -802,26 +780,26 @@
      "slot": "RM"
     },
     {
-     "id": "id246459",
-     "name": "Daramy",
-     "rating": 69,
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
      "color": "rare_silver",
-     "position": "ST",
-     "nationId": 13,
-     "leagueId": 17,
-     "clubId": 379,
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
      "card": [
-      71,
-      67,
-      33
+      73,
+      74,
+      56
      ],
      "chem": 3,
      "eff": [
       75,
-      71,
-      37
+      76,
+      58
      ],
-     "slot": "ST"
+     "slot": "CAM"
     },
     {
      "id": "id255579",
@@ -844,13 +822,35 @@
       39
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id246459",
+     "name": "Daramy",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 13,
+     "leagueId": 17,
+     "clubId": 379,
+     "card": [
+      71,
+      67,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      71,
+      37
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 75.4,
     "attack": 74.95,
-    "defence": 68.8,
-    "net": 0.0351,
+    "defence": 68.25,
+    "net": 0.0287,
     "control_cards": [
      76,
      76,
@@ -867,21 +867,20 @@
      69
     ],
     "defence_cards": [
-     71,
-     71,
+     70,
      69,
      68,
-     65
+     66
     ],
-    "chem": 27,
+    "chem": 29,
     "ctrl_not_full": 0,
     "ctrl_total": 201.0,
-    "att_total": 186.62,
-    "def_total": 170.8
+    "att_total": 187.83,
+    "def_total": 163.75
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-28 09:04 UTC",
+ "built": "2026-10-29 16:52 UTC",
  "week": "2026-10-26"
 }
