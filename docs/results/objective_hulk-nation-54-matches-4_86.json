@@ -2,20 +2,20 @@
  "g": 4,
  "obj_ids": [
   "id273136",
-  "id179944",
-  "id184943",
-  "id67335759"
+  "id67335759",
+  "id189362",
+  "id184943"
  ],
  "strength": 100.5,
- "group_cards": 492,
+ "group_cards": 494,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
+   "you_lead_first": "WIN",
+   "they_lead_first": "WIN"
   }
  ],
  "team": {
-  "formation": "4-2-3-1",
+  "formation": "4-1-4-1",
   "chem": 31,
   "players": [
    {
@@ -33,13 +33,13 @@
      41,
      85
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     38,
-     42,
-     86
+     37,
+     41,
+     85
     ],
-    "tiebreak": 166
+    "tiebreak": 163
    },
    {
     "slot": "LB",
@@ -56,13 +56,36 @@
      88,
      78
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     88,
      89,
-     79
+     90,
+     80
     ],
-    "tiebreak": 256
+    "tiebreak": 259
+   },
+   {
+    "slot": "CB",
+    "id": "id50752",
+    "name": "King",
+    "rating": 86,
+    "color": "hero",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 114605,
+    "card": [
+     67,
+     70,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     69,
+     72,
+     89
+    ],
+    "tiebreak": 230
    },
    {
     "slot": "CB",
@@ -88,50 +111,27 @@
     "tiebreak": 253
    },
    {
-    "slot": "CB",
-    "id": "id179944",
-    "name": "David Luiz",
-    "rating": 85,
-    "color": "hall_of_fut",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 132794,
-    "card": [
-     73,
-     76,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     75,
-     78,
-     86
-    ],
-    "tiebreak": 239
-   },
-   {
     "slot": "RB",
-    "id": "id67359754",
-    "name": "Zambrotta",
-    "rating": 85,
-    "color": "debut_icon",
+    "id": "evo_Rall_86",
+    "name": "Rall",
+    "rating": 86,
+    "color": "evo",
     "position": "RB",
-    "nationId": 27,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 21,
+    "leagueId": 2215,
+    "clubId": 36,
     "card": [
-     75,
-     77,
-     84
+     82,
+     88,
+     85
     ],
     "chem": 3,
     "eff": [
-     77,
-     79,
-     86
+     84,
+     90,
+     87
     ],
-    "tiebreak": 242
+    "tiebreak": 261
    },
    {
     "slot": "CDM",
@@ -157,30 +157,53 @@
     "tiebreak": 250
    },
    {
-    "slot": "CDM",
-    "id": "id184943",
-    "name": "Ramires",
+    "slot": "LM",
+    "id": "id50603487",
+    "name": "Vobian",
     "rating": 86,
-    "color": "hero",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 114605,
+    "color": "halloween",
+    "position": "LM",
+    "nationId": 21,
+    "leagueId": 2215,
+    "clubId": 25,
     "card": [
+     85,
+     86,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     88,
+     65
+    ],
+    "tiebreak": 240
+   },
+   {
+    "slot": "CM",
+    "id": "id67355727",
+    "name": "Nmecha",
+    "rating": 86,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 22,
+    "card": [
+     83,
      81,
-     82,
      84
     ],
     "chem": 3,
     "eff": [
+     85,
      83,
-     84,
      86
     ],
-    "tiebreak": 253
+    "tiebreak": 254
    },
    {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id50592947",
     "name": "Scott",
     "rating": 86,
@@ -203,73 +226,50 @@
     "tiebreak": 260
    },
    {
-    "slot": "CAM",
-    "id": "id50608342",
-    "name": "Manzambi",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 47,
+    "slot": "RM",
+    "id": "id184943",
+    "name": "Ramires",
+    "rating": 86,
+    "color": "hero",
+    "position": "CDM",
+    "nationId": 54,
     "leagueId": 13,
-    "clubId": 2,
+    "clubId": 114605,
     "card": [
-     86,
-     85,
-     76
+     81,
+     82,
+     84
     ],
     "chem": 3,
     "eff": [
-     88,
-     87,
-     78
+     83,
+     84,
+     86
     ],
     "tiebreak": 253
    },
    {
-    "slot": "CAM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
     "slot": "ST",
-    "id": "id50574662",
-    "name": "Mbeumo",
-    "rating": 86,
-    "color": "destined_for_glory",
-    "position": "RM",
-    "nationId": 103,
-    "leagueId": 13,
-    "clubId": 11,
+    "id": "id189362",
+    "name": "Hulk",
+    "rating": 85,
+    "color": "hall_of_fut",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 308,
+    "clubId": 132794,
     "card": [
      85,
      82,
-     54
+     51
     ],
     "chem": 3,
     "eff": [
-     89,
-     86,
-     58
+     87,
+     84,
+     53
     ],
-    "tiebreak": 227
+    "tiebreak": 224
    }
   ]
  },
@@ -307,16 +307,16 @@
  "base_ids": [
   "id44897",
   "id50595413",
+  "id50610428",
   "id50752",
-  "evo_Can_85",
-  "id225375",
-  "id50402434",
-  "id227327",
+  "evo_Rall_86",
   "id50592947",
+  "id67230808",
   "id15723",
+  "id227327",
   "id50572365",
-  "id67335223"
+  "id330"
  ],
- "built": "2026-10-27 02:15 UTC",
+ "built": "2026-10-29 20:38 UTC",
  "week": "2026-10-26"
 }

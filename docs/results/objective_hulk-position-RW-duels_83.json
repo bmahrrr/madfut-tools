@@ -3,46 +3,138 @@
  "obj_ids": [
   "id50575428",
   "id192629",
-  "id255475",
-  "id50602057"
+  "id222737",
+  "id255475"
  ],
- "strength": 100.1,
+ "strength": 100.0,
  "group_cards": 9,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "DRAW"
+   "you_lead_first": "WIN",
+   "they_lead_first": "WIN"
   }
  ],
  "team": {
-  "formation": "4-1-2-1-2",
-  "chem": 30,
+  "formation": "4-5-1",
+  "chem": 28,
   "players": [
    {
     "slot": "GK",
-    "id": "id262621",
-    "name": "Mamardashvili",
+    "id": "id224987",
+    "name": "Provedel",
     "rating": 83,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 20,
-    "leagueId": 13,
-    "clubId": 9,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     34,
-     34,
+     37,
+     37,
      84
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     35,
-     35,
-     85
+     40,
+     40,
+     87
     ],
-    "tiebreak": 155
+    "tiebreak": 164
    },
    {
     "slot": "LB",
+    "id": "id50575350",
+    "name": "Spence",
+    "rating": 83,
+    "color": "otw",
+    "position": "LB",
+    "nationId": 14,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     75,
+     77,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     80,
+     85
+    ],
+    "tiebreak": 240
+   },
+   {
+    "slot": "CB",
+    "id": "id50590296",
+    "name": "Carlos Augusto",
+    "rating": 83,
+    "color": "showdown",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     79,
+     80,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     84,
+     85
+    ],
+    "tiebreak": 247
+   },
+   {
+    "slot": "CB",
+    "id": "id229237",
+    "name": "Akanji",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 47,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     64,
+     71,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     74,
+     86
+    ],
+    "tiebreak": 224
+   },
+   {
+    "slot": "RB",
+    "id": "ltm_espart83",
+    "name": "Xavi Espart",
+    "rating": 83,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     75,
+     81,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     83,
+     84
+    ],
+    "tiebreak": 244
+   },
+   {
+    "slot": "LM",
     "id": "id210514",
     "name": "João Cancelo",
     "rating": 83,
@@ -65,119 +157,73 @@
     "tiebreak": 250
    },
    {
-    "slot": "CB",
-    "id": "id247103",
-    "name": "Hancko",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 43,
-    "leagueId": 53,
-    "clubId": 240,
-    "card": [
-     73,
-     74,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     75,
-     76,
-     84
-    ],
-    "tiebreak": 235
-   },
-   {
-    "slot": "CB",
-    "id": "id50606840",
-    "name": "Vušković",
-    "rating": 83,
-    "color": "otw",
-    "position": "CB",
-    "nationId": 10,
-    "leagueId": 13,
-    "clubId": 1808,
-    "card": [
-     65,
-     65,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     67,
-     86
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "RB",
-    "id": "id253124",
-    "name": "Matheus Nunes",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 38,
-    "leagueId": 13,
-    "clubId": 10,
-    "card": [
-     77,
-     78,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     80,
-     84
-    ],
-    "tiebreak": 243
-   },
-   {
-    "slot": "CDM",
-    "id": "id50522413",
-    "name": "Groß",
-    "rating": 81,
-    "color": "totw_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 1808,
-    "card": [
-     79,
-     83,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     81,
-     85,
-     77
-    ],
-    "tiebreak": 243
-   },
-   {
-    "slot": "LM",
-    "id": "id50602057",
-    "name": "Savinho",
+    "slot": "CM",
+    "id": "id50575428",
+    "name": "Lee Kang In",
     "rating": 83,
     "color": "otw",
     "position": "RW",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 18,
+    "nationId": 167,
+    "leagueId": 53,
+    "clubId": 240,
     "card": [
      82,
-     81,
-     40
+     84,
+     57
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     85,
+     58
+    ],
+    "tiebreak": 226
+   },
+   {
+    "slot": "CAM",
+    "id": "id192629",
+    "name": "Iago Aspas",
+    "rating": 81,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 450,
+    "card": [
+     82,
+     80,
+     41
     ],
     "chem": 3,
     "eff": [
-     86,
      84,
-     42
+     82,
+     43
     ],
     "tiebreak": 209
+   },
+   {
+    "slot": "CAM",
+    "id": "id222737",
+    "name": "Malcom",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 350,
+    "clubId": 605,
+    "card": [
+     82,
+     81,
+     45
+    ],
+    "chem": 1,
+    "eff": [
+     84,
+     82,
+     45
+    ],
+    "tiebreak": 208
    },
    {
     "slot": "RM",
@@ -201,52 +247,6 @@
      52
     ],
     "tiebreak": 218
-   },
-   {
-    "slot": "CAM",
-    "id": "id50575428",
-    "name": "Lee Kang In",
-    "rating": 83,
-    "color": "otw",
-    "position": "RW",
-    "nationId": 167,
-    "leagueId": 53,
-    "clubId": 240,
-    "card": [
-     82,
-     84,
-     57
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     86,
-     59
-    ],
-    "tiebreak": 229
-   },
-   {
-    "slot": "ST",
-    "id": "id192629",
-    "name": "Iago Aspas",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 450,
-    "card": [
-     82,
-     80,
-     41
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     82,
-     43
-    ],
-    "tiebreak": 209
    },
    {
     "slot": "ST",
@@ -304,18 +304,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id262621",
-  "id50592556",
-  "id50606840",
-  "id232488",
-  "id210514",
-  "id50522413",
-  "id50583500",
+  "id224987",
+  "id247103",
+  "id229237",
+  "id67351699",
+  "id50590296",
   "id50575428",
   "id197781",
-  "id255475",
-  "id252042"
+  "id210514",
+  "id50583500",
+  "id231447",
+  "id255475"
  ],
- "built": "2026-10-28 01:42 UTC",
+ "built": "2026-10-29 20:38 UTC",
  "week": "2026-10-26"
 }

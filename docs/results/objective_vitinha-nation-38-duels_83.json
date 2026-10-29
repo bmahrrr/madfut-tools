@@ -1,50 +1,49 @@
 {
- "g": 9,
+ "g": 8,
  "obj_ids": [
-  "id210385",
-  "id50570264",
-  "id210514",
-  "id50404645",
+  "id242444",
   "id253124",
   "id50561039",
-  "evo_Bruno Costa_81",
   "id50572598",
+  "id210514",
+  "evo_Bruno Costa_81",
+  "id50404645",
   "id261855"
  ],
- "strength": 100.8,
- "group_cards": 14,
+ "strength": 101.2,
+ "group_cards": 12,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
+   "you_lead_first": "WIN",
+   "they_lead_first": "WIN"
   }
  ],
  "team": {
-  "formation": "4-1-3-2",
-  "chem": 31,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id210385",
-    "name": "Rui Silva",
-    "rating": 81,
+    "id": "id224987",
+    "name": "Provedel",
+    "rating": 83,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 237,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     32,
-     28,
-     82
+     37,
+     37,
+     84
     ],
     "chem": 3,
     "eff": [
-     34,
-     30,
-     84
+     40,
+     40,
+     87
     ],
-    "tiebreak": 148
+    "tiebreak": 164
    },
    {
     "slot": "LB",
@@ -71,49 +70,49 @@
    },
    {
     "slot": "CB",
-    "id": "id229237",
-    "name": "Akanji",
+    "id": "id50590296",
+    "name": "Carlos Augusto",
     "rating": 83,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 47,
+    "color": "showdown",
+    "position": "LB",
+    "nationId": 54,
     "leagueId": 31,
     "clubId": 131682,
     "card": [
-     64,
-     71,
-     83
+     79,
+     80,
+     82
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     66,
-     73,
+     84,
+     84,
      85
     ],
-    "tiebreak": 221
+    "tiebreak": 247
    },
    {
     "slot": "CB",
-    "id": "id203574",
-    "name": "Stones",
-    "rating": 82,
-    "color": "rare_gold",
+    "id": "id67351699",
+    "name": "Balerdi",
+    "rating": 83,
+    "color": "totw_gold",
     "position": "CB",
-    "nationId": 14,
+    "nationId": 52,
     "leagueId": 31,
-    "clubId": 131682,
+    "clubId": 52,
     "card": [
-     67,
+     68,
      73,
-     82
-    ],
-    "chem": 2,
-    "eff": [
-     69,
-     75,
      84
     ],
-    "tiebreak": 225
+    "chem": 3,
+    "eff": [
+     71,
+     76,
+     87
+    ],
+    "tiebreak": 231
    },
    {
     "slot": "RB",
@@ -162,27 +161,27 @@
     "tiebreak": 245
    },
    {
-    "slot": "LM",
-    "id": "id50572598",
-    "name": "Pedro Gonçalves",
+    "slot": "CM",
+    "id": "id261855",
+    "name": "Kika Nazareth",
     "rating": 83,
-    "color": "otw",
-    "position": "LM",
+    "color": "rare_gold",
+    "position": "CM",
     "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
+    "leagueId": 2222,
+    "clubId": 241,
     "card": [
-     82,
+     83,
      82,
      63
     ],
     "chem": 3,
     "eff": [
      85,
-     85,
-     66
+     84,
+     65
     ],
-    "tiebreak": 233
+    "tiebreak": 234
    },
    {
     "slot": "CM",
@@ -208,50 +207,27 @@
     "tiebreak": 232
    },
    {
-    "slot": "RM",
-    "id": "id50570264",
-    "name": "Pedro Neto",
+    "slot": "CAM",
+    "id": "id50572598",
+    "name": "Pedro Gonçalves",
     "rating": 83,
-    "color": "totw_gold",
-    "position": "RM",
+    "color": "otw",
+    "position": "LM",
     "nationId": 38,
-    "leagueId": 13,
-    "clubId": 5,
+    "leagueId": 31,
+    "clubId": 110374,
     "card": [
      82,
-     79,
-     45
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     81,
-     47
-    ],
-    "tiebreak": 212
-   },
-   {
-    "slot": "ST",
-    "id": "id261855",
-    "name": "Kika Nazareth",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
-     83,
      82,
      63
     ],
     "chem": 3,
     "eff": [
      85,
-     84,
-     65
+     85,
+     66
     ],
-    "tiebreak": 234
+    "tiebreak": 233
    },
    {
     "slot": "ST",
@@ -275,6 +251,29 @@
      49
     ],
     "tiebreak": 213
+   },
+   {
+    "slot": "ST",
+    "id": "id242444",
+    "name": "João Félix",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 112139,
+    "card": [
+     82,
+     80,
+     50
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     82,
+     52
+    ],
+    "tiebreak": 218
    }
   ]
  },
@@ -309,18 +308,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id262621",
-  "id50592556",
-  "id50606840",
-  "id232488",
-  "id210514",
-  "id50522413",
-  "id50583500",
+  "id224987",
+  "id247103",
+  "id229237",
+  "id67351699",
+  "id50590296",
   "id50575428",
   "id197781",
-  "id255475",
-  "id252042"
+  "id210514",
+  "id50583500",
+  "id231447",
+  "id255475"
  ],
- "built": "2026-10-28 01:42 UTC",
+ "built": "2026-10-29 20:38 UTC",
  "week": "2026-10-26"
 }

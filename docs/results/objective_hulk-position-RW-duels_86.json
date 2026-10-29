@@ -1,11 +1,10 @@
 {
- "g": 3,
+ "g": 2,
  "obj_ids": [
   "id189362",
-  "id251570",
-  "id50591020"
+  "id251570"
  ],
- "strength": 100.3,
+ "strength": 100.0,
  "group_cards": 6,
  "reddit": [
   {
@@ -15,76 +14,53 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 31,
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id259532",
-    "name": "Joan García",
+    "id": "id44897",
+    "name": "Dudek",
     "rating": 86,
-    "color": "rare_gold",
+    "color": "hero",
     "position": "GK",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
+    "nationId": 37,
+    "leagueId": 13,
+    "clubId": 114605,
     "card": [
-     36,
-     38,
-     86
+     41,
+     31,
+     87
     ],
     "chem": 3,
     "eff": [
-     38,
-     40,
-     88
+     43,
+     33,
+     89
     ],
-    "tiebreak": 166
+    "tiebreak": 165
    },
    {
     "slot": "LB",
-    "id": "id50560266",
-    "name": "Mendy",
-    "rating": 85,
-    "color": "heritage",
+    "id": "id275092",
+    "name": "Bompastor",
+    "rating": 86,
+    "color": "hero",
     "position": "LB",
     "nationId": 18,
-    "leagueId": 53,
-    "clubId": 243,
+    "leagueId": 2218,
+    "clubId": 114605,
     "card": [
-     80,
-     79,
+     83,
+     84,
      84
     ],
     "chem": 3,
     "eff": [
      85,
-     82,
-     86
-    ],
-    "tiebreak": 249
-   },
-   {
-    "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     76,
      86,
-     85
-    ],
-    "chem": 2,
-    "eff": [
-     77,
-     87,
      86
     ],
-    "tiebreak": 250
+    "tiebreak": 257
    },
    {
     "slot": "CB",
@@ -110,73 +86,96 @@
     "tiebreak": 230
    },
    {
-    "slot": "RB",
-    "id": "ltm_espart86",
-    "name": "Xavi Espart",
-    "rating": 86,
-    "color": "ltm",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
-     78,
-     84,
+     76,
+     86,
      85
     ],
     "chem": 3,
     "eff": [
-     80,
-     86,
+     78,
+     88,
      87
     ],
     "tiebreak": 253
    },
    {
+    "slot": "RB",
+    "id": "evo_Rall_86",
+    "name": "Rall",
+    "rating": 86,
+    "color": "evo",
+    "position": "RB",
+    "nationId": 21,
+    "leagueId": 2215,
+    "clubId": 36,
+    "card": [
+     82,
+     88,
+     85
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     89,
+     86
+    ],
+    "tiebreak": 258
+   },
+   {
     "slot": "CDM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
     "color": "future_stars",
-    "position": "CAM",
+    "position": "CM",
     "nationId": 14,
     "leagueId": 13,
-    "clubId": 144,
+    "clubId": 1943,
     "card": [
-     86,
-     87,
-     69
+     85,
+     88,
+     81
     ],
     "chem": 3,
     "eff": [
-     88,
-     89,
-     71
+     87,
+     90,
+     83
     ],
-    "tiebreak": 248
+    "tiebreak": 260
    },
    {
     "slot": "LM",
-    "id": "id275092",
-    "name": "Bompastor",
+    "id": "id67230808",
+    "name": "Schweinsteiger",
     "rating": 86,
-    "color": "hero",
-    "position": "LB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 114605,
+    "color": "debut_icon",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     83,
-     84,
+     81,
+     80,
      84
     ],
     "chem": 3,
     "eff": [
-     85,
-     86,
+     83,
+     82,
      86
     ],
-    "tiebreak": 257
+    "tiebreak": 251
    },
    {
     "slot": "CM",
@@ -203,26 +202,26 @@
    },
    {
     "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
+    "id": "id67110261",
+    "name": "Zidane",
     "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
+    "color": "debut_icon",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     85,
-     88,
-     81
+     83,
+     86,
+     69
     ],
     "chem": 3,
     "eff": [
-     87,
-     90,
-     83
+     85,
+     88,
+     71
     ],
-    "tiebreak": 260
+    "tiebreak": 244
    },
    {
     "slot": "RM",
@@ -239,13 +238,13 @@
      81,
      40
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     87,
-     83,
-     41
+     86,
+     82,
+     40
     ],
-    "tiebreak": 207
+    "tiebreak": 204
    },
    {
     "slot": "ST",
@@ -305,16 +304,16 @@
  "base_ids": [
   "id44897",
   "id50595413",
+  "id50610428",
   "id50752",
-  "evo_Can_85",
-  "id225375",
-  "id50402434",
-  "id227327",
+  "evo_Rall_86",
   "id50592947",
+  "id67230808",
   "id15723",
+  "id227327",
   "id50572365",
-  "id67335223"
+  "id330"
  ],
- "built": "2026-10-27 02:15 UTC",
+ "built": "2026-10-29 20:38 UTC",
  "week": "2026-10-26"
 }

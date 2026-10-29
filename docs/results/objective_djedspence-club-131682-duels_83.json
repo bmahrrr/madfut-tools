@@ -1,22 +1,23 @@
 {
- "g": 5,
+ "g": 6,
  "obj_ids": [
   "id224987",
   "id229237",
   "id203574",
-  "id50575350",
-  "id210406"
+  "id50590296",
+  "id210406",
+  "id50575350"
  ],
- "strength": 101.6,
- "group_cards": 5,
+ "strength": 101.2,
+ "group_cards": 6,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
+   "you_lead_first": "DRAW",
    "they_lead_first": "WIN"
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
+  "formation": "5-4-1",
   "chem": 33,
   "players": [
    {
@@ -64,6 +65,29 @@
      85
     ],
     "tiebreak": 240
+   },
+   {
+    "slot": "CB",
+    "id": "id50590296",
+    "name": "Carlos Augusto",
+    "rating": 83,
+    "color": "showdown",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     79,
+     80,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     84,
+     85
+    ],
+    "tiebreak": 247
    },
    {
     "slot": "CB",
@@ -135,29 +159,6 @@
     "tiebreak": 250
    },
    {
-    "slot": "CDM",
-    "id": "id264309",
-    "name": "Güler",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "RM",
-    "nationId": 48,
-    "leagueId": 53,
-    "clubId": 243,
-    "card": [
-     82,
-     84,
-     53
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     86,
-     55
-    ],
-    "tiebreak": 225
-   },
-   {
     "slot": "LM",
     "id": "id67377753",
     "name": "Álvaro Carreras",
@@ -182,6 +183,29 @@
    },
    {
     "slot": "CM",
+    "id": "id264309",
+    "name": "Güler",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "RM",
+    "nationId": 48,
+    "leagueId": 53,
+    "clubId": 243,
+    "card": [
+     82,
+     84,
+     53
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     86,
+     55
+    ],
+    "tiebreak": 225
+   },
+   {
+    "slot": "CM",
     "id": "id210406",
     "name": "Zieliński",
     "rating": 82,
@@ -202,29 +226,6 @@
      71
     ],
     "tiebreak": 235
-   },
-   {
-    "slot": "CM",
-    "id": "id266866",
-    "name": "Éderson",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 115845,
-    "card": [
-     77,
-     78,
-     80
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     82,
-     83
-    ],
-    "tiebreak": 241
    },
    {
     "slot": "RM",
@@ -305,18 +306,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id262621",
-  "id50592556",
-  "id50606840",
-  "id232488",
-  "id210514",
-  "id50522413",
-  "id50583500",
+  "id224987",
+  "id247103",
+  "id229237",
+  "id67351699",
+  "id50590296",
   "id50575428",
   "id197781",
-  "id255475",
-  "id252042"
+  "id210514",
+  "id50583500",
+  "id231447",
+  "id255475"
  ],
- "built": "2026-10-28 01:42 UTC",
+ "built": "2026-10-29 20:38 UTC",
  "week": "2026-10-26"
 }

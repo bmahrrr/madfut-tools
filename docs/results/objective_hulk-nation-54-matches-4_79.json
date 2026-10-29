@@ -1,12 +1,13 @@
 {
- "g": 4,
+ "g": 5,
  "obj_ids": [
-  "id259075",
+  "id279709",
+  "id256632",
   "id236499",
   "id50562314",
-  "id279709"
+  "id259075"
  ],
- "strength": 100.7,
+ "strength": 102.9,
  "group_cards": 441,
  "reddit": [
   {
@@ -15,31 +16,31 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 29,
+  "formation": "4-4-1-1",
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id225149",
-    "name": "Butez",
+    "id": "id270821",
+    "name": "Penders",
     "rating": 78,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 18,
-    "leagueId": 31,
-    "clubId": 1745,
+    "nationId": 7,
+    "leagueId": 13,
+    "clubId": 5,
     "card": [
-     40,
-     43,
+     33,
+     41,
      79
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     42,
-     45,
+     35,
+     43,
      81
     ],
-    "tiebreak": 168
+    "tiebreak": 153
    },
    {
     "slot": "LB",
@@ -66,29 +67,6 @@
    },
    {
     "slot": "CB",
-    "id": "id279709",
-    "name": "Lucas Beraldo",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     60,
-     71,
-     79
-    ],
-    "chem": 1,
-    "eff": [
-     60,
-     71,
-     79
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CB",
     "id": "id192638",
     "name": "Marcos Alonso",
     "rating": 79,
@@ -109,6 +87,29 @@
      81
     ],
     "tiebreak": 235
+   },
+   {
+    "slot": "CB",
+    "id": "id279709",
+    "name": "Lucas Beraldo",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     60,
+     71,
+     79
+    ],
+    "chem": 2,
+    "eff": [
+     61,
+     72,
+     80
+    ],
+    "tiebreak": 213
    },
    {
     "slot": "RB",
@@ -132,29 +133,6 @@
      77
     ],
     "tiebreak": 236
-   },
-   {
-    "slot": "CDM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     76,
-     79,
-     75
-    ],
-    "chem": 2,
-    "eff": [
-     77,
-     80,
-     76
-    ],
-    "tiebreak": 233
    },
    {
     "slot": "LM",
@@ -181,29 +159,6 @@
    },
    {
     "slot": "CM",
-    "id": "id259307",
-    "name": "Gusto",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 18,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     72,
-     76,
-     78
-    ],
-    "chem": 2,
-    "eff": [
-     75,
-     79,
-     81
-    ],
-    "tiebreak": 229
-   },
-   {
-    "slot": "CM",
     "id": "id241811",
     "name": "Sergio Gómez",
     "rating": 78,
@@ -226,7 +181,53 @@
     "tiebreak": 238
    },
    {
+    "slot": "CM",
+    "id": "id236499",
+    "name": "Douglas Luiz",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     76,
+     79,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     81,
+     77
+    ],
+    "tiebreak": 236
+   },
+   {
     "slot": "RM",
+    "id": "id256632",
+    "name": "Luis Henrique",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     77,
+     73,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     75,
+     77
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "CAM",
     "id": "id225201",
     "name": "Berenguer",
     "rating": 79,
@@ -307,16 +308,16 @@
  "base_ids": [
   "id257235",
   "id258371",
-  "id192638",
   "id248695",
-  "id259307",
+  "id264103",
+  "ltm_espart79",
   "id263370",
-  "id241811",
+  "id266032",
+  "id246672",
   "id225201",
-  "id259377",
-  "id50596345",
-  "id246672"
+  "id270407",
+  "id50596345"
  ],
- "built": "2026-10-28 01:42 UTC",
+ "built": "2026-10-29 20:38 UTC",
  "week": "2026-10-26"
 }
