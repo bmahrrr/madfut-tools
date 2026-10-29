@@ -1228,7 +1228,7 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
     forms.forEach((form, fi) => {
       if (best) return;
       progress(`Linking cards ${form}${forms.length > 1 ? ` (${fi + 1}/${forms.length})` : ""}…`);
-      const f = linkSearch(req, pool, FORMS[form], per, fi + 1);
+      const f = linkSearch(req, pool, FORMS[form], per, fi + 1, highs);
       if (f) { best = { cost: f.cost, form, sq: f.sq }; proven = false; }
     });
   }
@@ -1244,8 +1244,9 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
 // clubs / nations, squad rating...). Each move puts into one slot a card linked to the squad (same club, nation or
 // league as a teammate), a card a missing line needs, or a card of a type the squad lacks. The penalty is how far the
 // squad is from every line; the first squad with no penalty is returned (cheapest found in the time), else null.
-function linkSearch(req, pool, slots, ms = 3000, seed = 1) {
+function linkSearch(req, pool, slots, ms = 3000, seed = 1, highs = null) {
   const t0 = Date.now(), S = slots.length, rules = req.rules || [], pr = req.priority || "gold_first";
+  const P_ = Object.assign({ steps: 60000, T0: 4.0, cw: 2, blockP: 0.08, cool: 0.99995 }, (typeof globalThis !== "undefined" && globalThis.__LSP) || {});
   if ((req.include || []).length) return null;
   let rs = seed >>> 0 || 1; const rnd = () => ((rs = (rs * 1103515245 + 12345) >>> 0) / 4294967296);
   const pick = L => L[Math.floor(rnd() * L.length)];
@@ -1262,8 +1263,8 @@ function linkSearch(req, pool, slots, ms = 3000, seed = 1) {
   const need = req.min_player_chem || 0;
   function pen(sq) {
     const ch = sbcChem(sq); let p = 0, tot = 0;
-    for (let i = 0; i < S; i++) { tot += ch[i]; if (need && ch[i] < need) p += 2 * (need - ch[i]); }
-    if (req.min_chem && tot < req.min_chem) p += 2 * (req.min_chem - tot);
+    for (let i = 0; i < S; i++) { tot += ch[i]; if (need && ch[i] < need) p += P_.cw * (need - ch[i]); }
+    if (req.min_chem && tot < req.min_chem) p += P_.cw * (req.min_chem - tot);
     const keys = new Set(sq.map(playerKey)); if (keys.size < S) p += 50 * (S - keys.size);
     if (req.min_types || req.max_types) { const t = new Set(sq.map(sbcType)).size;
       if (req.min_types && t < req.min_types) p += 3 * (req.min_types - t); if (req.max_types && t > req.max_types) p += 3 * (t - req.max_types); }
@@ -1287,6 +1288,20 @@ function linkSearch(req, pool, slots, ms = 3000, seed = 1) {
       const L = sq[pick(low)], j = Math.floor(rnd() * S); if (sq[j] !== L) {
         const v = rnd(), src = SBC_AUTO.has(L.color) ? icons : v < 0.34 ? BYK.get(L.clubId) : v < 0.67 ? BYN.get(L.nationId) : BYL.get(L.leagueId);
         if (src) for (let tries = 0; tries < 12; tries++) { const c = pick(src); if (c.P.has(slots[j])) return [j, c]; } } }
+    if (rnd() < 0.3) {          // same-link swap: a card from the same club / nation / league that adds what's missing
+      const i = Math.floor(rnd() * S), c0 = sq[i]; if (!SBC_AUTO.has(c0.color)) {
+        const v = rnd(), src = v < 0.5 ? BYK.get(c0.clubId) : v < 0.75 ? BYN.get(c0.nationId) : BYL.get(c0.leagueId);
+        const have = new Set(sq.map(sbcType)), nt = have.size;
+        const wantT = (req.min_types && nt < req.min_types), spR = rules.find(r => r.on === "rarity" && r.id === "special" && r.op !== "<=");
+        const wantS = spR && sq.filter(x => rarity(x) === "special").length < spR.n;
+        const wantR = req.min_rating && teamRatingOf(sq.map(x => x.rating)) < req.min_rating;
+        const tc0 = sbcType(c0), uniq0 = sq.filter(x => sbcType(x) === tc0).length === 1;
+        const good = c => c.P.has(slots[i]) && c !== c0 && (
+          wantT ? (!have.has(sbcType(c)) && !uniq0) || (!have.has(sbcType(c)) && uniq0 && false) :
+          wantS ? rarity(c) === "special" && rarity(c0) !== "special" :
+          wantR ? c.rating > c0.rating : true);
+        if (src) for (let tries = 0; tries < 16; tries++) { const c = pick(src); if (good(c)) return [i, c]; }
+      } }
     const i = low.length && rnd() < 0.6 ? pick(low) : Math.floor(rnd() * S);
     const pos = slots[i], u = rnd();
     let src;
@@ -1307,25 +1322,108 @@ function linkSearch(req, pool, slots, ms = 3000, seed = 1) {
       for (let tries = 0; tries < 10; tries++) { const c = pick(src); if (c.P.has(slots[j])) { out[j] = c; break; } } }
     return out;
   }
-  let best = null;
+  // exact repair: keep most of a near-miss squad, free a few slots, and let the exact model fill them from cards linked
+  // to the kept ones (plus cards a line still needs)
+  function repair(sq, ch, k) {
+    if (!highs) return null;
+    const order = [...Array(S).keys()].sort((a, b) => (ch[a] - ch[b]) + (rnd() - 0.5) * 3);
+    const free = new Set(order.slice(0, k)), kept = sq.filter((_, i) => !free.has(i));
+    const keys = new Set(kept.map(playerKey)), cand = new Map();
+    const add = c => { if (!keys.has(playerKey(c)) && !cand.has(c.id) && [...free].some(i => c.P.has(slots[i]))) cand.set(c.id, c); };
+    const fromGroup = L => { if (!L) return; const n = Math.min(L.length, 25); for (let t = 0; t < n; t++) add(pick(L)); };
+    for (const x of kept) { fromGroup(BYK.get(x.clubId)); fromGroup(BYN.get(x.nationId)); fromGroup(BYL.get(x.leagueId)); }
+    rules.forEach((r, q) => { if (r.op !== "<=") fromGroup(ruleL[q]); });
+    for (const t of types) fromGroup(BYT.get(t));
+    fromGroup(icons);
+    const cands = kept.concat([...cand.values()]);
+    const m = buildLP(Object.assign({}, req, { include: kept.map(c => c.id) }), cands, slots, 0); if (!m) return null;
+    let res; try { res = highs.solve(m.lp, { time_limit: 2.5, mip_rel_gap: 1, presolve: "on", output_flag: false }); } catch (e) { return null; }
+    const out = new Array(S).fill(null);
+    if (res.Columns) for (const v of m.X) { const col = res.Columns[v.name]; if (col && col.Primal > 0.5) out[v.k] = m.cands[v.i]; }
+    return !out.includes(null) && validSBC(req, out) ? out : null;
+  }
+  // block start: hybrids are usually a few club blocks (2-4 cards each, mixed card types) plus an Icon. Pick the named
+  // clubs plus a couple of others, give each a share of the slots, fill each slot from its club with a new card type.
+  const namedClubs = rules.filter(r => r.on === "club" && r.op !== "<=" && r.n > 0).map(r => r.id);
+  const clubKeys = [...BYK.keys()].filter(k => BYK.get(k).length >= 4 && !SBC_AUTO.has(BYK.get(k)[0].color));
+  function blockStart() {
+    const clubs = namedClubs.slice(), want = 2 + Math.floor(rnd() * 3);
+    // extra clubs: from the named clubs' leagues or nations, or anywhere
+    while (clubs.length < namedClubs.length + want) {
+      const m = clubs.length && rnd() < 0.6 ? BYK.get(pick(clubs)) : null;
+      const k = m ? pick(BYL.get(pick(m).leagueId)).clubId : pick(clubKeys);
+      if (!clubs.includes(k) && BYK.has(k)) clubs.push(k); else if (rnd() < 0.2) break;
+    }
+    const icon = req.allow_icons && rnd() < 0.8 && icons.length;
+    const sq = new Array(S).fill(null), have = new Set(), keys = new Set();
+    let order = [...Array(S).keys()]; order = order.sort(() => rnd() - 0.5);
+    if (icon) { const i = order.pop(); const L = icons.filter(c => c.P.has(slots[i])); if (L.length) { sq[i] = pick(L); have.add(sbcType(sq[i])); keys.add(playerKey(sq[i])); } else order.push(i); }
+    for (const i of order) {
+      let bestC = null, bs = -1;
+      for (let t = 0; t < 30; t++) {
+        const k = pick(clubs), L = BYK.get(k); if (!L) continue; const c = pick(L);
+        if (!c.P.has(slots[i]) || keys.has(playerKey(c))) continue;
+        const sc = (have.has(sbcType(c)) ? 0 : 3) + (namedClubs.includes(k) && !sq.some(x => x && x.clubId === k) ? 5 : 0) + rnd();
+        if (sc > bs) { bs = sc; bestC = c; }
+      }
+      sq[i] = bestC || pick(bySlot[i]); have.add(sbcType(sq[i])); keys.add(playerKey(sq[i]));
+    }
+    return sq;
+  }
+  // descent: best single swap (a card linked to the squad, or one a line needs) or best pair (two slots from one club /
+  // nation / league), repeated while the penalty drops. Turns near misses (a chem point or two short) into squads.
+  function descend(sq0) {
+    let sq = sq0.slice(), cur = pen(sq).p;
+    for (let round = 0; round < 12 && cur > 0 && Date.now() - t0 < ms; round++) {
+      let bestP = cur, bestSq = null;
+      const keys = new Set(sq.map(playerKey));
+      const pool1 = new Map();
+      const addFrom = (L, n) => { if (L) for (let t = 0; t < n; t++) { const c = pick(L); pool1.set(c.id, c); } };
+      for (const x of sq) { addFrom(BYK.get(x.clubId), 12); addFrom(BYN.get(x.nationId), 12); addFrom(BYL.get(x.leagueId), 12); }
+      rules.forEach((r, q) => { if (r.op !== "<=") addFrom(ruleL[q], 15); });
+      for (const t of types) addFrom(BYT.get(t), 4);
+      addFrom(icons, 10);
+      const cand = [...pool1.values()].filter(c => !keys.has(playerKey(c)));
+      for (let i = 0; i < S; i++) for (const c of cand) {
+        if (!c.P.has(slots[i])) continue; const o = sq[i]; sq[i] = c; const p = pen(sq).p; sq[i] = o;
+        if (p < bestP) { bestP = p; bestSq = sq.slice(); bestSq[i] = c; }
+      }
+      // pairs: two slots filled from one group of a teammate
+      for (let t = 0; t < 150 && !bestSq; t++) {
+        const m = pick(sq), v = rnd(), L = v < 0.4 ? BYK.get(m.clubId) : v < 0.7 ? BYN.get(m.nationId) : BYL.get(m.leagueId); if (!L) continue;
+        const i = Math.floor(rnd() * S), j = Math.floor(rnd() * S); if (i === j) continue;
+        for (let u = 0; u < 8; u++) { const a = pick(L), b = pick(L); if (a === b || !a.P.has(slots[i]) || !b.P.has(slots[j]) || keys.has(playerKey(a)) || keys.has(playerKey(b))) continue;
+          const t2 = sq.slice(); t2[i] = a; t2[j] = b; const p = pen(t2).p; if (p < bestP) { bestP = p; bestSq = t2; } }
+      }
+      if (!bestSq) break; sq = bestSq; cur = bestP;
+    }
+    return cur === 0 && validSBC(req, sq) ? sq : null;
+  }
+  let best = null, run = 0;
   while (Date.now() - t0 < ms) {
     // random start: one slot at a time, linked to what's there when possible
-    const sq = []; for (let i = 0; i < S; i++) sq.push(i && rnd() < 0.7 ? (() => { const m = sq[Math.floor(rnd() * sq.length)]; const L = (rnd() < 0.5 ? BYK.get(m.clubId) : BYL.get(m.leagueId)).filter(posOK[i]); return L.length ? pick(L) : pick(bySlot[i]); })() : pick(bySlot[i]));
+    const blk = (run++ % 2 === 1) ? blockStart() : null;
+    const sq = blk || []; if (!blk) for (let i = 0; i < S; i++) sq.push(i && rnd() < 0.7 ? (() => { const m = sq[Math.floor(rnd() * sq.length)]; const L = (rnd() < 0.5 ? BYK.get(m.clubId) : BYL.get(m.leagueId)).filter(posOK[i]); return L.length ? pick(L) : pick(bySlot[i]); })() : pick(bySlot[i]));
     for (const [r, k] of rules.map((r, k) => [r, k]).filter(([r]) => r.op !== "<=" && r.n > 0 && r.on !== "rarity")) {
       if (sq.filter(x => ruleMatch(x, r)).length >= r.n) continue;
       for (let tries = 0; tries < 20; tries++) { const j = Math.floor(rnd() * S), c = ruleL[k].length ? pick(ruleL[k]) : null; if (c && c.P.has(slots[j]) && !rules.some(q => q !== r && q.op !== "<=" && ruleMatch(sq[j], q))) { sq[j] = c; break; } }
     }
-    let { p, ch } = pen(sq), T = 2.0;
-    const steps = 60000;
+    let { p, ch } = pen(sq), T = 2.0; const lo = { p, sq: sq.slice() }; T = P_.T0;
+    const steps = P_.steps;
     for (let it = 0; it < steps && Date.now() - t0 < ms; it++) {
       let nsq;
-      if (rnd() < 0.08) { nsq = block(sq); if (!nsq) continue; }
+      if (rnd() < P_.blockP) { nsq = block(sq); if (!nsq) continue; }
       else { const [i, c] = propose(sq, ch); if (sq[i] === c) continue; nsq = sq.slice(); nsq[i] = c; }
       const r = pen(nsq), dc = (nsq.reduce((a, x) => a + cost(x), 0) - sq.reduce((a, x) => a + cost(x), 0)) / 4000;
       const d = r.p - p + (r.p === 0 && p === 0 ? dc : 0);
-      if (d <= 0 || rnd() < Math.exp(-d / T)) { for (let q = 0; q < S; q++) sq[q] = nsq[q]; p = r.p; ch = r.ch;
+      if (d <= 0 || rnd() < Math.exp(-d / T)) { for (let q = 0; q < S; q++) sq[q] = nsq[q]; p = r.p; ch = r.ch; if (p < lo.p) { lo.p = p; lo.sq = sq.slice(); }
         if (p === 0 && validSBC(req, sq)) { const cc = sq.reduce((a, x) => a + cost(x), 0); if (!best || cc < best.cost) best = { cost: cc, sq: sq.slice() }; } }
-      T = Math.max(0.05, T * 0.9998);
+      T = Math.max(0.05, T * P_.cool);
+    }
+    if (!best && lo.p <= 14) { const fx = descend(lo.sq); if (fx) best = { cost: fx.reduce((x, c) => x + cost(c), 0), sq: fx }; }
+    if (!best && highs) {           // the closest squad of this run gets a few exact repairs
+      const r0 = pen(lo.sq); if (r0.p <= 12) for (let a = 0; a < 6 && !best && Date.now() - t0 < ms; a++) {
+        const fx = repair(lo.sq, r0.ch, 3 + (a % 3)); if (fx) best = { cost: fx.reduce((x, c) => x + cost(c), 0), sq: fx }; }
     }
     if (best && Date.now() - t0 > ms * 0.5) break;
   }
