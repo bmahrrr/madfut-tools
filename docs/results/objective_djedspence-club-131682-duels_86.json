@@ -4,7 +4,7 @@
   "id237383",
   "id67316992"
  ],
- "strength": 101.1,
+ "strength": 100.4,
  "group_cards": 2,
  "reddit": [
   {
@@ -14,30 +14,30 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 33,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id252154",
-    "name": "Carnesecchi",
-    "rating": 86,
+    "id": "id204935",
+    "name": "Pickford",
+    "rating": 85,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 115845,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 7,
     "card": [
-     31,
-     32,
-     86
+     45,
+     45,
+     85
     ],
     "chem": 3,
     "eff": [
-     33,
-     34,
-     88
+     47,
+     47,
+     87
     ],
-    "tiebreak": 155
+    "tiebreak": 181
    },
    {
     "slot": "LB",
@@ -64,29 +64,6 @@
    },
    {
     "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     76,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     88,
-     87
-    ],
-    "tiebreak": 253
-   },
-   {
-    "slot": "CB",
     "id": "id237383",
     "name": "Bastoni",
     "rating": 86,
@@ -107,6 +84,29 @@
      87
     ],
     "tiebreak": 233
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     88,
+     87
+    ],
+    "tiebreak": 253
    },
    {
     "slot": "RB",
@@ -179,29 +179,6 @@
    },
    {
     "slot": "CM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CM",
     "id": "id50592947",
     "name": "Scott",
     "rating": 86,
@@ -222,6 +199,29 @@
      83
     ],
     "tiebreak": 260
+   },
+   {
+    "slot": "CM",
+    "id": "id50524633",
+    "name": "De Bruyne",
+    "rating": 86,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 7,
+    "leagueId": 31,
+    "clubId": 48,
+    "card": [
+     85,
+     87,
+     67
+    ],
+    "chem": 2,
+    "eff": [
+     86,
+     88,
+     68
+    ],
+    "tiebreak": 242
    },
    {
     "slot": "RM",
@@ -304,16 +304,16 @@
  "base_ids": [
   "id44897",
   "id50595413",
-  "id50610428",
+  "evo_Can_85",
   "id50752",
   "evo_Rall_86",
-  "id50592947",
-  "id67230808",
-  "id15723",
   "id227327",
-  "id50572365",
-  "id330"
+  "id67230808",
+  "id67110261",
+  "id50592947",
+  "id15723",
+  "id50572365"
  ],
- "built": "2026-10-29 20:38 UTC",
+ "built": "2026-10-30 22:46 UTC",
  "week": "2026-10-26"
 }

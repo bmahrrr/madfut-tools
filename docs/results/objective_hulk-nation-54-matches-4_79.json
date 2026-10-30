@@ -1,46 +1,45 @@
 {
- "g": 5,
+ "g": 4,
  "obj_ids": [
-  "id279709",
-  "id256632",
-  "id236499",
+  "id50562318",
+  "id259075",
   "id50562314",
-  "id259075"
+  "id236499"
  ],
- "strength": 102.9,
+ "strength": 101.4,
  "group_cards": 441,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
+   "you_lead_first": "DRAW",
+   "they_lead_first": "DRAW"
   }
  ],
  "team": {
-  "formation": "4-4-1-1",
+  "formation": "4-1-4-1",
   "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id270821",
-    "name": "Penders",
-    "rating": 78,
+    "id": "id50562318",
+    "name": "Lucas Perri",
+    "rating": 76,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 7,
-    "leagueId": 13,
-    "clubId": 5,
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 54,
     "card": [
-     33,
-     41,
-     79
+     32,
+     31,
+     77
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
-     35,
-     43,
-     81
+     33,
+     32,
+     78
     ],
-    "tiebreak": 153
+    "tiebreak": 143
    },
    {
     "slot": "LB",
@@ -90,26 +89,26 @@
    },
    {
     "slot": "CB",
-    "id": "id279709",
-    "name": "Lucas Beraldo",
+    "id": "id248695",
+    "name": "Fofana",
     "rating": 79,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 13,
+    "clubId": 5,
     "card": [
      60,
-     71,
+     65,
      79
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     61,
-     72,
-     80
+     64,
+     69,
+     83
     ],
-    "tiebreak": 213
+    "tiebreak": 210
    },
    {
     "slot": "RB",
@@ -126,13 +125,36 @@
      80,
      75
     ],
-    "chem": 3,
+    "chem": 2,
+    "eff": [
+     76,
+     81,
+     76
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "CDM",
+    "id": "id236499",
+    "name": "Douglas Luiz",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     76,
+     79,
+     75
+    ],
+    "chem": 2,
     "eff": [
      77,
-     82,
-     77
+     80,
+     76
     ],
-    "tiebreak": 236
+    "tiebreak": 233
    },
    {
     "slot": "LM",
@@ -159,6 +181,29 @@
    },
    {
     "slot": "CM",
+    "id": "id259307",
+    "name": "Gusto",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 18,
+    "leagueId": 13,
+    "clubId": 5,
+    "card": [
+     72,
+     76,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     80,
+     82
+    ],
+    "tiebreak": 232
+   },
+   {
+    "slot": "CM",
     "id": "id241811",
     "name": "Sergio Gómez",
     "rating": 78,
@@ -181,53 +226,7 @@
     "tiebreak": 238
    },
    {
-    "slot": "CM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     76,
-     79,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     81,
-     77
-    ],
-    "tiebreak": 236
-   },
-   {
     "slot": "RM",
-    "id": "id256632",
-    "name": "Luis Henrique",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     77,
-     73,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     75,
-     77
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CAM",
     "id": "id225201",
     "name": "Berenguer",
     "rating": 79,
@@ -307,17 +306,17 @@
  },
  "base_ids": [
   "id257235",
-  "id258371",
-  "id248695",
+  "id192638",
   "id264103",
-  "ltm_espart79",
+  "id248695",
+  "id258371",
+  "id241811",
   "id263370",
-  "id266032",
-  "id246672",
+  "id259377",
   "id225201",
-  "id270407",
-  "id50596345"
+  "id50596345",
+  "id76042"
  ],
- "built": "2026-10-29 20:38 UTC",
+ "built": "2026-10-30 22:45 UTC",
  "week": "2026-10-26"
 }

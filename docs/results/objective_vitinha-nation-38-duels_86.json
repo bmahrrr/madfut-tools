@@ -2,13 +2,13 @@
  "g": 6,
  "obj_ids": [
   "id234577",
-  "id67229397",
-  "id218667",
   "id50414596",
+  "id218667",
+  "id67229397",
   "id50593503",
   "id50602505"
  ],
- "strength": 100.2,
+ "strength": 99.5,
  "group_cards": 7,
  "reddit": [
   {
@@ -160,6 +160,29 @@
    },
    {
     "slot": "LM",
+    "id": "id67230808",
+    "name": "Schweinsteiger",
+    "rating": 86,
+    "color": "debut_icon",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     81,
+     80,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     82,
+     86
+    ],
+    "tiebreak": 251
+   },
+   {
+    "slot": "CM",
     "id": "id50414596",
     "name": "Flávio Gonçalves",
     "rating": 84,
@@ -180,29 +203,6 @@
      60
     ],
     "tiebreak": 232
-   },
-   {
-    "slot": "CM",
-    "id": "id218667",
-    "name": "Bernardo Silva",
-    "rating": 84,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 243,
-    "card": [
-     81,
-     84,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     87,
-     70
-    ],
-    "tiebreak": 239
    },
    {
     "slot": "CM",
@@ -229,26 +229,26 @@
    },
    {
     "slot": "RM",
-    "id": "id67230808",
-    "name": "Schweinsteiger",
-    "rating": 86,
-    "color": "debut_icon",
+    "id": "id218667",
+    "name": "Bernardo Silva",
+    "rating": 84,
+    "color": "rare_gold",
     "position": "CM",
-    "nationId": 21,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 243,
     "card": [
      81,
-     80,
-     84
+     84,
+     68
     ],
     "chem": 3,
     "eff": [
-     83,
-     82,
-     86
+     86,
+     87,
+     70
     ],
-    "tiebreak": 251
+    "tiebreak": 239
    },
    {
     "slot": "ST",
@@ -308,16 +308,16 @@
  "base_ids": [
   "id44897",
   "id50595413",
-  "id50610428",
+  "evo_Can_85",
   "id50752",
   "evo_Rall_86",
-  "id50592947",
-  "id67230808",
-  "id15723",
   "id227327",
-  "id50572365",
-  "id330"
+  "id67230808",
+  "id67110261",
+  "id50592947",
+  "id15723",
+  "id50572365"
  ],
- "built": "2026-10-29 20:38 UTC",
+ "built": "2026-10-30 22:45 UTC",
  "week": "2026-10-26"
 }
