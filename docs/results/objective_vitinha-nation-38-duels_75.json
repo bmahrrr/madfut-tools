@@ -1,17 +1,18 @@
 {
- "g": 8,
+ "g": 9,
  "obj_ids": [
   "id212442",
-  "id50544462",
-  "id258607",
+  "id50579377",
   "id263829",
   "id230767",
+  "id261831",
+  "id263828",
   "id227890",
-  "id50579377",
-  "id261831"
+  "id258607",
+  "id231391"
  ],
  "strength": 99.7,
- "group_cards": 17,
+ "group_cards": 14,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -19,8 +20,8 @@
   }
  ],
  "team": {
-  "formation": "4-1-3-2",
-  "chem": 32,
+  "formation": "4-1-2-1-2",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -70,29 +71,6 @@
    },
    {
     "slot": "CB",
-    "id": "id261831",
-    "name": "Ana Borges",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 38,
-    "leagueId": 2228,
-    "clubId": 234,
-    "card": [
-     65,
-     65,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     67,
-     67,
-     77
-    ],
-    "tiebreak": 211
-   },
-   {
-    "slot": "CB",
     "id": "id258607",
     "name": "Toti",
     "rating": 75,
@@ -113,6 +91,29 @@
      77
     ],
     "tiebreak": 208
+   },
+   {
+    "slot": "CB",
+    "id": "id261831",
+    "name": "Ana Borges",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 2228,
+    "clubId": 234,
+    "card": [
+     65,
+     65,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     67,
+     77
+    ],
+    "tiebreak": 211
    },
    {
     "slot": "RB",
@@ -162,72 +163,72 @@
    },
    {
     "slot": "LM",
-    "id": "id50544462",
-    "name": "João Mário",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 63,
-    "clubId": 278,
-    "card": [
-     73,
-     75,
-     59
-    ],
-    "chem": 3,
-    "eff": [
-     75,
-     77,
-     61
-    ],
-    "tiebreak": 213
-   },
-   {
-    "slot": "CM",
-    "id": "id252060",
-    "name": "Pobega",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "CDM",
+    "id": "id201389",
+    "name": "Biraghi",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LB",
     "nationId": 27,
     "leagueId": 31,
-    "clubId": 189,
+    "clubId": 54,
     "card": [
-     74,
-     71,
-     73
-    ],
-    "chem": 3,
-    "eff": [
-     78,
      73,
+     75,
+     74
+    ],
+    "chem": 2,
+    "eff": [
+     76,
+     76,
      76
     ],
-    "tiebreak": 224
+    "tiebreak": 225
    },
    {
     "slot": "RM",
-    "id": "id212404",
-    "name": "Bernardeschi",
+    "id": "id263828",
+    "name": "Roger Fernandes",
     "rating": 75,
     "color": "rare_gold",
-    "position": "RM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 189,
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 607,
     "card": [
-     75,
-     77,
+     76,
+     70,
      55
     ],
     "chem": 3,
     "eff": [
-     79,
-     79,
-     58
+     78,
+     72,
+     57
     ],
-    "tiebreak": 213
+    "tiebreak": 207
+   },
+   {
+    "slot": "CAM",
+    "id": "id231391",
+    "name": "João Carvalho",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 10020,
+    "card": [
+     74,
+     75,
+     36
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     77,
+     38
+    ],
+    "tiebreak": 191
    },
    {
     "slot": "ST",
@@ -308,18 +309,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id247796",
+  "id227087",
   "id201389",
   "id266551",
   "id220534",
   "id235374",
-  "id252060",
-  "id50590554",
   "id265292",
+  "id50590554",
   "id212404",
-  "id269276",
-  "id240797"
+  "id276098",
+  "id240797",
+  "id269276"
  ],
- "built": "2026-10-28 01:42 UTC",
+ "built": "2026-10-30 02:21 UTC",
  "week": "2026-10-26"
 }

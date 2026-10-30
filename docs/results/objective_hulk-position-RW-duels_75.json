@@ -1,66 +1,67 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
   "id263929",
+  "id241463",
   "id266969"
  ],
- "strength": 100.0,
+ "strength": 99.9,
  "group_cards": 12,
  "reddit": [
   {
    "you_lead_first": "LOSS",
-   "they_lead_first": "DRAW"
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 32,
+  "formation": "4-1-2-1-2",
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
-    "id": "id247796",
-    "name": "Roebuck",
+    "id": "id253741",
+    "name": "Baldi",
     "rating": 75,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 2,
+    "nationId": 27,
+    "leagueId": 2236,
+    "clubId": 52,
     "card": [
-     38,
-     29,
+     27,
+     24,
      76
     ],
     "chem": 3,
     "eff": [
-     40,
      31,
-     78
+     26,
+     79
     ],
-    "tiebreak": 149
+    "tiebreak": 133
    },
    {
     "slot": "LB",
-    "id": "id258976",
-    "name": "Parisi",
-    "rating": 75,
-    "color": "rare_gold",
+    "id": "id50567943",
+    "name": "Aarón Martín",
+    "rating": 74,
+    "color": "rare_silver",
     "position": "LB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 110374,
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 456,
     "card": [
-     71,
-     72,
+     67,
+     73,
+     73
+    ],
+    "chem": 2,
+    "eff": [
+     68,
+     76,
      74
     ],
-    "chem": 3,
-    "eff": [
-     75,
-     74,
-     77
-    ],
-    "tiebreak": 223
+    "tiebreak": 216
    },
    {
     "slot": "CB",
@@ -77,36 +78,36 @@
      67,
      78
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     63,
-     68,
-     79
+     62,
+     67,
+     78
     ],
-    "tiebreak": 210
+    "tiebreak": 207
    },
    {
     "slot": "CB",
-    "id": "id220534",
-    "name": "Luperto",
+    "id": "id265301",
+    "name": "Fisk",
     "rating": 75,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 27,
-    "leagueId": 32,
-    "clubId": 111434,
+    "nationId": 14,
+    "leagueId": 2216,
+    "clubId": 9,
     "card": [
-     57,
-     60,
+     55,
+     64,
      76
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     61,
-     62,
-     79
+     55,
+     64,
+     76
     ],
-    "tiebreak": 199
+    "tiebreak": 195
    },
    {
     "slot": "RB",
@@ -178,52 +179,6 @@
     "tiebreak": 228
    },
    {
-    "slot": "CM",
-    "id": "id50600450",
-    "name": "Miretti",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 27,
-    "leagueId": 68,
-    "clubId": 327,
-    "card": [
-     72,
-     76,
-     67
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     78,
-     70
-    ],
-    "tiebreak": 221
-   },
-   {
-    "slot": "CM",
-    "id": "id266918",
-    "name": "Kearns",
-    "rating": 73,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 2,
-    "card": [
-     71,
-     75,
-     60
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     77,
-     62
-    ],
-    "tiebreak": 212
-   },
-   {
     "slot": "RM",
     "id": "id263929",
     "name": "Cancellieri",
@@ -247,6 +202,29 @@
     "tiebreak": 196
    },
    {
+    "slot": "CAM",
+    "id": "id236657",
+    "name": "Ugrinić",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 47,
+    "leagueId": 53,
+    "clubId": 461,
+    "card": [
+     74,
+     74,
+     71
+    ],
+    "chem": 2,
+    "eff": [
+     75,
+     77,
+     72
+    ],
+    "tiebreak": 222
+   },
+   {
     "slot": "ST",
     "id": "id266969",
     "name": "Corelli",
@@ -268,6 +246,29 @@
      33
     ],
     "tiebreak": 180
+   },
+   {
+    "slot": "ST",
+    "id": "id241463",
+    "name": "Dani Raba",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 461,
+    "card": [
+     72,
+     73,
+     47
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     77,
+     49
+    ],
+    "tiebreak": 198
    }
   ]
  },
@@ -302,18 +303,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id247796",
+  "id227087",
   "id201389",
   "id266551",
   "id220534",
   "id235374",
-  "id252060",
-  "id50590554",
   "id265292",
+  "id50590554",
   "id212404",
-  "id269276",
-  "id240797"
+  "id276098",
+  "id240797",
+  "id269276"
  ],
- "built": "2026-10-28 01:42 UTC",
+ "built": "2026-10-30 02:21 UTC",
  "week": "2026-10-26"
 }
