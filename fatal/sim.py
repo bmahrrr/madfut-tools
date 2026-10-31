@@ -5,7 +5,7 @@ CAM, CM, CDM, LB, RB), all on full chem; then the best Attack (ST, CAM, wingers,
 then the best Defence (full backs, CDM, CB, GK).
 """
 import time
-from .core import (CTRL, ATT, DEF, AUTO, full_chem, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe, pid)
+from .core import (CTRL, ATT, DEF, AUTO, full_chem, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe, pid, is_special)
 from .milp import build
 
 import itertools
@@ -159,14 +159,16 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         mx = b.get("max")
         def with_bonus(v, k=k, b=b, mx=mx):  # the same build, but forced to earn this bonus
             v = dict(v)
-            if mx is not None:               # "Max 3 clubs": at most that many different
+            if k == "specials":              # "8+ special cards" (or "Max N special cards")
+                v["group_rules"] = list(v.get("group_rules") or ()) + [(is_special, "<=" if mx is not None else ">=", mx if mx is not None else b["min"])]
+            elif mx is not None:             # "Max 3 clubs": at most that many different
                 d = dict(v.get("distinct") or {}); lo = (d.get(k[:-1]) or (None, None))[0]; d[k[:-1]] = (lo, mx); v["distinct"] = d
             elif k == "nations": v["min_nations"] = b["min"]
             elif k == "types": v["min_types"] = b["min"]
             elif k in ("clubs", "leagues"):
                 d = dict(v.get("distinct") or {}); d[k[:-1]] = (b["min"], (d.get(k[:-1]) or (None, None))[1]); v["distinct"] = d
             return v
-        if k in ("nations", "clubs", "leagues") or (k == "types" and mx is None):
+        if k in ("nations", "clubs", "leagues", "specials") or (k == "types" and mx is None):
             bonus_variants = bonus_variants + [with_bonus(v) for v in bonus_variants]
     for form in formations:
         slots = FORMATIONS[form]
