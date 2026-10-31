@@ -64,28 +64,6 @@
      "slot": "GK"
     },
     {
-     "id": "id1183",
-     "name": "Cannavaro",
-     "rating": 89,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      62,
-      64,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      65,
-      69,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id166906",
      "name": "Baresi",
      "rating": 91,
@@ -104,6 +82,28 @@
       69,
       80,
       94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      69,
+      93
      ],
      "slot": "CB"
     },
@@ -152,28 +152,6 @@
      "slot": "LM"
     },
     {
-     "id": "ltm_karetsas91",
-     "name": "Karetsas",
-     "rating": 91,
-     "color": "ltm",
-     "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      87,
-      91,
-      66
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      96,
-      69
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id10535",
      "name": "Xavi",
      "rating": 91,
@@ -192,6 +170,28 @@
       90,
       96,
       71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_karetsas91",
+     "name": "Karetsas",
+     "rating": 91,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      87,
+      91,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      96,
+      69
      ],
      "slot": "CM"
     },
@@ -288,7 +288,7 @@
     "control": 95.6,
     "attack": 93.4,
     "defence": 93.25,
-    "net": 0.0134,
+    "net": 0.0081,
     "control_cards": [
      96,
      96,
@@ -315,7 +315,7 @@
     "ctrl_total": 254.0,
     "att_total": 241.85,
     "def_total": 225.75,
-    "swaps_checked": 49804
+    "swaps_checked": 49875
    }
   },
   {
@@ -569,7 +569,7 @@
     "control": 95.6,
     "attack": 93.4,
     "defence": 93.25,
-    "net": 0.0134,
+    "net": 0.0081,
     "control_cards": [
      96,
      96,
@@ -625,24 +625,24 @@
      "slot": "GK"
     },
     {
-     "id": "id247819",
-     "name": "Schlotterbeck",
-     "rating": 87,
-     "color": "rare_gold",
+     "id": "id166906",
+     "name": "Baresi",
+     "rating": 91,
+     "color": "icon",
      "position": "CB",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 22,
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      71,
+      66,
       75,
-      86
+      91
      ],
      "chem": 3,
      "eff": [
-      74,
+      69,
       80,
-      89
+      94
      ],
      "slot": "CB"
     },
@@ -669,24 +669,24 @@
      "slot": "CB"
     },
     {
-     "id": "id166906",
-     "name": "Baresi",
-     "rating": 91,
-     "color": "icon",
+     "id": "id247819",
+     "name": "Schlotterbeck",
+     "rating": 87,
+     "color": "rare_gold",
      "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
      "card": [
-      66,
+      71,
       75,
-      91
+      86
      ],
      "chem": 3,
      "eff": [
-      69,
+      74,
       80,
-      94
+      89
      ],
      "slot": "CB"
     },
@@ -849,7 +849,7 @@
     "control": 95.6,
     "attack": 93.4,
     "defence": 91.5,
-    "net": 0.0361,
+    "net": 0.0319,
     "control_cards": [
      96,
      96,
@@ -880,6 +880,6 @@
   }
  ],
  "not_owned": [],
- "built": "2026-10-30 18:41 UTC",
+ "built": "2026-10-31 02:52 UTC",
  "week": "2026-10-26"
 }
