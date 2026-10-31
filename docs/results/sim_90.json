@@ -1,0 +1,878 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "90",
+  "cap": 90,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 54,
+    "att": 3,
+    "ctl": 3,
+    "def": 3
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "nations",
+    "max": 2,
+    "att": 2,
+    "ctl": 0,
+    "def": 0
+   },
+   {
+    "kind": "specials",
+    "min": 8,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id5479",
+     "name": "Casillas",
+     "rating": 90,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      48,
+      47,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      50,
+      94
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id013",
+     "name": "David Luiz",
+     "rating": 90,
+     "color": "evo",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      75,
+      83,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      89,
+      97
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50564228",
+     "name": "Gabriel",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      65,
+      68,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      96
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id266690",
+     "name": "Lúcio",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      75,
+      74,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      80,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id191190",
+     "name": "Rivellino",
+     "rating": 90,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      90,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      96,
+      56
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      93,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id190046",
+     "name": "Sócrates",
+     "rating": 89,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      88,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      94,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id100896715",
+     "name": "Raphinha",
+     "rating": 90,
+     "color": "halloween",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      89,
+      88,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      94,
+      65
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evo_Rogers_90",
+     "name": "Rogers",
+     "rating": 90,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      90,
+      90,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      93,
+      74
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id243075",
+     "name": "Rummenigge",
+     "rating": 90,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      84,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      87,
+      62
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id268513",
+     "name": "Jairzinho",
+     "rating": 89,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      88,
+      85,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      91,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 94.0,
+    "attack": 94.05,
+    "defence": 95.5,
+    "net": -0.0297,
+    "control_cards": [
+     96,
+     94,
+     94,
+     93,
+     93
+    ],
+    "attack_cards": [
+     95,
+     95,
+     94,
+     94,
+     93,
+     92
+    ],
+    "defence_cards": [
+     97,
+     96,
+     95,
+     94
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 250.6,
+    "att_total": 246.67,
+    "def_total": 239.75,
+    "swaps_checked": 49826
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id5479",
+     "name": "Casillas",
+     "rating": 90,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      48,
+      47,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      50,
+      94
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50564228",
+     "name": "Gabriel",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      65,
+      68,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      96
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id013",
+     "name": "David Luiz",
+     "rating": 90,
+     "color": "evo",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      75,
+      83,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      89,
+      97
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id266690",
+     "name": "Lúcio",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      75,
+      74,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      80,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id191190",
+     "name": "Rivellino",
+     "rating": 90,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      90,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      96,
+      56
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      93,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id190046",
+     "name": "Sócrates",
+     "rating": 89,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      88,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      94,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id100896715",
+     "name": "Raphinha",
+     "rating": 90,
+     "color": "halloween",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      89,
+      88,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      94,
+      65
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evo_Rogers_90",
+     "name": "Rogers",
+     "rating": 90,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      90,
+      90,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      93,
+      74
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id268513",
+     "name": "Jairzinho",
+     "rating": 89,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      88,
+      85,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      91,
+      58
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id243075",
+     "name": "Rummenigge",
+     "rating": 90,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      84,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      87,
+      62
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 94.0,
+    "attack": 94.05,
+    "defence": 95.5,
+    "net": -0.0297,
+    "control_cards": [
+     96,
+     94,
+     94,
+     93,
+     93
+    ],
+    "attack_cards": [
+     95,
+     95,
+     94,
+     94,
+     93,
+     92
+    ],
+    "defence_cards": [
+     97,
+     96,
+     95,
+     94
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 250.6,
+    "att_total": 246.67,
+    "def_total": 239.75
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id212831",
+     "name": "Alisson",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      41,
+      44,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      49,
+      50,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id266690",
+     "name": "Lúcio",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      75,
+      74,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      80,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50564228",
+     "name": "Gabriel",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      65,
+      68,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      74,
+      96
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id013",
+     "name": "David Luiz",
+     "rating": 90,
+     "color": "evo",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      75,
+      83,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      89,
+      97
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id4231",
+     "name": "Rivaldo",
+     "rating": 90,
+     "color": "icon",
+     "position": "LW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      88,
+      87,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      93,
+      53
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id190046",
+     "name": "Sócrates",
+     "rating": 89,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      88,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      94,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id100896715",
+     "name": "Raphinha",
+     "rating": 90,
+     "color": "halloween",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      89,
+      88,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      94,
+      65
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id191190",
+     "name": "Rivellino",
+     "rating": 90,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      90,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      96,
+      56
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50415142",
+     "name": "Rayan",
+     "rating": 90,
+     "color": "future_stars",
+     "position": "RM",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      88,
+      85,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      91,
+      56
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id268513",
+     "name": "Jairzinho",
+     "rating": 89,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      88,
+      85,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      91,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 94.0,
+    "attack": 96.17,
+    "defence": 95.25,
+    "net": 0.1552,
+    "control_cards": [
+     96,
+     94,
+     94,
+     93,
+     93
+    ],
+    "attack_cards": [
+     97,
+     97,
+     96,
+     96,
+     96,
+     94
+    ],
+    "defence_cards": [
+     97,
+     96,
+     95,
+     93
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 248.6,
+    "att_total": 245.72,
+    "def_total": 240.5
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-31 18:39 UTC",
+ "week": "2026-11-02"
+}
