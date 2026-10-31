@@ -48,28 +48,6 @@
      "slot": "GK"
     },
     {
-     "id": "id1183",
-     "name": "Cannavaro",
-     "rating": 89,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      62,
-      64,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      64,
-      66,
-      92
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id7289",
      "name": "Ferdinand",
      "rating": 89,
@@ -109,6 +87,28 @@
      "eff": [
       66,
       64,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      66,
       92
      ],
      "slot": "CB"
@@ -224,28 +224,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id84119499",
-     "name": "Raphinha",
-     "rating": 89,
-     "color": "laliga_potm",
-     "position": "ST",
-     "nationId": 54,
-     "leagueId": 53,
-     "clubId": 241,
-     "card": [
-      88,
-      87,
-      57
-     ],
-     "chem": 3,
-     "eff": [
-      92,
-      89,
-      60
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id241846",
      "name": "Pajor",
      "rating": 89,
@@ -266,13 +244,35 @@
       32
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id84119499",
+     "name": "Raphinha",
+     "rating": 89,
+     "color": "laliga_potm",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      88,
+      87,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      89,
+      60
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 90.8,
     "attack": 91.47,
     "defence": 90.75,
-    "net": 0.0578,
+    "net": 0.1417,
     "control_cards": [
      91,
      91,
@@ -300,11 +300,11 @@
     "ctrl_total": 252.2,
     "att_total": 230.81,
     "def_total": 207.0,
-    "swaps_checked": 49591
+    "swaps_checked": 49652
    }
   },
   {
-   "formation": "3-5-2",
+   "formation": "3-4-1-2",
    "chem": 33,
    "players": [
     {
@@ -396,6 +396,28 @@
      "slot": "CB"
     },
     {
+     "id": "evo_Oxlade-Chamberlain_87",
+     "name": "Oxlade-Chamberlain",
+     "rating": 87,
+     "color": "evo",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 78,
+     "card": [
+      88,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      90,
+      83
+     ],
+     "slot": "LM"
+    },
+    {
      "id": "evo_Groß_88",
      "name": "Groß",
      "rating": 88,
@@ -415,7 +437,7 @@
       91,
       84
      ],
-     "slot": "CDM"
+     "slot": "CM"
     },
     {
      "id": "evo_Can_89",
@@ -436,6 +458,265 @@
       82,
       91,
       92
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_karetsas89",
+     "name": "Karetsas",
+     "rating": 89,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      85,
+      89,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      91,
+      62
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id1238",
+     "name": "Totti",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      89,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      91,
+      47
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id241846",
+     "name": "Pajor",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      90,
+      74,
+      29
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      76,
+      32
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id84119499",
+     "name": "Raphinha",
+     "rating": 89,
+     "color": "laliga_potm",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      88,
+      87,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      89,
+      60
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 90.8,
+    "attack": 91.47,
+    "defence": 90.75,
+    "net": 0.1417,
+    "control_cards": [
+     91,
+     91,
+     91,
+     91,
+     90
+    ],
+    "attack_cards": [
+     94,
+     92,
+     91,
+     90,
+     89,
+     87,
+     82
+    ],
+    "defence_cards": [
+     92,
+     92,
+     90,
+     89
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 252.2,
+    "att_total": 230.81,
+    "def_total": 207.0
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id235073",
+     "name": "Kobel",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 47,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      35,
+      34,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      37,
+      36,
+      89
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      66,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id7289",
+     "name": "Ferdinand",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      63,
+      65,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Can_89",
+     "name": "Can",
+     "rating": 89,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      80,
+      89,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      91,
+      92
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "evo_Groß_88",
+     "name": "Groß",
+     "rating": 88,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      87,
+      89,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      91,
+      84
      ],
      "slot": "CDM"
     },
@@ -506,28 +787,6 @@
      "slot": "RM"
     },
     {
-     "id": "id84119499",
-     "name": "Raphinha",
-     "rating": 89,
-     "color": "laliga_potm",
-     "position": "ST",
-     "nationId": 54,
-     "leagueId": 53,
-     "clubId": 241,
-     "card": [
-      88,
-      87,
-      57
-     ],
-     "chem": 3,
-     "eff": [
-      92,
-      89,
-      60
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id241846",
      "name": "Pajor",
      "rating": 89,
@@ -548,13 +807,35 @@
       32
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id84119499",
+     "name": "Raphinha",
+     "rating": 89,
+     "color": "laliga_potm",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      88,
+      87,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      89,
+      60
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 90.8,
     "attack": 91.47,
     "defence": 89.83,
-    "net": 0.0411,
+    "net": 0.1263,
     "control_cards": [
      91,
      91,
@@ -585,290 +866,9 @@
     "att_total": 230.81,
     "def_total": 226.17
    }
-  },
-  {
-   "formation": "3-4-1-2",
-   "chem": 33,
-   "players": [
-    {
-     "id": "id235073",
-     "name": "Kobel",
-     "rating": 87,
-     "color": "rare_gold",
-     "position": "GK",
-     "nationId": 47,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      35,
-      34,
-      87
-     ],
-     "chem": 3,
-     "eff": [
-      37,
-      36,
-      89
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      62,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      66,
-      64,
-      92
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id266690",
-     "name": "Lúcio",
-     "rating": 89,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      75,
-      74,
-      89
-     ],
-     "chem": 3,
-     "eff": [
-      77,
-      76,
-      91
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id1183",
-     "name": "Cannavaro",
-     "rating": 89,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      62,
-      64,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      64,
-      66,
-      92
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id274750",
-     "name": "Sneijder",
-     "rating": 88,
-     "color": "hero",
-     "position": "CAM",
-     "nationId": 34,
-     "leagueId": 31,
-     "clubId": 114605,
-     "card": [
-      85,
-      88,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      90,
-      58
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "evo_Groß_88",
-     "name": "Groß",
-     "rating": 88,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 1808,
-     "card": [
-      87,
-      89,
-      82
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      91,
-      84
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "evo_Can_89",
-     "name": "Can",
-     "rating": 89,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 31,
-     "clubId": 45,
-     "card": [
-      80,
-      89,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      82,
-      91,
-      92
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "ltm_karetsas89",
-     "name": "Karetsas",
-     "rating": 89,
-     "color": "ltm",
-     "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      85,
-      89,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      91,
-      62
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id1238",
-     "name": "Totti",
-     "rating": 89,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      89,
-      45
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      91,
-      47
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "id84119499",
-     "name": "Raphinha",
-     "rating": 89,
-     "color": "laliga_potm",
-     "position": "ST",
-     "nationId": 54,
-     "leagueId": 53,
-     "clubId": 241,
-     "card": [
-      88,
-      87,
-      57
-     ],
-     "chem": 3,
-     "eff": [
-      92,
-      89,
-      60
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id241846",
-     "name": "Pajor",
-     "rating": 89,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 37,
-     "leagueId": 2222,
-     "clubId": 241,
-     "card": [
-      90,
-      74,
-      29
-     ],
-     "chem": 3,
-     "eff": [
-      94,
-      76,
-      32
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 90.8,
-    "attack": 91.12,
-    "defence": 91.0,
-    "net": 0.0503,
-    "control_cards": [
-     91,
-     91,
-     91,
-     91,
-     90
-    ],
-    "attack_cards": [
-     94,
-     92,
-     91,
-     89,
-     87,
-     87,
-     82
-    ],
-    "defence_cards": [
-     92,
-     92,
-     91,
-     89
-    ],
-    "chem": 33,
-    "ctrl_not_full": 0,
-    "ctrl_total": 246.6,
-    "att_total": 227.54,
-    "def_total": 212.5
-   }
   }
  ],
  "not_owned": [],
- "built": "2026-10-30 18:40 UTC",
+ "built": "2026-10-31 02:50 UTC",
  "week": "2026-10-26"
 }
