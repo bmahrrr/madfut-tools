@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261031a";
+const APP_V = "20261101a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -637,7 +637,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261031a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261101a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -663,7 +663,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261031a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261101a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1223,7 +1223,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261031a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261101a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1586,7 +1586,7 @@ function drawCards() {
 // ---------- Weekly setup form ----------
 let WS = null, WSUI = { open: "" };
 const BKIND = { nation: "Nation", league: "League", club: "Club", color: "Card type" };
-const BNKIND = { nations: "different nations", leagues: "different leagues", clubs: "different clubs", types: "different card types" };
+const BNKIND = { nations: "different nations", leagues: "different leagues", clubs: "different clubs", types: "different card types", specials: "special cards" };
 const bonusTxt = b => b.max != null ? `Max ${b.max} ${BNKIND[b.kind] || b.kind}` : `${b.min}+ ${BNKIND[b.kind] || b.kind}`;
 const groupName = (on, id) => on === "nation" ? nName(id) : on === "league" ? lName(id) : on === "club" ? cName(id) : TYPE(id);
 const statTxt = o => `A +${o.att || 0} · C +${o.ctl || 0} · D +${o.def || 0}`;
@@ -1622,7 +1622,7 @@ function seriesCardHtml(type, i) {
   const nums = `<div class="row" style="margin-top:8px"><label class="small">A <input type="number" inputmode="numeric" id="wA" value="0" style="width:62px"></label><label class="small">C <input type="number" inputmode="numeric" id="wC" value="0" style="width:62px"></label><label class="small">D <input type="number" inputmode="numeric" id="wD" value="0" style="width:62px"></label></div>`;
   if (open === "boost") h += `<div class="rulebox"><div class="row"><select id="wKind"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select></div>
     <div id="wPick" style="margin-top:8px"></div>${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add boost</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
-  if (open === "bonus") h += `<div class="rulebox"><div class="row"><select id="wBM"><option value="min">Min</option><option value="max">Max</option></select><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><select id="wBK"><option value="nations">Different nations</option><option value="leagues">Different leagues</option><option value="clubs">Different clubs</option><option value="types">Different card types</option></select></div>
+  if (open === "bonus") h += `<div class="rulebox"><div class="row"><select id="wBM"><option value="min">Min</option><option value="max">Max</option></select><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><select id="wBK"><option value="nations">Different nations</option><option value="leagues">Different leagues</option><option value="clubs">Different clubs</option><option value="types">Different card types</option><option value="specials">Special cards</option></select></div>
     ${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add bonus</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
   if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names. Add a rating or club if needed, e.g. <code>Costa 67</code>.</p>
     <textarea id="wRef"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add team</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;

@@ -89,6 +89,11 @@ def card_type(c):
     return str(c["color"]).replace("rare_", "")
 
 
+def is_special(c):
+    """A special card: anything that isn't a plain gold, silver or bronze (Icons, Heroes, TOTW, Evos, promos...)."""
+    return card_type(c) not in ("gold", "silver", "bronze")
+
+
 def solo(x):
     """Always on full chem but adds nothing to anyone else's chem (e.g. Evo Jones)."""
     return x.get("specialChem") == "solo"
@@ -147,7 +152,7 @@ def bonus_met(b, n):
 
 
 def squad_bonus(team, bonuses):
-    """Squad-wide bonuses, e.g. {"kind": "nations", "min": 8, "att": 2} or kind clubs/leagues/types.
+    """Squad-wide bonuses, e.g. {"kind": "nations", "min": 8, "att": 2} or kind clubs/leagues/types/specials.
     "max" instead of "min" = at most that many, e.g. {"kind": "clubs", "max": 3, "ctl": 2} (Max 3 clubs)."""
     out = [0, 0, 0]
     for b in bonuses or []:
@@ -155,6 +160,7 @@ def squad_bonus(team, bonuses):
         elif b["kind"] == "clubs": n = len({x["clubId"] for x in team})
         elif b["kind"] == "leagues": n = len({x["leagueId"] for x in team})
         elif b["kind"] == "types": n = len({card_type(x) for x in team})
+        elif b["kind"] == "specials": n = sum(1 for x in team if is_special(x))
         else: continue
         if bonus_met(b, n):
             out[0] += b.get("att", 0); out[1] += b.get("ctl", 0); out[2] += b.get("def", 0)
