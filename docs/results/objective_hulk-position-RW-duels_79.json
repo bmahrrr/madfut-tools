@@ -4,7 +4,7 @@
   "id225201",
   "id246044"
  ],
- "strength": 101.2,
+ "strength": 101.4,
  "group_cards": 4,
  "reddit": [
   {
@@ -13,77 +13,54 @@
   }
  ],
  "team": {
-  "formation": "4-3-3 (4)",
-  "chem": 30,
+  "formation": "4-4-1-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id206585",
-    "name": "Kepa",
+    "id": "id270821",
+    "name": "Penders",
     "rating": 78,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 45,
-    "leagueId": 13,
-    "clubId": 1,
-    "card": [
-     37,
-     41,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     41,
-     44,
-     81
-    ],
-    "tiebreak": 163
-   },
-   {
-    "slot": "LB",
-    "id": "id258371",
-    "name": "Pep Chavarría",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 45,
+    "nationId": 7,
     "leagueId": 13,
     "clubId": 5,
     "card": [
-     76,
-     73,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     78,
-     82
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "CB",
-    "id": "id192638",
-    "name": "Marcos Alonso",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 450,
-    "card": [
-     73,
-     77,
+     33,
+     41,
      79
     ],
     "chem": 3,
     "eff": [
-     77,
-     80,
-     81
+     37,
+     45,
+     83
     ],
-    "tiebreak": 235
+    "tiebreak": 159
+   },
+   {
+    "slot": "LB",
+    "id": "id220651",
+    "name": "Angeliño",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 242,
+    "card": [
+     76,
+     79,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     82,
+     79
+    ],
+    "tiebreak": 238
    },
    {
     "slot": "CB",
@@ -109,6 +86,29 @@
     "tiebreak": 210
    },
    {
+    "slot": "CB",
+    "id": "id192638",
+    "name": "Marcos Alonso",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 450,
+    "card": [
+     73,
+     77,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     80,
+     81
+    ],
+    "tiebreak": 235
+   },
+   {
     "slot": "RB",
     "id": "id259307",
     "name": "Gusto",
@@ -132,27 +132,27 @@
     "tiebreak": 232
    },
    {
-    "slot": "CM",
-    "id": "id279604",
-    "name": "Jauregizar",
+    "slot": "LM",
+    "id": "id258371",
+    "name": "Pep Chavarría",
     "rating": 79,
     "color": "rare_gold",
-    "position": "CM",
+    "position": "LB",
     "nationId": 45,
-    "leagueId": 53,
-    "clubId": 448,
+    "leagueId": 13,
+    "clubId": 5,
     "card": [
      76,
-     75,
-     77
+     73,
+     78
     ],
     "chem": 3,
     "eff": [
-     80,
+     82,
      78,
-     79
+     82
     ],
-    "tiebreak": 234
+    "tiebreak": 233
    },
    {
     "slot": "CM",
@@ -178,6 +178,52 @@
     "tiebreak": 238
    },
    {
+    "slot": "CM",
+    "id": "id234153",
+    "name": "Carlos Soler",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 457,
+    "card": [
+     76,
+     79,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     82,
+     72
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "RM",
+    "id": "id246044",
+    "name": "Andrés Martín",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 456,
+    "card": [
+     77,
+     74,
+     40
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     77,
+     42
+    ],
+    "tiebreak": 197
+   },
+   {
     "slot": "CAM",
     "id": "id225201",
     "name": "Berenguer",
@@ -201,29 +247,6 @@
     "tiebreak": 228
    },
    {
-    "slot": "LW",
-    "id": "id236918",
-    "name": "Dreyer",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 13,
-    "leagueId": 39,
-    "clubId": 131439,
-    "card": [
-     79,
-     76,
-     44
-    ],
-    "chem": 0,
-    "eff": [
-     76,
-     73,
-     41
-    ],
-    "tiebreak": 190
-   },
-   {
     "slot": "ST",
     "id": "id235944",
     "name": "Brais Méndez",
@@ -245,29 +268,6 @@
      68
     ],
     "tiebreak": 227
-   },
-   {
-    "slot": "RW",
-    "id": "id246044",
-    "name": "Andrés Martín",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 456,
-    "card": [
-     77,
-     74,
-     40
-    ],
-    "chem": 3,
-    "eff": [
-     81,
-     77,
-     42
-    ],
-    "tiebreak": 197
    }
   ]
  },
@@ -303,17 +303,17 @@
  },
  "base_ids": [
   "id257235",
-  "id192638",
-  "id264103",
-  "id248695",
   "id258371",
+  "id192638",
+  "id248695",
+  "id259307",
   "id241811",
   "id263370",
-  "id259377",
   "id225201",
+  "id266032",
   "id50596345",
-  "id76042"
+  "id259377"
  ],
- "built": "2026-10-30 22:45 UTC",
+ "built": "2026-10-31 07:01 UTC",
  "week": "2026-10-26"
 }

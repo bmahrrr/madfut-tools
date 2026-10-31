@@ -2,21 +2,21 @@
  "g": 4,
  "obj_ids": [
   "id50562318",
-  "id259075",
-  "id50562314",
-  "id236499"
+  "id273463",
+  "id279709",
+  "id50562314"
  ],
- "strength": 101.4,
+ "strength": 100.5,
  "group_cards": 441,
  "reddit": [
   {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "DRAW"
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
   }
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 30,
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
@@ -33,13 +33,13 @@
      31,
      77
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     33,
      32,
-     78
+     31,
+     77
     ],
-    "tiebreak": 143
+    "tiebreak": 140
    },
    {
     "slot": "LB",
@@ -66,6 +66,29 @@
    },
    {
     "slot": "CB",
+    "id": "id279709",
+    "name": "Lucas Beraldo",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     60,
+     71,
+     79
+    ],
+    "chem": 1,
+    "eff": [
+     60,
+     71,
+     79
+    ],
+    "tiebreak": 210
+   },
+   {
+    "slot": "CB",
     "id": "id192638",
     "name": "Marcos Alonso",
     "rating": 79,
@@ -88,73 +111,50 @@
     "tiebreak": 235
    },
    {
-    "slot": "CB",
-    "id": "id248695",
-    "name": "Fofana",
+    "slot": "RB",
+    "id": "id259307",
+    "name": "Gusto",
     "rating": 79,
     "color": "rare_gold",
-    "position": "CB",
+    "position": "RB",
     "nationId": 18,
     "leagueId": 13,
     "clubId": 5,
     "card": [
-     60,
-     65,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     64,
-     69,
-     83
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "RB",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     75,
-     80,
-     75
+     72,
+     76,
+     78
     ],
     "chem": 2,
     "eff": [
-     76,
-     81,
-     76
+     75,
+     79,
+     81
     ],
-    "tiebreak": 233
+    "tiebreak": 229
    },
    {
     "slot": "CDM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
-    "rating": 78,
+    "id": "id234153",
+    "name": "Carlos Soler",
+    "rating": 79,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 457,
     "card": [
      76,
      79,
-     75
+     70
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     77,
      80,
-     76
+     82,
+     72
     ],
-    "tiebreak": 233
+    "tiebreak": 231
    },
    {
     "slot": "LM",
@@ -181,26 +181,26 @@
    },
    {
     "slot": "CM",
-    "id": "id259307",
-    "name": "Gusto",
-    "rating": 79,
+    "id": "id273463",
+    "name": "João Gomes",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "RB",
-    "nationId": 18,
+    "position": "CDM",
+    "nationId": 54,
     "leagueId": 13,
-    "clubId": 5,
+    "clubId": 2,
     "card": [
+     71,
+     75,
+     76
+    ],
+    "chem": 2,
+    "eff": [
      72,
      76,
-     78
+     77
     ],
-    "chem": 3,
-    "eff": [
-     76,
-     80,
-     82
-    ],
-    "tiebreak": 232
+    "tiebreak": 225
    },
    {
     "slot": "CM",
@@ -306,17 +306,17 @@
  },
  "base_ids": [
   "id257235",
-  "id192638",
-  "id264103",
-  "id248695",
   "id258371",
+  "id192638",
+  "id248695",
+  "id259307",
   "id241811",
   "id263370",
-  "id259377",
   "id225201",
+  "id266032",
   "id50596345",
-  "id76042"
+  "id259377"
  ],
- "built": "2026-10-30 22:45 UTC",
+ "built": "2026-10-31 07:01 UTC",
  "week": "2026-10-26"
 }
