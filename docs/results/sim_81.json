@@ -18,6 +18,21 @@
     "ctl": 1,
     "def": 1
    }
+  ],
+  "opponents": [
+   [
+    "id224953",
+    "id244919",
+    "id275192",
+    "id256261",
+    "id50522413",
+    "id50603848",
+    "id246287",
+    "evo_Bruno Costa_81",
+    "evo_Lucas Vázquez_80",
+    "id259334",
+    "id50404662"
+   ]
   ]
  },
  "teams": [
@@ -70,46 +85,24 @@
      "slot": "LB"
     },
     {
-     "id": "id241464",
-     "name": "Pau Torres",
+     "id": "id256261",
+     "name": "Thiaw",
      "rating": 81,
      "color": "rare_gold",
      "position": "CB",
-     "nationId": 45,
+     "nationId": 21,
      "leagueId": 13,
-     "clubId": 2,
+     "clubId": 13,
      "card": [
-      62,
-      71,
+      61,
+      70,
       81
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      64,
-      73,
-      83
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id79427",
-     "name": "Romanchuk",
-     "rating": 73,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 49,
-     "leagueId": 330,
-     "clubId": 308,
-     "card": [
-      54,
-      57,
-      72
-     ],
-     "chem": 1,
-     "eff": [
-      54,
-      57,
-      72
+      62,
+      71,
+      82
      ],
      "slot": "CB"
     },
@@ -132,6 +125,28 @@
       63,
       64,
       83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id244919",
+     "name": "Martín Pascual",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 330,
+     "clubId": 100757,
+     "card": [
+      40,
+      45,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      42,
+      47,
+      66
      ],
      "slot": "CB"
     },
@@ -224,28 +239,6 @@
      "slot": "CM"
     },
     {
-     "id": "id272338",
-     "name": "Kowalski",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 21,
-     "leagueId": 2215,
-     "clubId": 32,
-     "card": [
-      76,
-      76,
-      51
-     ],
-     "chem": 2,
-     "eff": [
-      77,
-      79,
-      53
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id259334",
      "name": "Nerea Eizagirre",
      "rating": 81,
@@ -266,13 +259,35 @@
       65
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id50404662",
+     "name": "Kramer",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 13,
+     "leagueId": 2215,
+     "clubId": 32,
+     "card": [
+      82,
+      70,
+      54
+     ],
+     "chem": 1,
+     "eff": [
+      82,
+      72,
+      55
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 84.4,
-    "attack": 81.23,
-    "defence": 77.83,
-    "net": 0.1917,
+    "attack": 82.9,
+    "defence": 76.67,
+    "net": 0.0012,
     "control_cards": [
      85,
      85,
@@ -285,29 +300,29 @@
      84,
      84,
      84,
+     82,
      81,
-     81,
-     77
+     81
     ],
     "defence_cards": [
      83,
-     83,
+     82,
      80,
      79,
-     72,
-     70
+     70,
+     66
     ],
     "chem": 29,
     "ctrl_not_full": 0,
     "ctrl_total": 242.6,
     "att_total": 226.53,
-    "def_total": 206.0,
-    "swaps_checked": 46131
+    "def_total": 200.5,
+    "swaps_checked": 46133
    }
   },
   {
-   "formation": "5-3-2",
-   "chem": 32,
+   "formation": "3-1-4-2",
+   "chem": 29,
    "players": [
     {
      "id": "id224953",
@@ -332,68 +347,24 @@
      "slot": "GK"
     },
     {
-     "id": "id50603848",
-     "name": "Cecilia Marcos",
-     "rating": 80,
-     "color": "totw_gold",
-     "position": "LB",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 457,
-     "card": [
-      82,
-      81,
-      77
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      83,
-      79
-     ],
-     "slot": "LB"
-    },
-    {
-     "id": "id241464",
-     "name": "Pau Torres",
+     "id": "id256261",
+     "name": "Thiaw",
      "rating": 81,
      "color": "rare_gold",
      "position": "CB",
-     "nationId": 45,
+     "nationId": 21,
      "leagueId": 13,
-     "clubId": 2,
+     "clubId": 13,
      "card": [
-      62,
-      71,
+      61,
+      70,
       81
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      64,
-      73,
-      83
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id269487",
-     "name": "Pantalon",
-     "rating": 67,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 10,
-     "leagueId": 330,
-     "clubId": 114385,
-     "card": [
-      40,
-      40,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      42,
-      42,
-      69
+      62,
+      71,
+      82
      ],
      "slot": "CB"
     },
@@ -411,272 +382,33 @@
       63,
       82
      ],
-     "chem": 3,
-     "eff": [
-      64,
-      65,
-      84
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "evo_Lucas Vázquez_80",
-     "name": "Lucas Vázquez",
-     "rating": 80,
-     "color": "evo",
-     "position": "RB",
-     "nationId": 45,
-     "leagueId": 19,
-     "clubId": 32,
-     "card": [
-      82,
-      83,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      85,
-      80
-     ],
-     "slot": "RB"
-    },
-    {
-     "id": "id50522413",
-     "name": "Groß",
-     "rating": 81,
-     "color": "totw_gold",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 1808,
-     "card": [
-      79,
-      83,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      81,
-      85,
-      77
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id246287",
-     "name": "Ángela Sosa",
-     "rating": 80,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 116334,
-     "card": [
-      79,
-      82,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      81,
-      84,
-      65
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "evo_Bruno Costa_81",
-     "name": "Bruno Costa",
-     "rating": 81,
-     "color": "evo",
-     "position": "CM",
-     "nationId": 38,
-     "leagueId": 330,
-     "clubId": 114385,
-     "card": [
-      83,
-      83,
-      73
-     ],
-     "chem": 3,
-     "eff": [
-      85,
-      85,
-      75
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id272338",
-     "name": "Kowalski",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 21,
-     "leagueId": 2215,
-     "clubId": 32,
-     "card": [
-      76,
-      76,
-      51
-     ],
      "chem": 2,
      "eff": [
-      77,
-      79,
-      53
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id259334",
-     "name": "Nerea Eizagirre",
-     "rating": 81,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 457,
-     "card": [
-      82,
-      80,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      82,
-      65
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 84.4,
-    "attack": 81.23,
-    "defence": 77.5,
-    "net": 0.2029,
-    "control_cards": [
-     85,
-     85,
-     85,
-     84,
-     83
-    ],
-    "attack_cards": [
-     85,
-     84,
-     84,
-     84,
-     81,
-     81,
-     77
-    ],
-    "defence_cards": [
-     84,
-     83,
-     80,
-     79,
-     70,
-     69
-    ],
-    "chem": 32,
-    "ctrl_not_full": 0,
-    "ctrl_total": 242.6,
-    "att_total": 226.53,
-    "def_total": 201.5
-   }
-  },
-  {
-   "formation": "3-1-4-2",
-   "chem": 30,
-   "players": [
-    {
-     "id": "id266803",
-     "name": "Sava",
-     "rating": 72,
-     "color": "rare_silver",
-     "position": "GK",
-     "nationId": 39,
-     "leagueId": 330,
-     "clubId": 308,
-     "card": [
-      22,
-      18,
-      73
-     ],
-     "chem": 1,
-     "eff": [
-      22,
-      18,
-      73
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id241464",
-     "name": "Pau Torres",
-     "rating": 81,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 45,
-     "leagueId": 13,
-     "clubId": 2,
-     "card": [
-      62,
-      71,
-      81
-     ],
-     "chem": 3,
-     "eff": [
+      63,
       64,
-      73,
       83
      ],
      "slot": "CB"
     },
     {
-     "id": "id269411",
-     "name": "Marian Huja",
-     "rating": 68,
+     "id": "id244919",
+     "name": "Martín Pascual",
+     "rating": 65,
      "color": "rare_silver",
      "position": "CB",
-     "nationId": 38,
+     "nationId": 45,
      "leagueId": 330,
-     "clubId": 114385,
+     "clubId": 100757,
      "card": [
-      48,
-      48,
-      67
+      40,
+      45,
+      64
      ],
      "chem": 3,
      "eff": [
-      50,
-      50,
-      69
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id273651",
-     "name": "Quansah",
-     "rating": 77,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 19,
-     "clubId": 32,
-     "card": [
-      62,
-      64,
-      77
-     ],
-     "chem": 3,
-     "eff": [
-      65,
-      67,
-      80
+      42,
+      47,
+      66
      ],
      "slot": "CB"
     },
@@ -703,46 +435,46 @@
      "slot": "CDM"
     },
     {
-     "id": "id226162",
-     "name": "Buendía",
+     "id": "id50603848",
+     "name": "Cecilia Marcos",
      "rating": 80,
-     "color": "rare_gold",
-     "position": "LM",
-     "nationId": 52,
-     "leagueId": 13,
-     "clubId": 2,
+     "color": "totw_gold",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 457,
      "card": [
-      80,
+      82,
       81,
-      64
+      77
      ],
      "chem": 3,
      "eff": [
-      82,
+      84,
       83,
-      66
+      79
      ],
      "slot": "LM"
     },
     {
-     "id": "id237386",
-     "name": "Dewsbury-Hall",
-     "rating": 81,
+     "id": "id246287",
+     "name": "Ángela Sosa",
+     "rating": 80,
      "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 7,
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
      "card": [
-      78,
-      81,
-      69
+      79,
+      82,
+      63
      ],
      "chem": 3,
      "eff": [
       81,
       84,
-      72
+      65
      ],
      "slot": "CM"
     },
@@ -791,55 +523,55 @@
      "slot": "RM"
     },
     {
-     "id": "id67368061",
-     "name": "Jackson",
+     "id": "id259334",
+     "name": "Nerea Eizagirre",
      "rating": 81,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 136,
-     "leagueId": 13,
-     "clubId": 2,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 457,
      "card": [
       82,
-      75,
-      48
+      80,
+      63
      ],
      "chem": 3,
      "eff": [
       84,
-      77,
-      50
+      82,
+      65
      ],
      "slot": "ST"
     },
     {
-     "id": "id254117",
-     "name": "Beier",
-     "rating": 81,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 22,
+     "id": "id50404662",
+     "name": "Kramer",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 13,
+     "leagueId": 2215,
+     "clubId": 32,
      "card": [
-      81,
-      76,
-      56
+      82,
+      70,
+      54
      ],
-     "chem": 2,
+     "chem": 1,
      "eff": [
       82,
-      77,
-      57
+      72,
+      55
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "control": 84.4,
-    "attack": 82.93,
-    "defence": 76.4,
-    "net": 0.2425,
+    "attack": 83.25,
+    "defence": 75.6,
+    "net": 0.0264,
     "control_cards": [
      85,
      85,
@@ -851,26 +583,307 @@
      85,
      84,
      84,
-     82,
+     84,
      82,
      81
     ],
     "defence_cards": [
      83,
-     80,
+     82,
      77,
-     73,
-     69
+     70,
+     66
     ],
-    "chem": 30,
+    "chem": 29,
     "ctrl_not_full": 0,
-    "ctrl_total": 241.0,
-    "att_total": 222.74,
-    "def_total": 191.4
+    "ctrl_total": 242.6,
+    "att_total": 228.63,
+    "def_total": 190.2
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id224953",
+     "name": "André Moreira",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      30,
+      24,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      32,
+      26,
+      70
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id241464",
+     "name": "Pau Torres",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      62,
+      71,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      73,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id275192",
+     "name": "Vušković",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 10,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      62,
+      63,
+      82
+     ],
+     "chem": 2,
+     "eff": [
+      63,
+      64,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id79427",
+     "name": "Romanchuk",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 49,
+     "leagueId": 330,
+     "clubId": 308,
+     "card": [
+      54,
+      57,
+      72
+     ],
+     "chem": 1,
+     "eff": [
+      54,
+      57,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50522413",
+     "name": "Groß",
+     "rating": 81,
+     "color": "totw_gold",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      79,
+      83,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      85,
+      77
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50603848",
+     "name": "Cecilia Marcos",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 457,
+     "card": [
+      82,
+      81,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      83,
+      79
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evo_Bruno Costa_81",
+     "name": "Bruno Costa",
+     "rating": 81,
+     "color": "evo",
+     "position": "CM",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      83,
+      83,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      85,
+      75
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id246287",
+     "name": "Ángela Sosa",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      79,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      84,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      80
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id259334",
+     "name": "Nerea Eizagirre",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 457,
+     "card": [
+      82,
+      80,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      82,
+      65
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id272338",
+     "name": "Kowalski",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 21,
+     "leagueId": 2215,
+     "clubId": 32,
+     "card": [
+      76,
+      76,
+      51
+     ],
+     "chem": 2,
+     "eff": [
+      77,
+      79,
+      53
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 84.4,
+    "attack": 81.63,
+    "defence": 77.0,
+    "net": -0.0089,
+    "control_cards": [
+     85,
+     85,
+     85,
+     84,
+     83
+    ],
+    "attack_cards": [
+     85,
+     84,
+     84,
+     84,
+     81,
+     77
+    ],
+    "defence_cards": [
+     83,
+     83,
+     77,
+     72,
+     70
+    ],
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "ctrl_total": 242.6,
+    "att_total": 228.63,
+    "def_total": 196.8
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-31 18:44 UTC",
+ "built": "2026-11-01 02:31 UTC",
  "week": "2026-11-02"
 }
