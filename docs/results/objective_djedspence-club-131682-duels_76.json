@@ -8,7 +8,7 @@
  "reddit": [],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 31,
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -35,26 +35,26 @@
    },
    {
     "slot": "LB",
-    "id": "id251530",
-    "name": "Nuno Tavares",
-    "rating": 76,
+    "id": "id201389",
+    "name": "Biraghi",
+    "rating": 75,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 38,
+    "nationId": 27,
     "leagueId": 31,
-    "clubId": 115841,
+    "clubId": 54,
     "card": [
+     73,
      75,
-     74,
      74
     ],
     "chem": 3,
     "eff": [
-     79,
-     76,
-     77
+     75,
+     77,
+     76
     ],
-    "tiebreak": 229
+    "tiebreak": 228
    },
    {
     "slot": "CB",
@@ -104,121 +104,6 @@
    },
    {
     "slot": "RB",
-    "id": "id208618",
-    "name": "Lucas Vázquez",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     76,
-     77,
-     72
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     79,
-     74
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CDM",
-    "id": "id276602",
-    "name": "Ouédraogo",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 112172,
-    "card": [
-     78,
-     78,
-     60
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     80,
-     62
-    ],
-    "tiebreak": 222
-   },
-   {
-    "slot": "LM",
-    "id": "id272829",
-    "name": "Ângelo",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 350,
-    "clubId": 112139,
-    "card": [
-     76,
-     77,
-     62
-    ],
-    "chem": 1,
-    "eff": [
-     76,
-     79,
-     62
-    ],
-    "tiebreak": 215
-   },
-   {
-    "slot": "CM",
-    "id": "id260823",
-    "name": "Fagioli",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 110374,
-    "card": [
-     74,
-     79,
-     71
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     81,
-     73
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CM",
-    "id": "id230658",
-    "name": "Arthur",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     74,
-     79,
-     71
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     81,
-     73
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "RM",
     "id": "id235374",
     "name": "Lazzari",
     "rating": 75,
@@ -241,27 +126,142 @@
     "tiebreak": 229
    },
    {
-    "slot": "ST",
-    "id": "id257073",
-    "name": "Tiago Tomás",
+    "slot": "CDM",
+    "id": "id260823",
+    "name": "Fagioli",
     "rating": 76,
     "color": "rare_gold",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 19,
-    "clubId": 36,
+    "position": "CDM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 110374,
     "card": [
+     74,
+     79,
+     71
+    ],
+    "chem": 3,
+    "eff": [
      76,
-     71,
-     43
+     81,
+     73
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "LM",
+    "id": "id251530",
+    "name": "Nuno Tavares",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 115841,
+    "card": [
+     75,
+     74,
+     74
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     76,
+     77
+    ],
+    "tiebreak": 229
+   },
+   {
+    "slot": "CM",
+    "id": "id210324",
+    "name": "Hofmann",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     75,
+     76,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     78,
+     65
+    ],
+    "tiebreak": 220
+   },
+   {
+    "slot": "CM",
+    "id": "id276602",
+    "name": "Ouédraogo",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 112172,
+    "card": [
+     78,
+     78,
+     60
     ],
     "chem": 3,
     "eff": [
      80,
-     73,
-     46
+     80,
+     62
     ],
-    "tiebreak": 196
+    "tiebreak": 222
+   },
+   {
+    "slot": "RM",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     76,
+     77,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     79,
+     74
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "ST",
+    "id": "id50579536",
+    "name": "Esposito",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 111974,
+    "card": [
+     76,
+     76,
+     54
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     78,
+     56
+    ],
+    "tiebreak": 212
    }
   ]
  },
@@ -308,6 +308,6 @@
   "id50571625",
   "id205175"
  ],
- "built": "2026-11-01 02:12 UTC",
+ "built": "2026-11-01 02:15 UTC",
  "week": "2026-11-02"
 }
