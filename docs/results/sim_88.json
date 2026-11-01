@@ -18,6 +18,21 @@
     "ctl": 3,
     "def": 1
    }
+  ],
+  "opponents": [
+   [
+    "id220901",
+    "id012",
+    "id243715",
+    "id138956",
+    "evo_Oxlade-Chamberlain_87",
+    "id50554313",
+    "evo_Groß_88",
+    "id50569340",
+    "id23174",
+    "id262112",
+    "id82092"
+   ]
   ]
  },
  "teams": [
@@ -272,7 +287,7 @@
     "control": 90.8,
     "attack": 89.62,
     "defence": 91.75,
-    "net": 0.1623,
+    "net": 0.0622,
     "control_cards": [
      92,
      91,
@@ -300,6 +315,286 @@
     "att_total": 233.85,
     "def_total": 222.0,
     "swaps_checked": 49513
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id220901",
+     "name": "David Raya",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      50,
+      52,
+      92
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id140601",
+     "name": "Vidić",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 51,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      61,
+      62,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      64,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id012",
+     "name": "David Luiz",
+     "rating": 87,
+     "color": "evo",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      74,
+      80,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      84,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Oxlade-Chamberlain_87",
+     "name": "Oxlade-Chamberlain",
+     "rating": 87,
+     "color": "evo",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 78,
+     "card": [
+      88,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      90,
+      83
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50554313",
+     "name": "Ødegaard",
+     "rating": 87,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      84,
+      88,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      92,
+      69
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Groß_88",
+     "name": "Groß",
+     "rating": 88,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      87,
+      89,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      91,
+      84
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Rall_86",
+     "name": "Rall",
+     "rating": 86,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 21,
+     "leagueId": 2215,
+     "clubId": 36,
+     "card": [
+      82,
+      88,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      90,
+      87
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id23174",
+     "name": "Riquelme",
+     "rating": 88,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      89,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      91,
+      41
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id82092",
+     "name": "Kempes",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      80,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      82,
+      55
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id258980",
+     "name": "Russo",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      87,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      82,
+      49
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 90.8,
+    "attack": 89.62,
+    "defence": 91.75,
+    "net": 0.0622,
+    "control_cards": [
+     92,
+     91,
+     91,
+     90,
+     90
+    ],
+    "attack_cards": [
+     91,
+     91,
+     90,
+     88,
+     88,
+     84
+    ],
+    "defence_cards": [
+     92,
+     92,
+     92,
+     91
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 251.4,
+    "att_total": 233.85,
+    "def_total": 222.0
    }
   },
   {
@@ -505,28 +800,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id262112",
-     "name": "van Persie",
-     "rating": 88,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      84,
-      49
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      86,
-      51
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id82092",
      "name": "Kempes",
      "rating": 88,
@@ -547,13 +820,35 @@
       55
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id262112",
+     "name": "van Persie",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      86,
+      51
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 90.8,
     "attack": 90.12,
     "defence": 89.17,
-    "net": 0.062,
+    "net": -0.0446,
     "control_cards": [
      92,
      91,
@@ -583,290 +878,9 @@
     "att_total": 232.47,
     "def_total": 237.17
    }
-  },
-  {
-   "formation": "3-1-4-2",
-   "chem": 33,
-   "players": [
-    {
-     "id": "id220901",
-     "name": "David Raya",
-     "rating": 88,
-     "color": "rare_gold",
-     "position": "GK",
-     "nationId": 45,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      46,
-      48,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      50,
-      52,
-      92
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id140601",
-     "name": "Vidić",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 51,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      61,
-      62,
-      89
-     ],
-     "chem": 3,
-     "eff": [
-      63,
-      64,
-      91
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      62,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      66,
-      64,
-      92
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id012",
-     "name": "David Luiz",
-     "rating": 87,
-     "color": "evo",
-     "position": "CB",
-     "nationId": 54,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      74,
-      80,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      78,
-      84,
-      92
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "evo_Groß_88",
-     "name": "Groß",
-     "rating": 88,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 1808,
-     "card": [
-      87,
-      89,
-      82
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      91,
-      84
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "evo_Oxlade-Chamberlain_87",
-     "name": "Oxlade-Chamberlain",
-     "rating": 87,
-     "color": "evo",
-     "position": "CM",
-     "nationId": 14,
-     "leagueId": 50,
-     "clubId": 78,
-     "card": [
-      88,
-      88,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      90,
-      83
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id50592947",
-     "name": "Scott",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1943,
-     "card": [
-      85,
-      88,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      90,
-      83
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id50554313",
-     "name": "Ødegaard",
-     "rating": 87,
-     "color": "totw_gold",
-     "position": "CM",
-     "nationId": 36,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      84,
-      88,
-      65
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      92,
-      69
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "evo_Rall_86",
-     "name": "Rall",
-     "rating": 86,
-     "color": "evo",
-     "position": "RB",
-     "nationId": 21,
-     "leagueId": 2215,
-     "clubId": 36,
-     "card": [
-      82,
-      88,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      90,
-      87
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id82092",
-     "name": "Kempes",
-     "rating": 88,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      80,
-      53
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      82,
-      55
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id262112",
-     "name": "van Persie",
-     "rating": 88,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      84,
-      49
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      86,
-      51
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 90.6,
-    "attack": 89.65,
-    "defence": 90.2,
-    "net": 0.0349,
-    "control_cards": [
-     92,
-     91,
-     90,
-     90,
-     90
-    ],
-    "attack_cards": [
-     91,
-     91,
-     90,
-     88,
-     87,
-     84
-    ],
-    "defence_cards": [
-     92,
-     92,
-     92,
-     91,
-     84
-    ],
-    "chem": 33,
-    "ctrl_not_full": 0,
-    "ctrl_total": 259.4,
-    "att_total": 239.15,
-    "def_total": 230.4
-   }
   }
  ],
  "not_owned": [],
- "built": "2026-10-31 18:29 UTC",
+ "built": "2026-11-01 02:15 UTC",
  "week": "2026-11-02"
 }
