@@ -18,11 +18,26 @@
     "ctl": 1,
     "def": 1
    }
+  ],
+  "opponents": [
+   [
+    "id204092",
+    "id190815",
+    "id256033",
+    "id264763",
+    "id265465",
+    "id208618",
+    "id204497",
+    "id50600450",
+    "id215455",
+    "id256102",
+    "id258715"
+   ]
   ]
  },
  "teams": [
   {
-   "formation": "3-1-4-2",
+   "formation": "5-2-1-2",
    "chem": 31,
    "players": [
     {
@@ -48,26 +63,26 @@
      "slot": "GK"
     },
     {
-     "id": "id266160",
-     "name": "Mika Mármol",
+     "id": "id190815",
+     "name": "Blind",
      "rating": 75,
      "color": "rare_gold",
      "position": "CB",
-     "nationId": 45,
+     "nationId": 34,
      "leagueId": 10,
-     "clubId": 246,
+     "clubId": 245,
      "card": [
       70,
-      69,
-      74
-     ],
-     "chem": 2,
-     "eff": [
-      71,
-      70,
+      78,
       75
      ],
-     "slot": "CB"
+     "chem": 3,
+     "eff": [
+      72,
+      80,
+      77
+     ],
+     "slot": "LB"
     },
     {
      "id": "id219670",
@@ -114,306 +129,24 @@
      "slot": "CB"
     },
     {
-     "id": "id247450",
-     "name": "Palavecino",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 341,
-     "clubId": 1878,
-     "card": [
-      74,
-      77,
-      65
-     ],
-     "chem": 3,
-     "eff": [
-      76,
-      79,
-      67
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id242342",
-     "name": "Lódico",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 101085,
-     "card": [
-      74,
-      77,
-      59
-     ],
-     "chem": 3,
-     "eff": [
-      76,
-      79,
-      61
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id190815",
-     "name": "Blind",
+     "id": "id266160",
+     "name": "Mika Mármol",
      "rating": 75,
      "color": "rare_gold",
      "position": "CB",
-     "nationId": 34,
+     "nationId": 45,
      "leagueId": 10,
-     "clubId": 245,
+     "clubId": 246,
      "card": [
       70,
-      78,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      72,
-      80,
-      77
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id226797",
-     "name": "Malcorra",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 111716,
-     "card": [
-      74,
-      77,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      76,
-      79,
-      65
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id208618",
-     "name": "Lucas Vázquez",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "RB",
-     "nationId": 45,
-     "leagueId": 19,
-     "clubId": 32,
-     "card": [
-      76,
-      77,
-      72
-     ],
-     "chem": 3,
-     "eff": [
-      78,
-      79,
+      69,
       74
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id258715",
-     "name": "Hollerbach",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 169,
-     "card": [
-      76,
-      71,
-      35
      ],
      "chem": 2,
      "eff": [
-      77,
-      72,
-      36
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id244205",
-     "name": "Salas",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 111020,
-     "card": [
-      76,
       71,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      78,
-      73,
-      58
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 79.2,
-    "attack": 77.23,
-    "defence": 72.8,
-    "net": 0.3912,
-    "control_cards": [
-     80,
-     79,
-     79,
-     79,
-     79
-    ],
-    "attack_cards": [
-     78,
-     78,
-     77,
-     76,
-     76,
-     76
-    ],
-    "defence_cards": [
-     77,
-     75,
-     74,
-     71,
-     67
-    ],
-    "chem": 31,
-    "ctrl_not_full": 0,
-    "ctrl_total": 223.6,
-    "att_total": 206.03,
-    "def_total": 197.4,
-    "swaps_checked": 43819
-   }
-  },
-  {
-   "formation": "5-2-1-2",
-   "chem": 33,
-   "players": [
-    {
-     "id": "evo_Olschowsky_74",
-     "name": "Olschowsky",
-     "rating": 74,
-     "color": "evo",
-     "position": "GK",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 23,
-     "card": [
-      34,
-      34,
-      76
-     ],
-     "chem": 3,
-     "eff": [
-      36,
-      36,
-      78
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id215449",
-     "name": "Skov",
-     "rating": 72,
-     "color": "rare_silver",
-     "position": "LB",
-     "nationId": 13,
-     "leagueId": 19,
-     "clubId": 1831,
-     "card": [
-      75,
-      74,
-      71
-     ],
-     "chem": 3,
-     "eff": [
-      78,
-      77,
-      74
-     ],
-     "slot": "LB"
-    },
-    {
-     "id": "id243354",
-     "name": "Sander",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 23,
-     "card": [
-      72,
-      73,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      74,
-      75,
-      77
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id261182",
-     "name": "Malatini",
-     "rating": 69,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 19,
-     "clubId": 38,
-     "card": [
-      56,
-      59,
-      68
-     ],
-     "chem": 3,
-     "eff": [
-      58,
-      61,
-      70
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id246885",
-     "name": "Capaldo",
-     "rating": 75,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 19,
-     "clubId": 28,
-     "card": [
-      72,
       70,
       75
-     ],
-     "chem": 3,
-     "eff": [
-      74,
-      72,
-      77
      ],
      "slot": "CB"
     },
@@ -484,26 +217,48 @@
      "slot": "CM"
     },
     {
-     "id": "id204497",
-     "name": "Stöger",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 4,
-     "leagueId": 19,
-     "clubId": 23,
+     "id": "id247450",
+     "name": "Palavecino",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
      "card": [
-      73,
+      74,
       77,
-      61
+      65
      ],
      "chem": 3,
      "eff": [
-      75,
+      76,
       79,
-      63
+      67
      ],
      "slot": "CAM"
+    },
+    {
+     "id": "id258715",
+     "name": "Hollerbach",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      76,
+      71,
+      35
+     ],
+     "chem": 2,
+     "eff": [
+      77,
+      72,
+      36
+     ],
+     "slot": "ST"
     },
     {
      "id": "id244205",
@@ -526,6 +281,245 @@
       58
      ],
      "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.2,
+    "attack": 77.07,
+    "defence": 74.67,
+    "net": 0.0789,
+    "control_cards": [
+     80,
+     79,
+     79,
+     79,
+     79
+    ],
+    "attack_cards": [
+     78,
+     78,
+     77,
+     76,
+     76,
+     76
+    ],
+    "defence_cards": [
+     77,
+     77,
+     75,
+     74,
+     74,
+     71
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "ctrl_total": 223.6,
+    "att_total": 204.97,
+    "def_total": 204.17,
+    "swaps_checked": 39735
+   }
+  },
+  {
+   "formation": "5-3-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id204092",
+     "name": "Blaswich",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      32,
+      30,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      32,
+      77
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id190815",
+     "name": "Blind",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      70,
+      78,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      80,
+      77
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id266160",
+     "name": "Mika Mármol",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 10,
+     "clubId": 246,
+     "card": [
+      70,
+      69,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      71,
+      70,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id219670",
+     "name": "Piovi",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
+     "card": [
+      70,
+      69,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      71,
+      74
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      53,
+      61,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      55,
+      63,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      74
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id226797",
+     "name": "Malcorra",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111716,
+     "card": [
+      74,
+      77,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id247450",
+     "name": "Palavecino",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
+     "card": [
+      74,
+      77,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      67
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id242342",
+     "name": "Lódico",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101085,
+     "card": [
+      74,
+      77,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      61
+     ],
+     "slot": "CM"
     },
     {
      "id": "id258715",
@@ -541,206 +535,227 @@
       71,
       35
      ],
+     "chem": 2,
+     "eff": [
+      77,
+      72,
+      36
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id244205",
+     "name": "Salas",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111020,
+     "card": [
+      76,
+      71,
+      56
+     ],
      "chem": 3,
      "eff": [
       78,
       73,
-      37
+      58
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 78.6,
-    "attack": 77.27,
-    "defence": 75.0,
-    "net": 0.2787,
+    "control": 79.2,
+    "attack": 77.07,
+    "defence": 74.67,
+    "net": 0.0789,
     "control_cards": [
+     80,
      79,
      79,
      79,
-     79,
-     77
+     79
     ],
     "attack_cards": [
      78,
      78,
-     78,
-     78,
+     77,
      76,
      76,
-     75
+     76
     ],
     "defence_cards": [
-     78,
      77,
      77,
+     75,
      74,
      74,
-     70
+     71
     ],
-    "chem": 33,
+    "chem": 31,
     "ctrl_not_full": 0,
-    "ctrl_total": 222.6,
-    "att_total": 205.27,
-    "def_total": 208.0
+    "ctrl_total": 223.6,
+    "att_total": 204.83,
+    "def_total": 204.17
    }
   },
   {
    "formation": "3-4-1-2",
-   "chem": 29,
+   "chem": 31,
    "players": [
     {
-     "id": "evo_Olschowsky_74",
-     "name": "Olschowsky",
+     "id": "id204092",
+     "name": "Blaswich",
      "rating": 74,
-     "color": "evo",
+     "color": "rare_silver",
      "position": "GK",
      "nationId": 21,
      "leagueId": 19,
-     "clubId": 23,
+     "clubId": 32,
      "card": [
-      34,
-      34,
-      76
+      32,
+      30,
+      75
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      35,
-      35,
+      34,
+      32,
       77
      ],
      "slot": "GK"
     },
     {
-     "id": "id265465",
-     "name": "Maglica",
-     "rating": 70,
+     "id": "id219670",
+     "name": "Piovi",
+     "rating": 73,
      "color": "rare_silver",
      "position": "CB",
-     "nationId": 10,
-     "leagueId": 68,
-     "clubId": 101032,
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
      "card": [
-      49,
-      44,
-      69
+      70,
+      69,
+      72
      ],
      "chem": 3,
      "eff": [
-      52,
-      48,
-      71
+      72,
+      71,
+      74
      ],
      "slot": "CB"
     },
     {
-     "id": "id79457",
-     "name": "Wenger",
-     "rating": 74,
-     "color": "rare_silver",
+     "id": "id266160",
+     "name": "Mika Mármol",
+     "rating": 75,
+     "color": "rare_gold",
      "position": "CB",
-     "nationId": 4,
-     "leagueId": 2215,
-     "clubId": 32,
+     "nationId": 45,
+     "leagueId": 10,
+     "clubId": 246,
      "card": [
-      58,
-      56,
+      70,
+      69,
       74
      ],
      "chem": 2,
      "eff": [
-      59,
-      57,
+      71,
+      70,
       75
      ],
      "slot": "CB"
     },
     {
-     "id": "id232119",
-     "name": "Söyüncü",
-     "rating": 74,
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
      "color": "rare_silver",
      "position": "CB",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 326,
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
      "card": [
-      58,
-      59,
-      74
+      53,
+      61,
+      69
      ],
      "chem": 3,
      "eff": [
-      60,
-      61,
-      76
+      55,
+      63,
+      71
      ],
      "slot": "CB"
     },
     {
-     "id": "id204497",
-     "name": "Stöger",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 4,
-     "leagueId": 19,
-     "clubId": 23,
+     "id": "id242342",
+     "name": "Lódico",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101085,
      "card": [
-      73,
+      74,
       77,
-      61
+      59
      ],
      "chem": 3,
      "eff": [
-      75,
+      76,
       79,
-      63
+      61
      ],
      "slot": "LM"
     },
     {
-     "id": "id199564",
-     "name": "Sergi Roberto",
+     "id": "id226797",
+     "name": "Malcorra",
      "rating": 75,
      "color": "rare_gold",
-     "position": "CDM",
-     "nationId": 45,
-     "leagueId": 39,
-     "clubId": 697,
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111716,
      "card": [
-      71,
+      74,
       77,
-      71
+      63
      ],
      "chem": 3,
      "eff": [
-      73,
+      76,
       79,
-      73
+      65
      ],
      "slot": "CM"
     },
     {
-     "id": "id225403",
-     "name": "Kahveci",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "RM",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 326,
+     "id": "id190815",
+     "name": "Blind",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
      "card": [
-      74,
-      74,
-      58
+      70,
+      78,
+      75
      ],
      "chem": 3,
      "eff": [
-      76,
-      76,
-      60
+      72,
+      80,
+      77
      ],
      "slot": "CM"
     },
@@ -767,107 +782,107 @@
      "slot": "RM"
     },
     {
-     "id": "id215455",
-     "name": "Petković",
+     "id": "id247450",
+     "name": "Palavecino",
      "rating": 75,
      "color": "rare_gold",
-     "position": "ST",
-     "nationId": 10,
-     "leagueId": 68,
-     "clubId": 101032,
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
      "card": [
-      72,
-      76,
-      45
+      74,
+      77,
+      65
      ],
      "chem": 3,
      "eff": [
-      75,
-      80,
-      47
+      76,
+      79,
+      67
      ],
      "slot": "CAM"
     },
     {
-     "id": "id184941",
-     "name": "Sánchez",
+     "id": "id258715",
+     "name": "Hollerbach",
      "rating": 75,
      "color": "rare_gold",
      "position": "ST",
-     "nationId": 55,
-     "leagueId": 39,
-     "clubId": 111139,
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
      "card": [
-      77,
       76,
-      49
+      71,
+      35
      ],
-     "chem": 1,
+     "chem": 2,
      "eff": [
       77,
-      76,
-      49
+      72,
+      36
      ],
      "slot": "ST"
     },
     {
-     "id": "id242816",
-     "name": "Riqui Puig",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 39,
-     "clubId": 697,
+     "id": "id244205",
+     "name": "Salas",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111020,
      "card": [
-      75,
       76,
-      49
+      71,
+      56
      ],
      "chem": 3,
      "eff": [
-      77,
       78,
-      51
+      73,
+      58
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 78.6,
-    "attack": 76.62,
-    "defence": 74.75,
-    "net": 0.2713,
+    "control": 79.2,
+    "attack": 77.16,
+    "defence": 74.25,
+    "net": 0.0738,
     "control_cards": [
      80,
      79,
      79,
      79,
-     76
+     79
     ],
     "attack_cards": [
      78,
-     77,
+     78,
      77,
      76,
-     75,
-     75
+     76,
+     76
     ],
     "defence_cards": [
      77,
-     76,
      75,
+     74,
      71
     ],
-    "chem": 29,
+    "chem": 31,
     "ctrl_not_full": 0,
-    "ctrl_total": 217.4,
-    "att_total": 208.7,
-    "def_total": 176.5
+    "ctrl_total": 223.6,
+    "att_total": 206.87,
+    "def_total": 191.25
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-31 18:48 UTC",
+ "built": "2026-11-01 02:33 UTC",
  "week": "2026-11-02"
 }
