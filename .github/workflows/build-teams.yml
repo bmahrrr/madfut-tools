@@ -7,7 +7,7 @@ on:
       - "config/week.json"
       - "config/extras.json"
   schedule:
-    - cron: "0 18 * * *"     # every night at 01:00 Bangkok: keep improving the My Club teams
+    - cron: "0 18 * * *"     # every night at 01:00 Bangkok: keep improving the My Club and Sim teams
   workflow_dispatch:
     inputs:
       only:
@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
       - id: list
         run: |
-          ONLY="${{ github.event.inputs.only || (github.event_name == 'schedule' && 'myclub') || 'all' }}"
+          ONLY="${{ github.event.inputs.only || (github.event_name == 'schedule' && 'all') || 'all' }}"
           # a save in Season Setup: a new season builds everything; later edits (e.g. a Reddit team added) only rebuild
           # the series that changed. A change to the cards (extras.json) rebuilds everything.
           if [ "${{ github.event_name }}" = "push" ] && ! git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep -q "config/extras.json"; then
