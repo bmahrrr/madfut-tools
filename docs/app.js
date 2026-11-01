@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261101b";
+const APP_V = "20261101c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -637,7 +637,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261101b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261101c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -663,7 +663,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261101b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261101c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -784,11 +784,13 @@ window.otherCard = ctx => {
   $("matchBox").innerHTML = `<h3>Which card did they play?</h3>
     <input type="text" id="ocQ" placeholder="Name, or a hint: nation, league or club" autocomplete="off">
     <div id="ocRes" style="margin-top:8px"></div>${backBtn()}`;
-  const used = new Set(M.TB.map(c => c.name + "|" + c.nationId));
+  // every card can be found except their unplayed listed cards themselves (those have their own buttons); another
+  // version of a listed player (e.g. Verón 87 when Verón 86 is listed) is still found
+  const used = new Set(M.TB.filter((_, k) => M.mb >> k & 1).map(c => c.id));
   const draw = () => {
     const q = norm($("ocQ").value.trim());
     if (q.length < 2) { $("ocRes").innerHTML = `<p class="small muted">Type at least 2 letters. Cards up to ${M.cap} only, strongest first.</p>`; return; }
-    const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.name + "|" + c.nationId) &&
+    const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.id) &&
         (c._n.includes(q) || norm(nName(c.nationId)).includes(q) || norm(lName(c.leagueId)).includes(q) || norm(cName(c.clubId)).includes(q)))
       .sort((x, y) => (y.attack + y.control + y.defense) - (x.attack + x.control + x.defense)).slice(0, 25);
     $("ocRes").innerHTML = L.length ? L.map(c => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="otherDo('${ctx}','${esc(c.id)}')">
@@ -1272,7 +1274,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261101b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261101c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
