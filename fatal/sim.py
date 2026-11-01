@@ -54,6 +54,61 @@ def _pool(series, cards):
 
 
 OPP = None      # profile of the strongest teams in the series (set by build_sim): what our team plays against
+REDDIT = []     # the Reddit teams in every Sim formation they fit (set by build_sim): a team must not lose to them
+
+
+def _match(A, B):
+    """Head-to-head, like the site's simMatch. A, B: dicts with slots, mainpos, E (a, c, d, total) per card.
+    Returns (control chance for A, goal chance for A, goal chance for B) per possession."""
+    def tb(x, y):
+        c = lambda u, v: 1 if u > v else 0.5 if u == v else 0
+        return (c(x[0], y[0]) + c(x[2], y[2]) + c(x[0] + x[1] + x[2], y[0] + y[1] + y[2])) / 3
+    C1 = [A["E"][i] for i, s in enumerate(A["slots"]) if s in CTRL]; C2 = [B["E"][i] for i, s in enumerate(B["slots"]) if s in CTRL]
+    D1 = [A["E"][i] for i, s in enumerate(A["slots"]) if s in DEF]; D2 = [B["E"][i] for i, s in enumerate(B["slots"]) if s in DEF]
+    if not C1 or not C2: return 0.5, 0, 0
+    pc = sum((1 if x[1] > y[1] else 0) if x[1] != y[1] else tb(x, y) for x in C1 for y in C2) / (len(C1) * len(C2))
+    def pa(T, D):
+        s = 0.0
+        for i, w in enumerate(T["W"]):
+            if not w or not D: continue
+            x = T["E"][i]
+            s += w * sum((1 if x[0] > y[2] else 0) if x[0] != y[2] else tb(x, y) for y in D) / len(D)
+        return s
+    return pc, pc * pa(A, D2), (1 - pc) * pa(B, D1)
+
+
+def _side(sq, slots, series, E=None):
+    if E is None: E, _ = effective(sq, series)
+    return {"slots": slots, "E": [tuple(e[:3]) for e in E], "W": attack_weights(slots, [x["position"] for x in sq])}
+
+
+def set_reddit(refs, series):
+    """Every Reddit team in every Sim formation it fits (cards placed in their listed order, GK first): each team we
+    consider is played against all of them, and the one that does best against it counts."""
+    global REDDIT
+    REDDIT = []
+    for ref in refs or []:
+        groups = []
+        E, _ = effective(ref, series)
+        for f in SIM_FORMATIONS:
+            slots = FORMATIONS[f]; used = set(); order = []
+            for sl in slots:
+                i = next((j for j, c in enumerate(ref) if j not in used and sl in c["P"]), None)
+                if i is None: order = None; break
+                used.add(i); order.append(i)
+            if order: groups.append(_side([ref[i] for i in order], slots, series, [E[i] for i in order]))
+        if groups: REDDIT.append(groups)
+
+
+def vs_reddit(sq, slots, series, E=None):
+    """Worst goal-chance margin (ours minus theirs) against any Reddit team in its best formation; None if none."""
+    if not REDDIT: return None
+    me = _side(sq, slots, series, E)
+    worst = None
+    for groups in REDDIT:
+        m = min(a - b for _, a, b in (_match(me, g) for g in groups))
+        worst = m if worst is None else min(worst, m)
+    return round(worst, 4)
 
 
 def _beat(x, ys):
@@ -94,7 +149,8 @@ def evaluate(team, slots, series):
         f = sum(W[i] * _beat(E[i][0], OPP["D"]) for i in range(len(slots)) if W[i] > 0)
         g = m([1 - _beat(E[i][2], OPP["A"]) for i in di])
         net = round(h * f - (1 - h) * g, 4)
-    return {"control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net,
+    vr = vs_reddit(team, slots, series, E)
+    return {"control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
             "defence_cards": sorted(D, reverse=True), "chem": sum(ch), "ctrl_not_full": bad,
             "ctrl_total": round(CT / len(C), 2) if C else 0,
@@ -113,8 +169,11 @@ def rank_key(ev):
 
 
 def sim_key(ev):
-    """Teams with every control card on full chem first, then rank_key."""
-    return (ev["ctrl_not_full"] == 0, rank_key(ev))
+    """Teams with every control card on full chem first; then never a team that loses to the Reddit team head to head
+    (most players copy it: any team at least level with it ranks above every team that loses to it, and among
+    losing teams the smaller loss wins); then rank_key."""
+    vr = ev.get("vs_reddit")
+    return (ev["ctrl_not_full"] == 0, min(vr, 0) if vr is not None else 0, rank_key(ev))
 
 
 def polish(team, slots, series, pool, seconds=60, stats=None):
@@ -149,6 +208,9 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
     it missed Beste at LM in the 77 series)."""
     formations = formations or series.get("formations") or SIM_FORMATIONS
     pool = _pool(series, cards)
+    _byid = {c["id"]: c for c in pool}
+    _red = [[_byid.get(c["id"]) for c in r] for r in list(refs or [])[:n_reddit if n_reddit is not None else len(refs or [])]]
+    set_reddit([r for r in _red if all(r)], series)
     maxC = max(x["C"] for x in pool if x["P"] & CTRL)
     ctrlc = [x for x in pool if (x["P"] & CTRL) and x["C"] >= maxC - margin]
     nat = {x["nationId"] for x in ctrlc}; lg = {x["leagueId"] for x in ctrlc}; cl = {x["clubId"] for x in ctrlc}
