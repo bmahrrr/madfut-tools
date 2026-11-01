@@ -18,142 +18,135 @@
     "ctl": 1,
     "def": 1
    }
+  ],
+  "opponents": [
+   [
+    "id242288",
+    "id265036",
+    "id242199",
+    "id241775",
+    "id271452",
+    "id50602954",
+    "evo_Jerdea_70",
+    "id237499",
+    "id76944",
+    "id245538",
+    "id221908"
+   ]
   ]
  },
  "teams": [
   {
-   "formation": "3-1-4-2",
-   "chem": 31,
+   "formation": "3-4-1-2",
+   "chem": 27,
    "players": [
     {
-     "id": "id250897",
-     "name": "Bozan",
-     "rating": 66,
+     "id": "id242288",
+     "name": "Ivušić",
+     "rating": 70,
      "color": "rare_silver",
      "position": "GK",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 132392,
+     "nationId": 10,
+     "leagueId": 317,
+     "clubId": 263,
      "card": [
-      21,
-      19,
-      67
+      30,
+      23,
+      70
      ],
-     "chem": 3,
+     "chem": 1,
      "eff": [
-      24,
-      22,
+      30,
+      23,
       70
      ],
      "slot": "GK"
     },
     {
-     "id": "id221986",
-     "name": "Hardeveld",
+     "id": "id265036",
+     "name": "Touon",
      "rating": 70,
      "color": "rare_silver",
      "position": "LB",
-     "nationId": 34,
-     "leagueId": 10,
-     "clubId": 100638,
-     "card": [
-      64,
-      69,
-      69
-     ],
-     "chem": 2,
-     "eff": [
-      65,
-      70,
-      70
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id232413",
-     "name": "Dijksteel",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 92,
-     "leagueId": 68,
-     "clubId": 101032,
-     "card": [
-      57,
-      61,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      60,
-      64,
-      72
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id74140",
-     "name": "Janse",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 34,
-     "leagueId": 10,
+     "nationId": 47,
+     "leagueId": 2229,
      "clubId": 245,
      "card": [
-      53,
-      61,
+      60,
+      65,
       69
+     ],
+     "chem": 1,
+     "eff": [
+      60,
+      65,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id191648",
+     "name": "Yoshida",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 163,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      51,
+      57,
+      66
      ],
      "chem": 3,
      "eff": [
       55,
+      59,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id241775",
+     "name": "El Yamiq",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 131174,
+     "card": [
+      60,
+      56,
+      68
+     ],
+     "chem": 3,
+     "eff": [
       63,
+      59,
       71
      ],
      "slot": "CB"
     },
     {
-     "id": "id216814",
-     "name": "Uçan",
+     "id": "id50602954",
+     "name": "Fayad",
      "rating": 69,
      "color": "rare_silver",
      "position": "CM",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 101025,
+     "nationId": 129,
+     "leagueId": 317,
+     "clubId": 263,
      "card": [
       68,
-      70,
-      64
-     ],
-     "chem": 3,
-     "eff": [
       71,
-      73,
-      67
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id50578673",
-     "name": "Gulliksen",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 36,
-     "leagueId": 68,
-     "clubId": 101032,
-     "card": [
-      70,
-      70,
-      54
+      60
      ],
      "chem": 3,
      "eff": [
+      70,
       73,
-      73,
-      57
+      62
      ],
      "slot": "LM"
     },
@@ -224,26 +217,587 @@
      "slot": "RM"
     },
     {
-     "id": "id247375",
-     "name": "Saba",
+     "id": "id237499",
+     "name": "Sabiri",
      "rating": 70,
      "color": "rare_silver",
      "position": "CAM",
-     "nationId": 26,
+     "nationId": 129,
      "leagueId": 68,
-     "clubId": 132392,
+     "clubId": 131174,
+     "card": [
+      70,
+      70,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      63
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id221908",
+     "name": "Morgan",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 42,
+     "leagueId": 39,
+     "clubId": 131439,
      "card": [
       72,
       69,
+      57
+     ],
+     "chem": 1,
+     "eff": [
+      74,
+      69,
+      58
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id245538",
+     "name": "Furuhashi",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 163,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      73,
+      68,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      70,
+      53
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 73.8,
+    "attack": 73.81,
+    "defence": 69.75,
+    "net": -0.018,
+    "control_cards": [
+     75,
+     74,
+     74,
+     73,
+     73
+    ],
+    "attack_cards": [
+     77,
+     74,
+     73,
+     72,
+     70,
+     70
+    ],
+    "defence_cards": [
+     71,
+     70,
+     69,
+     69
+    ],
+    "chem": 27,
+    "ctrl_not_full": 0,
+    "ctrl_total": 198.6,
+    "att_total": 199.56,
+    "def_total": 173.25,
+    "swaps_checked": 34209
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 25,
+   "players": [
+    {
+     "id": "id242288",
+     "name": "Ivušić",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 10,
+     "leagueId": 317,
+     "clubId": 263,
+     "card": [
+      30,
+      23,
+      70
+     ],
+     "chem": 1,
+     "eff": [
+      30,
+      23,
+      70
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id265036",
+     "name": "Touon",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 47,
+     "leagueId": 2229,
+     "clubId": 245,
+     "card": [
+      60,
+      65,
+      69
+     ],
+     "chem": 1,
+     "eff": [
+      60,
+      65,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id242199",
+     "name": "McVey",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 46,
+     "leagueId": 39,
+     "clubId": 131439,
+     "card": [
+      52,
+      57,
+      67
+     ],
+     "chem": 2,
+     "eff": [
+      55,
+      58,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id241775",
+     "name": "El Yamiq",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 131174,
+     "card": [
+      60,
+      56,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      59,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50602954",
+     "name": "Fayad",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 129,
+     "leagueId": 317,
+     "clubId": 263,
+     "card": [
+      68,
+      71,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      62
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id271452",
+     "name": "Bouchouari",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      71,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      58
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id76944",
+     "name": "Bounida",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      68,
+      72,
       35
      ],
      "chem": 3,
      "eff": [
-      75,
+      70,
+      74,
+      37
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id237499",
+     "name": "Sabiri",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 131174,
+     "card": [
+      70,
+      70,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      63
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id221908",
+     "name": "Morgan",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 42,
+     "leagueId": 39,
+     "clubId": 131439,
+     "card": [
       72,
-      38
+      69,
+      57
+     ],
+     "chem": 2,
+     "eff": [
+      75,
+      70,
+      59
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id245538",
+     "name": "Furuhashi",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 163,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      73,
+      68,
+      50
+     ],
+     "chem": 1,
+     "eff": [
+      75,
+      68,
+      51
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 73.8,
+    "attack": 73.5,
+    "defence": 69.75,
+    "net": -0.018,
+    "control_cards": [
+     75,
+     74,
+     74,
+     73,
+     73
+    ],
+    "attack_cards": [
+     75,
+     75,
+     73,
+     72,
+     70,
+     70
+    ],
+    "defence_cards": [
+     71,
+     70,
+     69,
+     69
+    ],
+    "chem": 25,
+    "ctrl_not_full": 0,
+    "ctrl_total": 198.6,
+    "att_total": 198.63,
+    "def_total": 173.0
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id250897",
+     "name": "Bozan",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 132392,
+     "card": [
+      21,
+      19,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      24,
+      22,
+      70
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id232413",
+     "name": "Dijksteel",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 92,
+     "leagueId": 68,
+     "clubId": 101032,
+     "card": [
+      57,
+      61,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      60,
+      64,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id221986",
+     "name": "Hardeveld",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 100638,
+     "card": [
+      64,
+      69,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      65,
+      70,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      53,
+      61,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      55,
+      63,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50578673",
+     "name": "Gulliksen",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 36,
+     "leagueId": 68,
+     "clubId": 101032,
+     "card": [
+      70,
+      70,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      57
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id216814",
+     "name": "Uçan",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 101025,
+     "card": [
+      68,
+      70,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      73,
+      67
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id271452",
+     "name": "Bouchouari",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      71,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      58
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id76944",
+     "name": "Bounida",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      68,
+      72,
+      35
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      74,
+      37
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "slot": "CAM"
     },
     {
      "id": "id212260",
@@ -266,13 +820,35 @@
       48
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id247375",
+     "name": "Saba",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 26,
+     "leagueId": 68,
+     "clubId": 132392,
+     "card": [
+      72,
+      69,
+      35
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      72,
+      38
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 73.8,
-    "attack": 73.14,
-    "defence": 70.0,
-    "net": 0.4047,
+    "attack": 73.08,
+    "defence": 70.75,
+    "net": 0.0435,
     "control_cards": [
      75,
      74,
@@ -293,579 +869,17 @@
      72,
      71,
      70,
-     70,
-     67
+     70
     ],
     "chem": 31,
     "ctrl_not_full": 0,
     "ctrl_total": 198.6,
-    "att_total": 189.45,
-    "def_total": 183.4,
-    "swaps_checked": 35180
-   }
-  },
-  {
-   "formation": "3-4-1-2",
-   "chem": 33,
-   "players": [
-    {
-     "id": "id189430",
-     "name": "Colombi",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "GK",
-     "nationId": 27,
-     "leagueId": 32,
-     "clubId": 113147,
-     "card": [
-      32,
-      30,
-      71
-     ],
-     "chem": 3,
-     "eff": [
-      34,
-      32,
-      73
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id241930",
-     "name": "Gattoni",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 32,
-     "clubId": 1847,
-     "card": [
-      62,
-      60,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      64,
-      62,
-      71
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id244576",
-     "name": "Illanes",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 32,
-     "clubId": 110907,
-     "card": [
-      50,
-      51,
-      70
-     ],
-     "chem": 3,
-     "eff": [
-      52,
-      53,
-      72
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id224876",
-     "name": "Curado",
-     "rating": 69,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 32,
-     "clubId": 1847,
-     "card": [
-      45,
-      45,
-      68
-     ],
-     "chem": 3,
-     "eff": [
-      47,
-      47,
-      70
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id184144",
-     "name": "Gaitán",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 111707,
-     "card": [
-      69,
-      72,
-      49
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      74,
-      51
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id275343",
-     "name": "Rodríguez",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 101083,
-     "card": [
-      70,
-      71,
-      54
-     ],
-     "chem": 3,
-     "eff": [
-      72,
-      73,
-      56
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "evo_Jerdea_70",
-     "name": "Jerdea",
-     "rating": 70,
-     "color": "evo",
-     "position": "CAM",
-     "nationId": 39,
-     "leagueId": 330,
-     "clubId": 110078,
-     "card": [
-      70,
-      73,
-      46
-     ],
-     "chem": 3,
-     "eff": [
-      72,
-      75,
-      48
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id74835",
-     "name": "Lencina",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 52,
-     "leagueId": 54,
-     "clubId": 10846,
-     "card": [
-      71,
-      71,
-      55
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      73,
-      57
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id271575",
-     "name": "Pafundi",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 27,
-     "leagueId": 32,
-     "clubId": 110908,
-     "card": [
-      71,
-      72,
-      47
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      74,
-      49
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "id253908",
-     "name": "Luna Diale",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 111716,
-     "card": [
-      73,
-      68,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      70,
-      65
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id82264",
-     "name": "Freitas",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 1876,
-     "card": [
-      73,
-      67,
-      40
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      69,
-      42
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 73.8,
-    "attack": 73.97,
-    "defence": 71.5,
-    "net": 0.4799,
-    "control_cards": [
-     75,
-     74,
-     74,
-     73,
-     73
-    ],
-    "attack_cards": [
-     75,
-     75,
-     73,
-     73,
-     72,
-     71
-    ],
-    "defence_cards": [
-     73,
-     72,
-     71,
-     70
-    ],
-    "chem": 33,
-    "ctrl_not_full": 0,
-    "ctrl_total": 198.2,
-    "att_total": 198.02,
-    "def_total": 169.25
-   }
-  },
-  {
-   "formation": "3-4-1-2",
-   "chem": 33,
-   "players": [
-    {
-     "id": "id80823",
-     "name": "Marietta",
-     "rating": 61,
-     "color": "rare_bronze",
-     "position": "GK",
-     "nationId": 27,
-     "leagueId": 32,
-     "clubId": 110908,
-     "card": [
-      23,
-      20,
-      62
-     ],
-     "chem": 3,
-     "eff": [
-      25,
-      22,
-      64
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id241930",
-     "name": "Gattoni",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 32,
-     "clubId": 1847,
-     "card": [
-      62,
-      60,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      64,
-      62,
-      71
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id244576",
-     "name": "Illanes",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 32,
-     "clubId": 110907,
-     "card": [
-      50,
-      51,
-      70
-     ],
-     "chem": 3,
-     "eff": [
-      52,
-      53,
-      72
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id224876",
-     "name": "Curado",
-     "rating": 69,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 32,
-     "clubId": 1847,
-     "card": [
-      45,
-      45,
-      68
-     ],
-     "chem": 3,
-     "eff": [
-      47,
-      47,
-      70
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id184144",
-     "name": "Gaitán",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 111707,
-     "card": [
-      69,
-      72,
-      49
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      74,
-      51
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id275343",
-     "name": "Rodríguez",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 101083,
-     "card": [
-      70,
-      71,
-      54
-     ],
-     "chem": 3,
-     "eff": [
-      72,
-      73,
-      56
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "evo_Jerdea_70",
-     "name": "Jerdea",
-     "rating": 70,
-     "color": "evo",
-     "position": "CAM",
-     "nationId": 39,
-     "leagueId": 330,
-     "clubId": 110078,
-     "card": [
-      70,
-      73,
-      46
-     ],
-     "chem": 3,
-     "eff": [
-      72,
-      75,
-      48
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id74835",
-     "name": "Lencina",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 52,
-     "leagueId": 54,
-     "clubId": 10846,
-     "card": [
-      71,
-      71,
-      55
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      73,
-      57
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id271575",
-     "name": "Pafundi",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 27,
-     "leagueId": 32,
-     "clubId": 110908,
-     "card": [
-      71,
-      72,
-      47
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      74,
-      49
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "id253908",
-     "name": "Luna Diale",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 111716,
-     "card": [
-      73,
-      68,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      70,
-      65
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id226765",
-     "name": "Gamba",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 113044,
-     "card": [
-      71,
-      68,
-      34
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      70,
-      36
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 73.8,
-    "attack": 73.35,
-    "defence": 69.25,
-    "net": 0.4246,
-    "control_cards": [
-     75,
-     74,
-     74,
-     73,
-     73
-    ],
-    "attack_cards": [
-     75,
-     73,
-     73,
-     73,
-     72,
-     71
-    ],
-    "defence_cards": [
-     72,
-     71,
-     70,
-     64
-    ],
-    "chem": 33,
-    "ctrl_not_full": 0,
-    "ctrl_total": 198.2,
-    "att_total": 195.86,
-    "def_total": 162.25
+    "att_total": 189.77,
+    "def_total": 176.5
    }
   }
  ],
  "not_owned": [],
- "built": "2026-10-31 18:49 UTC",
+ "built": "2026-11-01 02:34 UTC",
  "week": "2026-11-02"
 }
