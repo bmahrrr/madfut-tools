@@ -1,38 +1,44 @@
 {
- "g": 4,
+ "g": 5,
  "obj_ids": [
-  "id272009",
+  "id80170",
   "id223334",
-  "id273018",
-  "id255475"
+  "id270571",
+  "id239482",
+  "id258648"
  ],
- "strength": 99.8,
+ "strength": 100.0,
  "group_cards": 460,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "4-2-3-1 (2)",
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
-    "id": "id258498",
-    "name": "Verbruggen",
-    "rating": 81,
+    "id": "id221087",
+    "name": "Pau López",
+    "rating": 77,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 34,
-    "leagueId": 13,
-    "clubId": 1808,
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 114554,
     "card": [
-     39,
-     40,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     41,
      42,
-     84
+     44,
+     78
+    ],
+    "chem": 2,
+    "eff": [
+     44,
+     46,
+     80
     ],
     "tiebreak": 167
    },
@@ -53,152 +59,106 @@
     ],
     "chem": 3,
     "eff": [
+     85,
      84,
-     83,
-     79
+     80
     ],
     "tiebreak": 246
    },
    {
     "slot": "CB",
-    "id": "id210047",
-    "name": "Schär",
-    "rating": 81,
+    "id": "id258648",
+    "name": "Carlos Augusto",
+    "rating": 80,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 47,
-    "leagueId": 13,
-    "clubId": 13,
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     70,
-     74,
-     81
+     76,
+     77,
+     79
     ],
     "chem": 3,
     "eff": [
-     72,
-     76,
-     83
+     79,
+     80,
+     82
     ],
-    "tiebreak": 231
+    "tiebreak": 238
    },
    {
     "slot": "CB",
-    "id": "id227344",
-    "name": "Toletti",
+    "id": "id229668",
+    "name": "Mario Hermoso",
     "rating": 81,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 2222,
-    "clubId": 243,
+    "position": "CB",
+    "nationId": 45,
+    "leagueId": 31,
+    "clubId": 52,
     "card": [
-     78,
-     81,
-     72
+     65,
+     70,
+     81
     ],
     "chem": 3,
     "eff": [
-     81,
-     86,
-     74
+     68,
+     73,
+     84
     ],
-    "tiebreak": 237
+    "tiebreak": 222
    },
    {
     "slot": "RB",
-    "id": "id272009",
-    "name": "Antônia Silva",
+    "id": "id80170",
+    "name": "Wesley",
     "rating": 80,
     "color": "rare_gold",
-    "position": "RB",
+    "position": "LB",
     "nationId": 54,
-    "leagueId": 2222,
-    "clubId": 243,
+    "leagueId": 31,
+    "clubId": 52,
     "card": [
-     70,
-     73,
+     76,
+     77,
      79
     ],
     "chem": 3,
     "eff": [
-     72,
-     75,
-     81
+     79,
+     80,
+     82
     ],
-    "tiebreak": 228
+    "tiebreak": 238
    },
    {
     "slot": "CDM",
-    "id": "id273018",
-    "name": "Andrey Santos",
+    "id": "id270571",
+    "name": "Gabriel Sara",
     "rating": 80,
     "color": "rare_gold",
     "position": "CM",
     "nationId": 54,
-    "leagueId": 13,
-    "clubId": 11,
+    "leagueId": 68,
+    "clubId": 325,
     "card": [
-     75,
-     76,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     77,
      78,
-     81
-    ],
-    "tiebreak": 236
-   },
-   {
-    "slot": "LM",
-    "id": "id246350",
-    "name": "Le Fée",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 18,
-    "leagueId": 13,
-    "clubId": 106,
-    "card": [
-     77,
      81,
-     67
+     68
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
      80,
-     86,
-     69
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CM",
-    "id": "id50522413",
-    "name": "Groß",
-    "rating": 81,
-    "color": "totw_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 1808,
-    "card": [
-     79,
      83,
-     75
+     70
     ],
-    "chem": 3,
-    "eff": [
-     81,
-     85,
-     77
-    ],
-    "tiebreak": 243
+    "tiebreak": 230
    },
    {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "id223334",
     "name": "Joelinton",
     "rating": 80,
@@ -212,36 +172,82 @@
      76,
      82
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
      77,
      78,
      84
     ],
-    "tiebreak": 239
+    "tiebreak": 236
    },
    {
-    "slot": "RM",
-    "id": "id255475",
-    "name": "Antony",
+    "slot": "LM",
+    "id": "id239482",
+    "name": "Galeno",
     "rating": 81,
     "color": "rare_gold",
-    "position": "RW",
+    "position": "LM",
     "nationId": 54,
+    "leagueId": 350,
+    "clubId": 112387,
+    "card": [
+     81,
+     77,
+     48
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     79,
+     50
+    ],
+    "tiebreak": 209
+   },
+   {
+    "slot": "CAM",
+    "id": "id50556849",
+    "name": "Berenguer",
+    "rating": 81,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 45,
     "leagueId": 53,
-    "clubId": 449,
+    "clubId": 448,
     "card": [
      82,
      80,
-     50
+     68
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
+     84,
      82,
-     80,
-     50
+     70
     ],
-    "tiebreak": 212
+    "tiebreak": 233
+   },
+   {
+    "slot": "RM",
+    "id": "evo_Lucas Vázquez_80",
+    "name": "Lucas Vázquez",
+    "rating": 80,
+    "color": "evo",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     82,
+     83,
+     78
+    ],
+    "chem": 2,
+    "eff": [
+     84,
+     85,
+     80
+    ],
+    "tiebreak": 246
    },
    {
     "slot": "ST",
@@ -260,9 +266,9 @@
     ],
     "chem": 3,
     "eff": [
-     84,
-     82,
-     65
+     85,
+     83,
+     66
     ],
     "tiebreak": 231
    }
@@ -302,18 +308,18 @@
   ]
  },
  "base_ids": [
-  "id203841",
-  "id268889",
-  "id227344",
-  "id275192",
-  "id223334",
+  "id220383",
+  "id269411",
+  "id229668",
+  "id241464",
   "id50603848",
-  "id50522413",
-  "id246350",
-  "id50556849",
   "id259334",
+  "evo_Bruno Costa_81",
+  "evo_Lucas Vázquez_80",
+  "id50556849",
+  "id50590753",
   "id192629"
  ],
- "built": "2026-11-01 02:16 UTC",
+ "built": "2026-11-01 10:16 UTC",
  "week": "2026-11-02"
 }

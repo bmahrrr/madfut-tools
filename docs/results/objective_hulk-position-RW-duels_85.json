@@ -1,38 +1,42 @@
 {
- "g": 2,
+ "g": 1,
  "obj_ids": [
-  "id20775",
   "id189362"
  ],
  "strength": 100.1,
  "group_cards": 6,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id50574527",
-    "name": "Vandevoordt",
+    "id": "id204935",
+    "name": "Pickford",
     "rating": 85,
-    "color": "star_performer",
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 7,
-    "leagueId": 19,
-    "clubId": 112172,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 7,
     "card": [
-     40,
-     43,
-     86
+     45,
+     45,
+     85
     ],
     "chem": 3,
     "eff": [
-     43,
-     46,
-     89
+     47,
+     47,
+     87
     ],
-    "tiebreak": 175
+    "tiebreak": 181
    },
    {
     "slot": "LB",
@@ -59,29 +63,6 @@
    },
    {
     "slot": "CB",
-    "id": "id50593786",
-    "name": "Lukeba",
-    "rating": 85,
-    "color": "halloween",
-    "position": "LB",
-    "nationId": 18,
-    "leagueId": 19,
-    "clubId": 112172,
-    "card": [
-     71,
-     80,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     83,
-     88
-    ],
-    "tiebreak": 242
-   },
-   {
-    "slot": "CB",
     "id": "evo_Can_85",
     "name": "Can",
     "rating": 85,
@@ -102,6 +83,29 @@
      87
     ],
     "tiebreak": 253
+   },
+   {
+    "slot": "CB",
+    "id": "id50593786",
+    "name": "Lukeba",
+    "rating": 85,
+    "color": "halloween",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 19,
+    "clubId": 112172,
+    "card": [
+     71,
+     80,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     83,
+     88
+    ],
+    "tiebreak": 242
    },
    {
     "slot": "RB",
@@ -128,52 +132,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id50602505",
-    "name": "Mateus Fernandes",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 13,
-    "clubId": 18,
-    "card": [
-     85,
-     85,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     87,
-     78
-    ],
-    "tiebreak": 252
-   },
-   {
-    "slot": "LM",
-    "id": "id20775",
-    "name": "Quaresma",
-    "rating": 85,
-    "color": "hero",
-    "position": "RW",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 114605,
-    "card": [
-     84,
-     84,
-     36
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     86,
-     38
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CM",
     "id": "id50402434",
     "name": "King",
     "rating": 85,
@@ -187,13 +145,36 @@
      87,
      69
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     87,
      88,
-     70
+     89,
+     71
     ],
-    "tiebreak": 245
+    "tiebreak": 248
+   },
+   {
+    "slot": "CM",
+    "id": "id246863",
+    "name": "Nmecha",
+    "rating": 85,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 22,
+    "card": [
+     81,
+     80,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     83,
+     86
+    ],
+    "tiebreak": 250
    },
    {
     "slot": "CM",
@@ -219,27 +200,27 @@
     "tiebreak": 250
    },
    {
-    "slot": "RM",
-    "id": "id50536618",
-    "name": "Thauvin",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "RW",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
+    "slot": "CAM",
+    "id": "id50584757",
+    "name": "Veerman",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 19,
+    "clubId": 22,
     "card": [
      84,
-     84,
-     52
+     86,
+     69
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     85,
-     85,
-     53
+     87,
+     89,
+     72
     ],
-    "tiebreak": 223
+    "tiebreak": 245
    },
    {
     "slot": "ST",
@@ -263,6 +244,29 @@
      53
     ],
     "tiebreak": 224
+   },
+   {
+    "slot": "ST",
+    "id": "id50536618",
+    "name": "Thauvin",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 64,
+    "card": [
+     84,
+     84,
+     52
+    ],
+    "chem": 2,
+    "eff": [
+     85,
+     85,
+     53
+    ],
+    "tiebreak": 223
    }
   ]
  },
@@ -298,17 +302,17 @@
  },
  "base_ids": [
   "id16254",
-  "evo_Can_85",
+  "id50555345",
   "id67229397",
-  "id50593786",
+  "evo_Can_85",
   "id67359754",
   "id67335759",
   "id67116627",
-  "id50596510",
   "id50608342",
+  "id50412322",
   "id50402434",
   "id50408698"
  ],
- "built": "2026-11-01 02:14 UTC",
+ "built": "2026-11-01 10:16 UTC",
  "week": "2026-11-02"
 }

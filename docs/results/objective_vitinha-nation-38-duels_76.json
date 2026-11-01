@@ -1,70 +1,75 @@
 {
  "g": 11,
  "obj_ids": [
-  "id212442",
-  "id251530",
-  "id258607",
-  "id261831",
-  "id263897",
+  "id198513",
   "id251615",
-  "id257073",
+  "id261831",
+  "id258607",
+  "id263897",
   "id230767",
+  "id251530",
+  "id271057",
   "id267633",
   "id226766",
   "id263829"
  ],
- "strength": 99.7,
+ "strength": 99.5,
  "group_cards": 26,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
-  "formation": "4-1-2-1-2",
+  "formation": "4-1-4-1",
   "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id212442",
-    "name": "José Sá",
-    "rating": 75,
-    "color": "rare_gold",
+    "id": "id198513",
+    "name": "Cláudio Ramos",
+    "rating": 73,
+    "color": "rare_silver",
     "position": "GK",
-    "nationId": 38,
-    "leagueId": 14,
-    "clubId": 110,
-    "card": [
-     37,
-     34,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     41,
-     36,
-     79
-    ],
-    "tiebreak": 153
-   },
-   {
-    "slot": "LB",
-    "id": "id251615",
-    "name": "Francisco Moura",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "LB",
     "nationId": 38,
     "leagueId": 308,
     "clubId": 236,
     "card": [
-     71,
-     74,
-     75
+     36,
+     27,
+     74
     ],
     "chem": 3,
     "eff": [
-     75,
-     76,
-     78
+     40,
+     29,
+     77
     ],
-    "tiebreak": 226
+    "tiebreak": 143
+   },
+   {
+    "slot": "LB",
+    "id": "id251530",
+    "name": "Nuno Tavares",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 115841,
+    "card": [
+     75,
+     74,
+     74
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     76,
+     77
+    ],
+    "tiebreak": 229
    },
    {
     "slot": "CB",
@@ -137,6 +142,75 @@
    },
    {
     "slot": "CDM",
+    "id": "id267633",
+    "name": "Luís Esteves",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 341,
+    "clubId": 101114,
+    "card": [
+     76,
+     76,
+     57
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     78,
+     60
+    ],
+    "tiebreak": 215
+   },
+   {
+    "slot": "LM",
+    "id": "id251615",
+    "name": "Francisco Moura",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 236,
+    "card": [
+     71,
+     74,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     76,
+     78
+    ],
+    "tiebreak": 226
+   },
+   {
+    "slot": "CM",
+    "id": "id271057",
+    "name": "Gustavo Sá",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 63,
+    "clubId": 280,
+    "card": [
+     74,
+     75,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     77,
+     73
+    ],
+    "tiebreak": 225
+   },
+   {
+    "slot": "CM",
     "id": "id230767",
     "name": "Renato Sanches",
     "rating": 75,
@@ -157,29 +231,6 @@
      73
     ],
     "tiebreak": 226
-   },
-   {
-    "slot": "LM",
-    "id": "id251530",
-    "name": "Nuno Tavares",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 115841,
-    "card": [
-     75,
-     74,
-     74
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     76,
-     77
-    ],
-    "tiebreak": 229
    },
    {
     "slot": "RM",
@@ -205,29 +256,6 @@
     "tiebreak": 192
    },
    {
-    "slot": "CAM",
-    "id": "id267633",
-    "name": "Luís Esteves",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 341,
-    "clubId": 101114,
-    "card": [
-     76,
-     76,
-     57
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     78,
-     60
-    ],
-    "tiebreak": 215
-   },
-   {
     "slot": "ST",
     "id": "id263829",
     "name": "Vitinha",
@@ -249,29 +277,6 @@
      46
     ],
     "tiebreak": 194
-   },
-   {
-    "slot": "ST",
-    "id": "id257073",
-    "name": "Tiago Tomás",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 19,
-    "clubId": 36,
-    "card": [
-     76,
-     71,
-     43
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     73,
-     46
-    ],
-    "tiebreak": 196
    }
   ]
  },
@@ -306,18 +311,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id223686",
-  "id251530",
+  "id216065",
+  "id270013",
+  "id246836",
   "id241847",
-  "id265060",
-  "id257290",
-  "id230658",
-  "id257073",
-  "id260823",
+  "id235374",
   "id276602",
+  "id251530",
+  "id260823",
+  "id230658",
   "id50571625",
-  "id205175"
+  "id264904"
  ],
- "built": "2026-11-01 02:15 UTC",
+ "built": "2026-11-01 10:16 UTC",
  "week": "2026-11-02"
 }

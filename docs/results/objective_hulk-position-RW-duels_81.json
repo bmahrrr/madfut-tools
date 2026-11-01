@@ -4,58 +4,40 @@
   "id255475",
   "id192629"
  ],
- "strength": 100.3,
- "group_cards": 12,
- "reddit": [],
+ "strength": 100.1,
+ "group_cards": 8,
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
-  "formation": "4-1-3-2",
-  "chem": 31,
+  "formation": "3-4-3",
+  "chem": 28,
   "players": [
    {
     "slot": "GK",
-    "id": "id258498",
-    "name": "Verbruggen",
-    "rating": 81,
+    "id": "id221087",
+    "name": "Pau López",
+    "rating": 77,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 34,
-    "leagueId": 13,
-    "clubId": 1808,
-    "card": [
-     39,
-     40,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     41,
-     42,
-     84
-    ],
-    "tiebreak": 167
-   },
-   {
-    "slot": "LB",
-    "id": "id50603848",
-    "name": "Cecilia Marcos",
-    "rating": 80,
-    "color": "totw_gold",
-    "position": "LB",
     "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 457,
+    "leagueId": 54,
+    "clubId": 114554,
     "card": [
-     82,
-     81,
-     77
+     42,
+     44,
+     78
     ],
     "chem": 3,
     "eff": [
-     84,
-     83,
-     79
+     45,
+     47,
+     81
     ],
-    "tiebreak": 246
+    "tiebreak": 170
    },
    {
     "slot": "CB",
@@ -74,37 +56,129 @@
     ],
     "chem": 3,
     "eff": [
-     79,
-     79,
-     82
+     80,
+     80,
+     83
     ],
     "tiebreak": 240
    },
    {
     "slot": "CB",
-    "id": "id210047",
-    "name": "Schär",
+    "id": "id241464",
+    "name": "Pau Torres",
     "rating": 81,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 47,
+    "nationId": 45,
     "leagueId": 13,
-    "clubId": 13,
+    "clubId": 2,
     "card": [
-     70,
-     74,
+     62,
+     71,
      81
     ],
     "chem": 3,
     "eff": [
-     72,
-     76,
-     83
+     65,
+     74,
+     84
     ],
-    "tiebreak": 231
+    "tiebreak": 220
    },
    {
-    "slot": "RB",
+    "slot": "CB",
+    "id": "id229668",
+    "name": "Mario Hermoso",
+    "rating": 81,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 45,
+    "leagueId": 31,
+    "clubId": 52,
+    "card": [
+     65,
+     70,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     68,
+     73,
+     84
+    ],
+    "tiebreak": 222
+   },
+   {
+    "slot": "LM",
+    "id": "id241509",
+    "name": "Mauro Júnior",
+    "rating": 81,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 10,
+    "clubId": 247,
+    "card": [
+     77,
+     78,
+     79
+    ],
+    "chem": 1,
+    "eff": [
+     78,
+     79,
+     80
+    ],
+    "tiebreak": 234
+   },
+   {
+    "slot": "CM",
+    "id": "id50590753",
+    "name": "Pablo Rodríguez",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 45,
+    "leagueId": 66,
+    "clubId": 873,
+    "card": [
+     81,
+     80,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     83,
+     58
+    ],
+    "tiebreak": 222
+   },
+   {
+    "slot": "CM",
+    "id": "id243780",
+    "name": "Lee Kang In",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 167,
+    "leagueId": 53,
+    "clubId": 240,
+    "card": [
+     79,
+     81,
+     53
+    ],
+    "chem": 1,
+    "eff": [
+     80,
+     82,
+     54
+    ],
+    "tiebreak": 213
+   },
+   {
+    "slot": "RM",
     "id": "evo_Lucas Vázquez_80",
     "name": "Lucas Vázquez",
     "rating": 80,
@@ -118,105 +192,36 @@
      83,
      78
     ],
-    "chem": 2,
-    "eff": [
-     83,
-     84,
-     79
-    ],
-    "tiebreak": 246
-   },
-   {
-    "slot": "CDM",
-    "id": "id50522413",
-    "name": "Groß",
-    "rating": 81,
-    "color": "totw_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 1808,
-    "card": [
-     79,
-     83,
-     75
-    ],
     "chem": 3,
     "eff": [
-     81,
      85,
+     86,
+     81
+    ],
+    "tiebreak": 249
+   },
+   {
+    "slot": "LW",
+    "id": "id50603848",
+    "name": "Cecilia Marcos",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 457,
+    "card": [
+     82,
+     81,
      77
     ],
-    "tiebreak": 243
-   },
-   {
-    "slot": "LM",
-    "id": "id245367",
-    "name": "Simons",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 34,
-    "leagueId": 13,
-    "clubId": 18,
-    "card": [
-     80,
-     81,
-     61
-    ],
     "chem": 3,
     "eff": [
-     82,
-     83,
-     63
+     85,
+     84,
+     80
     ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "CM",
-    "id": "id223334",
-    "name": "Joelinton",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 13,
-    "card": [
-     75,
-     76,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     78,
-     84
-    ],
-    "tiebreak": 239
-   },
-   {
-    "slot": "RM",
-    "id": "id255475",
-    "name": "Antony",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     82,
-     80,
-     50
-    ],
-    "chem": 2,
-    "eff": [
-     83,
-     81,
-     51
-    ],
-    "tiebreak": 215
+    "tiebreak": 246
    },
    {
     "slot": "ST",
@@ -235,34 +240,34 @@
     ],
     "chem": 3,
     "eff": [
-     84,
-     82,
-     43
+     85,
+     83,
+     44
     ],
     "tiebreak": 209
    },
    {
-    "slot": "ST",
-    "id": "id259334",
-    "name": "Nerea Eizagirre",
+    "slot": "RW",
+    "id": "id255475",
+    "name": "Antony",
     "rating": 81,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 457,
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 53,
+    "clubId": 449,
     "card": [
      82,
      80,
-     63
+     50
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
      84,
      82,
-     65
+     52
     ],
-    "tiebreak": 231
+    "tiebreak": 215
    }
   ]
  },
@@ -299,18 +304,18 @@
   ]
  },
  "base_ids": [
-  "id203841",
-  "id268889",
-  "id227344",
-  "id275192",
-  "id223334",
+  "id220383",
+  "id269411",
+  "id229668",
+  "id241464",
   "id50603848",
-  "id50522413",
-  "id246350",
-  "id50556849",
   "id259334",
+  "evo_Bruno Costa_81",
+  "evo_Lucas Vázquez_80",
+  "id50556849",
+  "id50590753",
   "id192629"
  ],
- "built": "2026-11-01 02:14 UTC",
+ "built": "2026-11-01 10:16 UTC",
  "week": "2026-11-02"
 }

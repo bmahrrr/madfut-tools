@@ -4,12 +4,17 @@
   "id224987",
   "id50573384"
  ],
- "strength": 100.5,
+ "strength": 100.2,
  "group_cards": 2,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 28,
+  "formation": "4-2-3-1",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -49,36 +54,13 @@
      81,
      84
     ],
-    "chem": 2,
-    "eff": [
-     85,
-     83,
-     86
-    ],
-    "tiebreak": 251
-   },
-   {
-    "slot": "CB",
-    "id": "id50573384",
-    "name": "Bisseck",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "CB",
-    "nationId": 21,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     72,
-     73,
-     84
-    ],
     "chem": 3,
     "eff": [
-     74,
-     75,
-     86
+     86,
+     84,
+     87
     ],
-    "tiebreak": 235
+    "tiebreak": 254
    },
    {
     "slot": "CB",
@@ -104,53 +86,30 @@
     "tiebreak": 253
    },
    {
-    "slot": "RB",
-    "id": "id50600588",
-    "name": "Crnogorčević",
+    "slot": "CB",
+    "id": "id50573384",
+    "name": "Bisseck",
     "rating": 85,
-    "color": "halloween",
-    "position": "RB",
-    "nationId": 47,
-    "leagueId": 2218,
-    "clubId": 76,
+    "color": "destined_for_glory",
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     83,
-     82,
+     72,
+     73,
      84
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     84,
-     83,
-     85
+     74,
+     75,
+     86
     ],
-    "tiebreak": 252
+    "tiebreak": 235
    },
    {
-    "slot": "CDM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 2,
-    "eff": [
-     87,
-     88,
-     70
-    ],
-    "tiebreak": 245
-   },
-   {
-    "slot": "LM",
+    "slot": "RB",
     "id": "id67359754",
     "name": "Zambrotta",
     "rating": 85,
@@ -173,30 +132,30 @@
     "tiebreak": 242
    },
    {
-    "slot": "CM",
-    "id": "id50608342",
-    "name": "Manzambi",
+    "slot": "CDM",
+    "id": "id246863",
+    "name": "Nmecha",
     "rating": 85,
-    "color": "future_stars",
+    "color": "rare_gold",
     "position": "CM",
-    "nationId": 47,
-    "leagueId": 13,
-    "clubId": 2,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 22,
     "card": [
-     86,
-     85,
-     76
+     81,
+     80,
+     83
     ],
     "chem": 3,
     "eff": [
-     88,
-     87,
-     78
+     84,
+     83,
+     86
     ],
-    "tiebreak": 253
+    "tiebreak": 250
    },
    {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "id67335759",
     "name": "Formiga",
     "rating": 85,
@@ -219,50 +178,96 @@
     "tiebreak": 250
    },
    {
-    "slot": "RM",
-    "id": "id50596510",
-    "name": "Akliouche",
+    "slot": "CAM",
+    "id": "id50402434",
+    "name": "King",
     "rating": 85,
-    "color": "destined_for_glory",
+    "color": "future_stars",
     "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 73,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
     "card": [
-     85,
      86,
-     56
+     87,
+     69
     ],
     "chem": 2,
     "eff": [
-     86,
      87,
-     57
+     88,
+     70
     ],
-    "tiebreak": 230
+    "tiebreak": 245
+   },
+   {
+    "slot": "CAM",
+    "id": "id50608342",
+    "name": "Manzambi",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 47,
+    "leagueId": 13,
+    "clubId": 2,
+    "card": [
+     86,
+     85,
+     76
+    ],
+    "chem": 2,
+    "eff": [
+     87,
+     86,
+     77
+    ],
+    "tiebreak": 250
+   },
+   {
+    "slot": "CAM",
+    "id": "id50584757",
+    "name": "Veerman",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 19,
+    "clubId": 22,
+    "card": [
+     84,
+     86,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     89,
+     72
+    ],
+    "tiebreak": 245
    },
    {
     "slot": "ST",
-    "id": "id50526413",
-    "name": "Griezmann",
+    "id": "id67362886",
+    "name": "Woltemade",
     "rating": 85,
-    "color": "totw_gold",
+    "color": "halloween",
     "position": "CAM",
-    "nationId": 18,
-    "leagueId": 39,
-    "clubId": 112606,
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
+     84,
      85,
-     86,
-     64
+     52
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
      86,
      87,
-     65
+     54
     ],
-    "tiebreak": 238
+    "tiebreak": 227
    }
   ]
  },
@@ -298,17 +303,17 @@
  },
  "base_ids": [
   "id16254",
-  "evo_Can_85",
+  "id50555345",
   "id67229397",
-  "id50593786",
+  "evo_Can_85",
   "id67359754",
   "id67335759",
   "id67116627",
-  "id50596510",
   "id50608342",
+  "id50412322",
   "id50402434",
   "id50408698"
  ],
- "built": "2026-11-01 02:14 UTC",
+ "built": "2026-11-01 10:16 UTC",
  "week": "2026-11-02"
 }
