@@ -1,91 +1,62 @@
 {
- "g": 4,
+ "g": 3,
  "obj_ids": [
-  "id258730",
-  "id50408387",
-  "id202651",
-  "id193165"
+  "id193165",
+  "id237997",
+  "id273934"
  ],
- "strength": 100.3,
- "group_cards": 19,
- "reddit": [
-  {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
-  }
- ],
+ "strength": 101.1,
+ "group_cards": 17,
+ "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 27,
+  "formation": "4-3-3",
+  "chem": 25,
   "players": [
    {
     "slot": "GK",
-    "id": "id146296",
-    "name": "Andrés Fernández",
+    "id": "id240987",
+    "name": "Cooper",
     "rating": 72,
     "color": "rare_silver",
     "position": "GK",
-    "nationId": 45,
-    "leagueId": 54,
-    "clubId": 1861,
+    "nationId": 14,
+    "leagueId": 14,
+    "clubId": 1794,
     "card": [
-     36,
-     30,
+     38,
+     39,
      73
     ],
     "chem": 3,
     "eff": [
-     39,
-     33,
+     41,
+     42,
      76
     ],
-    "tiebreak": 145
+    "tiebreak": 156
    },
    {
     "slot": "LB",
-    "id": "id215449",
-    "name": "Skov",
+    "id": "id248050",
+    "name": "Burrows",
     "rating": 72,
     "color": "rare_silver",
     "position": "LB",
-    "nationId": 13,
-    "leagueId": 19,
-    "clubId": 1831,
+    "nationId": 14,
+    "leagueId": 14,
+    "clubId": 1794,
     "card": [
-     75,
-     74,
-     71
-    ],
-    "chem": 1,
-    "eff": [
-     75,
-     74,
-     71
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "CB",
-    "id": "id244394",
-    "name": "Clemente",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 54,
-    "clubId": 472,
-    "card": [
-     72,
-     68,
-     71
+     69,
+     71,
+     70
     ],
     "chem": 3,
     "eff": [
-     75,
-     71,
-     74
+     72,
+     74,
+     73
     ],
-    "tiebreak": 217
+    "tiebreak": 216
    },
    {
     "slot": "CB",
@@ -111,73 +82,96 @@
     "tiebreak": 195
    },
    {
-    "slot": "RB",
-    "id": "id256341",
-    "name": "Francho Serrano",
-    "rating": 72,
+    "slot": "CB",
+    "id": "id189615",
+    "name": "Cresswell",
+    "rating": 69,
     "color": "rare_silver",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 1860,
+    "position": "LB",
+    "nationId": 14,
+    "leagueId": 14,
+    "clubId": 1806,
     "card": [
+     64,
+     69,
+     72
+    ],
+    "chem": 2,
+    "eff": [
+     66,
      71,
-     70,
-     69
+     74
     ],
-    "chem": 3,
-    "eff": [
-     74,
-     73,
-     72
-    ],
-    "tiebreak": 216
+    "tiebreak": 208
    },
    {
-    "slot": "CDM",
-    "id": "id255394",
-    "name": "Ambríz",
+    "slot": "RB",
+    "id": "id215449",
+    "name": "Skov",
     "rating": 72,
     "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 1032,
+    "position": "LB",
+    "nationId": 13,
+    "leagueId": 19,
+    "clubId": 1831,
     "card": [
-     61,
-     65,
-     70
+     75,
+     74,
+     71
     ],
-    "chem": 3,
-    "eff": [
-     63,
-     67,
-     72
-    ],
-    "tiebreak": 202
-   },
-   {
-    "slot": "LM",
-    "id": "id50408387",
-    "name": "Pablo García",
-    "rating": 70,
-    "color": "rare_silver",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 456,
-    "card": [
-     72,
-     67,
-     46
-    ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
      75,
-     70,
-     49
+     74,
+     71
     ],
-    "tiebreak": 191
+    "tiebreak": 220
+   },
+   {
+    "slot": "CM",
+    "id": "id237183",
+    "name": "Rojas",
+    "rating": 71,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 58,
+    "leagueId": 1003,
+    "clubId": 111008,
+    "card": [
+     72,
+     73,
+     55
+    ],
+    "chem": 1,
+    "eff": [
+     72,
+     73,
+     55
+    ],
+    "tiebreak": 200
+   },
+   {
+    "slot": "CM",
+    "id": "id239127",
+    "name": "Mayorga",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "LB",
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 113134,
+    "card": [
+     70,
+     69,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     71,
+     73
+    ],
+    "tiebreak": 216
    },
    {
     "slot": "CM",
@@ -203,50 +197,27 @@
     "tiebreak": 214
    },
    {
-    "slot": "CM",
-    "id": "id202651",
-    "name": "Suso",
+    "slot": "LW",
+    "id": "id237997",
+    "name": "Antuna",
     "rating": 71,
     "color": "rare_silver",
     "position": "RW",
-    "nationId": 45,
-    "leagueId": 54,
-    "clubId": 1968,
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 1881,
     "card": [
-     71,
-     72,
-     33
+     73,
+     65,
+     34
     ],
     "chem": 3,
     "eff": [
-     74,
      75,
+     67,
      36
     ],
-    "tiebreak": 182
-   },
-   {
-    "slot": "RM",
-    "id": "id258730",
-    "name": "Rodríguez",
-    "rating": 72,
-    "color": "rare_silver",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 463,
-    "card": [
-     71,
-     69,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     72,
-     58
-    ],
-    "tiebreak": 201
+    "tiebreak": 178
    },
    {
     "slot": "ST",
@@ -263,13 +234,36 @@
      69,
      51
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     72,
-     69,
-     51
+     74,
+     71,
+     53
     ],
-    "tiebreak": 192
+    "tiebreak": 198
+   },
+   {
+    "slot": "RW",
+    "id": "id263145",
+    "name": "Helinho",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 341,
+    "clubId": 1882,
+    "card": [
+     72,
+     68,
+     35
+    ],
+    "chem": 2,
+    "eff": [
+     73,
+     69,
+     36
+    ],
+    "tiebreak": 178
    }
   ]
  },
@@ -288,34 +282,34 @@
   "boosts": [
    {
     "on": "nation",
-    "id": 45,
+    "id": 14,
     "att": 1,
     "ctl": 1,
     "def": 1
    },
    {
     "on": "league",
-    "id": 308,
-    "att": 0,
-    "ctl": 2,
-    "def": 0
+    "id": 41,
+    "att": 1,
+    "ctl": 0,
+    "def": 2
    }
   ],
   "minutes": 30
  },
  "base_ids": [
-  "id146296",
-  "id239335",
+  "id86130",
+  "id189615",
+  "id50562356",
   "id222493",
-  "id246352",
+  "id238505",
+  "id237619",
   "id215449",
-  "id271267",
-  "id178088",
-  "id272228",
-  "id272047",
-  "id272138",
-  "id266183"
+  "id221982",
+  "id257167",
+  "evo_Jerdea_70",
+  "id229286"
  ],
- "built": "2026-10-23 23:28 UTC",
- "week": "2026-10-19"
+ "built": "2026-11-01 02:12 UTC",
+ "week": "2026-11-02"
 }

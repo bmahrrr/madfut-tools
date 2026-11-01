@@ -1,19 +1,24 @@
 {
- "g": 1,
+ "g": 11,
  "obj_ids": [
-  "id212442"
+  "id212442",
+  "id251530",
+  "id258607",
+  "id261831",
+  "id263897",
+  "id251615",
+  "id257073",
+  "id230767",
+  "id267633",
+  "id226766",
+  "id263829"
  ],
- "strength": 100.6,
- "group_cards": 2,
- "reddit": [
-  {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
-  }
- ],
+ "strength": 99.7,
+ "group_cards": 26,
+ "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 32,
+  "formation": "4-1-2-1-2",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -32,34 +37,57 @@
     ],
     "chem": 3,
     "eff": [
-     39,
+     41,
      36,
-     78
+     79
     ],
     "tiebreak": 153
    },
    {
-    "slot": "CB",
-    "id": "id256942",
-    "name": "Martel",
+    "slot": "LB",
+    "id": "id251615",
+    "name": "Francisco Moura",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 169,
+    "position": "LB",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 236,
     "card": [
-     62,
-     68,
-     76
+     71,
+     74,
+     75
     ],
     "chem": 3,
     "eff": [
-     65,
-     72,
-     79
+     75,
+     76,
+     78
     ],
-    "tiebreak": 212
+    "tiebreak": 226
+   },
+   {
+    "slot": "CB",
+    "id": "id263897",
+    "name": "Filipe Relvas",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 63,
+    "clubId": 278,
+    "card": [
+     56,
+     63,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     60,
+     65,
+     78
+    ],
+    "tiebreak": 200
    },
    {
     "slot": "CB",
@@ -78,195 +106,172 @@
     ],
     "chem": 3,
     "eff": [
-     64,
+     66,
      67,
-     77
+     78
     ],
     "tiebreak": 208
    },
    {
-    "slot": "CB",
-    "id": "id243354",
-    "name": "Sander",
+    "slot": "RB",
+    "id": "id261831",
+    "name": "Ana Borges",
     "rating": 75,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 23,
+    "nationId": 38,
+    "leagueId": 2228,
+    "clubId": 234,
     "card": [
-     72,
-     73,
+     65,
+     65,
      75
     ],
     "chem": 3,
     "eff": [
-     75,
-     77,
+     69,
+     67,
      78
+    ],
+    "tiebreak": 211
+   },
+   {
+    "slot": "CDM",
+    "id": "id230767",
+    "name": "Renato Sanches",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     74,
+     76,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     78,
+     73
     ],
     "tiebreak": 226
    },
    {
     "slot": "LM",
-    "id": "id263041",
-    "name": "Prass",
+    "id": "id251530",
+    "name": "Nuno Tavares",
     "rating": 76,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 4,
-    "leagueId": 19,
-    "clubId": 10029,
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 115841,
     "card": [
-     73,
+     75,
      74,
-     75
+     74
     ],
     "chem": 3,
     "eff": [
-     75,
-     78,
-     77
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "CM",
-    "id": "id210324",
-    "name": "Hofmann",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     75,
+     79,
      76,
-     63
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     80,
-     66
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "CM",
-    "id": "id236792",
-    "name": "Souček",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 12,
-    "leagueId": 14,
-    "clubId": 19,
-    "card": [
-     70,
-     68,
-     76
-    ],
-    "chem": 2,
-    "eff": [
-     71,
-     69,
      77
     ],
-    "tiebreak": 217
+    "tiebreak": 229
    },
    {
     "slot": "RM",
-    "id": "id208618",
-    "name": "Lucas Vázquez",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "id": "id226766",
+    "name": "Daniel Podence",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 111674,
     "card": [
+     75,
      76,
-     77,
-     72
+     35
     ],
     "chem": 3,
     "eff": [
-     78,
-     81,
-     74
+     79,
+     80,
+     38
     ],
-    "tiebreak": 231
+    "tiebreak": 192
    },
    {
     "slot": "CAM",
-    "id": "id276602",
-    "name": "Ouédraogo",
+    "id": "id267633",
+    "name": "Luís Esteves",
     "rating": 76,
     "color": "rare_gold",
     "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 112172,
+    "nationId": 38,
+    "leagueId": 341,
+    "clubId": 101114,
     "card": [
-     78,
+     76,
+     76,
+     57
+    ],
+    "chem": 3,
+    "eff": [
+     80,
      78,
      60
     ],
-    "chem": 3,
-    "eff": [
-     81,
-     82,
-     63
-    ],
-    "tiebreak": 222
-   },
-   {
-    "slot": "CAM",
-    "id": "id270670",
-    "name": "Chaïbi",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 97,
-    "leagueId": 19,
-    "clubId": 1824,
-    "card": [
-     73,
-     77,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     75,
-     81,
-     71
-    ],
-    "tiebreak": 225
+    "tiebreak": 215
    },
    {
     "slot": "ST",
-    "id": "id246618",
-    "name": "Hložek",
-    "rating": 76,
+    "id": "id263829",
+    "name": "Vitinha",
+    "rating": 75,
     "color": "rare_gold",
     "position": "ST",
-    "nationId": 12,
-    "leagueId": 19,
-    "clubId": 10029,
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 110556,
     "card": [
      75,
-     73,
-     38
+     70,
+     43
     ],
     "chem": 3,
     "eff": [
-     77,
-     77,
-     40
+     79,
+     72,
+     46
     ],
-    "tiebreak": 192
+    "tiebreak": 194
+   },
+   {
+    "slot": "ST",
+    "id": "id257073",
+    "name": "Tiago Tomás",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 19,
+    "clubId": 36,
+    "card": [
+     76,
+     71,
+     43
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     73,
+     46
+    ],
+    "tiebreak": 196
    }
   ]
  },
@@ -285,15 +290,15 @@
   "boosts": [
    {
     "on": "league",
-    "id": 19,
+    "id": 350,
     "att": 0,
     "ctl": 2,
     "def": 0
    },
    {
     "on": "nation",
-    "id": 21,
-    "att": 1,
+    "id": 38,
+    "att": 2,
     "ctl": 0,
     "def": 1
    }
@@ -301,18 +306,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id242818",
-  "id243354",
-  "id246836",
+  "id223686",
+  "id251530",
   "id241847",
-  "id257540",
-  "id204497",
+  "id265060",
+  "id257290",
+  "id230658",
+  "id257073",
+  "id260823",
   "id276602",
-  "id208618",
-  "id270670",
-  "id212188",
-  "id50571625"
+  "id50571625",
+  "id205175"
  ],
- "built": "2026-10-23 23:28 UTC",
- "week": "2026-10-19"
+ "built": "2026-11-01 02:12 UTC",
+ "week": "2026-11-02"
 }

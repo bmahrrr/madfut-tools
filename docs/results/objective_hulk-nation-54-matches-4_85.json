@@ -1,91 +1,86 @@
 {
  "g": 4,
  "obj_ids": [
-  "id273136",
   "id67375554",
-  "id179944",
-  "id67335759"
+  "id50590296",
+  "id67335759",
+  "id189362"
  ],
- "strength": 101.5,
- "group_cards": 487,
- "reddit": [
-  {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
-  }
- ],
+ "strength": 100.3,
+ "group_cards": 491,
+ "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "4-2-3-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id273136",
-    "name": "Lorena",
+    "id": "id204935",
+    "name": "Pickford",
     "rating": 85,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 54,
-    "leagueId": 2221,
-    "clubId": 116309,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 7,
     "card": [
-     37,
-     41,
+     45,
+     45,
      85
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     38,
-     42,
-     86
+     47,
+     47,
+     87
     ],
-    "tiebreak": 166
+    "tiebreak": 181
    },
    {
     "slot": "LB",
-    "id": "id67376394",
-    "name": "Brugts",
+    "id": "id50555345",
+    "name": "Gosens",
     "rating": 85,
-    "color": "totw_gold",
+    "color": "destined_for_glory",
     "position": "LB",
-    "nationId": 34,
-    "leagueId": 2222,
-    "clubId": 241,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 34,
     "card": [
-     80,
-     80,
-     84
-    ],
-    "chem": 2,
-    "eff": [
      83,
-     83,
-     87
-    ],
-    "tiebreak": 247
-   },
-   {
-    "slot": "CB",
-    "id": "id179944",
-    "name": "David Luiz",
-    "rating": 85,
-    "color": "hall_of_fut",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 132794,
-    "card": [
-     73,
-     76,
+     81,
      84
     ],
     "chem": 3,
     "eff": [
-     75,
-     78,
-     86
+     86,
+     84,
+     87
     ],
-    "tiebreak": 239
+    "tiebreak": 254
+   },
+   {
+    "slot": "CB",
+    "id": "id50590296",
+    "name": "Carlos Augusto",
+    "rating": 83,
+    "color": "showdown",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     79,
+     80,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     82,
+     84
+    ],
+    "tiebreak": 247
    },
    {
     "slot": "CB",
@@ -112,98 +107,52 @@
    },
    {
     "slot": "RB",
-    "id": "id50542162",
-    "name": "João Cancelo",
-    "rating": 84,
-    "color": "totw_gold",
+    "id": "id67359754",
+    "name": "Zambrotta",
+    "rating": 85,
+    "color": "debut_icon",
     "position": "RB",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 241,
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     82,
-     84,
-     83
+     75,
+     77,
+     84
     ],
     "chem": 3,
     "eff": [
-     86,
-     88,
-     87
+     77,
+     80,
+     88
     ],
-    "tiebreak": 255
+    "tiebreak": 242
    },
    {
     "slot": "CDM",
-    "id": "id50551331",
-    "name": "Tolisso",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 66,
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
-     82,
-     80,
-     80
+     76,
+     86,
+     85
     ],
     "chem": 3,
     "eff": [
-     86,
-     85,
+     78,
+     88,
      87
     ],
-    "tiebreak": 248
+    "tiebreak": 253
    },
    {
-    "slot": "LM",
-    "id": "id50596036",
-    "name": "Moleiro",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 483,
-    "card": [
-     84,
-     82,
-     56
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     86,
-     60
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "CM",
-    "id": "id50529429",
-    "name": "Isco",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     82,
-     85,
-     59
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     89,
-     63
-    ],
-    "tiebreak": 232
-   },
-   {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "id67335759",
     "name": "Formiga",
     "rating": 85,
@@ -226,50 +175,96 @@
     "tiebreak": 250
    },
    {
-    "slot": "RM",
-    "id": "id50596510",
-    "name": "Akliouche",
+    "slot": "CAM",
+    "id": "id50402434",
+    "name": "King",
     "rating": 85,
-    "color": "destined_for_glory",
+    "color": "future_stars",
     "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 73,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
     "card": [
-     85,
      86,
-     56
-    ],
-    "chem": 3,
-    "eff": [
      87,
-     89,
-     61
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "ST",
-    "id": "id50536618",
-    "name": "Thauvin",
-    "rating": 84,
-    "color": "totw_gold",
-    "position": "RW",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
-    "card": [
-     84,
-     84,
-     52
+     69
     ],
     "chem": 3,
     "eff": [
      88,
      89,
-     59
+     71
     ],
-    "tiebreak": 226
+    "tiebreak": 248
+   },
+   {
+    "slot": "CAM",
+    "id": "id50608342",
+    "name": "Manzambi",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 47,
+    "leagueId": 13,
+    "clubId": 2,
+    "card": [
+     86,
+     85,
+     76
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     87,
+     78
+    ],
+    "tiebreak": 253
+   },
+   {
+    "slot": "CAM",
+    "id": "id67193279",
+    "name": "Riise",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CM",
+    "nationId": 36,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     83,
+     84,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     86,
+     71
+    ],
+    "tiebreak": 242
+   },
+   {
+    "slot": "ST",
+    "id": "id189362",
+    "name": "Hulk",
+    "rating": 85,
+    "color": "hall_of_fut",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 308,
+    "clubId": 132794,
+    "card": [
+     85,
+     82,
+     51
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     84,
+     53
+    ],
+    "tiebreak": 224
    }
   ]
  },
@@ -288,35 +283,35 @@
   "cap": 85,
   "boosts": [
    {
-    "on": "color",
-    "id": "totw_gold",
-    "att": 2,
-    "ctl": 2,
+    "on": "nation",
+    "id": 27,
+    "att": 0,
+    "ctl": 1,
     "def": 2
    },
    {
-    "on": "nation",
-    "id": 18,
-    "att": 0,
+    "on": "league",
+    "id": 19,
+    "att": 1,
     "ctl": 1,
-    "def": 3
+    "def": 1
    }
   ],
   "minutes": 30
  },
  "base_ids": [
-  "id50603566",
-  "id241486",
-  "id227316",
-  "id50608873",
-  "id50575254",
-  "id67335759",
-  "id50596510",
+  "id16254",
+  "evo_Can_85",
+  "id67229397",
+  "id50593786",
   "id67359754",
+  "id67335759",
+  "id67116627",
+  "id50596510",
+  "id50608342",
   "id50402434",
-  "id50596036",
-  "id50536618"
+  "id50408698"
  ],
- "built": "2026-10-16 22:53 UTC",
- "week": "2026-10-12"
+ "built": "2026-11-01 02:12 UTC",
+ "week": "2026-11-02"
 }

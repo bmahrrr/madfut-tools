@@ -1,65 +1,61 @@
 {
- "g": 1,
+ "g": 2,
  "obj_ids": [
+  "elite_Leão_88",
   "id3622"
  ],
- "strength": 101.2,
- "group_cards": 1,
- "reddit": [
-  {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "DRAW"
-  }
- ],
+ "strength": 101.4,
+ "group_cards": 2,
+ "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 32,
+  "formation": "4-2-1-3",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id191694",
-    "name": "Campos",
-    "rating": 87,
-    "color": "hero",
+    "id": "id48940",
+    "name": "Čech",
+    "rating": 88,
+    "color": "icon",
     "position": "GK",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 114605,
+    "nationId": 12,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     77,
-     68,
-     88
+     40,
+     35,
+     89
     ],
     "chem": 3,
     "eff": [
-     80,
-     71,
-     93
+     42,
+     37,
+     91
     ],
-    "tiebreak": 239
+    "tiebreak": 170
    },
    {
     "slot": "LB",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "id": "id250890",
+    "name": "Zambrotta",
+    "rating": 88,
+    "color": "icon",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     87,
-     88,
-     78
+     79,
+     81,
+     87
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     89,
-     90,
-     82
+     81,
+     83,
+     89
     ],
-    "tiebreak": 256
+    "tiebreak": 253
    },
    {
     "slot": "CB",
@@ -78,57 +74,57 @@
     ],
     "chem": 3,
     "eff": [
-     71,
-     74,
-     93
+     70,
+     73,
+     90
     ],
     "tiebreak": 233
    },
    {
     "slot": "CB",
-    "id": "id138956",
-    "name": "Chiellini",
+    "id": "id161840",
+    "name": "Fernando Hierro",
     "rating": 88,
     "color": "icon",
     "position": "CB",
-    "nationId": 27,
+    "nationId": 45,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     64,
-     62,
-     90
+     73,
+     72,
+     88
     ],
     "chem": 3,
     "eff": [
-     67,
-     65,
-     95
+     75,
+     74,
+     90
     ],
-    "tiebreak": 222
+    "tiebreak": 239
    },
    {
     "slot": "RB",
-    "id": "new_Xavi Espart_88",
-    "name": "Xavi Espart",
+    "id": "id50568420",
+    "name": "Szoboszlai",
     "rating": 88,
-    "color": "ltm",
+    "color": "halloween",
     "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
+    "nationId": 23,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
-     79,
+     85,
      86,
      87
     ],
     "chem": 3,
     "eff": [
-     82,
-     89,
-     92
+     87,
+     88,
+     89
     ],
-    "tiebreak": 258
+    "tiebreak": 264
    },
    {
     "slot": "CDM",
@@ -149,12 +145,58 @@
     "eff": [
      89,
      88,
-     91
+     89
     ],
     "tiebreak": 263
    },
    {
-    "slot": "LM",
+    "slot": "CDM",
+    "id": "evo_Oxlade-Chamberlain_87",
+    "name": "Oxlade-Chamberlain",
+    "rating": 87,
+    "color": "evo",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 50,
+    "clubId": 78,
+    "card": [
+     88,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     90,
+     83
+    ],
+    "tiebreak": 263
+   },
+   {
+    "slot": "CAM",
+    "id": "id23174",
+    "name": "Riquelme",
+    "rating": 88,
+    "color": "icon",
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     86,
+     89,
+     39
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     94,
+     41
+    ],
+    "tiebreak": 220
+   },
+   {
+    "slot": "LW",
     "id": "ltm_ngumoha88",
     "name": "Ngumoha",
     "rating": 88,
@@ -170,103 +212,57 @@
     ],
     "chem": 3,
     "eff": [
-     91,
-     89,
-     59
+     90,
+     88,
+     56
     ],
     "tiebreak": 234
    },
    {
-    "slot": "CM",
-    "id": "evo_Groß_88",
-    "name": "Groß",
+    "slot": "ST",
+    "id": "elite_Leão_88",
+    "name": "Rafael Leão",
     "rating": 88,
     "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 1808,
+    "position": "LW",
+    "nationId": 38,
+    "leagueId": 68,
+    "clubId": 325,
     "card": [
-     87,
-     89,
-     82
+     88,
+     88,
+     64
     ],
     "chem": 3,
     "eff": [
      90,
-     92,
-     87
-    ],
-    "tiebreak": 264
-   },
-   {
-    "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
-    "card": [
-     85,
-     88,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     91,
-     86
-    ],
-    "tiebreak": 260
-   },
-   {
-    "slot": "RM",
-    "id": "id50568420",
-    "name": "Szoboszlai",
-    "rating": 88,
-    "color": "halloween",
-    "position": "RB",
-    "nationId": 23,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     85,
-     86,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     92
-    ],
-    "tiebreak": 264
-   },
-   {
-    "slot": "ST",
-    "id": "id71557",
-    "name": "Bale",
-    "rating": 88,
-    "color": "icon",
-    "position": "RW",
-    "nationId": 50,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     88,
-     85,
+     90,
      66
     ],
+    "tiebreak": 246
+   },
+   {
+    "slot": "RW",
+    "id": "id84165253",
+    "name": "Mastantuono",
+    "rating": 88,
+    "color": "future_stars",
+    "position": "RM",
+    "nationId": 52,
+    "leagueId": 31,
+    "clubId": 110374,
+    "card": [
+     87,
+     87,
+     62
+    ],
     "chem": 3,
     "eff": [
      91,
-     88,
-     71
+     92,
+     64
     ],
-    "tiebreak": 245
+    "tiebreak": 242
    }
   ]
  },
@@ -282,38 +278,37 @@
  "series": {
   "key": "88",
   "cap": 88,
-  "boosts": [],
-  "minutes": 30,
-  "bonuses": [
+  "boosts": [
    {
-    "kind": "types",
-    "min": 5,
-    "att": 0,
-    "ctl": 0,
-    "def": 2
+    "on": "nation",
+    "id": 52,
+    "att": 2,
+    "ctl": 3,
+    "def": 0
    },
    {
-    "kind": "nations",
-    "min": 8,
+    "on": "club",
+    "id": 241,
     "att": 1,
     "ctl": 1,
     "def": 1
    }
-  ]
+  ],
+  "minutes": 30
  },
  "base_ids": [
   "id48940",
-  "id251483",
-  "id140601",
-  "id138956",
-  "evo_Groß_88",
-  "id82092",
-  "id274750",
   "id50595413",
-  "id50568420",
-  "id262112",
-  "id120274"
+  "id138956",
+  "id161840",
+  "new_Xavi Espart_88",
+  "id82092",
+  "evo_Groß_88",
+  "id10959",
+  "id23174",
+  "id84165253",
+  "id262271"
  ],
- "built": "2026-10-26 08:03 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-01 02:12 UTC",
+ "week": "2026-11-02"
 }
