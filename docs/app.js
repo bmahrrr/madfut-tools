@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261101a";
+const APP_V = "20261101b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -637,7 +637,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261101a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261101b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -663,7 +663,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261101a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261101b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -675,7 +675,7 @@ async function startMatch(first) {
   if (state.A.length !== 11 || state.B.length !== 11) { alert("Set up both teams in My Club compare first."); return; }
   const s = mcSeries();
   M = { first, A: effective(state.A, s), B: effective(state.B, s), TB: state.B.slice(), swapped: new Set(), cap: s.cap || 99, ser: s,
-    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [] };
+    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [], hist: [] };
   $("matchBox").hidden = false; $("matchBox").innerHTML = `<p class="muted">Working out the match… a few seconds</p>`;
   await ask({ type: "start", A: M.A, B: M.B, first });
   matchStep();
@@ -702,7 +702,7 @@ async function matchStep() {
   const box = $("matchBox");
   if (M.n === 10) {
     const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb);
-    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div>${mObjFn() ? `<p class="gold">🎯 Objective duels won: ${M.obj || 0}</p>` : ""}<p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<button class="ghost" onclick="startMatch(M.first)">Restart</button>`;
+    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div>${mObjFn() ? `<p class="gold">🎯 Objective duels won: ${M.obj || 0}</p>` : ""}<p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first)">Restart</button></div>`;
     return;
   }
   const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
@@ -719,12 +719,12 @@ async function matchStep() {
     html += `<div class="move">Lead <b>${esc(state.A[best.i].name)}</b>: ${STAT[best.s]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][best.s]}</div>` + objNote;
     const alts = opts.filter(o => o.value === best.value && !(o.i === best.i && o.s === best.s)).slice(0, 4);
     if (alts.length) html += `<p class="small muted">Also fine: ${alts.map(o => `${esc(state.A[o.i].name)} ${STAT[o.s]}`).join(", ")}</p>`;
-    html += `<h3>What did they answer with?</h3><div class="row">` + teamButtons("B", M.mb, j => `ansTheirs(${best.i},${best.s},${j})`) + `</div>`;
+    html += `<h3>What did they answer with?</h3><div class="row">` + teamButtons("B", M.mb, j => `ansTheirs(${best.i},${best.s},${j})`) + otherBtn(`ans:${best.i}:${best.s}`) + `</div>`;
     html += `<p class="small muted">Played something else? <a href="#" onclick="pickMyLead();return false">Choose the lead you played</a></p>`;
   } else {
-    html += `<h3>Which card did they lead with?</h3><div class="row">` + teamButtons("B", M.mb, j => `theirLead(${j})`) + `</div>`;
+    html += `<h3>Which card did they lead with?</h3><div class="row">` + teamButtons("B", M.mb, j => `theirLead(${j})`) + otherBtn("lead") + `</div>`;
   }
-  html += `<p class="small" style="margin-top:12px"><a href="#" onclick="swapPick();return false">Their card isn't the Reddit one? Swap it</a></p>`;
+  if (M.hist.length) html += `<div class="row" style="margin-top:12px">${undoBtn()}</div>`;
   box.innerHTML = html + logHtml();
 }
 // ---- a different card in their team: swap it, re-solve from the current state ----
@@ -760,34 +760,83 @@ window.swapFind = j => {
 };
 window.swapDo = async (j, id) => {
   const card = BYID.get(id); if (!card) return;
-  const old = M.TB[j]; M.TB[j] = card; M.B[j] = swapEff(j, card); M.swapped.add(j);
+  snap(); const old = M.TB[j]; M.TB[j] = card; M.B[j] = swapEff(j, card); M.swapped.add(j);
   M.log.push(`Swapped their ${esc(old.name)} for ${esc(card.name)} ${card.rating}`);
   $("matchBox").innerHTML = `<p class="muted">Re-working the match with ${esc(card.name)}…</p>`;
   await ask({ type: "start", A: M.A, B: M.B, first: M.first, ma: M.ma, mb: M.mb, d: M.d });
   matchStep();
 };
 window.matchStep = matchStep;
+// ---- undo the last move (a wrong tap), and go back from a half-entered move ----
+const undoBtn = () => M.hist.length ? `<button class="ghost" onclick="undoMove()">↩ Undo last move</button>` : "";
+const backBtn = () => `<p style="margin-top:10px"><button class="ghost" onclick="matchStep()">← Back</button></p>`;
+window.undoMove = async () => {
+  let h = M.hist.pop(); if (!h) return;
+  if (M.hist.length && M.hist[M.hist.length - 1].merge) h = M.hist.pop();   // the move and the card entered for it
+  const swapChanged = h.TB.some((c, k) => c !== M.TB[k]);
+  Object.assign(M, { ma: h.ma, mb: h.mb, d: h.d, n: h.n, me: h.me, them: h.them, obj: h.obj, log: h.log, TB: h.TB, B: h.B, swapped: h.swapped });
+  if (swapChanged) { $("matchBox").innerHTML = `<p class="muted">Going back…</p>`; await ask({ type: "start", A: M.A, B: M.B, first: M.first, ma: M.ma, mb: M.mb, d: M.d }); }
+  matchStep();
+};
+// ---- they played a card that isn't in their listed team: find it, no need to say which card it replaces ----
+const otherBtn = ctx => `<button class="ghost" onclick="otherCard('${ctx}')">Someone else…</button>`;
+window.otherCard = ctx => {
+  $("matchBox").innerHTML = `<h3>Which card did they play?</h3>
+    <input type="text" id="ocQ" placeholder="Name, or a hint: nation, league or club" autocomplete="off">
+    <div id="ocRes" style="margin-top:8px"></div>${backBtn()}`;
+  const used = new Set(M.TB.map(c => c.name + "|" + c.nationId));
+  const draw = () => {
+    const q = norm($("ocQ").value.trim());
+    if (q.length < 2) { $("ocRes").innerHTML = `<p class="small muted">Type at least 2 letters. Cards up to ${M.cap} only, strongest first.</p>`; return; }
+    const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.name + "|" + c.nationId) &&
+        (c._n.includes(q) || norm(nName(c.nationId)).includes(q) || norm(lName(c.leagueId)).includes(q) || norm(cName(c.clubId)).includes(q)))
+      .sort((x, y) => (y.attack + y.control + y.defense) - (x.attack + x.control + x.defense)).slice(0, 25);
+    $("ocRes").innerHTML = L.length ? L.map(c => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="otherDo('${ctx}','${esc(c.id)}')">
+        <b>${esc(c.name)} ${c.rating}</b> <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}</span></button>`).join("")
+      : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
+  };
+  $("ocQ").oninput = draw; draw(); $("ocQ").focus();
+};
+window.otherDo = async (ctx, id) => {
+  const card = BYID.get(id); if (!card) return;
+  // it takes the place of the unplayed card most like it (same position first, then closest stats); only matters for
+  // what they still have left, and the match is re-worked from here
+  let j = -1, bd = 1e9;
+  for (let k = 0; k < 11; k++) if (M.mb >> k & 1) {
+    const c = M.TB[k], dist = (c.position === card.position ? 0 : 1000) + Math.abs(c.attack - card.attack) + Math.abs(c.control - card.control) + Math.abs(c.defense - card.defense);
+    if (dist < bd) { bd = dist; j = k; }
+  }
+  if (j < 0) return;
+  snap(); const old = M.TB[j]; M.TB[j] = card; M.B[j] = swapEff(j, card); M.swapped.add(j);
+  M.log.push(`They played ${esc(card.name)} ${card.rating} (not in their listed team; counted in place of ${esc(old.name)})`);
+  M.hist[M.hist.length - 1].merge = true;           // one undo takes back the card and the move it was played in
+  $("matchBox").innerHTML = `<p class="muted">Re-working the match with ${esc(card.name)}…</p>`;
+  await ask({ type: "start", A: M.A, B: M.B, first: M.first, ma: M.ma, mb: M.mb, d: M.d });
+  const [k, a, b] = ctx.split(":");
+  if (k === "lead") theirLead(j); else ansTheirs(+a, +b, j);
+};
 function teamButtons(side, mask, fn) {
   const team = side === "A" ? state.A : M.TB;
   return team.map((c, i) => (mask >> i & 1) ? `<button class="ghost" onclick="${fn(i)}">${esc(c.name)}${side === "B" && M.swapped.has(i) ? ` <span class="tag">swapped</span>` : ""}</button>` : "").join("");
 }
 function logHtml() { return M.log.length ? `<h3>Moves</h3><ol class="small">${M.log.map(l => `<li>${l}</li>`).join("")}</ol>` : ""; }
-function apply(i, j, r, text) { M.ma &= ~(1 << i); M.mb &= ~(1 << j); M.d += r; M.n++; if (r > 0) M.me++; if (r < 0) M.them++;
+function snap() { M.hist.push({ ma: M.ma, mb: M.mb, d: M.d, n: M.n, me: M.me, them: M.them, obj: M.obj, log: M.log.slice(), TB: M.TB.slice(), B: M.B.slice(), swapped: new Set(M.swapped) }); }
+function apply(i, j, r, text) { snap(); M.ma &= ~(1 << i); M.mb &= ~(1 << j); M.d += r; M.n++; if (r > 0) M.me++; if (r < 0) M.them++;
   const ob = r > 0 && isObj(i); if (ob) M.obj = (M.obj || 0) + 1;
   M.log.push(text + (r > 0 ? " ✅" : r < 0 ? " ❌" : " ➖") + (ob ? " 🎯" : "")); matchStep(); }
 window.ansTheirs = (i, s, j) => apply(i, j, duelR(i, j, s, true), `You led ${esc(state.A[i].name)} (${STAT[s]}) · they answered ${esc(M.TB[j].name)}`);
 window.pickMyLead = () => {
   const box = $("matchBox");
-  box.innerHTML = `<h3>Which card did you lead with?</h3><div class="row">${teamButtons("A", M.ma, i => `pickMyStat(${i})`)}</div>`;
+  box.innerHTML = `<h3>Which card did you lead with?</h3><div class="row">${teamButtons("A", M.ma, i => `pickMyStat(${i})`)}</div>${backBtn()}`;
 };
 window.pickMyStat = i => {
-  $("matchBox").innerHTML = `<h3>Which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="pickTheirAns(${i},${s})">${STAT[s]}</button>`).join("")}</div>`;
+  $("matchBox").innerHTML = `<h3>Which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="pickTheirAns(${i},${s})">${STAT[s]}</button>`).join("")}</div>${backBtn()}`;
 };
 window.pickTheirAns = (i, s) => {
-  $("matchBox").innerHTML = `<h3>What did they answer with?</h3><div class="row">${teamButtons("B", M.mb, j => `ansTheirs(${i},${s},${j})`)}</div>`;
+  $("matchBox").innerHTML = `<h3>What did they answer with?</h3><div class="row">${teamButtons("B", M.mb, j => `ansTheirs(${i},${s},${j})`)}${otherBtn(`ans:${i}:${s}`)}</div>${backBtn()}`;
 };
 window.theirLead = j => {
-  $("matchBox").innerHTML = `<h3>${esc(M.TB[j].name)}: which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="theirStat(${j},${s})">${STAT[s]} ${[M.B[j].a, M.B[j].c, M.B[j].d][s]}</button>`).join("")}</div>`;
+  $("matchBox").innerHTML = `<h3>${esc(M.TB[j].name)}: which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="theirStat(${j},${s})">${STAT[s]} ${[M.B[j].a, M.B[j].c, M.B[j].d][s]}</button>`).join("")}</div>${backBtn()}`;
 };
 window.theirStat = async (j, s) => {
   const box = $("matchBox"); box.innerHTML = `<p class="muted">Working out your best answer…</p>`;
@@ -799,7 +848,7 @@ window.theirStat = async (j, s) => {
   }
   let html = `<div class="move">Answer with <b>${esc(state.A[best.i].name)}</b> (${STAT[COUNTER[s]]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][COUNTER[s]]}): ${best.r > 0 ? "wins the round" : best.r < 0 ? "dump, loses the round" : "draws the round"}</div>` + objNote;
   html += `<div class="row"><button class="btn" onclick="ansMine(${j},${s},${best.i})">I played it</button></div>`;
-  html += `<h3>Or tap the card you actually played</h3><div class="row">${teamButtons("A", M.ma, i => `ansMine(${j},${s},${i})`)}</div>`;
+  html += `<h3>Or tap the card you actually played</h3><div class="row">${teamButtons("A", M.ma, i => `ansMine(${j},${s},${i})`)}</div>${backBtn()}`;
   box.innerHTML = html + logHtml();
 };
 window.ansMine = (j, s, i) => apply(i, j, duelR(i, j, s, false), `They led ${esc(M.TB[j].name)} (${STAT[s]}) · you answered ${esc(state.A[i].name)}`);
@@ -1223,7 +1272,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261101a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261101b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
