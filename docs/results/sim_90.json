@@ -3,7 +3,15 @@
  "series": {
   "key": "90",
   "cap": 90,
-  "boosts": [],
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 54,
+    "att": 3,
+    "ctl": 3,
+    "def": 3
+   }
+  ],
   "bonuses": [
    {
     "kind": "nations",
@@ -64,68 +72,68 @@
      "slot": "GK"
     },
     {
-     "id": "id1183",
-     "name": "Cannavaro",
+     "id": "id50564228",
+     "name": "Gabriel",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      65,
+      68,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      96
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id266690",
+     "name": "Lúcio",
      "rating": 89,
      "color": "icon",
      "position": "CB",
-     "nationId": 27,
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      62,
-      64,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      65,
-      67,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      62,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      67,
-      65,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id190044",
-     "name": "Moore",
-     "rating": 90,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      73,
-      79,
+      75,
+      74,
       89
      ],
      "chem": 3,
      "eff": [
-      76,
-      82,
-      92
+      81,
+      80,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id013",
+     "name": "David Luiz",
+     "rating": 90,
+     "color": "evo",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      75,
+      83,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      89,
+      97
      ],
      "slot": "CB"
     },
@@ -145,11 +153,33 @@
      ],
      "chem": 3,
      "eff": [
-      92,
-      93,
-      53
+      95,
+      96,
+      56
      ],
      "slot": "LM"
+    },
+    {
+     "id": "id190046",
+     "name": "Sócrates",
+     "rating": 89,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      88,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      94,
+      55
+     ],
+     "slot": "CM"
     },
     {
      "id": "id7763",
@@ -174,46 +204,24 @@
      "slot": "CM"
     },
     {
-     "id": "evo_Can_89",
-     "name": "Can",
-     "rating": 89,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 31,
-     "clubId": 45,
-     "card": [
-      80,
-      89,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      83,
-      92,
-      93
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "ltm_karetsas90",
-     "name": "Karetsas",
+     "id": "id100896715",
+     "name": "Raphinha",
      "rating": 90,
-     "color": "ltm",
+     "color": "halloween",
      "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      86,
-      90,
-      63
+      89,
+      88,
+      59
      ],
      "chem": 3,
      "eff": [
-      89,
-      93,
-      66
+      95,
+      94,
+      65
      ],
      "slot": "RM"
     },
@@ -262,60 +270,60 @@
      "slot": "ST"
     },
     {
-     "id": "id50573494",
-     "name": "Pajor",
-     "rating": 90,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 37,
-     "leagueId": 2222,
-     "clubId": 241,
+     "id": "id268513",
+     "name": "Jairzinho",
+     "rating": 89,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      91,
-      76,
-      31
+      88,
+      85,
+      52
      ],
      "chem": 3,
      "eff": [
       94,
-      79,
-      34
+      91,
+      58
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 92.8,
-    "attack": 92.87,
-    "defence": 93.0,
-    "net": 0.1051,
+    "control": 94.0,
+    "attack": 94.05,
+    "defence": 95.5,
+    "net": -0.0297,
     "control_cards": [
+     96,
+     94,
+     94,
      93,
-     93,
-     93,
-     93,
-     92
+     93
     ],
     "attack_cards": [
+     95,
+     95,
      94,
      94,
-     93,
-     92,
-     89,
-     88
-    ],
-    "defence_cards": [
-     94,
-     93,
      93,
      92
+    ],
+    "defence_cards": [
+     97,
+     96,
+     95,
+     94
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 253.0,
-    "att_total": 234.15,
-    "def_total": 223.75,
-    "swaps_checked": 49792
+    "ctrl_total": 250.6,
+    "att_total": 246.67,
+    "def_total": 239.75,
+    "swaps_checked": 49826
    }
   },
   {
@@ -345,68 +353,68 @@
      "slot": "GK"
     },
     {
-     "id": "id190044",
-     "name": "Moore",
-     "rating": 90,
+     "id": "id266690",
+     "name": "Lúcio",
+     "rating": 89,
      "color": "icon",
      "position": "CB",
-     "nationId": 14,
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      73,
-      79,
+      75,
+      74,
       89
      ],
      "chem": 3,
      "eff": [
-      76,
-      82,
-      92
+      81,
+      80,
+      95
      ],
      "slot": "CB"
     },
     {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
-     "color": "icon",
+     "id": "id013",
+     "name": "David Luiz",
+     "rating": 90,
+     "color": "evo",
      "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 54,
+     "leagueId": 16,
+     "clubId": 73,
      "card": [
-      64,
-      62,
-      90
+      75,
+      83,
+      91
      ],
      "chem": 3,
      "eff": [
-      67,
-      65,
-      93
+      81,
+      89,
+      97
      ],
      "slot": "CB"
     },
     {
-     "id": "id1183",
-     "name": "Cannavaro",
-     "rating": 89,
-     "color": "icon",
+     "id": "id50564228",
+     "name": "Gabriel",
+     "rating": 90,
+     "color": "totw_gold",
      "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
      "card": [
-      62,
-      64,
+      65,
+      68,
       90
      ],
      "chem": 3,
      "eff": [
-      65,
-      67,
-      93
+      71,
+      74,
+      96
      ],
      "slot": "CB"
     },
@@ -426,31 +434,31 @@
      ],
      "chem": 3,
      "eff": [
-      92,
-      93,
-      53
+      95,
+      96,
+      56
      ],
      "slot": "LM"
     },
     {
-     "id": "evo_Can_89",
-     "name": "Can",
+     "id": "id190046",
+     "name": "Sócrates",
      "rating": 89,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 31,
-     "clubId": 45,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      80,
-      89,
-      90
+      86,
+      88,
+      49
      ],
      "chem": 3,
      "eff": [
-      83,
       92,
-      93
+      94,
+      55
      ],
      "slot": "CM"
     },
@@ -477,24 +485,24 @@
      "slot": "CM"
     },
     {
-     "id": "ltm_karetsas90",
-     "name": "Karetsas",
+     "id": "id100896715",
+     "name": "Raphinha",
      "rating": 90,
-     "color": "ltm",
+     "color": "halloween",
      "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      86,
-      90,
-      63
+      89,
+      88,
+      59
      ],
      "chem": 3,
      "eff": [
-      89,
-      93,
-      66
+      95,
+      94,
+      65
      ],
      "slot": "RM"
     },
@@ -543,59 +551,59 @@
      "slot": "ST"
     },
     {
-     "id": "id50573494",
-     "name": "Pajor",
-     "rating": 90,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 37,
-     "leagueId": 2222,
-     "clubId": 241,
+     "id": "id268513",
+     "name": "Jairzinho",
+     "rating": 89,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      91,
-      76,
-      31
+      88,
+      85,
+      52
      ],
      "chem": 3,
      "eff": [
       94,
-      79,
-      34
+      91,
+      58
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 92.8,
-    "attack": 92.87,
-    "defence": 93.0,
-    "net": 0.1051,
+    "control": 94.0,
+    "attack": 94.05,
+    "defence": 95.5,
+    "net": -0.0297,
     "control_cards": [
+     96,
+     94,
+     94,
      93,
-     93,
-     93,
-     93,
-     92
+     93
     ],
     "attack_cards": [
+     95,
+     95,
      94,
      94,
-     93,
-     92,
-     89,
-     88
-    ],
-    "defence_cards": [
-     94,
-     93,
      93,
      92
+    ],
+    "defence_cards": [
+     97,
+     96,
+     95,
+     94
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 253.0,
-    "att_total": 234.15,
-    "def_total": 223.75
+    "ctrl_total": 250.6,
+    "att_total": 246.67,
+    "def_total": 239.75
    }
   },
   {
@@ -625,68 +633,68 @@
      "slot": "GK"
     },
     {
-     "id": "id190044",
-     "name": "Moore",
-     "rating": 90,
+     "id": "id266690",
+     "name": "Lúcio",
+     "rating": 89,
      "color": "icon",
      "position": "CB",
-     "nationId": 14,
+     "nationId": 54,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      73,
-      79,
+      75,
+      74,
       89
      ],
      "chem": 3,
      "eff": [
-      76,
-      82,
-      92
+      81,
+      80,
+      95
      ],
      "slot": "CB"
     },
     {
-     "id": "id1183",
-     "name": "Cannavaro",
-     "rating": 89,
-     "color": "icon",
+     "id": "id013",
+     "name": "David Luiz",
+     "rating": 90,
+     "color": "evo",
      "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 54,
+     "leagueId": 16,
+     "clubId": 73,
      "card": [
-      62,
-      64,
-      90
+      75,
+      83,
+      91
      ],
      "chem": 3,
      "eff": [
-      65,
-      67,
-      93
+      81,
+      89,
+      97
      ],
      "slot": "CB"
     },
     {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
-     "color": "icon",
+     "id": "id50564228",
+     "name": "Gabriel",
+     "rating": 90,
+     "color": "totw_gold",
      "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
      "card": [
-      64,
-      62,
+      65,
+      68,
       90
      ],
      "chem": 3,
      "eff": [
-      67,
-      65,
-      93
+      71,
+      74,
+      96
      ],
      "slot": "CB"
     },
@@ -706,9 +714,9 @@
      ],
      "chem": 3,
      "eff": [
-      92,
-      93,
-      53
+      95,
+      96,
+      56
      ],
      "slot": "LM"
     },
@@ -735,46 +743,46 @@
      "slot": "CM"
     },
     {
-     "id": "evo_Can_89",
-     "name": "Can",
+     "id": "id190046",
+     "name": "Sócrates",
      "rating": 89,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 31,
-     "clubId": 45,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      80,
-      89,
-      90
+      86,
+      88,
+      49
      ],
      "chem": 3,
      "eff": [
-      83,
       92,
-      93
+      94,
+      55
      ],
      "slot": "CM"
     },
     {
-     "id": "ltm_karetsas90",
-     "name": "Karetsas",
+     "id": "id100896715",
+     "name": "Raphinha",
      "rating": 90,
-     "color": "ltm",
+     "color": "halloween",
      "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 241,
      "card": [
-      86,
-      90,
-      63
+      89,
+      88,
+      59
      ],
      "chem": 3,
      "eff": [
-      89,
-      93,
-      66
+      95,
+      94,
+      65
      ],
      "slot": "RM"
     },
@@ -801,24 +809,24 @@
      "slot": "CAM"
     },
     {
-     "id": "id50573494",
-     "name": "Pajor",
-     "rating": 90,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 37,
-     "leagueId": 2222,
-     "clubId": 241,
+     "id": "id268513",
+     "name": "Jairzinho",
+     "rating": 89,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      91,
-      76,
-      31
+      88,
+      85,
+      52
      ],
      "chem": 3,
      "eff": [
       94,
-      79,
-      34
+      91,
+      58
      ],
      "slot": "ST"
     },
@@ -846,40 +854,40 @@
     }
    ],
    "metrics": {
-    "control": 92.8,
-    "attack": 92.87,
-    "defence": 93.0,
-    "net": 0.1051,
+    "control": 94.0,
+    "attack": 94.05,
+    "defence": 95.5,
+    "net": -0.0297,
     "control_cards": [
+     96,
+     94,
+     94,
      93,
-     93,
-     93,
-     93,
-     92
+     93
     ],
     "attack_cards": [
+     95,
+     95,
      94,
      94,
-     93,
-     92,
-     89,
-     88
-    ],
-    "defence_cards": [
-     94,
-     93,
      93,
      92
+    ],
+    "defence_cards": [
+     97,
+     96,
+     95,
+     94
     ],
     "chem": 33,
     "ctrl_not_full": 0,
-    "ctrl_total": 253.0,
-    "att_total": 234.15,
-    "def_total": 223.75
+    "ctrl_total": 250.6,
+    "att_total": 246.67,
+    "def_total": 239.75
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-01 04:06 UTC",
+ "built": "2026-11-01 02:14 UTC",
  "week": "2026-11-02"
 }

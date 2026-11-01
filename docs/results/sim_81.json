@@ -37,7 +37,7 @@
  },
  "teams": [
   {
-   "formation": "3-1-4-2",
+   "formation": "5-3-2",
    "chem": 29,
    "players": [
     {
@@ -61,6 +61,28 @@
       70
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id50603848",
+     "name": "Cecilia Marcos",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 457,
+     "card": [
+      82,
+      81,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      83,
+      79
+     ],
+     "slot": "LB"
     },
     {
      "id": "id256261",
@@ -129,6 +151,28 @@
      "slot": "CB"
     },
     {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      80
+     ],
+     "slot": "RB"
+    },
+    {
      "id": "id50522413",
      "name": "Groß",
      "rating": 81,
@@ -148,29 +192,7 @@
       85,
       77
      ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id50603848",
-     "name": "Cecilia Marcos",
-     "rating": 80,
-     "color": "totw_gold",
-     "position": "LB",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 457,
-     "card": [
-      82,
-      81,
-      77
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      83,
-      79
-     ],
-     "slot": "LM"
+     "slot": "CM"
     },
     {
      "id": "id246287",
@@ -215,28 +237,6 @@
       75
      ],
      "slot": "CM"
-    },
-    {
-     "id": "evo_Lucas Vázquez_80",
-     "name": "Lucas Vázquez",
-     "rating": 80,
-     "color": "evo",
-     "position": "RB",
-     "nationId": 45,
-     "leagueId": 19,
-     "clubId": 32,
-     "card": [
-      82,
-      83,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      85,
-      80
-     ],
-     "slot": "RM"
     },
     {
      "id": "id259334",
@@ -285,10 +285,9 @@
    ],
    "metrics": {
     "control": 84.4,
-    "attack": 83.25,
-    "defence": 75.6,
-    "net": 0.0837,
-    "vs_reddit": 0.0,
+    "attack": 82.9,
+    "defence": 76.67,
+    "net": 0.0012,
     "control_cards": [
      85,
      85,
@@ -302,21 +301,23 @@
      84,
      84,
      82,
+     81,
      81
     ],
     "defence_cards": [
      83,
      82,
-     77,
+     80,
+     79,
      70,
      66
     ],
     "chem": 29,
     "ctrl_not_full": 0,
     "ctrl_total": 242.6,
-    "att_total": 228.63,
-    "def_total": 190.2,
-    "swaps_checked": 48324
+    "att_total": 226.53,
+    "def_total": 200.5,
+    "swaps_checked": 46133
    }
   },
   {
@@ -570,8 +571,7 @@
     "control": 84.4,
     "attack": 83.25,
     "defence": 75.6,
-    "net": 0.0837,
-    "vs_reddit": 0.0,
+    "net": 0.0264,
     "control_cards": [
      85,
      85,
@@ -603,71 +603,49 @@
   },
   {
    "formation": "3-1-4-2",
-   "chem": 32,
+   "chem": 29,
    "players": [
     {
-     "id": "id258498",
-     "name": "Verbruggen",
-     "rating": 81,
-     "color": "rare_gold",
+     "id": "id224953",
+     "name": "André Moreira",
+     "rating": 67,
+     "color": "rare_silver",
      "position": "GK",
-     "nationId": 34,
-     "leagueId": 13,
-     "clubId": 1808,
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
      "card": [
-      39,
-      40,
-      82
+      30,
+      24,
+      68
      ],
      "chem": 3,
      "eff": [
-      41,
-      42,
-      84
+      32,
+      26,
+      70
      ],
      "slot": "GK"
     },
     {
-     "id": "id50580140",
-     "name": "Hill",
-     "rating": 80,
-     "color": "totw_gold",
+     "id": "id241464",
+     "name": "Pau Torres",
+     "rating": 81,
+     "color": "rare_gold",
      "position": "CB",
-     "nationId": 14,
+     "nationId": 45,
      "leagueId": 13,
-     "clubId": 1943,
+     "clubId": 2,
      "card": [
       62,
-      66,
+      71,
       81
      ],
      "chem": 3,
      "eff": [
-      65,
-      69,
-      84
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id265052",
-     "name": "Ostermeier",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 2215,
-     "clubId": 32,
-     "card": [
-      61,
       64,
-      78
-     ],
-     "chem": 2,
-     "eff": [
-      62,
-      67,
-      80
+      73,
+      83
      ],
      "slot": "CB"
     },
@@ -685,11 +663,33 @@
       63,
       82
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
+      63,
       64,
-      65,
-      84
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id79427",
+     "name": "Romanchuk",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 49,
+     "leagueId": 330,
+     "clubId": 308,
+     "card": [
+      54,
+      57,
+      72
+     ],
+     "chem": 1,
+     "eff": [
+      54,
+      57,
+      72
      ],
      "slot": "CB"
     },
@@ -738,6 +738,28 @@
      "slot": "LM"
     },
     {
+     "id": "evo_Bruno Costa_81",
+     "name": "Bruno Costa",
+     "rating": 81,
+     "color": "evo",
+     "position": "CM",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      83,
+      83,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      85,
+      75
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "id246287",
      "name": "Ángela Sosa",
      "rating": 80,
@@ -756,28 +778,6 @@
       81,
       84,
       65
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id237386",
-     "name": "Dewsbury-Hall",
-     "rating": 81,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 7,
-     "card": [
-      78,
-      81,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      81,
-      84,
-      72
      ],
      "slot": "CM"
     },
@@ -826,65 +826,64 @@
      "slot": "ST"
     },
     {
-     "id": "id262545",
-     "name": "Amaiur Sarriegi",
-     "rating": 80,
+     "id": "id272338",
+     "name": "Kowalski",
+     "rating": 78,
      "color": "rare_gold",
-     "position": "ST",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 240,
+     "position": "CAM",
+     "nationId": 21,
+     "leagueId": 2215,
+     "clubId": 32,
      "card": [
-      81,
-      78,
-      52
+      76,
+      76,
+      51
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      83,
-      80,
-      54
+      77,
+      79,
+      53
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
-    "control": 84.2,
-    "attack": 83.38,
-    "defence": 81.8,
-    "net": 0.1155,
-    "vs_reddit": 0.0326,
+    "control": 84.4,
+    "attack": 81.63,
+    "defence": 77.0,
+    "net": -0.0089,
     "control_cards": [
      85,
      85,
-     84,
+     85,
      84,
      83
     ],
     "attack_cards": [
+     85,
      84,
      84,
      84,
-     83,
      81,
-     81
-    ],
-    "defence_cards": [
-     84,
-     84,
-     84,
-     80,
      77
     ],
-    "chem": 32,
+    "defence_cards": [
+     83,
+     83,
+     77,
+     72,
+     70
+    ],
+    "chem": 29,
     "ctrl_not_full": 0,
-    "ctrl_total": 241.0,
-    "att_total": 230.94,
-    "def_total": 210.0
+    "ctrl_total": 242.6,
+    "att_total": 228.63,
+    "def_total": 196.8
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-01 04:45 UTC",
+ "built": "2026-11-01 02:31 UTC",
  "week": "2026-11-02"
 }
