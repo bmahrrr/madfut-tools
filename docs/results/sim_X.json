@@ -56,6 +56,28 @@
      "slot": "GK"
     },
     {
+     "id": "id168473",
+     "name": "Beckenbauer",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      81,
+      86,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "new_Can_92",
      "name": "Can",
      "rating": 92,
@@ -95,28 +117,6 @@
      "eff": [
       78,
       87,
-      95
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id168473",
-     "name": "Beckenbauer",
-     "rating": 93,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      81,
-      86,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      85,
-      90,
       95
      ],
      "slot": "CB"
@@ -232,28 +232,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id190048",
-     "name": "Müller",
-     "rating": 92,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 21,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      92,
-      78,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      96,
-      82,
-      52
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id237067",
      "name": "Pelé",
      "rating": 95,
@@ -274,13 +252,36 @@
       62
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id190048",
+     "name": "Müller",
+     "rating": 92,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      92,
+      78,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      82,
+      52
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 96.0,
     "attack": 95.24,
     "defence": 94.75,
-    "net": 0.0599,
+    "net": 0.0589,
+    "vs_reddit": 0.0962,
     "control_cards": [
      98,
      96,
@@ -561,7 +562,8 @@
     "control": 96.0,
     "attack": 95.24,
     "defence": 94.75,
-    "net": 0.0599,
+    "net": 0.0589,
+    "vs_reddit": 0.0962,
     "control_cards": [
      98,
      96,
@@ -617,24 +619,24 @@
      "slot": "GK"
     },
     {
-     "id": "id168473",
-     "name": "Beckenbauer",
-     "rating": 93,
+     "id": "id77676",
+     "name": "Jones",
+     "rating": 89,
      "color": "icon",
      "position": "CB",
      "nationId": 21,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      81,
-      86,
-      91
+      71,
+      72,
+      89
      ],
      "chem": 3,
      "eff": [
-      85,
-      90,
-      95
+      75,
+      76,
+      93
      ],
      "slot": "CB"
     },
@@ -661,24 +663,24 @@
      "slot": "CB"
     },
     {
-     "id": "id77676",
-     "name": "Jones",
-     "rating": 89,
+     "id": "id168473",
+     "name": "Beckenbauer",
+     "rating": 93,
      "color": "icon",
      "position": "CB",
      "nationId": 21,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      71,
-      72,
-      89
+      81,
+      86,
+      91
      ],
      "chem": 3,
      "eff": [
-      75,
-      76,
-      93
+      85,
+      90,
+      95
      ],
      "slot": "CB"
     },
@@ -793,28 +795,6 @@
      "slot": "RM"
     },
     {
-     "id": "id237067",
-     "name": "Pelé",
-     "rating": 95,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      93,
-      91,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      95,
-      93,
-      62
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id190048",
      "name": "Müller",
      "rating": 92,
@@ -835,13 +815,36 @@
       52
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      93,
+      62
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "control": 96.0,
     "attack": 95.13,
     "defence": 95.2,
-    "net": 0.0841,
+    "net": 0.0809,
+    "vs_reddit": 0.0871,
     "control_cards": [
      98,
      96,
@@ -873,6 +876,6 @@
   }
  ],
  "not_owned": [],
- "built": "2026-11-01 02:14 UTC",
+ "built": "2026-11-02 01:33 UTC",
  "week": "2026-11-02"
 }
