@@ -1,13 +1,12 @@
 {
- "g": 5,
+ "g": 4,
  "obj_ids": [
+  "id50562318",
+  "id230658",
   "id272829",
-  "id232805",
-  "id244661",
-  "id212462",
-  "id230658"
+  "id84630"
  ],
- "strength": 100.3,
+ "strength": 99.8,
  "group_cards": 398,
  "reddit": [
   {
@@ -17,122 +16,122 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 32,
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id216065",
-    "name": "Sportiello",
+    "id": "id50562318",
+    "name": "Lucas Perri",
     "rating": 76,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
+    "nationId": 54,
     "leagueId": 31,
-    "clubId": 115845,
+    "clubId": 54,
     "card": [
-     38,
-     39,
+     32,
+     31,
      77
     ],
     "chem": 3,
     "eff": [
-     40,
-     41,
+     34,
+     33,
      79
     ],
-    "tiebreak": 160
+    "tiebreak": 146
    },
    {
     "slot": "LB",
-    "id": "id212462",
-    "name": "Alex Telles",
-    "rating": 76,
+    "id": "id84630",
+    "name": "Kaiki",
+    "rating": 75,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
-     75,
-     75,
-     75
+     65,
+     68,
+     74
     ],
     "chem": 3,
     "eff": [
-     77,
-     77,
-     77
+     67,
+     70,
+     76
     ],
-    "tiebreak": 231
+    "tiebreak": 213
    },
    {
     "slot": "CB",
-    "id": "id222331",
-    "name": "Klostermann",
+    "id": "id243354",
+    "name": "Sander",
     "rating": 75,
     "color": "rare_gold",
     "position": "CB",
     "nationId": 21,
     "leagueId": 19,
-    "clubId": 112172,
+    "clubId": 23,
     "card": [
-     63,
-     64,
-     74
+     72,
+     73,
+     75
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     65,
-     66,
+     73,
+     74,
      76
     ],
-    "tiebreak": 207
+    "tiebreak": 223
    },
    {
     "slot": "CB",
-    "id": "id232805",
-    "name": "Bernardo",
-    "rating": 75,
+    "id": "id70966",
+    "name": "Jacobo Ramón",
+    "rating": 76,
     "color": "rare_gold",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 19,
-    "clubId": 10029,
+    "position": "CB",
+    "nationId": 45,
+    "leagueId": 31,
+    "clubId": 1745,
     "card": [
-     64,
-     64,
-     75
+     54,
+     56,
+     76
     ],
     "chem": 3,
     "eff": [
-     66,
-     66,
-     77
+     56,
+     58,
+     78
     ],
-    "tiebreak": 209
+    "tiebreak": 192
    },
    {
     "slot": "RB",
-    "id": "id235374",
-    "name": "Lazzari",
-    "rating": 75,
-    "color": "rare_gold",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
     "position": "RB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 115841,
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     75,
      76,
+     77,
      72
     ],
     "chem": 3,
     "eff": [
-     77,
      78,
+     79,
      74
     ],
-    "tiebreak": 229
+    "tiebreak": 231
    },
    {
     "slot": "CDM",
@@ -182,6 +181,29 @@
    },
    {
     "slot": "CM",
+    "id": "id210324",
+    "name": "Hofmann",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     75,
+     76,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     78,
+     65
+    ],
+    "tiebreak": 220
+   },
+   {
+    "slot": "CM",
     "id": "id272829",
     "name": "Ângelo",
     "rating": 76,
@@ -195,59 +217,36 @@
      77,
      62
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     77,
-     80,
-     63
-    ],
-    "tiebreak": 218
-   },
-   {
-    "slot": "CM",
-    "id": "id276602",
-    "name": "Ouédraogo",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 112172,
-    "card": [
-     78,
-     78,
-     60
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     80,
+     76,
+     79,
      62
     ],
-    "tiebreak": 222
+    "tiebreak": 215
    },
    {
     "slot": "RM",
-    "id": "id244661",
-    "name": "Vitinho",
-    "rating": 76,
+    "id": "id235374",
+    "name": "Lazzari",
+    "rating": 75,
     "color": "rare_gold",
     "position": "RB",
-    "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 115841,
     "card": [
-     68,
-     70,
-     74
+     75,
+     76,
+     72
     ],
     "chem": 3,
     "eff": [
-     70,
-     72,
-     76
+     77,
+     78,
+     74
     ],
-    "tiebreak": 218
+    "tiebreak": 229
    },
    {
     "slot": "ST",
@@ -306,18 +305,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id216065",
-  "id270013",
-  "id246836",
-  "id241847",
-  "id235374",
-  "id276602",
+  "id223686",
   "id251530",
-  "id260823",
+  "id241847",
+  "id246836",
+  "id235374",
   "id230658",
+  "id272829",
+  "id260823",
+  "id276602",
   "id50571625",
-  "id264904"
+  "id205175"
  ],
- "built": "2026-11-01 10:16 UTC",
+ "built": "2026-11-02 01:32 UTC",
  "week": "2026-11-02"
 }

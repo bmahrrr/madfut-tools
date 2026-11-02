@@ -3,7 +3,7 @@
  "obj_ids": [
   "id189362"
  ],
- "strength": 100.1,
+ "strength": 99.9,
  "group_cards": 6,
  "reddit": [
   {
@@ -13,7 +13,7 @@
  ],
  "team": {
   "formation": "4-1-2-1-2 (2)",
-  "chem": 32,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -63,6 +63,29 @@
    },
    {
     "slot": "CB",
+    "id": "id67375554",
+    "name": "Lúcio",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     71,
+     71,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     73,
+     86
+    ],
+    "tiebreak": 232
+   },
+   {
+    "slot": "CB",
     "id": "evo_Can_85",
     "name": "Can",
     "rating": 85,
@@ -83,29 +106,6 @@
      87
     ],
     "tiebreak": 253
-   },
-   {
-    "slot": "CB",
-    "id": "id50593786",
-    "name": "Lukeba",
-    "rating": 85,
-    "color": "halloween",
-    "position": "LB",
-    "nationId": 18,
-    "leagueId": 19,
-    "clubId": 112172,
-    "card": [
-     71,
-     80,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     83,
-     88
-    ],
-    "tiebreak": 242
    },
    {
     "slot": "RB",
@@ -132,29 +132,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CM",
     "id": "id246863",
     "name": "Nmecha",
     "rating": 85,
@@ -178,24 +155,47 @@
    },
    {
     "slot": "CM",
-    "id": "id67335759",
-    "name": "Formiga",
+    "id": "id50402434",
+    "name": "King",
     "rating": 85,
-    "color": "debut_icon",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
     "card": [
-     79,
-     82,
-     83
+     86,
+     87,
+     69
     ],
     "chem": 3,
     "eff": [
-     81,
+     88,
+     89,
+     71
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CM",
+    "id": "id227353",
+    "name": "Dali",
+    "rating": 85,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 18,
+    "leagueId": 2221,
+    "clubId": 116312,
+    "card": [
+     82,
      84,
-     85
+     81
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     85,
+     82
     ],
     "tiebreak": 250
    },
@@ -303,16 +303,16 @@
  "base_ids": [
   "id16254",
   "id50555345",
-  "id67229397",
   "evo_Can_85",
+  "id67375554",
   "id67359754",
-  "id67335759",
   "id67116627",
-  "id50608342",
-  "id50412322",
+  "id67335759",
   "id50402434",
+  "id50412322",
+  "id50608342",
   "id50408698"
  ],
- "built": "2026-11-01 10:16 UTC",
+ "built": "2026-11-02 01:32 UTC",
  "week": "2026-11-02"
 }

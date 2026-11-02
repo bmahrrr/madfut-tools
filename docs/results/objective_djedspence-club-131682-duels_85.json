@@ -4,7 +4,7 @@
   "id224987",
   "id50573384"
  ],
- "strength": 100.2,
+ "strength": 100.0,
  "group_cards": 2,
  "reddit": [
   {
@@ -14,7 +14,7 @@
  ],
  "team": {
   "formation": "4-2-3-1",
-  "chem": 31,
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
@@ -64,29 +64,6 @@
    },
    {
     "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     76,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     88,
-     87
-    ],
-    "tiebreak": 253
-   },
-   {
-    "slot": "CB",
     "id": "id50573384",
     "name": "Bisseck",
     "rating": 85,
@@ -107,6 +84,29 @@
      86
     ],
     "tiebreak": 235
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     88,
+     87
+    ],
+    "tiebreak": 253
    },
    {
     "slot": "RB",
@@ -179,6 +179,29 @@
    },
    {
     "slot": "CAM",
+    "id": "id50606677",
+    "name": "Maza",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "CAM",
+    "nationId": 97,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     83,
+     86,
+     67
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     89,
+     70
+    ],
+    "tiebreak": 242
+   },
+   {
+    "slot": "CAM",
     "id": "id50402434",
     "name": "King",
     "rating": 85,
@@ -224,50 +247,27 @@
     "tiebreak": 250
    },
    {
-    "slot": "CAM",
-    "id": "id50584757",
-    "name": "Veerman",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "CM",
-    "nationId": 34,
-    "leagueId": 19,
-    "clubId": 22,
-    "card": [
-     84,
-     86,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     89,
-     72
-    ],
-    "tiebreak": 245
-   },
-   {
     "slot": "ST",
-    "id": "id67362886",
-    "name": "Woltemade",
+    "id": "id67373561",
+    "name": "Amoura",
     "rating": 85,
     "color": "halloween",
-    "position": "CAM",
-    "nationId": 21,
-    "leagueId": 31,
-    "clubId": 45,
+    "position": "LW",
+    "nationId": 97,
+    "leagueId": 16,
+    "clubId": 72,
     "card": [
-     84,
-     85,
-     52
-    ],
-    "chem": 3,
-    "eff": [
      86,
-     87,
-     54
+     84,
+     56
     ],
-    "tiebreak": 227
+    "chem": 2,
+    "eff": [
+     87,
+     85,
+     57
+    ],
+    "tiebreak": 229
    }
   ]
  },
@@ -304,16 +304,16 @@
  "base_ids": [
   "id16254",
   "id50555345",
-  "id67229397",
   "evo_Can_85",
+  "id67375554",
   "id67359754",
-  "id67335759",
   "id67116627",
-  "id50608342",
-  "id50412322",
+  "id67335759",
   "id50402434",
+  "id50412322",
+  "id50608342",
   "id50408698"
  ],
- "built": "2026-11-01 10:16 UTC",
+ "built": "2026-11-02 01:31 UTC",
  "week": "2026-11-02"
 }

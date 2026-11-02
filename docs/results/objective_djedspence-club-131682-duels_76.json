@@ -12,7 +12,7 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
+  "formation": "4-2-3-1",
   "chem": 32,
   "players": [
    {
@@ -40,26 +40,49 @@
    },
    {
     "slot": "LB",
-    "id": "id201389",
-    "name": "Biraghi",
-    "rating": 75,
+    "id": "id251530",
+    "name": "Nuno Tavares",
+    "rating": 76,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 27,
+    "nationId": 38,
     "leagueId": 31,
-    "clubId": 54,
+    "clubId": 115841,
     "card": [
-     73,
      75,
+     74,
      74
     ],
     "chem": 3,
     "eff": [
-     75,
-     77,
+     79,
+     76,
+     77
+    ],
+    "tiebreak": 229
+   },
+   {
+    "slot": "CB",
+    "id": "id256942",
+    "name": "Martel",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 169,
+    "card": [
+     62,
+     68,
      76
     ],
-    "tiebreak": 228
+    "chem": 3,
+    "eff": [
+     64,
+     70,
+     78
+    ],
+    "tiebreak": 212
    },
    {
     "slot": "CB",
@@ -76,59 +99,59 @@
      73,
      75
     ],
-    "chem": 2,
-    "eff": [
-     73,
-     74,
-     76
-    ],
-    "tiebreak": 223
-   },
-   {
-    "slot": "CB",
-    "id": "id222331",
-    "name": "Klostermann",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 112172,
-    "card": [
-     63,
-     64,
-     74
-    ],
     "chem": 3,
     "eff": [
-     65,
-     66,
-     76
+     74,
+     75,
+     77
     ],
-    "tiebreak": 207
+    "tiebreak": 226
    },
    {
     "slot": "RB",
-    "id": "id235374",
-    "name": "Lazzari",
-    "rating": 75,
-    "color": "rare_gold",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
     "position": "RB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 115841,
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     75,
      76,
+     77,
      72
     ],
     "chem": 3,
     "eff": [
-     77,
      78,
+     79,
      74
     ],
-    "tiebreak": 229
+    "tiebreak": 231
+   },
+   {
+    "slot": "CDM",
+    "id": "id260823",
+    "name": "Fagioli",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 110374,
+    "card": [
+     74,
+     79,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     81,
+     73
+    ],
+    "tiebreak": 230
    },
    {
     "slot": "CDM",
@@ -154,53 +177,30 @@
     "tiebreak": 230
    },
    {
-    "slot": "LM",
-    "id": "id251530",
-    "name": "Nuno Tavares",
+    "slot": "CAM",
+    "id": "id261835",
+    "name": "Tatiana Pinto",
     "rating": 76,
     "color": "rare_gold",
-    "position": "LB",
+    "position": "CM",
     "nationId": 38,
-    "leagueId": 31,
-    "clubId": 115841,
-    "card": [
-     75,
-     74,
-     74
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     76,
-     77
-    ],
-    "tiebreak": 229
-   },
-   {
-    "slot": "CM",
-    "id": "id260823",
-    "name": "Fagioli",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 110374,
+    "leagueId": 2236,
+    "clubId": 45,
     "card": [
      74,
-     79,
-     71
+     73,
+     65
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     76,
-     81,
-     73
+     77,
+     74,
+     67
     ],
-    "tiebreak": 230
+    "tiebreak": 215
    },
    {
-    "slot": "CM",
+    "slot": "CAM",
     "id": "id276602",
     "name": "Ouédraogo",
     "rating": 76,
@@ -223,27 +223,27 @@
     "tiebreak": 222
    },
    {
-    "slot": "RM",
-    "id": "id257290",
-    "name": "João Mário",
+    "slot": "CAM",
+    "id": "id210324",
+    "name": "Hofmann",
     "rating": 76,
     "color": "rare_gold",
-    "position": "RB",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
+    "position": "CAM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     72,
-     73,
-     74
+     75,
+     76,
+     63
     ],
     "chem": 3,
     "eff": [
-     76,
-     75,
-     77
+     77,
+     78,
+     65
     ],
-    "tiebreak": 225
+    "tiebreak": 220
    },
    {
     "slot": "ST",
@@ -301,18 +301,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id216065",
-  "id270013",
-  "id246836",
-  "id241847",
-  "id235374",
-  "id276602",
+  "id223686",
   "id251530",
-  "id260823",
+  "id241847",
+  "id246836",
+  "id235374",
   "id230658",
+  "id272829",
+  "id260823",
+  "id276602",
   "id50571625",
-  "id264904"
+  "id205175"
  ],
- "built": "2026-11-01 10:16 UTC",
+ "built": "2026-11-02 01:32 UTC",
  "week": "2026-11-02"
 }
