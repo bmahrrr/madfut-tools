@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261103a";
+const APP_V = "20261103b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -637,7 +637,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261103a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261103b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -663,7 +663,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261103a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261103b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1274,7 +1274,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261103a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261103b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1659,7 +1659,7 @@ function seriesCardHtml(type, i) {
   const sub = [`${nb} boost${nb === 1 ? "" : "s"}`, nbn ? `${nbn} bonus${nbn === 1 ? "" : "es"}` : "", `${nr} Reddit team${nr === 1 ? "" : "s"}`].filter(Boolean).join(" · ");
   const isOpen = WSOPEN.has(id) || WSUI.open.startsWith(id + ":");
   const warn = !(nb + nbn) ? `<span class="pill LOSS">Needs boosts</span>` : isMC && !nr ? `<span class="pill DRAW">No Reddit</span>` : `<span class="pill WIN">Ready</span>`;
-  let h = `<details class="card sercard" data-wser="${id}"${isOpen ? " open" : ""}><summary class="strip"><span class="k">${esc(s.key || "?")}</span><span class="mid"><b>${esc(boostNames)}</b><small>${esc(sub)}</small></span><span class="res">${warn}</span></summary><div class="body"><div class="row" style="justify-content:space-between">
+  let h = `<details class="card sercard" data-wser="${id}"${isOpen ? " open" : ""}><summary class="strip${isMC ? "" : " sim"}"><span class="k">${esc(s.key || "?")}</span><span class="mid"><b>${esc(boostNames)}</b><small>${esc(sub)}</small></span><span class="res">${warn}</span></summary><div class="body"><div class="row" style="justify-content:space-between">
     <label class="small muted">Series <input type="text" inputmode="numeric" data-f="key" data-s="${id}" value="${esc(s.key || "")}" style="width:80px"></label>
     <button class="x" data-delseries="${id}" title="Remove series">🗑</button></div>`;
   h += `<div class="small" style="margin-top:8px"><b>Boosts</b></div>` + ((s.boosts || []).map((b, j) =>
