@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261101c">
+<meta name="app-version" content="20261103a">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#150f12">
@@ -17,7 +17,7 @@
 /* MadFut Tools: Fatal Night: ember-on-ink, skewed broadcast chips, outlined series numbers */
 :root{
   --bg:#150f12;--panel:#1e1619;--field:#120c0e;--line:#33262b;--text:#f6ece6;--muted:#a8948d;
-  --fire:#ff5b22;--gold:#ffb21e;--accent:#ffb21e;--on-accent:#1a0b05;--win:#3ddc97;--draw:#9fb3c8;--loss:#ff4d5e;
+  --fire:#ff5b22;--sim:#2f8dff;--gold:#ffb21e;--accent:#ffb21e;--on-accent:#1a0b05;--win:#3ddc97;--draw:#9fb3c8;--loss:#ff4d5e;
   --grad:linear-gradient(95deg,var(--gold),var(--fire));
   --display:"Saira Extra Condensed","Arial Narrow",system-ui,sans-serif;
   --body:"Saira",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -156,6 +156,8 @@ details.sercard{padding:0;clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),ca
 details.sercard>summary.strip{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:10px;padding:12px 14px;list-style:none;cursor:pointer;font:inherit;letter-spacing:0;text-transform:none;color:var(--text)}
 details.sercard>summary::-webkit-details-marker{display:none}
 .strip .k{font:800 italic 38px/1 var(--display);color:transparent;-webkit-text-stroke:1.5px var(--fire)}
+.strip.sim .k{-webkit-text-stroke-color:var(--sim)}   /* Sim series numbers in the game's Sim blue (My Club stays orange) */
+details.sercard[open]>summary.strip.sim{background:linear-gradient(90deg,rgba(47,141,255,.12),transparent)}
 .strip .mid b{display:block;font:700 16px/1.2 var(--display);letter-spacing:.6px;text-transform:uppercase}
 .strip .mid small{display:block;color:var(--muted);font-size:12px}
 .strip .mid small b.gold{display:inline;color:var(--gold);font:600 12px var(--body);text-transform:none;letter-spacing:0}
@@ -363,8 +365,8 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261101c"></script>
-<script src="sbc-solver.js?v=20261101c"></script>
-<script src="app.js?v=20261101c"></script>
+<script src="engine.js?v=20261103a"></script>
+<script src="sbc-solver.js?v=20261103a"></script>
+<script src="app.js?v=20261103a"></script>
 </body>
 </html>
