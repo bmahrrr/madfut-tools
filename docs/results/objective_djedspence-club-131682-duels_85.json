@@ -4,7 +4,7 @@
   "id224987",
   "id50573384"
  ],
- "strength": 100.0,
+ "strength": 100.2,
  "group_cards": 2,
  "reddit": [
   {
@@ -14,7 +14,7 @@
  ],
  "team": {
   "formation": "4-2-3-1",
-  "chem": 30,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -64,29 +64,6 @@
    },
    {
     "slot": "CB",
-    "id": "id50573384",
-    "name": "Bisseck",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "CB",
-    "nationId": 21,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     72,
-     73,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     75,
-     86
-    ],
-    "tiebreak": 235
-   },
-   {
-    "slot": "CB",
     "id": "evo_Can_85",
     "name": "Can",
     "rating": 85,
@@ -109,27 +86,50 @@
     "tiebreak": 253
    },
    {
-    "slot": "RB",
-    "id": "id67359754",
-    "name": "Zambrotta",
+    "slot": "CB",
+    "id": "id50573384",
+    "name": "Bisseck",
     "rating": 85,
-    "color": "debut_icon",
-    "position": "RB",
-    "nationId": 27,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "color": "destined_for_glory",
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     75,
-     77,
+     72,
+     73,
      84
     ],
     "chem": 3,
     "eff": [
-     77,
-     80,
-     88
+     74,
+     75,
+     86
     ],
-    "tiebreak": 242
+    "tiebreak": 235
+   },
+   {
+    "slot": "RB",
+    "id": "id203551",
+    "name": "Florenzi",
+    "rating": 84,
+    "color": "hall_of_fut",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 132794,
+    "card": [
+     81,
+     80,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     83,
+     86
+    ],
+    "tiebreak": 249
    },
    {
     "slot": "CDM",
@@ -156,49 +156,26 @@
    },
    {
     "slot": "CDM",
-    "id": "id67335759",
-    "name": "Formiga",
+    "id": "id241096",
+    "name": "Tonali",
     "rating": 85,
-    "color": "debut_icon",
+    "color": "rare_gold",
     "position": "CDM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 27,
+    "leagueId": 13,
+    "clubId": 18,
     "card": [
-     79,
+     78,
      82,
      83
     ],
     "chem": 3,
     "eff": [
-     81,
-     84,
-     85
+     80,
+     85,
+     87
     ],
-    "tiebreak": 250
-   },
-   {
-    "slot": "CAM",
-    "id": "id50606677",
-    "name": "Maza",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "CAM",
-    "nationId": 97,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     83,
-     86,
-     67
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     89,
-     70
-    ],
-    "tiebreak": 242
+    "tiebreak": 249
    },
    {
     "slot": "CAM",
@@ -225,49 +202,72 @@
    },
    {
     "slot": "CAM",
-    "id": "id50608342",
-    "name": "Manzambi",
+    "id": "id50602505",
+    "name": "Mateus Fernandes",
     "rating": 85,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 47,
+    "color": "destined_for_glory",
+    "position": "CAM",
+    "nationId": 38,
     "leagueId": 13,
-    "clubId": 2,
+    "clubId": 18,
     "card": [
-     86,
+     85,
      85,
      76
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
      87,
-     86,
-     77
+     87,
+     78
     ],
-    "tiebreak": 250
+    "tiebreak": 252
+   },
+   {
+    "slot": "CAM",
+    "id": "id67193279",
+    "name": "Riise",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CM",
+    "nationId": 36,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     83,
+     84,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     86,
+     71
+    ],
+    "tiebreak": 242
    },
    {
     "slot": "ST",
-    "id": "id67373561",
-    "name": "Amoura",
+    "id": "id67362886",
+    "name": "Woltemade",
     "rating": 85,
     "color": "halloween",
-    "position": "LW",
-    "nationId": 97,
-    "leagueId": 16,
-    "clubId": 72,
+    "position": "CAM",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     86,
      84,
-     56
-    ],
-    "chem": 2,
-    "eff": [
-     87,
      85,
-     57
+     52
     ],
-    "tiebreak": 229
+    "chem": 3,
+    "eff": [
+     86,
+     87,
+     54
+    ],
+    "tiebreak": 227
    }
   ]
  },
@@ -304,16 +304,16 @@
  "base_ids": [
   "id16254",
   "id50555345",
+  "id67229397",
   "evo_Can_85",
-  "id67375554",
   "id67359754",
-  "id67116627",
   "id67335759",
-  "id50402434",
-  "id50412322",
+  "id67116627",
   "id50608342",
+  "id50412322",
+  "id50402434",
   "id50408698"
  ],
- "built": "2026-11-02 01:31 UTC",
+ "built": "2026-11-03 04:21 UTC",
  "week": "2026-11-02"
 }

@@ -1,12 +1,13 @@
 {
- "g": 4,
+ "g": 5,
  "obj_ids": [
   "id50562318",
-  "id230658",
   "id272829",
-  "id84630"
+  "id244661",
+  "id230658",
+  "id212462"
  ],
- "strength": 99.8,
+ "strength": 100.0,
  "group_cards": 398,
  "reddit": [
   {
@@ -16,7 +17,7 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 30,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -43,26 +44,49 @@
    },
    {
     "slot": "LB",
-    "id": "id84630",
-    "name": "Kaiki",
-    "rating": 75,
+    "id": "id212462",
+    "name": "Alex Telles",
+    "rating": 76,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
+    "leagueId": 1014,
+    "clubId": 517,
     "card": [
-     65,
-     68,
+     75,
+     75,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     77,
+     77
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "CB",
+    "id": "id222331",
+    "name": "Klostermann",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 112172,
+    "card": [
+     63,
+     64,
      74
     ],
     "chem": 3,
     "eff": [
-     67,
-     70,
+     65,
+     66,
      76
     ],
-    "tiebreak": 213
+    "tiebreak": 207
    },
    {
     "slot": "CB",
@@ -88,73 +112,50 @@
     "tiebreak": 223
    },
    {
-    "slot": "CB",
-    "id": "id70966",
-    "name": "Jacobo Ramón",
+    "slot": "RB",
+    "id": "id244661",
+    "name": "Vitinho",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 45,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     54,
-     56,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     56,
-     58,
-     78
-    ],
-    "tiebreak": 192
-   },
-   {
-    "slot": "RB",
-    "id": "id208618",
-    "name": "Lucas Vázquez",
-    "rating": 74,
-    "color": "rare_silver",
     "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 54,
+    "leagueId": 1014,
+    "clubId": 517,
     "card": [
-     76,
-     77,
-     72
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     79,
+     68,
+     70,
      74
     ],
-    "tiebreak": 231
+    "chem": 3,
+    "eff": [
+     70,
+     72,
+     76
+    ],
+    "tiebreak": 218
    },
    {
     "slot": "CDM",
-    "id": "id230658",
-    "name": "Arthur",
+    "id": "id272829",
+    "name": "Ângelo",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CDM",
+    "position": "CM",
     "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
+    "leagueId": 350,
+    "clubId": 112139,
     "card": [
-     74,
-     79,
-     71
-    ],
-    "chem": 3,
-    "eff": [
      76,
-     81,
-     73
+     77,
+     62
     ],
-    "tiebreak": 230
+    "chem": 2,
+    "eff": [
+     77,
+     80,
+     63
+    ],
+    "tiebreak": 218
    },
    {
     "slot": "LM",
@@ -181,49 +182,49 @@
    },
    {
     "slot": "CM",
-    "id": "id210324",
-    "name": "Hofmann",
+    "id": "id230658",
+    "name": "Arthur",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 32,
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     75,
-     76,
-     63
+     74,
+     79,
+     71
     ],
     "chem": 3,
     "eff": [
-     77,
-     78,
-     65
+     76,
+     81,
+     73
     ],
-    "tiebreak": 220
+    "tiebreak": 230
    },
    {
     "slot": "CM",
-    "id": "id272829",
-    "name": "Ângelo",
+    "id": "id276602",
+    "name": "Ouédraogo",
     "rating": 76,
     "color": "rare_gold",
     "position": "CM",
-    "nationId": 54,
-    "leagueId": 350,
-    "clubId": 112139,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 112172,
     "card": [
-     76,
-     77,
-     62
+     78,
+     78,
+     60
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     76,
-     79,
+     80,
+     80,
      62
     ],
-    "tiebreak": 215
+    "tiebreak": 222
    },
    {
     "slot": "RM",
@@ -307,16 +308,16 @@
  "base_ids": [
   "id223686",
   "id251530",
-  "id241847",
   "id246836",
+  "id241847",
   "id235374",
-  "id230658",
+  "id276602",
   "id272829",
   "id260823",
-  "id276602",
+  "id230658",
   "id50571625",
-  "id205175"
+  "id50579536"
  ],
- "built": "2026-11-02 01:32 UTC",
+ "built": "2026-11-03 04:21 UTC",
  "week": "2026-11-02"
 }

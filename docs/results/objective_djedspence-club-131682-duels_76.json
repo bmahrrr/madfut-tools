@@ -3,7 +3,7 @@
  "obj_ids": [
   "id243311"
  ],
- "strength": 100.2,
+ "strength": 99.9,
  "group_cards": 1,
  "reddit": [
   {
@@ -12,8 +12,8 @@
   }
  ],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 32,
+  "formation": "4-1-4-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -40,72 +40,72 @@
    },
    {
     "slot": "LB",
-    "id": "id251530",
-    "name": "Nuno Tavares",
-    "rating": 76,
+    "id": "id201389",
+    "name": "Biraghi",
+    "rating": 75,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 38,
+    "nationId": 27,
     "leagueId": 31,
-    "clubId": 115841,
+    "clubId": 54,
     "card": [
+     73,
      75,
-     74,
      74
     ],
     "chem": 3,
     "eff": [
-     79,
-     76,
-     77
+     75,
+     77,
+     76
     ],
-    "tiebreak": 229
+    "tiebreak": 228
    },
    {
     "slot": "CB",
-    "id": "id256942",
-    "name": "Martel",
+    "id": "id231207",
+    "name": "Lucumí",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 169,
+    "position": "CB",
+    "nationId": 56,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
+     57,
      62,
-     68,
      76
     ],
     "chem": 3,
     "eff": [
+     59,
      64,
-     70,
      78
     ],
-    "tiebreak": 212
+    "tiebreak": 201
    },
    {
     "slot": "CB",
-    "id": "id243354",
-    "name": "Sander",
+    "id": "id222331",
+    "name": "Klostermann",
     "rating": 75,
     "color": "rare_gold",
     "position": "CB",
     "nationId": 21,
     "leagueId": 19,
-    "clubId": 23,
+    "clubId": 112172,
     "card": [
-     72,
-     73,
-     75
+     63,
+     64,
+     74
     ],
     "chem": 3,
     "eff": [
-     74,
-     75,
-     77
+     65,
+     66,
+     76
     ],
-    "tiebreak": 226
+    "tiebreak": 207
    },
    {
     "slot": "RB",
@@ -132,29 +132,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id260823",
-    "name": "Fagioli",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 110374,
-    "card": [
-     74,
-     79,
-     71
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     81,
-     73
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CDM",
     "id": "id230658",
     "name": "Arthur",
     "rating": 76,
@@ -177,30 +154,30 @@
     "tiebreak": 230
    },
    {
-    "slot": "CAM",
-    "id": "id261835",
-    "name": "Tatiana Pinto",
+    "slot": "LM",
+    "id": "id251530",
+    "name": "Nuno Tavares",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CM",
+    "position": "LB",
     "nationId": 38,
-    "leagueId": 2236,
-    "clubId": 45,
+    "leagueId": 31,
+    "clubId": 115841,
     "card": [
+     75,
      74,
-     73,
-     65
+     74
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     77,
-     74,
-     67
+     79,
+     76,
+     77
     ],
-    "tiebreak": 215
+    "tiebreak": 229
    },
    {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id276602",
     "name": "Ouédraogo",
     "rating": 76,
@@ -223,7 +200,7 @@
     "tiebreak": 222
    },
    {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id210324",
     "name": "Hofmann",
     "rating": 76,
@@ -244,6 +221,29 @@
      65
     ],
     "tiebreak": 220
+   },
+   {
+    "slot": "RM",
+    "id": "id235374",
+    "name": "Lazzari",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 115841,
+    "card": [
+     75,
+     76,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     78,
+     74
+    ],
+    "tiebreak": 229
    },
    {
     "slot": "ST",
@@ -303,16 +303,16 @@
  "base_ids": [
   "id223686",
   "id251530",
-  "id241847",
   "id246836",
+  "id241847",
   "id235374",
-  "id230658",
+  "id276602",
   "id272829",
   "id260823",
-  "id276602",
+  "id230658",
   "id50571625",
-  "id205175"
+  "id50579536"
  ],
- "built": "2026-11-02 01:32 UTC",
+ "built": "2026-11-03 04:21 UTC",
  "week": "2026-11-02"
 }
