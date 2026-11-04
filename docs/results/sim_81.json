@@ -287,7 +287,7 @@
     "control": 84.4,
     "attack": 83.25,
     "defence": 75.6,
-    "net": 0.0694,
+    "net": 0.0745,
     "vs_reddit": 0.0,
     "control_cards": [
      85,
@@ -570,7 +570,7 @@
     "control": 84.4,
     "attack": 83.25,
     "defence": 75.6,
-    "net": 0.0694,
+    "net": 0.0745,
     "vs_reddit": 0.0,
     "control_cards": [
      85,
@@ -602,7 +602,7 @@
    }
   },
   {
-   "formation": "3-4-1-2",
+   "formation": "3-1-4-2",
    "chem": 30,
    "players": [
     {
@@ -626,6 +626,28 @@
       73
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id269411",
+     "name": "Marian Huja",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      48,
+      48,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      50,
+      50,
+      69
+     ],
+     "slot": "CB"
     },
     {
      "id": "id241464",
@@ -672,26 +694,26 @@
      "slot": "CB"
     },
     {
-     "id": "id269411",
-     "name": "Marian Huja",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 330,
-     "clubId": 114385,
+     "id": "id50522413",
+     "name": "Groß",
+     "rating": 81,
+     "color": "totw_gold",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 1808,
      "card": [
-      48,
-      48,
-      67
+      79,
+      83,
+      75
      ],
      "chem": 3,
      "eff": [
-      50,
-      50,
-      69
+      81,
+      85,
+      77
      ],
-     "slot": "CB"
+     "slot": "CDM"
     },
     {
      "id": "ltm_ngumoha81",
@@ -716,6 +738,28 @@
      "slot": "LM"
     },
     {
+     "id": "id237386",
+     "name": "Dewsbury-Hall",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 7,
+     "card": [
+      78,
+      81,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      84,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "evo_Bruno Costa_81",
      "name": "Bruno Costa",
      "rating": 81,
@@ -734,28 +778,6 @@
       85,
       85,
       75
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id50522413",
-     "name": "Groß",
-     "rating": 81,
-     "color": "totw_gold",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 1808,
-     "card": [
-      79,
-      83,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      81,
-      85,
-      77
      ],
      "slot": "CM"
     },
@@ -780,28 +802,6 @@
       80
      ],
      "slot": "RM"
-    },
-    {
-     "id": "id237386",
-     "name": "Dewsbury-Hall",
-     "rating": 81,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 7,
-     "card": [
-      78,
-      81,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      81,
-      84,
-      72
-     ],
-     "slot": "CAM"
     },
     {
      "id": "id254117",
@@ -850,10 +850,10 @@
    ],
    "metrics": {
     "control": 84.2,
-    "attack": 83.18,
-    "defence": 76.25,
-    "net": 0.0009,
-    "vs_reddit": -0.0294,
+    "attack": 83.31,
+    "defence": 76.4,
+    "net": 0.0003,
+    "vs_reddit": -0.0312,
     "control_cards": [
      85,
      85,
@@ -872,18 +872,19 @@
     "defence_cards": [
      83,
      80,
+     77,
      73,
      69
     ],
     "chem": 30,
     "ctrl_not_full": 0,
     "ctrl_total": 238.0,
-    "att_total": 221.72,
-    "def_total": 181.75
+    "att_total": 220.87,
+    "def_total": 194.0
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-03 23:15 UTC",
+ "built": "2026-11-04 23:38 UTC",
  "week": "2026-11-02"
 }
