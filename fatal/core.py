@@ -95,7 +95,7 @@ def is_special(c):
 
 
 def solo(x):
-    """Always on full chem but adds nothing to anyone else's chem (e.g. Evo Jones)."""
+    """Always on full chem but adds nothing to anyone else's chem (e.g. Evo Kanté)."""
     return x.get("specialChem") == "solo"
 
 
