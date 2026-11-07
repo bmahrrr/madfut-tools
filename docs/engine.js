@@ -11,16 +11,17 @@ function cardType(c) { return String(c.color).replace("rare_", ""); }
 
 const SOLO = x => x.specialChem === "solo";      // always full chem, adds nothing to anyone else (e.g. Evo Jones)
 const AUTOX = x => AUTO.has(x.color) || x.specialChem === "auto";   // also Heroes-club cards that aren't Heroes (SBC Premium Sara): full chem, +1 nation, +1 league
+const W2 = (x, k) => (String(x.specialChem || "").split(",").includes(k + "2") ? 2 : 1);   // "league2" Squad Foundations, "club2,nation2" World POTM
 function chem(team) {
   const nat = new Map(), lg = new Map(), club = new Map();
   let icons = 0;
   const inc = (m, k, v = 1) => m.set(k, (m.get(k) || 0) + v);
   for (const x of team) {
     if (SOLO(x)) continue;
-    inc(nat, x.nationId);
-    if (!AUTOX(x)) inc(club, x.clubId);
+    inc(nat, x.nationId, W2(x, "nation"));
+    if (!AUTOX(x)) inc(club, x.clubId, W2(x, "club"));
     if (ICON.has(x.color)) { icons++; continue; }
-    inc(lg, x.leagueId, x.specialChem === "league2" ? 2 : 1);
+    inc(lg, x.leagueId, W2(x, "league"));
   }
   return team.map(x => {
     if (AUTOX(x) || SOLO(x)) return 3;

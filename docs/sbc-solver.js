@@ -49,14 +49,17 @@ function teamRatingOf(rs) {        // EA / FUTBIN squad rating
 
 // SBC chemistry. Icons: +2 to their nation, +1 to every league. Heroes: +1 nation, +2 league.
 // Squad Foundations: +2 to their league. Icons and heroes are always on full chem.
-const natW = c => (SBC_ICON.has(c.color) ? 2 : 1);
-const lgW = c => (SBC_HERO.has(c.color) || c.specialChem === "league2" ? 2 : 1);
+// Special chem from the card data: "league2" (Squad Foundations), "club2,nation2" (World POTM) count +2 there
+const SC2 = (c, k) => String(c.specialChem || "").split(",").includes(k + "2");
+const natW = c => (SBC_ICON.has(c.color) || SC2(c, "nation") ? 2 : 1);
+const lgW = c => (SBC_HERO.has(c.color) || SC2(c, "league") ? 2 : 1);
+const clW = c => (SC2(c, "club") ? 2 : 1);
 function sbcChem(team) {
   const nat = new Map(), lg = new Map(), club = new Map(); let icons = 0;
   const inc = (m, k, v) => m.set(k, (m.get(k) || 0) + v);
   for (const x of team) {
     inc(nat, x.nationId, natW(x));
-    if (!SBC_AUTO.has(x.color)) inc(club, x.clubId, 1);
+    if (!SBC_AUTO.has(x.color)) inc(club, x.clubId, clW(x));
     if (SBC_ICON.has(x.color)) icons++; else inc(lg, x.leagueId, lgW(x));
   }
   const lvl = (v, T) => (v >= T[2] ? 3 : v >= T[1] ? 2 : v >= T[0] ? 1 : 0);
@@ -150,7 +153,7 @@ function buildLP(req, cands, slots, rsum) {
       const c = cands[i];
       put(groups.n, c.nationId, i, natW(c));
       if (!SBC_ICON.has(c.color)) put(groups.l, c.leagueId, i, lgW(c));
-      if (!SBC_AUTO.has(c.color)) put(groups.k, c.clubId, i, 1);
+      if (!SBC_AUTO.has(c.color)) put(groups.k, c.clubId, i, clW(c));
     });
     const Z = new Map();               // "tag|g" -> [z names]
     let zc = 0;
@@ -268,7 +271,7 @@ function annealSBC(req, cands, slots, opts = {}) {
   const idx = (key) => { const m = new Map(); return cands.map(c => { const k = key(c); if (!m.has(k)) m.set(k, m.size); return m.get(k); }); };
   const NAT = idx(c => c.nationId), LG = idx(c => c.leagueId), CL = idx(c => c.clubId), TY = idx(sbcType), PK = idx(playerKey);
   const isIcon = cands.map(c => SBC_ICON.has(c.color)), isAuto = cands.map(c => SBC_AUTO.has(c.color));
-  const nw = cands.map(natW), lw = cands.map(lgW);
+  const nw = cands.map(natW), lw = cands.map(lgW), kw = cands.map(clW);
   const rm = cands.map(c => rules.map(r => ruleMatch(c, r)));
   const incl = (req.include || []).map(String);
   const elig = slots.map(sl => { const L = []; for (let i = 0; i < n; i++) if (cands[i].P.has(sl)) L.push(i); return L.sort((a, b) => cost[a] - cost[b]); });
@@ -285,7 +288,7 @@ function annealSBC(req, cands, slots, opts = {}) {
     for (const i of sq) { cN[NAT[i]] = cL[LG[i]] = cC[CL[i]] = cT[TY[i]] = 0; }
     for (const i of sq) {
       c0 += cost[i]; tot += rat[i];
-      cN[NAT[i]] += nw[i]; if (!isAuto[i]) cC[CL[i]]++; if (isIcon[i]) icons++; else cL[LG[i]] += lw[i]; cT[TY[i]]++;
+      cN[NAT[i]] += nw[i]; if (!isAuto[i]) cC[CL[i]] += kw[i]; if (isIcon[i]) icons++; else cL[LG[i]] += lw[i]; cT[TY[i]]++;
     }
     // duplicates of the same player
     for (let a = 0; a < S; a++) for (let b = a + 1; b < S; b++) if (PK[sq[a]] === PK[sq[b]]) pen += 50;

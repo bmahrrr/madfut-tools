@@ -5,7 +5,7 @@ Chemistry rules (as used in SBCs and both Fatal modes):
   * Icons / Debut Icons, Heroes and Hall of FUT are always on full chem
   * Icons count towards their nation and add +1 to EVERY league count
   * Heroes / Hall of FUT count towards their nation and their league
-  * Squad Foundations (specialChem "league2") count +2 towards their league
+  * Squad Foundations (specialChem "league2") count +2 towards their league; World POTM ("club2,nation2") +2 to club and nation
   * Women's and men's teams of the same club share club chem but are different leagues
   * Chem changes every stat: 0 chem -3, 1 chem +0, 2 chem +1, 3 chem +2
 """
@@ -104,16 +104,22 @@ def full_chem(x):
     return x["color"] in AUTO or solo(x) or x.get("specialChem") == "auto"
 
 
+def w2(x, k):
+    """+2 instead of +1 towards a group: "league2" (Squad Foundations), "club2,nation2" (World POTM)."""
+    return 2 if k + "2" in str(x.get("specialChem") or "").split(",") else 1
+
+
 def chem(team):
     """Chemistry (0-3) for each card of an 11-card team."""
-    nat = collections.Counter(x["nationId"] for x in team if not solo(x))
-    club = collections.Counter(x["clubId"] for x in team if not full_chem(x))
-    lg = collections.Counter()
+    nat, club, lg = collections.Counter(), collections.Counter(), collections.Counter()
+    for x in team:
+        if not solo(x): nat[x["nationId"]] += w2(x, "nation")
+        if not full_chem(x): club[x["clubId"]] += w2(x, "club")
     icons = sum(1 for x in team if x["color"] in ICON)
     for x in team:
         if x["color"] in ICON or solo(x):
             continue
-        lg[x["leagueId"]] += 2 if x.get("specialChem") == "league2" else 1
+        lg[x["leagueId"]] += w2(x, "league")
     out = []
     for x in team:
         if full_chem(x):
