@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261107a";
+const APP_V = "20261107b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -637,7 +637,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261107a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261107b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -663,7 +663,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261107a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261107b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -951,6 +951,7 @@ function ruleText(r) {              // the game's own wording: "Olympiacos FC: M
   const tail = `: <b>${OPS[r.op]} ${r.n}</b>`;
   if (r.on === "color" && String(r.id) === "iconhero") return `Icons and Heroes${tail}`;
   if (r.on === "rarity" && r.id === "special") return `Special Cards${tail}`;
+  if (r.on === "player") return `${esc(r.name || r.id)} Cards${tail}`;
   if (r.on === "color" || r.on === "rarity") return `${esc(["icon", "hero"].includes(String(r.id)) ? String(r.id).toUpperCase() : groupLabel(r.on, r.id))}${tail}`;
   const known = (r.on === "nation" && NATIONS[r.id]) || (r.on === "league" && LEAGUES[r.id]) || (r.on === "club" && CLUBS[r.id]);
   if (known) return `${esc(known)}${tail}`;
@@ -973,6 +974,7 @@ const ADD_TYPES = [            // each with how the line reads in the game
   ["min_rating", "Squad rating (e.g. Squad Rating: Min 84)"], ["min_chem", "Team chemistry (e.g. Chemistry: Min 33)"],
   ["from", "Players from a club / nation / league (e.g. Arsenal: Min 1)"],
   ["ctype", "Players of a card type (e.g. TOTW: Min 1, ICON: Max 1)"],
+  ["pcards", "Any version of a player (e.g. C. Ronaldo Cards: Min 1)"],
   ["count", "Number of nations / leagues / clubs (e.g. Nations: Min 5)"],
   ["same", "Same nation / league / club (e.g. Same Nation: Min 3)"],
   ["min_player_chem", "Chemistry per player (e.g. Player Chemistry: Min 2)"], ["types", "Number of card types (e.g. Card Types: Min 5)"],
@@ -1042,6 +1044,11 @@ function drawAddBody() {
     box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
       <select id="aC"><option value="rarity:gold">Gold</option><option value="rarity:silver">Silver</option><option value="rarity:bronze">Bronze</option><option value="rarity:special">Special Cards</option>${types.map(x => `<option value="color:${esc(x)}">${esc(TYPE(x))}</option>`).join("")}</select> ${addBtn}</div>`; done();
     $("aOk").onclick = () => { const [on, id] = $("aC").value.split(":"); addItem({ t: "rule", rule: { on, id, op: $("aOp").value, n: +$("aN").value || 0 } }); };
+  } else if (t === "pcards") {
+    box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}</div>
+      <input type="text" id="aQ" placeholder="Search the player (any version)…" style="margin-top:8px"><ul class="sr" id="aSr" hidden></ul><div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
+    hookSearch("aQ", "aSr", c => addItem({ t: "rule", rule: { on: "player", id: playerKey(c), name: c.name, op: $("aOp").value, n: +$("aN").value || 0 } }));
+    $("aQ").focus();
   } else if (t === "inc") {
     box.innerHTML = `<input type="text" id="aQ" placeholder="Search the player…"><ul class="sr" id="aSr" hidden></ul><div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
     hookSearch("aQ", "aSr", c => { if (c._extra || NO_SBC.has(c.color)) { alert(`${TYPE(c.color)} cards can't be used in SBCs.`); return; } addItem({ t: "inc", id: c.id }); });
@@ -1147,12 +1154,30 @@ function resolveName(text, kinds = ["nation", "league", "club"]) {
   }
   return null;
 }
+// "C.Ronaldo", "Messi", "Rodri": the player (every version shares one key); several fits -> ask which
+function resolvePlayer(text) {
+  const t = nkey(text); if (!t) return null;
+  const w = t.split(" "), last = w[w.length - 1], first = w.slice(0, -1);
+  const fits = name => {
+    const k = nkey(name); if (k === t) return 2;
+    const nw = k.split(" "); if (nw[nw.length - 1] !== last || nw.length < 2 && first.length) return 0;
+    return first.every(f => nw.slice(0, -1).some(x => f.length === 1 ? x.startsWith(f) : x === f)) ? 1 : 0;
+  };
+  const by = new Map();
+  for (const c of CARDS) { const f = fits(c.name); if (!f) continue; const k = playerKey(c), o = by.get(k);
+    if (!o || f > o.f || c.rating > o.c.rating) by.set(k, { f: Math.max(f, o ? o.f : 0), c: o && o.c.rating >= c.rating ? o.c : c }); }
+  let m = [...by.entries()]; if (!m.length) return null;
+  if (m.some(([, x]) => x.f === 2)) m = m.filter(([, x]) => x.f === 2);          // an exact name beats a surname match
+  m.sort((a, b) => b[1].c.rating - a[1].c.rating);
+  const opt = ([id, x]) => ({ kind: "player", id, name: x.c.name, label: `${x.c.name} ${x.c.rating}`, lg: nName(x.c.nationId) });
+  return m.length === 1 ? opt(m[0]) : { amb: m.slice(0, 6).map(opt) };
+}
 // ---------- paste a whole SBC: "Leagues: Min 5", "Zimbabwe: Min 1", "Icons and Heroes: Max 0", "Formation: 3-5-2" ----------
 const OPWORD = { min: ">=", max: "<=", exactly: "=", exact: "=" };
 function parseSBCText(text, picks = {}) {
   const out = { items: [], formation: null, icons: null, specials: null, notes: [], amb: [], skipped: [] };
   const num = (key, op, v) => out.items.push({ t: "num", key: (op === "<=" ? "max_" : op === "=" ? "exact_" : "min_") + key, v });
-  const rule = (on, id, op, n) => out.items.push({ t: "rule", rule: { on, id, op, n } });
+  const rule = (on, id, op, n, name) => out.items.push({ t: "rule", rule: name ? { on, id, op, n, name } : { on, id, op, n } });
   const types = [...new Set(CARDS.filter(c => !c._extra && !NO_SBC.has(c.color)).map(sbcType))];
   const lines = String(text).split(/\n/).map(l => l.replace(/[*_•]/g, "").replace(/^\s*[-–]\s*/, "").trim()).filter(Boolean);
   lines.forEach((line, li) => {
@@ -1179,13 +1204,19 @@ function parseSBCText(text, picks = {}) {
       if (/^heroe?s?$/.test(L)) { if (op === "<=" && n === 0) return; out.icons = true; return rule("color", "hero", op, n); }
       if (/^special( cards?)?$|^specials$/.test(L)) { if (op === "<=" && n === 0) out.specials = false; else { if (op !== "<=") out.specials = true; rule("rarity", "special", op, n); } return; }
       if ((m = L.match(/^(rare )?(gold|silver|bronze)( cards?)?$/))) return rule("rarity", m[2], op, n);
-      const ct = types.find(t => nkey(TYPE(t)) === L || nkey(t) === L);
+      const L2 = L.replace(/ cards?$/, "");
+      const ct = types.find(t => [L, L2].includes(nkey(TYPE(t))) || [L, L2].includes(nkey(t)));
       if (ct) { if (op !== "<=") out.specials = true; return rule("color", ct, op, n); }
+      if (L2 !== L) {                                   // "C.Ronaldo Cards: Min 1": any version of that player
+        const key = li + ":p", r = picks[key] || resolvePlayer(L2);
+        if (r && r.id != null) return rule("player", r.id, op, n, r.name);
+        if (r && r.amb) { out.amb.push({ key, text: label, opts: r.amb }); return; }
+      }
       names = label;
     }
     names.split(/[,;]/).map(x => x.trim()).filter(Boolean).forEach((nm, j) => {
       const key = li + ":" + j, r = picks[key] || resolveName(nm);
-      if (r && r.id != null) rule(r.kind, r.id, op, n);
+      if (r && r.id != null) rule(r.kind, r.id, op, n, r.kind === "player" ? r.name : undefined);
       else if (r && r.amb) out.amb.push({ key, text: nm, opts: r.amb });
       else out.skipped.push(nm);
     });
@@ -1274,7 +1305,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261107a");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261107b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
