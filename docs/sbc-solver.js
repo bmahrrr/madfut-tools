@@ -36,6 +36,7 @@ function ruleMatch(c, r) {
       return id === "icon" ? SBC_ICON.has(c.color) : sbcType(c) === id;
     }
     case "rarity": return rarity(c) === r.id;
+    case "player": return playerKey(c) === r.id;       // "C. Ronaldo Cards: Min 1": any version of that player
   }
   return false;
 }
@@ -72,8 +73,9 @@ function sbcPool(req, cards) {
     if (ex.has(c.id) || NO_SBC.has(c.color) || NO_SBC.has(String(c.color).replace("rare_", ""))) return false;
     if (inc.has(c.id)) return true;
     if (c.rating < lo || c.rating > hi) return false;
-    if (SBC_AUTO.has(c.color)) return !!req.allow_icons;
-    if (rarity(c) === "special" && !req.allow_specials) return rules.some(r => r.on === "color" && ruleMatch(c, r));
+    const named = rules.some(r => r.on === "player" && r.op !== "<=" && r.n > 0 && ruleMatch(c, r));   // a version of a player the SBC asks for
+    if (SBC_AUTO.has(c.color)) return !!req.allow_icons || named;
+    if (rarity(c) === "special" && !req.allow_specials) return named || rules.some(r => r.on === "color" && ruleMatch(c, r));
     return true;
   });
 }
