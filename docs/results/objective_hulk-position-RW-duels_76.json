@@ -1,10 +1,9 @@
 {
- "g": 2,
+ "g": 1,
  "obj_ids": [
-  "id248729",
   "id200260"
  ],
- "strength": 99.6,
+ "strength": 100.4,
  "group_cards": 6,
  "reddit": [
   {
@@ -14,53 +13,53 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 28,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id223686",
-    "name": "Wellenreuther",
+    "id": "id216065",
+    "name": "Sportiello",
     "rating": 76,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 21,
-    "leagueId": 20,
-    "clubId": 175,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 115845,
     "card": [
-     36,
-     29,
+     38,
+     39,
      77
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     37,
-     30,
-     78
+     40,
+     41,
+     79
     ],
-    "tiebreak": 145
+    "tiebreak": 160
    },
    {
     "slot": "LB",
-    "id": "id260521",
-    "name": "Bos",
+    "id": "id228302",
+    "name": "Pedraza",
     "rating": 76,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 195,
-    "leagueId": 10,
-    "clubId": 246,
+    "nationId": 45,
+    "leagueId": 31,
+    "clubId": 115841,
     "card": [
-     74,
-     70,
+     72,
+     72,
      75
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
      74,
-     70,
-     75
+     74,
+     77
     ],
-    "tiebreak": 219
+    "tiebreak": 225
    },
    {
     "slot": "CB",
@@ -87,72 +86,72 @@
    },
    {
     "slot": "CB",
-    "id": "id241847",
-    "name": "Wedemeyer",
+    "id": "ltm_comuzzo76",
+    "name": "Comuzzo",
     "rating": 76,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 21,
-    "leagueId": 2215,
-    "clubId": 175,
+    "color": "ltm",
+    "position": "CB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 54,
     "card": [
-     56,
-     60,
-     78
+     54,
+     59,
+     77
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     57,
+     56,
      61,
      79
     ],
-    "tiebreak": 197
+    "tiebreak": 196
    },
    {
     "slot": "RB",
-    "id": "id235374",
-    "name": "Lazzari",
-    "rating": 75,
-    "color": "rare_gold",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
     "position": "RB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 115841,
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     75,
      76,
+     77,
      72
     ],
     "chem": 3,
     "eff": [
-     77,
      78,
+     79,
      74
     ],
-    "tiebreak": 229
+    "tiebreak": 231
    },
    {
     "slot": "CDM",
-    "id": "id260823",
-    "name": "Fagioli",
+    "id": "id276602",
+    "name": "Ouédraogo",
     "rating": 76,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 110374,
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 112172,
     "card": [
-     74,
-     79,
-     71
+     78,
+     78,
+     60
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     76,
-     81,
-     73
+     79,
+     79,
+     61
     ],
-    "tiebreak": 230
+    "tiebreak": 219
    },
    {
     "slot": "LM",
@@ -179,6 +178,52 @@
    },
    {
     "slot": "CM",
+    "id": "id203483",
+    "name": "Klaassen",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     75,
+     71,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     73,
+     74
+    ],
+    "tiebreak": 224
+   },
+   {
+    "slot": "CM",
+    "id": "id210324",
+    "name": "Hofmann",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     75,
+     76,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     78,
+     65
+    ],
+    "tiebreak": 220
+   },
+   {
+    "slot": "RM",
     "id": "id200260",
     "name": "Berghuis",
     "rating": 76,
@@ -199,52 +244,6 @@
      46
     ],
     "tiebreak": 204
-   },
-   {
-    "slot": "CM",
-    "id": "id230658",
-    "name": "Arthur",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     74,
-     79,
-     71
-    ],
-    "chem": 2,
-    "eff": [
-     75,
-     80,
-     72
-    ],
-    "tiebreak": 227
-   },
-   {
-    "slot": "RM",
-    "id": "id248729",
-    "name": "Isaksen",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 13,
-    "leagueId": 31,
-    "clubId": 115841,
-    "card": [
-     76,
-     71,
-     42
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     73,
-     44
-    ],
-    "tiebreak": 195
    },
    {
     "slot": "ST",
@@ -302,18 +301,18 @@
   "minutes": 30
  },
  "base_ids": [
-  "id223686",
+  "id243311",
   "id251530",
+  "ltm_comuzzo76",
   "id246836",
-  "id241847",
-  "id235374",
-  "id276602",
+  "id208618",
+  "id230658",
   "id272829",
   "id260823",
-  "id230658",
+  "id276602",
   "id50571625",
-  "id50579536"
+  "id257073"
  ],
- "built": "2026-11-06 13:42 UTC",
+ "built": "2026-11-07 10:25 UTC",
  "week": "2026-11-02"
 }
