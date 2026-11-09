@@ -1,83 +1,78 @@
-# MadFut Tools
+# MadFut Tools ⚽
 
-Fatal My Club and Fatal Sim team builder, an SBC solver and team comparison tools for MadFut 27.
-Everything runs free on GitHub: GitHub Actions does the heavy building and GitHub Pages hosts the website.
+The best Fatal My Club and Fatal Sim teams every week, an SBC solver and live match help for MadFut 27.
 
-**Website:** https://bmahrrr.github.io/madfut-tools/
+🌐 **Site:** https://bmahrrr.github.io/madfut-tools/
 
-## What it does
+Everything runs free on GitHub. Actions does the building, Pages hosts the site.
 
-| Part | How |
-|---|---|
-| Card data | `Update card data` workflow pulls madfutdata.com every day (03:17 UTC) into `docs/cards.json`. |
-| My Club builder (Best teams) | Each week, for every series: the team with the best **worst case** against the Reddit team and stress-test teams built to beat it (exact solver, perfect play, both lead orders), checked again against fresh stress tests at the end. A final check then gives the Reddit and hand-built teams their own stress tests and keeps whichever team has the best worst case. Every opponent team is saved and viewable on the site. |
-| Nightly improvement | Every night at 01:00 Bangkok time the My Club teams are searched again from scratch with a new random seed. This week's current team is entered as "Previous Best" and only loses its place to a team with a better worst case. |
-| Game plan | Under each My Club team: the opening leads that keep its guaranteed result against every team it was tested on, cards to watch and the tiebreak card (`scripts/plan.js`, exact solver). |
-| Don't have | Tap **Don't have** on any player in Best Teams, then **Rebuild Without Them**. That builds **your own version** of the team (`docs/results/mine/`), shown only on the phone with the GitHub key; everyone else keeps the full team (Best Teams always assume every card is owned). Tap **Got …** when you get the card back. Personal versions end with the season. |
-| Vault | When a new week starts, last week's teams move to `docs/vault/<week>/` and stay viewable at the bottom of Best Teams. |
-| Sim builder | Exact optimiser (MILP): highest control first, then attack and defence, inside the cap with every boost and bonus. |
-| SBC solver | Website: type in the requirements, get the cheapest squad in seconds, tap **Don't have** on any card to re-solve without it. |
-| Beat a team | Website tab: load any team (e.g. the Reddit team), tap **Build a team to beat this**. Runs on GitHub; the result appears in the same tab. |
-| My Club compare | Website: put in two teams and get the exact result for both lead orders. |
-| Match helper | Website: tells you the best lead or answer every round during a live game. |
-| Sim compare | Website: your built Sim team vs theirs, with possession and match odds. |
+## What's Inside
 
-## Each season
+- 🏆 **Best Teams**: for every series, the team that's hardest to beat. Tested against the Reddit team and dozens of counters built to beat it, then rebuilt every night to keep improving.
+- 📋 **Game Plan**: which cards to open with, the key matchups, and which card to save for the tiebreak.
+- ⚔️ **Head to Head**: put in two teams and get the exact result, whoever leads first.
+- 🎮 **Match Helper**: the best lead or answer every round of a live game.
+- 📊 **Sim Odds**: your Sim team against theirs, with possession and match odds.
+- 🎯 **Beat a Team**: load any team and build a counter to it.
+- 🧩 **SBC**: type or paste the requirements, get the cheapest squad in seconds.
+- 🃏 **Cards**: every card on the site, plus the most used cards each season.
 
-1. Open `config/week.json` on GitHub (website → **Weekly setup** has direct edit links).
-2. Change the `week`, the caps, the boosts and the reference (opponent) teams. Commit.
-3. The `Build teams` workflow starts on its own. Sim teams take a couple of minutes; My Club teams take about 30 minutes each, all running in parallel.
-4. Refresh the website once the run is green.
+Missing a card from a Best Team? Tap **Missing a card?**, pick it, and get your own version in about 40 minutes. Everyone else still sees the full team.
 
-To rebuild just one series: **Actions → Build teams → Run workflow**, then type e.g. `myclub:79` or `sim:84`.
+## Each Season
 
-### `config/week.json`
+1. Open the site and go to **Season Setup**.
+2. Set the start date, the series, their boosts and any Reddit teams.
+3. Tap **Save & Rebuild**. Sim teams are ready in minutes, My Club in a few hours.
+
+Last season's teams move to the **Vault** automatically.
+
+The nightly run starts at 4am Brisbane time (18:00 UTC). Card data updates daily from madfutdata.com.
+
+## Setup Files
+
+- `config/week.json`: the season. Series, caps, boosts, squad bonuses and Reddit teams. Season Setup writes this for you.
+- `config/extras.json`: cards the data doesn't have yet, like Evos and LTMs. `"owned": false` means only opponents can use it.
+- `config/variants.json`: extra public versions of each team, e.g. No LTMs or Evos.
+
+<details>
+<summary>📄 <code>week.json</code> example</summary>
 
 ```json
 {
-  "week": "2026-10-12",
+  "week": "2026-11-09",
   "myclub": [
-    {"key": "79", "cap": 79, "minutes": 30,
-     "boosts": [{"on": "nation", "id": 18, "att": 1, "ctl": 2, "def": 0}],
-     "bonuses": [{"kind": "nations", "min": 5, "att": 1, "ctl": 1, "def": 1}],
-     "opponents": [["id123", "id456", "... 11 card ids"], ["Amoura@79", "Pogba@79", "... or Name@rating"]]}
+    {"key": "82", "cap": 82,
+     "boosts": [{"on": "league", "id": 31, "att": 1, "ctl": 1, "def": 1}],
+     "bonuses": [{"kind": "same_nation", "max": 2, "att": 0, "ctl": 2, "def": 0}],
+     "opponents": [["id123", "id456", "... 11 card ids"]]}
   ],
   "sim": [
-    {"key": "84", "cap": 84, "boosts": [{"on": "league", "id": 16, "att": 0, "ctl": 3, "def": 1}]}
+    {"key": "88", "cap": 88, "boosts": [{"on": "club", "id": 10, "att": 0, "ctl": 3, "def": 1}]}
   ]
 }
 ```
 
-- `boosts.on`: `nation`, `league`, `club` or `color` (card type, e.g. `"totw"`). Find ids with the **card id lookup** on the Weekly setup tab.
-- `bonuses.kind`: `nations`, `leagues`, `clubs` or `types` (number of different ones in the squad needed for the bonus).
-- `opponents`: the reference teams. The builder optimises against all of them.
-- `minutes`: search time for a My Club series.
+- **Boosts** apply to a `nation`, `league`, `club` or card type (`color`).
+- **Bonuses** need the whole squad to qualify: `nations`, `leagues`, `clubs`, `types`, `specials`, or `same_nation` / `same_league` / `same_club` (e.g. Max 2 from the same nation).
 
-### `config/extras.json`
+</details>
 
-Cards that aren't in the madfutdata file: evos, upgraded LTMs. `"owned": true` means you have it; `false` means only opponents can use it.
+## Game Rules Used
 
-### SBCs
+**My Club:** 11 cards each, sides take turns to lead. The leader picks a card and a stat. Attack is answered by defence, defence by attack, control by control. A tied stat goes to the higher card total, and a full tie scores nothing. Every card plays once over 10 rounds. The 11th card plays the tiebreak: if the score is level or 1 apart, a card total more than 5 higher wins a point.
 
-Use the **SBC** tab on the website. Fill in only what the SBC asks for: formation, squad rating, chem, nations/leagues/clubs counts, and "Min/Max/Exactly N players from" a club, nation, league, card type or rarity (search a player to pick their club). It assumes you own every card; after solving, tap **Don't have** next to any card and it re-solves without it.
+**Chem:** league 3/5/8, nation 2/5/8, club 2/4/7, max 3 per player. Icons, Heroes and Hall of FUT are always full chem. Icons add to every league and Heroes count for their nation and league. Squad Foundations count double for their league, and World POTM double for their club and nation. Chem changes every stat by −3, 0, +1 or +2.
 
-How it solves: a fast search finds a valid squad in about 2 seconds, then an exact solver (HiGHS, running in your browser) either finds a cheaper one or proves none exists among the best-fitting cards. "Cheapest" follows your order: golds first (lowest rated first), then cheap specials, silvers, bronze. Squad rating uses the EA formula without relying on rounding, so it's never short.
+**SBC chem:** Icons +2 nation and +1 every league, Heroes +1 nation and +2 league.
 
-SBC chem: Icons +2 to their nation and +1 to every league; Heroes +1 nation, +2 league; Squad Foundations +2 league; Icons and Heroes are always full chem.
-
-## Game rules used
-
-**My Club:** 11 cards each, sides alternate leading (who goes first is random). The leader picks a card and a stat; attack is answered by defence, defence by attack, control by control. A tied stat goes to the card total; if that is also tied, nobody scores. Each card is used once, there are 10 rounds, and the 11th card plays the tiebreak automatically: if the score is level or 1 apart, a card total more than 5 higher (printed total + chem bonus, no boosts) wins a point.
-
-**Chem:** league 3/5/8, nation 2/5/8, club 2/4/7, max 3. Icons, Heroes and Hall of FUT are always on full chem. Icons add +1 to every league; Heroes count for their nation and league. Squad Foundations count double for their league. Chem bonus on every stat: 0 → −3, 1 → 0, 2 → +1, 3 → +2.
-
-## Running locally
+## Run It Yourself 🛠️
 
 ```bash
 pip install -r requirements.txt
 python scripts/update_data.py          # download cards
-python scripts/build.py sim 84
-python scripts/build.py myclub 79 30   # 30 minutes
+python scripts/build.py sim 88         # one Sim series
+python scripts/build.py myclub 82 30   # one My Club series, 30 minutes
 python scripts/build.py index
-cd docs && python -m http.server       # website on http://localhost:8000
+cd docs && python -m http.server       # site on http://localhost:8000
 ```
