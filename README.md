@@ -19,9 +19,13 @@ Everything runs free on GitHub. Actions does the building, Pages hosts the site.
 
 Missing a card from a Best Team? Tap **Missing a card?**, pick it, and get your own version in about 40 minutes. Everyone else still sees the full team.
 
-## Each Season
+## For Site Owners 🔑
 
-1. Open the site and go to **Season Setup**.
+You don't need any of this to use the site. It's for whoever runs it: setting up each season needs the site's GitHub key.
+
+### Each Season
+
+1. Open the site and go to **Season Setup** (on a new device, open the site with `#owner` once).
 2. Set the start date, the series, their boosts and any teams to test against.
 3. Tap **Save & Rebuild**. Sim teams are ready in minutes, My Club in a few hours.
 
@@ -29,7 +33,7 @@ Last season's teams move to the **Vault** automatically.
 
 The nightly run starts at 18:00 UTC. Card data updates daily from madfutdata.com.
 
-## Setup Files
+### Setup Files
 
 - `config/week.json`: the season. Series, caps, boosts, squad bonuses and teams to test against. Season Setup writes this for you.
 - `config/extras.json`: cards the data doesn't have yet, like Evos and LTMs. `"owned": false` means only opponents can use it.
@@ -58,7 +62,7 @@ The nightly run starts at 18:00 UTC. Card data updates daily from madfutdata.com
 
 </details>
 
-## Run It Yourself 🛠️
+### Run It Yourself 🛠️
 
 ```bash
 pip install -r requirements.txt
