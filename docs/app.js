@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261109d";
+const APP_V = "20261109e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -228,34 +228,37 @@ const sameSet = (a, b) => (a || []).length === (b || []).length && (a || []).eve
 // Each card you don't have is replaced by the best card for that slot, judged on the whole team (chem + boosts).
 const localOf = k => lsGet("local")[k] || null;
 function localSet(k, v) { const a = lsGet("local"); if (v) a[k] = v; else delete a[k]; lsSet("local", a); }
-function swapTeam(k, d, missing) {
-  const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team;
-  const gone = new Set(missing), ICONS = new Set(["icon", "debut_icon"]);
-  let team = t.players.map(p => BYID.get(p.id)); const slots = t.players.map(p => p.slot);
-  const fits = (c, sl) => c.P && c.P.has(sl);
-  const ok = c => c && !gone.has(c.id) && c.rating <= (s.cap || 99) && !(c._extra && c.owned === false) && !c.not_owned;
-  const score = tm => {
+const SW_ICONS = new Set(["icon", "debut_icon"]);
+function swapCtx(k, d, missing) {               // shared by the instant fill and the smart search
+  const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, gone = new Set(missing);
+  const slots = t.players.map(p => p.slot);
+  const ok = c => c && !gone.has(c.id) && c.rating <= (s.cap || 99) && !(c._extra && c.owned === false);
+  const score = tm => {                          // quick judge of a full team: chem first, then in-game stats
     const E = effective(tm, s), ch = E.reduce((a, e) => a + e.chem, 0);
     if (!sim) return ch * 6 + E.reduce((a, e) => a + e.a + e.c + e.d, 0);
     return ch * 4 + E.reduce((a, e, i) => a + (CTRL.has(slots[i]) ? 3 * e.c : 0) + (ATT.has(slots[i]) ? 2 * e.a : 0) + (DEF.has(slots[i]) ? e.d : 0), 0);
   };
-  for (let pass = 0; pass < 2; pass++) team.forEach((c, i) => {
-    if (pass === 0 && ok(c) && !gone.has(c.id)) return;
-    if (pass === 1 && !missing.some(id => t.players[i].id === id)) return;
+  const options = (team, i, n) => {              // the best n cards for slot i, the rest of the team fixed
     const keys = new Set(team.filter((x, j) => j !== i && x).map(playerKey));
-    const icons = team.filter((x, j) => j !== i && x && ICONS.has(x.color)).length;
-    let best = null, bs = -1e9;
+    const icons = team.filter((x, j) => j !== i && x && SW_ICONS.has(x.color)).length, out = [];
     for (const x of CARDS) {
-      if (!ok(x) || !fits(x, slots[i]) || keys.has(playerKey(x))) continue;
-      if (!sim && s.key !== "X" && ICONS.has(x.color) && icons >= 5) continue;
+      if (!ok(x) || !(x.P && x.P.has(slots[i])) || keys.has(playerKey(x))) continue;
+      if (!sim && s.key !== "X" && SW_ICONS.has(x.color) && icons >= 5) continue;
       const tm = team.slice(); tm[i] = x;
-      if (tm.some(y => !y)) { const v = x.attack + x.control + x.defense; if (v > bs) { bs = v; best = x; } continue; }
-      const v = score(tm); if (v > bs) { bs = v; best = x; }
+      out.push([tm.some(y => !y) ? x.attack + x.control + x.defense : score(tm), x]);
     }
-    if (best) team[i] = best;
-  });
-  if (team.some(x => !x)) return null;
-  const E = effective(team, s);
+    return out.sort((a, b) => b[0] - a[0]).slice(0, n);
+  };
+  return { sim, s, t, slots, ok, score, options };
+}
+function instantFill(k, d, missing) {
+  const C = swapCtx(k, d, missing), team = C.t.players.map(p => BYID.get(p.id));
+  team.forEach((c, i) => { if (!C.ok(c)) team[i] = null; });
+  team.forEach((c, i) => { if (!c) { const o = C.options(team, i, 1)[0]; team[i] = o ? o[1] : null; } });
+  return team.some(x => !x) ? null : { team, slots: C.slots };
+}
+function versionData(k, d, team, slots, missing) {
+  const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, E = effective(team, s);
   const players = team.map((c, i) => ({ slot: slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
     card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t }));
   const chem = E.reduce((a, e) => a + e.chem, 0), avg = v => v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 100) / 100 : 0;
@@ -265,6 +268,54 @@ function swapTeam(k, d, missing) {
     attack: Math.round(R.reduce((a, r, i) => a + W[i] * r.a, 0) * 100) / 100 });
   return Object.assign({}, d, { teams: [Object.assign({}, t, { players, metrics })], not_owned_ids: missing });
 }
+function swapTeam(k, d, missing) {
+  const L = localOf(k);
+  if (L && L.team && sameSet(L.ids, missing)) {   // the smart search's team
+    const team = L.team.map(id => BYID.get(id)); if (team.every(Boolean)) return versionData(k, d, team, L.slots, missing);
+  }
+  const f = instantFill(k, d, missing); return f && versionData(k, d, f.team, f.slots, missing);
+}
+// Smart swap (My Club): ~1 minute on the phone. Tries the best cards for each gap, plus a second change elsewhere,
+// and keeps the team with the best worst result (win / draw / loss) against the Reddit team, the full team and
+// the hardest counter teams the builder saved for this series.
+const SW_RANK = { WIN: 2, DRAW: 1, LOSS: 0 };
+async function smartSwap(k, d, missing, onP) {
+  const C = swapCtx(k, d, missing), f = instantFill(k, d, missing); if (!f) return null;
+  const s = C.s, t = C.t, base = f.team, gaps = t.players.map((p, i) => missing.includes(p.id) ? i : -1).filter(i => i >= 0);
+  const wser = ((WEEK && WEEK.myclub) || []).find(x => x.key === s.key) || s, opps = [];
+  (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); if (tm.length === 11 && tm.every(Boolean)) opps.push(tm); });
+  const R = t.results || {}, OT = t.opponent_teams || {};
+  Object.entries(R).filter(([n]) => OT[n] && n !== "mirror" && !n.startsWith("reference"))
+    .sort((a, b) => (SW_RANK[a[1].you_lead_first] + SW_RANK[a[1].they_lead_first]) - (SW_RANK[b[1].you_lead_first] + SW_RANK[b[1].they_lead_first])).slice(0, 4)
+    .forEach(([n]) => { const tm = OT[n].players.map(p => BYID.get(p.id)); if (tm.length === 11 && tm.every(Boolean)) opps.push(tm); });
+  opps.push(t.players.map(p => BYID.get(p.id)));         // last: the full team (with the card you don't have), a tiebreak only
+  const OE = opps.map(o => effective(o, s)), nRed = (wser.opponents || []).length ? 1 : 0;
+  const seen = new Set(), cands = [], add = tm => { const key = tm.map(x => x.id).join(); if (!seen.has(key)) { seen.add(key); cands.push([C.score(tm), tm]); } };
+  add(base);
+  for (const i of gaps) for (const [, x] of C.options(base, i, 8)) { const tm = base.slice(); tm[i] = x; add(tm); }
+  const firsts = cands.slice(0, 3).map(c => c[1]);
+  for (const b of firsts) for (let j = 0; j < 11; j++) if (!gaps.includes(j))
+    for (const [, x] of C.options(b, j, 3)) { if (x.id === b[j].id) continue; const tm = b.slice(); tm[j] = x; add(tm); }
+  const list = [cands[0], ...cands.slice(1).sort((a, b) => b[0] - a[0])].slice(0, 48).map(c => c[1]);
+  let best = null, n = 0, solves = 0; const t0 = Date.now(), LIMIT = 75000, W = Math.min(4, navigator.hardwareConcurrency || 2);
+  const judge = async tm => {
+    const A = effective(tm, s); let worst = 3, sum = 0, red = null;
+    for (let o = 0; o < OE.length; o++) {
+      const r = await poolAsk(solves++, { type: "o2", A, B: OE[o] });
+      if (o < OE.length - 1) worst = Math.min(worst, r[0], r[1]);
+      sum += r[0] + r[1] + (o < nRed ? 10 * (r[0] + r[1]) : 0);   // the Reddit result counts most after the worst case
+      if (o === 0 && nRed) red = r;
+      if (best && worst < best.worst) return null;              // can't beat the best so far
+    }
+    return { worst, sum, red, score: C.score(tm), tm };
+  };
+  for (let i = 0; i < list.length && Date.now() - t0 < LIMIT; i += W) {
+    const got = await Promise.all(list.slice(i, i + W).map(judge));
+    for (const g of got) if (g && (!best || g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) best = g;
+    n = Math.min(list.length, i + W); if (onP) onP(n, list.length);
+  }
+  return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, tested: n, opps: OE.length };
+}
 async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
   if (!ghToken()) {                          // visitors: the instant swap, kept on this phone
     const L = localOf(k);
@@ -272,8 +323,11 @@ async function versionOf(k, f, d) {          // -> { d: the version to show, bar
     const names = esc(cardNames(L.ids).join(", "));
     if (viewOf(k) === "everyone") return { d, bar: `<div class="minebar"><p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><button class="ghost" data-view="${esc(k)}|mine">Show my version</button></div>`, nh: noHaveBar(k), which: "everyone" };
     const dm = swapTeam(k, d, L.ids); if (!dm) return { d, bar: "", nh: noHaveBar(k), which: null };
+    const WDL = v => ["Loss", "", "Draw", "Win"][v] || "?";
+    const how = L.team ? `Best of ${L.tested} teams, tested against ${L.opps} strong teams${L.red ? `. Vs Reddit: <b>${WDL(L.red[0])}</b> if you lead, <b>${WDL(L.red[1])}</b> if they lead` : ""}.`
+      : k.startsWith("sim") ? "Each gap is filled with the best card for that slot." : `<span data-sstat="${esc(k)}">Quick swap shown. Searching for a stronger version…</span>`;
     return { d: dm, nh: noHaveBar(k), which: "mine",
-      bar: `<div class="minebar"><p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names}. Each gap is filled with the best card for that slot.</p><div class="row"><button class="ghost" data-view="${esc(k)}|everyone">Everyone's team</button><button class="ghost" data-lreset="${esc(k)}">Back to full team</button></div></div>` };
+      bar: `<div class="minebar"><p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names}. ${how}</p><div class="row"><button class="ghost" data-view="${esc(k)}|everyone">Everyone's team</button><button class="ghost" data-lreset="${esc(k)}">Back to full team</button></div></div>` };
   }
   let dm = null; try { dm = await getJSON("results/mine/" + f); } catch (e) {}
   if (dm && (dm.week !== INDEX.week || !(dm.not_owned_ids || []).length)) dm = null;
@@ -335,7 +389,13 @@ async function rebuildWithout(k, ids, afterGot) {
   const [kind, key] = k.split(":");
   if (!ghToken()) {                          // instant, on this phone
     const L = localOf(k), all = [...new Set([...((L && L.ids) || []), ...ids])];
-    localSet(k, { ids: all }); viewSet(k, "mine"); nhSet(k, []); OPEN.add(k); renderTeams(); return;
+    localSet(k, { ids: all }); viewSet(k, "mine"); nhSet(k, []); OPEN.add(k); await renderTeams();
+    if (kind === "myclub") {                   // then the smart search, about a minute
+      const d = await getJSON(`results/myclub_${key}.json`);
+      const r = await smartSwap(k, d, all, (i, n) => { const el = document.querySelector(`[data-sstat="${CSS.escape(k)}"]`); if (el) el.textContent = `Quick swap shown. Testing stronger versions: ${i} of ${n}…`; });
+      const cur = localOf(k); if (r && cur && sameSet(cur.ids, all)) { localSet(k, Object.assign({ ids: all }, r)); renderTeams(); }
+    }
+    return;
   }
   const mins = kind === "sim" ? 5 : 40;
   if (!confirm(`${afterGot ? "Rebuild your version" : "Build your own version of"} the ${key} series without ${cardNames(ids).join(", ")}?\n\nTakes about ${mins} minutes. Only you see it, and it lasts until the season ends.`)) return;
@@ -691,7 +751,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261109d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261109e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -717,7 +777,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261109d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261109e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1362,7 +1422,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261109d");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261109e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
