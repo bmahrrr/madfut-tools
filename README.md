@@ -8,7 +8,7 @@ Everything runs free on GitHub. Actions does the building, Pages hosts the site.
 
 ## What's Inside
 
-- 🏆 **Best Teams**: for every series, the team that's hardest to beat. Tested against the Reddit team and dozens of counters built to beat it, then rebuilt every night to keep improving.
+- 🏆 **Best Teams**: for every series, the team that's hardest to beat. Tested against dozens of counters built to beat it, then rebuilt every night to keep improving.
 - 📋 **Game Plan**: which cards to open with, the key matchups, and which card to save for the tiebreak.
 - ⚔️ **Head to Head**: put in two teams and get the exact result, whoever leads first.
 - 🎮 **Match Helper**: the best lead or answer every round of a live game.
@@ -22,7 +22,7 @@ Missing a card from a Best Team? Tap **Missing a card?**, pick it, and get your 
 ## Each Season
 
 1. Open the site and go to **Season Setup**.
-2. Set the start date, the series, their boosts and any Reddit teams.
+2. Set the start date, the series, their boosts and any teams to test against.
 3. Tap **Save & Rebuild**. Sim teams are ready in minutes, My Club in a few hours.
 
 Last season's teams move to the **Vault** automatically.
@@ -31,7 +31,7 @@ The nightly run starts at 4am Brisbane time (18:00 UTC). Card data updates daily
 
 ## Setup Files
 
-- `config/week.json`: the season. Series, caps, boosts, squad bonuses and Reddit teams. Season Setup writes this for you.
+- `config/week.json`: the season. Series, caps, boosts, squad bonuses and teams to test against. Season Setup writes this for you.
 - `config/extras.json`: cards the data doesn't have yet, like Evos and LTMs. `"owned": false` means only opponents can use it.
 - `config/variants.json`: extra public versions of each team, e.g. No LTMs or Evos.
 
