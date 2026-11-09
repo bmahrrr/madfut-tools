@@ -57,7 +57,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261109g";
+const APP_V = "20261110a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -141,7 +141,8 @@ function hookSearch(inputId, listId, onPick) {
 function pill(r) { return `<span class="pill ${r}">${cap(String(r).toLowerCase())}</span>`; }
 
 // ---------- custom builds (run on GitHub) ----------
-const resultLabel = k => k.replace(/^reference (\d+)$/, "Reddit Reference Team $1").replace(/^counter (\d+)$/, "Counter Team $1")
+const MC_CREDIT = "tm4p29", mcCredit = () => `<a href="https://www.reddit.com/user/${MC_CREDIT}" target="_blank" rel="noopener">u/${MC_CREDIT}</a>`;   // the Reddit My Club teams are his
+const resultLabel = k => k.replace(/^reference 1$/, `Reddit Team by u/${MC_CREDIT}`).replace(/^reference (\d+)$/, `Reddit Team $1 by u/${MC_CREDIT}`).replace(/^counter (\d+)$/, "Counter Team $1")
   .replace(/^mirror$/, "Copy of This Team").replace(/^balanced (\d+)$/, "Balanced Full-Chem Team $1").replace(/^target (\d+)$/, "Team to Beat").replace(/^fresh test (\d+)$/, "Fresh Stress Test $1").replace(/^final check (\d+)$/, "Final Check Team $1");
 // The site can start builds itself with a GitHub key saved on this phone only (Weekly setup → Connect GitHub).
 const ghToken = () => { try { return localStorage.getItem("ghToken") || ""; } catch (e) { return ""; } };
@@ -488,7 +489,7 @@ async function renderTeams() {
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">Hand-built team <span>Beat the builder's own team</span></p>`;
       else if (t.source === "Polished") html += `<p class="verdict">Improved <span>A card swap made it stronger</span></p>`;
       const box = (label, inner, note) => `<div class="sc"><span>${label}</span>${inner}${note ? `<small>${note}</small>` : ""}</div>`;
-      if (refs.length || worst) html += `<div class="score">${refs.length ? box("Vs Reddit", refs.map(([k, v]) => `${pill(v.you_lead_first)}${pill(v.they_lead_first)}`).join(" "), "You lead, they lead") : box("Vs Reddit", `<span class="muted small">Not added</span>`)}${worst ? box("Worst case", pill(worst.r), `${esc(resultLabel(worst.k))}, ${worst.who}`) : ""}</div>`;
+      if (refs.length || worst) html += `<div class="score">${refs.length ? box("Vs Reddit", refs.map(([k, v]) => `${pill(v.you_lead_first)}${pill(v.they_lead_first)}`).join(" "), `You lead, they lead<br>Team by ${mcCredit()}`) : box("Vs Reddit", `<span class="muted small">Not added</span>`)}${worst ? box("Worst case", pill(worst.r), `${esc(resultLabel(worst.k))}, ${worst.who}`) : ""}</div>`;
       if (t.plan) html += planHtml(t.plan);
       html += nh + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
@@ -610,7 +611,7 @@ function loadButtons(side) {
   if (side === "A" && !vault && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-Built ${s.key} Team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
   if (side === "A" && (side === "T" ? (INDEX && INDEX.files) || [] : MCW.files).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: vault ? "From that season's build" : "From this season's build" });
   if (side === "A" && !vault) CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to Beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
-  (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit Reference Team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: short(ids) }));
+  (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit Team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: `By u/${MC_CREDIT}: ` + short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
   return out;
 }
@@ -755,7 +756,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261109g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261110a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -781,7 +782,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261109g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261110a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1426,7 +1427,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261109g");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261110a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
