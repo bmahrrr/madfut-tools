@@ -53,7 +53,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 
 // ---------- data ----------
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261109b";
+const APP_V = "20261109c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -641,7 +641,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261109b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261109c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -667,7 +667,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261109b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker("worker.js?v=20261109c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1312,7 +1312,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261109b");
+  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261109c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1843,7 +1843,17 @@ async function renderSetup() {
    <p class="small">Card data updates itself every day from madfutdata. <a href="https://github.com/${REPO}/actions" target="_blank">See running jobs on GitHub</a>.</p>
    <p class="small">Evos and maxed LTMs go in <code>config/extras.json</code>.</p>
    <h3>Card lookup</h3><input type="text" id="idQ" placeholder="Search a card…"><ul class="sr" id="idSr" hidden></ul><p id="idOut" class="small"></p></details>`;
-  const ghState = () => { $("ghState").innerHTML = ghToken() ? `<span class="ok">connected ✓</span> <a href="#" id="ghOff">disconnect</a>` : "not connected"; const o = $("ghOff"); if (o) o.onclick = e => { e.preventDefault(); try { localStorage.removeItem("ghToken"); } catch (x) {} ghState(); }; };
+  const ghState = () => {
+    $("ghState").innerHTML = ghToken() ? `<span class="muted">checking…</span> <a href="#" id="ghOff">disconnect</a>` : "not connected";
+    const o = $("ghOff"); if (o) o.onclick = e => { e.preventDefault(); try { localStorage.removeItem("ghToken"); } catch (x) {} ghState(); };
+    if (!ghToken()) return;
+    fetch(`https://api.github.com/repos/${REPO}`, { headers: { Authorization: "Bearer " + ghToken() } })      // a saved key isn't proof it still works
+      .then(r => r.ok ? r.json() : null).catch(() => null).then(j => {
+        const ok = j && j.permissions && j.permissions.push, el = $("ghState"); if (!el || !ghToken()) return;
+        el.innerHTML = (ok ? `<span class="ok">connected ✓</span>` : `<span class="bad">key can't reach madfut-tools: disconnect and add a new key</span>`) + ` <a href="#" id="ghOff">disconnect</a>`;
+        const o2 = $("ghOff"); if (o2) o2.onclick = e => { e.preventDefault(); try { localStorage.removeItem("ghToken"); } catch (x) {} ghState(); };
+      });
+  };
   ghState();
   $("ghSave").onclick = async () => {
     const t = $("ghIn").value.trim(); if (!t) return;
