@@ -27,7 +27,7 @@ Missing a card from a Best Team? Tap **Missing a card?**, pick it, and get your 
 
 Last season's teams move to the **Vault** automatically.
 
-The nightly run starts at 4am Brisbane time (18:00 UTC). Card data updates daily from madfutdata.com.
+The nightly run starts at 18:00 UTC. Card data updates daily from madfutdata.com.
 
 ## Setup Files
 
@@ -57,14 +57,6 @@ The nightly run starts at 4am Brisbane time (18:00 UTC). Card data updates daily
 - **Bonuses** need the whole squad to qualify: `nations`, `leagues`, `clubs`, `types`, `specials`, or `same_nation` / `same_league` / `same_club` (e.g. Max 2 from the same nation).
 
 </details>
-
-## Game Rules Used
-
-**My Club:** 11 cards each, sides take turns to lead. The leader picks a card and a stat. Attack is answered by defence, defence by attack, control by control. A tied stat goes to the higher card total, and a full tie scores nothing. Every card plays once over 10 rounds. The 11th card plays the tiebreak: if the score is level or 1 apart, a card total more than 5 higher wins a point.
-
-**Chem:** league 3/5/8, nation 2/5/8, club 2/4/7, max 3 per player. Icons, Heroes and Hall of FUT are always full chem. Icons add to every league and Heroes count for their nation and league. Squad Foundations count double for their league, and World POTM double for their club and nation. Chem changes every stat by −3, 0, +1 or +2.
-
-**SBC chem:** Icons +2 nation and +1 every league, Heroes +1 nation and +2 league.
 
 ## Run It Yourself 🛠️
 
