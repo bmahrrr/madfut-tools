@@ -1,0 +1,872 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "75",
+  "cap": 75,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 53,
+    "att": 0,
+    "ctl": 2,
+    "def": 1
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "nations",
+    "min": 7,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ],
+  "opponents": [
+   [
+    "id258715",
+    "id252021",
+    "id204497",
+    "id190815",
+    "id242816",
+    "id208618",
+    "id199564",
+    "id243354",
+    "id233400",
+    "id264728",
+    "id236571"
+   ]
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-1-4-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id253216",
+     "name": "Adrián Rodríguez",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 52,
+     "leagueId": 53,
+     "clubId": 463,
+     "card": [
+      24,
+      20,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      26,
+      24,
+      72
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id278659",
+     "name": "Pau Navarro",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 483,
+     "card": [
+      56,
+      63,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      59,
+      68,
+      78
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243133",
+     "name": "Scally",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 95,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      66,
+      63,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      66,
+      76
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74822",
+     "name": "Prior",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 10,
+     "card": [
+      51,
+      55,
+      75
+     ],
+     "chem": 0,
+     "eff": [
+      49,
+      53,
+      73
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id199564",
+     "name": "Sergi Roberto",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 45,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      71,
+      77,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      80,
+      74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id204497",
+     "name": "Stöger",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      73,
+      77,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      80,
+      64
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id242816",
+     "name": "Riqui Puig",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      75,
+      76,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      52
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id205192",
+     "name": "Denis Suárez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 463,
+     "card": [
+      72,
+      75,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      80,
+      64
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      80,
+      75
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id258715",
+     "name": "Hollerbach",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      76,
+      71,
+      35
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      74,
+      38
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id223790",
+     "name": "Becker",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 92,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      75,
+      71,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      74,
+      44
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.8,
+    "attack": 78.0,
+    "defence": 74.6,
+    "control_cards": [
+     80,
+     80,
+     80,
+     80,
+     79
+    ],
+    "attack_cards": [
+     79,
+     79,
+     78,
+     76
+    ],
+    "defence_cards": [
+     78,
+     76,
+     74,
+     73,
+     72
+    ],
+    "chem": 29,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "5-4-1",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id204092",
+     "name": "Blaswich",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      32,
+      30,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      35,
+      33,
+      78
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id271121",
+     "name": "Hartman",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 34,
+     "leagueId": 53,
+     "clubId": 452,
+     "card": [
+      69,
+      74,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      79,
+      78
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id243354",
+     "name": "Sander",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      72,
+      73,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      76,
+      78
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id213917",
+     "name": "Fábio Cardoso",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 481,
+     "card": [
+      51,
+      58,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      54,
+      63,
+      77
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243133",
+     "name": "Scally",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 95,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      66,
+      63,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      66,
+      76
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      80,
+      75
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id204497",
+     "name": "Stöger",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      73,
+      77,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      80,
+      64
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50579377",
+     "name": "André Almeida",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 456,
+     "card": [
+      73,
+      75,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      80,
+      69
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id205192",
+     "name": "Denis Suárez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 463,
+     "card": [
+      72,
+      75,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      80,
+      64
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id73505",
+     "name": "Cala",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 452,
+     "card": [
+      75,
+      74,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      65
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id228859",
+     "name": "Lidberg",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 46,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      72,
+      62,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      65,
+      49
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.67,
+    "attack": 76.33,
+    "defence": 77.0,
+    "control_cards": [
+     80,
+     80,
+     80,
+     80,
+     79,
+     79
+    ],
+    "attack_cards": [
+     78,
+     76,
+     75
+    ],
+    "defence_cards": [
+     78,
+     78,
+     78,
+     77,
+     76,
+     75
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id199803",
+     "name": "Batz",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      30,
+      29,
+      76
+     ],
+     "chem": 2,
+     "eff": [
+      32,
+      31,
+      78
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50584905",
+     "name": "Cáceres",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 60,
+     "leagueId": 53,
+     "clubId": 450,
+     "card": [
+      52,
+      56,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      55,
+      61,
+      80
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243133",
+     "name": "Scally",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 95,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      66,
+      63,
+      73
+     ],
+     "chem": 2,
+     "eff": [
+      68,
+      65,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id245426",
+     "name": "Kumbulla",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 1,
+     "leagueId": 53,
+     "clubId": 480,
+     "card": [
+      51,
+      56,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      54,
+      61,
+      80
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id236657",
+     "name": "Ugrinić",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 47,
+     "leagueId": 53,
+     "clubId": 461,
+     "card": [
+      74,
+      74,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      79,
+      75
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id236492",
+     "name": "Pedro Díaz",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 480,
+     "card": [
+      74,
+      74,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      79,
+      73
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id205192",
+     "name": "Denis Suárez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 463,
+     "card": [
+      72,
+      75,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      80,
+      64
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50579377",
+     "name": "André Almeida",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 456,
+     "card": [
+      73,
+      75,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      80,
+      69
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      80,
+      75
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id264173",
+     "name": "Iván Romero",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 1853,
+     "card": [
+      76,
+      70,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      75,
+      51
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id260463",
+     "name": "Mario Soriano",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 242,
+     "card": [
+      76,
+      73,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      78,
+      59
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.6,
+    "attack": 77.6,
+    "defence": 76.83,
+    "control_cards": [
+     80,
+     80,
+     80,
+     79,
+     79
+    ],
+    "attack_cards": [
+     79,
+     79,
+     79,
+     76,
+     75
+    ],
+    "defence_cards": [
+     80,
+     80,
+     78,
+     75,
+     75,
+     73
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-12 15:40 UTC"
+}

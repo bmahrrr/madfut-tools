@@ -1,0 +1,3558 @@
+{
+ "mode": "myclub",
+ "series": {
+  "key": "70",
+  "cap": 70,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 34,
+    "att": 2,
+    "ctl": 0,
+    "def": 1
+   },
+   {
+    "on": "nation",
+    "id": 38,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ],
+  "minutes": 30
+ },
+ "opponents": [
+  [
+   "Freitas",
+   "Luna Diale",
+   "Jorge Jiménez",
+   "Galarza",
+   "Gaspar Campos",
+   "Dani Pacheco",
+   "Jaime Seoane",
+   "Ferreira",
+   "Hugo Guillamón",
+   "Peña Biafore",
+   "Al Hassawi"
+  ]
+ ],
+ "team": {
+  "formation": "3-1-4-2",
+  "chem": 31,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id253069",
+    "name": "Al Hassawi",
+    "rating": 57,
+    "color": "rare_bronze",
+    "position": "GK",
+    "nationId": 183,
+    "leagueId": 350,
+    "clubId": 112389,
+    "card": [
+     25,
+     19,
+     58
+    ],
+    "chem": 1,
+    "eff": [
+     25,
+     19,
+     58
+    ],
+    "tiebreak": 102
+   },
+   {
+    "slot": "CB",
+    "id": "id264323",
+    "name": "Peña Biafore",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 110395,
+    "card": [
+     64,
+     67,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     66,
+     69,
+     71
+    ],
+    "tiebreak": 206
+   },
+   {
+    "slot": "CB",
+    "id": "id246352",
+    "name": "Hugo Guillamón",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 459,
+    "card": [
+     65,
+     66,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     68,
+     75
+    ],
+    "tiebreak": 210
+   },
+   {
+    "slot": "CB",
+    "id": "id72302",
+    "name": "Ferreira",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CB",
+    "nationId": 58,
+    "leagueId": 353,
+    "clubId": 111708,
+    "card": [
+     45,
+     49,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     47,
+     51,
+     71
+    ],
+    "tiebreak": 169
+   },
+   {
+    "slot": "CDM",
+    "id": "id247793",
+    "name": "Jaime Seoane",
+    "rating": 69,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 350,
+    "clubId": 112389,
+    "card": [
+     72,
+     70,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     72,
+     65
+    ],
+    "tiebreak": 211
+   },
+   {
+    "slot": "LM",
+    "id": "id278020",
+    "name": "Galarza",
+    "rating": 69,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 58,
+    "leagueId": 353,
+    "clubId": 1876,
+    "card": [
+     72,
+     67,
+     67
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     69,
+     69
+    ],
+    "tiebreak": 212
+   },
+   {
+    "slot": "CM",
+    "id": "id188554",
+    "name": "Dani Pacheco",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CDM",
+    "nationId": 45,
+    "leagueId": 66,
+    "clubId": 1569,
+    "card": [
+     68,
+     72,
+     66
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     74,
+     68
+    ],
+    "tiebreak": 212
+   },
+   {
+    "slot": "CM",
+    "id": "id253908",
+    "name": "Luna Diale",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 111716,
+    "card": [
+     73,
+     68,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     70,
+     65
+    ],
+    "tiebreak": 210
+   },
+   {
+    "slot": "RM",
+    "id": "id256885",
+    "name": "Gaspar Campos",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "LM",
+    "nationId": 45,
+    "leagueId": 54,
+    "clubId": 459,
+    "card": [
+     73,
+     66,
+     39
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     68,
+     41
+    ],
+    "tiebreak": 184
+   },
+   {
+    "slot": "ST",
+    "id": "id79070",
+    "name": "Jorge Jiménez",
+    "rating": 66,
+    "color": "rare_silver",
+    "position": "CAM",
+    "nationId": 45,
+    "leagueId": 66,
+    "clubId": 1569,
+    "card": [
+     66,
+     66,
+     47
+    ],
+    "chem": 3,
+    "eff": [
+     68,
+     68,
+     49
+    ],
+    "tiebreak": 185
+   },
+   {
+    "slot": "ST",
+    "id": "id82264",
+    "name": "Freitas",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "ST",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
+    "card": [
+     73,
+     67,
+     40
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     69,
+     42
+    ],
+    "tiebreak": 186
+   }
+  ],
+  "results": {
+   "reference 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 3": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "counter 4": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 5": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 6": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 3": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "final check 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "final check 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   }
+  },
+  "source": "Reddit Reference Team 1",
+  "mode": "robust",
+  "opponent_teams": {
+   "reference 1": {
+    "formation": "3-1-4-2",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id253069",
+      "name": "Al Hassawi",
+      "rating": 57,
+      "color": "rare_bronze",
+      "position": "GK",
+      "nationId": 183,
+      "leagueId": 350,
+      "clubId": 112389,
+      "card": [
+       25,
+       19,
+       58
+      ],
+      "chem": 1,
+      "eff": [
+       25,
+       19,
+       58
+      ],
+      "tiebreak": 102
+     },
+     {
+      "slot": "CB",
+      "id": "id264323",
+      "name": "Peña Biafore",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 110395,
+      "card": [
+       64,
+       67,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       66,
+       69,
+       71
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CB",
+      "id": "id72302",
+      "name": "Ferreira",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 111708,
+      "card": [
+       45,
+       49,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       47,
+       51,
+       71
+      ],
+      "tiebreak": 169
+     },
+     {
+      "slot": "CDM",
+      "id": "id247793",
+      "name": "Jaime Seoane",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 350,
+      "clubId": 112389,
+      "card": [
+       72,
+       70,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       65
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "LM",
+      "id": "id278020",
+      "name": "Galarza",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       72,
+       67,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       69,
+       69
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       68
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CM",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       70,
+       65
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RM",
+      "id": "id256885",
+      "name": "Gaspar Campos",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       73,
+       66,
+       39
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       68,
+       41
+      ],
+      "tiebreak": 184
+     },
+     {
+      "slot": "ST",
+      "id": "id79070",
+      "name": "Jorge Jiménez",
+      "rating": 66,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       66,
+       66,
+       47
+      ],
+      "chem": 3,
+      "eff": [
+       68,
+       68,
+       49
+      ],
+      "tiebreak": 185
+     },
+     {
+      "slot": "ST",
+      "id": "id82264",
+      "name": "Freitas",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       73,
+       67,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       69,
+       42
+      ],
+      "tiebreak": 186
+     }
+    ]
+   },
+   "counter 1": {
+    "formation": "4-2-3-1",
+    "chem": 32,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id219637",
+      "name": "Cantero",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       37,
+       31,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       33,
+       73
+      ],
+      "tiebreak": 145
+     },
+     {
+      "slot": "LB",
+      "id": "id205069",
+      "name": "Juan Bernat",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       68,
+       70,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       69
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CB",
+      "id": "id264323",
+      "name": "Peña Biafore",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 110395,
+      "card": [
+       64,
+       67,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       66,
+       69,
+       71
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RB",
+      "id": "id76997",
+      "name": "López García",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 110404,
+      "card": [
+       68,
+       67,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       69,
+       71
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CDM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 2,
+      "eff": [
+       69,
+       73,
+       67
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "CDM",
+      "id": "id205633",
+      "name": "Castro",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111707,
+      "card": [
+       70,
+       69,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       71,
+       68
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CAM",
+      "id": "id275343",
+      "name": "Rodríguez",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 101083,
+      "card": [
+       70,
+       71,
+       54
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       73,
+       56
+      ],
+      "tiebreak": 201
+     },
+     {
+      "slot": "CAM",
+      "id": "id269224",
+      "name": "Iván Gil",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       72,
+       70,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       58
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CAM",
+      "id": "id231733",
+      "name": "Curro Sánchez",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       71,
+       69,
+       42
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       71,
+       44
+      ],
+      "tiebreak": 188
+     },
+     {
+      "slot": "ST",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       70,
+       65
+      ],
+      "tiebreak": 210
+     }
+    ]
+   },
+   "counter 2": {
+    "formation": "4-1-2-1-2",
+    "chem": 32,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id219637",
+      "name": "Cantero",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       37,
+       31,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       33,
+       73
+      ],
+      "tiebreak": 145
+     },
+     {
+      "slot": "LB",
+      "id": "id265671",
+      "name": "Tasende",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 1867,
+      "card": [
+       70,
+       67,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       69
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CB",
+      "id": "id247793",
+      "name": "Jaime Seoane",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 350,
+      "clubId": 112389,
+      "card": [
+       72,
+       70,
+       63
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       71,
+       64
+      ],
+      "tiebreak": 208
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RB",
+      "id": "id71546",
+      "name": "Benítez",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 111022,
+      "card": [
+       66,
+       65,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       68,
+       67,
+       70
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "CDM",
+      "id": "id74835",
+      "name": "Lencina",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 52,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       71,
+       71,
+       55
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       73,
+       57
+      ],
+      "tiebreak": 203
+     },
+     {
+      "slot": "LM",
+      "id": "id275343",
+      "name": "Rodríguez",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 101083,
+      "card": [
+       70,
+       71,
+       54
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       73,
+       56
+      ],
+      "tiebreak": 201
+     },
+     {
+      "slot": "RM",
+      "id": "id224511",
+      "name": "Bonifacio",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111020,
+      "card": [
+       68,
+       68,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       71
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CAM",
+      "id": "id278020",
+      "name": "Galarza",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       72,
+       67,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       69,
+       69
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "ST",
+      "id": "id272430",
+      "name": "Ale García",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 472,
+      "card": [
+       72,
+       64,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       66,
+       54
+      ],
+      "tiebreak": 194
+     },
+     {
+      "slot": "ST",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       70,
+       65
+      ],
+      "tiebreak": 210
+     }
+    ]
+   },
+   "counter 3": {
+    "formation": "4-1-2-1-2 (2)",
+    "chem": 29,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id267994",
+      "name": "Abramowicz",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 37,
+      "leagueId": 66,
+      "clubId": 110745,
+      "card": [
+       27,
+       23,
+       71
+      ],
+      "chem": 1,
+      "eff": [
+       27,
+       23,
+       71
+      ],
+      "tiebreak": 121
+     },
+     {
+      "slot": "LB",
+      "id": "id205069",
+      "name": "Juan Bernat",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       68,
+       70,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       69
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 2,
+      "eff": [
+       66,
+       67,
+       74
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "CB",
+      "id": "id273560",
+      "name": "Rocha",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 60,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       55,
+       57,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       57,
+       59,
+       69
+      ],
+      "tiebreak": 185
+     },
+     {
+      "slot": "RB",
+      "id": "id258465",
+      "name": "Rogelj",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 44,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       64,
+       64,
+       66
+      ],
+      "chem": 2,
+      "eff": [
+       65,
+       65,
+       67
+      ],
+      "tiebreak": 197
+     },
+     {
+      "slot": "CDM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       68
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CM",
+      "id": "id205633",
+      "name": "Castro",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111707,
+      "card": [
+       70,
+       69,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       71,
+       68
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CM",
+      "id": "id269224",
+      "name": "Iván Gil",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       72,
+       70,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       58
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CAM",
+      "id": "id278020",
+      "name": "Galarza",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       72,
+       67,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       69,
+       69
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "ST",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       70,
+       65
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "ST",
+      "id": "id82264",
+      "name": "Freitas",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       73,
+       67,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       69,
+       42
+      ],
+      "tiebreak": 186
+     }
+    ]
+   },
+   "counter 4": {
+    "formation": "3-1-4-2",
+    "chem": 27,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id219637",
+      "name": "Cantero",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       37,
+       31,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       33,
+       73
+      ],
+      "tiebreak": 145
+     },
+     {
+      "slot": "CB",
+      "id": "id209438",
+      "name": "Haglind-Sangré",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 46,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       47,
+       49,
+       66
+      ],
+      "chem": 1,
+      "eff": [
+       47,
+       49,
+       66
+      ],
+      "tiebreak": 162
+     },
+     {
+      "slot": "CB",
+      "id": "id50599754",
+      "name": "Dekker",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1907,
+      "card": [
+       47,
+       53,
+       66
+      ],
+      "chem": 2,
+      "eff": [
+       50,
+       54,
+       68
+      ],
+      "tiebreak": 169
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CDM",
+      "id": "id50535183",
+      "name": "Vilhena",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1907,
+      "card": [
+       70,
+       70,
+       70
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       71,
+       72
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "LM",
+      "id": "id269224",
+      "name": "Iván Gil",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       72,
+       70,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       58
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id278020",
+      "name": "Galarza",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       72,
+       67,
+       67
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       68,
+       68
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "CM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       68
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "RM",
+      "id": "id272430",
+      "name": "Ale García",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 472,
+      "card": [
+       72,
+       64,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       66,
+       54
+      ],
+      "tiebreak": 194
+     },
+     {
+      "slot": "ST",
+      "id": "id82264",
+      "name": "Freitas",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       73,
+       67,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       69,
+       42
+      ],
+      "tiebreak": 186
+     },
+     {
+      "slot": "ST",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 2,
+      "eff": [
+       74,
+       69,
+       64
+      ],
+      "tiebreak": 207
+     }
+    ]
+   },
+   "counter 5": {
+    "formation": "3-1-4-2",
+    "chem": 26,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id219637",
+      "name": "Cantero",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       37,
+       31,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       33,
+       73
+      ],
+      "tiebreak": 145
+     },
+     {
+      "slot": "CB",
+      "id": "id209438",
+      "name": "Haglind-Sangré",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 46,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       47,
+       49,
+       66
+      ],
+      "chem": 1,
+      "eff": [
+       47,
+       49,
+       66
+      ],
+      "tiebreak": 162
+     },
+     {
+      "slot": "CB",
+      "id": "id231823",
+      "name": "Hoogma",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1907,
+      "card": [
+       45,
+       54,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       49,
+       56,
+       70
+      ],
+      "tiebreak": 172
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CDM",
+      "id": "id50535183",
+      "name": "Vilhena",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1907,
+      "card": [
+       70,
+       70,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       73
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "LM",
+      "id": "id205069",
+      "name": "Juan Bernat",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       68,
+       70,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       69
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       68
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CM",
+      "id": "id231733",
+      "name": "Curro Sánchez",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       71,
+       69,
+       42
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       71,
+       44
+      ],
+      "tiebreak": 188
+     },
+     {
+      "slot": "RM",
+      "id": "id82264",
+      "name": "Freitas",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       73,
+       67,
+       40
+      ],
+      "chem": 1,
+      "eff": [
+       73,
+       67,
+       40
+      ],
+      "tiebreak": 180
+     },
+     {
+      "slot": "ST",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 1,
+      "eff": [
+       73,
+       68,
+       63
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "ST",
+      "id": "id241835",
+      "name": "Hornkamp",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1906,
+      "card": [
+       70,
+       58,
+       57
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       59,
+       59
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "counter 6": {
+    "formation": "3-1-4-2",
+    "chem": 28,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id219637",
+      "name": "Cantero",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       37,
+       31,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       33,
+       73
+      ],
+      "tiebreak": 145
+     },
+     {
+      "slot": "CB",
+      "id": "id221986",
+      "name": "Hardeveld",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 100638,
+      "card": [
+       64,
+       69,
+       69
+      ],
+      "chem": 2,
+      "eff": [
+       67,
+       70,
+       71
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "CB",
+      "id": "id247793",
+      "name": "Jaime Seoane",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 350,
+      "clubId": 112389,
+      "card": [
+       72,
+       70,
+       63
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       71,
+       64
+      ],
+      "tiebreak": 208
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CDM",
+      "id": "id74835",
+      "name": "Lencina",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 52,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       71,
+       71,
+       55
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       73,
+       57
+      ],
+      "tiebreak": 203
+     },
+     {
+      "slot": "LM",
+      "id": "id269224",
+      "name": "Iván Gil",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       72,
+       70,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       58
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id50535183",
+      "name": "Vilhena",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1907,
+      "card": [
+       70,
+       70,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       73
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "CM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 2,
+      "eff": [
+       69,
+       73,
+       67
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "RM",
+      "id": "id226436",
+      "name": "ter Avest",
+      "rating": 67,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1907,
+      "card": [
+       61,
+       63,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       65,
+       65,
+       69
+      ],
+      "tiebreak": 196
+     },
+     {
+      "slot": "ST",
+      "id": "id272430",
+      "name": "Ale García",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 472,
+      "card": [
+       72,
+       64,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       66,
+       54
+      ],
+      "tiebreak": 194
+     },
+     {
+      "slot": "ST",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 1,
+      "eff": [
+       73,
+       68,
+       63
+      ],
+      "tiebreak": 204
+     }
+    ]
+   },
+   "fresh test 1": {
+    "formation": "4-3-2-1",
+    "chem": 32,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id219637",
+      "name": "Cantero",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       37,
+       31,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       39,
+       33,
+       73
+      ],
+      "tiebreak": 145
+     },
+     {
+      "slot": "LB",
+      "id": "id265671",
+      "name": "Tasende",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 1867,
+      "card": [
+       70,
+       67,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       69
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CB",
+      "id": "id76488",
+      "name": "Amarfil",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 112689,
+      "card": [
+       65,
+       69,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       71,
+       68
+      ],
+      "tiebreak": 206
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RB",
+      "id": "id76997",
+      "name": "López García",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 110404,
+      "card": [
+       68,
+       67,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       69,
+       71
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CM",
+      "id": "id269224",
+      "name": "Iván Gil",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       72,
+       70,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       58
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id74835",
+      "name": "Lencina",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 52,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       71,
+       71,
+       55
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       73,
+       57
+      ],
+      "tiebreak": 203
+     },
+     {
+      "slot": "CM",
+      "id": "id184144",
+      "name": "Gaitán",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111707,
+      "card": [
+       69,
+       72,
+       49
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       74,
+       51
+      ],
+      "tiebreak": 196
+     },
+     {
+      "slot": "CAM",
+      "id": "id278020",
+      "name": "Galarza",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       72,
+       67,
+       67
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       68,
+       68
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "CAM",
+      "id": "id231733",
+      "name": "Curro Sánchez",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       71,
+       69,
+       42
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       71,
+       44
+      ],
+      "tiebreak": 188
+     },
+     {
+      "slot": "ST",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       70,
+       65
+      ],
+      "tiebreak": 210
+     }
+    ]
+   },
+   "fresh test 2": {
+    "formation": "3-1-4-2",
+    "chem": 28,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id239358",
+      "name": "Dieng",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 136,
+      "leagueId": 14,
+      "clubId": 12,
+      "card": [
+       30,
+       31,
+       71
+      ],
+      "chem": 0,
+      "eff": [
+       27,
+       28,
+       68
+      ],
+      "tiebreak": 123
+     },
+     {
+      "slot": "CB",
+      "id": "id247793",
+      "name": "Jaime Seoane",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 350,
+      "clubId": 112389,
+      "card": [
+       72,
+       70,
+       63
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       71,
+       64
+      ],
+      "tiebreak": 208
+     },
+     {
+      "slot": "CB",
+      "id": "id254822",
+      "name": "Tudor",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CB",
+      "nationId": 10,
+      "leagueId": 66,
+      "clubId": 114326,
+      "card": [
+       68,
+       66,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       68,
+       71
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CDM",
+      "id": "id261143",
+      "name": "Bulat",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 10,
+      "leagueId": 66,
+      "clubId": 114326,
+      "card": [
+       71,
+       70,
+       61
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       72,
+       63
+      ],
+      "tiebreak": 208
+     },
+     {
+      "slot": "LM",
+      "id": "id205069",
+      "name": "Juan Bernat",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       68,
+       70,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       69
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CM",
+      "id": "id50535183",
+      "name": "Vilhena",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1907,
+      "card": [
+       70,
+       70,
+       70
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       73
+      ],
+      "tiebreak": 216
+     },
+     {
+      "slot": "CM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       68
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "RM",
+      "id": "id256885",
+      "name": "Gaspar Campos",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       73,
+       66,
+       39
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       68,
+       41
+      ],
+      "tiebreak": 184
+     },
+     {
+      "slot": "ST",
+      "id": "id86271",
+      "name": "Haen",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1907,
+      "card": [
+       69,
+       55,
+       29
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       57,
+       32
+      ],
+      "tiebreak": 159
+     },
+     {
+      "slot": "ST",
+      "id": "id241835",
+      "name": "Hornkamp",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 34,
+      "leagueId": 10,
+      "clubId": 1906,
+      "card": [
+       70,
+       58,
+       57
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       59,
+       59
+      ],
+      "tiebreak": 188
+     }
+    ]
+   },
+   "fresh test 3": {
+    "formation": "4-1-2-1-2",
+    "chem": 26,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id216245",
+      "name": "Cárdenas",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 83,
+      "leagueId": 341,
+      "clubId": 1032,
+      "card": [
+       35,
+       35,
+       71
+      ],
+      "chem": 0,
+      "eff": [
+       32,
+       32,
+       68
+      ],
+      "tiebreak": 132
+     },
+     {
+      "slot": "LB",
+      "id": "id205069",
+      "name": "Juan Bernat",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       68,
+       70,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       69
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CB",
+      "id": "id216385",
+      "name": "Ortiz",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 58,
+      "leagueId": 1014,
+      "clubId": 101108,
+      "card": [
+       70,
+       67,
+       68
+      ],
+      "chem": 1,
+      "eff": [
+       70,
+       67,
+       68
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "RB",
+      "id": "id237376",
+      "name": "Juanjo Nieto",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 100852,
+      "card": [
+       69,
+       66,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       68,
+       70
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "CDM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 2,
+      "eff": [
+       69,
+       73,
+       67
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "LM",
+      "id": "id269224",
+      "name": "Iván Gil",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       72,
+       70,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       58
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "RM",
+      "id": "id74835",
+      "name": "Lencina",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CAM",
+      "nationId": 52,
+      "leagueId": 54,
+      "clubId": 10846,
+      "card": [
+       71,
+       71,
+       55
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       73,
+       57
+      ],
+      "tiebreak": 203
+     },
+     {
+      "slot": "CAM",
+      "id": "id278020",
+      "name": "Galarza",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       72,
+       67,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       69,
+       69
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "ST",
+      "id": "id82264",
+      "name": "Freitas",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       73,
+       67,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       69,
+       42
+      ],
+      "tiebreak": 186
+     },
+     {
+      "slot": "ST",
+      "id": "id253908",
+      "name": "Luna Diale",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111716,
+      "card": [
+       73,
+       68,
+       63
+      ],
+      "chem": 2,
+      "eff": [
+       74,
+       69,
+       64
+      ],
+      "tiebreak": 207
+     }
+    ]
+   },
+   "final check 1": {
+    "formation": "4-1-4-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id276198",
+      "name": "Yaakobishvili",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 23,
+      "leagueId": 54,
+      "clubId": 1861,
+      "card": [
+       30,
+       28,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       32,
+       30,
+       73
+      ],
+      "tiebreak": 135
+     },
+     {
+      "slot": "LB",
+      "id": "id205069",
+      "name": "Juan Bernat",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       68,
+       70,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       72,
+       69
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CB",
+      "id": "id226370",
+      "name": "André Horta",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 38,
+      "leagueId": 54,
+      "clubId": 1861,
+      "card": [
+       69,
+       70,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       73,
+       66
+      ],
+      "tiebreak": 208
+     },
+     {
+      "slot": "CB",
+      "id": "id268949",
+      "name": "Esther Laborde",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 457,
+      "card": [
+       64,
+       68,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       66,
+       70,
+       69
+      ],
+      "tiebreak": 205
+     },
+     {
+      "slot": "RB",
+      "id": "id237376",
+      "name": "Juanjo Nieto",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 100852,
+      "card": [
+       69,
+       66,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       68,
+       70
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "CDM",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "LM",
+      "id": "id264828",
+      "name": "Kortajarena",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 350,
+      "clubId": 131735,
+      "card": [
+       70,
+       66,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       68,
+       69
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "CM",
+      "id": "id269224",
+      "name": "Iván Gil",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 467,
+      "card": [
+       72,
+       70,
+       56
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       72,
+       58
+      ],
+      "tiebreak": 204
+     },
+     {
+      "slot": "CM",
+      "id": "id188554",
+      "name": "Dani Pacheco",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 66,
+      "clubId": 1569,
+      "card": [
+       68,
+       72,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       74,
+       68
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "RM",
+      "id": "id211241",
+      "name": "Rubén Peña",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 100888,
+      "card": [
+       68,
+       68,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       71
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "ST",
+      "id": "id275586",
+      "name": "Ane Campos",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       71,
+       64,
+       45
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       66,
+       47
+      ],
+      "tiebreak": 186
+     }
+    ]
+   },
+   "final check 2": {
+    "formation": "4-1-2-1-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id276829",
+      "name": "Iacovich",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "GK",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 101083,
+      "card": [
+       35,
+       31,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       37,
+       33,
+       73
+      ],
+      "tiebreak": 143
+     },
+     {
+      "slot": "LB",
+      "id": "id69957",
+      "name": "Elordi",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111020,
+      "card": [
+       58,
+       68,
+       68
+      ],
+      "chem": 3,
+      "eff": [
+       60,
+       70,
+       70
+      ],
+      "tiebreak": 200
+     },
+     {
+      "slot": "CB",
+      "id": "id226370",
+      "name": "André Horta",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 38,
+      "leagueId": 54,
+      "clubId": 1861,
+      "card": [
+       69,
+       70,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       73,
+       66
+      ],
+      "tiebreak": 208
+     },
+     {
+      "slot": "CB",
+      "id": "id246352",
+      "name": "Hugo Guillamón",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 459,
+      "card": [
+       65,
+       66,
+       73
+      ],
+      "chem": 3,
+      "eff": [
+       67,
+       68,
+       75
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RB",
+      "id": "id76997",
+      "name": "López García",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 110404,
+      "card": [
+       68,
+       67,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       69,
+       71
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "CDM",
+      "id": "id205633",
+      "name": "Castro",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 111707,
+      "card": [
+       70,
+       69,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       71,
+       68
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "LM",
+      "id": "id265671",
+      "name": "Tasende",
+      "rating": 68,
+      "color": "rare_silver",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 1867,
+      "card": [
+       70,
+       67,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       72,
+       69,
+       69
+      ],
+      "tiebreak": 210
+     },
+     {
+      "slot": "RM",
+      "id": "id211241",
+      "name": "Rubén Peña",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 100888,
+      "card": [
+       68,
+       68,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       70,
+       70,
+       71
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "CAM",
+      "id": "id278020",
+      "name": "Galarza",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "CM",
+      "nationId": 58,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       72,
+       67,
+       67
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       69,
+       69
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "ST",
+      "id": "id82264",
+      "name": "Freitas",
+      "rating": 70,
+      "color": "rare_silver",
+      "position": "ST",
+      "nationId": 52,
+      "leagueId": 353,
+      "clubId": 1876,
+      "card": [
+       73,
+       67,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       69,
+       42
+      ],
+      "tiebreak": 186
+     },
+     {
+      "slot": "ST",
+      "id": "id252837",
+      "name": "Melamed",
+      "rating": 69,
+      "color": "rare_silver",
+      "position": "LW",
+      "nationId": 45,
+      "leagueId": 54,
+      "clubId": 1861,
+      "card": [
+       69,
+       69,
+       43
+      ],
+      "chem": 3,
+      "eff": [
+       71,
+       71,
+       45
+      ],
+      "tiebreak": 187
+     }
+    ]
+   }
+  },
+  "plan": {
+   "guaranteed": "DRAW",
+   "safe": [
+    {
+     "slot": "CDM",
+     "name": "Jaime Seoane",
+     "stat": "attack"
+    },
+    {
+     "slot": "LM",
+     "name": "Galarza",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "Luna Diale",
+     "stat": "attack"
+    },
+    {
+     "slot": "RM",
+     "name": "Gaspar Campos",
+     "stat": "attack"
+    },
+    {
+     "slot": "ST",
+     "name": "Freitas",
+     "stat": "attack"
+    }
+   ],
+   "total_openers": 33,
+   "reddit": {
+    "guaranteed": "DRAW",
+    "safe": [
+     {
+      "slot": "CDM",
+      "name": "Jaime Seoane",
+      "stat": "attack"
+     },
+     {
+      "slot": "LM",
+      "name": "Galarza",
+      "stat": "attack"
+     },
+     {
+      "slot": "CM",
+      "name": "Dani Pacheco",
+      "stat": "control"
+     },
+     {
+      "slot": "CM",
+      "name": "Luna Diale",
+      "stat": "attack"
+     },
+     {
+      "slot": "RM",
+      "name": "Gaspar Campos",
+      "stat": "attack"
+     },
+     {
+      "slot": "ST",
+      "name": "Freitas",
+      "stat": "attack"
+     }
+    ]
+   },
+   "watch": [
+    {
+     "name": "Al Hassawi",
+     "text": "Only use for defence (58); attack 25, control 19"
+    },
+    {
+     "name": "Ferreira",
+     "text": "Only use for defence (71); attack 47, control 51"
+    },
+    {
+     "name": "Gaspar Campos",
+     "text": "Never use for defence (41)"
+    },
+    {
+     "name": "Jorge Jiménez",
+     "text": "Never use for defence (49)"
+    },
+    {
+     "name": "Freitas",
+     "text": "Never use for defence (42)"
+    }
+   ],
+   "low_tb": {
+    "name": "Al Hassawi",
+    "tb": 102
+   },
+   "high_tb": {
+    "name": "Dani Pacheco",
+    "tb": 212
+   }
+  }
+ },
+ "not_owned": [],
+ "built": "2026-10-12 15:57 UTC"
+}

@@ -1,0 +1,891 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "75",
+  "cap": 75,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 10,
+    "att": 1,
+    "ctl": 2,
+    "def": 0
+   },
+   {
+    "on": "nation",
+    "id": 13,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ],
+  "opponents": [
+   [
+    "id204092",
+    "id190815",
+    "id256033",
+    "id264763",
+    "id265465",
+    "id208618",
+    "id204497",
+    "id50600450",
+    "id215455",
+    "id256102",
+    "id258715"
+   ]
+  ]
+ },
+ "teams": [
+  {
+   "formation": "5-2-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id204092",
+     "name": "Blaswich",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      32,
+      30,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      32,
+      77
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id190815",
+     "name": "Blind",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      70,
+      78,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      80,
+      77
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id219670",
+     "name": "Piovi",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
+     "card": [
+      70,
+      69,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      71,
+      74
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      53,
+      61,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      55,
+      63,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id266160",
+     "name": "Mika Mármol",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 10,
+     "clubId": 246,
+     "card": [
+      70,
+      69,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      71,
+      70,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      74
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id226797",
+     "name": "Malcorra",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111716,
+     "card": [
+      74,
+      77,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id242342",
+     "name": "Lódico",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101085,
+     "card": [
+      74,
+      77,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id247450",
+     "name": "Palavecino",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
+     "card": [
+      74,
+      77,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      67
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id258715",
+     "name": "Hollerbach",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      76,
+      71,
+      35
+     ],
+     "chem": 2,
+     "eff": [
+      77,
+      72,
+      36
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id244205",
+     "name": "Salas",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111020,
+     "card": [
+      76,
+      71,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      73,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.2,
+    "attack": 77.07,
+    "defence": 74.67,
+    "net": 0.0823,
+    "vs_reddit": 0.1631,
+    "control_cards": [
+     80,
+     79,
+     79,
+     79,
+     79
+    ],
+    "attack_cards": [
+     78,
+     78,
+     77,
+     76,
+     76,
+     76
+    ],
+    "defence_cards": [
+     77,
+     77,
+     75,
+     74,
+     74,
+     71
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "ctrl_total": 223.6,
+    "att_total": 204.97,
+    "def_total": 204.17,
+    "swaps_checked": 39741
+   }
+  },
+  {
+   "formation": "5-3-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id204092",
+     "name": "Blaswich",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      32,
+      30,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      32,
+      77
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id190815",
+     "name": "Blind",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      70,
+      78,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      80,
+      77
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id266160",
+     "name": "Mika Mármol",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 10,
+     "clubId": 246,
+     "card": [
+      70,
+      69,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      71,
+      70,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id219670",
+     "name": "Piovi",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
+     "card": [
+      70,
+      69,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      71,
+      74
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      53,
+      61,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      55,
+      63,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      74
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id226797",
+     "name": "Malcorra",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111716,
+     "card": [
+      74,
+      77,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id247450",
+     "name": "Palavecino",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
+     "card": [
+      74,
+      77,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      67
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id242342",
+     "name": "Lódico",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101085,
+     "card": [
+      74,
+      77,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id258715",
+     "name": "Hollerbach",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      76,
+      71,
+      35
+     ],
+     "chem": 2,
+     "eff": [
+      77,
+      72,
+      36
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id244205",
+     "name": "Salas",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111020,
+     "card": [
+      76,
+      71,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      73,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.2,
+    "attack": 77.07,
+    "defence": 74.67,
+    "net": 0.0823,
+    "vs_reddit": 0.1631,
+    "control_cards": [
+     80,
+     79,
+     79,
+     79,
+     79
+    ],
+    "attack_cards": [
+     78,
+     78,
+     77,
+     76,
+     76,
+     76
+    ],
+    "defence_cards": [
+     77,
+     77,
+     75,
+     74,
+     74,
+     71
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "ctrl_total": 223.6,
+    "att_total": 204.83,
+    "def_total": 204.17
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id204092",
+     "name": "Blaswich",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      32,
+      30,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      32,
+      77
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id219670",
+     "name": "Piovi",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
+     "card": [
+      70,
+      69,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      71,
+      74
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id266160",
+     "name": "Mika Mármol",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 10,
+     "clubId": 246,
+     "card": [
+      70,
+      69,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      71,
+      70,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      53,
+      61,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      55,
+      63,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id242342",
+     "name": "Lódico",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101085,
+     "card": [
+      74,
+      77,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      61
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id226797",
+     "name": "Malcorra",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111716,
+     "card": [
+      74,
+      77,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      65
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id190815",
+     "name": "Blind",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      70,
+      78,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      80,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      74
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id247450",
+     "name": "Palavecino",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 341,
+     "clubId": 1878,
+     "card": [
+      74,
+      77,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      79,
+      67
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id258715",
+     "name": "Hollerbach",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      76,
+      71,
+      35
+     ],
+     "chem": 2,
+     "eff": [
+      77,
+      72,
+      36
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id244205",
+     "name": "Salas",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111020,
+     "card": [
+      76,
+      71,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      73,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.2,
+    "attack": 77.16,
+    "defence": 74.25,
+    "net": 0.074,
+    "vs_reddit": 0.1491,
+    "control_cards": [
+     80,
+     79,
+     79,
+     79,
+     79
+    ],
+    "attack_cards": [
+     78,
+     78,
+     77,
+     76,
+     76,
+     76
+    ],
+    "defence_cards": [
+     77,
+     75,
+     74,
+     71
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "ctrl_total": 223.6,
+    "att_total": 206.87,
+    "def_total": 191.25
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-11-07 06:46 UTC",
+ "week": "2026-11-02"
+}

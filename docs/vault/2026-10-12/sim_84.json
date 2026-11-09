@@ -1,0 +1,859 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "84",
+  "cap": 84,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 54,
+    "att": 2,
+    "ctl": 1,
+    "def": 0
+   },
+   {
+    "on": "nation",
+    "id": 18,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "5-2-1-2",
+   "chem": 30,
+   "players": [
+    {
+     "id": "id213536",
+     "name": "Crépeau",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 70,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      35,
+      34,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      36,
+      35,
+      75
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50542162",
+     "name": "João Cancelo",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RB",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      82,
+      84,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      85
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id263012",
+     "name": "Turner",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 88,
+     "card": [
+      59,
+      64,
+      82
+     ],
+     "chem": 2,
+     "eff": [
+      60,
+      65,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id240439",
+     "name": "Porteous",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 42,
+     "leagueId": 39,
+     "clubId": 112996,
+     "card": [
+      57,
+      62,
+      70
+     ],
+     "chem": 2,
+     "eff": [
+      58,
+      63,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50585117",
+     "name": "De Almeida",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      55,
+      62,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      65,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id231281",
+     "name": "Alexander-Arnold",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 14,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      78,
+      84,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      86,
+      84
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      80
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50529429",
+     "name": "Isco",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      82,
+      85,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id194765",
+     "name": "Griezmann",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      84,
+      85,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      66
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id230142",
+     "name": "Oyarzabal",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 457,
+     "card": [
+      84,
+      81,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      83,
+      50
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 87.0,
+    "attack": 84.6,
+    "defence": 80.17,
+    "control_cards": [
+     88,
+     88,
+     87,
+     86,
+     86
+    ],
+    "attack_cards": [
+     87,
+     86,
+     86,
+     84,
+     80
+    ],
+    "defence_cards": [
+     85,
+     84,
+     83,
+     83,
+     75,
+     71
+    ],
+    "chem": 30,
+    "ctrl_not_full": 0,
+    "ctrl_total": 246.2
+   }
+  },
+  {
+   "formation": "5-3-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id213536",
+     "name": "Crépeau",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 70,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      35,
+      34,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      36,
+      35,
+      75
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50542162",
+     "name": "João Cancelo",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RB",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      82,
+      84,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      85
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id240439",
+     "name": "Porteous",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 42,
+     "leagueId": 39,
+     "clubId": 112996,
+     "card": [
+      57,
+      62,
+      70
+     ],
+     "chem": 2,
+     "eff": [
+      58,
+      63,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id263013",
+     "name": "Wubben-Moy",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      55,
+      63,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      65,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50585117",
+     "name": "De Almeida",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      55,
+      62,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      65,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id231281",
+     "name": "Alexander-Arnold",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 14,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      78,
+      84,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      86,
+      84
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      80
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id194765",
+     "name": "Griezmann",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      84,
+      85,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      66
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50529429",
+     "name": "Isco",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      82,
+      85,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id230142",
+     "name": "Oyarzabal",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 457,
+     "card": [
+      84,
+      81,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      83,
+      50
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 87.0,
+    "attack": 84.0,
+    "defence": 80.17,
+    "control_cards": [
+     88,
+     88,
+     87,
+     86,
+     86
+    ],
+    "attack_cards": [
+     86,
+     86,
+     84,
+     80
+    ],
+    "defence_cards": [
+     85,
+     84,
+     83,
+     83,
+     75,
+     71
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "ctrl_total": 246.2
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 30,
+   "players": [
+    {
+     "id": "id213536",
+     "name": "Crépeau",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 70,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      35,
+      34,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      36,
+      35,
+      75
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id240439",
+     "name": "Porteous",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 42,
+     "leagueId": 39,
+     "clubId": 112996,
+     "card": [
+      57,
+      62,
+      70
+     ],
+     "chem": 2,
+     "eff": [
+      58,
+      63,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50585117",
+     "name": "De Almeida",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      55,
+      62,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      65,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id263012",
+     "name": "Turner",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2216,
+     "clubId": 88,
+     "card": [
+      59,
+      64,
+      82
+     ],
+     "chem": 2,
+     "eff": [
+      60,
+      65,
+      83
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50542162",
+     "name": "João Cancelo",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RB",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      82,
+      84,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      85
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      80
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50529429",
+     "name": "Isco",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      82,
+      85,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id231281",
+     "name": "Alexander-Arnold",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 14,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      78,
+      84,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      86,
+      84
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id194765",
+     "name": "Griezmann",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      84,
+      85,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      66
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id230142",
+     "name": "Oyarzabal",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 457,
+     "card": [
+      84,
+      81,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      83,
+      50
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 87.0,
+    "attack": 84.6,
+    "defence": 78.0,
+    "control_cards": [
+     88,
+     88,
+     87,
+     86,
+     86
+    ],
+    "attack_cards": [
+     87,
+     86,
+     86,
+     84,
+     80
+    ],
+    "defence_cards": [
+     83,
+     83,
+     75,
+     71
+    ],
+    "chem": 30,
+    "ctrl_not_full": 0,
+    "ctrl_total": 246.2
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-16 03:17 UTC",
+ "week": "2026-10-12"
+}

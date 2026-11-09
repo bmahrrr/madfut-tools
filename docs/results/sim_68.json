@@ -1,0 +1,890 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "68",
+  "cap": 68,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 330,
+    "att": 0,
+    "ctl": 2,
+    "def": 1
+   },
+   {
+    "on": "league",
+    "id": 322,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ],
+  "opponents": [
+   [
+    "id188524",
+    "id78620",
+    "id74348",
+    "id265895",
+    "id271452",
+    "id255010",
+    "id275400",
+    "id275411",
+    "id223017",
+    "id275418",
+    "id263389"
+   ]
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id188524",
+     "name": "Babacan",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 101014,
+     "card": [
+      34,
+      28,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      30,
+      69
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id265895",
+     "name": "Notel",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 64,
+     "card": [
+      58,
+      64,
+      67
+     ],
+     "chem": 2,
+     "eff": [
+      59,
+      65,
+      68
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id83351",
+     "name": "Álvarez",
+     "rating": 60,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 56,
+     "leagueId": 2218,
+     "clubId": 219,
+     "card": [
+      44,
+      48,
+      60
+     ],
+     "chem": 2,
+     "eff": [
+      45,
+      49,
+      61
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74348",
+     "name": "Bouland",
+     "rating": 61,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      46,
+      48,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      50,
+      62
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id255010",
+     "name": "Ünüvar",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      66,
+      70,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      72,
+      40
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id275411",
+     "name": "Land",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      66,
+      71,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      73,
+      53
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id271452",
+     "name": "Bouchouari",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      71,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      57
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id223017",
+     "name": "Şahiner",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 101014,
+     "card": [
+      69,
+      67,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      69,
+      69
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id275400",
+     "name": "Bamenga",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 219,
+     "card": [
+      68,
+      71,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      54
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id275418",
+     "name": "Taha",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      71,
+      67,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      69,
+      41
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id263389",
+     "name": "Mimaroğlu",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      64,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      66,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 72.0,
+    "attack": 70.77,
+    "defence": 65.0,
+    "net": 0.006,
+    "vs_reddit": 0.0099,
+    "control_cards": [
+     73,
+     73,
+     73,
+     72,
+     69
+    ],
+    "attack_cards": [
+     73,
+     71,
+     70,
+     70,
+     70,
+     68,
+     68
+    ],
+    "defence_cards": [
+     69,
+     68,
+     62,
+     61
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "ctrl_total": 196.0,
+    "att_total": 186.55,
+    "def_total": 160.5,
+    "swaps_checked": 28864
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id188524",
+     "name": "Babacan",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 101014,
+     "card": [
+      34,
+      28,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      30,
+      69
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id74348",
+     "name": "Bouland",
+     "rating": 61,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      46,
+      48,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      50,
+      62
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id265895",
+     "name": "Notel",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 64,
+     "card": [
+      58,
+      64,
+      67
+     ],
+     "chem": 2,
+     "eff": [
+      59,
+      65,
+      68
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id83351",
+     "name": "Álvarez",
+     "rating": 60,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 56,
+     "leagueId": 2218,
+     "clubId": 219,
+     "card": [
+      44,
+      48,
+      60
+     ],
+     "chem": 2,
+     "eff": [
+      45,
+      49,
+      61
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id255010",
+     "name": "Ünüvar",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      66,
+      70,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      72,
+      40
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id275411",
+     "name": "Land",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      66,
+      71,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      73,
+      53
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id271452",
+     "name": "Bouchouari",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      71,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      57
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id223017",
+     "name": "Şahiner",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 101014,
+     "card": [
+      69,
+      67,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      69,
+      69
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id275400",
+     "name": "Bamenga",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 219,
+     "card": [
+      68,
+      71,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      54
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id275418",
+     "name": "Taha",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      71,
+      67,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      69,
+      41
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id263389",
+     "name": "Mimaroğlu",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      64,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      66,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 72.0,
+    "attack": 70.77,
+    "defence": 65.0,
+    "net": 0.006,
+    "vs_reddit": 0.0099,
+    "control_cards": [
+     73,
+     73,
+     73,
+     72,
+     69
+    ],
+    "attack_cards": [
+     73,
+     71,
+     70,
+     70,
+     70,
+     68,
+     68
+    ],
+    "defence_cards": [
+     69,
+     68,
+     62,
+     61
+    ],
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "ctrl_total": 196.0,
+    "att_total": 186.55,
+    "def_total": 160.5
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id188524",
+     "name": "Babacan",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 101014,
+     "card": [
+      34,
+      28,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      30,
+      69
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id74348",
+     "name": "Bouland",
+     "rating": 61,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      46,
+      48,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      50,
+      62
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id265895",
+     "name": "Notel",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 64,
+     "card": [
+      58,
+      64,
+      67
+     ],
+     "chem": 2,
+     "eff": [
+      59,
+      65,
+      68
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id78620",
+     "name": "Gobert",
+     "rating": 58,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 219,
+     "card": [
+      41,
+      43,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      43,
+      45,
+      59
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id255010",
+     "name": "Ünüvar",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      66,
+      70,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      72,
+      40
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id275411",
+     "name": "Land",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      66,
+      71,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      73,
+      53
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id271452",
+     "name": "Bouchouari",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      71,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      57
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id223017",
+     "name": "Şahiner",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 101014,
+     "card": [
+      69,
+      67,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      69,
+      69
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id275400",
+     "name": "Bamenga",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 219,
+     "card": [
+      68,
+      71,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      54
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id275418",
+     "name": "Taha",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      71,
+      67,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      69,
+      41
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id263389",
+     "name": "Mimaroğlu",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      64,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      66,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 72.0,
+    "attack": 70.77,
+    "defence": 64.5,
+    "net": 0.006,
+    "vs_reddit": 0.0099,
+    "control_cards": [
+     73,
+     73,
+     73,
+     72,
+     69
+    ],
+    "attack_cards": [
+     73,
+     71,
+     70,
+     70,
+     70,
+     68,
+     68
+    ],
+    "defence_cards": [
+     69,
+     68,
+     62,
+     59
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "ctrl_total": 196.0,
+    "att_total": 186.55,
+    "def_total": 158.5
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-11-08 22:06 UTC",
+ "week": "2026-11-09"
+}

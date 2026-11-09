@@ -1,0 +1,3954 @@
+{
+ "mode": "myclub",
+ "series": {
+  "key": "80",
+  "cap": 80,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 31,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   },
+   {
+    "on": "nation",
+    "id": 45,
+    "att": 2,
+    "ctl": 0,
+    "def": 0
+   }
+  ],
+  "minutes": 30
+ },
+ "opponents": [
+  [
+   "Borja Iglesias",
+   "Amaiur Sarriegi",
+   "Ayoze",
+   "Sara Ortega",
+   "Joelinton",
+   "Víctor Muñoz",
+   "Carlos Romero",
+   "Burn",
+   "Cristhian Mosquera",
+   "Lucas Vázquez",
+   "Pope"
+  ]
+ ],
+ "team": {
+  "formation": "4-1-4-1",
+  "chem": 30,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id50560437",
+    "name": "Robert Sánchez",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "GK",
+    "nationId": 45,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     39,
+     39,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     44,
+     42,
+     84
+    ],
+    "tiebreak": 165
+   },
+   {
+    "slot": "LB",
+    "id": "id50603785",
+    "name": "Sara Ortega",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "LM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 448,
+    "card": [
+     81,
+     80,
+     62
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     82,
+     64
+    ],
+    "tiebreak": 229
+   },
+   {
+    "slot": "CB",
+    "id": "id198032",
+    "name": "Burn",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 13,
+    "card": [
+     53,
+     64,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     55,
+     66,
+     81
+    ],
+    "tiebreak": 202
+   },
+   {
+    "slot": "CB",
+    "id": "id210719",
+    "name": "Kempf",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     59,
+     62,
+     76
+    ],
+    "chem": 2,
+    "eff": [
+     61,
+     64,
+     78
+    ],
+    "tiebreak": 200
+   },
+   {
+    "slot": "RB",
+    "id": "evo_Lucas Vázquez_80",
+    "name": "Lucas Vázquez",
+    "rating": 80,
+    "color": "evo",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     82,
+     83,
+     78
+    ],
+    "chem": 2,
+    "eff": [
+     85,
+     84,
+     79
+    ],
+    "tiebreak": 246
+   },
+   {
+    "slot": "CDM",
+    "id": "id223334",
+    "name": "Joelinton",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 13,
+    "card": [
+     75,
+     76,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     78,
+     84
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "LM",
+    "id": "id259694",
+    "name": "Mingueza",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 13,
+    "clubId": 1799,
+    "card": [
+     74,
+     77,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     79,
+     81
+    ],
+    "tiebreak": 236
+   },
+   {
+    "slot": "CM",
+    "id": "id226162",
+    "name": "Buendía",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 52,
+    "leagueId": 13,
+    "clubId": 2,
+    "card": [
+     80,
+     81,
+     64
+    ],
+    "chem": 2,
+    "eff": [
+     81,
+     82,
+     65
+    ],
+    "tiebreak": 228
+   },
+   {
+    "slot": "CM",
+    "id": "id190765",
+    "name": "Groß",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 1808,
+    "card": [
+     75,
+     80,
+     72
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     82,
+     74
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "RM",
+    "id": "id246287",
+    "name": "Ángela Sosa",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 116334,
+    "card": [
+     79,
+     82,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     84,
+     65
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "ST",
+    "id": "id262545",
+    "name": "Amaiur Sarriegi",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 240,
+    "card": [
+     81,
+     78,
+     52
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     80,
+     54
+    ],
+    "tiebreak": 217
+   }
+  ],
+  "results": {
+   "reference 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "mirror": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "counter 1": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "counter 2": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "counter 3": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "counter 4": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "WIN"
+   },
+   "counter 5": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "counter 6": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 1": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "DRAW"
+   },
+   "fresh test 2": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "DRAW"
+   },
+   "final check 1": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
+   "final check 2": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "DRAW"
+   },
+   "final check 3": {
+    "you_lead_first": "LOSS",
+    "they_lead_first": "LOSS"
+   }
+  },
+  "source": "builder",
+  "mode": "robust",
+  "opponent_teams": {
+   "reference 1": {
+    "formation": "4-1-2-1-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id203841",
+      "name": "Pope",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       33,
+       32,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       35,
+       34,
+       81
+      ],
+      "tiebreak": 150
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id198032",
+      "name": "Burn",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       53,
+       64,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       55,
+       66,
+       81
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id264846",
+      "name": "Cristhian Mosquera",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 45,
+      "leagueId": 13,
+      "clubId": 1,
+      "card": [
+       62,
+       65,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       66,
+       67,
+       80
+      ],
+      "tiebreak": 211
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       80
+      ],
+      "tiebreak": 249
+     },
+     {
+      "slot": "CDM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       84
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "LM",
+      "id": "id270728",
+      "name": "Carlos Romero",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       78,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       79,
+       81
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "RM",
+      "id": "id76042",
+      "name": "Víctor Muñoz",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 13,
+      "clubId": 9,
+      "card": [
+       79,
+       73,
+       51
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       75,
+       53
+      ],
+      "tiebreak": 209
+     },
+     {
+      "slot": "CAM",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     },
+     {
+      "slot": "ST",
+      "id": "id224179",
+      "name": "Borja Iglesias",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 450,
+      "card": [
+       80,
+       71,
+       46
+      ],
+      "chem": 3,
+      "eff": [
+       84,
+       73,
+       48
+      ],
+      "tiebreak": 203
+     }
+    ]
+   },
+   "mirror": {
+    "formation": "4-1-4-1",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       44,
+       42,
+       84
+      ],
+      "tiebreak": 165
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id198032",
+      "name": "Burn",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       53,
+       64,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       55,
+       66,
+       81
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id210719",
+      "name": "Kempf",
+      "rating": 76,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       59,
+       62,
+       76
+      ],
+      "chem": 2,
+      "eff": [
+       61,
+       64,
+       78
+      ],
+      "tiebreak": 200
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       84
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "LM",
+      "id": "id259694",
+      "name": "Mingueza",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 13,
+      "clubId": 1799,
+      "card": [
+       74,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       81
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 2,
+      "eff": [
+       81,
+       82,
+       65
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CM",
+      "id": "id190765",
+      "name": "Groß",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 13,
+      "clubId": 1808,
+      "card": [
+       75,
+       80,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       82,
+       74
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "RM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 1": {
+    "formation": "4-1-2-1-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id203841",
+      "name": "Pope",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       33,
+       32,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       35,
+       34,
+       81
+      ],
+      "tiebreak": 150
+     },
+     {
+      "slot": "LB",
+      "id": "id258371",
+      "name": "Pep Chavarría",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       76,
+       73,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       75,
+       80
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CB",
+      "id": "id198032",
+      "name": "Burn",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       53,
+       64,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       55,
+       66,
+       81
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id192638",
+      "name": "Marcos Alonso",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 450,
+      "card": [
+       73,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       79,
+       81
+      ],
+      "tiebreak": 235
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       80
+      ],
+      "tiebreak": 249
+     },
+     {
+      "slot": "CDM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "LM",
+      "id": "id261865",
+      "name": "Miguel Gutiérrez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       77,
+       78,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       81,
+       80,
+       81
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "RM",
+      "id": "id225201",
+      "name": "Berenguer",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "RW",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 448,
+      "card": [
+       79,
+       77,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       79,
+       68
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "CAM",
+      "id": "id272008",
+      "name": "Leire Baños",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       71,
+       72,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       75,
+       74,
+       77
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 2": {
+    "formation": "4-1-4-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       44,
+       42,
+       84
+      ],
+      "tiebreak": 165
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id198032",
+      "name": "Burn",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       53,
+       64,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       55,
+       66,
+       81
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id210719",
+      "name": "Kempf",
+      "rating": 76,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       59,
+       62,
+       76
+      ],
+      "chem": 2,
+      "eff": [
+       61,
+       64,
+       78
+      ],
+      "tiebreak": 200
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id263370",
+      "name": "Barco",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       72,
+       80,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       82,
+       73
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "LM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       66
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CM",
+      "id": "id190765",
+      "name": "Groß",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 21,
+      "leagueId": 13,
+      "clubId": 1808,
+      "card": [
+       75,
+       80,
+       72
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       82,
+       74
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       84
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "RM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 3": {
+    "formation": "4-1-2-1-2",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id203841",
+      "name": "Pope",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       33,
+       32,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       35,
+       34,
+       81
+      ],
+      "tiebreak": 150
+     },
+     {
+      "slot": "LB",
+      "id": "id258371",
+      "name": "Pep Chavarría",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       76,
+       73,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       75,
+       80
+      ],
+      "tiebreak": 233
+     },
+     {
+      "slot": "CB",
+      "id": "id198032",
+      "name": "Burn",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       53,
+       64,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       55,
+       66,
+       81
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id192638",
+      "name": "Marcos Alonso",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 450,
+      "card": [
+       73,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       79,
+       81
+      ],
+      "tiebreak": 235
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       85,
+       80
+      ],
+      "tiebreak": 249
+     },
+     {
+      "slot": "CDM",
+      "id": "id205157",
+      "name": "Ruiz de Galarreta",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 448,
+      "card": [
+       74,
+       79,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       81,
+       77
+      ],
+      "tiebreak": 234
+     },
+     {
+      "slot": "LM",
+      "id": "id261865",
+      "name": "Miguel Gutiérrez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       77,
+       78,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       81,
+       80,
+       81
+      ],
+      "tiebreak": 240
+     },
+     {
+      "slot": "RM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CAM",
+      "id": "id225201",
+      "name": "Berenguer",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "RW",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 448,
+      "card": [
+       79,
+       77,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       79,
+       68
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 4": {
+    "formation": "4-1-2-1-2 (2)",
+    "chem": 29,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       44,
+       42,
+       84
+      ],
+      "tiebreak": 165
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id236401",
+      "name": "Mazraoui",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 129,
+      "leagueId": 13,
+      "clubId": 11,
+      "card": [
+       72,
+       76,
+       79
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       77,
+       80
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id210719",
+      "name": "Kempf",
+      "rating": 76,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       59,
+       62,
+       76
+      ],
+      "chem": 1,
+      "eff": [
+       60,
+       63,
+       77
+      ],
+      "tiebreak": 197
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id263370",
+      "name": "Barco",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       72,
+       80,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       82,
+       73
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       84
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CAM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       66
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "ST",
+      "id": "id50607696",
+      "name": "Fernandez-Pardo",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 7,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       80,
+       73,
+       48
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       75,
+       50
+      ],
+      "tiebreak": 207
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 5": {
+    "formation": "4-1-4-1",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       44,
+       42,
+       84
+      ],
+      "tiebreak": 165
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id198032",
+      "name": "Burn",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       53,
+       64,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       55,
+       66,
+       81
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id210719",
+      "name": "Kempf",
+      "rating": 76,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       59,
+       62,
+       76
+      ],
+      "chem": 1,
+      "eff": [
+       60,
+       63,
+       77
+      ],
+      "tiebreak": 197
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       84
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "LM",
+      "id": "id248465",
+      "name": "Maatsen",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 34,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       76,
+       76,
+       77
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       78,
+       79
+      ],
+      "tiebreak": 235
+     },
+     {
+      "slot": "CM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       66
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CM",
+      "id": "id263370",
+      "name": "Barco",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       72,
+       80,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       82,
+       73
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "RM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "counter 6": {
+    "formation": "4-1-4-1",
+    "chem": 28,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       44,
+       42,
+       84
+      ],
+      "tiebreak": 165
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id236401",
+      "name": "Mazraoui",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 129,
+      "leagueId": 13,
+      "clubId": 11,
+      "card": [
+       72,
+       76,
+       79
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       77,
+       80
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id210719",
+      "name": "Kempf",
+      "rating": 76,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       59,
+       62,
+       76
+      ],
+      "chem": 1,
+      "eff": [
+       60,
+       63,
+       77
+      ],
+      "tiebreak": 197
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 2,
+      "eff": [
+       76,
+       77,
+       83
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "LM",
+      "id": "id259694",
+      "name": "Mingueza",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 13,
+      "clubId": 1799,
+      "card": [
+       74,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       79,
+       81
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "CM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       66
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CM",
+      "id": "id263370",
+      "name": "Barco",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       72,
+       80,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       82,
+       73
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "RM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "fresh test 1": {
+    "formation": "4-1-4-1",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 2,
+      "eff": [
+       43,
+       41,
+       83
+      ],
+      "tiebreak": 162
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id198032",
+      "name": "Burn",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       53,
+       64,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       55,
+       66,
+       81
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id262859",
+      "name": "Colwill",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       62,
+       71,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       64,
+       73,
+       82
+      ],
+      "tiebreak": 219
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id263370",
+      "name": "Barco",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       72,
+       80,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       82,
+       73
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "LM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       66
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       84
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "RM",
+      "id": "id225201",
+      "name": "Berenguer",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "RW",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 448,
+      "card": [
+       79,
+       77,
+       66
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       79,
+       68
+      ],
+      "tiebreak": 228
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "fresh test 2": {
+    "formation": "4-1-4-1",
+    "chem": 28,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 2,
+      "eff": [
+       43,
+       41,
+       83
+      ],
+      "tiebreak": 162
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id236401",
+      "name": "Mazraoui",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 129,
+      "leagueId": 13,
+      "clubId": 11,
+      "card": [
+       72,
+       76,
+       79
+      ],
+      "chem": 2,
+      "eff": [
+       73,
+       77,
+       80
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CB",
+      "id": "id202695",
+      "name": "Tarkowski",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 7,
+      "card": [
+       54,
+       61,
+       81
+      ],
+      "chem": 2,
+      "eff": [
+       55,
+       62,
+       82
+      ],
+      "tiebreak": 199
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id263370",
+      "name": "Barco",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       72,
+       80,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       82,
+       73
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "LM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       66
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 2,
+      "eff": [
+       76,
+       77,
+       83
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "RM",
+      "id": "id259377",
+      "name": "Yeremy Pino",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "LW",
+      "nationId": 45,
+      "leagueId": 13,
+      "clubId": 1799,
+      "card": [
+       77,
+       80,
+       40
+      ],
+      "chem": 3,
+      "eff": [
+       81,
+       82,
+       42
+      ],
+      "tiebreak": 203
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "final check 1": {
+    "formation": "4-1-4-1",
+    "chem": 27,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id255303",
+      "name": "Caprile",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 1842,
+      "card": [
+       37,
+       36,
+       81
+      ],
+      "chem": 2,
+      "eff": [
+       39,
+       38,
+       83
+      ],
+      "tiebreak": 157
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 1,
+      "eff": [
+       83,
+       80,
+       62
+      ],
+      "tiebreak": 223
+     },
+     {
+      "slot": "CB",
+      "id": "id258648",
+      "name": "Carlos Augusto",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       82
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CB",
+      "id": "id226851",
+      "name": "Pavard",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 131682,
+      "card": [
+       70,
+       72,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       73,
+       75,
+       82
+      ],
+      "tiebreak": 227
+     },
+     {
+      "slot": "RB",
+      "id": "id276493",
+      "name": "Mouriño",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 60,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       63,
+       67,
+       79
+      ],
+      "chem": 2,
+      "eff": [
+       64,
+       68,
+       80
+      ],
+      "tiebreak": 212
+     },
+     {
+      "slot": "CDM",
+      "id": "id50540109",
+      "name": "de Roon",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 34,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       73,
+       76,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       79,
+       83
+      ],
+      "tiebreak": 235
+     },
+     {
+      "slot": "LM",
+      "id": "id80170",
+      "name": "Wesley",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 52,
+      "card": [
+       76,
+       77,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       79,
+       80,
+       82
+      ],
+      "tiebreak": 238
+     },
+     {
+      "slot": "CM",
+      "id": "id243780",
+      "name": "Lee Kang In",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "RW",
+      "nationId": 167,
+      "leagueId": 53,
+      "clubId": 240,
+      "card": [
+       79,
+       81,
+       53
+      ],
+      "chem": 1,
+      "eff": [
+       79,
+       81,
+       53
+      ],
+      "tiebreak": 213
+     },
+     {
+      "slot": "CM",
+      "id": "id254579",
+      "name": "Da Cunha",
+      "rating": 78,
+      "color": "rare_gold",
+      "position": "CDM",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       77,
+       77,
+       74
+      ],
+      "chem": 3,
+      "eff": [
+       80,
+       80,
+       77
+      ],
+      "tiebreak": 234
+     },
+     {
+      "slot": "RM",
+      "id": "id259075",
+      "name": "Yan Couto",
+      "rating": 77,
+      "color": "rare_gold",
+      "position": "RB",
+      "nationId": 54,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       75,
+       80,
+       75
+      ],
+      "chem": 3,
+      "eff": [
+       78,
+       83,
+       78
+      ],
+      "tiebreak": 236
+     },
+     {
+      "slot": "ST",
+      "id": "id215590",
+      "name": "Ayoze",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 53,
+      "clubId": 483,
+      "card": [
+       81,
+       78,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       60
+      ],
+      "tiebreak": 223
+     }
+    ]
+   },
+   "final check 2": {
+    "formation": "4-1-4-1",
+    "chem": 30,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       44,
+       42,
+       84
+      ],
+      "tiebreak": 165
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id198032",
+      "name": "Burn",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       53,
+       64,
+       79
+      ],
+      "chem": 3,
+      "eff": [
+       55,
+       66,
+       81
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "CB",
+      "id": "id210719",
+      "name": "Kempf",
+      "rating": 76,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 21,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       59,
+       62,
+       76
+      ],
+      "chem": 1,
+      "eff": [
+       60,
+       63,
+       77
+      ],
+      "tiebreak": 197
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id263370",
+      "name": "Barco",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       72,
+       80,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       82,
+       73
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "LM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       66
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       84
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "RM",
+      "id": "id76687",
+      "name": "Estêvão",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "RM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       81,
+       78,
+       37
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       80,
+       39
+      ],
+      "tiebreak": 202
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   },
+   "final check 3": {
+    "formation": "4-1-2-1-2 (2)",
+    "chem": 31,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id50560437",
+      "name": "Robert Sánchez",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 45,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       39,
+       39,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       44,
+       42,
+       84
+      ],
+      "tiebreak": 165
+     },
+     {
+      "slot": "LB",
+      "id": "id50603785",
+      "name": "Sara Ortega",
+      "rating": 80,
+      "color": "totw_gold",
+      "position": "LM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 448,
+      "card": [
+       81,
+       80,
+       62
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       82,
+       64
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CB",
+      "id": "id262859",
+      "name": "Colwill",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       62,
+       71,
+       80
+      ],
+      "chem": 3,
+      "eff": [
+       64,
+       73,
+       82
+      ],
+      "tiebreak": 219
+     },
+     {
+      "slot": "CB",
+      "id": "id230918",
+      "name": "Chalobah",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CB",
+      "nationId": 14,
+      "leagueId": 31,
+      "clubId": 1745,
+      "card": [
+       63,
+       68,
+       80
+      ],
+      "chem": 2,
+      "eff": [
+       65,
+       70,
+       82
+      ],
+      "tiebreak": 214
+     },
+     {
+      "slot": "RB",
+      "id": "evo_Lucas Vázquez_80",
+      "name": "Lucas Vázquez",
+      "rating": 80,
+      "color": "evo",
+      "position": "RB",
+      "nationId": 45,
+      "leagueId": 19,
+      "clubId": 32,
+      "card": [
+       82,
+       83,
+       78
+      ],
+      "chem": 2,
+      "eff": [
+       85,
+       84,
+       79
+      ],
+      "tiebreak": 246
+     },
+     {
+      "slot": "CDM",
+      "id": "id263370",
+      "name": "Barco",
+      "rating": 79,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 5,
+      "card": [
+       72,
+       80,
+       71
+      ],
+      "chem": 3,
+      "eff": [
+       74,
+       82,
+       73
+      ],
+      "tiebreak": 229
+     },
+     {
+      "slot": "CM",
+      "id": "id223334",
+      "name": "Joelinton",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       75,
+       76,
+       82
+      ],
+      "chem": 3,
+      "eff": [
+       77,
+       78,
+       84
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CM",
+      "id": "id246287",
+      "name": "Ángela Sosa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 116334,
+      "card": [
+       79,
+       82,
+       63
+      ],
+      "chem": 3,
+      "eff": [
+       83,
+       84,
+       65
+      ],
+      "tiebreak": 230
+     },
+     {
+      "slot": "CAM",
+      "id": "id226162",
+      "name": "Buendía",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "LM",
+      "nationId": 52,
+      "leagueId": 13,
+      "clubId": 2,
+      "card": [
+       80,
+       81,
+       64
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       83,
+       66
+      ],
+      "tiebreak": 231
+     },
+     {
+      "slot": "ST",
+      "id": "id234824",
+      "name": "Wissa",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 110,
+      "leagueId": 13,
+      "clubId": 13,
+      "card": [
+       80,
+       72,
+       37
+      ],
+      "chem": 3,
+      "eff": [
+       82,
+       74,
+       39
+      ],
+      "tiebreak": 195
+     },
+     {
+      "slot": "ST",
+      "id": "id262545",
+      "name": "Amaiur Sarriegi",
+      "rating": 80,
+      "color": "rare_gold",
+      "position": "ST",
+      "nationId": 45,
+      "leagueId": 2222,
+      "clubId": 240,
+      "card": [
+       81,
+       78,
+       52
+      ],
+      "chem": 3,
+      "eff": [
+       85,
+       80,
+       54
+      ],
+      "tiebreak": 217
+     }
+    ]
+   }
+  },
+  "plan": {
+   "guaranteed": "LOSS",
+   "safe": [
+    {
+     "slot": "GK",
+     "name": "Robert Sánchez",
+     "stat": "attack"
+    },
+    {
+     "slot": "GK",
+     "name": "Robert Sánchez",
+     "stat": "control"
+    },
+    {
+     "slot": "GK",
+     "name": "Robert Sánchez",
+     "stat": "defence"
+    },
+    {
+     "slot": "LB",
+     "name": "Sara Ortega",
+     "stat": "attack"
+    },
+    {
+     "slot": "LB",
+     "name": "Sara Ortega",
+     "stat": "control"
+    },
+    {
+     "slot": "LB",
+     "name": "Sara Ortega",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Burn",
+     "stat": "attack"
+    },
+    {
+     "slot": "CB",
+     "name": "Burn",
+     "stat": "control"
+    },
+    {
+     "slot": "CB",
+     "name": "Burn",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Kempf",
+     "stat": "attack"
+    },
+    {
+     "slot": "CB",
+     "name": "Kempf",
+     "stat": "control"
+    },
+    {
+     "slot": "CB",
+     "name": "Kempf",
+     "stat": "defence"
+    },
+    {
+     "slot": "RB",
+     "name": "Lucas Vázquez",
+     "stat": "attack"
+    },
+    {
+     "slot": "RB",
+     "name": "Lucas Vázquez",
+     "stat": "control"
+    },
+    {
+     "slot": "RB",
+     "name": "Lucas Vázquez",
+     "stat": "defence"
+    },
+    {
+     "slot": "CDM",
+     "name": "Joelinton",
+     "stat": "attack"
+    },
+    {
+     "slot": "CDM",
+     "name": "Joelinton",
+     "stat": "control"
+    },
+    {
+     "slot": "CDM",
+     "name": "Joelinton",
+     "stat": "defence"
+    },
+    {
+     "slot": "LM",
+     "name": "Mingueza",
+     "stat": "attack"
+    },
+    {
+     "slot": "LM",
+     "name": "Mingueza",
+     "stat": "control"
+    },
+    {
+     "slot": "LM",
+     "name": "Mingueza",
+     "stat": "defence"
+    },
+    {
+     "slot": "CM",
+     "name": "Buendía",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "Buendía",
+     "stat": "control"
+    },
+    {
+     "slot": "CM",
+     "name": "Buendía",
+     "stat": "defence"
+    },
+    {
+     "slot": "CM",
+     "name": "Groß",
+     "stat": "attack"
+    },
+    {
+     "slot": "CM",
+     "name": "Groß",
+     "stat": "control"
+    },
+    {
+     "slot": "CM",
+     "name": "Groß",
+     "stat": "defence"
+    },
+    {
+     "slot": "RM",
+     "name": "Ángela Sosa",
+     "stat": "attack"
+    },
+    {
+     "slot": "RM",
+     "name": "Ángela Sosa",
+     "stat": "control"
+    },
+    {
+     "slot": "RM",
+     "name": "Ángela Sosa",
+     "stat": "defence"
+    },
+    {
+     "slot": "ST",
+     "name": "Amaiur Sarriegi",
+     "stat": "attack"
+    },
+    {
+     "slot": "ST",
+     "name": "Amaiur Sarriegi",
+     "stat": "control"
+    },
+    {
+     "slot": "ST",
+     "name": "Amaiur Sarriegi",
+     "stat": "defence"
+    }
+   ],
+   "total_openers": 33,
+   "reddit": {
+    "guaranteed": "DRAW",
+    "safe": [
+     {
+      "slot": "LB",
+      "name": "Sara Ortega",
+      "stat": "attack"
+     },
+     {
+      "slot": "LB",
+      "name": "Sara Ortega",
+      "stat": "control"
+     },
+     {
+      "slot": "RB",
+      "name": "Lucas Vázquez",
+      "stat": "attack"
+     },
+     {
+      "slot": "RB",
+      "name": "Lucas Vázquez",
+      "stat": "control"
+     },
+     {
+      "slot": "CM",
+      "name": "Groß",
+      "stat": "control"
+     },
+     {
+      "slot": "RM",
+      "name": "Ángela Sosa",
+      "stat": "control"
+     },
+     {
+      "slot": "ST",
+      "name": "Amaiur Sarriegi",
+      "stat": "attack"
+     }
+    ]
+   },
+   "watch": [
+    {
+     "name": "Robert Sánchez",
+     "text": "Only use for defence (84); attack 44, control 42"
+    },
+    {
+     "name": "Amaiur Sarriegi",
+     "text": "Never use for defence (54)"
+    }
+   ],
+   "low_tb": {
+    "name": "Robert Sánchez",
+    "tb": 165
+   },
+   "high_tb": {
+    "name": "Lucas Vázquez",
+    "tb": 246
+   }
+  }
+ },
+ "not_owned": [],
+ "built": "2026-10-12 15:54 UTC"
+}

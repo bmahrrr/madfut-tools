@@ -1,0 +1,188 @@
+name: Build teams
+
+on:
+  push:
+    branches: [main]       # work-in-progress branches never start a build
+    paths:
+      - "config/week.json"
+      - "config/extras.json"
+  schedule:
+    - cron: "0 18 * * *"     # every night at 01:00 Bangkok: keep improving the My Club and Sim teams
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "What to build: all, sim, myclub, or series like myclub:79,sim:84 (myclub:79--noltmevo = only its No LTMs or Evos version)"
+        default: "all"
+      minutes:
+        description: "My Club search minutes per series (empty = the series setting)"
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:                 # never cancel a running build (a later save or the nightly run waits its turn)
+  group: build-teams
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      sim: ${{ steps.list.outputs.sim }}
+      myclub: ${{ steps.list.outputs.myclub }}
+      variants: ${{ steps.list.outputs.variants }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - id: list
+        run: |
+          ONLY="${{ github.event.inputs.only || (github.event_name == 'schedule' && 'all') || 'all' }}"
+          # a save in Season Setup: a new season builds everything; later edits (e.g. a Reddit team added) only rebuild
+          # the series that changed. A change to the cards (extras.json) rebuilds everything.
+          if [ "${{ github.event_name }}" = "push" ] && ! git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep -q "config/extras.json"; then
+            ONLY=$(python3 scripts/changed_series.py "${{ github.event.before }}")
+          fi
+          echo "building: ${ONLY:-nothing}"
+          python3 scripts/build.py list "$ONLY" > keys.json
+          echo "sim=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['sim']))")" >> $GITHUB_OUTPUT
+          echo "myclub=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['myclub']))")" >> $GITHUB_OUTPUT
+          echo "variants=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['variants']))")" >> $GITHUB_OUTPUT
+
+  sim:
+    needs: plan
+    if: ${{ needs.plan.outputs.sim != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.sim) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main     # always the latest code and season setup, even for a build that waited in the queue
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/build.py sim "${{ matrix.key }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sim_${{ matrix.key }}
+          path: docs/results/sim_${{ matrix.key }}.json
+      - name: Publish this team now
+        run: bash scripts/publish_one.sh "docs/results/sim_${{ matrix.key }}.json" || echo "early publish failed; the final step publishes it"
+
+  myclub:
+    needs: plan
+    if: ${{ needs.plan.outputs.myclub != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.myclub) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main     # always the latest code and season setup, even for a build that waited in the queue
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      # every build is a deep search (public repo: Actions minutes are free): 165 minutes per series for a new season or a
+      # Reddit team, 150 for the nightly run, or the minutes typed in when started by hand
+      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'schedule' && '150' || inputs.minutes || '165' }}
+      - name: Game plan
+        run: node scripts/plan.js "docs/results/myclub_${{ matrix.key }}.json" || echo "game plan failed; the team is still saved"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: myclub_${{ matrix.key }}
+          path: docs/results/myclub_${{ matrix.key }}.json
+      - name: Publish this team now
+        run: bash scripts/publish_one.sh "docs/results/myclub_${{ matrix.key }}.json" || echo "early publish failed; the final step publishes it"
+
+  # the same deep search without LTMs / Evos (config/variants.json), started only after every all-cards team is published
+  variants:
+    needs: [plan, myclub, publish]
+    if: ${{ !cancelled() && needs.plan.outputs.variants != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.variants) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main     # includes the all-cards teams just published
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      # every build is a deep search (public repo: Actions minutes are free): 165 minutes per series for a new season or a
+      # Reddit team, 150 for the nightly run, or the minutes typed in when started by hand
+      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'schedule' && '150' || inputs.minutes || '165' }}
+      - name: Game plan
+        run: node scripts/plan.js "docs/results/myclub_${{ matrix.key }}.json" || echo "game plan failed; the team is still saved"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: myclub_${{ matrix.key }}
+          path: docs/results/myclub_${{ matrix.key }}.json
+      - name: Publish this team now
+        run: bash scripts/publish_one.sh "docs/results/myclub_${{ matrix.key }}.json" || echo "early publish failed; the final step publishes it"
+
+  # all-cards teams first: a new season is moved to the Vault and every all-cards team is published before the variants start
+  publish:
+    needs: [sim, myclub]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0     # full history: a new season saves last season's card list from it
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Collect results
+        run: |
+          mkdir -p docs/results artifacts
+          python3 scripts/build.py archive
+          find artifacts -name '*.json' -exec cp {} docs/results/ \;
+          python3 scripts/build.py index
+          python3 scripts/usage.py || echo "usage stats not updated"
+      - name: Save results
+        run: |
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A docs/results docs/vault data/seasons docs/usage.json
+          git diff --cached --quiet || (git commit -m "Update team results" && git pull --rebase && git push)
+
+  publish_variants:
+    needs: [publish, variants]
+    if: ${{ always() && needs.variants.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0     # full history: a new season saves last season's card list from it
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: "myclub_*--*"
+          path: artifacts
+      - name: Collect results
+        run: |
+          mkdir -p docs/results artifacts
+          python3 scripts/build.py archive
+          find artifacts -name '*.json' -exec cp {} docs/results/ \;
+          python3 scripts/build.py index
+          python3 scripts/usage.py || echo "usage stats not updated"
+      - name: Save results
+        run: |
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A docs/results docs/vault data/seasons docs/usage.json
+          git diff --cached --quiet || (git commit -m "Update team results (no LTMs / Evos versions)" && git pull --rebase && git push)

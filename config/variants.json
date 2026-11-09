@@ -1,0 +1,19 @@
+{
+ "_about": "Extra public versions of each series' Best Team for players without some cards (every level of an LTM / regular Evo; Elite Evos stay in). Built ONCE per season, after the all-cards teams; never rebuilt nightly. '*' = every series. If the all-cards team already has none of those cards, it is reused.",
+ "myclub": {
+  "*": [
+   {
+    "id": "noltmevo",
+    "label": "No LTMs or Evos",
+    "exclude": [
+     {
+      "color": "ltm"
+     },
+     {
+      "color": "evo"
+     }
+    ]
+   }
+  ]
+ }
+}

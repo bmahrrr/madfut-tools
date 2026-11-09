@@ -1,0 +1,858 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "74",
+  "cap": 74,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 16,
+    "att": 0,
+    "ctl": 3,
+    "def": 1
+   },
+   {
+    "on": "league",
+    "id": 17,
+    "att": 4,
+    "ctl": 4,
+    "def": 4
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id204092",
+     "name": "Blaswich",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      32,
+      30,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      32,
+      77
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50597038",
+     "name": "Regeer",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      67,
+      71,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      73,
+      73
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id275878",
+     "name": "Biumla",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 1530,
+     "card": [
+      54,
+      55,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      60,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id262344",
+     "name": "Le Cardinal",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 1819,
+     "card": [
+      55,
+      63,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      69,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id204497",
+     "name": "Stöger",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      73,
+      77,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      79,
+      63
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id229158",
+     "name": "van den Boomen",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 16,
+     "clubId": 1530,
+     "card": [
+      68,
+      74,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      79,
+      66
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id239744",
+     "name": "Cuisance",
+     "rating": 72,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      72,
+      75,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      80,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      74
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id205686",
+     "name": "Savanier",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 68,
+     "card": [
+      73,
+      75,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      81,
+      68
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id256548",
+     "name": "Grüll",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      74,
+      69,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      71,
+      42
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id72136",
+     "name": "Durand",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 111273,
+     "card": [
+      72,
+      71,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      77,
+      46
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.6,
+    "attack": 77.2,
+    "defence": 75.25,
+    "control_cards": [
+     81,
+     80,
+     79,
+     79,
+     79
+    ],
+    "attack_cards": [
+     79,
+     78,
+     78,
+     76,
+     75
+    ],
+    "defence_cards": [
+     79,
+     77,
+     73,
+     72
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 220.0
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id204092",
+     "name": "Blaswich",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      32,
+      30,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      32,
+      77
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id275878",
+     "name": "Biumla",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 1530,
+     "card": [
+      54,
+      55,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      60,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id228290",
+     "name": "Laporte",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 70,
+     "card": [
+      43,
+      47,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      49,
+      53,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50597038",
+     "name": "Regeer",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      67,
+      71,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      73,
+      73
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id205686",
+     "name": "Savanier",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 68,
+     "card": [
+      73,
+      75,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      81,
+      68
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id204497",
+     "name": "Stöger",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      73,
+      77,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      79,
+      63
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id239744",
+     "name": "Cuisance",
+     "rating": 72,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      72,
+      75,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      80,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id229158",
+     "name": "van den Boomen",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 16,
+     "clubId": 1530,
+     "card": [
+      68,
+      74,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      79,
+      66
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      74
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id72136",
+     "name": "Durand",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 111273,
+     "card": [
+      72,
+      71,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      77,
+      46
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id256548",
+     "name": "Grüll",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      74,
+      69,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      71,
+      42
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.6,
+    "attack": 76.75,
+    "defence": 73.8,
+    "control_cards": [
+     81,
+     80,
+     79,
+     79,
+     79
+    ],
+    "attack_cards": [
+     78,
+     78,
+     76,
+     75
+    ],
+    "defence_cards": [
+     79,
+     77,
+     73,
+     72,
+     68
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 220.0
+   }
+  },
+  {
+   "formation": "5-2-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id204092",
+     "name": "Blaswich",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      32,
+      30,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      34,
+      32,
+      77
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id265544",
+     "name": "Le Bris",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 217,
+     "card": [
+      70,
+      72,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      77,
+      67
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id77636",
+     "name": "Coulibaly",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      52,
+      57,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      53,
+      61,
+      76
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id262344",
+     "name": "Le Cardinal",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 1819,
+     "card": [
+      55,
+      63,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      69,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243133",
+     "name": "Scally",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 95,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      66,
+      63,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      65,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      79,
+      74
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id239744",
+     "name": "Cuisance",
+     "rating": 72,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      72,
+      75,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      80,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id204497",
+     "name": "Stöger",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      73,
+      77,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      79,
+      63
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id205686",
+     "name": "Savanier",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 68,
+     "card": [
+      73,
+      75,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      81,
+      68
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id72136",
+     "name": "Durand",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 17,
+     "clubId": 111273,
+     "card": [
+      72,
+      71,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      77,
+      46
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id266183",
+     "name": "Njinmah",
+     "rating": 72,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      75,
+      66,
+      34
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      68,
+      36
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 79.2,
+    "attack": 76.8,
+    "defence": 74.67,
+    "control_cards": [
+     81,
+     80,
+     79,
+     79,
+     77
+    ],
+    "attack_cards": [
+     79,
+     78,
+     78,
+     77,
+     72
+    ],
+    "defence_cards": [
+     79,
+     77,
+     76,
+     75,
+     74,
+     67
+    ],
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "ctrl_total": 220.2
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-10-16 03:11 UTC",
+ "week": "2026-10-12"
+}

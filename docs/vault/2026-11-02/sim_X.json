@@ -1,0 +1,887 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "X",
+  "cap": 99,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 21,
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   },
+   {
+    "on": "nation",
+    "id": 54,
+    "att": 3,
+    "ctl": 3,
+    "def": 3
+   }
+  ],
+  "opponents": [
+   [
+    "id226293",
+    "id014",
+    "new_Can_92",
+    "id238384",
+    "new_Ngumoha_96",
+    "new_Xavi Espart_96",
+    "new_Karetsas_96",
+    "id247553",
+    "id237067",
+    "id190042",
+    "id37576"
+   ]
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id226293",
+     "name": "Angerer",
+     "rating": 92,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      41,
+      33,
+      93
+     ],
+     "chem": 3,
+     "eff": [
+      45,
+      37,
+      97
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id167135",
+     "name": "Carlos Alberto",
+     "rating": 91,
+     "color": "icon",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      79,
+      82,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id168473",
+     "name": "Beckenbauer",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      81,
+      86,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo96",
+     "name": "Comuzzo",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      74,
+      86,
+      97
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      88,
+      99
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Ngumoha_96",
+     "name": "Ngumoha",
+     "rating": 96,
+     "color": "ltm",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      95,
+      94,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      96,
+      65
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      96,
+      97
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "new_Karetsas_96",
+     "name": "Karetsas",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      91,
+      96,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      98,
+      81
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id247553",
+     "name": "Garrincha",
+     "rating": 93,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      92,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      97,
+      49
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      96,
+      65
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id190048",
+     "name": "Müller",
+     "rating": 92,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      92,
+      78,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      82,
+      52
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      84,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      89,
+      52
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 96.6,
+    "attack": 96.75,
+    "defence": 96.5,
+    "net": 0.0374,
+    "vs_reddit": 0.0524,
+    "control_cards": [
+     98,
+     97,
+     96,
+     96,
+     96
+    ],
+    "attack_cards": [
+     98,
+     98,
+     97,
+     96,
+     95,
+     93
+    ],
+    "defence_cards": [
+     99,
+     97,
+     95,
+     95
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 262.4,
+    "att_total": 242.11,
+    "def_total": 244.5,
+    "swaps_checked": 50065
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id226293",
+     "name": "Angerer",
+     "rating": 92,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      41,
+      33,
+      93
+     ],
+     "chem": 3,
+     "eff": [
+      45,
+      37,
+      97
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id167135",
+     "name": "Carlos Alberto",
+     "rating": 91,
+     "color": "icon",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      79,
+      82,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id168473",
+     "name": "Beckenbauer",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      81,
+      86,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo96",
+     "name": "Comuzzo",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      74,
+      86,
+      97
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      88,
+      99
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Ngumoha_96",
+     "name": "Ngumoha",
+     "rating": 96,
+     "color": "ltm",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      95,
+      94,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      96,
+      65
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "new_Karetsas_96",
+     "name": "Karetsas",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      91,
+      96,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      98,
+      81
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      96,
+      97
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id247553",
+     "name": "Garrincha",
+     "rating": 93,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      92,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      97,
+      49
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      96,
+      65
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id190048",
+     "name": "Müller",
+     "rating": 92,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      92,
+      78,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      82,
+      52
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      84,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      89,
+      52
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 96.6,
+    "attack": 96.75,
+    "defence": 96.5,
+    "net": 0.0374,
+    "vs_reddit": 0.0524,
+    "control_cards": [
+     98,
+     97,
+     96,
+     96,
+     96
+    ],
+    "attack_cards": [
+     98,
+     98,
+     97,
+     96,
+     95,
+     93
+    ],
+    "defence_cards": [
+     99,
+     97,
+     95,
+     95
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 262.4,
+    "att_total": 242.11,
+    "def_total": 244.5
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id226293",
+     "name": "Angerer",
+     "rating": 92,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      41,
+      33,
+      93
+     ],
+     "chem": 3,
+     "eff": [
+      45,
+      37,
+      97
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id167135",
+     "name": "Carlos Alberto",
+     "rating": 91,
+     "color": "icon",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      79,
+      82,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id168473",
+     "name": "Beckenbauer",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      81,
+      86,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id014",
+     "name": "David Luiz",
+     "rating": 93,
+     "color": "elite_evo",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 5,
+     "card": [
+      76,
+      85,
+      93
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      90,
+      98
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Ngumoha_96",
+     "name": "Ngumoha",
+     "rating": 96,
+     "color": "ltm",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      95,
+      94,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      96,
+      65
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "new_Karetsas_96",
+     "name": "Karetsas",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      91,
+      96,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      98,
+      81
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      96,
+      97
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id247553",
+     "name": "Garrincha",
+     "rating": 93,
+     "color": "icon",
+     "position": "RW",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      92,
+      44
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      97,
+      49
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      96,
+      65
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id190048",
+     "name": "Müller",
+     "rating": 92,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      92,
+      78,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      82,
+      52
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id37576",
+     "name": "Ronaldo",
+     "rating": 94,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      84,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      89,
+      52
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "control": 96.6,
+    "attack": 96.75,
+    "defence": 96.25,
+    "net": 0.0095,
+    "vs_reddit": 0.0347,
+    "control_cards": [
+     98,
+     97,
+     96,
+     96,
+     96
+    ],
+    "attack_cards": [
+     98,
+     98,
+     97,
+     96,
+     95,
+     93
+    ],
+    "defence_cards": [
+     98,
+     97,
+     95,
+     95
+    ],
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "ctrl_total": 262.4,
+    "att_total": 242.11,
+    "def_total": 246.0
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-11-07 06:26 UTC",
+ "week": "2026-11-02"
+}

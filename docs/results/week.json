@@ -1,0 +1,513 @@
+{
+ "_help": "Edit this file each week, then commit. The teams rebuild automatically (Sim in a few minutes, My Club in about 50 minutes). See README for the format. My Club teams are built for the best worst case (mode 'robust'), then a final check compares them with the Reddit and hand-built teams against stress tests built for each; set \"mode\": \"standard\" on a series for the older, faster build.",
+ "week": "2026-11-09",
+ "myclub": [
+  {
+   "key": "70",
+   "cap": 70,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 13,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    },
+    {
+     "on": "league",
+     "id": 50,
+     "att": 0,
+     "ctl": 1,
+     "def": 2
+    }
+   ],
+   "opponents": [
+    [
+     "id258983",
+     "id224511",
+     "id272896",
+     "id262889",
+     "id277701",
+     "id253908",
+     "id253111",
+     "id184144",
+     "id240156",
+     "id278020",
+     "id82264"
+    ]
+   ],
+   "minutes": 30
+  },
+  {
+   "key": "78",
+   "cap": 78,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 68,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    },
+    {
+     "on": "nation",
+     "id": 47,
+     "att": 2,
+     "ctl": 1,
+     "def": 0
+    }
+   ],
+   "opponents": [
+    [
+     "id242879",
+     "id251479",
+     "id75577",
+     "id221491",
+     "id232938",
+     "id270964",
+     "id242530",
+     "id192318",
+     "id71178",
+     "id246321",
+     "id50607696"
+    ]
+   ],
+   "minutes": 30
+  },
+  {
+   "key": "82",
+   "cap": 82,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 31,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [
+    [
+     "id50608373",
+     "id50593513",
+     "ltm_comuzzo82",
+     "id203574",
+     "id260574",
+     "id258648",
+     "id210406",
+     "id84161109",
+     "evo_Lucas Vázquez_80",
+     "id50570548",
+     "id67341275"
+    ]
+   ],
+   "minutes": 30,
+   "bonuses": [
+    {
+     "kind": "same_nation",
+     "max": 2,
+     "att": 0,
+     "ctl": 2,
+     "def": 0
+    }
+   ]
+  },
+  {
+   "key": "84",
+   "cap": 84,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 54,
+     "att": 1,
+     "ctl": 0,
+     "def": 2
+    },
+    {
+     "on": "league",
+     "id": 16,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [
+    [
+     "id67349089",
+     "id240130",
+     "id50606840",
+     "id50553308",
+     "id50542162",
+     "id84076845",
+     "id50604542",
+     "id243812",
+     "id50557810",
+     "elite_Leão_84",
+     "id50536618"
+    ]
+   ],
+   "minutes": 30
+  },
+  {
+   "key": "87",
+   "cap": 87,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 14,
+     "att": 1,
+     "ctl": 3,
+     "def": 0
+    },
+    {
+     "on": "league",
+     "id": 53,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [
+    [
+     "id191694",
+     "id228174",
+     "id012",
+     "id16619",
+     "evo_Oxlade-Chamberlain_87",
+     "id50402434",
+     "id50592947",
+     "id84386",
+     "id50569340",
+     "id50595413",
+     "id67351939"
+    ]
+   ],
+   "minutes": 30
+  },
+  {
+   "key": "91",
+   "cap": 91,
+   "boosts": [
+    {
+     "on": "club",
+     "id": 241,
+     "att": 0,
+     "ctl": 2,
+     "def": 2
+    }
+   ],
+   "opponents": [
+    [
+     "id488",
+     "ltm_comuzzo91",
+     "id166906",
+     "id013",
+     "id226330",
+     "id50583502",
+     "ltm_espart91",
+     "elite_Diomande_91",
+     "id170733",
+     "id50563091",
+     "id84163723"
+    ]
+   ],
+   "minutes": 30,
+   "bonuses": [
+    {
+     "kind": "nations",
+     "min": 7,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "X",
+   "cap": 99,
+   "boosts": [
+    {
+     "on": "color",
+     "id": "icon",
+     "att": 2,
+     "ctl": 0,
+     "def": 1
+    },
+    {
+     "on": "league",
+     "id": 13,
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    }
+   ],
+   "opponents": [
+    [
+     "id1179",
+     "ltm_comuzzo96",
+     "id238384",
+     "new_Can_92",
+     "id014",
+     "new_Xavi Espart_96",
+     "new_Ngumoha_96",
+     "new_Karetsas_96",
+     "new_Rogers_93",
+     "id237067",
+     "id190042"
+    ]
+   ],
+   "minutes": 30
+  }
+ ],
+ "sim": [
+  {
+   "key": "68",
+   "cap": 68,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 330,
+     "att": 0,
+     "ctl": 2,
+     "def": 1
+    },
+    {
+     "on": "league",
+     "id": 322,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [
+    [
+     "id188524",
+     "id78620",
+     "id74348",
+     "id265895",
+     "id271452",
+     "id255010",
+     "id275400",
+     "id275411",
+     "id223017",
+     "id275418",
+     "id263389"
+    ]
+   ]
+  },
+  {
+   "key": "73",
+   "cap": 73,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 39,
+     "att": 2,
+     "ctl": 1,
+     "def": 0
+    },
+    {
+     "on": "nation",
+     "id": 52,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [
+    [
+     "id264588",
+     "id242267",
+     "id267681",
+     "id215054",
+     "id192342",
+     "id183895",
+     "id226377",
+     "id215998",
+     "id215330",
+     "id50608176",
+     "id241026"
+    ]
+   ]
+  },
+  {
+   "key": "80",
+   "cap": 80,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 2222,
+     "att": 2,
+     "ctl": 0,
+     "def": 1
+    },
+    {
+     "on": "nation",
+     "id": 21,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [
+    [
+     "id263887",
+     "id244749",
+     "id77636",
+     "id212242",
+     "id50401665",
+     "id225309",
+     "id190765",
+     "evo_Lucas Vázquez_80",
+     "id50519998",
+     "id50412102",
+     "id189596"
+    ]
+   ]
+  },
+  {
+   "key": "86",
+   "cap": 86,
+   "boosts": [
+    {
+     "on": "club",
+     "id": 1,
+     "att": 1,
+     "ctl": 2,
+     "def": 0
+    }
+   ],
+   "bonuses": [
+    {
+     "kind": "nations",
+     "min": 10,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [
+    [
+     "id50586451",
+     "id50595413",
+     "id67310399",
+     "id67322964",
+     "id67229397",
+     "evo_Rall_86",
+     "id245872",
+     "id222665",
+     "id50592947",
+     "id67335223",
+     "id330"
+    ]
+   ]
+  },
+  {
+   "key": "88",
+   "cap": 88,
+   "boosts": [
+    {
+     "on": "club",
+     "id": 10,
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    },
+    {
+     "on": "club",
+     "id": 5,
+     "att": 3,
+     "ctl": 1,
+     "def": 0
+    }
+   ],
+   "opponents": [
+    [
+     "id48940",
+     "id138956",
+     "id140601",
+     "ltm_comuzzo88",
+     "evo_Oxlade-Chamberlain_87",
+     "evo_Groß_88",
+     "id50592947",
+     "id50569340",
+     "id23174",
+     "id262112",
+     "id120274"
+    ]
+   ]
+  },
+  {
+   "key": "90",
+   "cap": 90,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 18,
+     "att": 0,
+     "ctl": 2,
+     "def": 1
+    }
+   ],
+   "bonuses": [
+    {
+     "kind": "types",
+     "min": 6,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [
+    [
+     "id5479",
+     "id013",
+     "id227190",
+     "id190044",
+     "id84078052",
+     "id227324",
+     "id50565310",
+     "id247827",
+     "evo_Rogers_90",
+     "id243075",
+     "id50573494"
+    ]
+   ]
+  },
+  {
+   "key": "X",
+   "cap": 99,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 45,
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    },
+    {
+     "on": "color",
+     "id": "hero",
+     "att": 3,
+     "ctl": 3,
+     "def": 3
+    }
+   ],
+   "opponents": [
+    [
+     "id1179",
+     "ltm_comuzzo96",
+     "new_Can_92",
+     "id203376",
+     "new_Xavi Espart_96",
+     "new_Ngumoha_96",
+     "new_Karetsas_96",
+     "id50583502",
+     "id84163723",
+     "id022",
+     "id237067"
+    ]
+   ]
+  }
+ ]
+}
