@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261110m">
+<meta name="app-version" content="20261110n">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -322,6 +322,13 @@ details.beatres{margin:0 0 10px;padding:10px 12px;border:1px solid var(--line);b
 .vst col.cv{width:52px}.vst .vtop th.r{text-align:right}
 .vst .vv{text-align:center;font-weight:700;width:48px;color:var(--muted);padding-left:2px;padding-right:2px}.vst .vv.up{color:var(--win)}
 details.vsd>summary{font-weight:700}
+.funnel{display:flex;flex-direction:column;align-items:center;gap:14px;margin:12px auto 4px;max-width:620px}
+.fstep{position:relative;display:flex;align-items:center;gap:12px;background:var(--field);border:1px solid var(--line);border-left:3px solid var(--muted);padding:9px 12px;min-width:220px;box-sizing:border-box}
+.fstep+.fstep::before{content:"";position:absolute;left:50%;top:-14px;height:14px;border-left:1px solid var(--line)}
+.fstep.s{border-left-color:var(--sim)}.fstep.j{border-left-color:var(--gold)}
+.fstep i{font:700 15px/1 var(--display);font-style:normal;color:var(--muted);min-width:14px}
+.fstep b{display:block;font:700 14px/1.2 var(--display);letter-spacing:.5px;text-transform:uppercase}.fstep small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.fkey{display:inline-block;width:10px;height:10px;margin:0 5px 0 0;vertical-align:-1px}.fkey.s{background:var(--sim)}.fkey.j{background:var(--gold);margin-left:12px}
 .sc .bignum{font:700 26px/1 var(--display);color:var(--text)}
 .squad.nhoff .nohave{display:none}
 /* installed app on iPhone: keep everything clear of the status bar (time, battery) */
@@ -471,8 +478,8 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="beta/engine.js?v=20261110m"></script>
-<script src="beta/sbc-solver.js?v=20261110m"></script>
-<script src="beta/app.js?v=20261110m"></script>
+<script src="beta/engine.js?v=20261110n"></script>
+<script src="beta/sbc-solver.js?v=20261110n"></script>
+<script src="beta/app.js?v=20261110n"></script>
 </body>
 </html>
