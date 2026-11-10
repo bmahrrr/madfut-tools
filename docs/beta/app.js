@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110j";
+const APP_V = "20261110k";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -131,10 +131,11 @@ function search(q, limit = 12, cap = 0) {
 function cardLine(c) {
   return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(String(cName(c.clubId)).trim())}</span> <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
 }
-function hookSearch(inputId, listId, onPick) {
+function hookSearch(inputId, listId, onPick, capOf) {
   const inp = $(inputId), ul = $(listId);
   inp.oninput = () => {
-    const res = search(inp.value);
+    const cap = capOf ? capOf() : 0;     // a series' cap: only cards that can be played in it
+    const res = cap ? search(inp.value, 60, cap).filter(c => c.rating <= cap).slice(0, 12) : search(inp.value);
     ul.hidden = !res.length;
     ul.innerHTML = res.map(c => `<li data-id="${esc(c.id)}">${cardLine(c)}</li>`).join("");
   };
@@ -850,7 +851,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110j"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110k"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -876,7 +877,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110k"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1135,8 +1136,9 @@ async function setupSim() {
   fillSimSeries();
   $("simFormB").innerHTML = $("simFormA").innerHTML = Object.keys(SIM_FORMS).map(f => `<option>${f}</option>`).join("");
   $("simSeries").onchange = () => { state.simB = []; loadSimA(); }; $("simFormB").onchange = $("simFormA").onchange = drawSim;
-  hookSearch("searchS", "srS", c => { if (state.simB.length < 11) state.simB.push(c); drawSim(); });
-  hookSearch("searchSA", "srSA", c => { if (state.simAC.length < 11) state.simAC.push(c); drawSim(); });
+  const simCap = () => simSeries().cap || 0;
+  hookSearch("searchS", "srS", c => { if (state.simB.length < 11) state.simB.push(c); drawSim(); }, simCap);
+  hookSearch("searchSA", "srSA", c => { if (state.simAC.length < 11) state.simAC.push(c); drawSim(); }, simCap);
   $("simBtn").onclick = runSim;
   loadSimA();
 }
@@ -1587,7 +1589,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110j");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110k");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
