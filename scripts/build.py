@@ -252,7 +252,14 @@ def main():
                 if len(sq) == 11 and all(c["id"] not in NO for c in sq):
                     slots = FORMATIONS[pt["formation"]]; ev = evaluate(sq, slots, s)
                     from fatal.sim import sim_key as k     # includes "never lose to the Reddit team" (set by build_sim)
-                    if k(ev) > k(teams[0]["metrics"]):
+                    # safety net: level on the hard rules and control, the new team must not lose to the published one head
+                    # to head (the same test as the builder's final round robin), or the published team stays
+                    from fatal.sim import _side, _match
+                    nt = teams[0]; nsq = [by_id[p["id"]] for p in nt["players"]]
+                    _, a, b = _match(_side(nsq, FORMATIONS[nt["formation"]], s), _side(sq, slots, s))
+                    level = k(ev)[:4] == k(nt["metrics"])[:4] and round(ev["control"], 2) == round(nt["metrics"]["control"], 2)
+                    if level and nsq != sq: print(f"new team vs published: scores {a:.3f}, concedes {b:.3f}")
+                    if k(ev) > k(nt["metrics"]) and not (level and a > b) or (level and b > a):
                         print("previous team is better:", ev["control"], "vs", teams[0]["metrics"]["control"])
                         pt = dict(pt, metrics=ev, players=[dict(r, slot=sl) for r, sl in zip(_slot_rows(sq, s), slots)], source="Previous Best")
                         teams = [pt] + teams[:2]
