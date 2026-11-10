@@ -288,7 +288,8 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
                          (x["leagueId"] in lg and key(x) >= maxC - 6) or (x["nationId"] in nat and key(x) >= maxC - 4)}
                 # link cards: the best few per league / nation of the control shortlist, whatever their stats.
                 # Without them a chem core like the Turkish 68 team (low-defence CBs that link the league) is unreachable.
-                for grp, keep, top in (("leagueId", lg, 8), ("nationId", nat, 4)):
+                # Owner: link-only cards play defence (the least important), never attack: CB and GK slots only.
+                for grp, keep, top in ((("leagueId", lg, 8), ("nationId", nat, 4)) if s not in ATT else ()):
                     by = {}
                     for x in el:
                         if x[grp] in keep: by.setdefault(x[grp], []).append(x)
