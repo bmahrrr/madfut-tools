@@ -34,22 +34,11 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - run: python scripts/blind_test.py "${{ matrix.key }}" "${{ matrix.mode }}"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: blind_${{ matrix.mode }}_${{ matrix.key }}
-          path: blindtest/results/${{ matrix.mode }}/${{ matrix.key }}.txt
-
-  save:
-    needs: run
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          path: art
-      - run: |
-          for d in art/blind_*; do n=${d#art/blind_}; mode=${n%%_*}; key=${n#*_}; mkdir -p blindtest/results/$mode; cp $d/$key.txt blindtest/results/$mode/; done
+      - name: Save this result right away
+        run: |
+          cp blindtest/results/${{ matrix.mode }}/${{ matrix.key }}.txt /tmp/r.txt
+          git reset -q --hard && git checkout -q sim-rules && git pull -q
+          mkdir -p blindtest/results/${{ matrix.mode }} && cp /tmp/r.txt blindtest/results/${{ matrix.mode }}/${{ matrix.key }}.txt
           git config user.name bmahrrr && git config user.email bmahrrr1@gmail.com
-          git add blindtest/results && git commit -qm "Blind test results" || exit 0
-          for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done
+          git add blindtest/results && git commit -qm "Blind test: ${{ matrix.key }} ${{ matrix.mode }}" || exit 0
+          for i in 1 2 3 4 5 6; do git pull -q --rebase && git push -q && break; sleep $((RANDOM % 10 + 3)); done
