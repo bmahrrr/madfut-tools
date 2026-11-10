@@ -145,7 +145,8 @@ def evaluate(team, slots, series):
     # quality check (owner): a card that attacks in 5%+ of possessions should have in-game attack of at least
     # cap - 1 (79 in the 80 series, 89 in the 90). Control decides, but never at the cost of a striker who can't
     # score. Teams that reach it rank above all that don't; if none can, the smallest shortfall wins.
-    floor = series.get("cap", 0) - 1
+    # X has no real cap (99): a 98 floor would rank attack above control there. No floor in X until the owner sets one.
+    floor = series.get("attack_floor", 0 if str(series.get("key")) == "X" else series.get("cap", 0) - 1)
     weak = [team[i]["name"] for i in range(len(slots)) if W[i] >= 0.05 and E[i][0] < floor]
     short = round(sum(W[i] * (floor - E[i][0]) for i in range(len(slots)) if W[i] >= 0.05 and E[i][0] < floor), 3)
     m = lambda v: sum(v) / len(v) if v else 0
@@ -253,12 +254,11 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
     _red = [[_byid.get(c["id"]) for c in r] for r in list(refs or [])[:n_reddit if n_reddit is not None else len(refs or [])]]
     set_reddit([r for r in _red if all(r)], series)
     maxC = max(x["C"] for x in pool if x["P"] & CTRL)
-    ctrlc = [x for x in pool if (x["P"] & CTRL) and x["C"] >= maxC - margin]
-    # link sources: the top control cards (within 2 of the best). A short candidate list lets the solver finish:
-    # with 4,000-8,000 cards it hit its time limit and returned weak teams (blind 68: control 69.2 vs 72.4)
-    src = [x for x in ctrlc if x["C"] >= maxC - 2]
-    src_club = {x["clubId"] for x in src}; src_nl = {(x["nationId"], x["leagueId"]) for x in src}
+    # candidate lists of three sizes, all solved, the best team kept: a short list lets the solver finish (68 needed it:
+    # 8,000 cards hit the time limit with weak teams) but can miss a card a wider list has (73 and 86 lost attack)
+    CONFIGS = ((margin, topk, 2, 2), (margin + 2, topk * 3, 4, 3), (margin + 4, topk * 6, 6, 4))
     cap = series.get("cap", 99)
+    floor = series.get("attack_floor", 0 if str(series.get("key")) == "X" else cap - 1)
     results = []
     bonus_variants = [{}]
     for b in series.get("bonuses", []):
@@ -279,37 +279,47 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             return v
         if k in ("nations", "clubs", "leagues", "specials") or (k == "types" and mx is None) or (k.startswith("same_") and mx is not None):
             bonus_variants = bonus_variants + [with_bonus(v) for v in bonus_variants]
-    def job(form):
+    def job(form, cfg):
+        mg, tk, sm, per = cfg
         slots = FORMATIONS[form]
         cand = set()
+        # control slots: within mg of the best control that can play THAT slot (full-backs are control in 5 at the back)
+        src = []
+        for s in {x for x in slots if x in CTRL}:
+            el = [x for x in pool if s in x["P"]]; top = max(x["C"] for x in el)
+            cand |= {x["_i"] for x in el if x["C"] >= top - mg}; src += [x for x in el if x["C"] >= top - sm]
+        src_club = {x["clubId"] for x in src}; src_nl = {(x["nationId"], x["leagueId"]) for x in src}
         for s in set(slots):
-            if s in CTRL:
-                cand |= {x["_i"] for x in ctrlc if s in x["P"]}
-            else:
+            if s not in CTRL:
                 key = (lambda x: x["A"]) if s in ATT else (lambda x: x["D"])
                 el = [x for x in pool if s in x["P"]]
-                cand |= {x["_i"] for x in sorted(el, key=lambda x: -key(x))[:topk]}
-                # link cards: teammates of a top control card, or players with its nation AND league, best 2 of each,
+                cand |= {x["_i"] for x in sorted(el, key=lambda x: -key(x))[:tk]}
+                # link cards: teammates of a top control card, or players with its nation AND league, best few of each,
                 # whatever their stats (the Reddit 68 team's GK and CBs are teammates of its control cards).
                 # Owner: a link-only card plays defence, never attack: in attack slots it must reach the floor (cap - 1).
-                ok = (lambda x: x["A"] >= cap - 1) if s in ATT else (lambda x: True)
+                ok = (lambda x: x["A"] >= floor) if s in ATT else (lambda x: True)
                 for gk, keep in ((lambda x: x["clubId"], src_club), (lambda x: (x["nationId"], x["leagueId"]), src_nl)):
                     by = {}
                     for x in el:
                         if gk(x) in keep and ok(x): by.setdefault(gk(x), []).append(x)
-                    for L in by.values(): cand |= {x["_i"] for x in sorted(L, key=lambda x: -key(x))[:2]}
+                    for L in by.values(): cand |= {x["_i"] for x in sorted(L, key=lambda x: -key(x))[:per]}
         cards_f = [pool[i] for i in cand]
 
         sw = attack_weights(slots, list(slots))
         slot_w = {}
         for k2, sl in enumerate(slots): slot_w[sl] = max(slot_w.get(sl, 0), sw[k2])
 
+        nD = max(1, sum(1 for x in slots if x in DEF))
+
         def value(c, s):
-            T = (c["A"] + c["C"] + c["D"]) / 400
-            v = 0                     # control first, then attack, then defence (each with its total as the tiebreak)
-            if s in CTRL: v += 1000 * (c["C"] + T)
-            if s in ATT: v += 100 * slot_w.get(s, 0.2) * (c["A"] + T)
-            if s in DEF: v += 0.5 * (c["D"] + T)
+            # the same order as the final ranking (sim_key): control, then the control cards' totals (control duels
+            # tie on totals), then attack, then defence at a third of attack. Before, totals and defence barely counted,
+            # so the solver happily took a 65 GK as a link card in the 80 series.
+            T = c["A"] + c["C"] + c["D"]
+            v = 0
+            if s in CTRL: v += 10000 * c["C"] + 60 * T
+            if s in ATT: v += 100 * slot_w.get(s, 0.2) * (c["A"] + T / 400)
+            if s in DEF: v += 100 / (3 * nD) * (c["D"] + T / 400)
             return v
 
         def chem_w(c, s):
@@ -321,7 +331,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         return slots, cards_f, value, chem_w, full
 
     # every (formation, bonus) build is independent: run them on all cores at once
-    jobs = [(form, job(form), bv) for form in formations for bv in bonus_variants]
+    jobs = [(form, job(form, cfg), bv) for form in formations for cfg in CONFIGS for bv in bonus_variants]
     def run(i):
         form, (slots, cards_f, value, chem_w, full), bv = jobs[i]
         sq = build(cards_f, slots, value, chem_weight=chem_w, force_full=full, time_limit=time_limit, **bv)
