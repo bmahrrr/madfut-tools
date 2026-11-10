@@ -240,7 +240,7 @@ def tie_cleanup(team, slots, series, pool, log=None):
     return team
 
 
-def exact_line(team, slots, series, pool, grp, per_slot=20, seconds=150):
+def exact_line(team, slots, series, pool, grp, per_slot=20, seconds=150, links=0):
     """Every combination of likely cards for the slots in grp (back line or strikers), the rest of the team fixed, judged
     exactly (real chem, full ranking). Likely cards: the current ones, the best by the slot's stat, and the best few that
     share a club, or a nation and league, with the team. Returns (slots, team) if a better line is found, else None."""
@@ -267,6 +267,11 @@ def exact_line(team, slots, series, pool, grp, per_slot=20, seconds=150):
         for x in extra:
             if len(pick) >= per_slot: break
             pick[x["id"]] = x
+        # cards that link with the most of the rest of the team (club counts double), however they link: a card
+        # sharing only a nation with one and a league with three (81: Pau Torres) is not a club / nation+league card
+        if links:
+            score = lambda x: sum(2 * (x["clubId"] == c["clubId"]) + (x["nationId"] == c["nationId"]) + (x["leagueId"] == c["leagueId"]) for c in rest)
+            for x in sorted(el, key=lambda x: (-score(x), -st(x)))[:links]: pick[x["id"]] = x
         for i in idx:
             if slots[i] == sl: pick[team[i]["id"]] = team[i]
         pools[sl] = list(pick.values())
@@ -288,6 +293,79 @@ def exact_line(team, slots, series, pool, grp, per_slot=20, seconds=150):
         k = sim_key(evaluate(trial, slots, series))
         if k > best: best, best_team = k, trial
     return (slots, best_team) if best_team else None
+
+
+def resolve_line(form, sq, idx, series, pool, excl=(), time_limit=60):
+    """Solve the slots idx again (back line, strikers, or both at once), the rest of the team fixed, every card in the
+    series allowed there (chem counted, control cards kept on full chem), valued by duels against the strongest teams
+    (OPP). Both at once finds packages neither alone can: 81's Lucas Vázquez needs Quansah and Pau Torres behind him
+    AND Beier up front to stay on full chem."""
+    bA = lambda x: _beat(x, OPP["D"]) * 100; bD = lambda x: _beat(x, OPP["A"]) * 100
+    slots = FORMATIONS[form]
+    fixed = {sq[i]["_i"]: slots[i] for i in range(len(slots)) if i not in idx}
+    gs = {slots[i] for i in idx}
+    keys = {(c["clubId"]) for c in sq} | {(c["nationId"], c["leagueId"]) for c in sq}
+    cand = {}
+    for sl in gs:
+        el = [x for x in pool if sl in x["P"] and x["_i"] not in fixed]
+        st = (lambda x: x["A"]) if sl in ATT else (lambda x: x["D"])
+        for x in sorted(el, key=lambda x: -st(x))[:150]: cand[x["_i"]] = x
+        by = {}
+        for x in el:
+            for k in (x["clubId"], (x["nationId"], x["leagueId"])):
+                if k in keys: by.setdefault(k, []).append(x)
+        for L in by.values():
+            for x in sorted(L, key=lambda x: -st(x))[:6]: cand[x["_i"]] = x
+    cards = [pool[i] for i in fixed] + list(cand.values())
+    nD = max(1, sum(1 for x in slots if x in DEF)); wD = 100 / (3 * nD)
+    sw = attack_weights(slots, list(slots)); slot_w = {}
+    for k2, sl in enumerate(slots): slot_w[sl] = max(slot_w.get(sl, 0), sw[k2])
+    def value(c, s):
+        if c["_i"] in fixed: return 1e7 if fixed[c["_i"]] == s else None
+        if s not in gs: return None
+        T = c["A"] + c["C"] + c["D"]
+        return (100 * slot_w.get(s, 0.2) * (bA(c["A"] - 3) + T / 400)) if s in ATT else (wD * (bD(c["D"] - 3) + T / 400))
+    def chem_w(c, s):
+        if s in gs: return (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3) if s in ATT else (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3)
+        return 0.01 + (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0)
+    nsq = build(cards, slots, value, chem_weight=chem_w, force_full=lambda c, s: s in CTRL and not full_chem(c), time_limit=time_limit,
+                exclude_pids=excl)
+    return (evaluate(nsq, slots, series), form, nsq) if nsq else None
+
+
+def control_variants(results, series, pool, n_teams=4, per_slot=5):
+    """The best teams with one control card swapped for another that reaches the same control (at full chem). The new
+    card's links can allow a much better back line or strikers (81: Lucas Vázquez instead of Yassine at the same 85
+    control lets Pau Torres and Quansah in). Highest totals first (the owner's tie rule)."""
+    seen, base = set(), []
+    for ev, form, sq in results:
+        sg = (form, frozenset(c["id"] for c in sq))
+        if sg in seen: continue
+        seen.add(sg); base.append((form, sq))
+        if len(base) == n_teams: break
+    out, vs = [], set()
+    for form, sq in base:
+        slots = FORMATIONS[form]; E, _ = effective(sq, series)
+        for i, sl in enumerate(slots):
+            if sl not in CTRL: continue
+            used = {pid(x) for k, x in enumerate(sq) if k != i}
+            el = [c for c in pool if sl in c["P"] and c["id"] != sq[i]["id"] and pid(c) not in used and c["C"] + 2 >= E[i][1]]
+            for c in sorted(el, key=lambda c: -(c["A"] + c["C"] + c["D"]))[:per_slot]:
+                v = sq[:i] + [c] + sq[i + 1:]
+                sg = (form, frozenset(x["id"] for x in v))
+                if sg not in vs: vs.add(sg); out.append((form, v))
+    return out
+
+
+def variant_line(form, sq, series, pool, seconds=40):
+    """A control variant: its back line and strikers solved together around it, then checked exactly (smaller lists)."""
+    slots = FORMATIONS[form]
+    r = resolve_line(form, sq, [i for i, sl in enumerate(slots) if sl in ("GK", "CB", "ST", "CF")], series, pool)
+    if r: sq = r[2]
+    for grp in ({"GK", "CB"}, {"ST", "CF"}):
+        r = exact_line(sq, slots, series, pool, grp, per_slot=12, seconds=seconds / 2, links=8)
+        if r: sq = r[1]
+    return (evaluate(sq, slots, series), form, sq)
 
 
 def polish(team, slots, series, pool, seconds=60, stats=None):
@@ -336,6 +414,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
     cap = series.get("cap", 99)
     floor = series.get("attack_floor", 0 if str(series.get("key")) == "X" else cap - 1)
     results = []
+    variants = []         # control-variant teams (tied control card + back line and strikers rebuilt): always in the final
     bonus_variants = [{}]
     for b in series.get("bonuses", []):
         k = b["kind"]
@@ -541,36 +620,8 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
                 if not idx: continue
                 rjobs.append((form, sq, idx, ()))
         def rsolve(j):
-            form, sq, idx, excl = rjobs[j]; slots = FORMATIONS[form]
-            fixed = {sq[i]["_i"]: slots[i] for i in range(len(slots)) if i not in idx}
-            gs = {slots[i] for i in idx}; att = bool(gs & ATT)
-            keys = {(c["clubId"]) for c in sq} | {(c["nationId"], c["leagueId"]) for c in sq}
-            cand = {}
-            for sl in gs:
-                el = [x for x in pool if sl in x["P"] and x["_i"] not in fixed]
-                st = (lambda x: x["A"]) if att else (lambda x: x["D"])
-                for x in sorted(el, key=lambda x: -st(x))[:150]: cand[x["_i"]] = x
-                by = {}
-                for x in el:
-                    for k in (x["clubId"], (x["nationId"], x["leagueId"])):
-                        if k in keys: by.setdefault(k, []).append(x)
-                for L in by.values():
-                    for x in sorted(L, key=lambda x: -st(x))[:6]: cand[x["_i"]] = x
-            cards = [pool[i] for i in fixed] + list(cand.values())
-            nD = max(1, sum(1 for x in slots if x in DEF)); wD = 100 / (3 * nD)
-            sw = attack_weights(slots, list(slots)); slot_w = {}
-            for k2, sl in enumerate(slots): slot_w[sl] = max(slot_w.get(sl, 0), sw[k2])
-            def value(c, s):
-                if c["_i"] in fixed: return 1e7 if fixed[c["_i"]] == s else None
-                if s not in gs: return None
-                T = c["A"] + c["C"] + c["D"]
-                return (100 * slot_w.get(s, 0.2) * (bA(c["A"] - 3) + T / 400)) if att else (wD * (bD(c["D"] - 3) + T / 400))
-            def chem_w(c, s):
-                if s in gs: return (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3) if att else (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3)
-                return 0.01 + (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0)
-            nsq = build(cards, slots, value, chem_weight=chem_w, force_full=lambda c, s: s in CTRL and not full_chem(c), time_limit=60,
-                        exclude_pids=excl)
-            return (evaluate(nsq, slots, series), form, nsq) if nsq else None
+            form, sq, idx, excl = rjobs[j]
+            return resolve_line(form, sq, idx, series, pool, excl)
         for r in pmap(rsolve, len(rjobs)):
             if r:
                 results.append(r); log(f"  re-solve {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
@@ -589,6 +640,14 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
                 form = xjobs[0][0]
                 results.append((evaluate(r[1], r[0], series), next(f for f in FORMATIONS if FORMATIONS[f] == r[0] and f in formations), r[1]))
                 log(f"  exact line: control {results[-1][0]['control']} attack {results[-1][0]['attack']} defence {results[-1][0]['defence']}")
+        results.sort(key=lambda r: sim_key(r[0]), reverse=True)
+        # tied control cards: one control card swapped for an equal one, then the back line and strikers rebuilt around
+        # its links (81: Lucas Vázquez for Yassine, then Pau Torres and Quansah)
+        vjobs = control_variants(results, series, pool)
+        for r in pmap(lambda j: variant_line(vjobs[j][0], vjobs[j][1], series, pool), len(vjobs)):
+            if r and sim_key(r[0]) > sim_key(results[0][0]):
+                log(f"  control variant {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
+            if r: results.append(r); variants.append(r)
         results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     results = [r for r in results if r[0]["ctrl_not_full"] == 0] or results
     # swap check on the team that will be published: every card in the series tried in every slot until no single
@@ -617,6 +676,13 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             if sg in sigs4 or hard(ev) != hard(top): continue
             sigs4.add(sg); fin.append((ev, form, sq))
             if len(fin) == 12: break
+        # the best control variants always play the final too: the ranking can put them just below 12 others on attack
+        # proxies while they win head to head (81: the Lucas Vázquez team beats the Yassine team 51.9% to 38.5%)
+        for ev, form, sq in sorted(variants, key=lambda r: sim_key(r[0]), reverse=True):
+            sg = (form, frozenset(c["id"] for c in sq))
+            if sg in sigs4 or hard(ev) != hard(top): continue
+            sigs4.add(sg); fin.append((ev, form, sq))
+            if len(fin) >= 16: break
         if len(fin) > 1:
             sides = [_side(sq, FORMATIONS[form], series) for ev, form, sq in fin]
             opp = [(_side(sq, FORMATIONS[form], series), 1) for ev, form, sq in style_teams]
