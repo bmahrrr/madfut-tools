@@ -577,11 +577,12 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         results.sort(key=lambda r: sim_key(r[0]), reverse=True)
         # exact check of the back line and the strikers of the best 3 teams: every combination of the likely cards,
         # each judged with real chem and the full ranking (the solver only estimates chem's effect on stats)
-        seen3, best3 = set(), []
-        for ev, form, sq in results:
+        seen3, best3, perf = set(), [], {}
+        for ev, form, sq in results:          # the best 2 teams of each of the best 3 formations
             sg = (form, frozenset(c["id"] for c in sq))
-            if sg not in seen3: seen3.add(sg); best3.append((form, sq))
-            if len(best3) == 3: break
+            if sg in seen3 or (form not in perf and len(perf) == 3) or perf.get(form, 0) == 2: continue
+            seen3.add(sg); best3.append((form, sq)); perf[form] = perf.get(form, 0) + 1
+            if len(best3) == 6: break
         xjobs = [(form, sq, grp) for form, sq in best3 for grp in ({"GK", "CB"}, {"ST", "CF"})]
         for r in pmap(lambda j: exact_line(xjobs[j][1], FORMATIONS[xjobs[j][0]], series, pool, xjobs[j][2]), len(xjobs)):
             if r:
@@ -603,6 +604,39 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         if t2 != results[0][2]: results[0] = (evaluate(t2, slots, series), form, t2)
         results[0][0]["swaps_checked"] = st.get("checked", 0)
         log(f"  swap check: {st.get('checked', 0)} swaps tried on the final team")
+    # final pick by results, not proxies: the best teams that are level on every hard rule (full chem in control,
+    # unbeatable defence when possible, attack floor, never losing to the Reddit team) and on the highest control
+    # play each other and the field (other players' styles, the Reddit teams 3x). The best total margin is published.
+    if results:
+        top = results[0][0]
+        hard = lambda e: (e["ctrl_not_full"] == 0, e.get("def_unbeatable", False), -e.get("attack_short", 0),
+                          min(e.get("vs_reddit") or 0, 0), round(e["control"], 2))
+        fin, sigs4 = [], set()
+        for ev, form, sq in results:
+            sg = (form, frozenset(c["id"] for c in sq))
+            if sg in sigs4 or hard(ev) != hard(top): continue
+            sigs4.add(sg); fin.append((ev, form, sq))
+            if len(fin) == 12: break
+        if len(fin) > 1:
+            sides = [_side(sq, FORMATIONS[form], series) for ev, form, sq in fin]
+            opp = [(_side(sq, FORMATIONS[form], series), 1) for ev, form, sq in style_teams]
+            for groups in REDDIT:            # the Reddit teams, in every formation they fit, 3x in all
+                opp += [(g, 3 / len(groups)) for g in groups]
+            score = []
+            for i, a in enumerate(sides):
+                t = sum(x - y for j, b in enumerate(sides) if j != i for _, x, y in [_match(a, b)])
+                t += sum(w * (x - y) for b, w in opp for _, x, y in [_match(a, b)])
+                score.append(t)
+            order = sorted(range(len(fin)), key=lambda i: -score[i])
+            if order[0] != 0:
+                log(f"  round robin: {fin[order[0]][1]} beats the ranking's pick ({score[order[0]]:+.3f} vs {score[0]:+.3f})")
+            w_ev, w_form, w_sq = fin[order[0]]
+            w_slots = FORMATIONS[w_form]
+            t2 = tie_cleanup(w_sq, w_slots, series, pool, log)
+            if t2 != w_sq: w_sq = t2; w_ev = evaluate(t2, w_slots, series)
+            w_ev["round_robin"] = round(score[order[0]], 4)
+            rest = [fin[i] for i in order[1:]]
+            results = [(w_ev, w_form, w_sq)] + rest + [r for r in results if r not in fin]
     out = []
     for ev, form, sq in results[:3]:
         d = describe(sq, series)
