@@ -290,7 +290,10 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             return v
         if k in ("nations", "clubs", "leagues", "specials") or (k == "types" and mx is None) or (k.startswith("same_") and mx is not None):
             bonus_variants = bonus_variants + [with_bonus(v) for v in bonus_variants]
-    def job(form, cfg):
+    def job(form, cfg, duel=None):
+        """duel: the strongest teams' profile (OPP). Then attack and defence cards are valued by their chance to win
+        their duel against those teams, not by raw stats: one 71 defender who stops most strikers beats four 67-70s
+        (68: André Moreira's back line over Boevink's, a 3-card change single swaps can't reach)."""
         mg, tk, sm, per = cfg
         slots = FORMATIONS[form]
         cand = set()
@@ -335,6 +338,22 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
 
         def chem_w(c, s):
             return (3 if s in ATT else 0) + (1 if s in DEF else 0) + 0.01
+
+        if duel:
+            bA = lambda x: _beat(x, duel["D"]) * 100        # % chance an attacker of x beats a strong team's defender
+            bD = lambda x: _beat(x, duel["A"]) * 100        # % chance a defender of x stops a strong team's attacker
+            wA = lambda s: 100 * slot_w.get(s, 0.2); wD = 100 / (3 * nD)
+
+            def value(c, s):     # at 0 chem (stat - 3); each chem point adds a third of the way to 3 chem (+2)
+                T = c["A"] + c["C"] + c["D"]; v = 0
+                if s in CTRL: v += 10000 * c["C"] + 0.5 * T
+                if s in ATT: v += wA(s) * (bA(c["A"] - 3) + T / 400)
+                if s in DEF: v += wD * (bD(c["D"] - 3) + T / 400)
+                return v
+
+            def chem_w(c, s):
+                return (wA(s) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + \
+                       (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0) + 0.01
 
         def full(c, s):
             return s in CTRL and not full_chem(c)
@@ -383,6 +402,21 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         OPP = opp_profile(prof)
         FIELD = [_side(sq, sl, sr) for sq, sl, sr in prof] if MATCH_TB else None
         results = [(evaluate(sq, FORMATIONS[form], series), form, sq) for ev, form, sq in results]
+    # second pass: the formations of the best teams solved again with attack and defence valued by duels against the
+    # strongest teams found (what the ranking measures), short and medium lists
+    if OPP:
+        seenf, forms2 = set(), []
+        for ev, form, sq in sorted(results, key=lambda r: sim_key(r[0]), reverse=True):
+            if form not in seenf: seenf.add(form); forms2.append(form)
+            if len(forms2) == 3: break
+        jobs2 = [(form, job(form, cfg, OPP), bv) for form in forms2 for cfg in CONFIGS[:2] for bv in bonus_variants]
+        def run2(i):
+            form, (slots, cards_f, value, chem_w, full), bv = jobs2[i]
+            sq = build(cards_f, slots, value, chem_weight=chem_w, force_full=full, time_limit=time_limit, **bv)
+            return (evaluate(sq, slots, series), form, sq) if sq else None
+        for r in pmap(run2, len(jobs2)):
+            if r:
+                results.append(r); log(f"  duel pass {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
     # polish the best few by swapping single cards with any card in the series
     results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     seen, top = set(), []
