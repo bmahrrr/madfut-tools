@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110f";
+const APP_V = "20261110g";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -843,7 +843,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -869,7 +869,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1009,7 +1009,18 @@ function hintMatcher(q) {
 }
 // ---- they played a card that isn't in their listed team: find it, no need to say which card it replaces ----
 const otherBtn = ctx => `<button class="ghost" onclick="otherCard('${ctx}')">Someone else…</button>`;
+// how often each card appears in this series' strong teams (the Best Team, its counter teams, the Reddit team)
+const SEEN = {};
+async function seenIn(key) {
+  if (SEEN[key]) return SEEN[key];
+  const n = new Map(), add = id => n.set(id, (n.get(id) || 0) + 1);
+  const d = await getJSON(`results/myclub_${key}.json`).catch(() => null);
+  if (d && d.team) { d.team.players.forEach(p => add(p.id)); Object.values(d.team.opponent_teams || {}).forEach(o => o.players.forEach(p => add(p.id))); }
+  (((WEEK && WEEK.myclub) || []).find(x => x.key === key) || {}).opponents?.forEach(t => t.forEach(id => { add(id); add(id); add(id); }));
+  return (SEEN[key] = n);
+}
 window.otherCard = ctx => {
+  if (M.ser && M.ser.key && !SEEN[M.ser.key]) seenIn(M.ser.key).then(() => { const q = $("ocQ"); if (q && q.value.trim().length >= 2) q.oninput(); });
   $("matchBox").innerHTML = `<h3>Which card did they play?</h3>
     <input type="text" id="ocQ" placeholder="Name, or what you saw: nation, club, league, position" autocomplete="off">
     <div id="ocRes" style="margin-top:8px"></div>${backBtn()}`;
@@ -1020,11 +1031,13 @@ window.otherCard = ctx => {
     const q = norm($("ocQ").value.trim());
     if (q.length < 2) { $("ocRes").innerHTML = `<p class="small muted">Type a name, or what you saw, e.g. "Germany ST" or "Bayern CB". The most likely card is first.</p>`; return; }
     const match = hintMatcher(q);
-    // most likely first: a name match, then a card whose main position is the one played, then the strongest
-    const tot = c => c.attack + c.control + c.defense, byName = c => c._n.includes(q) ? 1 : 0;
+    // most likely first: a name match; then a card whose main position is the one played; then how often it's in
+    // this series' strong teams; then the strongest in game (this series' boosts included)
+    const seen = (M.ser && SEEN[M.ser.key]) || new Map(), use = c => seen.get(c.id) || 0;
+    const tot = c => { const b = boosted(c, (M.ser && M.ser.boosts) || []); return b[0] + b[1] + b[2]; }, byName = c => c._n.includes(q) ? 1 : 0;
     const PW = q.split(/\s+/).map(w => POS_WORDS[w.replace(/s$/, "")] || POS_WORDS[w]).filter(Boolean).flat(), mainPos = c => PW.length && PW.includes(c.position) ? 1 : 0;
     const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.id) && match(c))
-      .sort((x, y) => byName(y) - byName(x) || mainPos(y) - mainPos(x) || tot(y) - tot(x)).slice(0, 25);
+      .sort((x, y) => byName(y) - byName(x) || mainPos(y) - mainPos(x) || use(y) - use(x) || tot(y) - tot(x)).slice(0, 25);
     $("ocRes").innerHTML = L.length ? L.map((c, n) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="otherDo('${ctx}','${esc(c.id)}')">
         <b>${esc(c.name)} ${c.rating}${n === 0 ? ` <span class="tag">Most likely</span>` : ""}</b> <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}</span></button>`).join("")
       : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
@@ -1148,7 +1161,7 @@ function runSim() {
     return { c: R.filter(r => CTRL.has(r.slot)).sort((x, y) => y.c - x.c).map(r => [r.name, r.c]),
       a: R.map((r, i) => [r, W[i]]).filter(([, w]) => w > 0.001).sort((x, y) => y[1] - x[1]).map(([r, w]) => [r.name, r.a, Math.round(w * 100)]),
       d: R.filter(r => DEF.has(r.slot)).sort((x, y) => y.d - x.d).map(r => [r.name, r.d]) }; };
-  const X = roles(R1), Y = roles(R2), li = L => L.map(x => `<span>${esc(cap(x[0]))} <b>${x[1]}</b>${x[2] != null ? ` <i>${x[2]}%</i>` : ""}</span>`).join("");
+  const X = roles(R1), Y = roles(R2), li = L => L.map(x => `<span>${esc(cap(x[0]))} <b>${x[1]}</b></span>`).join("");
   const row = (lab, k) => `<div class="srole"><h4>${lab}</h4><div class="srcols"><div>${li(X[k])}</div><div>${li(Y[k])}</div></div></div>`;
   $("simOut").innerHTML = `<div class="sroles"><div class="srhead"><span>You</span><span>Them</span></div>
     ${row("Control", "c")}
@@ -1550,7 +1563,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110f");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110g");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
