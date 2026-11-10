@@ -122,16 +122,17 @@ def _beat(x, ys):
 
 def opp_profile(teams):
     """teams: [(team, slots, series)]. Their control, attack (weighted by who attacks) and defence values."""
-    C, A, D = [], [], []
+    C, A, D, CF = [], [], [], []
     n = len(teams)
     for team, slots, series in teams:
         E, _ = effective(team, series)
         W = attack_weights(slots, [x["position"] for x in team])
         ci = [i for i, s in enumerate(slots) if s in CTRL]; di = [i for i, s in enumerate(slots) if s in DEF]
         C += [(E[i][1], 1 / (n * len(ci))) for i in ci]
+        CF += [(tuple(E[i][:3]), 1 / (n * len(ci))) for i in ci]
         D += [(E[i][2], 1 / (n * len(di))) for i in di]
         A += [(E[i][0], W[i] / n) for i in range(len(slots)) if W[i] > 0]
-    return {"C": C, "A": A, "D": D}
+    return {"C": C, "A": A, "D": D, "CF": CF}
 
 
 def evaluate(team, slots, series):
@@ -153,10 +154,15 @@ def evaluate(team, slots, series):
     weak = [team[i]["name"] for i in range(len(slots)) if W[i] >= 0.05 and E[i][0] < floor]
     short = round(sum(W[i] * (floor - E[i][0]) for i in range(len(slots)) if W[i] >= 0.05 and E[i][0] < floor), 3)
     m = lambda v: sum(v) / len(v) if v else 0
-    net = None; p_att = p_def = None
+    net = None; p_att = p_def = None; ctrl_win = None
     if OPP:          # how it actually plays against the strongest teams: we win control, then score; or they score
         di = [i for i, s in enumerate(slots) if s in DEF]
         h = m([_beat(c, OPP["C"]) for c in C])
+        def _cduel(x, y):
+            if x[1] != y[1]: return 1 if x[1] > y[1] else 0
+            c = lambda u, v: 1 if u > v else 0.5 if u == v else 0
+            return (c(x[0], y[0]) + c(x[2], y[2]) + c(sum(x), sum(y))) / 3
+        ctrl_win = round(m([sum(w * _cduel(tuple(E[i][:3]), y) for y, w in OPP["CF"]) for i, s in enumerate(slots) if s in CTRL]), 4)
         f = sum(W[i] * _beat(E[i][0], OPP["D"]) for i in range(len(slots)) if W[i] > 0)
         g = m([1 - _beat(E[i][2], OPP["A"]) for i in di])
         net = round(h * f - (1 - h) * g, 4)
@@ -166,7 +172,7 @@ def evaluate(team, slots, series):
     if FIELD:        # average goal-chance margin per possession against the strongest teams found
         me = _side(team, slots, series, E)
         h2h = round(sum(a - b for _, a, b in (_match(me, f) for f in FIELD)) / len(FIELD), 5)
-    return {"h2h": h2h, "control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
+    return {"h2h": h2h, "ctrl_win": ctrl_win, "control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
             "defence_cards": sorted(D, reverse=True), "p_att": p_att, "p_def": p_def, "chem": sum(ch), "ctrl_not_full": bad, "def_unbeatable": bool(MAXA) and all(E[i][2] > MAXA for i, s in enumerate(slots) if s in DEF), "weak_attackers": weak, "attack_short": short,
             "ctrl_total": round(CT / len(C), 2) if C else 0,
@@ -187,7 +193,7 @@ def rank_key(ev):
     pa, pd = ev.get("p_att"), ev.get("p_def")
     # Owner's tie rule is per card (same control -> higher total plays, see tie_cleanup); the control cards' team total
     # only splits teams equal on everything else. Ranked above attack it picked high-total control over better strikers (73).
-    if pa is not None: return (round(ev["control"], 2), round(pa + pd / 3, 4), round(pa, 4),
+    if pa is not None: return (round(ev["control"], 2), ev.get("ctrl_win") or 0, round(pa + pd / 3, 4), round(pa, 4),
                                round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
                                round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
     return (round(ev["control"], 2), round(a + d / 3, 2),
@@ -397,7 +403,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             return (wt[0] * c["C"] if s in CTRL else 0) + (wt[1] * c["A"] if s in ATT else 0) + (wt[2] * c["D"] if s in DEF else 0)
         sq = build(cards_f, slots, value, chem_weight=lambda c, s: 1, force_full=full, time_limit=min(time_limit, 120))
         return (evaluate(sq, slots, series), form, sq) if sq else None
-    STYLES = [(f, st) for f in ("3-4-1-2", "3-1-4-2") if f in formations for st in ("attack", "defence", "balanced")]
+    STYLES = [(f, st) for f in ("3-4-1-2", "3-1-4-2") if f in formations for st in ("attack", "balanced")]
     for r in pmap(style_job, len(STYLES)):
         if r: results.append(r); style_teams.append(r)
     # Reddit teams: their 11 cards placed in each formation (the same program, just on those 11 cards)
