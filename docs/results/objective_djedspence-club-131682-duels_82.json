@@ -1,12 +1,11 @@
 {
- "g": 3,
+ "g": 2,
  "obj_ids": [
   "id203574",
-  "id210406",
-  "id192883"
+  "id210406"
  ],
- "strength": 101.3,
- "group_cards": 3,
+ "strength": 100.8,
+ "group_cards": 2,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -14,31 +13,31 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
+  "formation": "4-2-3-1",
   "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id167495",
-    "name": "Neuer",
-    "rating": 81,
+    "id": "id240091",
+    "name": "Vicario",
+    "rating": 80,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     39,
-     46,
-     82
+     38,
+     42,
+     81
     ],
     "chem": 3,
     "eff": [
      41,
-     48,
+     47,
      84
     ],
-    "tiebreak": 173
+    "tiebreak": 167
    },
    {
     "slot": "LB",
@@ -58,7 +57,7 @@
     "chem": 3,
     "eff": [
      81,
-     82,
+     84,
      83
     ],
     "tiebreak": 246
@@ -78,13 +77,13 @@
      67,
      83
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     62,
-     69,
-     85
+     63,
+     72,
+     86
     ],
-    "tiebreak": 213
+    "tiebreak": 216
    },
    {
     "slot": "CB",
@@ -104,128 +103,13 @@
     "chem": 3,
     "eff": [
      70,
-     76,
+     78,
      85
     ],
     "tiebreak": 228
    },
    {
     "slot": "RB",
-    "id": "id255654",
-    "name": "Kalulu",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     67,
-     69,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     70,
-     72,
-     84
-    ],
-    "tiebreak": 223
-   },
-   {
-    "slot": "CDM",
-    "id": "id84161109",
-    "name": "Maza",
-    "rating": 82,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 97,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     81,
-     83,
-     64
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     85,
-     66
-    ],
-    "tiebreak": 234
-   },
-   {
-    "slot": "LM",
-    "id": "id234396",
-    "name": "Davies",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 70,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     79,
-     80,
-     80
-    ],
-    "chem": 3,
-    "eff": [
-     81,
-     82,
-     82
-    ],
-    "tiebreak": 245
-   },
-   {
-    "slot": "CM",
-    "id": "id192883",
-    "name": "Mkhitaryan",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 3,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     79,
-     80,
-     71
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     83,
-     74
-    ],
-    "tiebreak": 236
-   },
-   {
-    "slot": "CM",
-    "id": "id210406",
-    "name": "Zieliński",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 37,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     80,
-     81,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     84,
-     71
-    ],
-    "tiebreak": 235
-   },
-   {
-    "slot": "RM",
     "id": "evo_Lucas Vázquez_80",
     "name": "Lucas Vázquez",
     "rating": 80,
@@ -242,33 +126,148 @@
     "chem": 3,
     "eff": [
      84,
-     85,
+     87,
      80
     ],
     "tiebreak": 249
    },
    {
-    "slot": "ST",
-    "id": "id67341275",
-    "name": "Nkunku",
+    "slot": "CDM",
+    "id": "id210406",
+    "name": "Zieliński",
     "rating": 82,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 18,
-    "leagueId": 19,
-    "clubId": 112172,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 37,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     83,
+     80,
      81,
-     47
+     68
     ],
     "chem": 3,
     "eff": [
-     85,
      83,
-     49
+     86,
+     71
     ],
-    "tiebreak": 217
+    "tiebreak": 235
+   },
+   {
+    "slot": "CDM",
+    "id": "id266866",
+    "name": "Éderson",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 115845,
+    "card": [
+     77,
+     78,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     83,
+     83
+    ],
+    "tiebreak": 241
+   },
+   {
+    "slot": "CAM",
+    "id": "id67349814",
+    "name": "Pedro Gonçalves",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 110374,
+    "card": [
+     81,
+     81,
+     62
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     86,
+     65
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "CAM",
+    "id": "id84161109",
+    "name": "Maza",
+    "rating": 82,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 97,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     81,
+     83,
+     64
+    ],
+    "chem": 2,
+    "eff": [
+     82,
+     86,
+     65
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "CAM",
+    "id": "id227236",
+    "name": "Zambo Anguissa",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 103,
+    "leagueId": 31,
+    "clubId": 48,
+    "card": [
+     79,
+     77,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     82,
+     82,
+     83
+    ],
+    "tiebreak": 242
+   },
+   {
+    "slot": "ST",
+    "id": "id251470",
+    "name": "De Ketelaere",
+    "rating": 81,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 7,
+    "leagueId": 31,
+    "clubId": 115845,
+    "card": [
+     79,
+     80,
+     59
+    ],
+    "chem": 3,
+    "eff": [
+     82,
+     85,
+     62
+    ],
+    "tiebreak": 224
    }
   ]
  },
@@ -296,7 +295,7 @@
   "minutes": 30,
   "bonuses": [
    {
-    "kind": "nations",
+    "kind": "same_nation",
     "max": 2,
     "att": 0,
     "ctl": 2,
@@ -306,17 +305,17 @@
  },
  "base_ids": [
   "id50608373",
-  "ltm_comuzzo82",
   "id239340",
   "id203574",
+  "ltm_comuzzo82",
   "id50593513",
-  "id84161109",
   "id210406",
+  "id84161109",
   "evo_Lucas Vázquez_80",
-  "id67341275",
-  "id50570548",
-  "id50568258"
+  "id67349814",
+  "id261050",
+  "id50570548"
  ],
- "built": "2026-11-09 01:29 UTC",
+ "built": "2026-11-10 05:14 UTC",
  "week": "2026-11-09"
 }
