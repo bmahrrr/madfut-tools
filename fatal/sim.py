@@ -286,6 +286,13 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
                 cand |= {x["_i"] for x in sorted(el, key=lambda x: -key(x))[:topk]}
                 cand |= {x["_i"] for x in el if x["clubId"] in cl or full_chem(x) or
                          (x["leagueId"] in lg and key(x) >= maxC - 6) or (x["nationId"] in nat and key(x) >= maxC - 4)}
+                # link cards: the best few per league / nation of the control shortlist, whatever their stats.
+                # Without them a chem core like the Turkish 68 team (low-defence CBs that link the league) is unreachable.
+                for grp, keep, top in (("leagueId", lg, 8), ("nationId", nat, 4)):
+                    by = {}
+                    for x in el:
+                        if x[grp] in keep: by.setdefault(x[grp], []).append(x)
+                    for L in by.values(): cand |= {x["_i"] for x in sorted(L, key=lambda x: -key(x))[:top]}
         cards_f = [pool[i] for i in cand]
 
         sw = attack_weights(slots, list(slots))
