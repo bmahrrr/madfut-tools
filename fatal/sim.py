@@ -242,7 +242,7 @@ def polish(team, slots, series, pool, seconds=60, stats=None):
     return team
 
 
-def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200, log=print, refs=(), polish_seconds=90, n_reddit=None):
+def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200, log=print, refs=(), polish_seconds=90, n_reddit=None):
     """refs: Reddit teams (lists of cards). Each is tried in every formation, and the best teams found (theirs and
     ours) are then polished by single-card swaps over the whole series, so the result is never worse than theirs."""
     """margin: control-position shortlist = every card within `margin` control of the best (2 was too narrow:
@@ -254,7 +254,11 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
     set_reddit([r for r in _red if all(r)], series)
     maxC = max(x["C"] for x in pool if x["P"] & CTRL)
     ctrlc = [x for x in pool if (x["P"] & CTRL) and x["C"] >= maxC - margin]
-    nat = {x["nationId"] for x in ctrlc}; lg = {x["leagueId"] for x in ctrlc}; cl = {x["clubId"] for x in ctrlc}
+    # link sources: the top control cards (within 2 of the best). A short candidate list lets the solver finish:
+    # with 4,000-8,000 cards it hit its time limit and returned weak teams (blind 68: control 69.2 vs 72.4)
+    src = [x for x in ctrlc if x["C"] >= maxC - 2]
+    src_club = {x["clubId"] for x in src}; src_nl = {(x["nationId"], x["leagueId"]) for x in src}
+    cap = series.get("cap", 99)
     results = []
     bonus_variants = [{}]
     for b in series.get("bonuses", []):
@@ -285,16 +289,15 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
                 key = (lambda x: x["A"]) if s in ATT else (lambda x: x["D"])
                 el = [x for x in pool if s in x["P"]]
                 cand |= {x["_i"] for x in sorted(el, key=lambda x: -key(x))[:topk]}
-                cand |= {x["_i"] for x in el if x["clubId"] in cl or full_chem(x) or
-                         (x["leagueId"] in lg and key(x) >= maxC - 6) or (x["nationId"] in nat and key(x) >= maxC - 4)}
-                # link cards: the best few per league / nation of the control shortlist, whatever their stats.
-                # Without them a chem core like the Turkish 68 team (low-defence CBs that link the league) is unreachable.
-                # Owner: link-only cards play defence (the least important), never attack: CB and GK slots only.
-                for grp, keep, top in ((("leagueId", lg, 8), ("nationId", nat, 4)) if s not in ATT else ()):
+                # link cards: teammates of a top control card, or players with its nation AND league, best 2 of each,
+                # whatever their stats (the Reddit 68 team's GK and CBs are teammates of its control cards).
+                # Owner: a link-only card plays defence, never attack: in attack slots it must reach the floor (cap - 1).
+                ok = (lambda x: x["A"] >= cap - 1) if s in ATT else (lambda x: True)
+                for gk, keep in ((lambda x: x["clubId"], src_club), (lambda x: (x["nationId"], x["leagueId"]), src_nl)):
                     by = {}
                     for x in el:
-                        if x[grp] in keep: by.setdefault(x[grp], []).append(x)
-                    for L in by.values(): cand |= {x["_i"] for x in sorted(L, key=lambda x: -key(x))[:top]}
+                        if gk(x) in keep and ok(x): by.setdefault(gk(x), []).append(x)
+                    for L in by.values(): cand |= {x["_i"] for x in sorted(L, key=lambda x: -key(x))[:2]}
         cards_f = [pool[i] for i in cand]
 
         sw = attack_weights(slots, list(slots))
