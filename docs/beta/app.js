@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110h";
+const APP_V = "20261110i";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -443,6 +443,13 @@ const VARIANT_EXCLUDE = { noltmevo: [{ color: "ltm" }, { color: "evo" }] };   //
 // Each series is a folded strip (like the game): number, formation and results; tap to open the full team.
 const OPEN = new Set();                   // series left open, kept when the page redraws (e.g. switching versions)
 const strip = (k, title, sub, res, cls = "") => `<summary class="strip${cls ? " " + cls : ""}"><span class="k">${esc(k)}</span><span class="mid"><b>${esc(title)}</b><small>${sub}</small></span><span class="res">${res}</span></summary>`;
+// When the team last changed: "Today", "Yesterday", else the weekday and date (local time).
+const lastChange = d => {
+  const x = new Date(String(d.changed || d.built || "").replace(" UTC", "Z").replace(" ", "T")); if (isNaN(x)) return "";
+  const day = t => new Date(t.getFullYear(), t.getMonth(), t.getDate()), n = Math.round((day(new Date()) - day(x)) / 864e5);
+  const when = n <= 0 ? "Today" : n === 1 ? "Yesterday" : x.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" });
+  return `<span class="lc"><b>${esc(when)}</b><small>Last change</small></span>`;
+};
 const serOpen = id => OPEN.has(id) ? " open" : "";
 let VAULT = null;     // { week, files } when looking at a past week
 async function renderTeams() {
@@ -472,7 +479,7 @@ async function renderTeams() {
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
       const sid = "myclub:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
       // the strip only calls out a team nothing beats (every tested team, both lead orders)
-      const sres = worst && worst.r === "WIN" ? `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>` : "";
+      const sres = worst && worst.r === "WIN" ? `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>` : lastChange(d);
       html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
@@ -843,7 +850,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110h"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110i"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -869,7 +876,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1023,7 +1030,8 @@ window.otherCard = ctx => {
   if (M.ser && M.ser.key && !SEEN[M.ser.key]) seenIn(M.ser.key).then(() => { const q = $("ocQ"); if (q && q.value.trim().length >= 2) q.oninput(); });
   $("matchBox").innerHTML = `<h3>Which card did they play?</h3>
     <input type="text" id="ocQ" placeholder="Name, or what you saw: nation, club, league, position" autocomplete="off">
-    <div id="ocRes" style="margin-top:8px"></div>${backBtn()}`;
+    <div id="ocRes" style="margin-top:8px"></div>
+    <details class="howres"><summary>How Most Likely Works</summary><p class="small">Cards are ordered by: a name match, then cards whose main position is the one you typed, then how often the card appears in this series' strong teams (the S${seasonOf(WEEK && WEEK.week)} team, its counter teams and the Reddit team), then rating, then the stat its position uses with this series' boosts (attack up front, control in midfield, defence at the back).</p><p class="small"><b>It's a best guess, not a guarantee. Use at your own risk.</b></p></details>${backBtn()}`;
   // every card can be found except their unplayed listed cards themselves (those have their own buttons); another
   // version of a listed player (e.g. Verón 87 when Verón 86 is listed) is still found
   const used = new Set(M.TB.filter((_, k) => M.mb >> k & 1).map(c => c.id));
@@ -1565,7 +1573,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110h");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110i");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

@@ -60,9 +60,21 @@ def not_owned():
     return {x for x in os.environ.get("NOT_OWNED", "").split(",") if x}
 
 
+def team_sig(d):
+    t = d.get("team") or (d.get("teams") or [None])[0]
+    return (t.get("formation"), [p["id"] for p in t["players"]]) if t and t.get("players") else None
+
+
 def save(name, data):
     data["built"] = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
     data["week"] = week().get("week")
+    # "changed": when the team last changed (the site shows it when the team isn't unbeatable)
+    try:
+        prev = json.load(open(os.path.join(RES, name)))
+    except Exception:
+        prev = None
+    same = prev and prev.get("week") == data["week"] and team_sig(prev) == team_sig(data)
+    data["changed"] = (prev.get("changed") or prev.get("built")) if same else data["built"]
     if not_owned():
         data["not_owned_ids"] = sorted(not_owned())
     if os.environ.get("REQ_CREATED"):            # personal rebuilds: when it was asked for (newest wins on save)
