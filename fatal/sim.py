@@ -385,6 +385,21 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         ev, form, sq, bv = r
         results.append((ev, form, sq))
         log(f"  {form} {bv or ''}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
+    # the field also gets teams built the way other players build: attack first, defence first, balanced. Without them a
+    # blind build only measures itself against its own control-first teams and can misjudge (73: it gave up a 78
+    # striker for CBs that the real 78-79 strikers beat anyway). They are opponents to judge against, and candidates.
+    style_teams = []
+    def style_job(i):
+        form, style = STYLES[i]
+        slots, cards_f, _, chem_w, full = job(form, CONFIGS[1])
+        wt = {"attack": (100, 10000, 100), "defence": (100, 100, 10000), "balanced": (100, 100, 100)}[style]
+        def value(c, s):
+            return (wt[0] * c["C"] if s in CTRL else 0) + (wt[1] * c["A"] if s in ATT else 0) + (wt[2] * c["D"] if s in DEF else 0)
+        sq = build(cards_f, slots, value, chem_weight=lambda c, s: 1, force_full=full, time_limit=min(time_limit, 120))
+        return (evaluate(sq, slots, series), form, sq) if sq else None
+    STYLES = [(f, st) for f in ("3-4-1-2", "3-1-4-2") if f in formations for st in ("attack", "defence", "balanced")]
+    for r in pmap(style_job, len(STYLES)):
+        if r: results.append(r); style_teams.append(r)
     # Reddit teams: their 11 cards placed in each formation (the same program, just on those 11 cards)
     byid = {c["id"]: c for c in pool}
     ref_sigs = set()
@@ -410,6 +425,9 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         sigs.add(sg); prof.append((sq, FORMATIONS[form], series))
         if sg in ref_sigs: prof += [(sq, FORMATIONS[form], series)] * 2     # Reddit teams count 3x: most players copy them
         if len(sigs) == 6: break
+    for ev, form, sq in style_teams:          # other players' styles always in the field
+        sg = (form, frozenset(c["id"] for c in sq))
+        if sg not in sigs: sigs.add(sg); prof.append((sq, FORMATIONS[form], series))
     global FIELD
     FIELD = None
     if prof:
