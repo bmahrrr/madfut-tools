@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261110l">
+<meta name="app-version" content="20261110m">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -313,6 +313,15 @@ details.beatres{margin:0 0 10px;padding:10px 12px;border:1px solid var(--line);b
 .score.odds{grid-template-columns:1fr 1fr 1fr}.sc .bignum.w{color:var(--win,#3ecf6e)}.sc .bignum.l{color:var(--loss,#ff5a5a)}
 .svals{width:100%;border-collapse:collapse;margin:0 0 4px}.svals th{font:700 12px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--gold);padding:0 8px 6px;text-align:left}
 .svals th.n,.svals td.n{text-align:right;width:28%}.svals td{padding:8px;border-top:1px solid var(--line);font-size:14px}.svals td.n{font-weight:700}.svals td.up{color:var(--win,#3ecf6e)}.svals td.dn{color:var(--muted)}
+.vst{width:100%;border-collapse:collapse;margin-top:10px;table-layout:fixed}
+.vst th,.vst td{padding:7px 8px;font-size:13.5px}
+.vst .vtop th{font:700 12px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--gold);text-align:left;padding-bottom:8px}.vst .r{text-align:right}
+.vst .vh th{font:700 12px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--text);text-align:left;background:var(--field);border-top:1px solid var(--line);padding:9px 8px}
+.vst .vh th.n{text-align:center;color:var(--muted);font-family:var(--body);letter-spacing:0;text-transform:none}
+.vst td{border-top:1px solid rgba(255,255,255,.05)}.vst .vn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vst .vn.r{text-align:right}
+.vst col.cv{width:52px}.vst .vtop th.r{text-align:right}
+.vst .vv{text-align:center;font-weight:700;width:48px;color:var(--muted);padding-left:2px;padding-right:2px}.vst .vv.up{color:var(--win)}
+details.vsd>summary{font-weight:700}
 .sc .bignum{font:700 26px/1 var(--display);color:var(--text)}
 .squad.nhoff .nohave{display:none}
 /* installed app on iPhone: keep everything clear of the status bar (time, battery) */
@@ -462,8 +471,8 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="beta/engine.js?v=20261110l"></script>
-<script src="beta/sbc-solver.js?v=20261110l"></script>
-<script src="beta/app.js?v=20261110l"></script>
+<script src="beta/engine.js?v=20261110m"></script>
+<script src="beta/sbc-solver.js?v=20261110m"></script>
+<script src="beta/app.js?v=20261110m"></script>
 </body>
 </html>
