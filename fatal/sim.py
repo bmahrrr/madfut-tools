@@ -240,6 +240,56 @@ def tie_cleanup(team, slots, series, pool, log=None):
     return team
 
 
+def exact_line(team, slots, series, pool, grp, per_slot=20, seconds=150):
+    """Every combination of likely cards for the slots in grp (back line or strikers), the rest of the team fixed, judged
+    exactly (real chem, full ranking). Likely cards: the current ones, the best by the slot's stat, and the best few that
+    share a club, or a nation and league, with the team. Returns (slots, team) if a better line is found, else None."""
+    t0 = time.time()
+    idx = [i for i, sl in enumerate(slots) if sl in grp]
+    if not idx: return None
+    att = bool(set(slots[i] for i in idx) & ATT)
+    st = (lambda x: x["A"]) if att else (lambda x: x["D"])
+    rest = [team[i] for i in range(len(slots)) if i not in idx]
+    keys = {c["clubId"] for c in team} | {(c["nationId"], c["leagueId"]) for c in team}
+    used = {pid(c) for c in rest}
+    pools = {}
+    for sl in {slots[i] for i in idx}:
+        el = [x for x in pool if sl in x["P"] and pid(x) not in used]
+        pick = {x["id"]: x for x in sorted(el, key=lambda x: -st(x))[:per_slot // 3]}
+        # link cards, teammates first (a club link is the strongest), however low their stats
+        clubs = {c["clubId"] for c in team}; nl = {(c["nationId"], c["leagueId"]) for c in team}
+        by = {}
+        for x in el:
+            for k in (x["clubId"], (x["nationId"], x["leagueId"])):
+                if k in keys: by.setdefault(k, []).append(x)
+        extra = sorted({x["id"]: x for L in by.values() for x in sorted(L, key=lambda x: -st(x))[:3]}.values(),
+                       key=lambda x: (-(x["clubId"] in clubs), -((x["nationId"], x["leagueId"]) in nl), -st(x)))
+        for x in extra:
+            if len(pick) >= per_slot: break
+            pick[x["id"]] = x
+        for i in idx:
+            if slots[i] == sl: pick[team[i]["id"]] = team[i]
+        pools[sl] = list(pick.values())
+    order = sorted(set(slots[i] for i in idx))
+    n_of = {sl: sum(1 for i in idx if slots[i] == sl) for sl in order}
+    best = sim_key(evaluate(team, slots, series)); best_team = None
+    def combos(k, chosen, usedp):
+        if k == len(order):
+            yield chosen; return
+        sl = order[k]
+        for comb in itertools.combinations(pools[sl], n_of[sl]):
+            ps = [pid(x) for x in comb]
+            if len(set(ps)) < len(ps) or any(p in usedp for p in ps): continue
+            yield from combos(k + 1, chosen + [(sl, comb)], usedp | set(ps))
+    for ch in combos(0, [], set()):
+        if time.time() - t0 > seconds: break
+        it = {sl: list(comb) for sl, comb in ch}
+        trial = [it[slots[i]].pop(0) if i in idx else team[i] for i in range(len(slots))]
+        k = sim_key(evaluate(trial, slots, series))
+        if k > best: best, best_team = k, trial
+    return (slots, best_team) if best_team else None
+
+
 def polish(team, slots, series, pool, seconds=60, stats=None):
     """Swap one card at a time for ANY card in the series (every rating, every link) while the team gets better.
     Catches what the shortlist misses, e.g. a 55 link card that lets a better control card on full chem."""
@@ -484,13 +534,14 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             if sg not in seen2: seen2.add(sg); tops.append((form, sq))
             if len(tops) == 6: break
         rjobs = []
-        for form, sq in tops:
+        for t, (form, sq) in enumerate(tops):
             slots = FORMATIONS[form]
             for grp in ({"GK", "CB"}, {"ST", "CF"}):
                 idx = [i for i, sl in enumerate(slots) if sl in grp]
-                if idx: rjobs.append((form, sq, idx))
+                if not idx: continue
+                rjobs.append((form, sq, idx, ()))
         def rsolve(j):
-            form, sq, idx = rjobs[j]; slots = FORMATIONS[form]
+            form, sq, idx, excl = rjobs[j]; slots = FORMATIONS[form]
             fixed = {sq[i]["_i"]: slots[i] for i in range(len(slots)) if i not in idx}
             gs = {slots[i] for i in idx}; att = bool(gs & ATT)
             keys = {(c["clubId"]) for c in sq} | {(c["nationId"], c["leagueId"]) for c in sq}
@@ -517,11 +568,26 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             def chem_w(c, s):
                 if s in gs: return (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3) if att else (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3)
                 return 0.01 + (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0)
-            nsq = build(cards, slots, value, chem_weight=chem_w, force_full=lambda c, s: s in CTRL and not full_chem(c), time_limit=60)
+            nsq = build(cards, slots, value, chem_weight=chem_w, force_full=lambda c, s: s in CTRL and not full_chem(c), time_limit=60,
+                        exclude_pids=excl)
             return (evaluate(nsq, slots, series), form, nsq) if nsq else None
         for r in pmap(rsolve, len(rjobs)):
             if r:
                 results.append(r); log(f"  re-solve {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
+        results.sort(key=lambda r: sim_key(r[0]), reverse=True)
+        # exact check of the back line and the strikers of the best 3 teams: every combination of the likely cards,
+        # each judged with real chem and the full ranking (the solver only estimates chem's effect on stats)
+        seen3, best3 = set(), []
+        for ev, form, sq in results:
+            sg = (form, frozenset(c["id"] for c in sq))
+            if sg not in seen3: seen3.add(sg); best3.append((form, sq))
+            if len(best3) == 3: break
+        xjobs = [(form, sq, grp) for form, sq in best3 for grp in ({"GK", "CB"}, {"ST", "CF"})]
+        for r in pmap(lambda j: exact_line(xjobs[j][1], FORMATIONS[xjobs[j][0]], series, pool, xjobs[j][2]), len(xjobs)):
+            if r:
+                form = xjobs[0][0]
+                results.append((evaluate(r[1], r[0], series), next(f for f in FORMATIONS if FORMATIONS[f] == r[0] and f in formations), r[1]))
+                log(f"  exact line: control {results[-1][0]['control']} attack {results[-1][0]['attack']} defence {results[-1][0]['defence']}")
         results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     results = [r for r in results if r[0]["ctrl_not_full"] == 0] or results
     # swap check on the team that will be published: every card in the series tried in every slot until no single
