@@ -173,7 +173,7 @@ def evaluate(team, slots, series):
 
 
 def rank_key(ev):
-    """Owner's order: highest Control (then the control cards' totals); then Attack before Defence. A small defence
+    """Owner's order: highest Control; then Attack before Defence. A small defence
     gain never beats an attack gain: defence only counts a third as much (a 1-point attack gain beats up to a 3-point
     defence loss, so a tiny attack gain can't cost a big defence drop). Then Attack, its total, Defence, its total,
     match strength against the strongest teams, chem."""
@@ -184,12 +184,14 @@ def rank_key(ev):
     # attack and defence are judged by the chance to beat the strongest teams' real defenders / attackers (a 66 and a
     # 68 striker are equally useless if strong defences are 70); without that profile, by their average values
     pa, pd = ev.get("p_att"), ev.get("p_def")
-    if pa is not None: return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(pa + pd / 3, 4), round(pa, 4),
+    # Owner's tie rule is per card (same control -> higher total plays, see tie_cleanup); the control cards' team total
+    # only splits teams equal on everything else. Ranked above attack it picked high-total control over better strikers (73).
+    if pa is not None: return (round(ev["control"], 2), round(pa + pd / 3, 4), round(pa, 4),
                                round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
-                               ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
-    return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(a + d / 3, 2),
+                               round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
+    return (round(ev["control"], 2), round(a + d / 3, 2),
             round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
-            ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
+            round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
 
 
 def sim_key(ev):
@@ -326,7 +328,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             # so the solver happily took a 65 GK as a link card in the 80 series.
             T = c["A"] + c["C"] + c["D"]
             v = 0
-            if s in CTRL: v += 10000 * c["C"] + 60 * T
+            if s in CTRL: v += 10000 * c["C"] + 0.5 * T     # totals only split equal control (per-card tie rule)
             if s in ATT: v += 100 * slot_w.get(s, 0.2) * (c["A"] + T / 400)
             if s in DEF: v += 100 / (3 * nD) * (c["D"] + T / 400)
             return v
