@@ -141,18 +141,25 @@ def evaluate(team, slots, series):
     AT = sum(W[i] * (E[i][0] + E[i][1] + E[i][2]) for i in range(len(slots)))     # attack duels tie -> total stats
     DT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in DEF)
     bad = sum(1 for i, s in enumerate(slots) if s in CTRL and ch[i] < 3)
+    # quality check (owner): a card that attacks in 5%+ of possessions should have in-game attack of at least
+    # cap - 1 (79 in the 80 series, 89 in the 90). Control decides, but never at the cost of a striker who can't
+    # score. Teams that reach it rank above all that don't; if none can, the smallest shortfall wins.
+    floor = series.get("cap", 0) - 1
+    weak = [team[i]["name"] for i in range(len(slots)) if W[i] >= 0.05 and E[i][0] < floor]
+    short = round(sum(W[i] * (floor - E[i][0]) for i in range(len(slots)) if W[i] >= 0.05 and E[i][0] < floor), 3)
     m = lambda v: sum(v) / len(v) if v else 0
-    net = None
+    net = None; p_att = p_def = None
     if OPP:          # how it actually plays against the strongest teams: we win control, then score; or they score
         di = [i for i, s in enumerate(slots) if s in DEF]
         h = m([_beat(c, OPP["C"]) for c in C])
         f = sum(W[i] * _beat(E[i][0], OPP["D"]) for i in range(len(slots)) if W[i] > 0)
         g = m([1 - _beat(E[i][2], OPP["A"]) for i in di])
         net = round(h * f - (1 - h) * g, 4)
+        p_att, p_def = round(f, 4), round(1 - g, 4)     # chance our shooter beats a strong defender / our defender stops a strong attacker
     vr = vs_reddit(team, slots, series, E)
     return {"control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
-            "defence_cards": sorted(D, reverse=True), "chem": sum(ch), "ctrl_not_full": bad,
+            "defence_cards": sorted(D, reverse=True), "p_att": p_att, "p_def": p_def, "chem": sum(ch), "ctrl_not_full": bad, "weak_attackers": weak, "attack_short": short,
             "ctrl_total": round(CT / len(C), 2) if C else 0,
             "att_total": round(AT, 2), "def_total": round(DT / len(D), 2) if D else 0}
 
@@ -163,6 +170,12 @@ def rank_key(ev):
     defence loss, so a tiny attack gain can't cost a big defence drop). Then Attack, its total, Defence, its total,
     match strength against the strongest teams, chem."""
     a, d = ev["attack"], ev["defence"]
+    # attack and defence are judged by the chance to beat the strongest teams' real defenders / attackers (a 66 and a
+    # 68 striker are equally useless if strong defences are 70); without that profile, by their average values
+    pa, pd = ev.get("p_att"), ev.get("p_def")
+    if pa is not None: return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(pa + pd / 3, 4), round(pa, 4),
+                               round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
+                               ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
     return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(a + d / 3, 2),
             round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
             ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
@@ -173,7 +186,34 @@ def sim_key(ev):
     (most players copy it: any team at least level with it ranks above every team that loses to it, and among
     losing teams the smaller loss wins); then rank_key."""
     vr = ev.get("vs_reddit")
-    return (ev["ctrl_not_full"] == 0, min(vr, 0) if vr is not None else 0, rank_key(ev))
+    return (ev["ctrl_not_full"] == 0, -ev.get("attack_short", 0), min(vr, 0) if vr is not None else 0, rank_key(ev))
+
+
+def tie_cleanup(team, slots, series, pool, log=None):
+    """Owner's rule: when two cards give the same value in the stat their slot uses (control in control slots, else
+    attack, else defence), play the one with the higher total; still level, the higher control. Only when every other
+    card keeps exactly the same in-game stats (a swap that breaks a chem link is never made)."""
+    team = list(team)
+    role = lambda s: 1 if s in CTRL else 0 if s in ATT else 2
+    changed = True
+    while changed:
+        changed = False
+        E, _ = effective(team, series)
+        for i, sl in enumerate(slots):
+            r = role(sl); used = {pid(x) for k, x in enumerate(team) if k != i}
+            cur = (E[i][0] + E[i][1] + E[i][2], E[i][1])
+            best = None
+            for c in pool:
+                if sl not in c["P"] or c["id"] == team[i]["id"] or pid(c) in used: continue
+                trial = team[:i] + [c] + team[i + 1:]
+                E2, _ = effective(trial, series)
+                if E2[i][r] != E[i][r] or any(E2[k][:3] != E[k][:3] for k in range(len(team)) if k != i): continue
+                v = (E2[i][0] + E2[i][1] + E2[i][2], E2[i][1])
+                if v > cur and (best is None or v > best[0]): best = (v, c)
+            if best:
+                if log: log(f"  tie rule: {team[i]['name']} -> {best[1]['name']} at {sl} (same {['attack', 'control', 'defence'][r]}, higher total)")
+                team[i] = best[1]; changed = True; E, _ = effective(team, series)
+    return team
 
 
 def polish(team, slots, series, pool, seconds=60, stats=None):
@@ -327,6 +367,8 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         if sim_key(pe) > sim_key(ev):
             log(f"  swap check improved {form}: attack {ev['attack']} -> {pe['attack']}, defence {ev['defence']} -> {pe['defence']}")
             results[0] = (pe, form, p)
+        t2 = tie_cleanup(results[0][2], slots, series, pool, log)
+        if t2 != results[0][2]: results[0] = (evaluate(t2, slots, series), form, t2)
         results[0][0]["swaps_checked"] = st.get("checked", 0)
         log(f"  swap check: {st.get('checked', 0)} swaps tried on the final team")
     out = []
