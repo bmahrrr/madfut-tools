@@ -1,0 +1,75 @@
+name: Blind test
+
+# Test runs only: builds every Sim series without the Reddit or site team on the sim-rules branch's code and saves
+# the results to blindtest/results on sim-rules. Never touches the site.
+# blindtest/trigger.txt: "week=current 2026-11-02" (this season and/or Vault weeks) and "modes=rule match".
+on:
+  push:
+    branches: [sim-rules]
+    paths: ["blindtest/trigger.txt"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blind-test
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      keys: ${{ steps.p.outputs.keys }}
+      modes: ${{ steps.p.outputs.modes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: p
+        run: |
+          git fetch -q origin main && git checkout origin/main -- config docs/vault
+          WEEKS=$(grep -o 'week=[^=]*' blindtest/trigger.txt | sed 's/ modes$//' | cut -d= -f2); WEEKS=${WEEKS:-current}
+          MODES=$(grep -o 'modes=.*' blindtest/trigger.txt | cut -d= -f2); MODES=${MODES:-rule}
+          echo "keys=$(python3 -c "
+          import json
+          out = []
+          for w in '$WEEKS'.split():
+              f = 'config/week.json' if w == 'current' else f'docs/vault/{w}/week.json'
+              out += [w + ':' + s['key'] for s in json.load(open(f))['sim']]
+          print(json.dumps(out))")" >> $GITHUB_OUTPUT
+          echo "modes=$(python3 -c "import json;print(json.dumps('$MODES'.split()))")" >> $GITHUB_OUTPUT
+
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.keys) }}
+        mode: ${{ fromJson(needs.plan.outputs.modes) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Cards and setup from main
+        run: git fetch -q origin main && git checkout origin/main -- data config docs/results docs/vault
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Blind build
+        run: |
+          W="${{ matrix.key }}"; K=${W#*:}; W=${W%%:*}
+          if [ "$W" != current ]; then export WEEK_FILE=docs/vault/$W/week.json RES_DIR=docs/vault/$W; fi
+          export TEST_TAG=$W
+          python scripts/blind_test.py "$K" "${{ matrix.mode }}"
+      - name: Save this result right away
+        run: |
+          W="${{ matrix.key }}"; P=blindtest/results/${W%%:*}/${{ matrix.mode }}/${W#*:}.txt
+          cp $P /tmp/r.txt
+          git reset -q --hard && git clean -qfd blindtest && git checkout -q sim-rules && git pull -q
+          mkdir -p $(dirname $P) && cp /tmp/r.txt $P
+          git config user.name bmahrrr && git config user.email bmahrrr1@gmail.com
+          git add $P && git commit -qm "Blind test: ${{ matrix.key }} ${{ matrix.mode }}" || exit 0
+          for i in 1 2 3 4 5 6; do git pull -q --rebase && git push -q && break; sleep $((RANDOM % 10 + 3)); done
