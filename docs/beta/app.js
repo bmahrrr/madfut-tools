@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110e";
+const APP_V = "20261110f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -361,7 +361,7 @@ function noHaveBar(k) {
 function wireNoHave() {
   const redraw = k => { const bar = document.querySelector(`[data-nhbar="${k}"]`); if (bar) bar.outerHTML = noHaveBar(k); wireNoHave(); };
   document.querySelectorAll("[data-nhtog]").forEach(b => b.onclick = () => {
-    const sq = b.closest(".squad"); b.classList.toggle("on"); b.textContent = b.classList.contains("on") ? "Done" : "Missing a card?"; if (sq) sq.classList.toggle("nhoff", !b.classList.contains("on"));
+    const sq = b.parentElement.nextElementSibling; b.classList.toggle("on"); b.textContent = b.classList.contains("on") ? "Done" : "Missing a card?"; if (sq) sq.classList.toggle("nhoff", !b.classList.contains("on"));
   });
   document.querySelectorAll("[data-nh]").forEach(b => b.onclick = () => {
     const k = b.dataset.nh, ids = noHave(k), i = ids.indexOf(b.dataset.id);
@@ -471,7 +471,8 @@ async function renderTeams() {
         if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
       const sid = "myclub:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
-      const sres = `${worst ? `<span class="rp">${pill(worst.r)}</span><small>Worst case</small>` : ""}`;
+      // the strip only calls out a team nothing beats (every tested team, both lead orders)
+      const sres = worst && worst.r === "WIN" ? `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>` : "";
       html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
@@ -496,7 +497,7 @@ async function renderTeams() {
           for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
             if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
           const gone = vd.not_owned || [];
-          html += `<details class="oteam vteam"><summary><b>${esc(lab)} version</b><span class="small muted">${vd.same_as_full ? "Same as the full team" : "Without those cards"}</span><span class="ores">${vw ? pill(vw.r) : ""}</span></summary>
+          html += `<details class="oteam vteam"><summary><b>${esc(lab)} version</b><span class="small muted">${vd.same_as_full ? "Same as the full team" : "Without those cards"}</span><span class="ores">${vw && vw.r === "WIN" ? `<span class="pill WIN unb">Unbeatable</span>` : ""}</span></summary>
             <p class="meta" style="margin:6px 0">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? "" : ". Tested against teams that have them"}</p>
             ${gone.length && !vd.same_as_full ? `<p class="small muted" style="margin:0 0 6px">Left out: ${esc(gone.slice(0, 12).join(", "))}${gone.length > 12 ? ` and ${gone.length - 12} more` : ""}</p>` : ""}
             ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}</div>` : ""}
@@ -531,7 +532,7 @@ async function renderTeams() {
 }
 function playersTable(ps, showTB, nh, mark) {     // nh = "myclub:73" adds a Don't have button to each player; mark(p): highlight
   const key = `<span>Att</span><span>Ctl</span><span>Def</span>`, nhOn = nh && noHave(nh).length;
-  return `<div class="squad${nh && !nhOn ? " nhoff" : ""}"><div class="stkey">${nh ? `<button class="nhtog${nhOn ? " on" : ""}" data-nhtog>${nhOn ? "Done" : "Missing a card?"}</button>` : ""}${key}</div><div class="stkey k2">${key}</div>${ps.map(p =>
+  return `${nh ? `<div class="sqhead"><span>Squad</span><button class="ghost nhtog${nhOn ? " on" : ""}" data-nhtog>${nhOn ? "Done" : "Missing a card?"}</button></div>` : ""}<div class="squad${nh && !nhOn ? " nhoff" : ""}"><div class="stkey">${key}</div><div class="stkey k2">${key}</div>${ps.map(p =>
     `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><span class="l1"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}</span><small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Base ${p.card.join("/")} · Chem ${p.chem}</small></span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
 }
 
@@ -842,7 +843,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -868,7 +869,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1148,11 +1149,11 @@ function runSim() {
       a: R.map((r, i) => [r, W[i]]).filter(([, w]) => w > 0.001).sort((x, y) => y[1] - x[1]).map(([r, w]) => [r.name, r.a, Math.round(w * 100)]),
       d: R.filter(r => DEF.has(r.slot)).sort((x, y) => y.d - x.d).map(r => [r.name, r.d]) }; };
   const X = roles(R1), Y = roles(R2), li = L => L.map(x => `<span>${esc(cap(x[0]))} <b>${x[1]}</b>${x[2] != null ? ` <i>${x[2]}%</i>` : ""}</span>`).join("");
-  const row = (lab, k, note) => `<div class="srole"><h4>${lab}<small>${note}</small></h4><div class="srcols"><div>${li(X[k])}</div><div>${li(Y[k])}</div></div></div>`;
+  const row = (lab, k) => `<div class="srole"><h4>${lab}</h4><div class="srcols"><div>${li(X[k])}</div><div>${li(Y[k])}</div></div></div>`;
   $("simOut").innerHTML = `<div class="sroles"><div class="srhead"><span>You</span><span>Them</span></div>
-    ${row("Control", "c", "Fight for the ball each possession")}
-    ${row("Attack", "a", "Who shoots, and how often")}
-    ${row("Defence", "d", "Who stops the shot")}</div><p>Control duels won: <b>${(m.control * 100).toFixed(0)}%</b><br>You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>.</p><p class="small">If a match has ~7 possessions: win <b>${odds[0]}%</b> · draw <b>${odds[1]}%</b> · loss <b>${odds[2]}%</b></p>`;
+    ${row("Control", "c")}
+    ${row("Attack", "a")}
+    ${row("Defence", "d")}</div><p>Control duels won: <b>${(m.control * 100).toFixed(0)}%</b><br>You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>.</p><p class="small">If a match has ~7 possessions: win <b>${odds[0]}%</b> · draw <b>${odds[1]}%</b> · loss <b>${odds[2]}%</b></p>`;
 }
 function matchOdds(p, q, n) {
   const C = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };
@@ -1549,7 +1550,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110e");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
