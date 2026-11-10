@@ -257,7 +257,12 @@ def main():
                     from fatal.sim import _side, _match
                     nt = teams[0]; nsq = [by_id[p["id"]] for p in nt["players"]]
                     _, a, b = _match(_side(nsq, FORMATIONS[nt["formation"]], s), _side(sq, slots, s))
-                    level = k(ev)[:4] == k(nt["metrics"])[:4] and round(ev["control"], 2) == round(nt["metrics"]["control"], 2)
+                    kp, kn = k(ev), k(nt["metrics"])
+                    cp, cn = round(ev["control"], 2), round(nt["metrics"]["control"], 2)
+                    # level: same hard rules and control, or one has higher control and the other meets the attack floor
+                    # better (owner: the floor against control is settled head to head)
+                    level = (kp[0], kp[1], kp[3]) == (kn[0], kn[1], kn[3]) and (
+                        (cp == cn and kp[2] == kn[2]) or (cp > cn and kp[2] < kn[2]) or (cp < cn and kp[2] > kn[2]))
                     if level and nsq != sq: print(f"new team vs published: scores {a:.3f}, concedes {b:.3f}")
                     if k(ev) > k(nt["metrics"]) and not (level and a > b) or (level and b > a):
                         print("previous team is better:", ev["control"], "vs", teams[0]["metrics"]["control"])
