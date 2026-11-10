@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110d";
+const APP_V = "20261110e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -713,7 +713,7 @@ function panelHtml(side) {
     const e = E[i];
     const alts = versions(c, side).length > 1;
     return `<div class="slot"><span class="num">${i + 1}</span><span class="who"><b>${esc(c.name)}</b> ${c.rating}${alts ? ` <button class="x" data-alt="${side}:${i}" title="Other versions of this player" style="font-size:13px;color:var(--accent)">⇄</button>` : ""}<br><span class="muted small">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(cName(c.clubId))}</span></span>
-      <span class="st">A ${e.a} · C ${e.c} · D ${e.d}<br>Chem ${e.chem} · TB ${e.t}</span><button class="x" data-del="${side}:${i}">✕</button></div>`;
+      <span class="st">A ${e.a} · C ${e.c} · D ${e.d}<br>TB ${e.t}</span><button class="x" data-del="${side}:${i}">✕</button></div>`;
   }).join("")}</div>`;
   if (team.length < 11) h += `<input type="text" id="q${side}" placeholder="Add a player" style="margin-top:10px"><ul class="sr" id="r${side}" hidden></ul>
     <details style="margin-top:8px"><summary class="small">Paste names</summary>
@@ -842,7 +842,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -868,7 +868,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -989,7 +989,7 @@ const POS_WORDS = { striker: ["ST", "CF"], st: ["ST"], cf: ["CF"], forward: ["ST
   defender: ["CB", "LB", "RB"], cb: ["CB"], lb: ["LB"], rb: ["RB"], fullback: ["LB", "RB"], back: ["CB", "LB", "RB"], gk: ["GK"], keeper: ["GK"], goalkeeper: ["GK"] };
 function hintMatcher(q) {
   const words = q.split(/\s+/).filter(Boolean);
-  const fields = c => [c._n, norm(nName(c.nationId)), norm(lName(c.leagueId)), norm(cName(c.clubId)), norm(TYPE(c.color))];
+  const fields = c => [c._n, norm(nName(c.nationId)), norm(lName(c.leagueId)), norm(cName(c.clubId))];
   return c => {
     const F = fields(c), all = F.join(" | ");
     if (all.includes(q)) return true;                       // the whole phrase in one place (a name, "premier league")
@@ -1001,7 +1001,7 @@ function hintMatcher(q) {
     }
     return rest.every(w => {
       const P = POS_WORDS[w.replace(/s$/, "")] || POS_WORDS[w];
-      if (P) return P.includes(c.position);                  // the position shown on the card
+      if (P) return P.some(x => c.P && c.P.has(x));          // the position it's played in (main or alternative)
       return F.some(f => f.includes(w));
     });
   };
@@ -1010,20 +1010,22 @@ function hintMatcher(q) {
 const otherBtn = ctx => `<button class="ghost" onclick="otherCard('${ctx}')">Someone else…</button>`;
 window.otherCard = ctx => {
   $("matchBox").innerHTML = `<h3>Which card did they play?</h3>
-    <input type="text" id="ocQ" placeholder="Name, or what you know: Germany striker, Premier League CB…" autocomplete="off">
+    <input type="text" id="ocQ" placeholder="Name, or what you saw: nation, club, league, position" autocomplete="off">
     <div id="ocRes" style="margin-top:8px"></div>${backBtn()}`;
   // every card can be found except their unplayed listed cards themselves (those have their own buttons); another
   // version of a listed player (e.g. Verón 87 when Verón 86 is listed) is still found
   const used = new Set(M.TB.filter((_, k) => M.mb >> k & 1).map(c => c.id));
   const draw = () => {
     const q = norm($("ocQ").value.trim());
-    if (q.length < 2) { $("ocRes").innerHTML = `<p class="small muted">Type a name, or any mix of nation, league, club, position or card type. Strongest first, so if you're not sure, pick the top one.</p>`; return; }
+    if (q.length < 2) { $("ocRes").innerHTML = `<p class="small muted">Type a name, or what you saw, e.g. "Germany ST" or "Bayern CB". The most likely card is first.</p>`; return; }
     const match = hintMatcher(q);
-    const tot = c => c.attack + c.control + c.defense, byName = c => c._n.includes(q) ? 1 : 0;   // a name match first, then strongest
+    // most likely first: a name match, then a card whose main position is the one played, then the strongest
+    const tot = c => c.attack + c.control + c.defense, byName = c => c._n.includes(q) ? 1 : 0;
+    const PW = q.split(/\s+/).map(w => POS_WORDS[w.replace(/s$/, "")] || POS_WORDS[w]).filter(Boolean).flat(), mainPos = c => PW.length && PW.includes(c.position) ? 1 : 0;
     const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.id) && match(c))
-      .sort((x, y) => byName(y) - byName(x) || tot(y) - tot(x)).slice(0, 25);
-    $("ocRes").innerHTML = L.length ? L.map(c => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="otherDo('${ctx}','${esc(c.id)}')">
-        <b>${esc(c.name)} ${c.rating}</b> <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}</span></button>`).join("")
+      .sort((x, y) => byName(y) - byName(x) || mainPos(y) - mainPos(x) || tot(y) - tot(x)).slice(0, 25);
+    $("ocRes").innerHTML = L.length ? L.map((c, n) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="otherDo('${ctx}','${esc(c.id)}')">
+        <b>${esc(c.name)} ${c.rating}${n === 0 ? ` <span class="tag">Most likely</span>` : ""}</b> <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}</span></button>`).join("")
       : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
   };
   $("ocQ").oninput = draw; draw(); $("ocQ").focus();
@@ -1495,7 +1497,7 @@ function drawCheck() {
   const sq = CHK.ids.map(id => BYID.get(id)).filter(Boolean), out = $("chkOut");
   if (!sq.length) { out.innerHTML = `<p class="small muted">Add 11 players to check them against the requirements.</p>`; return; }
   const ch = sbcChem(sq), req = readReq();
-  const rows = sq.map((c, i) => `<tr><td class="wrap"><b>${esc(c.name)}</b> ${c.rating}<br><span class="muted small">${esc(TYPE(c.color))} · ${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></td><td class="n">${ch[i]}</td><td><button class="x" data-cdel="${i}">✕</button></td></tr>`).join("");
+  const rows = sq.map((c, i) => `<tr><td class="wrap"><b>${esc(c.name)}</b> ${c.rating}<br><span class="muted small">${esc(TYPE(c.color))} · ${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></td><td><button class="x" data-cdel="${i}">✕</button></td></tr>`).join("");
   const checks = [{ label: `Players ${sq.length} (need 11)`, ok: sq.length === 11 }];
   const dup = sq.length - new Set(sq.map(c => c.baseId || c.name)).size;
   if (dup) checks.push({ label: `Same player twice`, ok: false });
@@ -1505,7 +1507,7 @@ function drawCheck() {
   checks.push(...sbcChecks(req, sq));
   const allOk = sq.length === 11 && checks.every(c => c.ok);
   out.innerHTML = `<p><b>Rating ${teamRatingOf(sq.map(c => c.rating))} · Chem ${ch.reduce((a, b) => a + b, 0)}</b></p>
-    <table class="sq"><tr><th>Player</th><th>Chem</th><th></th></tr>${rows}</table>
+    <table class="sq"><tr><th>Player</th><th></th></tr>${rows}</table>
     <p class="${allOk ? "ok" : "bad"}" style="margin:10px 0 4px"><b>${allOk ? "✓ Meets every requirement" : sq.length < 11 ? `${11 - sq.length} more to add` : "✗ Doesn't meet every requirement"}</b></p>
     <ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("")}</ul>`;
   out.querySelectorAll("[data-cdel]").forEach(b => b.onclick = () => { CHK.ids.splice(+b.dataset.cdel, 1); saveChk(); drawCheck(); });
@@ -1547,7 +1549,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110d");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1640,8 +1642,8 @@ function drawSBCResult(working = false) {
       : r.proven ? `<p class="ok"><b>✓ Cheapest squad</b></p>`
       : `<p><b>Good squad</b> <span class="muted small">There may be a slightly cheaper one.</span> <button class="ghost" id="sbcLonger" style="padding:4px 9px;font-size:12px">Search longer</button></p>`;
     out.innerHTML = `<h2>${esc(r.formation)} · rating ${r.rating} · chem ${r.chem}</h2>${head}
-      <table class="sq"><tr><th>Pos</th><th>Player</th><th>Chem</th><th></th></tr>${r.players.map(p =>
-        `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(cName(p.clubId))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td class="n">${p.chem}</td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
+      <table class="sq"><tr><th>Pos</th><th>Player</th><th></th></tr>${r.players.map(p =>
+        `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(cName(p.clubId))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
       ${skipHtml}
       <details ${allOk ? "" : "open"} style="margin-top:8px"><summary class="small ${allOk ? "ok" : "bad"}">${allOk ? "✓ Meets every requirement" : "✗ A requirement isn't met. Please report it"}</summary><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul></details>`;
   }
