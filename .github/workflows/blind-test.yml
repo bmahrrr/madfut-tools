@@ -1,0 +1,55 @@
+name: Blind test
+
+# Test runs only: builds every Sim series without the Reddit or site team on the sim-rules branch's code, with this
+# season's cards and setup from main, and saves the results to blindtest/results on sim-rules. Never touches the site.
+on:
+  push:
+    branches: [sim-rules]
+    paths: ["blindtest/trigger.txt"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blind-test
+  cancel-in-progress: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ["68", "73", "80", "86", "88", "90", "X"]
+        mode: ["rule", "match"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: This season's cards and setup from main
+        run: git fetch -q origin main && git checkout origin/main -- data config docs/results
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/blind_test.py "${{ matrix.key }}" "${{ matrix.mode }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: blind_${{ matrix.mode }}_${{ matrix.key }}
+          path: blindtest/results/${{ matrix.mode }}/${{ matrix.key }}.txt
+
+  save:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: art
+      - run: |
+          for d in art/blind_*; do n=${d#art/blind_}; mode=${n%%_*}; key=${n#*_}; mkdir -p blindtest/results/$mode; cp $d/$key.txt blindtest/results/$mode/; done
+          git config user.name bmahrrr && git config user.email bmahrrr1@gmail.com
+          git add blindtest/results && git commit -qm "Blind test results" || exit 0
+          for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done
