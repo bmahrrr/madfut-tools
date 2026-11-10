@@ -1,23 +1,23 @@
-current 90 rule blind build 70s 3-4-1-2
+current 90 rule blind build 136s 3-4-1-2
 control 93.6 attack 92.67 defence 92.75 chem 33
   GK   Casillas 90 [51, 50, 94]
-  CB   David Luiz 90 [78, 86, 94]
   CB   Irene Paredes 87 [67, 70, 89]
   CB   Comuzzo 90 [71, 81, 94]
+  CB   David Luiz 90 [78, 86, 94]
   LM   Ginola 90 [92, 94, 64]
-  CM   Karchaoui 88 [89, 93, 83]
   CM   Pirlo 90 [88, 93, 70]
+  CM   Karchaoui 88 [89, 93, 83]
   RM   Olise 90 [89, 94, 53]
   CAM  Abily 90 [91, 94, 82]
-  ST   Rummenigge 90 [94, 87, 62]
   ST   Pajor 90 [94, 79, 34]
-vs site (3-4-1-2, 93.6/92.9/92.25): blind scores 26.2%, they score 23.6%, control 47%
-same as site: False
+  ST   Rummenigge 90 [94, 87, 62]
+vs site (3-4-1-2, 93.6/92.67/92.75): blind scores 22.2%, they score 22.2%, control 50%
+same as site: True
 vs Reddit (3-4-1-2, 93.6/92.9/92.25): blind scores 26.2%, they score 23.6%, control 47%
-chosen: control 93.6 ctrl_win 0.6733 p_att 0.5234 p_def 0.6555 att 92.67 def 92.75
-finalist 1: control 93.6 ctrl_win 0.701 p_att 0.5602 p_def 0.5131 att 92.9 def 92.25
+chosen: control 93.6 ctrl_win 0.6067 p_att 0.4682 p_def 0.5897 att 92.67 def 92.75
+finalist 1: control 93.6 ctrl_win 0.6358 p_att 0.4895 p_def 0.4538 att 92.9 def 92.25
 vs finalist 1 (3-4-1-2, 93.6/92.9/92.25): blind scores 26.2%, they score 23.6%, control 47%
-finalist 2: control 93.6 ctrl_win 0.701 p_att 0.4376 p_def 0.6375 att 92.59 def 93.25
-vs finalist 2 (3-4-1-2, 93.6/92.59/93.25): blind scores 22.3%, they score 18.1%, control 47%
-round robin (total margin): chosen +6.6, finalist 1 -1.9, finalist 2 -4.8
-IDS id5479,id013,id227190,ltm_comuzzo90,id84078052,id50565310,id7763,id247827,id227324,id243075,id50573494
+finalist 2: control 93.6 ctrl_win 0.6067 p_att 0.4889 p_def 0.4718 att 92.64 def 90.8
+vs finalist 2 (3-1-4-2, 93.6/92.64/90.8): blind scores 27.7%, they score 22.3%, control 50%
+round robin (total margin): chosen +7.9, finalist 1 +0.4, finalist 2 -8.3
+IDS id5479,id227190,ltm_comuzzo90,id013,id84078052,id7763,id50565310,id247827,id227324,id50573494,id243075
