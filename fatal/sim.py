@@ -55,6 +55,9 @@ def _pool(series, cards):
 
 
 OPP = None      # profile of the strongest teams in the series (set by build_sim): what our team plays against
+MAXA = None     # the highest in-game attack any card in the series can reach (set by build_sim)
+FIELD = None    # the strongest teams found (set by build_sim), as match sides: the simulated-match tie-break plays each
+MATCH_TB = __import__("os").environ.get("SIM_TB") == "match"     # test: after control, rank by simulated matches vs FIELD
 REDDIT = []     # the Reddit teams in every Sim formation they fit (set by build_sim): a team must not lose to them
 
 
@@ -119,16 +122,17 @@ def _beat(x, ys):
 
 def opp_profile(teams):
     """teams: [(team, slots, series)]. Their control, attack (weighted by who attacks) and defence values."""
-    C, A, D = [], [], []
+    C, A, D, CF = [], [], [], []
     n = len(teams)
     for team, slots, series in teams:
         E, _ = effective(team, series)
         W = attack_weights(slots, [x["position"] for x in team])
         ci = [i for i, s in enumerate(slots) if s in CTRL]; di = [i for i, s in enumerate(slots) if s in DEF]
         C += [(E[i][1], 1 / (n * len(ci))) for i in ci]
+        CF += [(tuple(E[i][:3]), 1 / (n * len(ci))) for i in ci]
         D += [(E[i][2], 1 / (n * len(di))) for i in di]
         A += [(E[i][0], W[i] / n) for i in range(len(slots)) if W[i] > 0]
-    return {"C": C, "A": A, "D": D}
+    return {"C": C, "A": A, "D": D, "CF": CF}
 
 
 def evaluate(team, slots, series):
@@ -142,39 +146,148 @@ def evaluate(team, slots, series):
     AT = sum(W[i] * (E[i][0] + E[i][1] + E[i][2]) for i in range(len(slots)))     # attack duels tie -> total stats
     DT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in DEF)
     bad = sum(1 for i, s in enumerate(slots) if s in CTRL and ch[i] < 3)
+    # quality check (owner): a card that attacks in 5%+ of possessions should have in-game attack of at least
+    # cap - 1 (79 in the 80 series, 89 in the 90). Control decides, but never at the cost of a striker who can't
+    # score. Teams that reach it rank above all that don't; if none can, the smallest shortfall wins.
+    # X has no real cap (99): a 98 floor would rank attack above control there. No floor in X until the owner sets one.
+    floor = series.get("attack_floor", 0 if str(series.get("key")) == "X" else series.get("cap", 0) - 1)
+    weak = [team[i]["name"] for i in range(len(slots)) if W[i] >= 0.05 and E[i][0] < floor]
+    short = round(sum(W[i] * (floor - E[i][0]) for i in range(len(slots)) if W[i] >= 0.05 and E[i][0] < floor), 3)
     m = lambda v: sum(v) / len(v) if v else 0
-    net = None
+    net = None; p_att = p_def = None; ctrl_win = None
     if OPP:          # how it actually plays against the strongest teams: we win control, then score; or they score
         di = [i for i, s in enumerate(slots) if s in DEF]
         h = m([_beat(c, OPP["C"]) for c in C])
+        def _cduel(x, y):
+            if x[1] != y[1]: return 1 if x[1] > y[1] else 0
+            c = lambda u, v: 1 if u > v else 0.5 if u == v else 0
+            return (c(x[0], y[0]) + c(x[2], y[2]) + c(sum(x), sum(y))) / 3
+        ctrl_win = round(m([sum(w * _cduel(tuple(E[i][:3]), y) for y, w in OPP["CF"]) for i, s in enumerate(slots) if s in CTRL]), 4)
         f = sum(W[i] * _beat(E[i][0], OPP["D"]) for i in range(len(slots)) if W[i] > 0)
         g = m([1 - _beat(E[i][2], OPP["A"]) for i in di])
         net = round(h * f - (1 - h) * g, 4)
+        p_att, p_def = round(f, 4), round(1 - g, 4)     # chance our shooter beats a strong defender / our defender stops a strong attacker
     vr = vs_reddit(team, slots, series, E)
-    return {"control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
+    h2h = None
+    if FIELD:        # average goal-chance margin per possession against the strongest teams found
+        me = _side(team, slots, series, E)
+        h2h = round(sum(a - b for _, a, b in (_match(me, f) for f in FIELD)) / len(FIELD), 5)
+    return {"h2h": h2h, "ctrl_win": ctrl_win, "control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
-            "defence_cards": sorted(D, reverse=True), "chem": sum(ch), "ctrl_not_full": bad,
+            "defence_cards": sorted(D, reverse=True), "p_att": p_att, "p_def": p_def, "chem": sum(ch), "ctrl_not_full": bad, "def_unbeatable": bool(MAXA) and all(E[i][2] > MAXA for i, s in enumerate(slots) if s in DEF), "weak_attackers": weak, "attack_short": short,
             "ctrl_total": round(CT / len(C), 2) if C else 0,
             "att_total": round(AT, 2), "def_total": round(DT / len(D), 2) if D else 0}
 
 
 def rank_key(ev):
-    """Owner's order: highest Control (then the control cards' totals); then Attack before Defence. A small defence
+    """Owner's order: highest Control; then Attack before Defence. A small defence
     gain never beats an attack gain: defence only counts a third as much (a 1-point attack gain beats up to a 3-point
     defence loss, so a tiny attack gain can't cost a big defence drop). Then Attack, its total, Defence, its total,
     match strength against the strongest teams, chem."""
     a, d = ev["attack"], ev["defence"]
-    return (round(ev["control"], 2), round(ev.get("ctrl_total", 0), 2), round(a + d / 3, 2),
+    if MATCH_TB and ev.get("h2h") is not None:     # test: control, then simulated matches, then attack, defence
+        return (round(ev["control"], 2), ev["h2h"], round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2),
+                round(d, 2), round(ev.get("def_total", 0), 2), ev["chem"])
+    # attack and defence are judged by the chance to beat the strongest teams' real defenders / attackers (a 66 and a
+    # 68 striker are equally useless if strong defences are 70); without that profile, by their average values
+    pa, pd = ev.get("p_att"), ev.get("p_def")
+    # Owner's tie rule is per card (same control -> higher total plays, see tie_cleanup); the control cards' team total
+    # only splits teams equal on everything else. Ranked above attack it picked high-total control over better strikers (73).
+    # control duels won (the game's tiebreak on tied control) only after attack and defence: ranked straight after
+    # control, a 0.5% edge there beat a 10-point defence gap (80)
+    if pa is not None: return (round(ev["control"], 2), round(pa + pd / 3, 4), round(pa, 4),
+                               round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
+                               ev.get("ctrl_win") or 0, round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
+    return (round(ev["control"], 2), round(a + d / 3, 2),
             round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
-            ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
+            round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
 
 
 def sim_key(ev):
     """Teams with every control card on full chem first; then never a team that loses to the Reddit team head to head
     (most players copy it: any team at least level with it ranks above every team that loses to it, and among
     losing teams the smaller loss wins); then rank_key."""
+    # Owner: when boosts make an unbeatable defence possible (every defender above any attack in the series, e.g. the
+    # Arsenal boost in 88), use it; the rest of the team fills in around it. Rare, boost-dependent.
     vr = ev.get("vs_reddit")
-    return (ev["ctrl_not_full"] == 0, min(vr, 0) if vr is not None else 0, rank_key(ev))
+    return (ev["ctrl_not_full"] == 0, ev.get("def_unbeatable", False), -ev.get("attack_short", 0), min(vr, 0) if vr is not None else 0, rank_key(ev))
+
+
+def tie_cleanup(team, slots, series, pool, log=None):
+    """Owner's rule: when two cards give the same value in the stat their slot uses (control in control slots, else
+    attack, else defence), play the one with the higher total; still level, the higher control. Only when every other
+    card keeps exactly the same in-game stats (a swap that breaks a chem link is never made)."""
+    team = list(team)
+    role = lambda s: 1 if s in CTRL else 0 if s in ATT else 2
+    changed = True
+    while changed:
+        changed = False
+        E, _ = effective(team, series)
+        for i, sl in enumerate(slots):
+            r = role(sl); used = {pid(x) for k, x in enumerate(team) if k != i}
+            cur = (E[i][0] + E[i][1] + E[i][2], E[i][1])
+            best = None
+            for c in pool:
+                if sl not in c["P"] or c["id"] == team[i]["id"] or pid(c) in used: continue
+                trial = team[:i] + [c] + team[i + 1:]
+                E2, _ = effective(trial, series)
+                if E2[i][r] != E[i][r] or any(E2[k][:3] != E[k][:3] for k in range(len(team)) if k != i): continue
+                v = (E2[i][0] + E2[i][1] + E2[i][2], E2[i][1])
+                if v > cur and (best is None or v > best[0]): best = (v, c)
+            if best:
+                if log: log(f"  tie rule: {team[i]['name']} -> {best[1]['name']} at {sl} (same {['attack', 'control', 'defence'][r]}, higher total)")
+                team[i] = best[1]; changed = True; E, _ = effective(team, series)
+    return team
+
+
+def exact_line(team, slots, series, pool, grp, per_slot=20, seconds=150):
+    """Every combination of likely cards for the slots in grp (back line or strikers), the rest of the team fixed, judged
+    exactly (real chem, full ranking). Likely cards: the current ones, the best by the slot's stat, and the best few that
+    share a club, or a nation and league, with the team. Returns (slots, team) if a better line is found, else None."""
+    t0 = time.time()
+    idx = [i for i, sl in enumerate(slots) if sl in grp]
+    if not idx: return None
+    att = bool(set(slots[i] for i in idx) & ATT)
+    st = (lambda x: x["A"]) if att else (lambda x: x["D"])
+    rest = [team[i] for i in range(len(slots)) if i not in idx]
+    keys = {c["clubId"] for c in team} | {(c["nationId"], c["leagueId"]) for c in team}
+    used = {pid(c) for c in rest}
+    pools = {}
+    for sl in {slots[i] for i in idx}:
+        el = [x for x in pool if sl in x["P"] and pid(x) not in used]
+        pick = {x["id"]: x for x in sorted(el, key=lambda x: -st(x))[:per_slot // 3]}
+        # link cards, teammates first (a club link is the strongest), however low their stats
+        clubs = {c["clubId"] for c in team}; nl = {(c["nationId"], c["leagueId"]) for c in team}
+        by = {}
+        for x in el:
+            for k in (x["clubId"], (x["nationId"], x["leagueId"])):
+                if k in keys: by.setdefault(k, []).append(x)
+        extra = sorted({x["id"]: x for L in by.values() for x in sorted(L, key=lambda x: -st(x))[:3]}.values(),
+                       key=lambda x: (-(x["clubId"] in clubs), -((x["nationId"], x["leagueId"]) in nl), -st(x)))
+        for x in extra:
+            if len(pick) >= per_slot: break
+            pick[x["id"]] = x
+        for i in idx:
+            if slots[i] == sl: pick[team[i]["id"]] = team[i]
+        pools[sl] = list(pick.values())
+    order = sorted(set(slots[i] for i in idx))
+    n_of = {sl: sum(1 for i in idx if slots[i] == sl) for sl in order}
+    best = sim_key(evaluate(team, slots, series)); best_team = None
+    def combos(k, chosen, usedp):
+        if k == len(order):
+            yield chosen; return
+        sl = order[k]
+        for comb in itertools.combinations(pools[sl], n_of[sl]):
+            ps = [pid(x) for x in comb]
+            if len(set(ps)) < len(ps) or any(p in usedp for p in ps): continue
+            yield from combos(k + 1, chosen + [(sl, comb)], usedp | set(ps))
+    for ch in combos(0, [], set()):
+        if time.time() - t0 > seconds: break
+        it = {sl: list(comb) for sl, comb in ch}
+        trial = [it[slots[i]].pop(0) if i in idx else team[i] for i in range(len(slots))]
+        k = sim_key(evaluate(trial, slots, series))
+        if k > best: best, best_team = k, trial
+    return (slots, best_team) if best_team else None
 
 
 def polish(team, slots, series, pool, seconds=60, stats=None):
@@ -202,7 +315,7 @@ def polish(team, slots, series, pool, seconds=60, stats=None):
     return team
 
 
-def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200, log=print, refs=(), polish_seconds=90, n_reddit=None):
+def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200, log=print, refs=(), polish_seconds=90, n_reddit=None):
     """refs: Reddit teams (lists of cards). Each is tried in every formation, and the best teams found (theirs and
     ours) are then polished by single-card swaps over the whole series, so the result is never worse than theirs."""
     """margin: control-position shortlist = every card within `margin` control of the best (2 was too narrow:
@@ -213,8 +326,15 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
     _red = [[_byid.get(c["id"]) for c in r] for r in list(refs or [])[:n_reddit if n_reddit is not None else len(refs or [])]]
     set_reddit([r for r in _red if all(r)], series)
     maxC = max(x["C"] for x in pool if x["P"] & CTRL)
-    ctrlc = [x for x in pool if (x["P"] & CTRL) and x["C"] >= maxC - margin]
-    nat = {x["nationId"] for x in ctrlc}; lg = {x["leagueId"] for x in ctrlc}; cl = {x["clubId"] for x in ctrlc}
+    # an unbeatable defence: every defender's defence (at full chem) above the best attack anyone can field
+    global MAXA
+    MAXA = max(x["A"] for x in pool if x["P"] & ATT) + 2
+    UNB = {x["_i"] for x in pool if x["D"] + 2 > MAXA}
+    # candidate lists of three sizes, all solved, the best team kept: a short list lets the solver finish (68 needed it:
+    # 8,000 cards hit the time limit with weak teams) but can miss a card a wider list has (73 and 86 lost attack)
+    CONFIGS = ((margin, topk, 2, 2), (margin + 2, topk * 3, 4, 3), (margin + 4, topk * 6, 6, 4))
+    cap = series.get("cap", 99)
+    floor = series.get("attack_floor", 0 if str(series.get("key")) == "X" else cap - 1)
     results = []
     bonus_variants = [{}]
     for b in series.get("bonuses", []):
@@ -235,34 +355,70 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             return v
         if k in ("nations", "clubs", "leagues", "specials") or (k == "types" and mx is None) or (k.startswith("same_") and mx is not None):
             bonus_variants = bonus_variants + [with_bonus(v) for v in bonus_variants]
-    def job(form):
+    def job(form, cfg, duel=None):
+        """duel: the strongest teams' profile (OPP). Then attack and defence cards are valued by their chance to win
+        their duel against those teams, not by raw stats: one 71 defender who stops most strikers beats four 67-70s
+        (68: André Moreira's back line over Boevink's, a 3-card change single swaps can't reach)."""
+        mg, tk, sm, per = cfg
         slots = FORMATIONS[form]
         cand = set()
+        # control slots: within mg of the best control that can play THAT slot (full-backs are control in 5 at the back)
+        src = []
+        for s in {x for x in slots if x in CTRL}:
+            el = [x for x in pool if s in x["P"]]; top = max(x["C"] for x in el)
+            cand |= {x["_i"] for x in el if x["C"] >= top - mg}; src += [x for x in el if x["C"] >= top - sm]
+        src_club = {x["clubId"] for x in src}; src_nl = {(x["nationId"], x["leagueId"]) for x in src}
         for s in set(slots):
-            if s in CTRL:
-                cand |= {x["_i"] for x in ctrlc if s in x["P"]}
-            else:
+            if s not in CTRL:
                 key = (lambda x: x["A"]) if s in ATT else (lambda x: x["D"])
                 el = [x for x in pool if s in x["P"]]
-                cand |= {x["_i"] for x in sorted(el, key=lambda x: -key(x))[:topk]}
-                cand |= {x["_i"] for x in el if x["clubId"] in cl or full_chem(x) or
-                         (x["leagueId"] in lg and key(x) >= maxC - 6) or (x["nationId"] in nat and key(x) >= maxC - 4)}
+                cand |= {x["_i"] for x in sorted(el, key=lambda x: -key(x))[:tk]}
+                # link cards: teammates of a top control card, or players with its nation AND league, best few of each,
+                # whatever their stats (the Reddit 68 team's GK and CBs are teammates of its control cards).
+                # Owner: a link-only card plays defence, never attack: in attack slots it must reach the floor (cap - 1).
+                ok = (lambda x: x["A"] >= floor) if s in ATT else (lambda x: True)
+                for gk, keep in ((lambda x: x["clubId"], src_club), (lambda x: (x["nationId"], x["leagueId"]), src_nl)):
+                    by = {}
+                    for x in el:
+                        if gk(x) in keep and ok(x): by.setdefault(gk(x), []).append(x)
+                    for L in by.values(): cand |= {x["_i"] for x in sorted(L, key=lambda x: -key(x))[:per]}
         cards_f = [pool[i] for i in cand]
 
         sw = attack_weights(slots, list(slots))
         slot_w = {}
         for k2, sl in enumerate(slots): slot_w[sl] = max(slot_w.get(sl, 0), sw[k2])
 
+        nD = max(1, sum(1 for x in slots if x in DEF))
+
         def value(c, s):
-            T = (c["A"] + c["C"] + c["D"]) / 400
-            v = 0                     # control first, then attack, then defence (each with its total as the tiebreak)
-            if s in CTRL: v += 1000 * (c["C"] + T)
-            if s in ATT: v += 100 * slot_w.get(s, 0.2) * (c["A"] + T)
-            if s in DEF: v += 0.5 * (c["D"] + T)
+            # the same order as the final ranking (sim_key): control, then the control cards' totals (control duels
+            # tie on totals), then attack, then defence at a third of attack. Before, totals and defence barely counted,
+            # so the solver happily took a 65 GK as a link card in the 80 series.
+            T = c["A"] + c["C"] + c["D"]
+            v = 0
+            if s in CTRL: v += 10000 * c["C"] + 0.5 * T     # totals only split equal control (per-card tie rule)
+            if s in ATT: v += 100 * slot_w.get(s, 0.2) * (c["A"] + T / 400)
+            if s in DEF: v += 100 / (3 * nD) * (c["D"] + T / 400)
             return v
 
         def chem_w(c, s):
             return (3 if s in ATT else 0) + (1 if s in DEF else 0) + 0.01
+
+        if duel:
+            bA = lambda x: _beat(x, duel["D"]) * 100        # % chance an attacker of x beats a strong team's defender
+            bD = lambda x: _beat(x, duel["A"]) * 100        # % chance a defender of x stops a strong team's attacker
+            wA = lambda s: 100 * slot_w.get(s, 0.2); wD = 100 / (3 * nD)
+
+            def value(c, s):     # at 0 chem (stat - 3); each chem point adds a third of the way to 3 chem (+2)
+                T = c["A"] + c["C"] + c["D"]; v = 0
+                if s in CTRL: v += 10000 * c["C"] + 0.5 * T
+                if s in ATT: v += wA(s) * (bA(c["A"] - 3) + T / 400)
+                if s in DEF: v += wD * (bD(c["D"] - 3) + T / 400)
+                return v
+
+            def chem_w(c, s):
+                return (wA(s) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + \
+                       (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0) + 0.01
 
         def full(c, s):
             return s in CTRL and not full_chem(c)
@@ -270,7 +426,14 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         return slots, cards_f, value, chem_w, full
 
     # every (formation, bonus) build is independent: run them on all cores at once
-    jobs = [(form, job(form), bv) for form in formations for bv in bonus_variants]
+    jobs = [(form, job(form, cfg), bv) for form in formations for cfg in CONFIGS for bv in bonus_variants]
+    for form in formations:          # boosts allowing it: a build that must field an unbeatable back line
+        dslots = [x for x in FORMATIONS[form] if x in DEF and x not in CTRL]
+        if all(sum(1 for i in UNB if sl in pool[i]["P"]) >= dslots.count(sl) for sl in set(dslots)) and dslots:
+            for cfg in CONFIGS[:2]:
+                sl_, cf, val, cw, fu = job(form, cfg)
+                val2 = (lambda val: lambda c, s: (None if s in DEF and s not in CTRL and c["_i"] not in UNB else val(c, s)))(val)
+                jobs += [(form, (sl_, cf, val2, cw, fu), bv) for bv in bonus_variants]
     def run(i):
         form, (slots, cards_f, value, chem_w, full), bv = jobs[i]
         sq = build(cards_f, slots, value, chem_weight=chem_w, force_full=full, time_limit=time_limit, **bv)
@@ -280,6 +443,21 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         ev, form, sq, bv = r
         results.append((ev, form, sq))
         log(f"  {form} {bv or ''}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
+    # the field also gets teams built the way other players build: attack first, defence first, balanced. Without them a
+    # blind build only measures itself against its own control-first teams and can misjudge (73: it gave up a 78
+    # striker for CBs that the real 78-79 strikers beat anyway). They are opponents to judge against, and candidates.
+    style_teams = []
+    def style_job(i):
+        form, style = STYLES[i]
+        slots, cards_f, _, chem_w, full = job(form, CONFIGS[1])
+        wt = {"attack": (100, 10000, 100), "defence": (100, 100, 10000), "balanced": (100, 100, 100)}[style]
+        def value(c, s):
+            return (wt[0] * c["C"] if s in CTRL else 0) + (wt[1] * c["A"] if s in ATT else 0) + (wt[2] * c["D"] if s in DEF else 0)
+        sq = build(cards_f, slots, value, chem_weight=lambda c, s: 1, force_full=full, time_limit=min(time_limit, 120))
+        return (evaluate(sq, slots, series), form, sq) if sq else None
+    STYLES = [(f, st) for f in ("3-4-1-2", "3-1-4-2") if f in formations for st in ("attack", "balanced")]
+    for r in pmap(style_job, len(STYLES)):
+        if r: results.append(r); style_teams.append(r)
     # Reddit teams: their 11 cards placed in each formation (the same program, just on those 11 cards)
     byid = {c["id"]: c for c in pool}
     ref_sigs = set()
@@ -305,9 +483,30 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         sigs.add(sg); prof.append((sq, FORMATIONS[form], series))
         if sg in ref_sigs: prof += [(sq, FORMATIONS[form], series)] * 2     # Reddit teams count 3x: most players copy them
         if len(sigs) == 6: break
+    for ev, form, sq in style_teams:          # other players' styles always in the field
+        sg = (form, frozenset(c["id"] for c in sq))
+        if sg not in sigs: sigs.add(sg); prof.append((sq, FORMATIONS[form], series))
+    global FIELD
+    FIELD = None
     if prof:
         OPP = opp_profile(prof)
+        FIELD = [_side(sq, sl, sr) for sq, sl, sr in prof] if MATCH_TB else None
         results = [(evaluate(sq, FORMATIONS[form], series), form, sq) for ev, form, sq in results]
+    # second pass: the formations of the best teams solved again with attack and defence valued by duels against the
+    # strongest teams found (what the ranking measures), short and medium lists
+    if OPP:
+        seenf, forms2 = set(), []
+        for ev, form, sq in sorted(results, key=lambda r: sim_key(r[0]), reverse=True):
+            if form not in seenf: seenf.add(form); forms2.append(form)
+            if len(forms2) == 3: break
+        jobs2 = [(form, job(form, cfg, OPP), bv) for form in forms2 for cfg in CONFIGS[:2] for bv in bonus_variants]
+        def run2(i):
+            form, (slots, cards_f, value, chem_w, full), bv = jobs2[i]
+            sq = build(cards_f, slots, value, chem_weight=chem_w, force_full=full, time_limit=time_limit, **bv)
+            return (evaluate(sq, slots, series), form, sq) if sq else None
+        for r in pmap(run2, len(jobs2)):
+            if r:
+                results.append(r); log(f"  duel pass {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
     # polish the best few by swapping single cards with any card in the series
     results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     seen, top = set(), []
@@ -324,6 +523,73 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             log(f"  polished {form}: control {ev['control']} -> {pe['control']}, attack {ev['attack']} -> {pe['attack']}")
             results.append((pe, form, p))
     results.sort(key=lambda r: sim_key(r[0]), reverse=True)
+    # re-solve the back line, then the strikers, of the best teams: everything else fixed, every card in the series
+    # allowed there (chem counted), valued by duels against the strongest teams. Finds 3-card changes single swaps
+    # can't (68: André Moreira, Bouland, Ciobotariu instead of Boevink's line).
+    if OPP:
+        bA = lambda x: _beat(x, OPP["D"]) * 100; bD = lambda x: _beat(x, OPP["A"]) * 100
+        seen2, tops = set(), []
+        for ev, form, sq in results:
+            sg = (form, frozenset(c["id"] for c in sq))
+            if sg not in seen2: seen2.add(sg); tops.append((form, sq))
+            if len(tops) == 6: break
+        rjobs = []
+        for t, (form, sq) in enumerate(tops):
+            slots = FORMATIONS[form]
+            for grp in ({"GK", "CB"}, {"ST", "CF"}):
+                idx = [i for i, sl in enumerate(slots) if sl in grp]
+                if not idx: continue
+                rjobs.append((form, sq, idx, ()))
+        def rsolve(j):
+            form, sq, idx, excl = rjobs[j]; slots = FORMATIONS[form]
+            fixed = {sq[i]["_i"]: slots[i] for i in range(len(slots)) if i not in idx}
+            gs = {slots[i] for i in idx}; att = bool(gs & ATT)
+            keys = {(c["clubId"]) for c in sq} | {(c["nationId"], c["leagueId"]) for c in sq}
+            cand = {}
+            for sl in gs:
+                el = [x for x in pool if sl in x["P"] and x["_i"] not in fixed]
+                st = (lambda x: x["A"]) if att else (lambda x: x["D"])
+                for x in sorted(el, key=lambda x: -st(x))[:150]: cand[x["_i"]] = x
+                by = {}
+                for x in el:
+                    for k in (x["clubId"], (x["nationId"], x["leagueId"])):
+                        if k in keys: by.setdefault(k, []).append(x)
+                for L in by.values():
+                    for x in sorted(L, key=lambda x: -st(x))[:6]: cand[x["_i"]] = x
+            cards = [pool[i] for i in fixed] + list(cand.values())
+            nD = max(1, sum(1 for x in slots if x in DEF)); wD = 100 / (3 * nD)
+            sw = attack_weights(slots, list(slots)); slot_w = {}
+            for k2, sl in enumerate(slots): slot_w[sl] = max(slot_w.get(sl, 0), sw[k2])
+            def value(c, s):
+                if c["_i"] in fixed: return 1e7 if fixed[c["_i"]] == s else None
+                if s not in gs: return None
+                T = c["A"] + c["C"] + c["D"]
+                return (100 * slot_w.get(s, 0.2) * (bA(c["A"] - 3) + T / 400)) if att else (wD * (bD(c["D"] - 3) + T / 400))
+            def chem_w(c, s):
+                if s in gs: return (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3) if att else (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3)
+                return 0.01 + (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0)
+            nsq = build(cards, slots, value, chem_weight=chem_w, force_full=lambda c, s: s in CTRL and not full_chem(c), time_limit=60,
+                        exclude_pids=excl)
+            return (evaluate(nsq, slots, series), form, nsq) if nsq else None
+        for r in pmap(rsolve, len(rjobs)):
+            if r:
+                results.append(r); log(f"  re-solve {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
+        results.sort(key=lambda r: sim_key(r[0]), reverse=True)
+        # exact check of the back line and the strikers of the best 3 teams: every combination of the likely cards,
+        # each judged with real chem and the full ranking (the solver only estimates chem's effect on stats)
+        seen3, best3, perf = set(), [], {}
+        for ev, form, sq in results:          # the best 2 teams of each of the best 3 formations
+            sg = (form, frozenset(c["id"] for c in sq))
+            if sg in seen3 or (form not in perf and len(perf) == 3) or perf.get(form, 0) == 2: continue
+            seen3.add(sg); best3.append((form, sq)); perf[form] = perf.get(form, 0) + 1
+            if len(best3) == 6: break
+        xjobs = [(form, sq, grp) for form, sq in best3 for grp in ({"GK", "CB"}, {"ST", "CF"})]
+        for r in pmap(lambda j: exact_line(xjobs[j][1], FORMATIONS[xjobs[j][0]], series, pool, xjobs[j][2]), len(xjobs)):
+            if r:
+                form = xjobs[0][0]
+                results.append((evaluate(r[1], r[0], series), next(f for f in FORMATIONS if FORMATIONS[f] == r[0] and f in formations), r[1]))
+                log(f"  exact line: control {results[-1][0]['control']} attack {results[-1][0]['attack']} defence {results[-1][0]['defence']}")
+        results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     results = [r for r in results if r[0]["ctrl_not_full"] == 0] or results
     # swap check on the team that will be published: every card in the series tried in every slot until no single
     # swap is better (control, then attack, then defence, each then its total)
@@ -334,8 +600,43 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         if sim_key(pe) > sim_key(ev):
             log(f"  swap check improved {form}: attack {ev['attack']} -> {pe['attack']}, defence {ev['defence']} -> {pe['defence']}")
             results[0] = (pe, form, p)
+        t2 = tie_cleanup(results[0][2], slots, series, pool, log)
+        if t2 != results[0][2]: results[0] = (evaluate(t2, slots, series), form, t2)
         results[0][0]["swaps_checked"] = st.get("checked", 0)
         log(f"  swap check: {st.get('checked', 0)} swaps tried on the final team")
+    # final pick by results, not proxies: the best teams that are level on every hard rule (full chem in control,
+    # unbeatable defence when possible, attack floor, never losing to the Reddit team) and on the highest control
+    # play each other and the field (other players' styles, the Reddit teams 3x). The best total margin is published.
+    if results:
+        top = results[0][0]
+        hard = lambda e: (e["ctrl_not_full"] == 0, e.get("def_unbeatable", False), -e.get("attack_short", 0),
+                          min(e.get("vs_reddit") or 0, 0), round(e["control"], 2))
+        fin, sigs4 = [], set()
+        for ev, form, sq in results:
+            sg = (form, frozenset(c["id"] for c in sq))
+            if sg in sigs4 or hard(ev) != hard(top): continue
+            sigs4.add(sg); fin.append((ev, form, sq))
+            if len(fin) == 12: break
+        if len(fin) > 1:
+            sides = [_side(sq, FORMATIONS[form], series) for ev, form, sq in fin]
+            opp = [(_side(sq, FORMATIONS[form], series), 1) for ev, form, sq in style_teams]
+            for groups in REDDIT:            # the Reddit teams, in every formation they fit, 3x in all
+                opp += [(g, 3 / len(groups)) for g in groups]
+            score = []
+            for i, a in enumerate(sides):
+                t = sum(x - y for j, b in enumerate(sides) if j != i for _, x, y in [_match(a, b)])
+                t += sum(w * (x - y) for b, w in opp for _, x, y in [_match(a, b)])
+                score.append(t)
+            order = sorted(range(len(fin)), key=lambda i: -score[i])
+            if order[0] != 0:
+                log(f"  round robin: {fin[order[0]][1]} beats the ranking's pick ({score[order[0]]:+.3f} vs {score[0]:+.3f})")
+            w_ev, w_form, w_sq = fin[order[0]]
+            w_slots = FORMATIONS[w_form]
+            t2 = tie_cleanup(w_sq, w_slots, series, pool, log)
+            if t2 != w_sq: w_sq = t2; w_ev = evaluate(t2, w_slots, series)
+            w_ev["round_robin"] = round(score[order[0]], 4)
+            rest = [fin[i] for i in order[1:]]
+            results = [(w_ev, w_form, w_sq)] + rest + [r for r in results if r not in fin]
     out = []
     for ev, form, sq in results[:3]:
         d = describe(sq, series)
