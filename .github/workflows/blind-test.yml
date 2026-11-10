@@ -1,7 +1,8 @@
 name: Blind test
 
-# Test runs only: builds every Sim series without the Reddit or site team on the sim-rules branch's code, with this
-# season's cards and setup from main, and saves the results to blindtest/results on sim-rules. Never touches the site.
+# Test runs only: builds every Sim series without the Reddit or site team on the sim-rules branch's code and saves
+# the results to blindtest/results on sim-rules. Never touches the site.
+# blindtest/trigger.txt: "week=current" (this season) or "week=2026-11-02" (a Vault week), and "modes=rule match".
 on:
   push:
     branches: [sim-rules]
@@ -15,30 +16,57 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      keys: ${{ steps.p.outputs.keys }}
+      modes: ${{ steps.p.outputs.modes }}
+      week: ${{ steps.p.outputs.week }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: p
+        run: |
+          git fetch -q origin main && git checkout origin/main -- config docs/vault
+          WEEK=$(grep -o 'week=[^ ]*' blindtest/trigger.txt | cut -d= -f2); WEEK=${WEEK:-current}
+          MODES=$(grep -o 'modes=.*' blindtest/trigger.txt | cut -d= -f2); MODES=${MODES:-rule}
+          F=config/week.json; [ "$WEEK" != current ] && F=docs/vault/$WEEK/week.json
+          echo "week=$WEEK" >> $GITHUB_OUTPUT
+          echo "keys=$(python3 -c "import json;print(json.dumps([s['key'] for s in json.load(open('$F'))['sim']]))")" >> $GITHUB_OUTPUT
+          echo "modes=$(python3 -c "import json,sys;print(json.dumps('$MODES'.split()))")" >> $GITHUB_OUTPUT
+
   run:
+    needs: plan
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        key: ["68", "73", "80", "86", "88", "90", "X"]
-        mode: ["rule", "match"]
+        key: ${{ fromJson(needs.plan.outputs.keys) }}
+        mode: ${{ fromJson(needs.plan.outputs.modes) }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: This season's cards and setup from main
-        run: git fetch -q origin main && git checkout origin/main -- data config docs/results
+      - name: Cards and setup from main
+        run: git fetch -q origin main && git checkout origin/main -- data config docs/results docs/vault
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python scripts/blind_test.py "${{ matrix.key }}" "${{ matrix.mode }}"
+      - name: Blind build
+        run: |
+          W="${{ needs.plan.outputs.week }}"
+          if [ "$W" != current ]; then export WEEK_FILE=docs/vault/$W/week.json RES_DIR=docs/vault/$W; fi
+          export TEST_TAG=$W
+          python scripts/blind_test.py "${{ matrix.key }}" "${{ matrix.mode }}"
       - name: Save this result right away
         run: |
-          cp blindtest/results/${{ matrix.mode }}/${{ matrix.key }}.txt /tmp/r.txt
-          git reset -q --hard && git checkout -q sim-rules && git pull -q
-          mkdir -p blindtest/results/${{ matrix.mode }} && cp /tmp/r.txt blindtest/results/${{ matrix.mode }}/${{ matrix.key }}.txt
+          P=blindtest/results/${{ needs.plan.outputs.week }}/${{ matrix.mode }}/${{ matrix.key }}.txt
+          cp $P /tmp/r.txt
+          git reset -q --hard && git clean -qfd blindtest && git checkout -q sim-rules && git pull -q
+          mkdir -p $(dirname $P) && cp /tmp/r.txt $P
           git config user.name bmahrrr && git config user.email bmahrrr1@gmail.com
-          git add blindtest/results && git commit -qm "Blind test: ${{ matrix.key }} ${{ matrix.mode }}" || exit 0
+          git add $P && git commit -qm "Blind test: ${{ needs.plan.outputs.week }} ${{ matrix.key }} ${{ matrix.mode }}" || exit 0
           for i in 1 2 3 4 5 6; do git pull -q --rebase && git push -q && break; sleep $((RANDOM % 10 + 3)); done
