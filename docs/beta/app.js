@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110n";
+const APP_V = "20261110o";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -456,8 +456,8 @@ const SIM_STEPS = [["Every Card Up to the Cap", "Series boosts applied", ""], ["
   ["Solver", "The best 11 from every list", "s"], ["Rank", "Full chem, control, then attack and defence", "j"],
   ["Polish", "Every card tried in every slot", "s"], ["Tie Rule", "Same stat: the higher total plays", "j"], ["Team", "The best, plus 2 alternatives", ""]];
 const simFunnel = () => `<details class="howres"><summary class="small">How Sim teams are built</summary><div class="funnel">${SIM_STEPS.map(([t, d, k], i) =>
-  `<div class="fstep ${k}" style="width:${100 - i * 7}%"><i>${i + 1}</i><span><b>${t}</b><small>${d}</small></span></div>`).join("")}</div>
-  <p class="small muted" style="margin-top:8px"><span class="fkey s"></span>Searching <span class="fkey j"></span>Judging</p></details>`;
+  `<div class="fstep ${k}" style="width:max(280px, ${100 - i * 7}%)"><i>${i + 1}</i><span><b>${t}</b><small>${d}</small></span></div>`).join("")}</div>
+  <p class="small muted fleg" style="margin-top:8px"><span class="fkey s"></span>Searching <span class="fkey j"></span>Judging</p></details>`;
 const serOpen = id => OPEN.has(id) ? " open" : "";
 let VAULT = null;     // { week, files } when looking at a past week
 async function renderTeams() {
@@ -858,7 +858,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110n"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110o"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -884,7 +884,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110n"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110o"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1608,7 +1608,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110n");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110o");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
