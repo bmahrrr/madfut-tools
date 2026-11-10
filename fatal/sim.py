@@ -55,6 +55,8 @@ def _pool(series, cards):
 
 
 OPP = None      # profile of the strongest teams in the series (set by build_sim): what our team plays against
+FIELD = None    # the strongest teams found (set by build_sim), as match sides: the simulated-match tie-break plays each
+MATCH_TB = __import__("os").environ.get("SIM_TB") == "match"     # test: after control, rank by simulated matches vs FIELD
 REDDIT = []     # the Reddit teams in every Sim formation they fit (set by build_sim): a team must not lose to them
 
 
@@ -159,7 +161,11 @@ def evaluate(team, slots, series):
         net = round(h * f - (1 - h) * g, 4)
         p_att, p_def = round(f, 4), round(1 - g, 4)     # chance our shooter beats a strong defender / our defender stops a strong attacker
     vr = vs_reddit(team, slots, series, E)
-    return {"control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
+    h2h = None
+    if FIELD:        # average goal-chance margin per possession against the strongest teams found
+        me = _side(team, slots, series, E)
+        h2h = round(sum(a - b for _, a, b in (_match(me, f) for f in FIELD)) / len(FIELD), 5)
+    return {"h2h": h2h, "control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
             "defence_cards": sorted(D, reverse=True), "p_att": p_att, "p_def": p_def, "chem": sum(ch), "ctrl_not_full": bad, "weak_attackers": weak, "attack_short": short,
             "ctrl_total": round(CT / len(C), 2) if C else 0,
@@ -172,6 +178,9 @@ def rank_key(ev):
     defence loss, so a tiny attack gain can't cost a big defence drop). Then Attack, its total, Defence, its total,
     match strength against the strongest teams, chem."""
     a, d = ev["attack"], ev["defence"]
+    if MATCH_TB and ev.get("h2h") is not None:     # test: control, then simulated matches, then attack, defence
+        return (round(ev["control"], 2), ev["h2h"], round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2),
+                round(d, 2), round(ev.get("def_total", 0), 2), ev["chem"])
     # attack and defence are judged by the chance to beat the strongest teams' real defenders / attackers (a 66 and a
     # 68 striker are equally useless if strong defences are 70); without that profile, by their average values
     pa, pd = ev.get("p_att"), ev.get("p_def")
@@ -366,8 +375,11 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         sigs.add(sg); prof.append((sq, FORMATIONS[form], series))
         if sg in ref_sigs: prof += [(sq, FORMATIONS[form], series)] * 2     # Reddit teams count 3x: most players copy them
         if len(sigs) == 6: break
+    global FIELD
+    FIELD = None
     if prof:
         OPP = opp_profile(prof)
+        FIELD = [_side(sq, sl, sr) for sq, sl, sr in prof] if MATCH_TB else None
         results = [(evaluate(sq, FORMATIONS[form], series), form, sq) for ev, form, sq in results]
     # polish the best few by swapping single cards with any card in the series
     results.sort(key=lambda r: sim_key(r[0]), reverse=True)
