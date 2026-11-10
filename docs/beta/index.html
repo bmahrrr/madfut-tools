@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--beta--><base href="../"><meta name="robots" content="noindex,nofollow"><script>window.APPDIR = "beta/";</script><!--/beta-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MadFut Tools (Preview)</title>
+<meta name="app-version" content="20261110c">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0f0b0d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="MadFut Tools">
+<style>
+/* MadFut Tools: Fatal Night: ember-on-ink, skewed broadcast chips, outlined series numbers */
+:root{
+  --bg:#0f0b0d;--panel:#181214;--field:#0c090a;--line:rgba(255,236,226,.08);--line2:rgba(255,236,226,.14);--text:#f7efe9;--muted:#a39590;
+  --fire:#ff5b22;--sim:#2f8dff;--gold:#ffb21e;--accent:#ffb21e;--on-accent:#1a0b05;--win:#3ddc97;--draw:#9fb3c8;--loss:#ff4d5e;
+  --grad:linear-gradient(95deg,var(--gold),var(--fire));
+  --display:"Saira Extra Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Saira",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;min-height:100vh;background:radial-gradient(120% 420px at 100% 0%,#3a1410 0%,transparent 70%) no-repeat,var(--bg);color:var(--text);font:400 15px/1.5 var(--body);font-variant-numeric:tabular-nums}
+header{background:transparent}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;column-gap:14px;row-gap:4px;padding:16px 16px 2px;max-width:900px;margin:0 auto}
+.top h1{margin:0;font:800 italic 34px/.9 var(--display);letter-spacing:.5px;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;transform:skewX(-6deg);white-space:nowrap}
+.top h1 small{display:block;font:700 12px/1 var(--display);letter-spacing:3px;color:var(--muted);-webkit-text-fill-color:var(--muted);margin-top:6px;font-style:normal;transform:skewX(6deg)}
+.top .sub{color:var(--muted);font-size:11.5px;line-height:1.35}
+.navwrap{position:sticky;top:0;z-index:5;background:rgba(21,15,18,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px 16px 10px;scrollbar-width:none;max-width:900px;margin:0 auto}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:none;background:var(--panel);color:var(--muted);border:1px solid var(--line);padding:8px 13px 7px;font:700 15px/1 var(--display);letter-spacing:.6px;text-transform:uppercase;cursor:pointer;transform:skewX(-12deg);margin-left:3px}
+nav button.on{background:var(--grad);color:var(--on-accent);border-color:transparent}
+main{max-width:900px;margin:0 auto;padding:10px 16px 80px}
+section{display:none}section.on{display:block}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);padding:16px;margin:12px 0;overflow:hidden;clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%)}
+.card .num{position:absolute;right:-6px;top:-28px;font:800 italic 140px/1 var(--display);color:transparent;-webkit-text-stroke:1.5px rgba(255,91,34,.33);pointer-events:none;user-select:none}
+.card>*{position:relative}
+h2{font:800 italic 30px/1 var(--display);margin:0 0 6px;letter-spacing:.3px;text-transform:uppercase}
+.meta{color:var(--muted);font-size:13px;margin:2px 0 10px}
+h3{font:700 17px/1.2 var(--display);margin:22px 0 4px;color:var(--gold);letter-spacing:1.2px;text-transform:uppercase}
+.card h3{font-size:15px;margin:16px 0 6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:6px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font:700 13px/1.2 var(--display);letter-spacing:.8px;text-transform:uppercase}
+td.n{text-align:right}
+.scroll{overflow-x:auto}
+.pill{display:inline-block;padding:3px 9px 2px;font:700 14px/1.1 var(--display);letter-spacing:.6px;text-transform:uppercase;transform:skewX(-10deg)}
+.WIN{background:rgba(61,220,151,.15);color:var(--win)}
+.DRAW{background:rgba(159,179,200,.14);color:var(--draw)}
+.LOSS{background:rgba(255,77,94,.15);color:var(--loss)}
+.muted{color:var(--muted)}.small{font-size:13px}
+input,select,textarea{background:var(--field);color:var(--text);border:1px solid var(--line);border-radius:0;padding:9px 11px;font:400 16px var(--body);max-width:100%}
+select{padding-right:28px;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 15px) 52%,calc(100% - 10px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+input:focus,select:focus,textarea:focus{border-color:var(--fire);outline:none}
+input[type=text],input[type=password]{width:100%}
+input[type=checkbox]{accent-color:var(--fire);width:18px;height:18px}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:.8}
+label{color:var(--muted);font-size:13.5px}
+label select,label input{color:var(--text);margin-left:4px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+button{font-family:var(--body);cursor:pointer}
+button.btn{background:var(--grad);color:var(--on-accent);border:0;padding:10px 20px 9px;font:700 16px/1.1 var(--display);letter-spacing:.8px;text-transform:uppercase;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+button.btn:disabled{opacity:.5}
+button.ghost{background:#2a1a17;color:var(--text);border:1px solid #4a2a20;padding:8px 13px;font-size:13.5px;font-weight:500}
+button.ghost:hover{border-color:var(--fire)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr;gap:0 12px}
+@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
+.sr{list-style:none;margin:6px 0 0;padding:0;border:1px solid var(--line);max-height:280px;overflow:auto;background:var(--field)}
+.sr li{padding:9px 11px;border-bottom:1px solid var(--line);cursor:pointer}
+.sr li:hover{background:#2a1a17}
+.sr li:last-child{border-bottom:0}
+.x{background:none;border:0;color:var(--muted);font-size:16px;cursor:pointer;padding:4px}
+.move{font:800 italic 22px/1.2 var(--display);margin:6px 0;letter-spacing:.3px}
+.big{font:800 italic 36px/1 var(--display)}
+a{color:var(--gold)}
+.opt{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
+.opt:last-child{border-bottom:0}
+code{background:var(--field);padding:1px 6px;font-size:13px;color:var(--gold)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+@media(min-width:760px){.fgrid{grid-template-columns:repeat(4,1fr)}}
+.fgrid label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);min-width:0}
+.fgrid input,.fgrid select{width:100%;color:var(--text);margin:0}
+.rulebox{border:1px dashed #4a2a20;padding:12px;margin-top:10px;background:rgba(255,91,34,.04)}
+.chk{display:flex;gap:8px;align-items:center;margin:6px 0}
+.chipbtn.off{opacity:.7;cursor:default}
+.tag{display:inline-block;font:700 11.5px/1.4 var(--display);letter-spacing:.6px;text-transform:uppercase;color:var(--gold);border:1px solid #4a2a20;padding:0 6px;margin-left:4px;vertical-align:middle}
+.minebar{border-left:3px solid var(--gold);background:linear-gradient(90deg,rgba(255,178,30,.10),transparent);padding:10px 12px;margin:4px 0 10px}
+.plan{border-left:3px solid var(--fire);background:linear-gradient(90deg,rgba(255,91,34,.10),transparent);padding:10px 12px 8px;margin:6px 0 12px}
+.plan>summary{font:700 17px/1 var(--display);letter-spacing:.9px;text-transform:uppercase;color:var(--gold)}
+.gp .gtiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px}
+.gp .gtile{background:var(--field);border:1px solid var(--line);padding:8px 10px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.gp .gtile>span{font:700 12px/1 var(--display);letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.gp .gtile small{color:var(--muted);font-size:11.5px}.gp .gsm{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gp .gtile .pill{align-self:flex-start}
+.gp .gsec{margin-top:14px}.gp h4{font:600 12.5px/1 var(--body);letter-spacing:.2px;color:var(--muted);margin:0 0 8px;display:flex;gap:8px;align-items:center}
+.gp .gchips{display:flex;flex-wrap:wrap;gap:6px}.gp .gchip{display:inline-flex;align-items:center;gap:6px;background:#2a1a17;border:1px solid #4a2a20;padding:5px 8px;font-size:13px}
+.gtag{font:700 11.5px/1 var(--display);letter-spacing:.5px;padding:3px 5px 2px;background:var(--field);border-bottom:2px solid;white-space:nowrap}
+.gtag.a{border-color:var(--win)}.gtag.c{border-color:#4aa3ff}.gtag.d{border-color:var(--loss)}
+.gp .glist{display:flex;flex-direction:column;gap:4px;margin-bottom:6px}.gp .grow{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:10px;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--line)}
+.gp .gtx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.gp .grow .gtag{text-align:center}.gp .gwin{color:var(--win);font-weight:700;font-size:12.5px}
+.gp .glose{color:var(--muted);font-size:12.5px}.gp .glose b{color:var(--text);font-weight:600}.gp .glose i{font-style:normal;opacity:.8}
+.gp .gnote{margin:6px 0 0}.gp .gwdl b{font-weight:700;margin-right:6px}.gp .gwdl .w{color:var(--win)}.gp .gwdl .d{color:var(--draw)}.gp .gwdl .l{color:var(--loss)}
+.chip{display:inline-block;background:#2a1a17;border:1px solid #4a2a20;color:var(--text);padding:6px 10px;font-size:13px;font-weight:600;margin:2px 4px 2px 0}
+.chip>span{line-height:1.35}
+.opp{border-bottom:1px solid var(--line);padding:2px 0}
+.opp>summary{display:flex;align-items:center;gap:8px;padding:9px 0;color:var(--text);font-weight:600;font-size:14px;list-style:none}
+.opp>summary::-webkit-details-marker{display:none}
+.opp>summary .on{flex:1;color:var(--text)}
+.opp>summary::after{content:"";width:7px;height:7px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg) translate(-2px,-2px);transition:transform .15s}
+.opp[open]>summary::after{transform:rotate(225deg)}
+.opp .res{display:flex;gap:4px}
+@media (prefers-reduced-motion:reduce){.opp>summary::after{transition:none}}
+.ok{color:var(--win)}.bad{color:var(--loss)}
+tr.gone td{opacity:.45;text-decoration:line-through}
+.req{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.req:last-child{border-bottom:0}
+table.sq td.wrap{white-space:normal}
+table.sq td,table.sq th{padding:7px 4px}
+button.nohave{background:transparent;color:var(--muted);border:1px solid var(--line);padding:3px 8px;font-size:11.5px;line-height:1.15}
+.nohave.on{border-color:var(--loss);color:var(--loss);background:rgba(255,77,94,.08)}
+summary{cursor:pointer;color:var(--gold);font-weight:600}
+details>summary{list-style-position:inside}
+details.card>summary{font:700 18px/1 var(--display);letter-spacing:.9px;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.chipbtn{background:#2a1a17;color:var(--text);border:1px solid #4a2a20;padding:8px 12px;font-size:13px;text-align:left;max-width:100%}
+.chipbtn:not(.off):hover{border-color:var(--fire)}
+.chipbtn b{display:block;font:700 17px/1.1 var(--display);letter-spacing:.6px;text-transform:uppercase}
+.chipbtn span{color:var(--muted);font-size:12px}
+.slot{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.slot .num{position:static;width:18px;color:var(--muted);font:700 13px/1 var(--display);-webkit-text-stroke:0}
+.slot .who{flex:1;min-width:0}
+.slot .st{font-size:12.5px;color:var(--muted);white-space:nowrap;text-align:right}
+.over{opacity:.5}
+.tgrp{border-bottom:1px solid var(--line);padding:10px 0}.tgrp>summary{font-size:16px;color:var(--text)}
+.rgrp{margin:4px 0 4px 8px}.rgrp>summary{color:var(--text)}
+textarea{width:100%;min-height:90px}
+/* series card: result boxes + player rows */
+.score{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 12px}
+.sc{background:var(--field);border:1px solid var(--line);padding:9px 11px}
+.sc>span:first-child{display:block;color:var(--muted);font:600 12px/1.2 var(--body);margin-bottom:6px}
+.sc .pill{margin:0 3px 3px 0}
+.sc small{display:block;color:var(--muted);font-size:11.5px;line-height:1.3;margin-top:3px}
+.vtag{font:700 15px/1.2 var(--display);letter-spacing:.7px;text-transform:uppercase;color:var(--draw);margin:2px 0 8px;padding-left:8px;border-left:3px solid var(--draw)}
+.vtag.mine{color:var(--gold);border-color:var(--gold)}
+.vtag span{font:400 12.5px/1.3 var(--body);letter-spacing:0;text-transform:none;color:var(--muted)}
+/* folded series strips (Best Teams) */
+details.sercard{padding:0;clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);margin:8px 0}
+details.sercard>summary.strip{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:10px;padding:12px 14px;list-style:none;cursor:pointer;font:inherit;letter-spacing:0;text-transform:none;color:var(--text)}
+details.sercard>summary::-webkit-details-marker{display:none}
+.strip .k{font:800 italic 38px/1 var(--display);color:transparent;-webkit-text-stroke:1.5px var(--fire)}
+.strip.sim .k{-webkit-text-stroke-color:var(--sim)}   /* Sim series numbers in the game's Sim blue (My Club stays orange) */
+details.sercard[open]>summary.strip.sim{background:linear-gradient(90deg,rgba(47,141,255,.12),transparent)}
+.strip .mid b{display:block;font:700 16px/1.2 var(--display);letter-spacing:.6px;text-transform:uppercase}
+.strip .mid small{display:block;color:var(--muted);font-size:12px}
+.strip .mid small b.gold{display:inline;color:var(--gold);font:600 12px var(--body);text-transform:none;letter-spacing:0}
+.strip .res{text-align:right}
+.strip .res .rp{display:block}.strip .res .pill{margin:2px 0 1px 3px;font-size:13px}
+.strip .res small{display:block;color:var(--muted);font:500 11px/1 var(--body);margin:2px 0 4px}
+.strip .cad{display:block;font:700 15px/1.3 var(--display)}.strip .cad i{font-style:normal;color:var(--muted);margin:0 2px 0 7px}
+details.sercard[open]>summary.strip{border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(255,91,34,.10),transparent)}
+details.sercard>.body{padding:12px 16px 16px}
+/* Cards tab: slim collection tiles + stat rows */
+#cardsTypes{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0 12px}
+.ctile{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border:0;text-align:left;clip-path:polygon(0 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%);min-width:0}
+.ctile.wide{grid-column:1/-1}
+.ctile b{font:700 15px/1.1 var(--display);letter-spacing:.6px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctile span{font:800 italic 20px/1 var(--display);flex:none}
+.prow.crow{grid-template-columns:48px minmax(0,1fr) auto;padding:8px 0}
+.crow .rt{display:flex;align-items:center;gap:7px}.crow .rt i{width:4px;height:32px;flex:none}.crow .rt b{font:800 italic 22px/1 var(--display)}
+.crow .nm .r{font-size:12.5px}
+.urow{border-top:1px solid var(--line)}#uList .urow>summary{list-style:none;cursor:pointer;border-top:0;font:inherit;letter-spacing:0;text-transform:none;color:var(--text)}.urow>summary::-webkit-details-marker{display:none}
+.urow>summary .ud small::after{content:" ▾";color:var(--gold)}.urow[open]>summary .ud small::after{content:" ▴"}.urow[open]>summary{background:linear-gradient(90deg,rgba(255,91,34,.08),transparent)}
+.ubody{padding:0 0 10px 55px}
+.useas{display:flex;justify-content:space-between;font:700 14px/1 var(--display);letter-spacing:.5px;color:var(--gold);margin:8px 3px 4px 0}
+.uteam{display:grid;grid-template-columns:minmax(0,1fr) 34px 52px 52px;align-items:center;gap:6px;font-size:12.5px;padding:3px 3px 3px 0}
+.uteam .usl{color:var(--muted);font:700 12.5px/1 var(--display);letter-spacing:.5px}
+.ubar{height:5px;background:var(--line)}.ubar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--fire))}
+.ud2{text-align:right;color:var(--muted)}
+.prow.gmark{box-shadow:inset 3px 0 var(--gold)}.prow.gmark .pos{padding-left:6px}
+details.oteam{border-top:1px solid var(--line);padding:6px 0}details.oteam>summary{color:var(--text);font-weight:400;list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px;cursor:pointer}details.oteam>summary::after{content:"▾";color:var(--gold);margin-left:auto}details.oteam[open]>summary::after{content:"▴"}
+details.oteam>summary::-webkit-details-marker{display:none}.orow{border-top:1px solid var(--line);padding:8px 0}#objBody .tgrp>summary{font-weight:600}details.oteam .ores{margin-left:auto}#uList .ud{text-align:right;padding-right:3px}#uList .ud b{font:800 italic 24px/1 var(--display)}#uList .ud small{display:block;color:var(--muted);font-size:11.5px}
+.verdict{font:600 14px/1.3 var(--body);color:var(--text);margin:2px 0 12px;padding-left:10px;border-left:2px solid var(--win)}
+.verdict span{display:block;font:400 12.5px/1.3 var(--body);color:var(--muted)}
+.squad{margin:0 -16px;border-bottom:1px solid var(--line)}
+.prow{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:8px;padding:8px 16px;border-top:1px solid var(--line)}
+.prow .pos{font:700 14px/1 var(--display);color:var(--muted);letter-spacing:.6px}
+.prow .nm{min-width:0}
+.prow .nm b{font-weight:600}
+.prow .nm .r{color:var(--muted);margin-left:4px}
+.prow .nm .tb{color:var(--gold);font:700 13px/1 var(--display);letter-spacing:.5px;margin-left:6px;white-space:nowrap}
+.prow .nm small{display:block;color:var(--muted);font-size:11.5px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .sc2{display:flex;flex-direction:column;gap:5px;align-items:stretch}
+.prow .nohave{padding:2px 0;font-size:11px;width:100%}
+.st{display:flex;gap:3px}
+.st span{width:31px;text-align:center;font:700 15px/1 var(--display);padding:6px 0 5px;background:var(--field);border-bottom:2px solid}
+.st .a{border-color:var(--win)}.st .c{border-color:#4aa3ff}.st .d{border-color:var(--loss)}
+.stkey{display:flex;justify-content:flex-end;gap:3px;padding:6px 16px 0}
+.stkey span{width:31px;text-align:center;font:700 11px/1 var(--display);letter-spacing:.6px;color:var(--muted);text-transform:uppercase}
+.built{color:var(--muted);font-size:12px;margin:10px 0 0}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
+
+/* ---------- premium pass: layered surfaces, hairlines, one accent per block ---------- */
+body{background:radial-gradient(90% 360px at 100% -40px,rgba(255,91,34,.22),transparent 70%) no-repeat,radial-gradient(70% 300px at 0% 0%,rgba(255,178,30,.06),transparent 70%) no-repeat,var(--bg)}
+.navwrap{background:rgba(15,11,13,.88);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px)}
+nav button{background:rgba(255,255,255,.03);border-color:var(--line);color:#bfb0aa}
+nav button.on{box-shadow:0 6px 18px -8px rgba(255,91,34,.7)}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0) 140px),var(--panel);border-color:var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);padding:18px}
+h2{font-size:28px;margin-bottom:8px}
+h3{display:flex;align-items:center;gap:12px;margin:26px 0 8px}
+h3::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(255,178,30,.45),transparent)}
+.card h3::after{display:none}
+input,select,textarea{border-color:var(--line2)}
+button.ghost,.chipbtn{background:rgba(255,255,255,.04);border:1px solid var(--line2);color:var(--text)}
+button.ghost:hover,.chipbtn:not(.off):hover{border-color:rgba(255,91,34,.7);background:rgba(255,91,34,.06)}
+button.btn{box-shadow:0 8px 22px -10px rgba(255,91,34,.8)}
+button.btn.wide{display:block;width:100%;padding:13px 20px 12px;font-size:18px;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.rulebox{border:1px solid var(--line2);background:rgba(255,255,255,.025)}
+.pill{font-size:13px;padding:3px 9px 2px}
+/* result boxes: one scoreboard, split by a hairline */
+.score{gap:0;background:var(--field);border:1px solid var(--line);margin:4px 0 14px}
+.sc{background:none;border:0;padding:11px 13px}
+.sc+.sc{border-left:1px solid var(--line)}
+.score.h2h{margin-top:0}
+/* series strips */
+details.sercard{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0) 90px),var(--panel)}
+details.sercard>summary.strip{padding:14px 16px}
+details.sercard[open]>summary.strip{box-shadow:inset 3px 0 var(--fire)}
+details.sercard[open]>summary.strip.sim{box-shadow:inset 3px 0 var(--sim)}
+.strip .k{font-size:42px}
+details.sercard>.body{padding:16px}
+/* game plan: a calm panel; sections split by hairlines */
+.plan{border:1px solid var(--line);border-left:0;background:rgba(255,255,255,.02);padding:14px 14px 4px;margin:0 0 16px;box-shadow:inset 2px 0 var(--fire)}
+.plan>summary{font:700 16px/1 var(--display);letter-spacing:1px;color:var(--text);list-style:none;display:flex;align-items:center;justify-content:space-between}
+.plan>summary::-webkit-details-marker{display:none}
+.plan>summary::after{content:"";width:7px;height:7px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(225deg);margin-right:4px}
+.plan:not([open])>summary::after{transform:rotate(45deg) translate(-2px,-2px)}
+.plan:not([open]){padding-bottom:14px}
+.gp .gsec{margin:12px 0 0;padding:12px 0 10px;border-top:1px solid var(--line)}
+.gp h4{font:600 11.5px/1 var(--body);letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.gp .gchips{gap:6px}
+.gp .gchip{background:rgba(255,255,255,.045);border:0;padding:6px 9px;font-size:13px;gap:5px}
+.gtag{background:transparent;padding:2px 3px 1px;font-size:11px;border-bottom-width:2px}
+.gp .grow{grid-template-columns:56px 1fr auto;padding:8px 0;border-bottom:1px solid var(--line)}
+.gp .glist .grow:last-child{border-bottom:0}
+.gp .gtb{grid-template-columns:96px minmax(0,1fr) auto}
+.gp details.gfold>summary{display:flex;align-items:center;justify-content:space-between;list-style:none;color:var(--muted);font-weight:400;font-size:12.5px}
+.gp details.gfold>summary::-webkit-details-marker{display:none}.gp details.gfold>summary h4{margin:0}
+.gp details.gfold>summary span::after{content:" ▾";color:var(--gold)}.gp details.gfold[open]>summary span::after{content:" ▴"}
+.gp details.gfold[open]>summary{margin-bottom:10px}
+.prow .nm .l1{display:flex;align-items:baseline;min-width:0}
+.prow .nm .l1 b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.prow .nm .l1 .r,.prow .nm .l1 .tb{flex:none}
+details.vteam>summary{row-gap:2px}details.vteam>summary .small{order:3;flex-basis:100%}
+/* all results: its own band between the squad and the versions below */
+details.allres{margin:0 -16px;padding:14px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
+details.oteam.vteam{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.squad{border-bottom:0}
+.st span{background:rgba(255,255,255,.045)}
+.prow{padding:9px 16px}
+.verdict{border-left-width:3px}
+.built{margin-top:14px}
+.minebar{border-left-width:2px}
+
+/* ---------- computer screens: wider page, every tab visible, series side by side, teams in two columns ---------- */
+.stkey.k2{display:none}
+@media (min-width:1100px){
+  .top,nav,main{max-width:1240px}
+  nav{flex-wrap:wrap;overflow:visible;row-gap:8px;gap:4px}
+  nav button{font-size:14px;padding:8px 10px 7px}
+  #teamsBody,#objBody{display:grid;grid-template-columns:1fr 1fr;column-gap:14px;align-items:start}
+  #teamsBody>*,#objBody>*{grid-column:1/-1}
+  #teamsBody>details.sercard,#objBody>details.sercard{grid-column:auto;margin:6px 0}
+  #teamsBody>details.sercard[open],#objBody>details.sercard[open]{grid-column:1/-1}
+  details.sercard[open] .squad,details.oteam[open] .squad,#mc .squad,#beat .squad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(7,auto);grid-auto-flow:column;column-gap:28px}
+  details.sercard[open] .stkey.k2,details.oteam[open] .stkey.k2,#mc .stkey.k2,#beat .stkey.k2{display:flex}
+  .squad>.stkey{grid-column:1;grid-row:1}.squad>.stkey.k2{grid-column:2}
+}
+
+/* release polish: quieter labels, one accent per block */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0) 120px),var(--panel)}
+details.sercard>.body{padding:14px 16px 16px}
+.gp .gtb{display:grid;grid-template-columns:92px minmax(0,1fr) auto;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.gp .gtb:last-child{border-bottom:0}.gp .gtb span{color:var(--muted);font-size:12.5px}.gp .gtb b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gp .gtb i{font:700 13px/1 var(--display);font-style:normal;color:var(--gold);letter-spacing:.4px}
+.gp .gchip .gtag+.gtag{margin-left:-2px}
+details.allres{margin-top:10px}details.allres>summary{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;color:var(--text)}
+details.allres .gwdl{color:var(--muted);font-size:12px}details.allres .gwdl b{font-weight:700;margin-left:2px}
+details.allres .gwdl .w{color:var(--win)}details.allres .gwdl .d{color:var(--draw)}details.allres .gwdl .l{color:var(--loss)}
+.nhtogrow{display:flex;justify-content:flex-end;margin:10px 0 4px}
+button.nhtog{padding:5px 11px;font-size:12.5px}button.nhtog.on{border-color:var(--loss);color:var(--loss)}
+.squad.nhoff .nohave{display:none}
+/* installed app on iPhone: keep everything clear of the status bar (time, battery) */
+.top{padding-top:calc(16px + env(safe-area-inset-top))}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--bg);z-index:20}
+.navwrap{top:env(safe-area-inset-top)}
+main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><h1>MadFut Tools<small>Fatal My Club, Sim and SBC</small></h1><span class="sub"><span id="dataInfo">Loading cards…</span><br><span id="appV"></span></span></div>
+</header>
+<div class="navwrap">
+  <nav id="tabs">
+    <button data-t="teams" class="on">Best teams</button>
+    <button data-t="mc">Head to head</button>
+    <button data-t="match">Match helper</button>
+    <button data-t="sim">Sim odds</button>
+    <button data-t="beat">Beat a team</button>
+    <button data-t="sbc">SBC</button>
+    <button data-t="cards">Cards</button>
+    <button data-t="setup">Season setup</button>
+  </nav>
+</div>
+<main>
+  <section id="teams" class="on"><div id="teamsBody"><p class="muted">Loading results…</p></div></section>
+
+  <section id="obj"><div id="objBody"><p class="muted">Loading…</p></div></section>
+  <section id="beat">
+    <div class="card">
+      <h2>Beat a team</h2>
+      <p class="small muted" style="margin:4px 0 10px">Load their team and build a counter. You can close the site while it runs.</p>
+      <div class="row"><label>Series <select id="beatSeries"></select></label></div>
+      <p id="beatInfo" class="small muted" style="margin:8px 0 0"></p>
+    </div>
+    <div class="card" id="panelT"></div>
+    <div class="card">
+      <div class="row"><label>Search time <select id="beatMin"><option value="30">30 min</option><option value="60" selected>60 min</option><option value="120">2 hours</option></select></label>
+      <button class="btn" id="beatGo">Build a team to beat this</button></div>
+      <p class="small muted" style="margin:8px 0 0">Longer searches find stronger counters. Ready about 10 min after the search time.</p>
+    </div>
+    <div id="beatResults"></div>
+  </section>
+
+  <section id="mc">
+    <div class="card">
+      <div class="row"><label>Season <select id="mcWeek"></select></label></div>
+      <div class="row" style="margin-top:8px"><label>Series <select id="mcSeries"></select></label></div>
+      <p id="mcInfo" class="small muted" style="margin:8px 0 0"></p>
+    </div>
+    <div class="grid2">
+      <div class="card" id="panelA"></div>
+      <div class="card" id="panelB"></div>
+    </div>
+    <div class="card">
+      <div class="row"><button class="btn" id="solveBtn">Compare</button><button class="ghost" id="swapBtn">⇄ Swap teams</button></div>
+      <div id="solveOut" style="margin-top:8px"></div>
+    </div>
+  </section>
+
+  <section id="match">
+    <div class="card" id="matchSetup">
+      <h2>Match helper</h2>
+      <p class="small muted">Plays the two teams from <b>Head to head</b>, move by move.</p>
+      <div hidden><select id="mObj"><option value="">None</option></select><p id="mObjNote"></p></div>
+      <div class="row"><button class="btn" id="iFirst">I lead first</button><button class="ghost" id="theyFirst">They lead first</button></div>
+    </div>
+    <div class="card" id="matchBox" hidden></div>
+  </section>
+
+  <section id="sim">
+    <div class="card">
+      <div class="row"><label>Season <select id="simWeek"></select></label></div>
+      <div class="row" style="margin-top:8px"><label>Series <select id="simSeries"></select></label><label>Their formation <select id="simFormB"></select></label></div>
+      <p class="small muted">Your team loads automatically. Add their 11, GK first.</p>
+    </div>
+    <div class="grid2">
+      <div class="card"><h2>Your team</h2><div id="simA"></div></div>
+      <div class="card"><h2>Their team</h2><div id="simB"></div><input type="text" id="searchS" placeholder="Add a player"><ul class="sr" id="srS" hidden></ul></div>
+    </div>
+    <div class="card"><button class="btn" id="simBtn">Compare</button><div id="simOut"></div></div>
+  </section>
+
+  <section id="sbc">
+    <div class="card">
+      <div class="row"><label>Formation <select id="sbcForm"></select></label></div>
+      <h3>Requirements</h3>
+      <div id="sbcList"></div>
+      <div class="row" style="margin-top:6px"><button class="ghost" id="sbcAddBtn">+ Add</button><button class="ghost" id="sbcPasteBtn">Paste</button><button class="ghost" id="sbcQuick">Icon &amp; Hero: Max 1</button></div>
+      <div id="sbcPaste" class="rulebox" hidden>
+        <p class="small muted" style="margin:0 0 6px">One requirement per line, as the game shows it.</p>
+        <textarea id="pText" rows="8" style="width:100%;box-sizing:border-box;font-size:14px" placeholder="Formation: 3-5-2&#10;Zimbabwe, Sierra Leone, Comoros, DR Congo, Canada&#10;Icons and Heroes: Max 0&#10;Special Cards: Max 0&#10;Leagues: Min 5&#10;Nations: Min 5&#10;Chemistry: Min 33"></textarea>
+        <div id="pPrev"></div>
+        <div class="row" style="margin-top:6px"><button class="btn" id="pUse">Use these</button><button class="ghost" id="pCancel">Cancel</button></div>
+      </div>
+      <div id="sbcAdd" class="rulebox" hidden>
+        <select id="aType" style="width:100%"></select>
+        <div id="aBody" style="margin-top:8px"></div>
+      </div>
+      <details style="margin-top:12px"><summary class="small">Options</summary>
+        <div class="small" style="margin-top:6px">
+          <label class="chk">Cheapest <select id="sbcPr"><option value="gold_first">Golds first, specials last</option><option value="lowest_rating">Lowest ratings</option></select></label>
+          <label class="chk"><input type="checkbox" id="sbcSp"> Allow special cards</label>
+          <label class="chk"><input type="checkbox" id="sbcIc"> Allow Icons and Heroes</label>
+        </div>
+      </details>
+      <div class="row" style="margin-top:12px"><button class="btn" id="sbcGo">Solve</button><button class="ghost" id="sbcClear">Clear</button></div>
+      <p class="small muted" style="margin:10px 0 0">Missing a card? Tap <b>Don't have</b> on it for a new squad.</p>
+    </div>
+    <div class="card" id="sbcOut" hidden></div>
+    <div class="card">
+      <h2>Check a squad</h2>
+      <input type="text" id="chkQ" placeholder="Add a player…"><ul class="sr" id="chkSr" hidden></ul>
+      <div class="row" style="margin-top:8px"><button class="ghost" id="chkLast">Use solver squad</button><button class="ghost" id="chkClear">Clear</button></div>
+      <div id="chkOut" style="margin-top:8px"></div>
+    </div>
+  </section>
+
+  <section id="cards">
+    <details class="card" id="usageBox"><summary>Most used cards</summary>
+      <p class="small muted" style="margin:6px 0 8px">Days used across the Best Teams. Tap a card for its teams.</p>
+      <div class="fgrid" style="margin-bottom:8px"><label>Season<select id="uSeason"></select></label><label>Mode<select id="uMode"><option value="">Both</option><option value="myclub">My Club</option><option value="sim">Sim</option></select></label></div>
+      <input id="uFind" type="search" placeholder="Find a card" autocomplete="off" style="margin-bottom:8px">
+      <div id="uList"></div><div class="row" style="margin-top:8px"><button class="ghost" id="uMore">Show more</button></div>
+    </details>
+    <div class="card">
+      <h2>All cards</h2>
+      <p class="small muted" id="cardsInfo" style="margin:4px 0 8px"></p>
+      <div class="chips" id="cardsTypes"></div>
+      <input type="text" id="cQ" placeholder="Search a name">
+      <div class="fgrid" style="margin-top:8px">
+        <label>Card type<select id="cType"></select></label>
+        <label>Position<select id="cPos"></select></label>
+        <label>Rating from<input type="number" inputmode="numeric" id="cMin" placeholder="any"></label>
+        <label>Rating to<input type="number" inputmode="numeric" id="cMax" placeholder="any"></label>
+      </div>
+    </div>
+    <div class="card"><p class="small muted" id="cCount" style="margin:0 0 6px"></p><div id="cList"></div><div class="row" style="margin-top:8px"><button class="ghost" id="cMore">Show more</button></div></div>
+  </section>
+
+  <section id="setup"><div id="setupBody"></div></section>
+</main>
+<script src="beta/engine.js?v=20261110c"></script>
+<script src="beta/sbc-solver.js?v=20261110c"></script>
+<script src="beta/app.js?v=20261110c"></script>
+</body>
+</html>

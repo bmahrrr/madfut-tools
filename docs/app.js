@@ -56,8 +56,9 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 });
 
 // ---------- data ----------
+const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110a";
+const APP_V = "20261110b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -66,7 +67,7 @@ async function selfUpdate() {         // a saved old copy of the site reloads it
     if (tried !== APP_V) { try { sessionStorage.setItem("triedHtml", APP_V); } catch (e) {} location.replace(location.pathname + "?v=" + APP_V + "&t=" + Date.now()); return true; }
   }
   try {
-    const r = await fetch("version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
+    const r = await fetch(APPDIR + "version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
     if (v && v !== APP_V) {
       let tried = null; try { tried = sessionStorage.getItem("triedV"); } catch (e) {}
       if (tried !== v) { try { sessionStorage.setItem("triedV", v); } catch (e) {} location.replace(location.pathname + "?v=" + v); return true; }
@@ -75,7 +76,7 @@ async function selfUpdate() {         // a saved old copy of the site reloads it
   return false;
 }
 let DATA_UPDATED = "";
-if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));   // install as an app, works offline
+if ("serviceWorker" in navigator && !APPDIR) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));   // install as an app, works offline
 // a one-time tip to install the site as an app (phones only, not once installed or dismissed)
 let INSTALL_EV = null;
 addEventListener("beforeinstallprompt", e => { e.preventDefault(); INSTALL_EV = e; const b = $("installTip"); if (b) b.remove(); installTip(); });
@@ -756,7 +757,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker("worker.js?v=20261110a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -782,7 +783,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker("worker.js?v=20261110a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1427,7 +1428,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker("sbcworker.js?v=20261110a");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
