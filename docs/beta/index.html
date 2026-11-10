@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261110i">
+<meta name="app-version" content="20261110j">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -390,11 +390,11 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
   <section id="sim">
     <div class="card">
       <div class="row"><label>Season <select id="simWeek"></select></label></div>
-      <div class="row" style="margin-top:8px"><label>Series <select id="simSeries"></select></label><label>Their formation <select id="simFormB"></select></label></div>
-      <p class="small muted">Your team loads automatically. Add their 11, GK first.</p>
+      <div class="row" style="margin-top:8px"><label>Series <select id="simSeries"></select></label><label>Your formation <select id="simFormA"></select></label><label>Their formation <select id="simFormB"></select></label></div>
+      <p class="small muted">Your team loads automatically. Swap any player, or clear it and type your own 11. Add players GK first.</p>
     </div>
     <div class="grid2">
-      <div class="card"><h2>Your team</h2><div id="simA"></div></div>
+      <div class="card"><h2>Your team</h2><div id="simA"></div><input type="text" id="searchSA" placeholder="Add a player"><ul class="sr" id="srSA" hidden></ul></div>
       <div class="card"><h2>Their team</h2><div id="simB"></div><input type="text" id="searchS" placeholder="Add a player"><ul class="sr" id="srS" hidden></ul></div>
     </div>
     <div class="card"><button class="btn" id="simBtn">Compare</button><div id="simOut"></div></div>
@@ -459,8 +459,8 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="beta/engine.js?v=20261110i"></script>
-<script src="beta/sbc-solver.js?v=20261110i"></script>
-<script src="beta/app.js?v=20261110i"></script>
+<script src="beta/engine.js?v=20261110j"></script>
+<script src="beta/sbc-solver.js?v=20261110j"></script>
+<script src="beta/app.js?v=20261110j"></script>
 </body>
 </html>

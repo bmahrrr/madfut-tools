@@ -42,7 +42,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const TYPE = c => cap({rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",ligue1_potm:"Ligue 1 POTM",ligue_1_potm:"Ligue 1 POTM",liga_f_potm:"Liga F POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo",halloween:"Ultimate Scream",halloween_hero:"Ultimate Scream Hero",ucl_rttk:"UCL RTTK",uwcl_rttk:"UWCL RTTK",ecl_rttk:"ECL RTTK",europa_rttk:"UEL RTTK",world_potm:"World POTM",world_potm_nominee:"World POTM Nominee",star_performer:"Star Performer",heritage:"Heritage",showdown:"Showdown"}[c] || String(c).replace(/_/g, " "));
 
 let CARDS = [], BYID = new Map(), WEEK = null, INDEX = null;
-const state = { A: [], B: [], T: [], simB: [], simA: null };
+const state = { A: [], B: [], T: [], simB: [], simA: null, simAC: [] };
 
 // ---------- tabs ----------
 const teamsTab = () => { const b = document.querySelector('#tabs button[data-t="teams"]'); if (b && INDEX && INDEX.week) b.textContent = `S${seasonOf(INDEX.week)} Teams`; };
@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110i";
+const APP_V = "20261110j";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -850,7 +850,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110i"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110j"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -876,7 +876,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1133,9 +1133,10 @@ async function setupSim() {
   };
   SIMW = { base: "results/", sim: (WEEK && WEEK.sim) || [] };
   fillSimSeries();
-  $("simFormB").innerHTML = Object.keys(SIM_FORMS).map(f => `<option>${f}</option>`).join("");
-  $("simSeries").onchange = () => { state.simB = []; loadSimA(); }; $("simFormB").onchange = drawSim;
+  $("simFormB").innerHTML = $("simFormA").innerHTML = Object.keys(SIM_FORMS).map(f => `<option>${f}</option>`).join("");
+  $("simSeries").onchange = () => { state.simB = []; loadSimA(); }; $("simFormB").onchange = $("simFormA").onchange = drawSim;
   hookSearch("searchS", "srS", c => { if (state.simB.length < 11) state.simB.push(c); drawSim(); });
+  hookSearch("searchSA", "srSA", c => { if (state.simAC.length < 11) state.simAC.push(c); drawSim(); });
   $("simBtn").onclick = runSim;
   loadSimA();
 }
@@ -1143,27 +1144,40 @@ function fillSimSeries() {
   $("simSeries").innerHTML = SIMW.sim.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") || `<option value="">No Sim series</option>`;
 }
 async function loadSimA() {
-  state.simA = null;
+  state.simA = null; state.simAC = [];
   try { const d = await getJSON(`${SIMW.base}sim_${simSeries().key}.json`); state.simA = d.teams[0]; } catch (e) {}
-  drawSim();
+  useSimTeam(); drawSim();
 }
+// your side starts as this season's team; any player can be removed and others typed in
+function useSimTeam() {
+  const A = state.simA; if (!A) return;
+  state.simAC = A.players.map(p => BYID.get(p.id)).filter(Boolean);
+  if (SIM_FORMS[A.formation]) $("simFormA").value = A.formation;
+}
+const simSide = (cards, form, id, top) => { const slots = SIM_FORMS[form], E = effective(cards, simSeries());
+  return top + `<table>${slots.map((s, i) => { const c = cards[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`; };
 function drawSim() {
-  const A = state.simA;
-  $("simA").innerHTML = A ? `<p class="small">${esc(A.formation)}</p>` + `<table>${A.players.map(p => `<tr><td>${p.slot}</td><td>${esc(p.name)}</td><td class="n">${p.eff.join("/")}</td></tr>`).join("")}</table>` : `<p class="muted small">No built team for this series yet.</p>`;
-  const slots = SIM_FORMS[$("simFormB").value], E = effective(state.simB, simSeries());
+  const A = state.simA, tm = "S" + seasonOf((SIMW.base.match(/vault\/([^/]+)\//) || [])[1] || (WEEK && WEEK.week)), btn = (id, t) => `<button class="ghost" id="${id}" style="font-size:12.5px;margin:0 6px 8px 0">${t}</button>`;
+  const topA = (A && (state.simAC.length !== 11 || state.simAC.some((c, i) => c.id !== (A.players[i] || {}).id)) ? btn("simUseA", `Load the ${esc(tm)} Team`) : "") + (state.simAC.length ? btn("simClrA", "Clear") : "");
+  $("simA").innerHTML = simSide(state.simAC, $("simFormA").value, "A", topA);
   const ref = (simSeries().opponents || [])[0];
-  $("simB").innerHTML = (ref && !state.simB.length ? `<button class="ghost" id="simRef" style="font-size:12.5px;margin-bottom:8px">Load the Reddit Team <span class="small muted">by u/${SIM_CREDIT}</span></button>` : "") + `<table>${slots.map((s, i) => { const c = state.simB[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`;
+  const topB = (ref && !state.simB.length ? `<button class="ghost" id="simRef" style="font-size:12.5px;margin-bottom:8px">Load the Reddit Team <span class="small muted">by u/${SIM_CREDIT}</span></button>` : "") + (state.simB.length ? btn("simClrB", "Clear") : "");
+  $("simB").innerHTML = simSide(state.simB, $("simFormB").value, "B", topB);
+  document.querySelectorAll("#simA .x").forEach(b => b.onclick = () => { state.simAC.splice(+b.dataset.i, 1); drawSim(); });
   document.querySelectorAll("#simB .x").forEach(b => b.onclick = () => { state.simB.splice(+b.dataset.i, 1); drawSim(); });
+  if ($("simUseA")) $("simUseA").onclick = () => { useSimTeam(); drawSim(); };
+  if ($("simClrA")) $("simClrA").onclick = () => { state.simAC = []; drawSim(); };
+  if ($("simClrB")) $("simClrB").onclick = () => { state.simB = []; drawSim(); };
   if ($("simRef")) $("simRef").onclick = () => {
     const f = simSeries().opponent_formation; if (f && SIM_FORMS[f]) $("simFormB").value = f;
     state.simB = ref.map(id => BYID.get(id)).filter(Boolean); drawSim();
   };
 }
 function runSim() {
-  const A = state.simA; if (!A || state.simB.length !== 11) { $("simOut").textContent = "Need your built team and their 11 cards."; return; }
-  const R1 = A.players.map(p => ({ name: p.name, slot: p.slot, pos: p.position || (BYID.get(p.id) || {}).position, a: p.eff[0], c: p.eff[1], d: p.eff[2] }));
-  const slots = SIM_FORMS[$("simFormB").value], E = effective(state.simB, simSeries());
-  const R2 = slots.map((s, i) => ({ name: state.simB[i].name, slot: s, pos: state.simB[i].position, a: E[i].a, c: E[i].c, d: E[i].d }));
+  if (state.simAC.length !== 11 || state.simB.length !== 11) { $("simOut").textContent = "Need 11 cards on each side."; return; }
+  const side = (cards, form) => { const slots = SIM_FORMS[form], E = effective(cards, simSeries());
+    return slots.map((s, i) => ({ name: cards[i].name, slot: s, pos: cards[i].position, a: E[i].a, c: E[i].c, d: E[i].d })); };
+  const R1 = side(state.simAC, $("simFormA").value), R2 = side(state.simB, $("simFormB").value);
   const m = simMatch(R1, R2);
   const odds = matchOdds(m.scoreA, m.scoreB, 7);
   // who does what: control cards fight for the ball, the attacker is picked from cards not used for control, defenders stop it
@@ -1573,7 +1587,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110i");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110j");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
