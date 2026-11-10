@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110k";
+const APP_V = "20261110l";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -851,7 +851,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110k"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110l"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -877,7 +877,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110k"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110l"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1189,10 +1189,16 @@ function runSim() {
       d: R.filter(r => DEF.has(r.slot)).sort((x, y) => y.d - x.d).map(r => [r.name, r.d]) }; };
   const X = roles(R1), Y = roles(R2), li = L => L.map(x => `<span>${esc(cap(x[0]))} <b>${x[1]}</b></span>`).join("");
   const row = (lab, k) => `<div class="srole"><h4>${lab}</h4><div class="srcols"><div>${li(X[k])}</div><div>${li(Y[k])}</div></div></div>`;
-  $("simOut").innerHTML = `<div class="sroles"><div class="srhead"><span>You</span><span>Them</span></div>
-    ${row("Control", "c")}
-    ${row("Attack", "a")}
-    ${row("Defence", "d")}</div><p>Control duels won: <b>${(m.control * 100).toFixed(0)}%</b><br>You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>.</p><p class="small">If a match has ~7 possessions: win <b>${odds[0]}%</b> · draw <b>${odds[1]}%</b> · loss <b>${odds[2]}%</b></p>`;
+  // one number per role: control and defence averages, attack = the expected attacker
+  const mean = L => L.length ? L.reduce((t, x) => t + x[1], 0) / L.length : 0;
+  const expA = R => { const W = attackWeights(R); return R.reduce((t, r, i) => t + W[i] * r.a, 0); };
+  const vals = [["Control", mean(X.c), mean(Y.c)], ["Attack", expA(R1), expA(R2)], ["Defence", mean(X.d), mean(Y.d)]];
+  const cell = (v, o) => `<td class="n${v > o + 0.05 ? " up" : v < o - 0.05 ? " dn" : ""}">${v.toFixed(1)}</td>`;
+  X.a = X.a.filter(x => x[2] >= 5); Y.a = Y.a.filter(x => x[2] >= 5);      // cards that attack in 5%+ of possessions
+  $("simOut").innerHTML = `<div class="score odds"><div class="sc"><span>Win</span><b class="bignum w">${odds[0]}%</b></div><div class="sc"><span>Draw</span><b class="bignum">${odds[1]}%</b></div><div class="sc"><span>Loss</span><b class="bignum l">${odds[2]}%</b></div></div>
+    <p class="small muted" style="margin:-4px 0 12px">You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>. Control duels won: <b>${(m.control * 100).toFixed(0)}%</b>. Odds assume about 7 possessions a match.</p>
+    <table class="svals"><tr><th></th><th class="n">You</th><th class="n">Them</th></tr>${vals.map(([l, x, y]) => `<tr><td>${l}</td>${cell(x, y)}${cell(y, x)}</tr>`).join("")}</table>
+    <details class="howres"><summary>Show the Cards</summary><div class="sroles"><div class="srhead"><span>You</span><span>Them</span></div>${row("Control", "c")}${row("Attack", "a")}${row("Defence", "d")}</div></details>`;
 }
 function matchOdds(p, q, n) {
   const C = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };
@@ -1589,7 +1595,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110k");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110l");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
