@@ -17,7 +17,8 @@ full = next(x for x in w["sim"] if x["key"] == key)
 s = dict(full); s.pop("opponents", None)
 cards = [c for c in load_cards() if c.get("owned", True)]
 t0 = time.time()
-team = S.build_sim(s, cards, refs=[], n_reddit=0, log=lambda *a: None)[0]
+alts = S.build_sim(s, cards, refs=[], n_reddit=0, log=lambda *a: None)
+team = alts[0]
 secs = round(time.time() - t0)
 by = {c["id"]: c for c in S._pool(s, load_cards())}
 me = S._side([by[p["id"]] for p in team["players"]], FORMATIONS[team["formation"]], s)
@@ -40,6 +41,20 @@ try:
 except FileNotFoundError:
     out.append("no site team")
 if full.get("opponents"): vs("Reddit", full.get("opponent_formation") or "3-4-1-2", full["opponents"][0])
+# proof, not proxy: the chosen team head to head against the other finalists, the Reddit team, the site team and any
+# team named in blindtest/check.json; plus how the ranking scored each (control, control duels won, attack, defence)
+def key_of(form, ids):
+    e = S.evaluate([by[i] for i in ids], FORMATIONS[form], s)
+    return f"control {e['control']} ctrl_win {e.get('ctrl_win')} p_att {e.get('p_att')} p_def {e.get('p_def')} att {e['attack']} def {e['defence']}"
+checks = [(f"finalist {k+1}", a["formation"], [p["id"] for p in a["players"]]) for k, a in enumerate(alts[1:])]
+try:
+    for name, t in json.load(open(os.path.join(ROOT, "blindtest", "check.json"))).get(f"{TAG}:{key}", {}).items():
+        checks.append((name, t["formation"], t["ids"]))
+except FileNotFoundError:
+    pass
+out.append("chosen: " + key_of(team["formation"], [p["id"] for p in team["players"]]))
+for name, form, ids in checks:
+    out.append(f"{name}: " + key_of(form, ids)); vs(name, form, ids)
 out.append("IDS " + ",".join(p["id"] for p in team["players"]))
 os.makedirs(os.path.join(ROOT, "blindtest", "results", TAG, mode), exist_ok=True)
 open(os.path.join(ROOT, "blindtest", "results", TAG, mode, f"{key}.txt"), "w").write("\n".join(out) + "\n")
