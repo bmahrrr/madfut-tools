@@ -9,6 +9,7 @@ import collections, random, time
 from .core import AUTO, ICON, full_chem, FORMATIONS, boosted, effective, formation_fit, pid, describe, CTRL, CHEM_BONUS, bonus_build_kwargs
 from .game import play
 from .milp import build
+from .par import pmap, cores
 
 _fit_cache = {}
 MAX_ICONS = 5          # game rule: a My Club team holds at most 5 Icons (Debut Icons count); no limit in the X series
@@ -720,11 +721,14 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     left = max(0.3, 1 - (time.time() - t_pop) / T)      # share of the time still available
     share = (0.95 if mode == "beat" else 0.45) * left
     verify_share = (0.1 if verify else 0) * left
-    cands = []
-    for k, sd in enumerate(seeds):
+    # every seed is improved on its own core: with 4 cores each seed gets ~4x the time in the same wall time
+    W = cores()
+    per_seed = T * (share - verify_share / 2) / max(1, -(-len(seeds) // W))
+    def seed_job(k):
+        sd = seeds[k]
         g = shape if ub.key(me.eff(sd))[0] else None      # a seed of the owner's shape keeps it while improving
-        b = optimize(me, sd, pool_opps, weights, T * (share - verify_share / 2) / max(1, len(seeds)), rng, log, f"seed{k}", robust, guard=g)
-        cands.append(b)
+        return optimize(me, sd, pool_opps, weights, per_seed, random.Random(seed * 1000 + k), log, f"seed{k}", robust, guard=g)
+    cands = pmap(seed_job, len(seeds))
     fk = lambda t: ub.full_key(me.eff(t), [pscore(me.eff(t), O) for O in pool_opps])
     team = max((b[1] for b in cands), key=fk)
     ubest = max((b[1] for b in cands if ub.key(me.eff(b[1]))[0]), key=fk, default=None)
@@ -735,20 +739,22 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         # itself, from the opponents and from earlier counters
         strong = timed_rank(pop, lambda t: sum(play(field.eff(t), E, f)[0] for f in (0, 1)), min(T * 0.01, 90))[:4]
         starts = list(opponents) + [team] + counters + strong
-        start = rng.choice(starts)
-        start = [next((y for y in field.cards if y["id"] == c["id"]), c) for c in start]
-        br = optimize(field, start, [E], [1], T * 0.25 * left / rounds, rng, None, f"counter{rd}")
+        # one counter-team search per core, each from its own start
+        picks = [[next((y for y in field.cards if y["id"] == c["id"]), c) for c in rng.choice(starts)] for _ in range(W)]
+        brs = pmap(lambda j: optimize(field, picks[j], [E], [1], T * 0.25 * left / rounds, random.Random(seed * 7919 + rd * 31 + j), None, f"counter{rd}"), W)
         tg = shape if ub.key(E)[0] else None
-        log(f"  counter-team {rd+1}: result vs my team {br[0][0]:+d}")
-        if _key(br[1]) in {_key(x) for x in list(opponents) + counters}:
-            log("    same as an earlier opponent: not added again")
-            b = optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust, guard=tg)
-            team = b[1]; continue
-        counters.append(br[1])
-        pool_opps.append(field.eff(br[1])); weights.append(1); names.append(f"counter {rd+1}")
-        opp_cards[f"counter {rd+1}"] = br[1]
-        b = optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, rng, log, f"improve{rd}", robust, guard=tg)
-        team = b[1]
+        seen_k = {_key(x) for x in list(opponents) + counters}
+        for j, br in enumerate(sorted(brs, key=lambda b: b[0], reverse=True)):
+            log(f"  counter-team {rd+1}.{j+1}: result vs my team {br[0][0]:+d}")
+            if _key(br[1]) in seen_k:
+                log("    same as an earlier opponent: not added again"); continue
+            seen_k.add(_key(br[1]))
+            counters.append(br[1]); lab_ = f"counter {rd+1}" if j == 0 else f"counter {rd+1}.{j+1}"
+            pool_opps.append(field.eff(br[1])); weights.append(1); names.append(lab_)
+            opp_cards[lab_] = br[1]
+        # improve against everything so far: one search per core, the best one kept
+        bs = pmap(lambda j: optimize(me, team, pool_opps, weights, T * (0.30 * left - verify_share / 2) / rounds, random.Random(seed * 104729 + rd * 37 + j), log if j == 0 else None, f"improve{rd}", robust, guard=tg), W)
+        team = max((b[1] for b in bs), key=fk)
     E = me.eff(team)
     res = {}
     lab = {1: "WIN", 0: "DRAW", -1: "LOSS"}
