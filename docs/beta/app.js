@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110g";
+const APP_V = "20261110h";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -843,7 +843,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110h"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -869,7 +869,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1032,12 +1032,14 @@ window.otherCard = ctx => {
     if (q.length < 2) { $("ocRes").innerHTML = `<p class="small muted">Type a name, or what you saw, e.g. "Germany ST" or "Bayern CB". The most likely card is first.</p>`; return; }
     const match = hintMatcher(q);
     // most likely first: a name match; then a card whose main position is the one played; then how often it's in
-    // this series' strong teams; then the strongest in game (this series' boosts included)
+    // this series' strong teams; then the higher rating (what people pick by); then the stat its position is used for
+    // (attack up front, control in midfield, defence at the back), this series' boosts included; then the total
     const seen = (M.ser && SEEN[M.ser.key]) || new Map(), use = c => seen.get(c.id) || 0;
-    const tot = c => { const b = boosted(c, (M.ser && M.ser.boosts) || []); return b[0] + b[1] + b[2]; }, byName = c => c._n.includes(q) ? 1 : 0;
+    const bst = c => boosted(c, (M.ser && M.ser.boosts) || []), tot = c => { const b = bst(c); return b[0] + b[1] + b[2]; }, byName = c => c._n.includes(q) ? 1 : 0;
+    const KEYSTAT = { ST: 0, CF: 0, LW: 0, RW: 0, LM: 1, RM: 1, CAM: 1, CM: 1, CDM: 1, LB: 2, RB: 2, CB: 2, GK: 2 }, kst = c => bst(c)[KEYSTAT[c.position] ?? 1];
     const PW = q.split(/\s+/).map(w => POS_WORDS[w.replace(/s$/, "")] || POS_WORDS[w]).filter(Boolean).flat(), mainPos = c => PW.length && PW.includes(c.position) ? 1 : 0;
     const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.id) && match(c))
-      .sort((x, y) => byName(y) - byName(x) || mainPos(y) - mainPos(x) || use(y) - use(x) || tot(y) - tot(x)).slice(0, 25);
+      .sort((x, y) => byName(y) - byName(x) || mainPos(y) - mainPos(x) || use(y) - use(x) || y.rating - x.rating || kst(y) - kst(x) || tot(y) - tot(x)).slice(0, 25);
     $("ocRes").innerHTML = L.length ? L.map((c, n) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="otherDo('${ctx}','${esc(c.id)}')">
         <b>${esc(c.name)} ${c.rating}${n === 0 ? ` <span class="tag">Most likely</span>` : ""}</b> <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}</span></button>`).join("")
       : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
@@ -1563,7 +1565,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110g");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110h");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
