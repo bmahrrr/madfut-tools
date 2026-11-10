@@ -1,20 +1,34 @@
 // Runs the exact My Club solver off the main thread so the page stays responsive.
-importScripts("engine.js?v=20261110c");
+importScripts("engine.js?v=20261110d");
 let S = null;
+// The C solver compiled to WebAssembly: same answers as Solver, about 3x faster. Falls back to Solver if it can't load.
+let WX = null;
+const wasmReady = fetch("game.wasm").then(r => r.arrayBuffer()).then(b => WebAssembly.instantiate(b, {})).then(m => { WX = m.instance.exports; }).catch(() => {});
+function wput(A, B) {
+  const v = new Int32Array(WX.memory.buffer, WX.inbuf(), 88);
+  A.forEach((e, i) => { v[3 * i] = e.a; v[3 * i + 1] = e.c; v[3 * i + 2] = e.d; v[66 + i] = e.t; });
+  B.forEach((e, i) => { v[33 + 3 * i] = e.a; v[33 + 3 * i + 1] = e.c; v[33 + 3 * i + 2] = e.d; v[77 + i] = e.t; });
+}
+const fastLevel = (A, B, f) => { if (WX) { wput(A, B); return WX.run_level(f); } return new Solver(A, B, f).level(); };
+const OUT3 = { "-1": 0, 0: 2, 1: 3 };     // run_outcome -1/0/1 -> Solver.outcome() 0 / 2 / 3
+const fastOutcome = (A, B, f) => { if (WX) { wput(A, B); return OUT3[WX.run_outcome(f)]; } return new Solver(A, B, f).outcome(); };
 // Match Helper works on win / draw / loss only (level 3 / 2 / 0) and, for leads, only checks which moves keep
 // the best result reachable - far quicker than scoring every move exactly (fits the 30-second move timer).
 const thrOf = v => (v >= 3 ? 1 : v === 2 ? 0 : -1);
-onmessage = (e) => {
+onmessage = async (e) => {
   const m = e.data;
+  await wasmReady;
   try {
     if (m.type === "solve") {                 // My Club Compare: full result with margins
-      const res = [0, 1].map(f => new Solver(m.A, m.B, f).level());
+      const res = [0, 1].map(f => fastLevel(m.A, m.B, f));
       postMessage({ id: m.id, ok: true, result: res });
     } else if (m.type === "start") {          // new match, or a card swapped mid-match: solve from the current state
       S = new Solver(m.A, m.B, m.first);
       postMessage({ id: m.id, ok: true, result: S.outcome(m.ma ?? 2047, m.mb ?? 2047, m.d ?? 0) });
     } else if (m.type === "o2") {             // win/draw/loss (3/2/0) for both lead orders, for the key-card check
-      postMessage({ id: m.id, ok: true, result: [0, 1].map(f => new Solver(m.A, m.B, f).outcome()) });
+      postMessage({ id: m.id, ok: true, result: [0, 1].map(f => fastOutcome(m.A, m.B, f)) });
+    } else if (m.type === "lv1") {            // Beat a team: one lead order, exact margin level 0..4
+      postMessage({ id: m.id, ok: true, result: fastLevel(m.A, m.B, m.f) });
     } else if (m.type === "pv") {             // the perfect game, move by move (both sides play perfectly)
       const P = new Solver(m.A, m.B, m.first), steps = [];
       let ma = 2047, mb = 2047, d = 0;

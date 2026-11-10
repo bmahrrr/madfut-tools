@@ -49,7 +49,7 @@ const teamsTab = () => { const b = document.querySelector('#tabs button[data-t="
 // Owner-only tabs (Beat a team builds and Season Setup need the site's GitHub key). Everyone else never sees them.
 // The owner's phone has the key; on a new device open the site with #owner once.
 const IS_OWNER = (() => { try { if (location.hash === "#owner") localStorage.setItem("owner", "1"); return !!(localStorage.getItem("ghToken") || localStorage.getItem("owner")); } catch (e) { return false; } })();
-if (!IS_OWNER) document.querySelectorAll('#tabs button[data-t="beat"],#tabs button[data-t="setup"]').forEach(b => b.hidden = true);
+if (!IS_OWNER) { document.querySelectorAll('#tabs button[data-t="setup"]').forEach(b => b.hidden = true); document.querySelectorAll(".owneronly").forEach(x => x.hidden = true); }
 document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
   document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x === b));
   document.querySelectorAll("main section").forEach(s => s.classList.toggle("on", s.id === b.dataset.t));
@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110c";
+const APP_V = "20261110d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -453,7 +453,8 @@ async function renderTeams() {
       ? `<div class="chips">${weeks.map((w, i) => { return w.files.length ? `<button class="chipbtn" data-vault="${i}"><b>${esc(seasonName(w.week))}</b><span>Week of ${esc(fmtDay(w.week))} · ${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`
             : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
-  OPPS = []; let html = `<div class="card"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p></div>` + vaultBox;
+  OPPS = []; let html = `<div class="card"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>
+    <details class="howres"><summary class="small">How results work</summary><p class="small muted">Every result assumes <b>both sides play perfectly</b>. The solver checks every lead and answer the other side could make, including holding cards back, and assumes they always pick the best one. So a win holds against any opponent with that exact team, as long as you follow Match Helper. A different team, or a mistake from you, can change it.</p></details></div>` + vaultBox;
   const files = V ? V.files : INDEX.files || [];
   // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_"));
@@ -566,12 +567,111 @@ async function setupMC() {
   $("swapBtn").onclick = () => { [state.A, state.B] = [state.B, state.A]; drawMC(); $("solveOut").innerHTML = ""; };
   $("beatSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("");
   $("beatSeries").onchange = () => { drawMC(); drawBeatResults(); };
+  $("beatLocalGo").onclick = async () => {
+    const s = beatSeries();
+    if (state.T.length !== 11) { alert("Add all 11 players of the team you want to beat first."); return; }
+    if (BEAT_RUN && !BEAT_RUN.stop && $("beatLocalGo").dataset.busy) { BEAT_RUN.stop = true; return; }
+    const btn = $("beatLocalGo"), mins = +$("beatLocalMin").value; btn.dataset.busy = "1"; btn.textContent = "Stop and show results";
+    const prog = $("beatLocalProg"), LV = ["Loss", "Loss", "Draw", "Win", "Win"];
+    const t0 = Date.now();
+    const tick = setInterval(() => { const el = $("beatLocalBar"); if (el) el.style.width = Math.min(100, (Date.now() - t0) / (mins * 600)) + "%"; }, 500);
+    prog.innerHTML = `<div class="pbar"><i id="beatLocalBar"></i></div><p class="small muted" id="beatLocalTxt">Starting…</p>`; $("beatLocalOut").innerHTML = "";
+    const res = await beatLocal(s, state.T, mins, p => { const el = $("beatLocalTxt"); if (!el) return;
+      el.textContent = (p.phase === 1 ? `Checking the site's strongest teams: ${p.n} of ${p.of}` : `Improving the best teams: ${p.tested} tested`) +
+        (p.best ? `. Best so far: ${LV[p.best.r[0]]} if you lead, ${LV[p.best.r[1]]} if they lead` : ""); });
+    clearInterval(tick); delete btn.dataset.busy; btn.textContent = "Find a team to beat it"; prog.innerHTML = "";
+    drawBeatLocal(res, s);
+  };
   $("beatGo").onclick = () => {
     const s = beatSeries();
     if (state.T.length !== 11) { alert("Add all 11 players of the team you want to beat first."); return; }
     startBuild({ name: `Beat ${state.T.slice(0, 3).map(c => c.name).join(", ")}`, series: s.key, mode: "beat", minutes: +$("beatMin").value, opponents: [state.T.map(c => c.id)] });
   };
   drawMC(); drawBeatResults();
+}
+// ---------- Beat a team on the phone (everyone) ----------
+// Starts from the strongest full-chem teams the site already built for this series (the Best Team and its 100+
+// counter teams), finds the ones that do best against their team, then improves them card by card. Every team is
+// judged with the exact solver (both lead orders, perfect play), so the results shown are exact.
+let BEAT_RUN = null;
+async function beatLocal(s, T, minutes, onP) {
+  const run = BEAT_RUN = { stop: false }, t0 = Date.now(), LIMIT = minutes * 60000;
+  const TE = effective(T, s), ICONS = new Set(["icon", "debut_icon"]);
+  const d = await getJSON(`results/myclub_${s.key}.json`).catch(() => null);
+  const seeds = [], seen = new Set();
+  const addSeed = (ps, form) => { const cards = ps.map(p => BYID.get(p.id)), slots = ps.map(p => p.slot);
+    if (cards.length !== 11 || cards.some(c => !c || c.rating > s.cap) || slots.some(x => !x)) return;
+    const k = cards.map(c => c.id).sort().join(); if (seen.has(k)) return; seen.add(k); seeds.push({ cards, slots, form }); };
+  if (d && d.team) { addSeed(d.team.players, d.team.formation); Object.values(d.team.opponent_teams || {}).forEach(o => addSeed(o.players, o.formation)); }
+  for (const f of (INDEX && INDEX.files) || []) if (f.startsWith(`myclub_${s.key}--`)) { const v = await getJSON("results/" + f).catch(() => null); if (v && v.team) addSeed(v.team.players, v.team.formation); }
+  if (!seeds.length) return { error: "No teams built for this series yet." };
+  // duel strength against their team: how many of their cards each of ours beats, stat for stat
+  const cmpT = (x, y, tx, ty) => (x > y ? 1 : x < y ? 0 : tx > ty ? 1 : tx < ty ? 0 : 0.5);
+  const H = E => E.reduce((a, e) => a + TE.reduce((b, t) => b + cmpT(e.a, t.d, e.t, t.t) + cmpT(e.d, t.a, e.t, t.t) + cmpT(e.c, t.c, e.t, t.t), 0), 0);
+  let k = 0; const lv = async E => { const r = await Promise.all([0, 1].map(f => poolAsk(k++, { type: "lv1", A: E, B: TE, f }))); return r; };
+  const keyOf = r => [Math.min(r[0], r[1]), r[0] + r[1]], better = (a, b) => !b || a.key[0] > b.key[0] || (a.key[0] === b.key[0] && (a.key[1] > b.key[1] || (a.key[1] === b.key[1] && a.h > b.h)));
+  const done = new Set(), found = [];
+  const judge = async (cards, slots, form) => {
+    const id = cards.map(c => c.id).join(); if (done.has(id)) return null; done.add(id);
+    const E = effective(cards, s), r = await lv(E), x = { cards, slots, form, r, key: keyOf(r), h: H(E), chem: E.reduce((a, e) => a + e.chem, 0) };
+    found.push(x); return x;
+  };
+  // 1. every seed, exact, a few at a time
+  const W = Math.min(4, navigator.hardwareConcurrency || 2); let n = 0;
+  const order = seeds.map(x => ({ x, h: H(effective(x.cards, s)) })).sort((a, b) => b.h - a.h).map(o => o.x);
+  for (let i = 0; i < order.length && !run.stop && Date.now() - t0 < LIMIT * 0.4; i += W) {
+    await Promise.all(order.slice(i, i + W).map(x => judge(x.cards, x.slots, x.form)));
+    n = Math.min(order.length, i + W); onP && onP({ phase: 1, n, of: order.length, best: found.slice().sort((a, b) => better(a, b) ? -1 : 1)[0], t: Date.now() - t0 });
+  }
+  // 2. improve the best few, one card at a time (same formation, full chem kept)
+  const okCard = (c, team, i, slot) => c.rating <= s.cap && c.P && c.P.has(slot) && !(c._extra && c.owned === false) &&
+    !team.some((x, j) => j !== i && playerKey(x) === playerKey(c)) && !(s.key !== "X" && ICONS.has(c.color) && team.filter((x, j) => j !== i && ICONS.has(x.color)).length >= 5);
+  const bySlot = new Map(), slotList = sl => { if (!bySlot.has(sl)) bySlot.set(sl, CARDS.filter(c => c.rating <= s.cap && c.P && c.P.has(sl)).sort((a, b) => (b.attack + b.control + b.defense) - (a.attack + a.control + a.defense)).slice(0, 250)); return bySlot.get(sl); };
+  const pool2 = () => found.slice().sort((a, b) => better(a, b) ? -1 : 1);
+  const tried = new Set();
+  while (!run.stop && Date.now() - t0 < LIMIT) {
+    const base = pool2().find(x => !tried.has(x.cards.map(c => c.id).join())); if (!base) break;
+    tried.add(base.cards.map(c => c.id).join());
+    let cur = base;
+    for (let step = 0; step < 12 && !run.stop && Date.now() - t0 < LIMIT; step++) {
+      const cand = [];
+      for (let i = 0; i < 11; i++) for (const c of slotList(cur.slots[i])) {
+        if (c.id === cur.cards[i].id || !okCard(c, cur.cards, i, cur.slots[i])) continue;
+        const tm = cur.cards.slice(); tm[i] = c; const E = effective(tm, s), ch = E.reduce((a, e) => a + e.chem, 0);
+        if (ch < Math.min(cur.chem, 33)) continue;                 // never trade chem away
+        cand.push({ tm, h: H(E) });
+      }
+      cand.sort((a, b) => b.h - a.h);
+      let best = null;
+      for (let i = 0; i < Math.min(8, cand.length) && !run.stop; i += W) {
+        const got = await Promise.all(cand.slice(i, i + W).map(c => judge(c.tm, cur.slots, cur.form)));
+        for (const g of got) if (g && better(g, best)) best = g;
+      }
+      onP && onP({ phase: 2, best: pool2()[0], tested: found.length, t: Date.now() - t0 });
+      if (!best || !better(best, cur)) break;
+      cur = best;
+    }
+  }
+  // the 3 best different teams
+  const out = []; for (const x of pool2()) { if (out.length >= 3) break; if (out.some(o => o.cards.filter(c => x.cards.includes(c)).length >= 10)) continue; out.push(x); }
+  return { teams: out, tested: found.length, secs: Math.round((Date.now() - t0) / 1000) };
+}
+function drawBeatLocal(res, s) {
+  const box = $("beatLocalOut");
+  if (res.error) { box.innerHTML = `<p class="small bad">${esc(res.error)}</p>`; return; }
+  const LV = ["LOSS", "LOSS", "DRAW", "WIN", "WIN"], LT = ["Loss by 2+", "Loss by 1", "Draw", "Win by 1", "Win by 2+"];
+  box.innerHTML = `<p class="small muted" style="margin:0 0 10px">Tested ${res.tested} teams in ${res.secs}s. Results assume both sides play perfectly.</p>` + res.teams.map((x, n) => {
+    const E = effective(x.cards, s), ps = x.cards.map((c, i) => ({ slot: x.slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
+      card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t }));
+    return `<details class="oteam beatres"${n === 0 ? " open" : ""}><summary><b>Option ${n + 1}</b><span class="small muted">${esc(x.form || "")} · ${x.chem} chem</span></summary>
+      <div class="score"><div class="sc"><span>You lead first</span>${pill(LV[x.r[0]])}<small>${LT[x.r[0]]}</small></div><div class="sc"><span>They lead first</span>${pill(LV[x.r[1]])}<small>${LT[x.r[1]]}</small></div></div>
+      ${playersTable(ps, true)}<div class="row" style="margin-top:10px"><button class="btn" data-beatuse="${n}">Open in Head to head</button></div></details>`;
+  }).join("");
+  box.querySelectorAll("[data-beatuse]").forEach(b => b.onclick = () => {
+    const x = res.teams[+b.dataset.beatuse];
+    state.A = x.cards.slice(); state.B = state.T.slice(); $("mcSeries").value = s.key; drawMC(); $("solveOut").innerHTML = "";
+    document.querySelector('#tabs button[data-t="mc"]').click(); window.scrollTo(0, 0);
+  });
 }
 function drawBeatResults() {
   const key = beatSeries().key, L = CUSTOM.filter(c => c.request && c.request.mode === "beat" && c.series.key === key)
@@ -620,7 +720,7 @@ function panelHtml(side) {
       <p class="small muted" style="margin:6px 0">Commas or new lines. Add a rating or club if needed, e.g. <code>Costa 67</code>. Tap ⇄ to switch version.</p>
       <textarea id="p${side}" placeholder="Radelet, Pupe, Coulibaly, …"></textarea>
       <div class="row" style="margin-top:6px"><button class="ghost" data-paste="${side}">Add these</button><span id="pm${side}" class="small"></span></div></details>`;
-  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key && IS_OWNER ? `<button class="ghost" data-beat="1" style="font-size:12.5px">Beat this team</button>` : ""}</div>`;
+  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key ? `<button class="ghost" data-beat="1" style="font-size:12.5px">Beat this team</button>` : ""}</div>`;
   return h;
 }
 const seriesInfo = s => s.key ? `Cap ${s.cap || "?"}${(n => n ? ` · ${n} boost${n > 1 ? "s" : ""} applied` : " · no boosts")((s.boosts || []).length + (s.bonuses || []).length)}.` : "No boosts applied.";
@@ -742,7 +842,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -768,7 +868,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1447,7 +1547,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110c");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

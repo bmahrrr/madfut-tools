@@ -9,7 +9,7 @@ import json, os, re, shutil, sys
 
 DOCS = os.path.join(os.path.dirname(__file__), "..", "docs")
 BETA = os.path.join(DOCS, "beta")
-FILES = ["app.js", "engine.js", "worker.js", "sbc-solver.js", "sbcworker.js"]
+FILES = ["app.js", "engine.js", "worker.js", "sbc-solver.js", "sbcworker.js", "game.wasm"]
 HEAD = ('<!--beta--><base href="../"><meta name="robots" content="noindex,nofollow">'
         '<script>window.APPDIR = "beta/";</script><!--/beta-->')
 
