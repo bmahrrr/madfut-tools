@@ -55,6 +55,7 @@ def _pool(series, cards):
 
 
 OPP = None      # profile of the strongest teams in the series (set by build_sim): what our team plays against
+MAXA = None     # the highest in-game attack any card in the series can reach (set by build_sim)
 FIELD = None    # the strongest teams found (set by build_sim), as match sides: the simulated-match tie-break plays each
 MATCH_TB = __import__("os").environ.get("SIM_TB") == "match"     # test: after control, rank by simulated matches vs FIELD
 REDDIT = []     # the Reddit teams in every Sim formation they fit (set by build_sim): a team must not lose to them
@@ -167,7 +168,7 @@ def evaluate(team, slots, series):
         h2h = round(sum(a - b for _, a, b in (_match(me, f) for f in FIELD)) / len(FIELD), 5)
     return {"h2h": h2h, "control": round(m(C), 2), "attack": round(att_exp, 2), "defence": round(m(D), 2), "net": net, "vs_reddit": vr,
             "control_cards": sorted(C, reverse=True), "attack_cards": sorted(A, reverse=True),
-            "defence_cards": sorted(D, reverse=True), "p_att": p_att, "p_def": p_def, "chem": sum(ch), "ctrl_not_full": bad, "weak_attackers": weak, "attack_short": short,
+            "defence_cards": sorted(D, reverse=True), "p_att": p_att, "p_def": p_def, "chem": sum(ch), "ctrl_not_full": bad, "def_unbeatable": bool(MAXA) and all(E[i][2] > MAXA for i, s in enumerate(slots) if s in DEF), "weak_attackers": weak, "attack_short": short,
             "ctrl_total": round(CT / len(C), 2) if C else 0,
             "att_total": round(AT, 2), "def_total": round(DT / len(D), 2) if D else 0}
 
@@ -198,8 +199,10 @@ def sim_key(ev):
     """Teams with every control card on full chem first; then never a team that loses to the Reddit team head to head
     (most players copy it: any team at least level with it ranks above every team that loses to it, and among
     losing teams the smaller loss wins); then rank_key."""
+    # Owner: when boosts make an unbeatable defence possible (every defender above any attack in the series, e.g. the
+    # Arsenal boost in 88), use it; the rest of the team fills in around it. Rare, boost-dependent.
     vr = ev.get("vs_reddit")
-    return (ev["ctrl_not_full"] == 0, -ev.get("attack_short", 0), min(vr, 0) if vr is not None else 0, rank_key(ev))
+    return (ev["ctrl_not_full"] == 0, ev.get("def_unbeatable", False), -ev.get("attack_short", 0), min(vr, 0) if vr is not None else 0, rank_key(ev))
 
 
 def tie_cleanup(team, slots, series, pool, log=None):
@@ -265,6 +268,10 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
     _red = [[_byid.get(c["id"]) for c in r] for r in list(refs or [])[:n_reddit if n_reddit is not None else len(refs or [])]]
     set_reddit([r for r in _red if all(r)], series)
     maxC = max(x["C"] for x in pool if x["P"] & CTRL)
+    # an unbeatable defence: every defender's defence (at full chem) above the best attack anyone can field
+    global MAXA
+    MAXA = max(x["A"] for x in pool if x["P"] & ATT) + 2
+    UNB = {x["_i"] for x in pool if x["D"] + 2 > MAXA}
     # candidate lists of three sizes, all solved, the best team kept: a short list lets the solver finish (68 needed it:
     # 8,000 cards hit the time limit with weak teams) but can miss a card a wider list has (73 and 86 lost attack)
     CONFIGS = ((margin, topk, 2, 2), (margin + 2, topk * 3, 4, 3), (margin + 4, topk * 6, 6, 4))
@@ -362,6 +369,13 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
 
     # every (formation, bonus) build is independent: run them on all cores at once
     jobs = [(form, job(form, cfg), bv) for form in formations for cfg in CONFIGS for bv in bonus_variants]
+    for form in formations:          # boosts allowing it: a build that must field an unbeatable back line
+        dslots = [x for x in FORMATIONS[form] if x in DEF and x not in CTRL]
+        if all(sum(1 for i in UNB if sl in pool[i]["P"]) >= dslots.count(sl) for sl in set(dslots)) and dslots:
+            for cfg in CONFIGS[:2]:
+                sl_, cf, val, cw, fu = job(form, cfg)
+                val2 = (lambda val: lambda c, s: (None if s in DEF and s not in CTRL and c["_i"] not in UNB else val(c, s)))(val)
+                jobs += [(form, (sl_, cf, val2, cw, fu), bv) for bv in bonus_variants]
     def run(i):
         form, (slots, cards_f, value, chem_w, full), bv = jobs[i]
         sq = build(cards_f, slots, value, chem_weight=chem_w, force_full=full, time_limit=time_limit, **bv)
