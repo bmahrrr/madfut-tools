@@ -55,6 +55,14 @@ except FileNotFoundError:
 out.append("chosen: " + key_of(team["formation"], [p["id"] for p in team["players"]]))
 for name, form, ids in checks:
     out.append(f"{name}: " + key_of(form, ids)); vs(name, form, ids)
+# round robin (evidence only, not used to choose): every one of these teams against every other
+rr = [("chosen", team["formation"], [p["id"] for p in team["players"]])] + [c for c in checks]
+sides = [(n, S._side([by[i] for i in ids], FORMATIONS[f], s)) for n, f, ids in rr if all(i in by for i in ids)]
+tot = {n: 0.0 for n, _ in sides}
+for i, (n1, a1) in enumerate(sides):
+    for n2, a2 in sides[i + 1:]:
+        _, x, y = S._match(a1, a2); tot[n1] += x - y; tot[n2] += y - x
+out.append("round robin (total margin): " + ", ".join(f"{n} {v*100:+.1f}" for n, v in sorted(tot.items(), key=lambda t: -t[1])))
 out.append("IDS " + ",".join(p["id"] for p in team["players"]))
 os.makedirs(os.path.join(ROOT, "blindtest", "results", TAG, mode), exist_ok=True)
 open(os.path.join(ROOT, "blindtest", "results", TAG, mode, f"{key}.txt"), "w").write("\n".join(out) + "\n")

@@ -193,9 +193,11 @@ def rank_key(ev):
     pa, pd = ev.get("p_att"), ev.get("p_def")
     # Owner's tie rule is per card (same control -> higher total plays, see tie_cleanup); the control cards' team total
     # only splits teams equal on everything else. Ranked above attack it picked high-total control over better strikers (73).
-    if pa is not None: return (round(ev["control"], 2), ev.get("ctrl_win") or 0, round(pa + pd / 3, 4), round(pa, 4),
+    # control duels won (the game's tiebreak on tied control) only after attack and defence: ranked straight after
+    # control, a 0.5% edge there beat a 10-point defence gap (80)
+    if pa is not None: return (round(ev["control"], 2), round(pa + pd / 3, 4), round(pa, 4),
                                round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
-                               round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
+                               ev.get("ctrl_win") or 0, round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
     return (round(ev["control"], 2), round(a + d / 3, 2),
             round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
             round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
@@ -471,6 +473,56 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             log(f"  polished {form}: control {ev['control']} -> {pe['control']}, attack {ev['attack']} -> {pe['attack']}")
             results.append((pe, form, p))
     results.sort(key=lambda r: sim_key(r[0]), reverse=True)
+    # re-solve the back line, then the strikers, of the best teams: everything else fixed, every card in the series
+    # allowed there (chem counted), valued by duels against the strongest teams. Finds 3-card changes single swaps
+    # can't (68: André Moreira, Bouland, Ciobotariu instead of Boevink's line).
+    if OPP:
+        bA = lambda x: _beat(x, OPP["D"]) * 100; bD = lambda x: _beat(x, OPP["A"]) * 100
+        seen2, tops = set(), []
+        for ev, form, sq in results:
+            sg = (form, frozenset(c["id"] for c in sq))
+            if sg not in seen2: seen2.add(sg); tops.append((form, sq))
+            if len(tops) == 6: break
+        rjobs = []
+        for form, sq in tops:
+            slots = FORMATIONS[form]
+            for grp in ({"GK", "CB"}, {"ST", "CF"}):
+                idx = [i for i, sl in enumerate(slots) if sl in grp]
+                if idx: rjobs.append((form, sq, idx))
+        def rsolve(j):
+            form, sq, idx = rjobs[j]; slots = FORMATIONS[form]
+            fixed = {sq[i]["_i"]: slots[i] for i in range(len(slots)) if i not in idx}
+            gs = {slots[i] for i in idx}; att = bool(gs & ATT)
+            keys = {(c["clubId"]) for c in sq} | {(c["nationId"], c["leagueId"]) for c in sq}
+            cand = {}
+            for sl in gs:
+                el = [x for x in pool if sl in x["P"] and x["_i"] not in fixed]
+                st = (lambda x: x["A"]) if att else (lambda x: x["D"])
+                for x in sorted(el, key=lambda x: -st(x))[:150]: cand[x["_i"]] = x
+                by = {}
+                for x in el:
+                    for k in (x["clubId"], (x["nationId"], x["leagueId"])):
+                        if k in keys: by.setdefault(k, []).append(x)
+                for L in by.values():
+                    for x in sorted(L, key=lambda x: -st(x))[:6]: cand[x["_i"]] = x
+            cards = [pool[i] for i in fixed] + list(cand.values())
+            nD = max(1, sum(1 for x in slots if x in DEF)); wD = 100 / (3 * nD)
+            sw = attack_weights(slots, list(slots)); slot_w = {}
+            for k2, sl in enumerate(slots): slot_w[sl] = max(slot_w.get(sl, 0), sw[k2])
+            def value(c, s):
+                if c["_i"] in fixed: return 1e7 if fixed[c["_i"]] == s else None
+                if s not in gs: return None
+                T = c["A"] + c["C"] + c["D"]
+                return (100 * slot_w.get(s, 0.2) * (bA(c["A"] - 3) + T / 400)) if att else (wD * (bD(c["D"] - 3) + T / 400))
+            def chem_w(c, s):
+                if s in gs: return (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3) if att else (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3)
+                return 0.01 + (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0)
+            nsq = build(cards, slots, value, chem_weight=chem_w, force_full=lambda c, s: s in CTRL and not full_chem(c), time_limit=60)
+            return (evaluate(nsq, slots, series), form, nsq) if nsq else None
+        for r in pmap(rsolve, len(rjobs)):
+            if r:
+                results.append(r); log(f"  re-solve {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
+        results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     results = [r for r in results if r[0]["ctrl_not_full"] == 0] or results
     # swap check on the team that will be published: every card in the series tried in every slot until no single
     # swap is better (control, then attack, then defence, each then its total)
