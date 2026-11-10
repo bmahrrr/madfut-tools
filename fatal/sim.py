@@ -7,6 +7,7 @@ then the best Defence (full backs, CDM, CB, GK).
 import time
 from .core import (CTRL, ATT, DEF, AUTO, full_chem, FORMATIONS, SIM_FORMATIONS, boosted, effective, describe, pid, is_special)
 from .milp import build
+from .par import pmap
 
 import itertools
 
@@ -274,7 +275,7 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
             return v
         if k in ("nations", "clubs", "leagues", "specials") or (k == "types" and mx is None) or (k.startswith("same_") and mx is not None):
             bonus_variants = bonus_variants + [with_bonus(v) for v in bonus_variants]
-    for form in formations:
+    def job(form):
         slots = FORMATIONS[form]
         cand = set()
         for s in set(slots):
@@ -314,13 +315,19 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         def full(c, s):
             return s in CTRL and not full_chem(c)
 
-        for bv in bonus_variants:
-            sq = build(cards_f, slots, value, chem_weight=chem_w, force_full=full, time_limit=time_limit, **bv)
-            if not sq:
-                continue
-            ev = evaluate(sq, slots, series)
-            results.append((ev, form, sq))
-            log(f"  {form} {bv or ''}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
+        return slots, cards_f, value, chem_w, full
+
+    # every (formation, bonus) build is independent: run them on all cores at once
+    jobs = [(form, job(form), bv) for form in formations for bv in bonus_variants]
+    def run(i):
+        form, (slots, cards_f, value, chem_w, full), bv = jobs[i]
+        sq = build(cards_f, slots, value, chem_weight=chem_w, force_full=full, time_limit=time_limit, **bv)
+        return (evaluate(sq, slots, series), form, sq, bv) if sq else None
+    for r in pmap(run, len(jobs)):
+        if not r: continue
+        ev, form, sq, bv = r
+        results.append((ev, form, sq))
+        log(f"  {form} {bv or ''}: control {ev['control']} attack {ev['attack']} defence {ev['defence']}")
     # Reddit teams: their 11 cards placed in each formation (the same program, just on those 11 cards)
     byid = {c["id"]: c for c in pool}
     ref_sigs = set()
@@ -357,9 +364,9 @@ def build_sim(series, cards, formations=None, margin=8, topk=120, time_limit=200
         if sig in seen: continue
         seen.add(sig); top.append((ev, form, sq))
         if len(top) == 6: break
-    for ev, form, sq in top:
+    pol = pmap(lambda i: polish(top[i][2], FORMATIONS[top[i][1]], series, pool, polish_seconds), len(top))
+    for (ev, form, sq), p in zip(top, pol):
         slots = FORMATIONS[form]
-        p = polish(sq, slots, series, pool, polish_seconds)
         pe = evaluate(p, slots, series)
         if sim_key(pe) > sim_key(ev):
             log(f"  polished {form}: control {ev['control']} -> {pe['control']}, attack {ev['attack']} -> {pe['attack']}")
