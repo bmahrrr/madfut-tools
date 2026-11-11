@@ -458,10 +458,17 @@ async function simSwapBest(k, d, missing, onP) {
     }
     if (onP) onP(); await new Promise(r => setTimeout(r, 0));
   }
-  for (let pass = 0, better = true; better && pass < 6; pass++) {   // every card in every slot until nothing improves
-    better = false;
-    for (let j = 0; j < 11; j++) { const r = fill(cur.tm, j); if (r && simKeyCmp(r, cur) > 0) { cur = r; better = true; } if (onP) onP(); await new Promise(r => setTimeout(r, 0)); }
-  }
+  // every card in every slot until nothing improves, from the gap fix and from the quick pick: a quick pick with one
+  // control card off chem is often one link card away from a much better team (85: Pirlo kept, a link for Akliouche)
+  const climb = async st => {
+    for (let pass = 0, better = true; better && pass < 6; pass++) {
+      better = false;
+      for (let j = 0; j < 11; j++) { const r = fill(st.tm, j); if (r && simKeyCmp(r, st) > 0) { st = r; better = true; } if (onP) onP(); await new Promise(r => setTimeout(r, 0)); }
+    }
+    return st;
+  };
+  const a1 = await climb(cur), a2 = await climb(greedy);
+  cur = simKeyCmp(a2, a1) > 0 ? a2 : a1;
   // the final: the best teams level with it on full chem and control play each other (and the full team)
   const lvl = r => r.key[0] === cur.key[0] && r.key[1] === cur.key[1];
   const L = [...seen.values()].filter(lvl), raw = (x, y) => (y.key[5] - x.key[5]) || (y.key[6] - x.key[6]) || (y.key[7] - x.key[7]);
