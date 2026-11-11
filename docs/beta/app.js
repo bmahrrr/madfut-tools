@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261111d";
+const APP_V = "20261111e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -108,7 +108,7 @@ async function init() {
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
-  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
+  renderTeams(); setupMC(); setupSim(); setupSimLog(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
 }
 
 // ---------- shared card UI ----------
@@ -128,6 +128,130 @@ function search(q, limit = 12, cap = 0) {
   const exact = out.filter(c => c._n === q).length;
   return out.sort((a, b) => score(a) - score(b) || b.rating - a.rating).slice(0, Math.max(limit, Math.min(exact, 40)));
 }
+// ---------- Sim log (owner only: shows only on the phone with the GitHub key) ----------
+// Real matches, possession by possession, to check the Sim Odds model: how many possessions, which cards the game
+// picked, which tiebreak it used. Saved to data/simlog.json in the repo, with a copy on this phone until it's saved.
+const SL_FILE = "data/simlog.json";
+const SL = { m: null, step: null, msg: "" };
+const slStore = (k, v) => { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || "null"); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } };
+const slQueue = () => slStore("simlogQueue") || [];
+function slSides() {         // both teams from Sim Odds, with in-game stats
+  const s = simSeries();
+  const side = (cards, form) => { const slots = SIM_FORMS[form], E = effective(cards, s);
+    return cards.map((c, i) => ({ id: c.id, name: c.name, slot: slots[i], pos: c.position, a: E[i].a, c: E[i].c, d: E[i].d, t: E[i].a + E[i].c + E[i].d })); };
+  return { you: side(state.simAC, $("simFormA").value), them: side(state.simB, $("simFormB").value) };
+}
+function slStart() {
+  if (state.simAC.length !== 11 || state.simB.length !== 11) { SL.msg = "Set up both teams in Sim Odds first (11 each)."; drawSimLog(); return; }
+  const sd = slSides();
+  SL.m = { at: new Date().toISOString(), week: (SIMW.base.match(/vault\/([^/]+)\//) || [])[1] || (WEEK && WEEK.week), series: simSeries().key,
+    you: { form: $("simFormA").value, ids: state.simAC.map(c => c.id) }, them: { form: $("simFormB").value, ids: state.simB.map(c => c.id) }, poss: [] };
+  SL.sides = sd; SL.step = {}; SL.msg = ""; slStore("simlogLive", { m: SL.m, sides: SL.sides }); drawSimLog();
+}
+const slWho = w => (w === "you" ? "You" : "Them");
+const slBtn = (attr, on, html) => `<button class="${on ? "btn" : "ghost"}" ${attr} style="font-size:12.5px;margin:0 6px 6px 0;padding:6px 10px">${html}</button>`;
+function slPick(list, key, chosen, stat) {
+  return list.map(r => slBtn(`data-sl="${key}:${esc(r.id)}"`, chosen === r.id, `${esc(r.name)} <span class="small">${r[stat]}</span>`)).join("");
+}
+function slTie(prefix, st) {      // which tiebreak the game used, and who won it
+  return `<p class="small" style="margin:8px 0 4px"><b>Tie.</b> Which stat decided it?</p>${["attack", "defence", "total"].map(x => slBtn(`data-sl="${prefix}tb:${x}"`, st[prefix + "tb"] === x, cap(x))).join("")}`;
+}
+function drawSimLog() {
+  const box = $("slBody"); if (!box) return;
+  const q = slQueue();
+  if (!SL.m) {
+    const ok = state.simAC.length === 11 && state.simB.length === 11;
+    box.innerHTML = `<h2>Sim log</h2><p class="small muted">Only on this phone. Log real matches so the Sim Odds numbers can be checked.</p>
+      <p class="small">${ok ? `Teams from Sim Odds: <b>${esc(simSeries().key || "")} Series</b>, you ${esc($("simFormA").value)}, them ${esc($("simFormB").value)}.` : `Set up both teams in <b>Sim Odds</b> first (11 each), then come back.`}</p>
+      ${ok ? `<button class="btn" id="slStart">Start a Match</button>` : `<button class="ghost" id="slGoSim">Go to Sim Odds</button>`}
+      ${SL.msg ? `<p class="small">${SL.msg}</p>` : ""}
+      ${q.length ? `<p class="small" style="margin-top:10px"><b>${q.length}</b> match${q.length > 1 ? "es" : ""} waiting to save. <button class="ghost" id="slRetry" style="font-size:12px;padding:4px 9px">Save now</button></p>` : ""}
+      <p style="margin-top:10px"><button class="ghost" id="slCopy" style="font-size:12px;padding:4px 9px">Copy the log</button> <span id="slCount" class="small muted"></span></p>`;
+    if ($("slStart")) $("slStart").onclick = slStart;
+    if ($("slGoSim")) $("slGoSim").onclick = () => document.querySelector('#tabs button[data-t="sim"]').click();
+    if ($("slRetry")) $("slRetry").onclick = slSave;
+    $("slCopy").onclick = slCopy;
+    slCountShow(); return;
+  }
+  const m = SL.m, st = SL.step, sd = SL.sides, by = (w, id) => sd[w].find(r => r.id === id);
+  const goals = w => m.poss.filter(p => p.goal && p.cw === w).length;
+  let h = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(m.series)} Series</h2><span class="big" style="font-size:24px">${goals("you")} - ${goals("them")}</span></div>
+    <p class="meta">Possession ${m.poss.length + 1}</p>`;
+  // 1. control
+  const ctl = w => sd[w].filter(r => CTRL.has(r.slot));
+  h += `<h3 style="margin:10px 0 4px">Control</h3><p class="small muted" style="margin:0 0 4px">Your card</p>${slPick(ctl("you"), "cy", st.cy, "c")}
+    <p class="small muted" style="margin:6px 0 4px">Their card</p>${slPick(ctl("them"), "ct", st.ct, "c")}`;
+  if (st.cy && st.ct) {
+    const x = by("you", st.cy), y = by("them", st.ct);
+    if (x.c === y.c) { h += slTie("c", st); if (st.ctb) h += `<p class="small" style="margin:6px 0 4px">Who won it?</p>${["you", "them"].map(w => slBtn(`data-sl="cw:${w}"`, st.cw === w, slWho(w))).join("")}`; }
+    else { st.cw = x.c > y.c ? "you" : "them"; h += `<p class="small" style="margin:6px 0 0">${st.cw === "you" ? "You win" : "They win"} control (${x.c} v ${y.c}).</p>`; }
+  }
+  // 2. attack
+  if (st.cw) {
+    const att = st.cw, def = att === "you" ? "them" : "you";
+    const W = attackWeights(sd[att]), A = sd[att].map((r, i) => [r, W[i]]).filter(p => p[1] > 0.001).sort((p, q) => q[1] - p[1]).map(p => p[0]);
+    h += `<h3 style="margin:14px 0 4px">${att === "you" ? "Your attack" : "Their attack"}</h3><p class="small muted" style="margin:0 0 4px">Attacker</p>${slPick(A, "at", st.at, "a")}
+      <p class="small muted" style="margin:6px 0 4px">Defender</p>${slPick(sd[def].filter(r => DEF.has(r.slot)), "df", st.df, "d")}`;
+    if (st.at && st.df) {
+      const x = by(att, st.at), y = by(def, st.df);
+      if (x.a === y.d) { h += slTie("a", st); if (st.atb) h += `<p class="small" style="margin:6px 0 4px">Goal?</p>${[["yes", "Goal"], ["no", "No goal"]].map(([k, l]) => slBtn(`data-sl="goal:${k}"`, st.goal === k, l)).join("")}`; }
+      else { if (!st.goal) st.goal = x.a > y.d ? "yes" : "no"; h += `<p class="small" style="margin:8px 0 4px">By stats: ${x.a > y.d ? "goal" : "no goal"} (${x.a} v ${y.d}). What happened?</p>${[["yes", "Goal"], ["no", "No goal"]].map(([k, l]) => slBtn(`data-sl="goal:${k}"`, st.goal === k, l)).join("")}`; }
+    }
+  }
+  const done = st.cw && st.at && st.df && st.goal;
+  h += `<div class="row" style="margin-top:14px">${done ? `<button class="btn" id="slNext">Save Possession</button>` : ""}${m.poss.length ? `<button class="ghost" id="slUndo">Undo Last</button>` : ""}</div>
+    <div class="row" style="margin-top:10px"><button class="ghost" id="slEnd">End Match</button><button class="ghost" id="slQuit" style="font-size:12px">Discard</button></div>`;
+  box.innerHTML = h;
+  box.querySelectorAll("[data-sl]").forEach(b => b.onclick = () => {
+    const [k, v] = b.dataset.sl.split(/:(.*)/s);
+    st[k] = v;
+    if (k === "cy" || k === "ct" || k === "ctb") { delete st.cw; delete st.at; delete st.df; delete st.goal; delete st.atb; if (k !== "ctb") delete st.ctb; }
+    if (k === "cw") { delete st.at; delete st.df; delete st.goal; delete st.atb; }
+    if (k === "at" || k === "df") { delete st.goal; delete st.atb; }
+    if (k === "atb") delete st.goal;
+    drawSimLog();
+  });
+  if ($("slNext")) $("slNext").onclick = () => {
+    const att = st.cw, def = att === "you" ? "them" : "you", cy = by("you", st.cy), ct = by("them", st.ct), at = by(att, st.at), df = by(def, st.df);
+    m.poss.push({ c: [st.cy, st.ct], cv: [cy.c, ct.c], ctb: st.ctb || null, cw: st.cw, a: st.at, d: st.df, av: [at.a, df.d], atb: st.atb || null, goal: st.goal === "yes" });
+    SL.step = {}; slStore("simlogLive", { m, sides: sd }); drawSimLog(); window.scrollTo(0, 0);
+  };
+  if ($("slUndo")) $("slUndo").onclick = () => { m.poss.pop(); SL.step = {}; slStore("simlogLive", { m, sides: sd }); drawSimLog(); };
+  $("slQuit").onclick = () => { if (confirm("Discard this match?")) { SL.m = null; slStore("simlogLive", null); drawSimLog(); } };
+  $("slEnd").onclick = () => {
+    const sc = prompt(`Final score (you - them). Possessions logged: ${m.poss.length}.`, `${goals("you")}-${goals("them")}`); if (sc === null) return;
+    const n = sc.match(/(\d+)\D+(\d+)/); if (!n) { alert("Type it like 2-1."); return; }
+    m.score = [+n[1], +n[2]]; m.possessions = m.poss.length;
+    const q = slQueue(); q.push(m); slStore("simlogQueue", q); slStore("simlogLive", null); SL.m = null; slSave();
+  };
+}
+async function slSave() {
+  const q = slQueue(); if (!q.length) { drawSimLog(); return; }
+  SL.msg = "Saving…"; drawSimLog();
+  try {
+    const f = await ghGetFile(SL_FILE), all = f ? JSON.parse(f.text) : [];
+    const have = new Set(all.map(x => x.at)), add = q.filter(x => !have.has(x.at));
+    await ghPutFile(SL_FILE, JSON.stringify(all.concat(add), null, 1), `Sim log: ${add.length} match${add.length === 1 ? "" : "es"}`, f && f.sha);
+    slStore("simlogQueue", []); SL.msg = (n => `Saved. ${n} match${n === 1 ? "" : "es"} logged so far.`)(all.length + add.length);
+  } catch (e) { SL.msg = `<span class="bad">Not saved yet (${esc(e.message)}). It's kept on this phone; tap Save now later.</span>`; }
+  drawSimLog();
+}
+async function slCountShow() {
+  try { const f = await ghGetFile(SL_FILE); const n = f ? JSON.parse(f.text).length : 0; if ($("slCount")) $("slCount").textContent = `${n} match${n === 1 ? "" : "es"} saved`; } catch (e) {}
+}
+async function slCopy() {
+  let all = []; try { const f = await ghGetFile(SL_FILE); all = f ? JSON.parse(f.text) : []; } catch (e) {}
+  const txt = JSON.stringify(all.concat(slQueue()));
+  try { await navigator.clipboard.writeText(txt); SL.msg = "Log copied."; } catch (e) { SL.msg = "Couldn't copy on this phone."; }
+  drawSimLog();
+}
+function setupSimLog() {
+  if (!ghToken()) { document.querySelectorAll(".tokenonly").forEach(x => x.hidden = true); return; }
+  const live = slStore("simlogLive"); if (live && live.m) { SL.m = live.m; SL.sides = live.sides; SL.step = {}; }
+  document.querySelector('#tabs button[data-t="simlog"]').addEventListener("click", drawSimLog);
+  drawSimLog();
+}
+
 function cardLine(c) {
   return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(String(cName(c.clubId)).trim())}</span> <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
 }
@@ -870,7 +994,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -896,7 +1020,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1620,7 +1744,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111d");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
