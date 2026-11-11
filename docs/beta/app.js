@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261111k";
+const APP_V = "20261111l";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -420,12 +420,12 @@ function instantFill(k, d, missing) {
 // closest teams then play each other head to head (most wins, then margin).
 function simSwapEval(tm, slots, s, floor, FLD) {
   const E = effective(tm, s), R = tm.map((c, i) => ({ slot: slots[i], pos: c.position, a: E[i].a, c: E[i].c, d: E[i].d })), W = attackWeights(R);
-  const bt = (x, ys) => ys.reduce((q, [y, w]) => q + w * (x > y ? 1 : x === y ? 0.5 : 0), 0);
+  const gA = (x, ys) => ys.reduce((q, [y, w]) => q + w * simAtt(x, y), 0), sD = (x, ys) => ys.reduce((q, [y, w]) => q + w * (1 - simAtt(y, x)), 0);
   let nf = 0, cs = 0, nc = 0, ds = 0, nd = 0, att = 0, short = 0, tot = 0, pa = 0, pd = 0;
   R.forEach((r, i) => {
     if (CTRL.has(r.slot)) { cs += r.c; nc++; tot += r.a + r.c + r.d; if (E[i].chem < 3) nf++; }
-    if (DEF.has(r.slot)) { ds += r.d; nd++; pd += bt(r.d, FLD.A); }
-    att += W[i] * r.a; if (W[i] > 0) pa += W[i] * bt(r.a, FLD.D); if (W[i] >= 0.05 && r.a < floor) short += W[i] * (floor - r.a);
+    if (DEF.has(r.slot)) { ds += r.d; nd++; pd += sD(r, FLD.A); }
+    att += W[i] * r.a; if (W[i] > 0) pa += W[i] * gA(r, FLD.D); if (W[i] >= 0.05 && r.a < floor) short += W[i] * (floor - r.a);
   });
   const c = Math.round(cs / nc * 100) / 100, d = Math.round(ds / nd * 100) / 100, a = Math.round(att * 100) / 100, r4 = v => Math.round(v * 10000) / 10000;
   pd /= nd; short = Math.round(short * 1000) / 1000;
@@ -442,7 +442,7 @@ async function simSwapBest(k, d, missing, onP) {
   (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); const fs = SIM_FORMS[wser.opponent_formation] || slots; if (tm.length === 11 && tm.every(Boolean)) teams.push([tm, fs]); });
   for (const [tm, fs] of teams) {
     const E = effective(tm, s), R = tm.map((c, i) => ({ slot: fs[i], pos: c.position, a: E[i].a, c: E[i].c, d: E[i].d })), W = attackWeights(R), di = R.filter(r => DEF.has(r.slot));
-    di.forEach(r => FLD.D.push([r.d, 1 / (teams.length * di.length)])); R.forEach((r, i) => { if (W[i] > 0) FLD.A.push([r.a, W[i] / teams.length]); });
+    di.forEach(r => FLD.D.push([r, 1 / (teams.length * di.length)])); R.forEach((r, i) => { if (W[i] > 0) FLD.A.push([r, W[i] / teams.length]); });
   }
   const ev = tm => simSwapEval(tm, slots, s, floor, FLD), pool = {};
   for (const sl of new Set(slots)) pool[sl] = CARDS.filter(x => C.ok(x) && x.P && x.P.has(sl));
@@ -1101,7 +1101,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111k"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111l"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1127,7 +1127,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111k"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111l"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1431,7 +1431,7 @@ function runSim() {
     return slots.map((s, i) => ({ name: cards[i].name, slot: s, pos: cards[i].position, a: E[i].a, c: E[i].c, d: E[i].d })); };
   const R1 = side(state.simAC, $("simFormA").value), R2 = side(state.simB, $("simFormB").value);
   const m = simMatch(R1, R2);
-  const odds = matchOdds(m.scoreA, m.scoreB, 7);
+  const odds = matchOdds(m.scoreA, m.scoreB);
   // who does what: control cards fight for the ball, the attacker is picked from cards not used for control, defenders stop it
   const roles = R => { const W = attackWeights(R);
     return { c: R.filter(r => CTRL.has(r.slot)).sort((x, y) => y.c - x.c).map(r => [r.name, r.c]),
@@ -1452,15 +1452,18 @@ function runSim() {
   const cell = (v, o) => `<td class="n${v > o + 0.05 ? " up" : v < o - 0.05 ? " dn" : ""}">${v.toFixed(1)}</td>`;
   X.a = X.a.filter(x => x[2] >= 5); Y.a = Y.a.filter(x => x[2] >= 5);      // cards that attack in 5%+ of possessions
   $("simOut").innerHTML = `<div class="score odds"><div class="sc"><span>Win</span><b class="bignum w">${odds[0]}%</b></div><div class="sc"><span>Draw</span><b class="bignum">${odds[1]}%</b></div><div class="sc"><span>Loss</span><b class="bignum l">${odds[2]}%</b></div></div>
-    <p class="small muted" style="margin:-4px 0 12px">You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>. Control duels won: <b>${(m.control * 100).toFixed(0)}%</b>. Odds assume about 7 possessions a match.</p>
+    <p class="small muted" style="margin:-4px 0 12px">You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>. Control duels won: <b>${(m.control * 100).toFixed(0)}%</b>. Odds assume 5 or 6 possessions a match, like real games.</p>
     <table class="svals"><tr><th></th><th class="n">You</th><th class="n">Them</th></tr>${vals.map(([l, x, y]) => `<tr><td>${l}</td>${cell(x, y)}${cell(y, x)}</tr>`).join("")}</table>
     <details class="howres vsd"><summary>Show the Cards</summary><table class="vst"><colgroup><col><col class="cv"><col class="cv"><col></colgroup><tr class="vtop"><th colspan="2">You</th><th colspan="2" class="r">Them</th></tr>${vs("Control", "c", [vals[0][1], vals[0][2]])}${vs("Attack", "a", [vals[1][1], vals[1][2]])}${vs("Defence", "d", [vals[2][1], vals[2][2]])}</table><p class="small muted" style="margin:8px 0 0">Attack lists the cards that attack in at least 5% of possessions, most often first.</p></details>`;
 }
-function matchOdds(p, q, n) {
+// real matches have 5 or 6 possessions (logged: 6 in 14 of 20, 5 in 6), out of bounds included
+function matchOdds(p, q) {
   const C = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };
-  let W = 0, D = 0, L = 0;
-  for (let a = 0; a <= n; a++) for (let b = 0; b <= n - a; b++) { const pr = C(n, a) * C(n - a, b) * p ** a * q ** b * (1 - p - q) ** (n - a - b); if (a > b) W += pr; else if (a === b) D += pr; else L += pr; }
-  return [W, D, L].map(x => Math.round(x * 100));
+  const one = n => { let W = 0, D = 0, L = 0;
+    for (let a = 0; a <= n; a++) for (let b = 0; b <= n - a; b++) { const pr = C(n, a) * C(n - a, b) * p ** a * q ** b * (1 - p - q) ** (n - a - b); if (a > b) W += pr; else if (a === b) D += pr; else L += pr; }
+    return [W, D, L]; };
+  const six = one(6), five = one(5);
+  return six.map((x, i) => Math.round((0.7 * x + 0.3 * five[i]) * 100));
 }
 
 // ---------- SBC ----------
@@ -1851,7 +1854,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111k");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111l");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

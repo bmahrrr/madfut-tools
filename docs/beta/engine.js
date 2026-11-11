@@ -185,15 +185,25 @@ function attackWeights(R) {
   }
   return w.map(x => x / picks.length);
 }
-function simMatch(R1, R2) {      // R = [{slot, pos (card's main position), a, c, d, t}]
-  const cmpv = (x, y) => (x > y ? 1 : x === y ? 0.5 : 0);
-  const tieBreak = (x, y) => (cmpv(x.a, y.a) + cmpv(x.d, y.d) + cmpv(x.a + x.c + x.d, y.a + y.c + y.d)) / 3;
+// Tie rules from real matches (the owner's Sim log, 20 matches): a control tie spins Attack, Defence or Total; an attack
+// tie spins Control or Total; level on that too is out of bounds (nobody wins the possession).
+function simCtl(x, y) {      // control duel: [chance x wins, chance it's out of bounds]
+  if (x.c !== y.c) return [x.c > y.c ? 1 : 0, 0];
+  let w = 0, o = 0;
+  for (const [u, v] of [[x.a, y.a], [x.d, y.d], [x.a + x.c + x.d, y.a + y.c + y.d]]) { if (u > v) w++; else if (u === v) o++; }
+  return [w / 3, o / 3];
+}
+function simAtt(x, y) {      // attacker x against defender y: the chance of a goal
+  if (x.a !== y.d) return x.a > y.d ? 1 : 0;
+  return ((x.c > y.c ? 1 : 0) + (x.a + x.c + x.d > y.a + y.c + y.d ? 1 : 0)) / 2;
+}
+function simMatch(R1, R2) {      // R = [{slot, pos (card's main position), a, c, d}]
   const C1 = R1.filter(r => CTRL.has(r.slot)), C2 = R2.filter(r => CTRL.has(r.slot));
   const W1 = attackWeights(R1), W2 = attackWeights(R2);
   const D1 = R1.filter(r => DEF.has(r.slot)), D2 = R2.filter(r => DEF.has(r.slot));
-  let pc = 0;
-  for (const x of C1) for (const y of C2) pc += x.c !== y.c ? (x.c > y.c ? 1 : 0) : tieBreak(x, y);
-  pc /= C1.length * C2.length;
-  const pa = (R, W, D) => { let s = 0; R.forEach((x, i) => { if (!W[i]) return; let t = 0; for (const y of D) t += x.a !== y.d ? (x.a > y.d ? 1 : 0) : tieBreak(x, y); s += W[i] * t / D.length; }); return s; };
-  return { control: pc, scoreA: pc * pa(R1, W1, D2), scoreB: (1 - pc) * pa(R2, W2, D1) };
+  let pc = 0, po = 0;
+  for (const x of C1) for (const y of C2) { const [w, o] = simCtl(x, y); pc += w; po += o; }
+  pc /= C1.length * C2.length; po /= C1.length * C2.length;
+  const pa = (R, W, D) => { let s = 0; R.forEach((x, i) => { if (!W[i]) return; let t = 0; for (const y of D) t += simAtt(x, y); s += W[i] * t / D.length; }); return s; };
+  return { control: pc, out: po, scoreA: pc * pa(R1, W1, D2), scoreB: (1 - pc - po) * pa(R2, W2, D1) };
 }
