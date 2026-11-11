@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261110o";
+const APP_V = "20261111a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -459,6 +459,16 @@ const simFunnel = () => `<details class="howres"><summary class="small">How Sim 
   `<div class="fstep ${k}" style="width:max(280px, ${100 - i * 7}%)"><i>${i + 1}</i><span><b>${t}</b><small>${d}</small></span></div>`).join("")}</div>
   <p class="small muted fleg" style="margin-top:8px"><span class="fkey s"></span>Searching <span class="fkey j"></span>Judging</p></details>`;
 const serOpen = id => OPEN.has(id) ? " open" : "";
+// Latest Update card on the landing page: newest entry first, only the newest is shown
+const UPDATES = [
+  { day: "2026-11-11", items: [
+    "<b>Sim teams:</b> improved solver. This week's 68, 80, 90 and X are stronger.",
+    "<b>Sim Odds:</b> enter your own team too, with a cleaner result screen.",
+    "<b>Match Helper:</b> search by nation, club, league or position.",
+    "<b>Best Teams:</b> each series shows when its team last changed."
+  ] }
+];
+const updateCard = () => { const u = UPDATES[0]; return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${u.items.map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
 let VAULT = null;     // { week, files } when looking at a past week
 async function renderTeams() {
   const box = $("teamsBody"), V = VAULT, base = V ? `vault/${V.week}/` : "results/";
@@ -469,7 +479,7 @@ async function renderTeams() {
             : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
   OPPS = []; let html = `<div class="card"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>
-    <details class="howres"><summary class="small">How results work</summary><p class="small muted">Every result assumes <b>both sides play perfectly</b>. The solver checks every lead and answer the other side could make, including holding cards back, and assumes they always pick the best one. So a win holds against any opponent with that exact team, as long as you follow Match Helper. A different team, or a mistake from you, can change it.</p></details>${simFunnel()}</div>` + vaultBox;
+    <details class="howres"><summary class="small">How results work</summary><p class="small muted">Every result assumes <b>both sides play perfectly</b>. The solver checks every lead and answer the other side could make, including holding cards back, and assumes they always pick the best one. So a win holds against any opponent with that exact team, as long as you follow Match Helper. A different team, or a mistake from you, can change it.</p></details>${simFunnel()}</div>` + (V ? "" : updateCard()) + vaultBox;
   const files = V ? V.files : INDEX.files || [];
   // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_"));
@@ -858,7 +868,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261110o"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -884,7 +894,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261110o"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1608,7 +1618,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261110o");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
