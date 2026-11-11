@@ -462,7 +462,7 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
   { day: "2026-11-11", items: [
-    "<b>Sim teams:</b> improved solver. This week's 68, 80, 90 and X are stronger.",
+    "<b>Sim teams:</b> improved solver.",
     "<b>Sim Odds:</b> enter your own team too, with a cleaner result screen.",
     "<b>Match Helper:</b> search by nation, club, league or position.",
     "<b>Best Teams:</b> each series shows when its team last changed."
