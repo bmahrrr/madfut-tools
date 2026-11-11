@@ -452,11 +452,13 @@ const lastChange = d => {
   return `<span class="lc"><b>${esc(when)}</b><small>Last change</small></span>`;
 };
 // How a Sim team is found: a funnel from every card to one team (search steps blue, judging steps gold)
-const SIM_STEPS = [["Every Card Up to the Cap", "Series boosts applied", ""], ["Card Lists", "6 formations, short, medium and wide", "s"],
+const SIM_STEPS = [["Every Card Up to the Cap", "Series boosts applied", ""], ["Card Lists", "6 formations, short, medium and wide, plus linking teammates", "s"],
   ["Solver", "The best 11 from every list", "s"], ["Rank", "Full chem, control, then attack and defence", "j"],
-  ["Polish", "Every card tried in every slot", "s"], ["Tie Rule", "Same stat: the higher total plays", "j"], ["Team", "The best, plus 2 alternatives", ""]];
+  ["Rebuild", "Back line and strikers re-solved against the strongest teams", "s"], ["Control Swaps", "Equal control cards swapped, the team rebuilt around them", "s"],
+  ["Polish", "Every card tried in every slot", "s"], ["Head to Head", "The finalists play each other, most wins goes through", "j"],
+  ["Tie Rule", "Same stat: the higher total plays", "j"], ["Team", "The best, plus 2 alternatives", ""]];
 const simFunnel = () => `<details class="howres"><summary class="small">How Sim teams are built</summary><div class="funnel">${SIM_STEPS.map(([t, d, k], i) =>
-  `<div class="fstep ${k}" style="width:max(280px, ${100 - i * 7}%)"><i>${i + 1}</i><span><b>${t}</b><small>${d}</small></span></div>`).join("")}</div>
+  `<div class="fstep ${k}" style="width:max(280px, ${100 - i * 6}%)"><i>${i + 1}</i><span><b>${t}</b><small>${d}</small></span></div>`).join("")}</div>
   <p class="small muted fleg" style="margin-top:8px"><span class="fkey s"></span>Searching <span class="fkey j"></span>Judging</p></details>`;
 const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
