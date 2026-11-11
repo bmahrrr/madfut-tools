@@ -735,6 +735,17 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             if hard(ev) != hard(top) and round(ev["control"], 2) != cmax: continue
             sigs4.add(sg); fin.append((ev, form, sq))
             if len(fin) >= n0 + 6: break
+        # the best teams on each part of the game also play the final: the overall ranking cut the live 68 layout (lower
+        # attack chance) and the live X team (weaker CB) before the final, yet both win head to head through control
+        level = [r for r in results + totals if hard(r[0]) == hard(top)]
+        for part in (lambda e: e.get("ctrl_win") or 0, lambda e: e.get("p_def") or 0, lambda e: e.get("p_att") or 0,
+                     lambda e: (e.get("attack") or 0) + (e.get("defence") or 0)):
+            k = 0
+            for ev, form, sq in sorted(level, key=lambda r: part(r[0]), reverse=True):
+                sg = (form, frozenset(c["id"] for c in sq))
+                if sg in sigs4: continue
+                sigs4.add(sg); fin.append((ev, form, sq)); k += 1
+                if k == 4: break
         if len(fin) > 1:
             sides = [_side(sq, FORMATIONS[form], series) for ev, form, sq in fin]
             opp = [(_side(sq, FORMATIONS[form], series), 1) for ev, form, sq in style_teams]
