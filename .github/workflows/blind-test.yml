@@ -28,14 +28,19 @@ jobs:
       - id: p
         run: |
           git fetch -q origin main && git checkout origin/main -- config docs/vault
-          WEEKS=$(grep -o 'week=[^=]*' blindtest/trigger.txt | sed 's/ modes$//' | cut -d= -f2); WEEKS=${WEEKS:-current}
-          MODES=$(grep -o 'modes=.*' blindtest/trigger.txt | cut -d= -f2); MODES=${MODES:-rule}
+          WEEKS=$(grep -o 'week=[^=]*' blindtest/trigger.txt | sed 's/ [a-z]*$//' | cut -d= -f2); WEEKS=${WEEKS:-current}
+          MODES=$(grep -o 'modes=[^ ]*' blindtest/trigger.txt | cut -d= -f2 | tr ',' ' '); MODES=${MODES:-rule}
+          ONLY=$(grep -o 'only=[^ ]*' blindtest/trigger.txt | cut -d= -f2); REPEAT=$(grep -o 'repeat=[0-9]*' blindtest/trigger.txt | cut -d= -f2)
           echo "keys=$(python3 -c "
           import json
           out = []
           for w in '$WEEKS'.split():
               f = 'config/week.json' if w == 'current' else f'docs/vault/{w}/week.json'
               out += [w + ':' + s['key'] for s in json.load(open(f))['sim']]
+          only = [x for x in '$ONLY'.split(',') if x]
+          if only: out = [k for k in out if k.split(':')[1] in only]
+          rep = int('${REPEAT:-1}' or 1)
+          if rep > 1: out = [k + '#' + str(i) for k in out for i in range(1, rep + 1)]
           print(json.dumps(out))")" >> $GITHUB_OUTPUT
           echo "modes=$(python3 -c "import json;print(json.dumps('$MODES'.split()))")" >> $GITHUB_OUTPUT
 
@@ -60,14 +65,15 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Blind build
         run: |
-          W="${{ matrix.key }}"; K=${W#*:}; W=${W%%:*}
+          W="${{ matrix.key }}"; W=${W%%#*}; K=${W#*:}; W=${W%%:*}
           if [ "$W" != current ]; then export WEEK_FILE=docs/vault/$W/week.json RES_DIR=docs/vault/$W; fi
           export TEST_TAG=$W
           python scripts/blind_test.py "$K" "${{ matrix.mode }}"
       - name: Save this result right away
         run: |
-          W="${{ matrix.key }}"; P=blindtest/results/${W%%:*}/${{ matrix.mode }}/${W#*:}.txt
-          cp $P /tmp/r.txt
+          W="${{ matrix.key }}"; R=""; case "$W" in *#*) R="-r${W##*#}"; W=${W%%#*};; esac
+          P=blindtest/results/${W%%:*}/${{ matrix.mode }}/${W#*:}.txt
+          cp $P /tmp/r.txt; P=blindtest/results/${W%%:*}/${{ matrix.mode }}/${W#*:}$R.txt
           git reset -q --hard && git clean -qfd blindtest && git checkout -q sim-rules && git pull -q
           mkdir -p $(dirname $P) && cp /tmp/r.txt $P
           git config user.name bmahrrr && git config user.email bmahrrr1@gmail.com

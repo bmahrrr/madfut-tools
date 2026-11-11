@@ -5,6 +5,7 @@ import json, os, sys, time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 key, mode = sys.argv[1], (sys.argv[2] if len(sys.argv) > 2 else "rule")
 if mode == "match": os.environ["SIM_TB"] = "match"
+if mode == "ruleb": os.environ["SIM_SEARCH"] = "1"      # search B (the wider second search)
 sys.path.insert(0, ROOT)
 import fatal.sim as S
 from fatal.core import load_cards, FORMATIONS
