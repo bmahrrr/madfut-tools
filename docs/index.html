@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261111b">
+<meta name="app-version" content="20261111c">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -400,6 +400,10 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
     <div class="card" id="matchSetup">
       <h2>Match helper</h2>
       <p class="small muted">Plays the two teams from <b>Head to head</b>, move by move.</p>
+      <details class="howres" style="margin-bottom:12px"><summary class="small">How results work</summary>
+        <p class="small muted">Every result assumes you both play perfectly. Each lead and reply is checked, including holding cards back.</p>
+        <ul class="upd small muted"><li><b>Win:</b> you win whatever they do, as long as you follow the moves here.</li><li><b>Draw:</b> perfect play from both sides ends level.</li><li><b>Loss:</b> they win if they play perfectly. A mistake from them can still hand you the game.</li></ul>
+        <p class="small muted">It only holds against that exact team. A different team, or a mistake from you, can change it.</p></details>
       <div hidden><select id="mObj"><option value="">None</option></select><p id="mObjNote"></p></div>
       <div class="row"><button class="btn" id="iFirst">I lead first</button><button class="ghost" id="theyFirst">They lead first</button></div>
     </div>
@@ -478,8 +482,8 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="engine.js?v=20261111b"></script>
-<script src="sbc-solver.js?v=20261111b"></script>
-<script src="app.js?v=20261111b"></script>
+<script src="engine.js?v=20261111c"></script>
+<script src="sbc-solver.js?v=20261111c"></script>
+<script src="app.js?v=20261111c"></script>
 </body>
 </html>
