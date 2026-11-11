@@ -695,6 +695,7 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 const UPDATES = [
   { day: "2026-11-11", items: [
     "<b>Sim teams:</b> improved solver.",
+    "<b>Missing a card:</b> smarter Sim swaps when you don't have a player.",
     "<b>Sim Odds:</b> enter your own team too, with a cleaner result screen.",
     "<b>Match Helper:</b> search by nation, club, league or position.",
     "<b>Best Teams:</b> each series shows when its team last changed."
