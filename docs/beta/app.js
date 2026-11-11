@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261111g";
+const APP_V = "20261111h";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -411,6 +411,72 @@ function instantFill(k, d, missing) {
   team.forEach((c, i) => { if (!c) { const o = C.options(team, i, 1)[0]; team[i] = o ? o[1] : null; } });
   return team.some(x => !x) ? null : { team, slots: C.slots };
 }
+// Sim "missing a card": a proper search on the phone (the same rules as the builder). Fill the gap with every card,
+// try moving another player into the gap and refilling his slot, then try every card in every slot until nothing
+// improves. Ranked like the builder: control cards on full chem, control, the attack floor, attack, then defence; the
+// closest teams then play each other head to head (most wins, then margin).
+function simSwapEval(tm, slots, s, floor, FLD) {
+  const E = effective(tm, s), R = tm.map((c, i) => ({ slot: slots[i], pos: c.position, a: E[i].a, c: E[i].c, d: E[i].d })), W = attackWeights(R);
+  const bt = (x, ys) => ys.reduce((q, [y, w]) => q + w * (x > y ? 1 : x === y ? 0.5 : 0), 0);
+  let nf = 0, cs = 0, nc = 0, ds = 0, nd = 0, att = 0, short = 0, tot = 0, pa = 0, pd = 0;
+  R.forEach((r, i) => {
+    if (CTRL.has(r.slot)) { cs += r.c; nc++; tot += r.a + r.c + r.d; if (E[i].chem < 3) nf++; }
+    if (DEF.has(r.slot)) { ds += r.d; nd++; pd += bt(r.d, FLD.A); }
+    att += W[i] * r.a; if (W[i] > 0) pa += W[i] * bt(r.a, FLD.D); if (W[i] >= 0.05 && r.a < floor) short += W[i] * (floor - r.a);
+  });
+  const c = Math.round(cs / nc * 100) / 100, d = Math.round(ds / nd * 100) / 100, a = Math.round(att * 100) / 100, r4 = v => Math.round(v * 10000) / 10000;
+  pd /= nd; short = Math.round(short * 1000) / 1000;
+  // the builder's order: full chem in control, control, the attack floor, then the chance to beat strong teams' cards
+  return { tm, R, nf, c, a, d, short, key: [nf === 0 ? 1 : 0, c, -short, r4(pa + pd / 3), r4(pa), Math.round((a + d / 3) * 100) / 100, a, d, tot] };
+}
+const simKeyCmp = (x, y) => { for (let i = 0; i < x.key.length; i++) if (x.key[i] !== y.key[i]) return x.key[i] > y.key[i] ? 1 : -1; return 0; };
+async function simSwapBest(k, d, missing, onP) {
+  const C = swapCtx(k, d, missing), s = C.s, slots = C.slots, f = instantFill(k, d, missing); if (!f) return null;
+  const floor = s.attack_floor != null ? s.attack_floor : String(s.key) === "X" ? 0 : (s.cap || 99) - 1;
+  // the strong teams to measure against: the full site team and the Reddit teams (their defenders and attackers)
+  const full = C.t.players.map(p => BYID.get(p.id)), FLD = { A: [], D: [] }, teams = [[full, slots]];
+  const wser = ((WEEK && WEEK.sim) || []).find(x => x.key === s.key) || {};
+  (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); const fs = SIM_FORMS[wser.opponent_formation] || slots; if (tm.length === 11 && tm.every(Boolean)) teams.push([tm, fs]); });
+  for (const [tm, fs] of teams) {
+    const E = effective(tm, s), R = tm.map((c, i) => ({ slot: fs[i], pos: c.position, a: E[i].a, c: E[i].c, d: E[i].d })), W = attackWeights(R), di = R.filter(r => DEF.has(r.slot));
+    di.forEach(r => FLD.D.push([r.d, 1 / (teams.length * di.length)])); R.forEach((r, i) => { if (W[i] > 0) FLD.A.push([r.a, W[i] / teams.length]); });
+  }
+  const ev = tm => simSwapEval(tm, slots, s, floor, FLD), pool = {};
+  for (const sl of new Set(slots)) pool[sl] = CARDS.filter(x => C.ok(x) && x.P && x.P.has(sl));
+  const seen = new Map(), keep = r => { const id = r.tm.map(x => x.id).join(); if (!seen.has(id)) seen.set(id, r); return r; };
+  const fill = (t, j) => {                     // every card for slot j, the rest of the team fixed
+    const keys = new Set(t.filter((x, q) => q !== j).map(playerKey)); let best = null;
+    for (const x of pool[slots[j]]) { if (keys.has(playerKey(x))) continue; const tm = t.slice(); tm[j] = x; const r = keep(ev(tm)); if (!best || simKeyCmp(r, best) > 0) best = r; }
+    return best;
+  };
+  const gaps = C.t.players.map((p, i) => missing.includes(p.id) ? i : -1).filter(i => i >= 0);
+  let cur = keep(ev(f.team)); const greedy = cur;
+  for (const i of gaps) {                      // the gap: every card, or another player moved in and his slot refilled
+    let b = fill(cur.tm, i); if (b && simKeyCmp(b, cur) > 0) cur = b;
+    for (let j = 0; j < 11; j++) if (j !== i && cur.tm[j].P.has(slots[i])) {
+      const t2 = cur.tm.slice(); t2[i] = cur.tm[j]; const r = fill(t2, j); if (r && simKeyCmp(r, cur) > 0) cur = r;
+    }
+    if (onP) onP(); await new Promise(r => setTimeout(r, 0));
+  }
+  for (let pass = 0, better = true; better && pass < 6; pass++) {   // every card in every slot until nothing improves
+    better = false;
+    for (let j = 0; j < 11; j++) { const r = fill(cur.tm, j); if (r && simKeyCmp(r, cur) > 0) { cur = r; better = true; } if (onP) onP(); await new Promise(r => setTimeout(r, 0)); }
+  }
+  // the final: the best teams level with it on full chem and control play each other (and the full team)
+  const lvl = r => r.key[0] === cur.key[0] && r.key[1] === cur.key[1];
+  const L = [...seen.values()].filter(lvl), raw = (x, y) => (y.key[5] - x.key[5]) || (y.key[6] - x.key[6]) || (y.key[7] - x.key[7]);
+  const fin = [...new Set([...L.sort((a, b) => -simKeyCmp(a, b)).slice(0, 10), ...L.slice().sort(raw).slice(0, 6)])];   // best vs strong teams, best raw averages
+  if (lvl(greedy) && !fin.includes(greedy)) fin.push(greedy);           // the quick pick always plays the final too
+  const fieldR = teams.map(([tm, fs]) => simSwapEval(tm, fs, s, floor, FLD).R);
+  let win = cur;
+  if (fin.length > 1) {
+    const sc = fin.map((a, i) => { let w = 0, m = 0;
+      fin.forEach((b, j) => { if (i === j) return; const x = simMatch(a.R, b.R); const g = x.scoreA - x.scoreB; m += g; w += g > 0.0005 ? 1 : g < -0.0005 ? 0 : 0.5; });
+      fieldR.forEach(R2 => { const y = simMatch(a.R, R2); m += y.scoreA - y.scoreB; }); return [w, m]; });
+    let bi = 0; sc.forEach((v, i) => { if (v[0] > sc[bi][0] || (v[0] === sc[bi][0] && v[1] > sc[bi][1])) bi = i; }); win = fin[bi];
+  }
+  return { team: win.tm.map(x => x.id), slots, sim: true, tested: seen.size };
+}
 function versionData(k, d, team, slots, missing) {
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, E = effective(team, s);
   const players = team.map((c, i) => ({ slot: slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
@@ -470,6 +536,7 @@ async function smartSwap(k, d, missing, onP) {
   }
   return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, tested: n, opps: OE.length };
 }
+const SIMSW = new Set();     // Sim versions being searched right now
 async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
   if (!ghToken()) {                          // visitors: the instant swap, kept on this phone
     const L = localOf(k);
@@ -478,8 +545,12 @@ async function versionOf(k, f, d) {          // -> { d: the version to show, bar
     if (viewOf(k) === "everyone") return { d, bar: `<div class="minebar"><p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><button class="ghost" data-view="${esc(k)}|mine">Show my version</button></div>`, nh: noHaveBar(k), which: "everyone" };
     const dm = swapTeam(k, d, L.ids); if (!dm) return { d, bar: "", nh: noHaveBar(k), which: null };
     const WDL = v => ["Loss", "", "Draw", "Win"][v] || "?";
-    const how = L.team ? `Best of ${L.tested} teams, tested against ${L.opps} strong teams${L.red ? `. Vs Reddit: <b>${WDL(L.red[0])}</b> if you lead, <b>${WDL(L.red[1])}</b> if they lead` : ""}.`
-      : k.startsWith("sim") ? "Each gap is filled with the best card for that slot." : `<span data-sstat="${esc(k)}">Quick swap shown. Searching for a stronger version…</span>`;
+    if (k.startsWith("sim") && !L.team && !SIMSW.has(k)) {    // a version made before the full search: run it now
+      SIMSW.add(k); simSwapBest(k, d, L.ids).then(r => { const cur = localOf(k); if (r && cur && sameSet(cur.ids, L.ids)) { localSet(k, Object.assign({ ids: L.ids }, r)); renderTeams(); } });
+    }
+    const how = L.team && L.sim ? `Best of ${L.tested.toLocaleString()} teams tried.`
+      : L.team ? `Best of ${L.tested} teams, tested against ${L.opps} strong teams${L.red ? `. Vs Reddit: <b>${WDL(L.red[0])}</b> if you lead, <b>${WDL(L.red[1])}</b> if they lead` : ""}.`
+      : `<span data-sstat="${esc(k)}">Quick swap shown. Searching for a stronger version…</span>`;
     return { d: dm, nh: noHaveBar(k), which: "mine",
       bar: `<div class="minebar"><p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names}. ${how}</p><div class="row"><button class="ghost" data-view="${esc(k)}|everyone">Everyone's team</button><button class="ghost" data-lreset="${esc(k)}">Back to full team</button></div></div>` };
   }
@@ -544,6 +615,10 @@ async function rebuildWithout(k, ids, afterGot) {
   if (!ghToken()) {                          // instant, on this phone
     const L = localOf(k), all = [...new Set([...((L && L.ids) || []), ...ids])];
     localSet(k, { ids: all }); viewSet(k, "mine"); nhSet(k, []); OPEN.add(k); await renderTeams();
+    if (kind === "sim") {                      // then the full search, a few seconds
+      const d = await getJSON(`results/sim_${key}.json`), r = await simSwapBest(k, d, all);
+      const cur = localOf(k); if (r && cur && sameSet(cur.ids, all)) { localSet(k, Object.assign({ ids: all }, r)); renderTeams(); }
+    }
     if (kind === "myclub") {                   // then the smart search, about a minute
       const d = await getJSON(`results/myclub_${key}.json`);
       const r = await smartSwap(k, d, all, (i, n) => { const el = document.querySelector(`[data-sstat="${CSS.escape(k)}"]`); if (el) el.textContent = `Quick swap shown. Testing stronger versions: ${i} of ${n}…`; });
@@ -1015,7 +1090,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111h"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1041,7 +1116,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1765,7 +1840,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111g");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111h");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
