@@ -1,5 +1,5 @@
 // Runs the exact My Club solver off the main thread so the page stays responsive.
-importScripts("engine.js?v=20261110o");
+importScripts("engine.js?v=20261111a");
 let S = null;
 // The C solver compiled to WebAssembly: same answers as Solver, about 3x faster. Falls back to Solver if it can't load.
 let WX = null;
