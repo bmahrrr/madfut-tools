@@ -228,9 +228,14 @@ def main():
     owned = [c for c in allc if c.get("owned", True) and c["id"] not in NO]
     no_names = sorted({c["name"] + (" (every level)" if c.get("color") == "ltm" else f" {c['rating']}") for c in allc if c["id"] in NO})
     by_id = {c["id"]: c for c in allc}
-    if mode == "sim":
-        from fatal.sim import build_sim
+    if mode in ("sim", "simpick"):
+        # two independent searches per series run side by side on separate machines ("sim KEY a" / "sim KEY b", raw
+        # results), then "simpick KEY" publishes the better of the two (control first, then head to head) through the
+        # usual checks below. "sim KEY" alone is one search, published directly (personal rebuilds).
+        from fatal.sim import build_sim, best_of
         key = sys.argv[2]
+        tag = sys.argv[3] if mode == "sim" and len(sys.argv) > 3 else None
+        if tag == "b": os.environ["SIM_SEARCH"] = "1"
         s = next(x for x in week()["sim"] if x["key"] == key)
         print("Sim", key)
         refs = [resolve_team(t, by_id, allc) for t in s.get("opponents", [])]
@@ -242,7 +247,22 @@ def main():
                 if len(sq) == 11 and all(c["id"] not in NO for c in sq): refs.append(sq)
         except Exception as e:
             print("no previous sim team to start from:", e)
-        teams = build_sim(s, owned, refs=refs, n_reddit=n_reddit)
+        if mode == "sim":
+            teams = build_sim(s, owned, refs=refs, n_reddit=n_reddit)
+            if tag:
+                json.dump({"teams": teams}, open(os.path.join(RES, f"sim_{key}.{tag}.raw"), "w"), ensure_ascii=False)
+                print("search", tag, "saved"); return
+        else:
+            import glob as _g
+            raws = [json.load(open(f))["teams"] for f in sorted(_g.glob(os.path.join(RES, f"sim_{key}.*.raw")))]
+            raws = [r for r in raws if r]
+            if not raws: print("no searches finished for", key); return
+            pick = best_of(s, owned, [r[0] for r in raws])
+            seen = {(pick["formation"], tuple(p["id"] for p in pick["players"]))}; teams = [pick]
+            for r in raws:
+                for tm in r:
+                    sg = (tm["formation"], tuple(p["id"] for p in tm["players"]))
+                    if sg not in seen and len(teams) < 3: seen.add(sg); teams.append(tm)
         try:                                # keep this season's previous team if the new search did worse
             from fatal.sim import evaluate, _slot_rows
             from fatal.core import FORMATIONS
@@ -273,6 +293,9 @@ def main():
         except Exception as e:
             print("previous sim team not compared:", e)
         save(f"sim_{key}.json", {"mode": "sim", "series": s, "teams": teams, "not_owned": no_names})
+        if mode == "simpick":                # the raw searches never get published
+            import glob as _g
+            for f in _g.glob(os.path.join(RES, f"sim_{key}.*.raw")): os.remove(f)
     elif mode == "request" and json.load(open(sys.argv[2])).get("mode") == "rebuild":
         req = json.load(open(sys.argv[2]))
         kind, key = req.get("kind", "myclub"), str(req["series"])
