@@ -12,13 +12,14 @@ from fatal.game import play
 from fatal.core import load_cards, pid
 
 key = sys.argv[1]; minutes = float(sys.argv[2]) if len(sys.argv) > 2 else 150
+seed = int(sys.argv[3]) if len(sys.argv) > 3 else 1      # independent searches differ by seed (their own random starts)
 w = json.load(open(os.path.join(ROOT, "config", "week.json")))
 s = next(x for x in w["myclub"] if x["key"] == key)
 allc = load_cards(); by = {c["id"]: c for c in allc}
 owned = [c for c in allc if c.get("owned", True)]
 s_blind = dict(s); s_blind.pop("opponents", None)
 t0 = time.time()
-team = build_myclub(s_blind, owned, allc, opponents=[], minutes=minutes, mode="robust", seed=1, verify=3, candidates=[], log=lambda *a: None)
+team = build_myclub(s_blind, owned, allc, opponents=[], minutes=minutes, mode="robust", seed=seed, verify=3, candidates=[], log=lambda *a: None)
 secs = round(time.time() - t0)
 set_icon_limit(s)
 P = Pool(s, allc); pc = {c["id"]: c for c in P.cards}
@@ -70,5 +71,5 @@ out.append(f"field of {len(field)}: blind worst {bw} wins {bwin} losses {bloss} 
 out.append("field results (blind / site): " + "; ".join(f"{n} {a}/{b}" for (n, a), (_, b) in zip(brows, srows)))
 out.append("IDS " + ",".join(c["id"] for c in blind))
 os.makedirs(os.path.join(ROOT, "blindtest", "myclub"), exist_ok=True)
-open(os.path.join(ROOT, "blindtest", "myclub", f"{key}.txt"), "w").write("\n".join(out) + "\n")
+open(os.path.join(ROOT, "blindtest", "myclub", f"{key}" + (f"-s{seed}" if len(sys.argv) > 3 else "") + ".txt"), "w").write("\n".join(out) + "\n")
 print("\n".join(out))
