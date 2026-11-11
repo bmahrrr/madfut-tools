@@ -61,24 +61,44 @@ MATCH_TB = __import__("os").environ.get("SIM_TB") == "match"     # test: after c
 REDDIT = []     # the Reddit teams in every Sim formation they fit (set by build_sim): a team must not lose to them
 
 
+def _cw(x, y):
+    """Control duel, card x against card y (in-game attack, control, defence): (chance x wins, chance it's out of bounds).
+    Owner's Sim log (20 matches): higher control always wins; a tie spins Attack, Defence or Total (about evenly); level
+    on that too is out of bounds (nobody wins the possession)."""
+    if x[1] != y[1]: return (1.0, 0.0) if x[1] > y[1] else (0.0, 0.0)
+    w = o = 0
+    for u, v in ((x[0], y[0]), (x[2], y[2]), (x[0] + x[1] + x[2], y[0] + y[1] + y[2])):
+        if u > v: w += 1
+        elif u == v: o += 1
+    return w / 3, o / 3
+
+
+def _aw(x, y):
+    """Attacker x against defender y: the chance of a goal. Attack above defence scores; a tie spins Control or Total
+    (never attack or defence; the attacker won all 12 Control spins logged), level on that too is out of bounds."""
+    if x[0] != y[2]: return 1.0 if x[0] > y[2] else 0.0
+    return ((1 if x[1] > y[1] else 0) + (1 if x[0] + x[1] + x[2] > y[0] + y[1] + y[2] else 0)) / 2
+
+
 def _match(A, B):
-    """Head-to-head, like the site's simMatch. A, B: dicts with slots, mainpos, E (a, c, d, total) per card.
-    Returns (control chance for A, goal chance for A, goal chance for B) per possession."""
-    def tb(x, y):
-        c = lambda u, v: 1 if u > v else 0.5 if u == v else 0
-        return (c(x[0], y[0]) + c(x[2], y[2]) + c(x[0] + x[1] + x[2], y[0] + y[1] + y[2])) / 3
+    """Head-to-head, like the site's simMatch. A, B: dicts with slots, mainpos, E (a, c, d) per card.
+    Returns (control chance for A, goal chance for A, goal chance for B) per possession (out of bounds: nobody)."""
     C1 = [A["E"][i] for i, s in enumerate(A["slots"]) if s in CTRL]; C2 = [B["E"][i] for i, s in enumerate(B["slots"]) if s in CTRL]
     D1 = [A["E"][i] for i, s in enumerate(A["slots"]) if s in DEF]; D2 = [B["E"][i] for i, s in enumerate(B["slots"]) if s in DEF]
     if not C1 or not C2: return 0.5, 0, 0
-    pc = sum((1 if x[1] > y[1] else 0) if x[1] != y[1] else tb(x, y) for x in C1 for y in C2) / (len(C1) * len(C2))
+    pc = po = 0.0
+    for x in C1:
+        for y in C2:
+            w, o = _cw(x, y); pc += w; po += o
+    n = len(C1) * len(C2); pc /= n; po /= n
     def pa(T, D):
         s = 0.0
         for i, w in enumerate(T["W"]):
             if not w or not D: continue
             x = T["E"][i]
-            s += w * sum((1 if x[0] > y[2] else 0) if x[0] != y[2] else tb(x, y) for y in D) / len(D)
+            s += w * sum(_aw(x, y) for y in D) / len(D)
         return s
-    return pc, pc * pa(A, D2), (1 - pc) * pa(B, D1)
+    return pc, pc * pa(A, D2), (1 - pc - po) * pa(B, D1)
 
 
 def _side(sq, slots, series, E=None):
@@ -115,14 +135,18 @@ def vs_reddit(sq, slots, series, E=None):
     return round(worst, 4)
 
 
-def _beat(x, ys):
-    """Chance x beats a random value from ys = [(value, weight)] (a tie counts half)."""
-    return sum(w * (1 if x > y else 0.5 if x == y else 0) for y, w in ys)
+def _beat(x, ys, tie=0.5):
+    """Chance x beats a random value from ys = [(value, weight)] (a tie counts `tie`)."""
+    return sum(w * (1 if x > y else tie if x == y else 0) for y, w in ys)
+
+
+# the solver's quick card values: an attack tie is usually a goal (logged: 15 of 17, the attacker mostly has more control)
+TIE_ATT = 0.85
 
 
 def opp_profile(teams):
     """teams: [(team, slots, series)]. Their control, attack (weighted by who attacks) and defence values."""
-    C, A, D, CF = [], [], [], []
+    C, A, D, CF, AF, DF = [], [], [], [], [], []
     n = len(teams)
     for team, slots, series in teams:
         E, _ = effective(team, series)
@@ -132,7 +156,9 @@ def opp_profile(teams):
         CF += [(tuple(E[i][:3]), 1 / (n * len(ci))) for i in ci]
         D += [(E[i][2], 1 / (n * len(di))) for i in di]
         A += [(E[i][0], W[i] / n) for i in range(len(slots)) if W[i] > 0]
-    return {"C": C, "A": A, "D": D, "CF": CF}
+        DF += [(tuple(E[i][:3]), 1 / (n * len(di))) for i in di]                 # full cards: ties use control and total
+        AF += [(tuple(E[i][:3]), W[i] / n) for i in range(len(slots)) if W[i] > 0]
+    return {"C": C, "A": A, "D": D, "CF": CF, "AF": AF, "DF": DF}
 
 
 def evaluate(team, slots, series):
@@ -158,13 +184,10 @@ def evaluate(team, slots, series):
     if OPP:          # how it actually plays against the strongest teams: we win control, then score; or they score
         di = [i for i, s in enumerate(slots) if s in DEF]
         h = m([_beat(c, OPP["C"]) for c in C])
-        def _cduel(x, y):
-            if x[1] != y[1]: return 1 if x[1] > y[1] else 0
-            c = lambda u, v: 1 if u > v else 0.5 if u == v else 0
-            return (c(x[0], y[0]) + c(x[2], y[2]) + c(sum(x), sum(y))) / 3
-        ctrl_win = round(m([sum(w * _cduel(tuple(E[i][:3]), y) for y, w in OPP["CF"]) for i, s in enumerate(slots) if s in CTRL]), 4)
-        f = sum(W[i] * _beat(E[i][0], OPP["D"]) for i in range(len(slots)) if W[i] > 0)
-        g = m([1 - _beat(E[i][2], OPP["A"]) for i in di])
+        ctrl_win = round(m([sum(w * _cw(tuple(E[i][:3]), y)[0] for y, w in OPP["CF"]) for i, s in enumerate(slots) if s in CTRL]), 4)
+        # duels with the logged tie rules: attack ties go on control or total (out of bounds when level again)
+        f = sum(W[i] * sum(w * _aw(tuple(E[i][:3]), y) for y, w in OPP["DF"]) for i in range(len(slots)) if W[i] > 0)
+        g = m([sum(w * _aw(y, tuple(E[i][:3])) for y, w in OPP["AF"]) for i in di])
         net = round(h * f - (1 - h) * g, 4)
         p_att, p_def = round(f, 4), round(1 - g, 4)     # chance our shooter beats a strong defender / our defender stops a strong attacker
     vr = vs_reddit(team, slots, series, E)
@@ -304,7 +327,7 @@ def resolve_line(form, sq, idx, series, pool, excl=(), time_limit=60):
     series allowed there (chem counted, control cards kept on full chem), valued by duels against the strongest teams
     (OPP). Both at once finds packages neither alone can: 81's Lucas Vázquez needs Quansah and Pau Torres behind him
     AND Beier up front to stay on full chem."""
-    bA = lambda x: _beat(x, OPP["D"]) * 100; bD = lambda x: _beat(x, OPP["A"]) * 100
+    bA = lambda x: _beat(x, OPP["D"], TIE_ATT) * 100; bD = lambda x: _beat(x, OPP["A"], 1 - TIE_ATT) * 100
     slots = FORMATIONS[form]
     fixed = {sq[i]["_i"]: slots[i] for i in range(len(slots)) if i not in idx}
     gs = {slots[i] for i in idx}
@@ -489,8 +512,8 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             return (3 if s in ATT else 0) + (1 if s in DEF else 0) + 0.01
 
         if duel:
-            bA = lambda x: _beat(x, duel["D"]) * 100        # % chance an attacker of x beats a strong team's defender
-            bD = lambda x: _beat(x, duel["A"]) * 100        # % chance a defender of x stops a strong team's attacker
+            bA = lambda x: _beat(x, duel["D"], TIE_ATT) * 100        # % chance an attacker of x beats a strong team's defender
+            bD = lambda x: _beat(x, duel["A"], 1 - TIE_ATT) * 100        # % chance a defender of x stops a strong team's attacker
             wA = lambda s: 100 * slot_w.get(s, 0.2); wD = 100 / (3 * nD)
 
             def value(c, s):     # at 0 chem (stat - 3); each chem point adds a third of the way to 3 chem (+2)
@@ -623,7 +646,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
     # allowed there (chem counted), valued by duels against the strongest teams. Finds 3-card changes single swaps
     # can't (68: André Moreira, Bouland, Ciobotariu instead of Boevink's line).
     if OPP:
-        bA = lambda x: _beat(x, OPP["D"]) * 100; bD = lambda x: _beat(x, OPP["A"]) * 100
+        bA = lambda x: _beat(x, OPP["D"], TIE_ATT) * 100; bD = lambda x: _beat(x, OPP["A"], 1 - TIE_ATT) * 100
         seen2, tops = set(), []
         for ev, form, sq in results:
             sg = (form, frozenset(c["id"] for c in sq))
