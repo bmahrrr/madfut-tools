@@ -591,6 +591,8 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         for r in pmap(run2, len(jobs2)):
             if r:
                 results.append(r); log(f"  duel pass {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
+        # (kept apart from the main search, straight to the final: in the main list they crowded out the teams the back-line
+        # search needs, and 68 lost the André Moreira team)
         # the same formations, with control cards of higher totals strongly preferred among equal control (the game's
         # control tiebreak): 90 lost twice to teams with Rogers and Can over Olise and Heath at the same control
         def run3(i):
@@ -600,7 +602,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             return (evaluate(sq, slots, series), form, sq) if sq else None
         for r in pmap(run3, len(jobs2)):
             if r:
-                results.append(r); totals.append(r); log(f"  high totals {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
+                totals.append(r); log(f"  high totals {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
     # polish the best few by swapping single cards with any card in the series
     results.sort(key=lambda r: sim_key(r[0]), reverse=True)
     seen, top = set(), []
@@ -701,8 +703,8 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         # owner: the attack floor against control is settled head to head. The best teams with the highest control play
         # the final even when an attacker is under the floor (89: Karetsas, 87 attack, gives +0.2 control and wins)
         base = lambda e: (e["ctrl_not_full"] == 0, e.get("def_unbeatable", False), min(e.get("vs_reddit") or 0, 0))
-        cmax = max(round(e["control"], 2) for e, f, q in results if base(e) == base(top))
-        extra = [r for r in results if base(r[0]) == base(top) and round(r[0]["control"], 2) == cmax and cmax > round(top["control"], 2)]
+        cmax = max(round(e["control"], 2) for e, f, q in results + totals if base(e) == base(top))
+        extra = [r for r in results + totals if base(r[0]) == base(top) and round(r[0]["control"], 2) == cmax and cmax > round(top["control"], 2)]
         n0 = len(fin)
         for ev, form, sq in extra + sorted(totals, key=lambda r: sim_key(r[0]), reverse=True):
             sg = (form, frozenset(c["id"] for c in sq))
@@ -716,18 +718,25 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             for groups in REDDIT:            # the Reddit teams, in every formation they fit, 3x in all
                 opp += [(g, 3 / len(groups)) for g in groups]
             score = []
+            # owner: the team that beats the most other finalists head to head wins (how he compares teams himself);
+            # the total margin against the finalists and the field only splits teams with as many wins. By margin alone,
+            # 90 published a team that edged one finalist but lost to another.
             for i, a in enumerate(sides):
-                t = sum(x - y for j, b in enumerate(sides) if j != i for _, x, y in [_match(a, b)])
+                wins, t = 0.0, 0.0
+                for j, b in enumerate(sides):
+                    if j == i: continue
+                    _, x, y = _match(a, b); t += x - y
+                    wins += 1 if x - y > 0.0005 else 0 if y - x > 0.0005 else 0.5
                 t += sum(w * (x - y) for b, w in opp for _, x, y in [_match(a, b)])
-                score.append(t)
-            order = sorted(range(len(fin)), key=lambda i: -score[i])
+                score.append((wins, round(t, 6)))
+            order = sorted(range(len(fin)), key=lambda i: score[i], reverse=True)
             if order[0] != 0:
-                log(f"  round robin: {fin[order[0]][1]} beats the ranking's pick ({score[order[0]]:+.3f} vs {score[0]:+.3f})")
+                log(f"  round robin: {fin[order[0]][1]} beats the ranking's pick ({score[order[0]][0]} wins {score[order[0]][1]:+.3f} vs {score[0][0]} wins {score[0][1]:+.3f})")
             w_ev, w_form, w_sq = fin[order[0]]
             w_slots = FORMATIONS[w_form]
             t2 = tie_cleanup(w_sq, w_slots, series, pool, log)
             if t2 != w_sq: w_sq = t2; w_ev = evaluate(t2, w_slots, series)
-            w_ev["round_robin"] = round(score[order[0]], 4)
+            w_ev["round_robin"] = {"wins": score[order[0]][0], "margin": round(score[order[0]][1], 4)}
             rest = [fin[i] for i in order[1:]]
             results = [(w_ev, w_form, w_sq)] + rest + [r for r in results if r not in fin]
     out = []
