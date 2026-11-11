@@ -444,6 +444,13 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
     ours) are then polished by single-card swaps over the whole series, so the result is never worse than theirs."""
     """margin: control-position shortlist = every card within `margin` control of the best (2 was too narrow:
     it missed Beste at LM in the 77 series)."""
+    # two independent searches per series (owner: the first build of a week must be right): search B looks wider,
+    # longer and through more link cards; the better of A and B is published (best_of). One search alone can miss the
+    # top team by luck (this week: the 72.4 André Moreira 68, the Koulierakis X back line).
+    search_b = int(__import__("os").environ.get("SIM_SEARCH") or 0) == 1
+    XL = (24, 200, 10) if search_b else (20, 150, 6)       # exact back line / strikers: cards per slot, seconds, link cards
+    CV = (6, 6) if search_b else (4, 5)                    # control variants: teams, cards per slot
+    if search_b: margin, topk, time_limit = margin + 1, int(topk * 1.5), int(time_limit * 1.2)
     formations = formations or series.get("formations") or SIM_FORMATIONS
     pool = _pool(series, cards)
     _byid = {c["id"]: c for c in pool}
@@ -694,7 +701,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             seen3.add(sg); best3.append((form, sq)); perf[form] = perf.get(form, 0) + 1
             if len(best3) == 6: break
         xjobs = [(form, sq, grp) for form, sq in best3 for grp in ({"GK", "CB"}, {"ST", "CF"})]
-        for r in pmap(lambda j: exact_line(xjobs[j][1], FORMATIONS[xjobs[j][0]], series, pool, xjobs[j][2], links=6), len(xjobs)):
+        for r in pmap(lambda j: exact_line(xjobs[j][1], FORMATIONS[xjobs[j][0]], series, pool, xjobs[j][2], per_slot=XL[0], seconds=XL[1], links=XL[2]), len(xjobs)):
             if r:
                 form = xjobs[0][0]
                 results.append((evaluate(r[1], r[0], series), next(f for f in FORMATIONS if FORMATIONS[f] == r[0] and f in formations), r[1]))
@@ -702,7 +709,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         results.sort(key=lambda r: sim_key(r[0]), reverse=True)
         # tied control cards: one control card swapped for an equal one, then the back line and strikers rebuilt around
         # its links (81: Lucas Vázquez for Yassine, then Pau Torres and Quansah)
-        vjobs = control_variants(results, series, pool)
+        vjobs = control_variants(results, series, pool, n_teams=CV[0], per_slot=CV[1])
         for r in pmap(lambda j: variant_line(vjobs[j][0], vjobs[j][1], series, pool), len(vjobs)):
             if r and sim_key(r[0]) > sim_key(results[0][0]):
                 log(f"  control variant {r[1]}: control {r[0]['control']} attack {r[0]['attack']} defence {r[0]['defence']}")
@@ -812,3 +819,52 @@ def _slot_rows(sq, series):
              "nationId": x["nationId"], "leagueId": x["leagueId"], "clubId": x["clubId"],
              "card": [x["attack"], x["control"], x["defense"]], "chem": ch[i], "eff": list(E[i][:3])}
             for i, x in enumerate(sq)]
+
+
+def best_of(series, cards, teams, log=print):
+    """The better of several searches' teams (each a published team dict: formation, players). Same order as the builder:
+    control cards on full chem, then the highest control (owner: control first, strictly); among teams level there the
+    head-to-head final decides (most wins, then margin). An attack-floor miss against higher control is also settled
+    head to head (owner's rule), so the best floor-meeting team plays too."""
+    pool = _pool(series, cards); by = {c["id"]: c for c in pool}
+    MA = max(x["A"] for x in pool if x["P"] & ATT) + 2
+    global MAXA, OPP
+    MAXA, OPP = MA, None
+    rows = []
+    for t in teams:
+        sq = [by.get(p["id"]) for p in t["players"]]
+        if not all(sq): continue
+        sl = FORMATIONS[t["formation"]]; ev = evaluate(sq, sl, series)
+        rows.append((ev, t, _side(sq, sl, series)))
+    if not rows: return teams[0]
+    # the same 11 cards in every Sim formation too (68: the André Moreira cards as 3-4-1-2 edge the same cards as 3-1-4-2)
+    seen = {(t["formation"], tuple(sorted(p["id"] for p in t["players"]))) for _, t, _ in rows}
+    for ev, t, _ in list(rows):
+        cs = [by[p["id"]] for p in t["players"]]
+        for f in SIM_FORMATIONS:
+            sg = (f, tuple(sorted(c["id"] for c in cs)))
+            if sg in seen: continue
+            sl = FORMATIONS[f]
+            sq = build(cs, sl, lambda c, s: (1000 * c["C"] if s in CTRL else 0) + (3 * c["A"] if s in ATT else 0) + (c["D"] if s in DEF else 0), time_limit=10)
+            if not sq: continue
+            seen.add(sg); e2 = evaluate(sq, sl, series)
+            t2 = {"formation": f, "players": [dict(r, slot=x) for r, x in zip(_slot_rows(sq, series), sl)], "metrics": e2}
+            rows.append((e2, t2, _side(sq, sl, series)))
+    full = [r for r in rows if r[0]["ctrl_not_full"] == 0] or rows
+    unb = [r for r in full if r[0].get("def_unbeatable")] or full
+    cmax = max(round(r[0]["control"], 2) for r in unb)
+    fin = [r for r in unb if round(r[0]["control"], 2) == cmax]
+    if all(r[0].get("attack_short", 0) > 0 for r in fin):
+        ok = [r for r in unb if not r[0].get("attack_short", 0)]
+        if ok: fin.append(max(ok, key=lambda r: (round(r[0]["control"], 2), r[0]["attack"])))
+    if len(fin) == 1: return fin[0][1]
+    score = []
+    for i, a in enumerate(fin):
+        w = m = 0.0
+        for j, b in enumerate(fin):
+            if i == j: continue
+            _, x, y = _match(a[2], b[2]); m += x - y; w += 1 if x - y > 0.0005 else 0 if y - x > 0.0005 else 0.5
+        score.append((w, m))
+    i = max(range(len(fin)), key=lambda k: score[k])
+    log(f"  best of {len(teams)} searched teams: {fin[i][1]['formation']} control {fin[i][0]['control']} ({score[i][0]} wins)")
+    return fin[i][1]
