@@ -1995,7 +1995,7 @@ async function setupUsage() {
   let shown = 25;
   const fmt = d => { const r = Math.round(d); return r ? String(r) : "<1"; };
   const f1 = d => { const r = Math.round(d * 10) / 10; return (r || "<0.1") + (r === 1 ? " day" : " days"); };
-  const label = s => (s.startsWith("myclub") ? "My Club " : "Sim ") + s.split("_")[1];
+  const label = s => { const [k, v] = s.split("_")[1].split("--"); return (s.startsWith("myclub") ? "My Club " : "Sim ") + k + (v === "noltmevo" ? " (No LTMs or Evos)" : v ? " (" + v + ")" : ""); };
   const draw = () => {
     const wk = $("uSeason").value, md = $("uMode").value, q = norm($("uFind").value.trim());
     const L = U.cards.map(c => {
