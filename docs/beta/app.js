@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261111l";
+const APP_V = "20261111m";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -108,7 +108,7 @@ async function init() {
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
-  renderTeams(); setupMC(); setupSim(); setupSimLog(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
+  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
 }
 
 // ---------- shared card UI ----------
@@ -127,151 +127,6 @@ function search(q, limit = 12, cap = 0) {
   // every card with exactly that name is listed (up to 40), so a common name like Müller shows its low-rated cards too
   const exact = out.filter(c => c._n === q).length;
   return out.sort((a, b) => score(a) - score(b) || b.rating - a.rating).slice(0, Math.max(limit, Math.min(exact, 40)));
-}
-// ---------- Sim log (owner only: shows only on the phone with the GitHub key) ----------
-// Real matches, possession by possession, to check the Sim Odds model: how many possessions, which cards the game
-// picked, who won each duel and by which tiebreak. Their team is never shown in full: their cards are added as they
-// appear (their stats are a guess at full chem, so the result of each duel is tapped in). Saved to data/simlog.json in
-// the repo, with a copy on this phone until it's saved.
-const SL_FILE = "data/simlog.json";
-const SL = { m: null, step: {}, msg: "" };
-const slStore = (k, v) => { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || "null"); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } };
-const slQueue = () => slStore("simlogQueue") || [];
-function slYou() {           // your team from Sim Odds, with in-game stats
-  const s = simSeries(), slots = SIM_FORMS[$("simFormA").value], E = effective(state.simAC, s);
-  return state.simAC.map((c, i) => ({ id: c.id, name: c.name, slot: slots[i], pos: c.position, a: E[i].a, c: E[i].c, d: E[i].d }));
-}
-function slThem(id) {        // one of their cards: boosts applied, full chem assumed (their team is never seen in full)
-  const c = BYID.get(id); if (!c) return null;
-  const [a, k, d] = boosted(c, SL.series.boosts), b = CHEM_BONUS[3];
-  return { id, name: c.name, a: a + b, c: k + b, d: d + b };
-}
-function slStart() {
-  if (state.simAC.length !== 11) { SL.msg = "Set up your team in Sim Odds first (11 cards)."; drawSimLog(); return; }
-  const s = simSeries();
-  SL.m = { at: new Date().toISOString(), week: (SIMW.base.match(/vault\/([^/]+)\//) || [])[1] || (WEEK && WEEK.week), series: s.key,
-    you: { form: $("simFormA").value, ids: state.simAC.map(c => c.id) }, seen: [], poss: [] };
-  SL.you = slYou(); SL.series = { key: s.key, cap: s.cap, boosts: s.boosts || [] }; SL.step = {}; SL.msg = ""; slKeep(); drawSimLog();
-}
-const slKeep = () => slStore("simlogLive", SL.m ? { m: SL.m, you: SL.you, series: SL.series } : null);
-const slBtn = (attr, on, html) => `<button class="${on ? "btn" : "ghost"}" ${attr} style="font-size:12.5px;margin:0 6px 6px 0;padding:6px 10px">${html}</button>`;
-const slPick = (list, key, chosen, stat) => list.map(r => slBtn(`data-sl="${key}:${esc(r.id)}"`, chosen === r.id, `${esc(r.name)} <span class="small">${r[stat]}</span>`)).join("");
-function slTheirs(key, chosen, stat) {     // their cards seen so far, plus a search to add one
-  const L = SL.m.seen.map(slThem).filter(Boolean);
-  return `${L.length ? slPick(L, key, chosen, stat) : ""}<input type="text" id="slq_${key}" placeholder="${L.length ? "Another of their cards" : "Search their card"}" style="margin-top:2px"><ul class="sr" id="slr_${key}" hidden></ul>`;
-}
-// a duel's result: who won, or a tie and the stat that decided it (then who won it). In the attack duel "you" means the attacker
-function slResult(k, guess, labels) {
-  const st = SL.step, r = st[k + "r"] || guess;
-  let h = `<p class="small muted" style="margin:8px 0 4px">Result <span class="small">(guess: ${esc(labels[guess])})</span></p>${["you", "them", "tie"].map(x => slBtn(`data-sl="${k}r:${x}"`, r === x, labels[x])).join("")}`;
-  if (r === "tie") {
-    h += `<p class="small muted" style="margin:6px 0 4px">Which stat decided it?</p>${["attack", "control", "defence", "total"].map(x => slBtn(`data-sl="${k}tb:${x}"`, st[k + "tb"] === x, cap(x))).join("")}`;
-    if (st[k + "tb"]) h += `<p class="small muted" style="margin:6px 0 4px">Who won it?</p>${["you", "them", "none"].map(x => slBtn(`data-sl="${k}w:${x}"`, st[k + "w"] === x, x === "none" ? "Neither (out of bounds)" : labels[x])).join("")}`;
-  }
-  return h;
-}
-const slWinner = k => { const st = SL.step, r = st[k + "r"]; return r === "tie" ? st[k + "w"] : r; };
-function drawSimLog() {
-  const box = $("slBody"); if (!box) return;
-  const q = slQueue();
-  if (!SL.m) {
-    const ok = state.simAC.length === 11;
-    box.innerHTML = `<h2>Sim log</h2><p class="small muted">Only on this phone. Log real matches so the Sim Odds numbers can be checked.</p>
-      <p class="small">${ok ? `Your team from Sim Odds: <b>${esc(simSeries().key || "")} Series</b>, ${esc($("simFormA").value)}. Their cards are added as you see them.` : `Set up your team in <b>Sim Odds</b> first, then come back.`}</p>
-      ${ok ? `<button class="btn" id="slStart">Start a Match</button>` : `<button class="ghost" id="slGoSim">Go to Sim Odds</button>`}
-      ${SL.msg ? `<p class="small">${SL.msg}</p>` : ""}
-      ${q.length ? `<p class="small" style="margin-top:10px"><b>${q.length}</b> match${q.length > 1 ? "es" : ""} waiting to save. <button class="ghost" id="slRetry" style="font-size:12px;padding:4px 9px">Save now</button></p>` : ""}
-      <p style="margin-top:10px"><button class="ghost" id="slCopy" style="font-size:12px;padding:4px 9px">Copy the log</button> <span id="slCount" class="small muted"></span></p>`;
-    if ($("slStart")) $("slStart").onclick = slStart;
-    if ($("slGoSim")) $("slGoSim").onclick = () => document.querySelector('#tabs button[data-t="sim"]').click();
-    if ($("slRetry")) $("slRetry").onclick = slSave;
-    $("slCopy").onclick = slCopy; slCountShow(); return;
-  }
-  const m = SL.m, st = SL.step, you = SL.you, mine = id => you.find(r => r.id === id);
-  const goals = w => m.poss.filter(p => p.goal && p.att === w).length;
-  let h = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(m.series)} Series</h2><span class="big" style="font-size:24px">${goals("you")} - ${goals("them")}</span></div>
-    <p class="meta">Possession ${m.poss.length + 1}</p>`;
-  // 1. control
-  h += `<h3 style="margin:10px 0 4px">Control</h3><p class="small muted" style="margin:0 0 4px">Your card</p>${slPick(you.filter(r => CTRL.has(r.slot)), "cy", st.cy, "c")}
-    <p class="small muted" style="margin:6px 0 4px">Their card <span class="small">(stats guessed at full chem)</span></p>${slTheirs("ct", st.ct, "c")}`;
-  let cw = null;
-  if (st.cy && st.ct) {
-    const x = mine(st.cy), y = slThem(st.ct), g = x.c > y.c ? "you" : x.c < y.c ? "them" : "tie";
-    if (!st.cr) st.cr = g;           // the guess counts until another result is tapped
-    h += slResult("c", g, { you: "You won", them: "They won", tie: "Tie" });
-    cw = slWinner("c");
-  }
-  if (cw === "none") h += `<p class="small" style="margin:8px 0 0">Out of bounds: no attack, the score stays.</p>`;
-  // 2. attack
-  if (cw && cw !== "none") {
-    const W = attackWeights(you), A = you.map((r, i) => [r, W[i]]).filter(p => p[1] > 0.001).sort((p, q) => q[1] - p[1]).map(p => p[0]);
-    h += `<h3 style="margin:14px 0 4px">${cw === "you" ? "Your attack" : "Their attack"}</h3>`;
-    if (cw === "you") h += `<p class="small muted" style="margin:0 0 4px">Your attacker</p>${slPick(A, "at", st.at, "a")}<p class="small muted" style="margin:6px 0 4px">Their defender</p>${slTheirs("df", st.df, "d")}`;
-    else h += `<p class="small muted" style="margin:0 0 4px">Their attacker</p>${slTheirs("at", st.at, "a")}<p class="small muted" style="margin:6px 0 4px">Your defender</p>${slPick(you.filter(r => DEF.has(r.slot)), "df", st.df, "d")}`;
-    if (st.at && st.df) {
-      const x = cw === "you" ? mine(st.at) : slThem(st.at), y = cw === "you" ? slThem(st.df) : mine(st.df);
-      const g = x.a > y.d ? "you" : x.a < y.d ? "them" : "tie";
-      if (!st.ar) st.ar = g;
-      h += slResult("a", g, { you: "Goal", them: "No goal", tie: "Tie" });
-      if (slWinner("a") === "none") h += `<p class="small" style="margin:8px 0 0">Out of bounds: no goal, the score stays.</p>`;
-    }
-  }
-  const aw = cw === "none" ? "none" : cw && st.at && st.df ? slWinner("a") : null;
-  h += `<div class="row" style="margin-top:14px">${aw ? `<button class="btn" id="slNext">Save Possession</button>` : ""}${m.poss.length ? `<button class="ghost" id="slUndo">Undo Last</button>` : ""}</div>
-    <div class="row" style="margin-top:10px"><button class="ghost" id="slEnd">End Match</button><button class="ghost" id="slQuit" style="font-size:12px">Discard</button></div>`;
-  box.innerHTML = h;
-  const reset = k => { const order = ["cy", "ct", "cr", "ctb", "cw", "at", "df", "ar", "atb", "aw"]; order.slice(order.indexOf(k) + 1).forEach(x => delete st[x]); };
-  const pick = (k, v) => { st[k] = v; if (["cy", "ct", "cr", "ctb", "cw", "at", "df", "ar", "atb"].includes(k)) reset(k); if (k === "cr" && v !== "tie") { delete st.ctb; delete st.cw; } drawSimLog(); };
-  box.querySelectorAll("[data-sl]").forEach(b => b.onclick = () => { const [k, v] = b.dataset.sl.split(/:(.*)/s); pick(k, v); });
-  for (const k of ["ct", "df", "at"]) {      // search their cards (within the cap); a new one joins the seen list
-    const inp = $("slq_" + k), ul = $("slr_" + k); if (!inp) continue;
-    inp.oninput = () => { const cp = SL.series.cap || 0, res = search(inp.value, 60, cp).filter(c => !cp || c.rating <= cp).slice(0, 10);
-      ul.hidden = !res.length; ul.innerHTML = res.map(c => `<li data-id="${esc(c.id)}">${cardLine(c)}</li>`).join(""); };
-    ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; if (!m.seen.includes(li.dataset.id)) m.seen.push(li.dataset.id); slKeep(); pick(k, li.dataset.id); };
-  }
-  if ($("slNext")) $("slNext").onclick = () => {
-    const theirsAtt = cw === "them", x = mine(st.cy), y = slThem(st.ct);
-    if (cw === "none") {          // control tied on everything: out of bounds, no attack, the score stays
-      m.poss.push({ c: [st.cy, st.ct], cv: [x.c, y.c], cr: "tie", ctb: st.ctb || null, cw: "none", out: "control" });
-      SL.step = {}; slKeep(); drawSimLog(); window.scrollTo(0, 0); return;
-    }
-    const at = theirsAtt ? slThem(st.at) : mine(st.at), df = theirsAtt ? mine(st.df) : slThem(st.df);
-    m.poss.push({ c: [st.cy, st.ct], cv: [x.c, y.c], cr: st.cr, ctb: st.ctb || null, cw, att: cw, a: st.at, d: st.df, av: [at.a, df.d], ar: { you: "attacker", them: "defender", tie: "tie" }[st.ar], atb: st.atb || null, goal: slWinner("a") === "you", out: slWinner("a") === "none" ? "attack" : null });
-    SL.step = {}; slKeep(); drawSimLog(); window.scrollTo(0, 0);
-  };
-  if ($("slUndo")) $("slUndo").onclick = () => { m.poss.pop(); SL.step = {}; slKeep(); drawSimLog(); };
-  $("slQuit").onclick = () => { if (confirm("Discard this match?")) { SL.m = null; slKeep(); drawSimLog(); } };
-  $("slEnd").onclick = () => {
-    const sc = prompt(`Final score (you - them). Possessions logged: ${m.poss.length}.`, `${goals("you")}-${goals("them")}`); if (sc === null) return;
-    const n = sc.match(/(\d+)\D+(\d+)/); if (!n) { alert("Type it like 2-1."); return; }
-    m.score = [+n[1], +n[2]]; m.possessions = m.poss.length;
-    const q = slQueue(); q.push(m); slStore("simlogQueue", q); SL.m = null; slKeep(); slSave();
-  };
-}
-async function slSave() {
-  const q = slQueue(); if (!q.length) { drawSimLog(); return; }
-  SL.msg = "Saving…"; drawSimLog();
-  try {
-    const f = await ghGetFile(SL_FILE), all = f ? JSON.parse(f.text) : [];
-    const have = new Set(all.map(x => x.at)), add = q.filter(x => !have.has(x.at));
-    await ghPutFile(SL_FILE, JSON.stringify(all.concat(add), null, 1), `Sim log: ${add.length} match${add.length === 1 ? "" : "es"}`, f && f.sha);
-    slStore("simlogQueue", []); SL.msg = (n => `Saved. ${n} match${n === 1 ? "" : "es"} logged so far.`)(all.length + add.length);
-  } catch (e) { SL.msg = `<span class="bad">Not saved yet (${esc(e.message)}). It's kept on this phone; tap Save now later.</span>`; }
-  drawSimLog();
-}
-async function slCountShow() {
-  try { const f = await ghGetFile(SL_FILE); const n = f ? JSON.parse(f.text).length : 0; if ($("slCount")) $("slCount").textContent = `${n} match${n === 1 ? "" : "es"} saved`; } catch (e) {}
-}
-async function slCopy() {
-  let all = []; try { const f = await ghGetFile(SL_FILE); all = f ? JSON.parse(f.text) : []; } catch (e) {}
-  try { await navigator.clipboard.writeText(JSON.stringify(all.concat(slQueue()))); SL.msg = "Log copied."; } catch (e) { SL.msg = "Couldn't copy on this phone."; }
-  drawSimLog();
-}
-function setupSimLog() {
-  if (!ghToken()) { document.querySelectorAll(".tokenonly").forEach(x => x.hidden = true); return; }
-  const live = slStore("simlogLive"); if (live && live.m) { SL.m = live.m; SL.you = live.you; SL.series = live.series; SL.step = {}; }
-  document.querySelector('#tabs button[data-t="simlog"]').addEventListener("click", drawSimLog);
-  drawSimLog();
 }
 function cardLine(c) {
   return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(String(cName(c.clubId)).trim())}</span> <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
@@ -1101,7 +956,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111l"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111m"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1127,7 +982,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111l"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111m"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1854,7 +1709,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111l");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111m");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
