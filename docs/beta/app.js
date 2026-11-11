@@ -462,11 +462,10 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
   { day: "2026-11-11", items: [
-    "<b>Sim teams:</b> a smarter builder that tests more card combinations and settles close calls head to head. This week's 68, 80, 90 and X teams are stronger for it.",
-    "<b>Sim teams</b> now only change when a new team beats the current one head to head.",
-    "<b>Sim Odds:</b> type in your own team as well as theirs, with a cleaner result screen.",
-    "<b>Match Helper:</b> only know their nation, club, league or position? Search by that.",
-    "<b>Best Teams:</b> each series now shows when its team last changed."
+    "<b>Sim teams:</b> improved solver. This week's 68, 80, 90 and X are stronger.",
+    "<b>Sim Odds:</b> enter your own team too, with a cleaner result screen.",
+    "<b>Match Helper:</b> search by nation, club, league or position.",
+    "<b>Best Teams:</b> each series shows when its team last changed."
   ] }
 ];
 const updateCard = () => { const u = UPDATES[0]; return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${u.items.map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
