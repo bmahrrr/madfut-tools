@@ -140,6 +140,25 @@ def _beat(x, ys, tie=0.5):
     return sum(w * (1 if x > y else tie if x == y else 0) for y, w in ys)
 
 
+_GC = {}     # card duel values per field profile
+
+
+def _gA(prof, c, off):
+    """% chance card c (its stats moved by off for chem) scores against a strong team's defender, ties by the logged
+    rules (control or total): a 95 attacker against 95 defenders is worth what its control and total really win."""
+    k = ("A", id(prof), c["_i"], off)
+    if k not in _GC: x = (c["A"] + off, c["C"] + off, c["D"] + off); _GC[k] = 100 * sum(w * _aw(x, y) for y, w in prof["DF"])
+    return _GC[k]
+
+
+def _gD(prof, c, off):
+    """% chance card c (stats moved by off) stops a strong team's attacker, ties by the logged rules: David Luiz's 95
+    defence with a high total stops tied attackers half the time, a 95 GK with a low total almost never."""
+    k = ("D", id(prof), c["_i"], off)
+    if k not in _GC: x = (c["A"] + off, c["C"] + off, c["D"] + off); _GC[k] = 100 * sum(w * (1 - _aw(y, x)) for y, w in prof["AF"])
+    return _GC[k]
+
+
 # the solver's quick card values: an attack tie is usually a goal (logged: 15 of 17, the attacker mostly has more control)
 TIE_ATT = 0.85
 
@@ -327,7 +346,7 @@ def resolve_line(form, sq, idx, series, pool, excl=(), time_limit=60):
     series allowed there (chem counted, control cards kept on full chem), valued by duels against the strongest teams
     (OPP). Both at once finds packages neither alone can: 81's Lucas Vázquez needs Quansah and Pau Torres behind him
     AND Beier up front to stay on full chem."""
-    bA = lambda x: _beat(x, OPP["D"], TIE_ATT) * 100; bD = lambda x: _beat(x, OPP["A"], 1 - TIE_ATT) * 100
+    bA = lambda c, off: _gA(OPP, c, off); bD = lambda c, off: _gD(OPP, c, off)
     slots = FORMATIONS[form]
     fixed = {sq[i]["_i"]: slots[i] for i in range(len(slots)) if i not in idx}
     gs = {slots[i] for i in idx}
@@ -351,10 +370,10 @@ def resolve_line(form, sq, idx, series, pool, excl=(), time_limit=60):
         if c["_i"] in fixed: return 1e7 if fixed[c["_i"]] == s else None
         if s not in gs: return None
         T = c["A"] + c["C"] + c["D"]
-        return (100 * slot_w.get(s, 0.2) * (bA(c["A"] - 3) + T / 400)) if s in ATT else (wD * (bD(c["D"] - 3) + T / 400))
+        return (100 * slot_w.get(s, 0.2) * (bA(c, -3) + T / 400)) if s in ATT else (wD * (bD(c, -3) + T / 400))
     def chem_w(c, s):
-        if s in gs: return (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3) if s in ATT else (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3)
-        return 0.01 + (100 * slot_w.get(s, 0.2) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0)
+        if s in gs: return (100 * slot_w.get(s, 0.2) * (bA(c, 2) - bA(c, -3)) / 3) if s in ATT else (wD * (bD(c, 2) - bD(c, -3)) / 3)
+        return 0.01 + (100 * slot_w.get(s, 0.2) * (bA(c, 2) - bA(c, -3)) / 3 if s in ATT else 0) + (wD * (bD(c, 2) - bD(c, -3)) / 3 if s in DEF else 0)
     nsq = build(cards, slots, value, chem_weight=chem_w, force_full=lambda c, s: s in CTRL and not full_chem(c), time_limit=time_limit,
                 exclude_pids=excl)
     return (evaluate(nsq, slots, series), form, nsq) if nsq else None
@@ -512,20 +531,20 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             return (3 if s in ATT else 0) + (1 if s in DEF else 0) + 0.01
 
         if duel:
-            bA = lambda x: _beat(x, duel["D"], TIE_ATT) * 100        # % chance an attacker of x beats a strong team's defender
-            bD = lambda x: _beat(x, duel["A"], 1 - TIE_ATT) * 100        # % chance a defender of x stops a strong team's attacker
+            bA = lambda c, off: _gA(duel, c, off)      # % chance this card's attack beats a strong team's defender
+            bD = lambda c, off: _gD(duel, c, off)      # % chance this card's defence stops a strong team's attacker
             wA = lambda s: 100 * slot_w.get(s, 0.2); wD = 100 / (3 * nD)
 
             def value(c, s):     # at 0 chem (stat - 3); each chem point adds a third of the way to 3 chem (+2)
                 T = c["A"] + c["C"] + c["D"]; v = 0
                 if s in CTRL: v += 10000 * c["C"] + 0.5 * T
-                if s in ATT: v += wA(s) * (bA(c["A"] - 3) + T / 400)
-                if s in DEF: v += wD * (bD(c["D"] - 3) + T / 400)
+                if s in ATT: v += wA(s) * (bA(c, -3) + T / 400)
+                if s in DEF: v += wD * (bD(c, -3) + T / 400)
                 return v
 
             def chem_w(c, s):
-                return (wA(s) * (bA(c["A"] + 2) - bA(c["A"] - 3)) / 3 if s in ATT else 0) + \
-                       (wD * (bD(c["D"] + 2) - bD(c["D"] - 3)) / 3 if s in DEF else 0) + 0.01
+                return (wA(s) * (bA(c, 2) - bA(c, -3)) / 3 if s in ATT else 0) + \
+                       (wD * (bD(c, 2) - bD(c, -3)) / 3 if s in DEF else 0) + 0.01
 
         def full(c, s):
             return s in CTRL and not full_chem(c)
@@ -675,7 +694,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
             seen3.add(sg); best3.append((form, sq)); perf[form] = perf.get(form, 0) + 1
             if len(best3) == 6: break
         xjobs = [(form, sq, grp) for form, sq in best3 for grp in ({"GK", "CB"}, {"ST", "CF"})]
-        for r in pmap(lambda j: exact_line(xjobs[j][1], FORMATIONS[xjobs[j][0]], series, pool, xjobs[j][2]), len(xjobs)):
+        for r in pmap(lambda j: exact_line(xjobs[j][1], FORMATIONS[xjobs[j][0]], series, pool, xjobs[j][2], links=6), len(xjobs)):
             if r:
                 form = xjobs[0][0]
                 results.append((evaluate(r[1], r[0], series), next(f for f in FORMATIONS if FORMATIONS[f] == r[0] and f in formations), r[1]))
@@ -764,6 +783,8 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
                 t += sum(w * (x - y) for b, w in opp for _, x, y in [_match(a, b)])
                 score.append((wins, round(t, 6)))
             order = sorted(range(len(fin)), key=lambda i: score[i], reverse=True)
+            if __import__("os").environ.get("SIM_DEBUG"):
+                for i in order: log(f"  final {fin[i][1]} {score[i]} {','.join(c['id'] for c in fin[i][2])}")
             if order[0] != 0:
                 log(f"  round robin: {fin[order[0]][1]} beats the ranking's pick ({score[order[0]][0]} wins {score[order[0]][1]:+.3f} vs {score[0][0]} wins {score[0][1]:+.3f})")
             w_ev, w_form, w_sq = fin[order[0]]
