@@ -50,6 +50,8 @@ jobs:
           echo "myclub=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['myclub']))")" >> $GITHUB_OUTPUT
           echo "variants=$(python3 -c "import json;print(json.dumps(json.load(open('keys.json'))['variants']))")" >> $GITHUB_OUTPUT
 
+  # two independent searches per Sim series, side by side on separate machines (search b looks wider); sim_pick then
+  # publishes the better of the two (control first, then head to head)
   sim:
     needs: plan
     if: ${{ needs.plan.outputs.sim != '[]' }}
@@ -58,6 +60,7 @@ jobs:
       fail-fast: false
       matrix:
         key: ${{ fromJson(needs.plan.outputs.sim) }}
+        search: [a, b]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -66,7 +69,34 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python scripts/build.py sim "${{ matrix.key }}"
+      - run: python scripts/build.py sim "${{ matrix.key }}" ${{ matrix.search }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: simraw_${{ matrix.key }}_${{ matrix.search }}
+          path: docs/results/sim_${{ matrix.key }}.${{ matrix.search }}.raw
+
+  sim_pick:
+    needs: [plan, sim]
+    if: ${{ !cancelled() && needs.plan.outputs.sim != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.sim) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: simraw_${{ matrix.key }}_*
+          path: raw
+          merge-multiple: true
+      - run: cp raw/*.raw docs/results/ && python scripts/build.py simpick "${{ matrix.key }}"
       - uses: actions/upload-artifact@v4
         with:
           name: sim_${{ matrix.key }}
@@ -135,7 +165,7 @@ jobs:
 
   # all-cards teams first: a new season is moved to the Vault and every all-cards team is published before the variants start
   publish:
-    needs: [sim, myclub]
+    needs: [sim_pick, myclub]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
