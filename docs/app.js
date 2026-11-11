@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261111e";
+const APP_V = "20261111f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -166,7 +166,7 @@ function slResult(k, guess, labels) {
   let h = `<p class="small muted" style="margin:8px 0 4px">Result <span class="small">(guess: ${esc(labels[guess])})</span></p>${["you", "them", "tie"].map(x => slBtn(`data-sl="${k}r:${x}"`, r === x, labels[x])).join("")}`;
   if (r === "tie") {
     h += `<p class="small muted" style="margin:6px 0 4px">Which stat decided it?</p>${["attack", "defence", "total"].map(x => slBtn(`data-sl="${k}tb:${x}"`, st[k + "tb"] === x, cap(x))).join("")}`;
-    if (st[k + "tb"]) h += `<p class="small muted" style="margin:6px 0 4px">Who won it?</p>${["you", "them"].map(x => slBtn(`data-sl="${k}w:${x}"`, st[k + "w"] === x, labels[x])).join("")}`;
+    if (st[k + "tb"]) h += `<p class="small muted" style="margin:6px 0 4px">Who won it?</p>${["you", "them", "none"].map(x => slBtn(`data-sl="${k}w:${x}"`, st[k + "w"] === x, x === "none" ? "Neither (out of bounds)" : labels[x])).join("")}`;
   }
   return h;
 }
@@ -201,8 +201,9 @@ function drawSimLog() {
     h += slResult("c", g, { you: "You won", them: "They won", tie: "Tie" });
     cw = slWinner("c");
   }
+  if (cw === "none") h += `<p class="small" style="margin:8px 0 0">Out of bounds: no attack, the score stays.</p>`;
   // 2. attack
-  if (cw) {
+  if (cw && cw !== "none") {
     const W = attackWeights(you), A = you.map((r, i) => [r, W[i]]).filter(p => p[1] > 0.001).sort((p, q) => q[1] - p[1]).map(p => p[0]);
     h += `<h3 style="margin:14px 0 4px">${cw === "you" ? "Your attack" : "Their attack"}</h3>`;
     if (cw === "you") h += `<p class="small muted" style="margin:0 0 4px">Your attacker</p>${slPick(A, "at", st.at, "a")}<p class="small muted" style="margin:6px 0 4px">Their defender</p>${slTheirs("df", st.df, "d")}`;
@@ -212,9 +213,10 @@ function drawSimLog() {
       const g = x.a > y.d ? "you" : x.a < y.d ? "them" : "tie";
       if (!st.ar) st.ar = g;
       h += slResult("a", g, { you: "Goal", them: "No goal", tie: "Tie" });
+      if (slWinner("a") === "none") h += `<p class="small" style="margin:8px 0 0">Out of bounds: no goal, the score stays.</p>`;
     }
   }
-  const aw = cw && st.at && st.df ? slWinner("a") : null;
+  const aw = cw === "none" ? "none" : cw && st.at && st.df ? slWinner("a") : null;
   h += `<div class="row" style="margin-top:14px">${aw ? `<button class="btn" id="slNext">Save Possession</button>` : ""}${m.poss.length ? `<button class="ghost" id="slUndo">Undo Last</button>` : ""}</div>
     <div class="row" style="margin-top:10px"><button class="ghost" id="slEnd">End Match</button><button class="ghost" id="slQuit" style="font-size:12px">Discard</button></div>`;
   box.innerHTML = h;
@@ -229,8 +231,12 @@ function drawSimLog() {
   }
   if ($("slNext")) $("slNext").onclick = () => {
     const theirsAtt = cw === "them", x = mine(st.cy), y = slThem(st.ct);
+    if (cw === "none") {          // control tied on everything: out of bounds, no attack, the score stays
+      m.poss.push({ c: [st.cy, st.ct], cv: [x.c, y.c], cr: "tie", ctb: st.ctb || null, cw: "none", out: "control" });
+      SL.step = {}; slKeep(); drawSimLog(); window.scrollTo(0, 0); return;
+    }
     const at = theirsAtt ? slThem(st.at) : mine(st.at), df = theirsAtt ? mine(st.df) : slThem(st.df);
-    m.poss.push({ c: [st.cy, st.ct], cv: [x.c, y.c], cr: st.cr, ctb: st.ctb || null, cw, att: cw, a: st.at, d: st.df, av: [at.a, df.d], ar: { you: "attacker", them: "defender", tie: "tie" }[st.ar], atb: st.atb || null, goal: slWinner("a") === "you" });
+    m.poss.push({ c: [st.cy, st.ct], cv: [x.c, y.c], cr: st.cr, ctb: st.ctb || null, cw, att: cw, a: st.at, d: st.df, av: [at.a, df.d], ar: { you: "attacker", them: "defender", tie: "tie" }[st.ar], atb: st.atb || null, goal: slWinner("a") === "you", out: slWinner("a") === "none" ? "attack" : null });
     SL.step = {}; slKeep(); drawSimLog(); window.scrollTo(0, 0);
   };
   if ($("slUndo")) $("slUndo").onclick = () => { m.poss.pop(); SL.step = {}; slKeep(); drawSimLog(); };
@@ -1009,7 +1015,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1035,7 +1041,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1759,7 +1765,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111e");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
