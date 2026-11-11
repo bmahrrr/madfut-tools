@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261111n";
+const APP_V = "20261111o";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -425,7 +425,7 @@ async function versionOf(k, f, d) {          // -> { d: the version to show, bar
   const ready = dm && sameSet(dm.not_owned_ids, m.ids); let which = "everyone";
   const names = esc(cardNames(m.ids).join(", ")), got = m.ids.map(id => `<button class="ghost small" data-got="${esc(k)}|${esc(id)}" data-all="${esc(m.ids.join(","))}" style="padding:3px 9px">Got ${esc(cardNames([id])[0])}</button>`).join("");
   let bar = `<div class="minebar">`;
-  if (!ready) bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names} is building (about ${k.startsWith("sim") ? 5 : 40} min). Showing everyone's team for now.</p>`;
+  if (!ready) bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names} is building (about ${40} min). Showing everyone's team for now.</p>`;
   else if (viewOf(k) === "mine") { bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b>, built without ${names}. Everyone else sees the full team.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|everyone" style="padding:4px 10px;font-size:12.5px">Show Everyone's Team</button></div>`; d = dm; which = "mine"; }
   else bar += `<p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|mine" style="padding:4px 10px;font-size:12.5px">Show Your Version (without ${names})</button></div>`;
   bar += `<div class="row" style="margin:0 0 4px">${got}</div><div class="row" data-gotgo-row="${esc(k)}" hidden style="margin:4px 0"><button class="btn" data-gotgo="${esc(k)}" data-all="${esc(m.ids.join(","))}">Update Your Version</button></div><p class="small muted" style="margin:0 0 8px">Got cards since? Tap each one, then Update Your Version (one rebuild).</p></div>`;
@@ -488,7 +488,7 @@ async function rebuildWithout(k, ids, afterGot) {
     }
     return;
   }
-  const mins = kind === "sim" ? 5 : 40;
+  const mins = 40;
   if (!confirm(`${afterGot ? "Rebuild your version" : "Build your own version of"} the ${key} series without ${cardNames(ids).join(", ")}?\n\nTakes about ${mins} minutes. Only you see it, and it lasts until the season ends.`)) return;
   try {
     const t = new Date(), pad = n => String(n).padStart(2, "0");
@@ -953,7 +953,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111n"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261111o"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -979,7 +979,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111n"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261111o"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1706,7 +1706,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111n");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261111o");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
