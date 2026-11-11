@@ -837,6 +837,19 @@ def best_of(series, cards, teams, log=print):
         sl = FORMATIONS[t["formation"]]; ev = evaluate(sq, sl, series)
         rows.append((ev, t, _side(sq, sl, series)))
     if not rows: return teams[0]
+    # the same 11 cards in every Sim formation too (68: the André Moreira cards as 3-4-1-2 edge the same cards as 3-1-4-2)
+    seen = {(t["formation"], tuple(sorted(p["id"] for p in t["players"]))) for _, t, _ in rows}
+    for ev, t, _ in list(rows):
+        cs = [by[p["id"]] for p in t["players"]]
+        for f in SIM_FORMATIONS:
+            sg = (f, tuple(sorted(c["id"] for c in cs)))
+            if sg in seen: continue
+            sl = FORMATIONS[f]
+            sq = build(cs, sl, lambda c, s: (1000 * c["C"] if s in CTRL else 0) + (3 * c["A"] if s in ATT else 0) + (c["D"] if s in DEF else 0), time_limit=10)
+            if not sq: continue
+            seen.add(sg); e2 = evaluate(sq, sl, series)
+            t2 = {"formation": f, "players": [dict(r, slot=x) for r, x in zip(_slot_rows(sq, series), sl)], "metrics": e2}
+            rows.append((e2, t2, _side(sq, sl, series)))
     full = [r for r in rows if r[0]["ctrl_not_full"] == 0] or rows
     unb = [r for r in full if r[0].get("def_unbeatable")] or full
     cmax = max(round(r[0]["control"], 2) for r in unb)
