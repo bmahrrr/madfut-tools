@@ -1,0 +1,65 @@
+name: Blind test My Club
+
+# Test runs only: builds this week's My Club series without the Reddit, hand-built or site team (sim-rules code) and
+# judges them against a realistic field next to the site team. Results: blindtest/myclub on sim-rules. Never touches the site.
+# blindtest/myclub_trigger.txt: "only=70,78 minutes=150" (empty only = every series)
+on:
+  push:
+    branches: [sim-rules]
+    paths: ["blindtest/myclub_trigger.txt"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blind-myclub
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      keys: ${{ steps.p.outputs.keys }}
+      minutes: ${{ steps.p.outputs.minutes }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        run: |
+          git fetch -q origin main && git checkout FETCH_HEAD -- config
+          ONLY=$(grep -o 'only=[^ ]*' blindtest/myclub_trigger.txt | cut -d= -f2); MIN=$(grep -o 'minutes=[0-9.]*' blindtest/myclub_trigger.txt | cut -d= -f2)
+          echo "minutes=${MIN:-150}" >> $GITHUB_OUTPUT
+          echo "keys=$(python3 -c "
+          import json
+          k = [s['key'] for s in json.load(open('config/week.json'))['myclub']]
+          only = [x for x in '$ONLY'.split(',') if x]
+          print(json.dumps([x for x in k if not only or x in only]))")" >> $GITHUB_OUTPUT
+
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.keys) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Cards and setup from main
+        run: git fetch -q origin main && git checkout FETCH_HEAD -- data config docs/results
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/blind_myclub.py "${{ matrix.key }}" "${{ needs.plan.outputs.minutes }}"
+      - name: Save this result right away
+        run: |
+          P=blindtest/myclub/${{ matrix.key }}.txt
+          cp $P /tmp/r.txt
+          git reset -q --hard && git clean -qfd blindtest && git checkout -q sim-rules && git pull -q
+          mkdir -p $(dirname $P) && cp /tmp/r.txt $P
+          git config user.name bmahrrr
+          git config user.email bmahrrr1@gmail.com
+          git add $P && git commit -qm "Blind test My Club: ${{ matrix.key }}" || exit 0
+          for i in 1 2 3 4 5 6; do git pull -q --rebase && git push -q && break; sleep $((RANDOM % 10 + 3)); done
