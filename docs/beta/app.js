@@ -723,7 +723,7 @@ function loadButtons(side) {
   const s = serOf(side), out = [];
   const vault = side !== "T" && MCW.week;      // a past week: only that week's own teams (plus your saved ones)
   if (side === "A" && !vault && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-Built ${s.key} Team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
-  if (side === "A" && (side === "T" ? (INDEX && INDEX.files) || [] : MCW.files).includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: vault ? "From that season's build" : "From this season's build" });
+  if ((side === "A" || side === "B") && MCW.files.includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: vault ? "From that season's build" : "From this season's build" });
   if (side === "A" && !vault) CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to Beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
   (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit Team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: `By u/${MC_CREDIT}: ` + short(ids) }));
   savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
