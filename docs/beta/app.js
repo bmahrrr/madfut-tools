@@ -167,10 +167,7 @@ async function ghPutFile(path, content, message, sha) {
   const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
     method: "PUT", headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" },
     body: JSON.stringify(Object.assign({ message, branch: "main", content: btoa(unescape(encodeURIComponent(content))) }, sha ? { sha } : {})) });
-  if (!r.ok) {          // GitHub's own reason helps: an expired key, a missing permission, too many requests…
-    let why = ""; try { why = ((await r.json()).message || "").slice(0, 160); } catch (e) {}
-    throw new Error(`GitHub said ${r.status}${why ? ": " + why : ""}${r.status === 401 ? " (the GitHub key is wrong or expired)" : ""}`);
-  }
+  if (!r.ok) throw new Error(`GitHub said ${r.status}${r.status === 401 || r.status === 403 ? " (the GitHub key is wrong or expired)" : ""}`);
   return r.json();
 }
 async function startBuild(req) {
