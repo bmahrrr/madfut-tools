@@ -159,7 +159,7 @@ def mc_pick(key, owned, allc, by_id, no_names):
         seen.add(k); F.append((k, tm))
     for r in refs: add(r, True)
     for _, r in raws:
-        for d in (r.get("opponent_teams") or {}).values():
+        for d in (r["team"].get("opponent_teams") or {}).values():
             tm = [fid.get(p["id"]) for p in d.get("players", [])]
             if len(tm) == 11 and all(tm): add(tm)
     for _, tm, _ in cands: add([fid[c["id"]] for c in tm])
