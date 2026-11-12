@@ -70,6 +70,6 @@ jobs:
           cp $P /tmp/r.txt
           git reset -q --hard && git clean -qfd blindtest && git checkout -q sim-rules && git pull -q
           mkdir -p $(dirname $P) && cp /tmp/r.txt $P
-          git config user.name bmahrrr && git config user.email bmahrrr1@gmail.com
+          git config user.name bmahrrr && git config user.email 333464315+bmahrrr@users.noreply.github.com
           git add $P && git commit -qm "Blind test: ${{ matrix.key }} ${{ matrix.mode }}" || exit 0
           for i in 1 2 3 4 5 6; do git pull -q --rebase && git push -q && break; sleep $((RANDOM % 10 + 3)); done
