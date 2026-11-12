@@ -24,7 +24,9 @@ if final:
     # the final round: the three searches' teams are the starting points AND the opponents (no Reddit team): one more
     # search improves the best of them against the other two, like the next night's search does on the site
     starts = []
-    for f in (f"{key}.txt", f"{key}-s2.txt", f"{key}-s3.txt"):
+    names = [f"{key}-s1.txt", f"{key}-s2.txt", f"{key}-s3.txt"]
+    if not os.path.exists(os.path.join(ROOT, "blindtest", "myclub", names[0])): names[0] = f"{key}.txt"
+    for f in names:
         q = os.path.join(ROOT, "blindtest", "myclub", f)
         if os.path.exists(q):
             ids = next(l[4:] for l in open(q).read().splitlines() if l.startswith("IDS")).split(",")
