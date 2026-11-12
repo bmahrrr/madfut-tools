@@ -104,6 +104,8 @@ jobs:
       - name: Publish this team now
         run: bash scripts/publish_one.sh "docs/results/sim_${{ matrix.key }}.json" || echo "early publish failed; the final step publishes it"
 
+  # three independent searches per My Club series, side by side on separate machines (each with its own random starts);
+  # myclub_pick then publishes the best of them (and keeps the published team unless one beats it)
   myclub:
     needs: plan
     if: ${{ needs.plan.outputs.myclub != '[]' }}
@@ -113,6 +115,7 @@ jobs:
       fail-fast: false
       matrix:
         key: ${{ fromJson(needs.plan.outputs.myclub) }}
+        search: [a, b, c]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -123,7 +126,35 @@ jobs:
       - run: pip install -r requirements.txt
       # every build is a deep search (public repo: Actions minutes are free): 165 minutes per series for a new season or a
       # Reddit team, 150 for the nightly run, or the minutes typed in when started by hand
-      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'schedule' && '150' || inputs.minutes || '165' }}
+      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'schedule' && '150' || inputs.minutes || '165' }} ${{ matrix.search }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mcraw_${{ matrix.key }}_${{ matrix.search }}
+          path: docs/results/myclub_${{ matrix.key }}.${{ matrix.search }}.raw
+
+  myclub_pick:
+    needs: [plan, myclub]
+    if: ${{ !cancelled() && needs.plan.outputs.myclub != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        key: ${{ fromJson(needs.plan.outputs.myclub) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: mcraw_${{ matrix.key }}_*
+          path: raw
+          merge-multiple: true
+      - run: cp raw/*.raw docs/results/ 2>/dev/null; python scripts/build.py mcpick "${{ matrix.key }}"
       - name: Game plan
         run: node scripts/plan.js "docs/results/myclub_${{ matrix.key }}.json" || echo "game plan failed; the team is still saved"
       - uses: actions/upload-artifact@v4
@@ -135,7 +166,7 @@ jobs:
 
   # the same deep search without LTMs / Evos (config/variants.json), started only after every all-cards team is published
   variants:
-    needs: [plan, myclub, publish]
+    needs: [plan, myclub_pick, publish]
     if: ${{ !cancelled() && needs.plan.outputs.variants != '[]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 355
@@ -165,7 +196,7 @@ jobs:
 
   # all-cards teams first: a new season is moved to the Vault and every all-cards team is published before the variants start
   publish:
-    needs: [sim_pick, myclub]
+    needs: [sim_pick, myclub_pick]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
