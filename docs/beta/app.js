@@ -540,7 +540,7 @@ const SIM_STEPS = [["Every Card Up to the Cap", "Series boosts applied", ""], ["
   ["Polish", "Every card tried in every slot", "s"], ["Head to Head", "The finalists play each other, most wins goes through", "j"],
   ["Tie Rule", "Same stat: the higher total plays", "j"], ["Team", "The best, plus 2 alternatives", ""]];
 const MC_STEPS = [["Every Card Up to the Cap", "Series boosts and chem applied, max 5 Icons (no limit in X)", ""],
-  ["Starting Teams", "Strongest attack, control and defence cores, unbeatable cores, plus the Reddit team when shared", "s"],
+  ["Starting Teams", "Strongest attack, control and defence cores, plus unbeatable cores", "s"],
   ["Search", "Thousands of changes, with cards from linked clubs, nations and leagues", "s"],
   ["Every Match Solved", "Perfect play from both sides, whoever leads first", "j"],
   ["Counter Teams", "Teams built to beat the best so far, then the best improves against them", "s"],
