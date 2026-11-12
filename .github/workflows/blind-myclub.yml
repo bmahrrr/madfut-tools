@@ -22,6 +22,7 @@ jobs:
       keys: ${{ steps.p.outputs.keys }}
       minutes: ${{ steps.p.outputs.minutes }}
       seeds: ${{ steps.p.outputs.seeds }}
+      final: ${{ steps.p.outputs.final }}
     steps:
       - uses: actions/checkout@v4
       - id: p
@@ -30,6 +31,7 @@ jobs:
           ONLY=$(grep -o 'only=[^ ]*' blindtest/myclub_trigger.txt | cut -d= -f2); MIN=$(grep -o 'minutes=[0-9.]*' blindtest/myclub_trigger.txt | cut -d= -f2)
           echo "minutes=${MIN:-150}" >> $GITHUB_OUTPUT
           SEEDS=$(grep -o 'seeds=[0-9,]*' blindtest/myclub_trigger.txt | cut -d= -f2)
+          echo "final=$(grep -o 'final=1' blindtest/myclub_trigger.txt | cut -d= -f2)" >> $GITHUB_OUTPUT
           echo "seeds=$(python3 -c "import json;print(json.dumps([int(x) for x in '${SEEDS:-0}'.split(',')]))")" >> $GITHUB_OUTPUT
           echo "keys=$(python3 -c "
           import json
@@ -56,10 +58,11 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python scripts/blind_myclub.py "${{ matrix.key }}" "${{ needs.plan.outputs.minutes }}" ${{ matrix.seed != 0 && matrix.seed || '' }}
+      - run: MC_FINAL="${{ needs.plan.outputs.final }}" python scripts/blind_myclub.py "${{ matrix.key }}" "${{ needs.plan.outputs.minutes }}" ${{ matrix.seed != 0 && matrix.seed || '' }}
       - name: Save this result right away
         run: |
           S="${{ matrix.seed }}"; P=blindtest/myclub/${{ matrix.key }}.txt; [ "$S" != 0 ] && P=blindtest/myclub/${{ matrix.key }}-s$S.txt
+          [ "${{ needs.plan.outputs.final }}" = "1" ] && P=blindtest/myclub/${{ matrix.key }}-final.txt
           cp $P /tmp/r.txt
           git reset -q --hard && git clean -qfd blindtest && git checkout -q sim-rules && git pull -q
           mkdir -p $(dirname $P) && cp /tmp/r.txt $P

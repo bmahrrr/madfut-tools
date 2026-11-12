@@ -19,7 +19,19 @@ allc = load_cards(); by = {c["id"]: c for c in allc}
 owned = [c for c in allc if c.get("owned", True)]
 s_blind = dict(s); s_blind.pop("opponents", None)
 t0 = time.time()
-team = build_myclub(s_blind, owned, allc, opponents=[], minutes=minutes, mode="robust", seed=seed, verify=3, candidates=[], log=lambda *a: None)
+final = os.environ.get("MC_FINAL") == "1"
+if final:
+    # the final round: the three searches' teams are the starting points AND the opponents (no Reddit team): one more
+    # search improves the best of them against the other two, like the next night's search does on the site
+    starts = []
+    for f in (f"{key}.txt", f"{key}-s2.txt", f"{key}-s3.txt"):
+        q = os.path.join(ROOT, "blindtest", "myclub", f)
+        if os.path.exists(q):
+            ids = next(l[4:] for l in open(q).read().splitlines() if l.startswith("IDS")).split(",")
+            if all(i in by for i in ids): starts.append([by[i] for i in ids])
+    team = build_myclub(s_blind, owned, allc, opponents=starts, minutes=minutes, mode="robust", seed=seed + 50, verify=3, candidates=[(f"search {i + 1}", t) for i, t in enumerate(starts)], log=lambda *a: None)
+else:
+    team = build_myclub(s_blind, owned, allc, opponents=[], minutes=minutes, mode="robust", seed=seed, verify=3, candidates=[], log=lambda *a: None)
 secs = round(time.time() - t0)
 set_icon_limit(s)
 P = Pool(s, allc); pc = {c["id"]: c for c in P.cards}
@@ -71,5 +83,5 @@ out.append(f"field of {len(field)}: blind worst {bw} wins {bwin} losses {bloss} 
 out.append("field results (blind / site): " + "; ".join(f"{n} {a}/{b}" for (n, a), (_, b) in zip(brows, srows)))
 out.append("IDS " + ",".join(c["id"] for c in blind))
 os.makedirs(os.path.join(ROOT, "blindtest", "myclub"), exist_ok=True)
-open(os.path.join(ROOT, "blindtest", "myclub", f"{key}" + (f"-s{seed}" if len(sys.argv) > 3 else "") + ".txt"), "w").write("\n".join(out) + "\n")
+open(os.path.join(ROOT, "blindtest", "myclub", f"{key}" + ("-final" if final else f"-s{seed}" if len(sys.argv) > 3 else "") + ".txt"), "w").write("\n".join(out) + "\n")
 print("\n".join(out))
