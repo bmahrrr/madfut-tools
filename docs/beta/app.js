@@ -396,6 +396,20 @@ async function smartSwap(k, d, missing, onP) {
     for (const g of got) if (g && (!best || g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) best = g;
     n = Math.min(list.length, i + W); if (onP) onP(n, list.length);
   }
+  // then climb with the time left: from the best team, the strongest few cards in every slot, again from any better
+  // team, until nothing improves (some better teams are two or three single changes away, e.g. 78 without Meyer)
+  for (let grew = true; best && grew && Date.now() - t0 < LIMIT;) {
+    grew = false; const from = best.tm, next = [];
+    for (let j = 0; j < 11; j++) for (const [, x] of C.options(from, j, 4)) {
+      if (x.id === from[j].id) continue; const tm = from.slice(); tm[j] = x; const key = tm.map(y => y.id).join();
+      if (!seen.has(key)) { seen.add(key); next.push([C.score(tm), tm]); }
+    }
+    next.sort((a, b) => b[0] - a[0]);
+    for (let i = 0; i < next.length && Date.now() - t0 < LIMIT && !grew; i += W) {
+      const got = await Promise.all(next.slice(i, i + W).map(c => judge(c[1]))); n += got.length; if (onP) onP(n, 0);
+      for (const g of got) if (g && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
+    }
+  }
   return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, tested: n, opps: OE.length };
 }
 const SIMSW = new Set();     // Sim versions being searched right now
@@ -483,7 +497,7 @@ async function rebuildWithout(k, ids, afterGot) {
     }
     if (kind === "myclub") {                   // then the smart search, about a minute
       const d = await getJSON(`results/myclub_${key}.json`);
-      const r = await smartSwap(k, d, all, (i, n) => { const el = document.querySelector(`[data-sstat="${CSS.escape(k)}"]`); if (el) el.textContent = `Quick swap shown. Testing stronger versions: ${i} of ${n}…`; });
+      const r = await smartSwap(k, d, all, (i, n) => { const el = document.querySelector(`[data-sstat="${CSS.escape(k)}"]`); if (el) el.textContent = n ? `Quick swap shown. Testing stronger versions: ${i} of ${n}…` : `Quick swap shown. Fine-tuning the best version: ${i} tested…`; });
       const cur = localOf(k); if (r && cur && sameSet(cur.ids, all)) { localSet(k, Object.assign({ ids: all }, r)); renderTeams(); }
     }
     return;
@@ -557,6 +571,7 @@ const UPDATES = [
   { day: "2026-11-13", items: [
     "<b>My Club teams:</b> three searches per series each night, with the strongest team published.",
     "<b>How teams are built:</b> new step-by-step guide for My Club, alongside Sim.",
+    "<b>Missing a card:</b> smarter My Club swaps when you don't have a player.",
     "<b>Head to Head:</b> load the site-built team on either side.",
     "<b>Sim Odds:</b> odds now assume 5 or 6 possessions, like real games."
   ] },
