@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261112a";
+const APP_V = "20261113a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -396,6 +396,20 @@ async function smartSwap(k, d, missing, onP) {
     for (const g of got) if (g && (!best || g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) best = g;
     n = Math.min(list.length, i + W); if (onP) onP(n, list.length);
   }
+  // then climb with the time left: from the best team, the strongest few cards in every slot, again from any better
+  // team, until nothing improves (some better teams are two or three single changes away, e.g. 78 without Meyer)
+  for (let grew = true; best && grew && Date.now() - t0 < LIMIT;) {
+    grew = false; const from = best.tm, next = [];
+    for (let j = 0; j < 11; j++) for (const [, x] of C.options(from, j, 4)) {
+      if (x.id === from[j].id) continue; const tm = from.slice(); tm[j] = x; const key = tm.map(y => y.id).join();
+      if (!seen.has(key)) { seen.add(key); next.push([C.score(tm), tm]); }
+    }
+    next.sort((a, b) => b[0] - a[0]);
+    for (let i = 0; i < next.length && Date.now() - t0 < LIMIT && !grew; i += W) {
+      const got = await Promise.all(next.slice(i, i + W).map(c => judge(c[1]))); n += got.length; if (onP) onP(n, 0);
+      for (const g of got) if (g && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
+    }
+  }
   return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, tested: n, opps: OE.length };
 }
 const SIMSW = new Set();     // Sim versions being searched right now
@@ -483,7 +497,7 @@ async function rebuildWithout(k, ids, afterGot) {
     }
     if (kind === "myclub") {                   // then the smart search, about a minute
       const d = await getJSON(`results/myclub_${key}.json`);
-      const r = await smartSwap(k, d, all, (i, n) => { const el = document.querySelector(`[data-sstat="${CSS.escape(k)}"]`); if (el) el.textContent = `Quick swap shown. Testing stronger versions: ${i} of ${n}…`; });
+      const r = await smartSwap(k, d, all, (i, n) => { const el = document.querySelector(`[data-sstat="${CSS.escape(k)}"]`); if (el) el.textContent = n ? `Quick swap shown. Testing stronger versions: ${i} of ${n}…` : `Quick swap shown. Fine-tuning the best version: ${i} tested…`; });
       const cur = localOf(k); if (r && cur && sameSet(cur.ids, all)) { localSet(k, Object.assign({ ids: all }, r)); renderTeams(); }
     }
     return;
@@ -554,6 +568,13 @@ const mcFunnel = () => funnel("How My Club teams are built", MC_STEPS);
 const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
+  { day: "2026-11-13", items: [
+    "<b>My Club teams:</b> three searches per series each night, with the strongest team published.",
+    "<b>How teams are built:</b> new step-by-step guide for My Club, alongside Sim.",
+    "<b>Missing a card:</b> smarter My Club swaps when you don't have a player.",
+    "<b>Head to Head:</b> load the site-built team on either side.",
+    "<b>Sim Odds:</b> odds now assume 5 or 6 possessions, like real games."
+  ] },
   { day: "2026-11-11", items: [
     "<b>Sim teams:</b> improved solver.",
     "<b>Missing a card:</b> smarter Sim swaps when you don't have a player.",
@@ -962,7 +983,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261112a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261113a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -988,7 +1009,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261112a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261113a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1715,7 +1736,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261112a");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261113a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
