@@ -78,9 +78,25 @@ class Pool:
     def propose(self, team, rng):
         i = rng.randrange(11)
         r = rng.random()
-        if r < 0.3:
+        if r < 0.15:
+            # a card package: 2 or 3 cards sharing a club, nation or league arrive together, so linked cards keep each
+            # other on full chem (one-card changes can't reach such teams: each single swap loses chem on its own)
+            k = rng.choice((2, 2, 3))
+            y = rng.choice(self.top) if rng.random() < 0.5 else rng.choice(team)
+            key = rng.choice(("nationId", "leagueId", "clubId"))
+            grp = self.by[key][y[key]][:30]
+            if len(grp) < k: return None
+            picks = rng.sample(grp, k)
+            if len({c["pid"] for c in picks}) < k: return None
+            slots = rng.sample(range(11), k)
+            keep = [z for j, z in enumerate(team) if j not in slots]
+            if any(c["pid"] == z["pid"] for c in picks for z in keep): return None
+            new = team[:]
+            for j, c in zip(slots, picks): new[j] = c
+            return new if fits(new) else None
+        if r < 0.38:
             c = rng.choice(self.top)
-        elif r < 0.5:                       # a strong card for the replaced card's own position
+        elif r < 0.55:                      # a strong card for the replaced card's own position
             L = self.pos_top.get(rng.choice(sorted(team[i]["P"])))
             if not L: return None
             c = rng.choice(L)

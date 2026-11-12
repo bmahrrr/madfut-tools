@@ -94,6 +94,29 @@ static int win(int ma, int mb, int d, int ti){
     }
     memo[ti][idx] = (uint16_t)((gen<<1) | res); return res;
 }
+
+// Dominance by RESULTS against this opponent (exact, and prunes more than comparing raw stats): A's card j is no
+// better than card i when, against every B card, every duel j can be in (either side leading, any stat) ends no
+// better for A, and so does the end-of-match tiebreak. Exact copies count once, by index.
+static inline int endtb(int ai, int bi){ int t = TA[ai]-TB[bi]; return t > 5 ? 1 : (t < -5 ? -1 : 0); }
+static void doms_res(void){
+    for (int i=0;i<N;i++){ domA[i]=0; domB[i]=0; }
+    for (int i=0;i<N;i++) for (int j=0;j<N;j++){ if (i==j) continue;
+        int le = 1, eq = 1;
+        for (int b=0;b<N && le;b++){
+            for (int s=0;s<3;s++){ int x=duelA(j,b,s,1), y=duelA(i,b,s,1); if (x>y) le=0; if (x!=y) eq=0;
+                                   x=duelA(j,b,s,0); y=duelA(i,b,s,0); if (x>y) le=0; if (x!=y) eq=0; }
+            int x=endtb(j,b), y=endtb(i,b); if (x>y) le=0; if (x!=y) eq=0; }
+        if (le && (!eq || j<i)) domA[i] |= 1<<j;
+        // B side: B's card j is no better than card i when A always does at least as well against j
+        le = 1; eq = 1;
+        for (int a=0;a<N && le;a++){
+            for (int s=0;s<3;s++){ int x=duelA(a,j,s,1), y=duelA(a,i,s,1); if (x<y) le=0; if (x!=y) eq=0;
+                                   x=duelA(a,j,s,0); y=duelA(a,i,s,0); if (x<y) le=0; if (x!=y) eq=0; }
+            int x=endtb(a,j), y=endtb(a,i); if (x<y) le=0; if (x!=y) eq=0; }
+        if (le && (!eq || j<i)) domB[i] |= 1<<j;
+    }
+}
 // a, b: 33 ints (A,C,D per card); ta, tb: 11 tiebreak totals
 void setup(int f, const int*a, const int*b, const int*ta, const int*tb){
     first = f;
@@ -101,7 +124,7 @@ void setup(int f, const int*a, const int*b, const int*ta, const int*tb){
         for (int s=0;s<3;s++){ SA[i][s]=a[3*i+s]; SB[i][s]=b[3*i+s]; }
         TA[i]=ta[i]; TB[i]=tb[i];
     }
-    bump(); orders(SA,TA,ordA,byTA); orders(SB,TB,ordB,byTB); doms(SA,TA,domA); doms(SB,TB,domB);
+    bump(); orders(SA,TA,ordA,byTA); orders(SB,TB,ordB,byTB); doms_res();
 }
 int level(int ma, int mb, int d){
     int l = 0;
