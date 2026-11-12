@@ -1,4 +1,4 @@
-name: Blind test My Club
+name: Blind test My Club (final round)
 
 # Test runs only: builds this week's My Club series without the Reddit, hand-built or site team (sim-rules code) and
 # judges them against a realistic field next to the site team. Results: blindtest/myclub on sim-rules. Never touches the site.
@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: blind-myclub
+  group: blind-myclub-final
   cancel-in-progress: false
 
 jobs:
