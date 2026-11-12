@@ -1,6 +1,6 @@
 // Runs the SBC solver off the main thread. Loads the cards and the HiGHS solver once, then answers solve requests.
 const ROOT = /\/beta\/[^/]*$/.test(self.location.pathname) ? "../" : "";   // the preview shares the main site's data
-importScripts(ROOT + "vendor/highs.js", "sbc-solver.js?v=20261111o");
+importScripts(ROOT + "vendor/highs.js", "sbc-solver.js?v=20261112a");
 let ready = null;
 async function load() {
   const get = async p => { const r = await fetch(ROOT + p + "?t=" + Date.now()); if (!r.ok) throw new Error("Could not load " + p); return r.json(); };
