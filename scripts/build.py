@@ -116,6 +116,82 @@ def patched_candidates(prev, s, owned, per_slot=5, limit=12):
     return [(f"Best Team, Swapped {n + 1}", t) for n, (_, t) in enumerate(out[:limit])]
 
 
+def mc_pick(key, owned, allc, by_id, no_names):
+    """Publish the best of the side-by-side My Club searches. Every search's team (and the published team) is played
+    with the exact solver against one shared field: the Reddit team(s), every test team any search found (counter
+    teams, balanced teams, stress tests), the other searches' teams and fresh counter teams built against each
+    finalist. Same ranking as the builder (owner's shape, Reddit result, worst case, total, stats); the published
+    team stays on a tie."""
+    import glob as _g, random
+    from fatal.myclub import Pool, Unbeat, set_icon_limit, fits, pscore, optimize, _key
+    from fatal.par import pmap
+    s = next(x for x in week()["myclub"] if x["key"] == key)
+    set_icon_limit(s)
+    me, field = Pool(s, owned), Pool(s, allc)
+    mine, fid = {c["id"]: c for c in me.cards}, {c["id"]: c for c in field.cards}
+    raws = []
+    for f in sorted(_g.glob(os.path.join(RES, f"myclub_{key}.*.raw"))):
+        try: raws.append((f.rsplit(".", 2)[1], json.load(open(f))))
+        except Exception as e: print("search not read:", f, e)
+    cands = []
+    for t, r in raws:
+        tm = [mine.get(p["id"]) for p in r["team"]["players"]]
+        if all(tm) and fits(tm) and _key(tm) not in {_key(c[1]) for c in cands}: cands.append((f"search {t}", tm, r))
+    prev = None
+    try:
+        prev = json.load(open(os.path.join(RES, f"myclub_{key}.json")))
+        if prev.get("week") != week().get("week"): prev = None
+    except Exception:
+        prev = None
+    if prev:
+        tm = [mine.get(p["id"]) for p in prev["team"]["players"]]
+        if all(tm) and fits(tm):
+            cands = [c for c in cands if _key(c[1]) != _key(tm)] + [("Previous Best", tm, prev)]
+    if not cands:
+        print("no searches finished: the published team stays"); return
+    print("My Club pick", key, [c[0] for c in cands])
+    refs = [[fid[c["id"]] for c in resolve_team(t, by_id, allc) if c["id"] in fid] for t in s.get("opponents", [])]
+    refs = [r for r in refs if len(r) == 11]
+    F, seen = [], set()
+    def add(tm, force=False):
+        k = _key(tm)
+        if k in seen and not force: return
+        seen.add(k); F.append((k, tm))
+    for r in refs: add(r, True)
+    for _, r in raws:
+        for d in (r.get("opponent_teams") or {}).values():
+            tm = [fid.get(p["id"]) for p in d.get("players", [])]
+            if len(tm) == 11 and all(tm): add(tm)
+    for _, tm, _ in cands: add([fid[c["id"]] for c in tm])
+    # fresh counter teams against each finalist (from the Reddit team, the other finalists and the team itself)
+    starts = refs + [[fid[c["id"]] for c in tm] for _, tm, _ in cands]
+    jobs = [(i, k) for i in range(len(cands)) for k in range(2)]
+    def counter(j):
+        i, k = jobs[j]; rng = random.Random(int(time.time() // 86400) * 31 + j)
+        return optimize(field, list(rng.choice(starts)), [me.eff(cands[i][1])], [1], 150, rng, None, f"pick{j}")[1]
+    for tm in pmap(counter, len(jobs)): add(tm)
+    ub = Unbeat(field, s); ub.n_ref = len(refs)
+    Es = [field.eff(tm) for _, tm in F]
+    def score(i):
+        k0, E = _key(cands[i][1]), me.eff(cands[i][1])
+        per = [pscore(E, O) for j, ((k, _), O) in enumerate(zip(F, Es)) if j < len(refs) or k != k0]
+        return ub.full_key(E, per)
+    keys = pmap(score, len(cands))
+    print("field of", len(F), "teams")
+    best = None
+    for (lab, tm, r), k in zip(cands, keys):
+        print(f"  {lab}: {k[:5]}")
+        if best is None or k > best[0] or (lab == "Previous Best" and k[:5] >= best[0][:5]): best = (k, lab, r)
+    k, lab, out = best
+    print("picked:", lab)
+    for f in _g.glob(os.path.join(RES, f"myclub_{key}.*.raw")): os.remove(f)
+    if lab == "Previous Best": return
+    if prev and sorted(p["id"] for p in prev["team"]["players"]) == sorted(p["id"] for p in out["team"]["players"]):
+        out["team"].update({x: prev["team"][x] for x in ("formation", "players", "chem") if x in prev["team"]})
+    out["not_owned"] = no_names
+    save(f"myclub_{key}.json", out)
+
+
 def main():
     global RES          # a personal rebuild writes to docs/results/mine
     mode = sys.argv[1]
@@ -344,12 +420,18 @@ def main():
             r["team"] = describe([by_id[i] for i in r.pop("team_ids")], s)
         r.update({"mode": "objective", "objective": obj, "series": {k: v for k, v in s.items() if k != "opponents"}, "base_ids": base_ids})
         save(f"objective_{oid}_{key}.json", r)
+    elif mode == "mcpick":
+        mc_pick(sys.argv[2], owned, allc, by_id, no_names)
     elif mode == "myclub":
         from fatal.myclub import build_myclub
         key = sys.argv[2]
         base, _, vid = key.partition("--")
         s = next(x for x in week()["myclub"] if x["key"] == base)
         minutes = float(sys.argv[3]) if len(sys.argv) > 3 else s.get("minutes", 30)
+        # three independent searches per series run side by side on separate machines ("myclub KEY MIN a|b|c", raw
+        # results, each with its own random starts), then "mcpick KEY" publishes the best of them. No tag: one search,
+        # published directly (personal rebuilds and the No LTMs or Evos versions).
+        tag = sys.argv[4] if len(sys.argv) > 4 else None
         variant = None
         if vid:                             # a public "without these cards" version of the series
             variant = variant_of(base, vid)
@@ -394,7 +476,8 @@ def main():
         signal.signal(signal.SIGALRM, _late)
         signal.alarm(int(minutes * 60 * 1.25 + 900 + 2700))
         try:
-            team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind, seed=int(time.time() // 86400),
+            day = int(time.time() // 86400)
+            team = build_myclub(s, owned, allc, opponents=opps, minutes=minutes, mode=kind, seed=day + 100000 * "abc".find(tag or "a"),
                                 verify=3 if kind == "robust" else 0, candidates=cands)
         except TimeoutError:
             print("time limit reached: the current team stays")
@@ -409,6 +492,9 @@ def main():
         out = {"mode": "myclub", "series": {k: v for k, v in s.items() if k != "opponents"},
                "opponents": [[c["name"] for c in o] for o in opps], "team": team, "not_owned": no_names}
         if variant: out["variant"] = {"id": vid, "label": variant["label"], "exclude": variant["exclude"]}
+        if tag:
+            json.dump(out, open(os.path.join(RES, f"myclub_{key}.{tag}.raw"), "w"), ensure_ascii=False)
+            print("search", tag, "saved"); return
         save(f"myclub_{key}.json", out)
 
 
