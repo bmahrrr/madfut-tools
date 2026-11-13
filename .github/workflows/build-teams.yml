@@ -7,7 +7,7 @@ on:
       - "config/week.json"
       - "config/extras.json"
   schedule:
-    - cron: "0 18 * * *"     # every night at 01:00 Bangkok: keep improving the My Club and Sim teams
+    - cron: "23 16 * * *"    # every night at 02:23 Brisbane (off the hour: GitHub delays on-the-hour runs by hours)
   workflow_dispatch:
     inputs:
       only:
