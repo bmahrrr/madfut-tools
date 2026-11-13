@@ -2,7 +2,7 @@ name: Update card data
 
 on:
   schedule:
-    - cron: "17 3 * * *"     # every day at 03:17 UTC
+    - cron: "37 17 * * *"    # every day at 03:37 Brisbane, just after the game's 3am reset (new cards by morning)
   workflow_dispatch:
   push:
     branches: [main]
