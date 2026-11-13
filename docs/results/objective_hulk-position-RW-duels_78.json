@@ -3,7 +3,7 @@
  "obj_ids": [
   "id200260"
  ],
- "strength": 100.4,
+ "strength": 99.5,
  "group_cards": 7,
  "reddit": [
   {
@@ -12,54 +12,77 @@
   }
  ],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 30,
+  "formation": "4-1-4-1",
+  "chem": 25,
   "players": [
    {
     "slot": "GK",
-    "id": "id242879",
-    "name": "Vandevoordt",
+    "id": "id206585",
+    "name": "Kepa",
     "rating": 78,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 7,
-    "leagueId": 19,
-    "clubId": 112172,
+    "nationId": 45,
+    "leagueId": 13,
+    "clubId": 1,
     "card": [
-     39,
-     43,
+     37,
+     41,
      79
     ],
     "chem": 3,
     "eff": [
-     41,
-     45,
+     39,
+     43,
      81
     ],
-    "tiebreak": 167
+    "tiebreak": 163
    },
    {
     "slot": "LB",
-    "id": "id223697",
-    "name": "Gosens",
+    "id": "id251479",
+    "name": "De Cuyper",
     "rating": 78,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 34,
+    "nationId": 7,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
-     74,
-     72,
+     75,
+     77,
      77
     ],
     "chem": 3,
     "eff": [
-     76,
-     74,
+     77,
+     79,
      79
     ],
-    "tiebreak": 229
+    "tiebreak": 235
+   },
+   {
+    "slot": "CB",
+    "id": "id190815",
+    "name": "Blind",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     70,
+     78,
+     75
+    ],
+    "chem": 2,
+    "eff": [
+     71,
+     79,
+     76
+    ],
+    "tiebreak": 226
    },
    {
     "slot": "CB",
@@ -76,85 +99,85 @@
      71,
      78
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
+     71,
      72,
-     73,
-     80
+     79
     ],
-    "tiebreak": 225
-   },
-   {
-    "slot": "CB",
-    "id": "id240679",
-    "name": "Koopmeiners",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 34,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     75,
-     79,
-     73
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     81,
-     75
-    ],
-    "tiebreak": 233
+    "tiebreak": 222
    },
    {
     "slot": "RB",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
+    "id": "id268940",
+    "name": "Crnogorčević",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
+    "position": "RW",
+    "nationId": 47,
+    "leagueId": 2218,
+    "clubId": 76,
+    "card": [
+     77,
+     76,
+     74
+    ],
+    "chem": 0,
+    "eff": [
+     76,
+     74,
+     71
+    ],
+    "tiebreak": 218
+   },
+   {
+    "slot": "CDM",
+    "id": "id238216",
+    "name": "Gallagher",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 18,
     "card": [
      75,
-     80,
-     75
+     76,
+     77
     ],
     "chem": 3,
     "eff": [
      77,
-     82,
-     77
+     78,
+     79
     ],
-    "tiebreak": 236
+    "tiebreak": 234
    },
    {
-    "slot": "CDM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
+    "slot": "LM",
+    "id": "id251421",
+    "name": "Johnson",
     "rating": 78,
     "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
+    "position": "RW",
+    "nationId": 50,
+    "leagueId": 13,
+    "clubId": 7,
     "card": [
-     76,
-     79,
-     75
+     77,
+     73,
+     45
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
      78,
-     81,
-     77
+     74,
+     46
     ],
-    "tiebreak": 236
+    "tiebreak": 198
    },
    {
-    "slot": "CDM",
+    "slot": "CM",
     "id": "id270964",
     "name": "Bellingham",
     "rating": 77,
@@ -177,7 +200,7 @@
     "tiebreak": 228
    },
    {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id200260",
     "name": "Berghuis",
     "rating": 76,
@@ -191,82 +214,59 @@
      79,
      44
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
-     75,
-     79,
-     44
+     76,
+     80,
+     45
     ],
-    "tiebreak": 198
+    "tiebreak": 201
    },
    {
-    "slot": "CAM",
-    "id": "id276602",
-    "name": "Ouédraogo",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 21,
+    "slot": "RM",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "RB",
+    "nationId": 45,
     "leagueId": 19,
-    "clubId": 112172,
+    "clubId": 32,
     "card": [
-     78,
-     78,
-     60
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     80,
-     62
-    ],
-    "tiebreak": 222
-   },
-   {
-    "slot": "CAM",
-    "id": "id228251",
-    "name": "Pellegrini",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 52,
-    "card": [
+     76,
      77,
-     78,
-     70
+     72
     ],
     "chem": 3,
     "eff": [
+     78,
      79,
-     80,
-     72
+     74
     ],
     "tiebreak": 231
    },
    {
     "slot": "ST",
-    "id": "id253002",
-    "name": "Raspadori",
-    "rating": 78,
+    "id": "id245637",
+    "name": "Rutter",
+    "rating": 77,
     "color": "rare_gold",
-    "position": "ST",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 115845,
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
-     79,
      76,
-     34
+     76,
+     61
     ],
     "chem": 3,
     "eff": [
-     81,
      78,
-     36
+     78,
+     63
     ],
-    "tiebreak": 195
+    "tiebreak": 219
    }
   ]
  },
@@ -301,18 +301,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id241050",
-  "ltm_comuzzo78",
+  "id206585",
+  "id251479",
+  "id234205",
   "id212242",
-  "id240679",
+  "id208618",
   "id270964",
-  "id71178",
+  "ltm_ngumoha78",
   "id192318",
-  "id236499",
-  "id259075",
-  "id253002",
-  "id275328"
+  "id71178",
+  "id50607696",
+  "id246321"
  ],
- "built": "2026-11-09 01:29 UTC",
- "week": "2026-11-09"
+ "built": "2026-11-13 05:08 UTC",
+ "week": "2026-11-09",
+ "changed": "2026-11-13 05:08 UTC"
 }

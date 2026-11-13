@@ -1,13 +1,12 @@
 {
- "g": 5,
+ "g": 4,
  "obj_ids": [
-  "id243311",
-  "id241736",
-  "id276278",
   "id256632",
+  "id276278",
+  "id241736",
   "id259565"
  ],
- "strength": 99.8,
+ "strength": 100.8,
  "group_cards": 6,
  "reddit": [
   {
@@ -16,77 +15,54 @@
   }
  ],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 32,
+  "formation": "4-1-4-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id243311",
-    "name": "Josep Martínez",
-    "rating": 76,
+    "id": "id270821",
+    "name": "Penders",
+    "rating": 78,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 45,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 7,
+    "leagueId": 13,
+    "clubId": 5,
     "card": [
-     26,
-     23,
-     77
+     33,
+     41,
+     79
     ],
     "chem": 3,
     "eff": [
-     28,
-     25,
-     79
+     35,
+     43,
+     81
     ],
-    "tiebreak": 132
+    "tiebreak": 159
    },
    {
     "slot": "LB",
-    "id": "id265072",
-    "name": "Müller",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 21,
-    "leagueId": 2221,
-    "clubId": 111140,
-    "card": [
-     74,
-     77,
-     76
-    ],
-    "chem": 2,
-    "eff": [
-     75,
-     78,
-     77
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CB",
-    "id": "id212242",
-    "name": "Andrich",
+    "id": "id251479",
+    "name": "De Cuyper",
     "rating": 78,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 32,
+    "position": "LB",
+    "nationId": 7,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
-     70,
-     71,
-     78
+     75,
+     77,
+     77
     ],
     "chem": 3,
     "eff": [
-     72,
-     73,
-     80
+     77,
+     79,
+     79
     ],
-    "tiebreak": 225
+    "tiebreak": 235
    },
    {
     "slot": "CB",
@@ -112,47 +88,47 @@
     "tiebreak": 217
    },
    {
+    "slot": "CB",
+    "id": "id225863",
+    "name": "Boscagli",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 13,
+    "clubId": 1808,
+    "card": [
+     68,
+     74,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     76,
+     79
+    ],
+    "tiebreak": 225
+   },
+   {
     "slot": "RB",
-    "id": "id256632",
-    "name": "Luis Henrique",
+    "id": "id259075",
+    "name": "Yan Couto",
     "rating": 77,
     "color": "rare_gold",
     "position": "RB",
     "nationId": 54,
     "leagueId": 31,
-    "clubId": 131682,
+    "clubId": 1745,
     "card": [
-     77,
-     73,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     79,
      75,
-     77
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CDM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     76,
-     79,
+     80,
      75
     ],
     "chem": 3,
     "eff": [
-     78,
-     81,
+     77,
+     82,
      77
     ],
     "tiebreak": 236
@@ -181,73 +157,96 @@
     "tiebreak": 225
    },
    {
-    "slot": "CAM",
-    "id": "id276602",
-    "name": "Ouédraogo",
-    "rating": 76,
+    "slot": "LM",
+    "id": "id246923",
+    "name": "Ramsey",
+    "rating": 78,
     "color": "rare_gold",
     "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 112172,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 13,
     "card": [
      78,
-     78,
-     60
+     77,
+     68
     ],
     "chem": 3,
     "eff": [
      80,
-     80,
-     62
+     79,
+     70
     ],
-    "tiebreak": 222
+    "tiebreak": 229
    },
    {
-    "slot": "CAM",
-    "id": "id240679",
-    "name": "Koopmeiners",
+    "slot": "CM",
+    "id": "id238216",
+    "name": "Gallagher",
     "rating": 78,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 34,
-    "leagueId": 31,
-    "clubId": 45,
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 18,
     "card": [
      75,
-     79,
-     73
+     76,
+     77
     ],
     "chem": 3,
     "eff": [
      77,
-     81,
-     75
+     78,
+     79
     ],
-    "tiebreak": 233
+    "tiebreak": 234
    },
    {
-    "slot": "CAM",
-    "id": "id192318",
-    "name": "Götze",
-    "rating": 77,
+    "slot": "CM",
+    "id": "id236499",
+    "name": "Douglas Luiz",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 1824,
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
      76,
-     80,
-     54
+     79,
+     75
     ],
     "chem": 3,
     "eff": [
      78,
-     82,
-     56
+     81,
+     77
     ],
-    "tiebreak": 216
+    "tiebreak": 236
+   },
+   {
+    "slot": "RM",
+    "id": "id256632",
+    "name": "Luis Henrique",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     77,
+     73,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     75,
+     77
+    ],
+    "tiebreak": 231
    },
    {
     "slot": "ST",
@@ -305,18 +304,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id241050",
-  "ltm_comuzzo78",
+  "id206585",
+  "id251479",
+  "id234205",
   "id212242",
-  "id240679",
+  "id208618",
   "id270964",
-  "id71178",
+  "ltm_ngumoha78",
   "id192318",
-  "id236499",
-  "id259075",
-  "id253002",
-  "id275328"
+  "id71178",
+  "id50607696",
+  "id246321"
  ],
- "built": "2026-11-09 01:29 UTC",
- "week": "2026-11-09"
+ "built": "2026-11-13 05:08 UTC",
+ "week": "2026-11-09",
+ "changed": "2026-11-13 05:08 UTC"
 }
