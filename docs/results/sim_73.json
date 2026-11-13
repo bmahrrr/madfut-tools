@@ -285,11 +285,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5079,
+    "ctrl_win": 0.5152,
     "control": 77.4,
     "attack": 77.19,
     "defence": 74.25,
-    "net": 0.1467,
+    "net": 0.1694,
     "vs_reddit": 0.0,
     "control_cards": [
      78,
@@ -313,8 +313,8 @@
      73,
      70
     ],
-    "p_att": 0.8422,
-    "p_def": 0.1571,
+    "p_att": 0.8472,
+    "p_def": 0.1604,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -325,8 +325,8 @@
     "def_total": 177.0,
     "swaps_checked": 40040,
     "round_robin": {
-     "wins": 2.0,
-     "margin": 1.2115
+     "wins": 1.0,
+     "margin": 1.1124
     }
    }
   },
@@ -379,28 +379,6 @@
      "slot": "CB"
     },
     {
-     "id": "id267681",
-     "name": "Valentini",
-     "rating": 73,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 53,
-     "clubId": 463,
-     "card": [
-      54,
-      60,
-      74
-     ],
-     "chem": 3,
-     "eff": [
-      57,
-      63,
-      77
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id242267",
      "name": "Campuzano",
      "rating": 73,
@@ -419,6 +397,28 @@
       61,
       68,
       73
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id267681",
+     "name": "Valentini",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 53,
+     "clubId": 463,
+     "card": [
+      54,
+      60,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      63,
+      77
      ],
      "slot": "CB"
     },
@@ -533,28 +533,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id241026",
-     "name": "Chancalay",
-     "rating": 73,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 52,
-     "leagueId": 39,
-     "clubId": 111138,
-     "card": [
-      74,
-      71,
-      43
-     ],
-     "chem": 3,
-     "eff": [
-      79,
-      75,
-      46
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id227528",
      "name": "Romero",
      "rating": 73,
@@ -575,15 +553,37 @@
       60
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id241026",
+     "name": "Chancalay",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 52,
+     "leagueId": 39,
+     "clubId": 111138,
+     "card": [
+      74,
+      71,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      75,
+      46
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5079,
+    "ctrl_win": 0.5152,
     "control": 77.4,
     "attack": 76.88,
     "defence": 74.25,
-    "net": 0.1467,
+    "net": 0.1694,
     "vs_reddit": 0.0,
     "control_cards": [
      78,
@@ -607,8 +607,8 @@
      73,
      70
     ],
-    "p_att": 0.8422,
-    "p_def": 0.1571,
+    "p_att": 0.8472,
+    "p_def": 0.1604,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -646,45 +646,23 @@
      "slot": "GK"
     },
     {
-     "id": "id242267",
-     "name": "Campuzano",
-     "rating": 73,
-     "color": "rare_silver",
-     "position": "CDM",
-     "nationId": 56,
-     "leagueId": 2209,
-     "clubId": 101100,
-     "card": [
-      59,
-      66,
-      71
-     ],
-     "chem": 3,
-     "eff": [
-      61,
-      68,
-      73
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id267681",
-     "name": "Valentini",
+     "id": "id215054",
+     "name": "Cuesta",
      "rating": 73,
      "color": "rare_silver",
      "position": "CB",
      "nationId": 52,
-     "leagueId": 53,
-     "clubId": 463,
+     "leagueId": 353,
+     "clubId": 112689,
      "card": [
-      54,
-      60,
+      53,
+      51,
       74
      ],
      "chem": 3,
      "eff": [
-      57,
-      63,
+      56,
+      54,
       77
      ],
      "slot": "CB"
@@ -708,6 +686,28 @@
       56,
       56,
       71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id242267",
+     "name": "Campuzano",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 2209,
+     "clubId": 101100,
+     "card": [
+      59,
+      66,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      68,
+      73
      ],
      "slot": "CB"
     },
@@ -822,6 +822,28 @@
      "slot": "CAM"
     },
     {
+     "id": "id227528",
+     "name": "Romero",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 1014,
+     "clubId": 101108,
+     "card": [
+      74,
+      67,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      70,
+      60
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id241026",
      "name": "Chancalay",
      "rating": 73,
@@ -842,37 +864,15 @@
       46
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id50608176",
-     "name": "Echeverri",
-     "rating": 73,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 52,
-     "leagueId": 308,
-     "clubId": 234,
-     "card": [
-      75,
-      73,
-      40
-     ],
-     "chem": 3,
-     "eff": [
-      78,
-      76,
-      43
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5079,
+    "ctrl_win": 0.5152,
     "control": 77.4,
-    "attack": 77.19,
+    "attack": 76.88,
     "defence": 74.5,
-    "net": 0.1409,
+    "net": 0.1594,
     "vs_reddit": 0.0,
     "control_cards": [
      78,
@@ -883,7 +883,7 @@
     ],
     "attack_cards": [
      79,
-     78,
+     77,
      77,
      76,
      76,
@@ -896,21 +896,21 @@
      73,
      71
     ],
-    "p_att": 0.8422,
-    "p_def": 0.1429,
+    "p_att": 0.8472,
+    "p_def": 0.1354,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 202.6,
-    "att_total": 200.39,
-    "def_total": 186.0
+    "att_total": 203.47,
+    "def_total": 183.5
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-13 01:53 UTC",
+ "built": "2026-11-13 23:25 UTC",
  "week": "2026-11-09",
  "changed": "2026-11-13 01:53 UTC"
 }
