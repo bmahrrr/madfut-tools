@@ -285,11 +285,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5242,
+    "ctrl_win": 0.5314,
     "control": 72.4,
     "attack": 70.71,
     "defence": 68.0,
-    "net": 0.1531,
+    "net": 0.1499,
     "vs_reddit": 0.0571,
     "control_cards": [
      73,
@@ -313,8 +313,8 @@
      69,
      62
     ],
-    "p_att": 0.8593,
-    "p_def": 0.2026,
+    "p_att": 0.816,
+    "p_def": 0.1972,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -324,8 +324,8 @@
     "att_total": 184.38,
     "def_total": 163.75,
     "round_robin": {
-     "wins": 3.0,
-     "margin": 2.3294
+     "wins": 4.0,
+     "margin": 1.9549
     }
    }
   },
@@ -578,11 +578,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5242,
+    "ctrl_win": 0.5314,
     "control": 72.4,
     "attack": 70.94,
     "defence": 66.6,
-    "net": 0.1525,
+    "net": 0.1546,
     "vs_reddit": 0.0441,
     "control_cards": [
      73,
@@ -607,8 +607,8 @@
      62,
      61
     ],
-    "p_att": 0.8882,
-    "p_def": 0.1621,
+    "p_att": 0.8514,
+    "p_def": 0.1577,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -625,48 +625,26 @@
    "chem": 32,
    "players": [
     {
-     "id": "id279001",
-     "name": "Çevikkan",
-     "rating": 62,
+     "id": "id50569815",
+     "name": "Boevink",
+     "rating": 64,
      "color": "rare_bronze",
      "position": "GK",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 436,
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
      "card": [
-      29,
-      25,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      31,
-      27,
+      23,
+      20,
       65
      ],
-     "slot": "GK"
-    },
-    {
-     "id": "id269411",
-     "name": "Marian Huja",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 330,
-     "clubId": 114385,
-     "card": [
-      48,
-      48,
-      67
-     ],
      "chem": 3,
      "eff": [
-      50,
-      52,
-      70
+      25,
+      22,
+      67
      ],
-     "slot": "CB"
+     "slot": "GK"
     },
     {
      "id": "id252753",
@@ -686,6 +664,28 @@
      "eff": [
       50,
       51,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id269411",
+     "name": "Marian Huja",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      48,
+      48,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      50,
+      52,
       70
      ],
      "slot": "CB"
@@ -757,28 +757,6 @@
      "slot": "LM"
     },
     {
-     "id": "id275411",
-     "name": "Land",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 34,
-     "leagueId": 10,
-     "clubId": 1915,
-     "card": [
-      66,
-      71,
-      51
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      73,
-      53
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id244960",
      "name": "Bruno Costa",
      "rating": 67,
@@ -797,6 +775,28 @@
       71,
       72,
       61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id275411",
+     "name": "Land",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      66,
+      71,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      73,
+      53
      ],
      "slot": "CM"
     },
@@ -823,24 +823,24 @@
      "slot": "RM"
     },
     {
-     "id": "id271932",
-     "name": "van Bergen",
-     "rating": 68,
+     "id": "id263389",
+     "name": "Mimaroğlu",
+     "rating": 67,
      "color": "rare_silver",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 10,
-     "clubId": 1915,
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 436,
      "card": [
       68,
-      61,
-      49
+      64,
+      41
      ],
      "chem": 3,
      "eff": [
       70,
-      63,
-      51
+      66,
+      43
      ],
      "slot": "ST"
     },
@@ -869,11 +869,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5242,
+    "ctrl_win": 0.5314,
     "control": 72.4,
     "attack": 70.94,
-    "defence": 66.2,
-    "net": 0.1265,
+    "defence": 66.6,
+    "net": 0.1306,
     "vs_reddit": 0.0096,
     "control_cards": [
      73,
@@ -895,24 +895,24 @@
      70,
      70,
      69,
-     65,
+     67,
      57
     ],
-    "p_att": 0.8882,
-    "p_def": 0.1012,
+    "p_att": 0.8514,
+    "p_def": 0.0994,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 194.0,
-    "att_total": 185.71,
-    "def_total": 171.8
+    "att_total": 184.08,
+    "def_total": 170.0
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-13 01:53 UTC",
+ "built": "2026-11-13 23:25 UTC",
  "week": "2026-11-09",
  "changed": "2026-11-13 01:53 UTC"
 }
