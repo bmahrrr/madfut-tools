@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   plan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     outputs:
       files: ${{ steps.list.outputs.files }}
     steps:
@@ -37,7 +37,7 @@ jobs:
   build:
     needs: plan
     if: ${{ needs.plan.outputs.files != '[]' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     timeout-minutes: 355
     strategy:
       fail-fast: false
@@ -65,7 +65,7 @@ jobs:
   publish:
     needs: build
     if: ${{ always() && needs.build.result != 'skipped' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     steps:
       - uses: actions/checkout@v4
         with:

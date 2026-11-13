@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   plan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     outputs:
       file: ${{ steps.f.outputs.file }}
       week: ${{ steps.f.outputs.week }}
@@ -45,7 +45,7 @@ jobs:
   sim:
     needs: plan
     if: ${{ needs.plan.outputs.sim != '[]' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -69,7 +69,7 @@ jobs:
   myclub:
     needs: plan
     if: ${{ needs.plan.outputs.myclub != '[]' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     timeout-minutes: 120
     strategy:
       fail-fast: false
@@ -95,7 +95,7 @@ jobs:
   publish:
     needs: [plan, sim, myclub]
     if: ${{ always() && needs.plan.result == 'success' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     steps:
       - uses: actions/checkout@v4
         with:

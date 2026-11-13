@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
