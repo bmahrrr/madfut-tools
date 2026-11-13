@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   plan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     outputs:
       keys: ${{ steps.p.outputs.keys }}
       modes: ${{ steps.p.outputs.modes }}
@@ -41,7 +41,7 @@ jobs:
 
   run:
     needs: plan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     timeout-minutes: 120
     strategy:
       fail-fast: false

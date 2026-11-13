@@ -26,7 +26,7 @@ concurrency:                 # never cancel a running build (a later save or the
 
 jobs:
   plan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     outputs:
       sim: ${{ steps.list.outputs.sim }}
       myclub: ${{ steps.list.outputs.myclub }}
@@ -55,7 +55,7 @@ jobs:
   sim:
     needs: plan
     if: ${{ needs.plan.outputs.sim != '[]' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     strategy:
       fail-fast: false
       matrix:
@@ -78,7 +78,7 @@ jobs:
   sim_pick:
     needs: [plan, sim]
     if: ${{ !cancelled() && needs.plan.outputs.sim != '[]' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     strategy:
       fail-fast: false
       matrix:
@@ -109,7 +109,7 @@ jobs:
   myclub:
     needs: plan
     if: ${{ needs.plan.outputs.myclub != '[]' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     timeout-minutes: 355
     strategy:
       fail-fast: false
@@ -135,7 +135,7 @@ jobs:
   myclub_pick:
     needs: [plan, myclub]
     if: ${{ !cancelled() && needs.plan.outputs.myclub != '[]' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -168,7 +168,7 @@ jobs:
   variants:
     needs: [plan, myclub_pick, publish]
     if: ${{ !cancelled() && needs.plan.outputs.variants != '[]' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     timeout-minutes: 355
     strategy:
       fail-fast: false
@@ -198,7 +198,7 @@ jobs:
   publish:
     needs: [sim_pick, myclub_pick]
     if: ${{ always() }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     steps:
       - uses: actions/checkout@v4
         with:
@@ -224,7 +224,7 @@ jobs:
   publish_variants:
     needs: [publish, variants]
     if: ${{ always() && needs.variants.result != 'skipped' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     steps:
       - uses: actions/checkout@v4
         with:
