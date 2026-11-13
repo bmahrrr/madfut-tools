@@ -7,7 +7,7 @@ on:
       - "config/week.json"
       - "config/extras.json"
   schedule:
-    - cron: "23 16 * * *"    # every night at 02:23 Brisbane (off the hour: GitHub delays on-the-hour runs by hours)
+    - cron: "33 17 * * *"    # every night at 03:33 Brisbane, right after the card data update (off the hour: GitHub delays on-the-hour runs)
   workflow_dispatch:
     inputs:
       only:
