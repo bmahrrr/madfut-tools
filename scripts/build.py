@@ -62,7 +62,7 @@ def not_owned():
 
 def team_sig(d):
     t = d.get("team") or (d.get("teams") or [None])[0]
-    return (t.get("formation"), [p["id"] for p in t["players"]]) if t and t.get("players") else None
+    return (t.get("formation"), sorted(p["id"] for p in t["players"])) if t and t.get("players") else None   # same cards = same team
 
 
 def save(name, data):
