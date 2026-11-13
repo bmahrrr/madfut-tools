@@ -239,28 +239,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id120274",
-     "name": "Di Natale",
-     "rating": 88,
-     "color": "hero",
-     "position": "ST",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 114605,
-     "card": [
-      89,
-      85,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      87,
-      50
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id262112",
      "name": "van Persie",
      "rating": 88,
@@ -281,15 +259,37 @@
       51
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id120274",
+     "name": "Di Natale",
+     "rating": 88,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 114605,
+     "card": [
+      89,
+      85,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      87,
+      50
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4544,
+    "ctrl_win": 0.4457,
     "control": 90.6,
     "attack": 90.52,
     "defence": 91.25,
-    "net": 0.0771,
+    "net": 0.0712,
     "vs_reddit": 0.0,
     "control_cards": [
      91,
@@ -312,8 +312,8 @@
      91,
      91
     ],
-    "p_att": 0.5777,
-    "p_def": 0.4672,
+    "p_att": 0.5713,
+    "p_def": 0.4705,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -322,10 +322,10 @@
     "ctrl_total": 250.4,
     "att_total": 234.2,
     "def_total": 211.5,
-    "swaps_checked": 49763,
+    "swaps_checked": 49762,
     "round_robin": {
      "wins": 1.0,
-     "margin": 0.5609
+     "margin": 0.5582
     }
    }
   },
@@ -444,28 +444,6 @@
      "slot": "LM"
     },
     {
-     "id": "id50592947",
-     "name": "Scott",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1943,
-     "card": [
-      85,
-      88,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      90,
-      83
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "evo_Groß_88",
      "name": "Groß",
      "rating": 88,
@@ -484,6 +462,28 @@
       89,
       91,
       84
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      90,
+      83
      ],
      "slot": "CM"
     },
@@ -578,11 +578,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4544,
+    "ctrl_win": 0.4457,
     "control": 90.6,
     "attack": 90.52,
     "defence": 91.25,
-    "net": 0.0771,
+    "net": 0.0712,
     "vs_reddit": 0.0,
     "control_cards": [
      91,
@@ -605,8 +605,8 @@
      91,
      91
     ],
-    "p_att": 0.5777,
-    "p_def": 0.4672,
+    "p_att": 0.5713,
+    "p_def": 0.4705,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -644,28 +644,6 @@
      "slot": "GK"
     },
     {
-     "id": "id140601",
-     "name": "Vidić",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 51,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      61,
-      62,
-      89
-     ],
-     "chem": 3,
-     "eff": [
-      63,
-      64,
-      91
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "ltm_comuzzo88",
      "name": "Comuzzo",
      "rating": 88,
@@ -710,6 +688,28 @@
      "slot": "CB"
     },
     {
+     "id": "id140601",
+     "name": "Vidić",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 51,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      61,
+      62,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      64,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "evo_Oxlade-Chamberlain_87",
      "name": "Oxlade-Chamberlain",
      "rating": 87,
@@ -732,28 +732,6 @@
      "slot": "LM"
     },
     {
-     "id": "id50592947",
-     "name": "Scott",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1943,
-     "card": [
-      85,
-      88,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      90,
-      83
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "evo_Groß_88",
      "name": "Groß",
      "rating": 88,
@@ -772,6 +750,28 @@
       89,
       91,
       84
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      90,
+      83
      ],
      "slot": "CM"
     },
@@ -820,28 +820,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id120274",
-     "name": "Di Natale",
-     "rating": 88,
-     "color": "hero",
-     "position": "ST",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 114605,
-     "card": [
-      89,
-      85,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      87,
-      50
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id82092",
      "name": "Kempes",
      "rating": 88,
@@ -862,15 +840,37 @@
       55
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id120274",
+     "name": "Di Natale",
+     "rating": 88,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 114605,
+     "card": [
+      89,
+      85,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      87,
+      50
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4544,
+    "ctrl_win": 0.4457,
     "control": 90.6,
     "attack": 90.52,
     "defence": 91.25,
-    "net": 0.0771,
+    "net": 0.0712,
     "vs_reddit": 0.0,
     "control_cards": [
      91,
@@ -893,8 +893,8 @@
      91,
      91
     ],
-    "p_att": 0.5777,
-    "p_def": 0.4672,
+    "p_att": 0.5713,
+    "p_def": 0.4705,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -907,7 +907,7 @@
   }
  ],
  "not_owned": [],
- "built": "2026-11-13 01:53 UTC",
+ "built": "2026-11-13 23:25 UTC",
  "week": "2026-11-09",
  "changed": "2026-11-13 01:53 UTC"
 }
