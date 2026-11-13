@@ -6,8 +6,10 @@ on:
     paths:
       - "config/week.json"
       - "config/extras.json"
-  schedule:
-    - cron: "33 17 * * *"    # every night at 03:33 Brisbane, right after the card data update (off the hour: GitHub delays on-the-hour runs)
+  workflow_run:              # the nightly build: starts as soon as the nightly card data update (03:17 Brisbane) finishes,
+    workflows: ["Update card data"]     # so it always has the newest cards
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
     inputs:
       only:
@@ -26,6 +28,8 @@ concurrency:                 # never cancel a running build (a later save or the
 
 jobs:
   plan:
+    # after a card data update, only the scheduled (nightly) one starts a build, not a hand-started or config-change one
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.event == 'schedule' }}
     runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     outputs:
       sim: ${{ steps.list.outputs.sim }}
@@ -38,7 +42,7 @@ jobs:
           fetch-depth: 0
       - id: list
         run: |
-          ONLY="${{ github.event.inputs.only || (github.event_name == 'schedule' && 'all') || 'all' }}"
+          ONLY="${{ github.event.inputs.only || (github.event_name == 'workflow_run' && 'all') || 'all' }}"
           # a save in Season Setup: a new season builds everything; later edits (e.g. a Reddit team added) only rebuild
           # the series that changed. A change to the cards (extras.json) rebuilds everything.
           if [ "${{ github.event_name }}" = "push" ] && ! git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep -q "config/extras.json"; then
@@ -126,7 +130,7 @@ jobs:
       - run: pip install -r requirements.txt
       # every build is a deep search (public repo: Actions minutes are free): 165 minutes per series for a new season or a
       # Reddit team, 150 for the nightly run, or the minutes typed in when started by hand
-      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'schedule' && '150' || inputs.minutes || '165' }} ${{ matrix.search }}
+      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'workflow_run' && '150' || inputs.minutes || '165' }} ${{ matrix.search }}
       - uses: actions/upload-artifact@v4
         with:
           name: mcraw_${{ matrix.key }}_${{ matrix.search }}
@@ -184,7 +188,7 @@ jobs:
       - run: pip install -r requirements.txt
       # every build is a deep search (public repo: Actions minutes are free): 165 minutes per series for a new season or a
       # Reddit team, 150 for the nightly run, or the minutes typed in when started by hand
-      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'schedule' && '150' || inputs.minutes || '165' }}
+      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'workflow_run' && '150' || inputs.minutes || '165' }}
       - name: Game plan
         run: node scripts/plan.js "docs/results/myclub_${{ matrix.key }}.json" || echo "game plan failed; the team is still saved"
       - uses: actions/upload-artifact@v4

@@ -2,7 +2,7 @@ name: Update card data
 
 on:
   schedule:
-    - cron: "17 17 * * *"    # every day at 03:17 Brisbane: after the game's 3am reset, just before the nightly build (03:33)
+    - cron: "17 17 * * *"    # every day at 03:17 Brisbane: after the game's 3am reset, then the nightly build starts as soon as this finishes
   workflow_dispatch:
   push:
     branches: [main]
