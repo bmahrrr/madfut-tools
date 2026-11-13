@@ -85,28 +85,6 @@
      "slot": "CB"
     },
     {
-     "id": "id223229",
-     "name": "Manea",
-     "rating": 67,
-     "color": "rare_silver",
-     "position": "RB",
-     "nationId": 39,
-     "leagueId": 330,
-     "clubId": 310,
-     "card": [
-      60,
-      58,
-      66
-     ],
-     "chem": 3,
-     "eff": [
-      62,
-      62,
-      69
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id252753",
      "name": "Kızıldağ",
      "rating": 68,
@@ -125,6 +103,28 @@
       50,
       51,
       70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id223229",
+     "name": "Manea",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 310,
+     "card": [
+      60,
+      58,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      62,
+      69
      ],
      "slot": "CB"
     },
@@ -239,6 +239,28 @@
      "slot": "CAM"
     },
     {
+     "id": "id275418",
+     "name": "Taha",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      71,
+      67,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      69,
+      41
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id263389",
      "name": "Mimaroğlu",
      "rating": 67,
@@ -257,6 +279,568 @@
       70,
       66,
       43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5242,
+    "control": 72.4,
+    "attack": 70.71,
+    "defence": 68.0,
+    "net": 0.1531,
+    "vs_reddit": 0.0571,
+    "control_cards": [
+     73,
+     73,
+     72,
+     72,
+     72
+    ],
+    "attack_cards": [
+     73,
+     72,
+     71,
+     70,
+     70,
+     68,
+     68
+    ],
+    "defence_cards": [
+     71,
+     70,
+     69,
+     62
+    ],
+    "p_att": 0.8593,
+    "p_def": 0.2026,
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 194.0,
+    "att_total": 184.38,
+    "def_total": 163.75,
+    "round_robin": {
+     "wins": 3.0,
+     "margin": 2.3294
+    }
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id224953",
+     "name": "André Moreira",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      30,
+      24,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      32,
+      28,
+      71
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id252753",
+     "name": "Kızıldağ",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 110776,
+     "card": [
+      49,
+      50,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      50,
+      51,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id223229",
+     "name": "Manea",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 310,
+     "card": [
+      60,
+      58,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      62,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74348",
+     "name": "Bouland",
+     "rating": 61,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      46,
+      48,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      50,
+      62
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id244960",
+     "name": "Bruno Costa",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      69,
+      68,
+      58
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      72,
+      61
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id255010",
+     "name": "Ünüvar",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      66,
+      70,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      72,
+      40
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id271452",
+     "name": "Bouchouari",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      71,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      57
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id275411",
+     "name": "Land",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      66,
+      71,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      73,
+      53
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id241278",
+     "name": "Moruțan",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 310,
+     "card": [
+      70,
+      68,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      72,
+      48
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id275418",
+     "name": "Taha",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      71,
+      67,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      69,
+      41
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id263389",
+     "name": "Mimaroğlu",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      64,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      66,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5242,
+    "control": 72.4,
+    "attack": 70.94,
+    "defence": 66.6,
+    "net": 0.1525,
+    "vs_reddit": 0.0441,
+    "control_cards": [
+     73,
+     73,
+     72,
+     72,
+     72
+    ],
+    "attack_cards": [
+     73,
+     72,
+     71,
+     70,
+     70,
+     68,
+     68
+    ],
+    "defence_cards": [
+     71,
+     70,
+     69,
+     62,
+     61
+    ],
+    "p_att": 0.8882,
+    "p_def": 0.1621,
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 194.0,
+    "att_total": 184.08,
+    "def_total": 171.8,
+    "swaps_checked": 29676
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id279001",
+     "name": "Çevikkan",
+     "rating": 62,
+     "color": "rare_bronze",
+     "position": "GK",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      29,
+      25,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      31,
+      27,
+      65
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id269411",
+     "name": "Marian Huja",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      48,
+      48,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      50,
+      52,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id252753",
+     "name": "Kızıldağ",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 48,
+     "leagueId": 68,
+     "clubId": 110776,
+     "card": [
+      49,
+      50,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      50,
+      51,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id223229",
+     "name": "Manea",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 310,
+     "card": [
+      60,
+      58,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      62,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id271452",
+     "name": "Bouchouari",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 129,
+     "leagueId": 68,
+     "clubId": 436,
+     "card": [
+      68,
+      71,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      57
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id255010",
+     "name": "Ünüvar",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 48,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      66,
+      70,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      72,
+      40
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id275411",
+     "name": "Land",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      66,
+      71,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      73,
+      53
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id244960",
+     "name": "Bruno Costa",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 38,
+     "leagueId": 330,
+     "clubId": 114385,
+     "card": [
+      69,
+      68,
+      58
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      72,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id241278",
+     "name": "Moruțan",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 310,
+     "card": [
+      70,
+      68,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      72,
+      48
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id271932",
+     "name": "van Bergen",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 1915,
+     "card": [
+      68,
+      61,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      63,
+      51
      ],
      "slot": "ST"
     },
@@ -285,12 +869,12 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": null,
+    "ctrl_win": 0.5242,
     "control": 72.4,
-    "attack": 70.71,
-    "defence": 68.0,
-    "net": null,
-    "vs_reddit": null,
+    "attack": 70.94,
+    "defence": 66.2,
+    "net": 0.1265,
+    "vs_reddit": 0.0096,
     "control_cards": [
      73,
      73,
@@ -308,591 +892,27 @@
      68
     ],
     "defence_cards": [
-     71,
+     70,
      70,
      69,
-     62
+     65,
+     57
     ],
-    "p_att": null,
-    "p_def": null,
+    "p_att": 0.8882,
+    "p_def": 0.1012,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 194.0,
-    "att_total": 184.38,
-    "def_total": 163.75
-   }
-  },
-  {
-   "formation": "3-4-1-2",
-   "chem": 31,
-   "players": [
-    {
-     "id": "id188524",
-     "name": "Babacan",
-     "rating": 66,
-     "color": "rare_silver",
-     "position": "GK",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 101014,
-     "card": [
-      34,
-      28,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      36,
-      30,
-      69
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id265895",
-     "name": "Notel",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 2218,
-     "clubId": 64,
-     "card": [
-      58,
-      64,
-      67
-     ],
-     "chem": 2,
-     "eff": [
-      59,
-      65,
-      68
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id83351",
-     "name": "Álvarez",
-     "rating": 60,
-     "color": "rare_bronze",
-     "position": "CB",
-     "nationId": 56,
-     "leagueId": 2218,
-     "clubId": 219,
-     "card": [
-      44,
-      48,
-      60
-     ],
-     "chem": 2,
-     "eff": [
-      45,
-      49,
-      61
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id74348",
-     "name": "Bouland",
-     "rating": 61,
-     "color": "rare_bronze",
-     "position": "CB",
-     "nationId": 34,
-     "leagueId": 10,
-     "clubId": 1915,
-     "card": [
-      46,
-      48,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      48,
-      50,
-      62
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id255010",
-     "name": "Ünüvar",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 48,
-     "leagueId": 10,
-     "clubId": 1908,
-     "card": [
-      66,
-      70,
-      38
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      72,
-      40
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id275411",
-     "name": "Land",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 34,
-     "leagueId": 10,
-     "clubId": 1915,
-     "card": [
-      66,
-      71,
-      51
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      73,
-      53
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id271452",
-     "name": "Bouchouari",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 129,
-     "leagueId": 68,
-     "clubId": 436,
-     "card": [
-      68,
-      71,
-      55
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      73,
-      57
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id223017",
-     "name": "Şahiner",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "RB",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 101014,
-     "card": [
-      69,
-      67,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      69,
-      69
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id275400",
-     "name": "Bamenga",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 18,
-     "leagueId": 2218,
-     "clubId": 219,
-     "card": [
-      68,
-      71,
-      52
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      73,
-      54
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "id275418",
-     "name": "Taha",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 129,
-     "leagueId": 10,
-     "clubId": 1908,
-     "card": [
-      71,
-      67,
-      39
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      69,
-      41
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id263389",
-     "name": "Mimaroğlu",
-     "rating": 67,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 436,
-     "card": [
-      68,
-      64,
-      41
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      66,
-      43
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 72.0,
-    "attack": 70.77,
-    "defence": 65.0,
-    "net": 0.006,
-    "vs_reddit": 0.0099,
-    "control_cards": [
-     73,
-     73,
-     73,
-     72,
-     69
-    ],
-    "attack_cards": [
-     73,
-     71,
-     70,
-     70,
-     70,
-     68,
-     68
-    ],
-    "defence_cards": [
-     69,
-     68,
-     62,
-     61
-    ],
-    "chem": 31,
-    "ctrl_not_full": 0,
-    "ctrl_total": 196.0,
-    "att_total": 186.55,
-    "def_total": 160.5,
-    "swaps_checked": 28864
-   }
-  },
-  {
-   "formation": "3-4-1-2",
-   "chem": 31,
-   "players": [
-    {
-     "id": "id188524",
-     "name": "Babacan",
-     "rating": 66,
-     "color": "rare_silver",
-     "position": "GK",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 101014,
-     "card": [
-      34,
-      28,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      36,
-      30,
-      69
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id74348",
-     "name": "Bouland",
-     "rating": 61,
-     "color": "rare_bronze",
-     "position": "CB",
-     "nationId": 34,
-     "leagueId": 10,
-     "clubId": 1915,
-     "card": [
-      46,
-      48,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      48,
-      50,
-      62
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id265895",
-     "name": "Notel",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 2218,
-     "clubId": 64,
-     "card": [
-      58,
-      64,
-      67
-     ],
-     "chem": 2,
-     "eff": [
-      59,
-      65,
-      68
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id83351",
-     "name": "Álvarez",
-     "rating": 60,
-     "color": "rare_bronze",
-     "position": "CB",
-     "nationId": 56,
-     "leagueId": 2218,
-     "clubId": 219,
-     "card": [
-      44,
-      48,
-      60
-     ],
-     "chem": 2,
-     "eff": [
-      45,
-      49,
-      61
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id255010",
-     "name": "Ünüvar",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 48,
-     "leagueId": 10,
-     "clubId": 1908,
-     "card": [
-      66,
-      70,
-      38
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      72,
-      40
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id275411",
-     "name": "Land",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 34,
-     "leagueId": 10,
-     "clubId": 1915,
-     "card": [
-      66,
-      71,
-      51
-     ],
-     "chem": 3,
-     "eff": [
-      68,
-      73,
-      53
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id271452",
-     "name": "Bouchouari",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 129,
-     "leagueId": 68,
-     "clubId": 436,
-     "card": [
-      68,
-      71,
-      55
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      73,
-      57
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id223017",
-     "name": "Şahiner",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "RB",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 101014,
-     "card": [
-      69,
-      67,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      71,
-      69,
-      69
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id275400",
-     "name": "Bamenga",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 18,
-     "leagueId": 2218,
-     "clubId": 219,
-     "card": [
-      68,
-      71,
-      52
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      73,
-      54
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "id275418",
-     "name": "Taha",
-     "rating": 68,
-     "color": "rare_silver",
-     "position": "CAM",
-     "nationId": 129,
-     "leagueId": 10,
-     "clubId": 1908,
-     "card": [
-      71,
-      67,
-      39
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      69,
-      41
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id263389",
-     "name": "Mimaroğlu",
-     "rating": 67,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 48,
-     "leagueId": 68,
-     "clubId": 436,
-     "card": [
-      68,
-      64,
-      41
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      66,
-      43
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "control": 72.0,
-    "attack": 70.77,
-    "defence": 65.0,
-    "net": 0.006,
-    "vs_reddit": 0.0099,
-    "control_cards": [
-     73,
-     73,
-     73,
-     72,
-     69
-    ],
-    "attack_cards": [
-     73,
-     71,
-     70,
-     70,
-     70,
-     68,
-     68
-    ],
-    "defence_cards": [
-     69,
-     68,
-     62,
-     61
-    ],
-    "chem": 31,
-    "ctrl_not_full": 0,
-    "ctrl_total": 196.0,
-    "att_total": 186.55,
-    "def_total": 160.5
+    "att_total": 185.71,
+    "def_total": 171.8
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-10 20:20 UTC",
+ "built": "2026-11-13 01:53 UTC",
  "week": "2026-11-09",
- "changed": "2026-11-10 20:20 UTC"
+ "changed": "2026-11-13 01:53 UTC"
 }
