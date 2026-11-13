@@ -164,7 +164,9 @@ def build(cards, slots, value, chem_weight=None, force_full=None, minimize=False
     if extra:
         extra(prob, X, Y, H, byi, used, obj)
     prob += pulp.lpSum(obj)
-    prob.solve(pulp.HiGHS(msg=False, timeLimit=time_limit, gapRel=gap, gapAbs=0.5))
+    prob.solve(pulp.HiGHS(msg=False, threads=1, timeLimit=time_limit, gapRel=gap, gapAbs=0.5))
+    # threads=1: the builders already run one solve per CPU core in forked worker processes; a multi-threaded HiGHS
+    # inherited through fork spins forever on 4-core build machines (froze every Sim build that had a Reddit team)
     if pulp.LpStatus[prob.status] not in ("Optimal",) and not any((v.value() or 0) > 0.5 for v in X.values()):
         return None
     sq = [None] * 11
