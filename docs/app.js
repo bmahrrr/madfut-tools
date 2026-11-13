@@ -541,12 +541,12 @@ const VARIANT_EXCLUDE = { noltmevo: [{ color: "ltm" }, { color: "evo" }] };   //
 const OPEN = new Set();                   // series left open, kept when the page redraws (e.g. switching versions)
 const strip = (k, title, sub, res, cls = "") => `<summary class="strip${cls ? " " + cls : ""}"><span class="k">${esc(k)}</span><span class="mid"><b>${esc(title)}</b><small>${sub}</small></span><span class="res">${res}</span></summary>`;
 // When the team last changed: "Today", "Yesterday", else the weekday and date (local time).
-const lastChange = d => {
+const changedWhen = (d, short) => {
   const x = new Date(String(d.changed || d.built || "").replace(" UTC", "Z").replace(" ", "T")); if (isNaN(x)) return "";
   const day = t => new Date(t.getFullYear(), t.getMonth(), t.getDate()), n = Math.round((day(new Date()) - day(x)) / 864e5);
-  const when = n <= 0 ? "Today" : n === 1 ? "Yesterday" : x.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" });
-  return `<span class="lc"><b>${esc(when)}</b><small>Last change</small></span>`;
+  return n <= 0 ? "Today" : n === 1 ? "Yesterday" : x.toLocaleDateString(undefined, short ? { day: "numeric", month: "short" } : { weekday: "short", day: "numeric", month: "short" });
 };
+const lastChange = d => { const when = changedWhen(d); return when ? `<span class="lc"><b>${esc(when)}</b><small>Last change</small></span>` : ""; };
 // How a Sim team is found: a funnel from every card to one team (search steps blue, judging steps gold)
 const SIM_STEPS = [["Every Card Up to the Cap", "Series boosts applied", ""], ["Card Lists", "6 formations, short, medium and wide, plus linking teammates", "s"],
   ["Solver", "The best 11 from every list", "s"], ["Rank", "Full chem, control, then attack and defence", "j"],
@@ -656,8 +656,8 @@ async function renderTeams() {
       const m = t.metrics;
       const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
       const sid = "sim:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
-      const sres = `<span class="cad"><i>C</i>${m.control}<i>A</i>${m.attack}<i>D</i>${m.defence}</span><small>Averages</small>`;
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim")}<div class="body">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div></details>`;
+      const sres = lastChange(d), cad = `<span class="cad mcad"><i>C</i>${m.control}<i>A</i>${m.attack}<i>D</i>${m.defence}</span>`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}${cad}`, sres, "sim")}<div class="body">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div></details>`;
     } catch (e) {}
   }
   if (!V) {
