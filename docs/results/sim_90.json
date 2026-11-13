@@ -65,6 +65,28 @@
      "slot": "GK"
     },
     {
+     "id": "id1615",
+     "name": "Thuram",
+     "rating": 89,
+     "color": "icon",
+     "position": "RB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      74,
+      75,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      80,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "ltm_comuzzo90",
      "name": "Comuzzo",
      "rating": 90,
@@ -109,28 +131,6 @@
      "slot": "CB"
     },
     {
-     "id": "id1615",
-     "name": "Thuram",
-     "rating": 89,
-     "color": "icon",
-     "position": "RB",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      74,
-      75,
-      89
-     ],
-     "chem": 3,
-     "eff": [
-      77,
-      80,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id84078052",
      "name": "Ginola",
      "rating": 90,
@@ -153,28 +153,6 @@
      "slot": "LM"
     },
     {
-     "id": "id227324",
-     "name": "Abily",
-     "rating": 90,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      88,
-      89,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      94,
-      82
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id7763",
      "name": "Pirlo",
      "rating": 90,
@@ -193,6 +171,28 @@
       88,
       93,
       70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id227324",
+     "name": "Abily",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      88,
+      89,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      94,
+      82
      ],
      "slot": "CM"
     },
@@ -287,11 +287,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4904,
+    "ctrl_win": 0.4859,
     "control": 94.2,
     "attack": 92.49,
     "defence": 93.75,
-    "net": 0.1711,
+    "net": 0.1413,
     "vs_reddit": 0.1806,
     "control_cards": [
      96,
@@ -315,8 +315,8 @@
      94,
      93
     ],
-    "p_att": 0.4232,
-    "p_def": 0.7895,
+    "p_att": 0.3854,
+    "p_def": 0.7852,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -326,8 +326,8 @@
     "att_total": 242.04,
     "def_total": 237.25,
     "round_robin": {
-     "wins": 6.0,
-     "margin": 1.3301
+     "wins": 7.0,
+     "margin": 1.3419
     }
    }
   },
@@ -534,28 +534,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id243075",
-     "name": "Rummenigge",
-     "rating": 90,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 21,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      91,
-      84,
-      59
-     ],
-     "chem": 3,
-     "eff": [
-      94,
-      87,
-      62
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id50573494",
      "name": "Pajor",
      "rating": 90,
@@ -576,15 +554,37 @@
       33
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id243075",
+     "name": "Rummenigge",
+     "rating": 90,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 21,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      84,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      94,
+      87,
+      62
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4904,
+    "ctrl_win": 0.4859,
     "control": 94.2,
     "attack": 92.49,
     "defence": 93.75,
-    "net": 0.1508,
+    "net": 0.1205,
     "vs_reddit": 0.1806,
     "control_cards": [
      96,
@@ -608,8 +608,8 @@
      94,
      93
     ],
-    "p_att": 0.3895,
-    "p_def": 0.7895,
+    "p_att": 0.3503,
+    "p_def": 0.7852,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -869,11 +869,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5126,
+    "ctrl_win": 0.5081,
     "control": 94.2,
     "attack": 92.47,
     "defence": 93.75,
-    "net": 0.1333,
+    "net": 0.103,
     "vs_reddit": 0.2256,
     "control_cards": [
      96,
@@ -896,8 +896,8 @@
      94,
      93
     ],
-    "p_att": 0.3874,
-    "p_def": 0.7485,
+    "p_att": 0.3488,
+    "p_def": 0.7442,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -910,7 +910,7 @@
   }
  ],
  "not_owned": [],
- "built": "2026-11-13 01:53 UTC",
+ "built": "2026-11-13 23:25 UTC",
  "week": "2026-11-09",
  "changed": "2026-11-13 01:53 UTC"
 }
