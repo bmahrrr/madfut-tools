@@ -191,6 +191,12 @@ def evaluate(team, slots, series):
     AT = sum(W[i] * (E[i][0] + E[i][1] + E[i][2]) for i in range(len(slots)))     # attack duels tie -> total stats
     DT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in DEF)
     bad = sum(1 for i, s in enumerate(slots) if s in CTRL and ch[i] < 3)
+    # All Evos teams: two cards on the same Evo is impossible (one card per Evo); such a team ranks below every real one
+    seen_evo = set()
+    for x in team:
+        for e in x.get("evos") or ():
+            if e in seen_evo: bad += 99
+            seen_evo.add(e)
     # quality check (owner): a card that attacks in 5%+ of possessions should have in-game attack of at least
     # cap - 1 (79 in the 80 series, 89 in the 90). Control decides, but never at the cost of a striker who can't
     # score. Teams that reach it rank above all that don't; if none can, the smallest shortfall wins.
