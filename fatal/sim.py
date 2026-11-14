@@ -221,6 +221,16 @@ def evaluate(team, slots, series):
             "att_total": round(AT, 2), "def_total": round(DT / len(D), 2) if D else 0}
 
 
+CTRL_DUEL = __import__("os").environ.get("SIM_CTRL") == "duel"   # test: control ranked by duels won against the strongest
+                                                                  # teams' control cards (then the average), not the average
+
+
+def CK(e):
+    """The control part of the ranking: the average (owner's rule), or in the duel test the share of control duels won
+    against the strongest teams (to 1%), then the average."""
+    return (round(e.get("ctrl_win") or 0, 2), round(e["control"], 2)) if CTRL_DUEL else round(e["control"], 2)
+
+
 def rank_key(ev):
     """Owner's order: highest Control; then Attack before Defence. A small defence
     gain never beats an attack gain: defence only counts a third as much (a 1-point attack gain beats up to a 3-point
@@ -228,7 +238,7 @@ def rank_key(ev):
     match strength against the strongest teams, chem."""
     a, d = ev["attack"], ev["defence"]
     if MATCH_TB and ev.get("h2h") is not None:     # test: control, then simulated matches, then attack, defence
-        return (round(ev["control"], 2), ev["h2h"], round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2),
+        return (CK(ev), ev["h2h"], round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2),
                 round(d, 2), round(ev.get("def_total", 0), 2), ev["chem"])
     # attack and defence are judged by the chance to beat the strongest teams' real defenders / attackers (a 66 and a
     # 68 striker are equally useless if strong defences are 70); without that profile, by their average values
@@ -237,10 +247,10 @@ def rank_key(ev):
     # only splits teams equal on everything else. Ranked above attack it picked high-total control over better strikers (73).
     # control duels won (the game's tiebreak on tied control) only after attack and defence: ranked straight after
     # control, a 0.5% edge there beat a 10-point defence gap (80)
-    if pa is not None: return (round(ev["control"], 2), round(pa + pd / 3, 4), round(pa, 4),
+    if pa is not None: return (CK(ev), round(pa + pd / 3, 4), round(pa, 4),
                                round(a + d / 3, 2), round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
                                ev.get("ctrl_win") or 0, round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
-    return (round(ev["control"], 2), round(a + d / 3, 2),
+    return (CK(ev), round(a + d / 3, 2),
             round(a, 2), round(ev.get("att_total", 0), 2), round(d, 2), round(ev.get("def_total", 0), 2),
             round(ev.get("ctrl_total", 0), 2), ev.get("net") if ev.get("net") is not None else -9, ev["chem"])
 
@@ -735,7 +745,7 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
     if results:
         top = results[0][0]
         hard = lambda e: (e["ctrl_not_full"] == 0, e.get("def_unbeatable", False), -e.get("attack_short", 0),
-                          min(e.get("vs_reddit") or 0, 0), round(e["control"], 2))
+                          min(e.get("vs_reddit") or 0, 0), CK(e))
         fin, sigs4 = [], set()
         for ev, form, sq in results:
             sg = (form, frozenset(c["id"] for c in sq))
@@ -752,13 +762,13 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
         # owner: the attack floor against control is settled head to head. The best teams with the highest control play
         # the final even when an attacker is under the floor (89: Karetsas, 87 attack, gives +0.2 control and wins)
         base = lambda e: (e["ctrl_not_full"] == 0, e.get("def_unbeatable", False), min(e.get("vs_reddit") or 0, 0))
-        cmax = max(round(e["control"], 2) for e, f, q in results + totals if base(e) == base(top))
-        extra = [r for r in results + totals if base(r[0]) == base(top) and round(r[0]["control"], 2) == cmax and cmax > round(top["control"], 2)]
+        cmax = max(CK(e) for e, f, q in results + totals if base(e) == base(top))
+        extra = [r for r in results + totals if base(r[0]) == base(top) and CK(r[0]) == cmax and cmax > CK(top)]
         n0 = len(fin)
         for ev, form, sq in extra + sorted(totals, key=lambda r: sim_key(r[0]), reverse=True):
             sg = (form, frozenset(c["id"] for c in sq))
             if sg in sigs4 or base(ev) != base(top): continue
-            if hard(ev) != hard(top) and round(ev["control"], 2) != cmax: continue
+            if hard(ev) != hard(top) and CK(ev) != cmax: continue
             sigs4.add(sg); fin.append((ev, form, sq))
             if len(fin) >= n0 + 6: break
         # the best teams on each part of the game also play the final: the overall ranking cut the live 68 layout (lower
@@ -852,11 +862,11 @@ def best_of(series, cards, teams, log=print):
             rows.append((e2, t2, _side(sq, sl, series)))
     full = [r for r in rows if r[0]["ctrl_not_full"] == 0] or rows
     unb = [r for r in full if r[0].get("def_unbeatable")] or full
-    cmax = max(round(r[0]["control"], 2) for r in unb)
-    fin = [r for r in unb if round(r[0]["control"], 2) == cmax]
+    cmax = max(CK(r[0]) for r in unb)
+    fin = [r for r in unb if CK(r[0]) == cmax]
     if all(r[0].get("attack_short", 0) > 0 for r in fin):
         ok = [r for r in unb if not r[0].get("attack_short", 0)]
-        if ok: fin.append(max(ok, key=lambda r: (round(r[0]["control"], 2), r[0]["attack"])))
+        if ok: fin.append(max(ok, key=lambda r: (CK(r[0]), r[0]["attack"])))
     if len(fin) == 1: return fin[0][1]
     score = []
     for i, a in enumerate(fin):
