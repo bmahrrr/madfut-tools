@@ -1,0 +1,27 @@
+name: All Evos test
+on:
+  push:
+    branches: [allevo]
+    paths: ["allevotest/trigger.txt"]
+permissions:
+  contents: write
+jobs:
+  test:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        job: ["sim 66--allevo", "sim 89--allevo", "sim X--allevo", "myclub X--allevo 20"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/update_data.py
+      - run: python scripts/build.py ${{ matrix.job }} 2>&1 | tail -60
+      - run: |
+          mkdir -p allevotest && cp docs/results/*--allevo.json allevotest/ 2>/dev/null || true
+          git config user.name "madfut-tools bot"; git config user.email "actions@users.noreply.github.com"
+          git add -f allevotest/*.json && git commit -m "All Evos test result" && for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep 5; done
