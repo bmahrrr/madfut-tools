@@ -1,18 +1,17 @@
 {
- "g": 5,
+ "g": 4,
  "obj_ids": [
   "id212197",
-  "id50588606",
   "id252144",
   "id270674",
-  "id266096"
+  "id50588606"
  ],
- "strength": 100.4,
+ "strength": 100.5,
  "group_cards": 8,
  "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 32,
+  "formation": "4-1-4-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -38,50 +37,27 @@
     "tiebreak": 154
    },
    {
-    "slot": "CB",
-    "id": "id266096",
-    "name": "Tomás Araújo",
+    "slot": "LB",
+    "id": "id220651",
+    "name": "Angeliño",
     "rating": 78,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 234,
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 242,
     "card": [
-     61,
-     70,
+     76,
+     79,
      77
     ],
     "chem": 3,
     "eff": [
-     64,
-     73,
-     80
+     78,
+     81,
+     79
     ],
-    "tiebreak": 214
-   },
-   {
-    "slot": "CB",
-    "id": "id252144",
-    "name": "Eduardo Quaresma",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 237,
-    "card": [
-     69,
-     70,
-     77
-    ],
-    "chem": 3,
-    "eff": [
-     72,
-     73,
-     80
-    ],
-    "tiebreak": 222
+    "tiebreak": 238
    },
    {
     "slot": "CB",
@@ -107,27 +83,96 @@
     "tiebreak": 235
    },
    {
-    "slot": "LM",
-    "id": "id220651",
-    "name": "Angeliño",
+    "slot": "CB",
+    "id": "id252144",
+    "name": "Eduardo Quaresma",
     "rating": 78,
     "color": "rare_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 242,
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 237,
     "card": [
-     76,
-     79,
+     69,
+     70,
      77
     ],
     "chem": 3,
     "eff": [
-     78,
-     81,
-     79
+     72,
+     73,
+     80
     ],
-    "tiebreak": 238
+    "tiebreak": 222
+   },
+   {
+    "slot": "RB",
+    "id": "id270674",
+    "name": "Alberto Costa",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 236,
+    "card": [
+     70,
+     70,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     73,
+     80
+    ],
+    "tiebreak": 223
+   },
+   {
+    "slot": "CDM",
+    "id": "ltm_espart79",
+    "name": "Xavi Espart",
+    "rating": 79,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     71,
+     77,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     79,
+     80
+    ],
+    "tiebreak": 232
+   },
+   {
+    "slot": "LM",
+    "id": "id227890",
+    "name": "Nuno Santos",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 237,
+    "card": [
+     75,
+     73,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     76,
+     71
+    ],
+    "tiebreak": 222
    },
    {
     "slot": "CM",
@@ -154,52 +199,6 @@
    },
    {
     "slot": "CM",
-    "id": "id234153",
-    "name": "Carlos Soler",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 457,
-    "card": [
-     76,
-     79,
-     70
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     81,
-     72
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "RM",
-    "id": "id270674",
-    "name": "Alberto Costa",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 236,
-    "card": [
-     70,
-     70,
-     77
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     73,
-     80
-    ],
-    "tiebreak": 223
-   },
-   {
-    "slot": "CAM",
     "id": "id50588606",
     "name": "Fábio Vieira",
     "rating": 78,
@@ -222,7 +221,7 @@
     "tiebreak": 216
    },
    {
-    "slot": "CAM",
+    "slot": "RM",
     "id": "id225201",
     "name": "Berenguer",
     "rating": 79,
@@ -246,26 +245,26 @@
    },
    {
     "slot": "ST",
-    "id": "id235944",
-    "name": "Brais Méndez",
-    "rating": 78,
+    "id": "id50562314",
+    "name": "Gabriel Jesus",
+    "rating": 79,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 39,
-    "clubId": 687,
+    "position": "ST",
+    "nationId": 54,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
+     80,
      77,
-     78,
-     66
+     44
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     78,
+     82,
      79,
-     67
+     46
     ],
-    "tiebreak": 224
+    "tiebreak": 207
    }
   ]
  },
@@ -312,7 +311,7 @@
   "id214997",
   "id254551"
  ],
- "built": "2026-11-14 22:11 UTC",
+ "built": "2026-11-14 22:12 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-14 22:11 UTC"
+ "changed": "2026-11-14 22:12 UTC"
 }

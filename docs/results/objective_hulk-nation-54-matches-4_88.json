@@ -6,12 +6,12 @@
   "id192190",
   "id28765"
  ],
- "strength": 100.4,
+ "strength": 100.2,
  "group_cards": 512,
  "reddit": [],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 33,
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
@@ -38,49 +38,49 @@
    },
    {
     "slot": "LB",
-    "id": "id50535199",
-    "name": "Florenzi",
+    "id": "id28765",
+    "name": "Zé Roberto",
     "rating": 87,
-    "color": "hall_of_fut_upgraded",
-    "position": "RB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 132794,
+    "color": "hero",
+    "position": "LM",
+    "nationId": 54,
+    "leagueId": 19,
+    "clubId": 114605,
     "card": [
      85,
-     83,
-     86
+     86,
+     77
     ],
     "chem": 3,
     "eff": [
-     90,
-     85,
-     89
+     87,
+     88,
+     79
     ],
-    "tiebreak": 260
+    "tiebreak": 254
    },
    {
     "slot": "CB",
-    "id": "id238443",
-    "name": "Blanc",
-    "rating": 88,
-    "color": "icon",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
-     77,
      76,
-     87
+     86,
+     85
     ],
     "chem": 3,
     "eff": [
-     79,
      78,
-     89
+     88,
+     87
     ],
-    "tiebreak": 246
+    "tiebreak": 253
    },
    {
     "slot": "CB",
@@ -120,13 +120,13 @@
      90,
      87
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     89,
-     92,
-     89
+     87,
+     90,
+     87
     ],
-    "tiebreak": 270,
+    "tiebreak": 264,
     "evos": [
      "Defender Control Upgrade",
      "Les Bleus Defender"
@@ -134,55 +134,6 @@
    },
    {
     "slot": "CDM",
-    "id": "evo_Oxlade-Chamberlain_87",
-    "name": "Oxlade-Chamberlain",
-    "rating": 87,
-    "color": "evo",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 50,
-    "clubId": 78,
-    "card": [
-     88,
-     88,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     90,
-     83
-    ],
-    "tiebreak": 263,
-    "evos": [
-     "Scottish Premiership Silver"
-    ]
-   },
-   {
-    "slot": "LM",
-    "id": "id28765",
-    "name": "Zé Roberto",
-    "rating": 87,
-    "color": "hero",
-    "position": "LM",
-    "nationId": 54,
-    "leagueId": 19,
-    "clubId": 114605,
-    "card": [
-     85,
-     86,
-     77
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     88,
-     79
-    ],
-    "tiebreak": 254
-   },
-   {
-    "slot": "CM",
     "id": "id192190",
     "name": "Dunga",
     "rating": 88,
@@ -203,6 +154,32 @@
      88
     ],
     "tiebreak": 255
+   },
+   {
+    "slot": "LM",
+    "id": "evo_Oxlade-Chamberlain_87",
+    "name": "Oxlade-Chamberlain",
+    "rating": 87,
+    "color": "evo",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 50,
+    "clubId": 78,
+    "card": [
+     88,
+     88,
+     81
+    ],
+    "chem": 2,
+    "eff": [
+     89,
+     89,
+     82
+    ],
+    "tiebreak": 260,
+    "evos": [
+     "Scottish Premiership Silver"
+    ]
    },
    {
     "slot": "CM",
@@ -226,6 +203,29 @@
      61
     ],
     "tiebreak": 239
+   },
+   {
+    "slot": "CM",
+    "id": "evo_Groß_88",
+    "name": "Groß",
+    "rating": 88,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 1808,
+    "card": [
+     87,
+     89,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     91,
+     84
+    ],
+    "tiebreak": 264
    },
    {
     "slot": "RM",
@@ -252,26 +252,26 @@
    },
    {
     "slot": "ST",
-    "id": "id71557",
-    "name": "Bale",
+    "id": "id120274",
+    "name": "Di Natale",
     "rating": 88,
-    "color": "icon",
-    "position": "RW",
-    "nationId": 50,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "color": "hero",
+    "position": "ST",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 114605,
     "card": [
-     88,
+     89,
      85,
-     66
+     48
     ],
     "chem": 3,
     "eff": [
-     90,
+     94,
      87,
-     68
+     51
     ],
-    "tiebreak": 245
+    "tiebreak": 228
    }
   ]
  },
@@ -319,7 +319,7 @@
   "id50518275",
   "id120274"
  ],
- "built": "2026-11-14 22:11 UTC",
+ "built": "2026-11-14 22:13 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-14 22:11 UTC"
+ "changed": "2026-11-14 22:13 UTC"
 }
