@@ -1,0 +1,938 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "89",
+  "cap": 89,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 14,
+    "att": 1,
+    "ctl": 2,
+    "def": 0
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "types",
+    "min": 7,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      49,
+      51,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "evx_id269087_8_15",
+     "name": "Yoro",
+     "rating": 89,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 13,
+     "clubId": 11,
+     "card": [
+      69,
+      77,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      80,
+      93
+     ],
+     "evos": [
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id267785_5_8_15",
+     "name": "Voisine",
+     "rating": 89,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 80,
+     "clubId": 781,
+     "card": [
+      70,
+      75,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      78,
+      93
+     ],
+     "evos": [
+      "Austrian Bundesliga Silver",
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Oxlade-Chamberlain_87",
+     "name": "Oxlade-Chamberlain",
+     "rating": 87,
+     "color": "evo",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 78,
+     "card": [
+      88,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      93,
+      84
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      93,
+      84
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id246",
+     "name": "Scholes",
+     "rating": 89,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      87,
+      88,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      93,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id239093_8_15",
+     "name": "Clauss",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 72,
+     "card": [
+      87,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      90
+     ],
+     "evos": [
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evx_id50557810_12",
+     "name": "Buendía",
+     "rating": 89,
+     "color": "ucl_rttk",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      90,
+      90,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      93,
+      79
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id227263",
+     "name": "Smith",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      89,
+      54
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id51",
+     "name": "Shearer",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      77,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      82,
+      59
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6533,
+    "control": 93.0,
+    "attack": 92.43,
+    "defence": 93.0,
+    "net": 0.273,
+    "vs_reddit": null,
+    "control_cards": [
+     93,
+     93,
+     93,
+     93,
+     93
+    ],
+    "attack_cards": [
+     93,
+     93,
+     93,
+     92,
+     91,
+     90,
+     89
+    ],
+    "defence_cards": [
+     93,
+     93,
+     93,
+     93
+    ],
+    "p_att": 0.5951,
+    "p_def": 0.5701,
+    "chem": 33,
+    "ctrl_not_full": 396,
+    "def_unbeatable": true,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 265.4,
+    "att_total": 247.73,
+    "def_total": 226.75,
+    "swaps_checked": 57999
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      49,
+      51,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      65,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo89",
+     "name": "Comuzzo",
+     "rating": 89,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      67,
+      76,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      79,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id50557810_12",
+     "name": "Buendía",
+     "rating": 89,
+     "color": "ucl_rttk",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      90,
+      90,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      93,
+      79
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id246",
+     "name": "Scholes",
+     "rating": 89,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      87,
+      88,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      93,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      93,
+      84
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id239093_8_15",
+     "name": "Clauss",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 72,
+     "card": [
+      87,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      90
+     ],
+     "evos": [
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evo_Oxlade-Chamberlain_87",
+     "name": "Oxlade-Chamberlain",
+     "rating": 87,
+     "color": "evo",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 78,
+     "card": [
+      88,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      93,
+      84
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id227263",
+     "name": "Smith",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      89,
+      54
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id167134",
+     "name": "Papin",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      75,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      78,
+      52
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6533,
+    "control": 93.0,
+    "attack": 92.43,
+    "defence": 93.0,
+    "net": 0.1918,
+    "vs_reddit": null,
+    "control_cards": [
+     93,
+     93,
+     93,
+     93,
+     93
+    ],
+    "attack_cards": [
+     93,
+     93,
+     93,
+     92,
+     91,
+     90,
+     89
+    ],
+    "defence_cards": [
+     93,
+     93,
+     93,
+     93
+    ],
+    "p_att": 0.5114,
+    "p_def": 0.4945,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": true,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 265.4,
+    "att_total": 244.34,
+    "def_total": 221.25
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id67329765",
+     "name": "David Raya",
+     "rating": 89,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      49,
+      51,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      65,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo89",
+     "name": "Comuzzo",
+     "rating": 89,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      67,
+      76,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      79,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id198784_11",
+     "name": "Oxlade-Chamberlain",
+     "rating": 87,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 78,
+     "card": [
+      88,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      93,
+      84
+     ],
+     "evos": [
+      "Scottish Premiership Silver"
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      93,
+      84
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id246",
+     "name": "Scholes",
+     "rating": 89,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      87,
+      88,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      93,
+      70
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id239093_8_15",
+     "name": "Clauss",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 72,
+     "card": [
+      87,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      90
+     ],
+     "evos": [
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evx_id50557810_12",
+     "name": "Buendía",
+     "rating": 89,
+     "color": "ucl_rttk",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      90,
+      90,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      93,
+      79
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id167134",
+     "name": "Papin",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      75,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      78,
+      52
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id227263",
+     "name": "Smith",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      89,
+      54
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6533,
+    "control": 93.0,
+    "attack": 92.43,
+    "defence": 93.0,
+    "net": 0.1918,
+    "vs_reddit": null,
+    "control_cards": [
+     93,
+     93,
+     93,
+     93,
+     93
+    ],
+    "attack_cards": [
+     93,
+     93,
+     93,
+     92,
+     91,
+     90,
+     89
+    ],
+    "defence_cards": [
+     93,
+     93,
+     93,
+     93
+    ],
+    "p_att": 0.5114,
+    "p_def": 0.4945,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": true,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 265.4,
+    "att_total": 244.34,
+    "def_total": 221.25
+   }
+  }
+ ],
+ "not_owned": [],
+ "variant": {
+  "id": "allevo",
+  "label": "All Evos",
+  "exclude": [],
+  "include": "evos_all"
+ },
+ "built": "2026-11-14 19:02 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 19:02 UTC"
+}
