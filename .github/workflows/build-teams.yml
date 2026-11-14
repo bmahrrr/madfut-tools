@@ -6,7 +6,7 @@ on:
     paths:
       - "config/week.json"
       - "config/extras.json"
-  workflow_run:              # the nightly build: starts as soon as the nightly card data update (03:17 Brisbane) finishes,
+  workflow_run:              # the nightly build: starts as soon as the nightly card data update (04:17 Brisbane) finishes,
     workflows: ["Update card data"]     # so it always has the newest cards
     types: [completed]
     branches: [main]
