@@ -1,0 +1,902 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "84",
+  "cap": 84,
+  "boosts": [
+   {
+    "on": "club",
+    "id": 69,
+    "att": 1,
+    "ctl": 2,
+    "def": 0
+   },
+   {
+    "on": "club",
+    "id": 73,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id258789",
+     "name": "Misa",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      38,
+      28,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      40,
+      30,
+      85
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id240130",
+     "name": "Éder Militão",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      68,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id268486",
+     "name": "Clark",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 9,
+     "card": [
+      52,
+      56,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      53,
+      57,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id267371",
+     "name": "Nielsen",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      60,
+      61,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      80
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50529429",
+     "name": "Isco",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      82,
+      85,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50542162",
+     "name": "João Cancelo",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RB",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      82,
+      84,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      85
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50595957",
+     "name": "Güler",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RM",
+     "nationId": 48,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      83,
+      85,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      87,
+      57
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50407982",
+     "name": "Tordin",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "ST",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 111140,
+     "card": [
+      84,
+      83,
+      54
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      84,
+      55
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      47
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5973,
+    "control": 87.2,
+    "attack": 85.27,
+    "defence": 80.5,
+    "net": 0.1507,
+    "vs_reddit": null,
+    "control_cards": [
+     88,
+     88,
+     87,
+     87,
+     86
+    ],
+    "attack_cards": [
+     86,
+     86,
+     85,
+     85,
+     84,
+     84
+    ],
+    "defence_cards": [
+     86,
+     85,
+     81,
+     70
+    ],
+    "p_att": 0.6772,
+    "p_def": 0.2306,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 236.2,
+    "att_total": 223.67,
+    "def_total": 192.5,
+    "round_robin": {
+     "wins": 22.0,
+     "margin": 2.7495
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id258789",
+     "name": "Misa",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      38,
+      28,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      40,
+      30,
+      85
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id268486",
+     "name": "Clark",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 9,
+     "card": [
+      52,
+      56,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      53,
+      57,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id267371",
+     "name": "Nielsen",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      60,
+      61,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id240130",
+     "name": "Éder Militão",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      68,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50542162",
+     "name": "João Cancelo",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RB",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      82,
+      84,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      85
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50529429",
+     "name": "Isco",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      82,
+      85,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      80
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50595957",
+     "name": "Güler",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RM",
+     "nationId": 48,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      83,
+      85,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      87,
+      57
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50407982",
+     "name": "Tordin",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "ST",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 111140,
+     "card": [
+      84,
+      83,
+      54
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      84,
+      55
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.604,
+    "control": 87.2,
+    "attack": 85.27,
+    "defence": 80.5,
+    "net": 0.1669,
+    "vs_reddit": null,
+    "control_cards": [
+     88,
+     88,
+     87,
+     87,
+     86
+    ],
+    "attack_cards": [
+     86,
+     86,
+     85,
+     85,
+     84,
+     84
+    ],
+    "defence_cards": [
+     86,
+     85,
+     81,
+     70
+    ],
+    "p_att": 0.7054,
+    "p_def": 0.2012,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 236.2,
+    "att_total": 223.67,
+    "def_total": 192.5,
+    "round_robin": {
+     "wins": 19.0,
+     "margin": 2.4869
+    }
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id258789",
+     "name": "Misa",
+     "rating": 82,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      38,
+      28,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      40,
+      30,
+      85
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id240130",
+     "name": "Éder Militão",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      68,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id268486",
+     "name": "Clark",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 9,
+     "card": [
+      52,
+      56,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      53,
+      57,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id267371",
+     "name": "Nielsen",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      60,
+      61,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id245872",
+     "name": "Little",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 1,
+     "card": [
+      83,
+      86,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      80
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50595957",
+     "name": "Güler",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RM",
+     "nationId": 48,
+     "leagueId": 53,
+     "clubId": 243,
+     "card": [
+      83,
+      85,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      87,
+      57
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50529429",
+     "name": "Isco",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      82,
+      85,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      61
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50542162",
+     "name": "João Cancelo",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RB",
+     "nationId": 38,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      82,
+      84,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      86,
+      85
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50583500",
+     "name": "Adeyemi",
+     "rating": 83,
+     "color": "otw",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      84,
+      78,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      80,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50407982",
+     "name": "Tordin",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "ST",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 111140,
+     "card": [
+      84,
+      83,
+      54
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      84,
+      55
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.604,
+    "control": 87.2,
+    "attack": 85.26,
+    "defence": 80.4,
+    "net": 0.1509,
+    "vs_reddit": null,
+    "control_cards": [
+     88,
+     88,
+     87,
+     87,
+     86
+    ],
+    "attack_cards": [
+     86,
+     86,
+     85,
+     85,
+     84,
+     84
+    ],
+    "defence_cards": [
+     86,
+     85,
+     81,
+     80,
+     70
+    ],
+    "p_att": 0.7023,
+    "p_def": 0.162,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 236.2,
+    "att_total": 223.5,
+    "def_total": 204.6
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-11-14 16:37 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 16:37 UTC"
+}
