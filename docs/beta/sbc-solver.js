@@ -4,7 +4,7 @@
 // (normal special packs give far more 83- specials than 84+).
 "use strict";
 
-const SBC_AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut"]);
+const SBC_AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"]);   // HoF Upgraded: +1 league (not +2)
 const SBC_ICON = new Set(["icon", "debut_icon"]);
 const SBC_HERO = new Set(["hero", "hall_of_fut"]);
 // Card types the game doesn't allow in SBCs.

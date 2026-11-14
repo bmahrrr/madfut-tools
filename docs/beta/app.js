@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261113e";
+const APP_V = "20261114a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -985,7 +985,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261113e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261114a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1011,7 +1011,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261113e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261114a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1429,7 +1429,7 @@ function setupSBC() {
 }
 function closeAdd() { $("sbcAdd").hidden = true; $("sbcAddBtn").hidden = false; }
 // a line that can only be met with special cards (Card Types 4+, TOTW, Special Cards: Min 1...) turns "Allow special cards" on
-const ICONISH = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "iconhero"]);
+const ICONISH = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded", "iconhero"]);
 function needsSpecials(it) {
   if (it.t === "num") return /^(min|exact)_types$/.test(it.key) && it.v > 3;
   if (it.t !== "rule" || it.rule.op === "<=" || !(it.rule.n > 0)) return false;
@@ -1691,8 +1691,8 @@ function drawCheck() {
   const dup = sq.length - new Set(sq.map(c => c.baseId || c.name)).size;
   if (dup) checks.push({ label: `Same player twice`, ok: false });
   const wantsSpecial = (req.rules || []).some(r => r.op !== "<=" && (r.on === "color" || (r.on === "rarity" && r.id === "special")));
-  if (!req.allow_icons) { const n = sq.filter(c => ["icon", "debut_icon", "hero", "hall_of_fut"].includes(c.color)).length; checks.push({ label: `No Icons or Heroes: ${n}`, ok: n === 0 }); }
-  if (!req.allow_specials && !wantsSpecial) { const n = sq.filter(c => !["icon", "debut_icon", "hero", "hall_of_fut"].includes(c.color) && !["gold", "silver", "bronze"].includes(sbcType(c))).length; checks.push({ label: `No special cards: ${n}`, ok: n === 0 }); }
+  if (!req.allow_icons) { const n = sq.filter(c => ["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"].includes(c.color)).length; checks.push({ label: `No Icons or Heroes: ${n}`, ok: n === 0 }); }
+  if (!req.allow_specials && !wantsSpecial) { const n = sq.filter(c => !["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"].includes(c.color) && !["gold", "silver", "bronze"].includes(sbcType(c))).length; checks.push({ label: `No special cards: ${n}`, ok: n === 0 }); }
   checks.push(...sbcChecks(req, sq));
   const allOk = sq.length === 11 && checks.every(c => c.ok);
   out.innerHTML = `<p><b>Rating ${teamRatingOf(sq.map(c => c.rating))} · Chem ${ch.reduce((a, b) => a + b, 0)}</b></p>
@@ -1738,7 +1738,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261113e");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261114a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
