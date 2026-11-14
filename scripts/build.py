@@ -49,9 +49,24 @@ def variant_keys(mode, keys):
     return [f"{k}--{x['id']}" for k in keys for x in v.get("*", []) + v.get(k, [])]
 
 
-def variant_of(base, vid):
-    v = variants().get("myclub", {})
+def variant_of(base, vid, mode="myclub"):
+    v = variants().get(mode, {})
     return next(x for x in v.get("*", []) + v.get(base, []) if x["id"] == vid)
+
+
+def apply_variant(variant, owned, allc, by_id):
+    """A version's card pool: 'include' adds cards (All Evos: every possible Evo card), 'exclude' leaves cards out.
+    Returns (owned, allc, hit, gone): hit(card) is True for an excluded card, gone the excluded cards."""
+    from fatal.core import load_evos_all
+    if variant.get("include") == "evos_all":
+        ext = load_evos_all()
+        print("Version", variant["label"], "with", len(ext), "possible Evo cards")
+        owned, allc = owned + ext, allc + ext
+        by_id.update({c["id"]: c for c in ext})
+    rules = variant.get("exclude") or []
+    hit = lambda c: any(all(c.get(f) == val for f, val in rule.items()) for rule in rules)
+    gone = [c for c in owned if hit(c)]
+    return [c for c in owned if not hit(c)], allc, hit, gone
 
 
 def not_owned():
@@ -200,24 +215,24 @@ def main():
         out = {m: [s["key"] for s in w.get(m, [])] for m in ("sim", "myclub")}
         # "No LTMs or Evos" versions: built once per season, after the all-cards teams (never rebuilt nightly).
         # A version already built this season is skipped unless asked for by name ("myclub:89--noltmevo").
-        def built(k):
+        def built(m, k):
             try:
-                return json.load(open(os.path.join(RES, f"myclub_{k}.json"))).get("week") == w.get("week")
+                return json.load(open(os.path.join(RES, f"{m}_{k}.json"))).get("week") == w.get("week")
             except Exception:
                 return False
-        out["variants"] = variant_keys("myclub", out["myclub"])
-        named = {x.split(":", 1)[1].strip().lower() for x in (sys.argv[2] if len(sys.argv) > 2 else "").split(",") if "--" in x}
-        out["variants"] = [k for k in out["variants"] if k.lower() in named or not built(k)]
+        named = {x.strip().lower().replace(":", "|") for x in (sys.argv[2] if len(sys.argv) > 2 else "").split(",") if "--" in x}
+        out["variants"] = [f"{m}|{k}" for m in ("myclub", "sim") for k in variant_keys(m, out[m])
+                           if f"{m}|{k}".lower() in named or not built(m, k)]
         only = (sys.argv[2] if len(sys.argv) > 2 else "all").strip().lower()
-        grp = lambda m: "myclub" if m == "variants" else m      # a series' variants follow its My Club team
         if only in ("sim", "myclub"):
-            out = {m: (v if grp(m) == only else []) for m, v in out.items()}
+            out = {m: [x for x in v if (x.split("|")[0] if m == "variants" else m) == only] for m, v in out.items()}
         elif ":" in only or only == "":          # one or more series: "myclub:79,sim:85" ("" = nothing)
             want = {(m.strip(), k.strip().lower()) for m, _, k in (x.partition(":") for x in only.split(",") if x.strip())}
-            if any("--" in k for _, k in want):       # only variants asked for ("myclub:89--noltmevo"): not the series itself
-                out = {mm: [x for x in v if (grp(mm), x.lower()) in want] for mm, v in out.items()}
+            mk = lambda mm, x: tuple(x.lower().split("|")) if mm == "variants" else (mm, x.lower())
+            if any("--" in k for _, k in want):       # only versions asked for ("myclub:89--noltmevo"): not the series itself
+                out = {mm: [x for x in v if mk(mm, x) in want] for mm, v in out.items()}
             else:
-                out = {mm: [x for x in v if (grp(mm), x.split("--")[0].lower()) in want] for mm, v in out.items()}
+                out = {mm: [x for x in v if (mk(mm, x)[0], mk(mm, x)[1].split("--")[0]) in want] for mm, v in out.items()}
         print(json.dumps(out))
         return
     if mode == "archive":
@@ -281,7 +296,8 @@ def main():
     if mode == "index":
         w = week()
         keys = {("myclub_" + s["key"]) for s in w.get("myclub", [])} | {("sim_" + s["key"]) for s in w.get("sim", [])}
-        keys |= {"myclub_" + k for k in variant_keys("myclub", [s["key"] for s in w.get("myclub", [])])}
+        for m in ("myclub", "sim"):
+            keys |= {f"{m}_{k}" for k in variant_keys(m, [s["key"] for s in w.get(m, [])])}
         try:
             objs = json.load(open(os.path.join(ROOT, "docs", "objectives.json")))["objectives"]
         except FileNotFoundError:
@@ -312,10 +328,33 @@ def main():
         key = sys.argv[2]
         tag = sys.argv[3] if mode == "sim" and len(sys.argv) > 3 else None
         if tag == "b": os.environ["SIM_SEARCH"] = "1"
-        s = next(x for x in week()["sim"] if x["key"] == key)
+        base, _, vid = key.partition("--")
+        s = next(x for x in week()["sim"] if x["key"] == base)
         print("Sim", key)
+        variant = None
+        if vid:                             # a public version of the series (All Evos, or without some cards)
+            variant = variant_of(base, vid, "sim")
+            owned, allc, hit, gone = apply_variant(variant, owned, allc, by_id)
+            no_names = sorted({c["name"] + (" (every level)" if c.get("color") == "ltm" else " Evo" if c.get("color") == "evo" else f" {c['rating']}") for c in gone})
+            try:
+                full = json.load(open(os.path.join(RES, f"sim_{base}.json")))
+                if full.get("week") == week().get("week") and full.get("teams"):
+                    ft = [by_id[p["id"]] for p in full["teams"][0]["players"] if p["id"] in by_id]
+                    if variant.get("exclude") and not any(hit(c) for c in ft):    # the main team has none of those cards
+                        full.update({"variant": {"id": vid, "label": variant["label"], "exclude": variant["exclude"], "include": None},
+                                     "not_owned": no_names, "same_as_full": True})
+                        full.pop("built", None)
+                        print("the main team has no such cards: reused")
+                        save(f"sim_{key}.json", full); return
+            except FileNotFoundError:
+                full = None
         refs = [resolve_team(t, by_id, allc) for t in s.get("opponents", [])]
         n_reddit = len(refs)
+        if variant and variant.get("include"):     # All Evos: the main team is a starting point, so it is never weaker
+            try:
+                if len(ft) == 11: refs.append(ft)
+            except Exception:
+                pass
         try:                                # this season's current team is a starting point too (it gets polished)
             prev = json.load(open(os.path.join(RES, f"sim_{key}.json")))
             if prev.get("week") == week().get("week") and prev.get("teams"):
@@ -368,7 +407,9 @@ def main():
             pass
         except Exception as e:
             print("previous sim team not compared:", e)
-        save(f"sim_{key}.json", {"mode": "sim", "series": s, "teams": teams, "not_owned": no_names})
+        out = {"mode": "sim", "series": s, "teams": teams, "not_owned": no_names}
+        if variant: out["variant"] = {"id": vid, "label": variant["label"], "exclude": variant.get("exclude", []), "include": variant.get("include")}
+        save(f"sim_{key}.json", out)
         if mode == "simpick":                # the raw searches never get published
             import glob as _g
             for f in _g.glob(os.path.join(RES, f"sim_{key}.*.raw")): os.remove(f)
@@ -433,17 +474,15 @@ def main():
         # published directly (personal rebuilds and the No LTMs or Evos versions).
         tag = sys.argv[4] if len(sys.argv) > 4 else None
         variant = None
-        if vid:                             # a public "without these cards" version of the series
+        if vid:                             # a public version of the series (All Evos, or without some cards)
             variant = variant_of(base, vid)
-            hit = lambda c: any(all(c.get(f) == val for f, val in rule.items()) for rule in variant["exclude"])
-            gone = [c for c in owned if hit(c)]
-            owned = [c for c in owned if not hit(c)]
+            owned, allc, hit, gone = apply_variant(variant, owned, allc, by_id)
             no_names = sorted({c["name"] + (" (every level)" if c.get("color") == "ltm" else " Evo" if c.get("color") == "evo" else f" {c['rating']}") for c in gone})
-            print("Variant", variant["label"], "without", len(gone), "cards")
+            if gone: print("Variant", variant["label"], "without", len(gone), "cards")
             try:                            # the all-cards team has none of those cards: it is also the best team without them
                 full = json.load(open(os.path.join(RES, f"myclub_{base}.json")))
-                if full.get("week") == week().get("week") and not any(hit(by_id[p["id"]]) for p in full["team"]["players"] if p["id"] in by_id):
-                    full.update({"variant": {"id": vid, "label": variant["label"], "exclude": variant["exclude"]}, "not_owned": no_names, "same_as_full": True})
+                if variant.get("exclude") and full.get("week") == week().get("week") and not any(hit(by_id[p["id"]]) for p in full["team"]["players"] if p["id"] in by_id):
+                    full.update({"variant": {"id": vid, "label": variant["label"], "exclude": variant.get("exclude", []), "include": variant.get("include")}, "not_owned": no_names, "same_as_full": True})
                     full.pop("built", None)
                     print("the all-cards team has no such cards: reused")
                     save(f"myclub_{key}.json", full); return
@@ -453,6 +492,14 @@ def main():
         print("My Club", key, "opponents:", len(opps))
         kind = s.get("mode", "robust")      # best worst case against the Reddit team and stress tests
         cands = [(f"Reddit Reference Team {i+1}", o) for i, o in enumerate(opps)]
+        if variant and variant.get("include"):     # All Evos: the main team is a starting point, so it is never weaker
+            try:
+                full = json.load(open(os.path.join(RES, f"myclub_{base}.json")))
+                if full.get("week") == week().get("week"):
+                    ft = [by_id[p["id"]] for p in full["team"]["players"] if p["id"] in by_id]
+                    if len(ft) == 11: cands.append(("Recommended Evos Team", ft))
+            except Exception:
+                pass
         try:                                # this week's hand-built team, if there is one
             mt = json.load(open(os.path.join(ROOT, "docs", "myteams.json")))
             if not variant and mt.get("week") == week().get("week") and key in mt.get("teams", {}):
@@ -491,7 +538,7 @@ def main():
             print("could not keep the slots:", e)
         out = {"mode": "myclub", "series": {k: v for k, v in s.items() if k != "opponents"},
                "opponents": [[c["name"] for c in o] for o in opps], "team": team, "not_owned": no_names}
-        if variant: out["variant"] = {"id": vid, "label": variant["label"], "exclude": variant["exclude"]}
+        if variant: out["variant"] = {"id": vid, "label": variant["label"], "exclude": variant.get("exclude", []), "include": variant.get("include")}
         if tag:
             json.dump(out, open(os.path.join(RES, f"myclub_{key}.{tag}.raw"), "w"), ensure_ascii=False)
             print("search", tag, "saved"); return

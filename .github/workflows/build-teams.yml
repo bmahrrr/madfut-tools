@@ -203,15 +203,24 @@ jobs:
       - run: pip install -r requirements.txt
       # every build is a deep search (public repo: Actions minutes are free): 165 minutes per series for a new season or a
       # Reddit team, 150 for the nightly run, or the minutes typed in when started by hand
-      - run: python scripts/build.py myclub "${{ matrix.key }}" ${{ github.event_name == 'workflow_run' && '150' || inputs.minutes || '165' }}
+      # matrix.key is "mode|series--version" (e.g. "myclub|89--allevo", "sim|89--noltmevo")
+      - name: Which version
+        run: |
+          K="${{ matrix.key }}"
+          echo "M=${K%%|*}" >> $GITHUB_ENV
+          echo "K=${K#*|}" >> $GITHUB_ENV
+      - run: |
+          if [ "$M" = myclub ]; then python scripts/build.py myclub "$K" ${{ github.event_name == 'workflow_run' && '150' || inputs.minutes || '165' }}
+          else python scripts/build.py sim "$K"; fi
       - name: Game plan
-        run: node scripts/plan.js "docs/results/myclub_${{ matrix.key }}.json" || echo "game plan failed; the team is still saved"
+        if: ${{ env.M == 'myclub' }}
+        run: node scripts/plan.js "docs/results/myclub_${K}.json" || echo "game plan failed; the team is still saved"
       - uses: actions/upload-artifact@v4
         with:
-          name: myclub_${{ matrix.key }}
-          path: docs/results/myclub_${{ matrix.key }}.json
+          name: ${{ env.M }}_${{ env.K }}
+          path: docs/results/${{ env.M }}_${{ env.K }}.json
       - name: Publish this team now
-        run: bash scripts/publish_one.sh "docs/results/myclub_${{ matrix.key }}.json" || echo "early publish failed; the final step publishes it"
+        run: bash scripts/publish_one.sh "docs/results/${M}_${K}.json" || echo "early publish failed; the final step publishes it"
 
   # all-cards teams first: a new season is moved to the Vault and every all-cards team is published before the variants start
   publish:
@@ -251,7 +260,7 @@ jobs:
           fetch-depth: 0     # full history: a new season saves last season's card list from it
       - uses: actions/download-artifact@v4
         with:
-          pattern: "myclub_*--*"
+          pattern: "*_*--*"
           path: artifacts
       - name: Collect results
         run: |

@@ -37,6 +37,23 @@ def season_ids(week):
     return set(json.load(open(f))["ids"]) if week and os.path.exists(f) else None
 
 
+def load_evos_all():
+    """Every possible standard Evo card of the game year (data/evos_all.json, built by the daily card update): used only
+    by the "All Evos" teams. Each card keeps its card type and chem rules and lists the Evos it used ("evos")."""
+    try:
+        raw = json.load(open(os.path.join(ROOT, "data", "evos_all.json")))
+    except FileNotFoundError:
+        return []
+    out = []
+    for row in raw["cards"]:
+        c = dict(zip(raw["fields"], row))
+        c["owned"] = True
+        c.setdefault("specialChem", ""); c["altPositions"] = c.get("altPositions") or ""
+        c["P"] = frozenset([c["position"]] + [p for p in c["altPositions"].split(",") if p])
+        out.append(c)
+    return out
+
+
 def load_cards(owned_only=False):
     """Return a list of card dicts (database + config/extras.json), as available in the week being built:
     a past season only gets the game cards that existed then; hand-added cards with "from_week" (regular Evos)
