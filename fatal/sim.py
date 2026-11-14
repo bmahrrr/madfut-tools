@@ -823,7 +823,8 @@ def _slot_rows(sq, series):
     E, ch = effective(sq, series)
     return [{"id": x["id"], "name": x["name"], "rating": x["rating"], "color": x["color"], "position": x["position"],
              "nationId": x["nationId"], "leagueId": x["leagueId"], "clubId": x["clubId"],
-             "card": [x["attack"], x["control"], x["defense"]], "chem": ch[i], "eff": list(E[i][:3])}
+             "card": [x["attack"], x["control"], x["defense"]], "chem": ch[i], "eff": list(E[i][:3]),
+             **({"evos": list(x["evos"])} if x.get("evos") else {})}
             for i, x in enumerate(sq)]
 
 

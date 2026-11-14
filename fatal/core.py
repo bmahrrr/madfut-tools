@@ -262,5 +262,5 @@ def describe(team, series=None, force_full_chem=False):
         rows.append({"slot": slot, "id": x["id"], "name": x["name"], "rating": x["rating"], "color": x["color"],
                      "position": x["position"], "nationId": x["nationId"], "leagueId": x["leagueId"], "clubId": x["clubId"],
                      "card": [x["attack"], x["control"], x["defense"]], "chem": ch[i],
-                     "eff": list(E[i][:3]), "tiebreak": E[i][3]})
+                     "eff": list(E[i][:3]), "tiebreak": E[i][3], **({"evos": list(x["evos"])} if x.get("evos") else {})})
     return {"formation": fit[0] if fit else None, "chem": sum(ch), "players": rows}
