@@ -25,8 +25,20 @@ def set_icon_limit(series):
         MAX_ICONS, ICON_RULE = 5, [(lambda c: c["color"] in ICON, "<=", 5)]
 
 
+def evo_clash(team):
+    """True when two cards use the same Evo (All Evos teams: each Evo can be on one card only)."""
+    seen = set()
+    for x in team:
+        for e in x.get("evos") or ():
+            if e in seen: return True
+            seen.add(e)
+    return False
+
+
 def fits(team):
     if sum(1 for x in team if x["color"] in ICON) > MAX_ICONS:
+        return False
+    if evo_clash(team):
         return False
     key = tuple(sorted(tuple(sorted(x["P"])) for x in team))
     v = _fit_cache.get(key)

@@ -125,6 +125,11 @@ def build(cards, slots, value, chem_weight=None, force_full=None, minimize=False
         C = collections.defaultdict(list)
         for i in used: C[byi[i]["clubId"]].append(i)
         for g, mem in C.items(): prob += pulp.lpSum(Y[i] for i in mem) <= 1
+    # All Evos teams: each Evo can be on one card only (a chained card uses every Evo in its chain)
+    evo_names = {e for i in used for e in (byi[i].get("evos") or ())}
+    for e in evo_names:
+        mem = [i for i in used if e in (byi[i].get("evos") or ())]
+        if len(mem) > 1: prob += pulp.lpSum(Y[i] for i in mem) <= 1
     for (pred, op, n) in group_rules:
         expr = pulp.lpSum(Y[i] for i in used if pred(byi[i]))
         if op == ">=": prob += expr >= n

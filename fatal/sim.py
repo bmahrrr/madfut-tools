@@ -191,6 +191,12 @@ def evaluate(team, slots, series):
     AT = sum(W[i] * (E[i][0] + E[i][1] + E[i][2]) for i in range(len(slots)))     # attack duels tie -> total stats
     DT = sum(E[i][0] + E[i][1] + E[i][2] for i, s in enumerate(slots) if s in DEF)
     bad = sum(1 for i, s in enumerate(slots) if s in CTRL and ch[i] < 3)
+    # All Evos teams: two cards on the same Evo is impossible (one card per Evo); such a team ranks below every real one
+    seen_evo = set()
+    for x in team:
+        for e in x.get("evos") or ():
+            if e in seen_evo: bad += 99
+            seen_evo.add(e)
     # quality check (owner): a card that attacks in 5%+ of possessions should have in-game attack of at least
     # cap - 1 (79 in the 80 series, 89 in the 90). Control decides, but never at the cost of a striker who can't
     # score. Teams that reach it rank above all that don't; if none can, the smallest shortfall wins.
@@ -255,6 +261,16 @@ def sim_key(ev):
     return (ev["ctrl_not_full"] == 0, ev.get("def_unbeatable", False), -ev.get("attack_short", 0), min(vr, 0) if vr is not None else 0, rank_key(ev))
 
 
+def _evo_clash(team):
+    """True when two cards use the same Evo (All Evos teams: each Evo can be on one card only)."""
+    seen = set()
+    for x in team:
+        for e in x.get("evos") or ():
+            if e in seen: return True
+            seen.add(e)
+    return False
+
+
 def tie_cleanup(team, slots, series, pool, log=None):
     """Owner's rule: when two cards give the same value in the stat their slot uses (control in control slots, else
     attack, else defence), play the one with the higher total; still level, the higher control. Only when every other
@@ -273,6 +289,7 @@ def tie_cleanup(team, slots, series, pool, log=None):
             for c in pool:
                 if sl not in c["P"] or c["id"] == team[i]["id"] or pid(c) in used: continue
                 trial = team[:i] + [c] + team[i + 1:]
+                if _evo_clash(trial): continue          # All Evos: each Evo on one card only
                 E2, _ = effective(trial, series)
                 if E2[i][r] != E[i][r] or any(E2[k][:3] != E[k][:3] for k in range(len(team)) if k != i): continue
                 v = (E2[i][0] + E2[i][1] + E2[i][2], E2[i][1])
@@ -817,7 +834,8 @@ def _slot_rows(sq, series):
     E, ch = effective(sq, series)
     return [{"id": x["id"], "name": x["name"], "rating": x["rating"], "color": x["color"], "position": x["position"],
              "nationId": x["nationId"], "leagueId": x["leagueId"], "clubId": x["clubId"],
-             "card": [x["attack"], x["control"], x["defense"]], "chem": ch[i], "eff": list(E[i][:3])}
+             "card": [x["attack"], x["control"], x["defense"]], "chem": ch[i], "eff": list(E[i][:3]),
+             **({"evos": list(x["evos"])} if x.get("evos") else {})}
             for i, x in enumerate(sq)]
 
 
