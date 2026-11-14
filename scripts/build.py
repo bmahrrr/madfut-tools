@@ -378,6 +378,13 @@ def main():
                 for tm in r:
                     sg = (tm["formation"], tuple(p["id"] for p in tm["players"]))
                     if sg not in seen and len(teams) < 3: seen.add(sg); teams.append(tm)
+        def _clash(t):                      # All Evos: never a team with the same Evo on two cards
+            ev = [e for p in t.get("players", []) for e in p.get("evos") or ()]
+            return len(ev) != len(set(ev))
+        if any(_clash(t) for t in teams):
+            print("dropped", sum(_clash(t) for t in teams), "team(s) using an Evo twice")
+            teams = [t for t in teams if not _clash(t)]
+            if not teams: print("no valid team for", key); return
         try:                                # keep this season's previous team if the new search did worse
             from fatal.sim import evaluate, _slot_rows
             from fatal.core import FORMATIONS

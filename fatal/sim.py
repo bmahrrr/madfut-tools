@@ -261,6 +261,16 @@ def sim_key(ev):
     return (ev["ctrl_not_full"] == 0, ev.get("def_unbeatable", False), -ev.get("attack_short", 0), min(vr, 0) if vr is not None else 0, rank_key(ev))
 
 
+def _evo_clash(team):
+    """True when two cards use the same Evo (All Evos teams: each Evo can be on one card only)."""
+    seen = set()
+    for x in team:
+        for e in x.get("evos") or ():
+            if e in seen: return True
+            seen.add(e)
+    return False
+
+
 def tie_cleanup(team, slots, series, pool, log=None):
     """Owner's rule: when two cards give the same value in the stat their slot uses (control in control slots, else
     attack, else defence), play the one with the higher total; still level, the higher control. Only when every other
@@ -279,6 +289,7 @@ def tie_cleanup(team, slots, series, pool, log=None):
             for c in pool:
                 if sl not in c["P"] or c["id"] == team[i]["id"] or pid(c) in used: continue
                 trial = team[:i] + [c] + team[i + 1:]
+                if _evo_clash(trial): continue          # All Evos: each Evo on one card only
                 E2, _ = effective(trial, series)
                 if E2[i][r] != E[i][r] or any(E2[k][:3] != E[k][:3] for k in range(len(team)) if k != i): continue
                 v = (E2[i][0] + E2[i][1] + E2[i][2], E2[i][1])

@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        job: ["sim 66--allevo", "sim 89--allevo", "sim X--allevo", "myclub X--allevo 20"]
+        job: ["sim 89--allevo", "sim 87--allevo", "sim 84--allevo"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
