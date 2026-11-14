@@ -569,7 +569,7 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
   { day: "2026-11-15", items: [
-    "<b>Evos:</b> each series now has three versions: All Evos, Recommended and No LTM/Evo.",
+    "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos.",
     "<b>Evo names:</b> shown on every card that uses one, with both names for a chain."
   ] },
   { day: "2026-11-14", items: [
@@ -607,8 +607,8 @@ async function renderTeams() {
   // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_") && !f.includes("--"));
   const vfiles = files.filter(f => (f.startsWith("myclub_") || f.startsWith("sim_")) && f.includes("--"));
-  // each series: All Evos / Recommended Evos (the main team) / No LTM/Evo, one at a time (only the ones built so far)
-  const VORDER = ["allevo", "", "noltmevo"], VNAME = { allevo: "All Evos", "": "Recommended", noltmevo: "No LTM/Evo" };
+  // each series: All Evos / Recommended Evos (the main team) / No LTM & Evos, one at a time (only the ones built so far)
+  const VORDER = ["allevo", "", "noltmevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos" };
   const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
   const vpanel = (v, inner) => `<div class="vpanel"${v === "" ? "" : " hidden"} data-vp="${v}">${inner}</div>`;
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
@@ -1917,7 +1917,7 @@ async function setupUsage() {
   let shown = 25;
   const fmt = d => { const r = Math.round(d); return r ? String(r) : "<1"; };
   const f1 = d => { const r = Math.round(d * 10) / 10; return (r || "<0.1") + (r === 1 ? " day" : " days"); };
-  const label = s => { const [k, v] = s.split("_")[1].split("--"); return (s.startsWith("myclub") ? "My Club " : "Sim ") + k + (v === "noltmevo" ? " (No LTMs or Evos)" : v ? " (" + v + ")" : ""); };
+  const label = s => { const [k, v] = s.split("_")[1].split("--"); return (s.startsWith("myclub") ? "My Club " : "Sim ") + k + (v === "noltmevo" ? " (No LTM & Evos)" : v === "allevo" ? " (All Evos)" : v ? " (" + v + ")" : ""); };
   const draw = () => {
     const wk = $("uSeason").value, md = $("uMode").value, q = norm($("uFind").value.trim());
     const L = U.cards.map(c => {
