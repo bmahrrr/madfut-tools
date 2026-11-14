@@ -1,49 +1,45 @@
 {
- "g": 8,
+ "g": 9,
  "obj_ids": [
-  "id242444",
+  "id210385",
   "id253124",
+  "id242444",
+  "id50573369",
+  "evo_Bruno Costa_81",
   "id50561039",
   "id50572598",
-  "id210514",
-  "evo_Bruno Costa_81",
-  "id50404645",
-  "id261855"
+  "id261855",
+  "id210514"
  ],
- "strength": 101.2,
- "group_cards": 12,
- "reddit": [
-  {
-   "you_lead_first": "WIN",
-   "they_lead_first": "WIN"
-  }
- ],
+ "strength": 101.0,
+ "group_cards": 11,
+ "reddit": [],
  "team": {
   "formation": "4-1-2-1-2 (2)",
-  "chem": 33,
+  "chem": 29,
   "players": [
    {
     "slot": "GK",
-    "id": "id224987",
-    "name": "Provedel",
-    "rating": 83,
+    "id": "id210385",
+    "name": "Rui Silva",
+    "rating": 81,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 237,
     "card": [
-     37,
-     37,
-     84
+     32,
+     28,
+     82
     ],
     "chem": 3,
     "eff": [
-     40,
-     40,
-     87
+     34,
+     30,
+     84
     ],
-    "tiebreak": 164
+    "tiebreak": 148
    },
    {
     "slot": "LB",
@@ -70,49 +66,49 @@
    },
    {
     "slot": "CB",
-    "id": "id50590296",
-    "name": "Carlos Augusto",
+    "id": "id50606840",
+    "name": "Vušković",
     "rating": 83,
-    "color": "showdown",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 131682,
+    "color": "otw",
+    "position": "CB",
+    "nationId": 10,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
-     79,
-     80,
-     82
+     65,
+     65,
+     84
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     84,
-     84,
-     85
+     65,
+     65,
+     84
     ],
-    "tiebreak": 247
+    "tiebreak": 214
    },
    {
     "slot": "CB",
-    "id": "id67351699",
-    "name": "Balerdi",
+    "id": "id50590556",
+    "name": "van Hecke",
     "rating": 83,
     "color": "totw_gold",
     "position": "CB",
-    "nationId": 52,
-    "leagueId": 31,
-    "clubId": 52,
+    "nationId": 34,
+    "leagueId": 13,
+    "clubId": 18,
     "card": [
      68,
-     73,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     71,
      76,
-     87
+     83
     ],
-    "tiebreak": 231
+    "chem": 1,
+    "eff": [
+     68,
+     76,
+     83
+    ],
+    "tiebreak": 227
    },
    {
     "slot": "RB",
@@ -158,7 +154,10 @@
      85,
      75
     ],
-    "tiebreak": 245
+    "tiebreak": 245,
+    "evos": [
+     "Romanian Superliga Silver"
+    ]
    },
    {
     "slot": "CM",
@@ -223,34 +222,34 @@
     ],
     "chem": 3,
     "eff": [
-     85,
-     85,
-     66
+     84,
+     84,
+     65
     ],
     "tiebreak": 233
    },
    {
     "slot": "ST",
-    "id": "id50404645",
-    "name": "Rodrigo Mora",
+    "id": "id50573369",
+    "name": "Rafael Leão",
     "rating": 83,
-    "color": "otw",
-    "position": "CAM",
+    "color": "rare_gold",
+    "position": "LW",
     "nationId": 38,
-    "leagueId": 31,
-    "clubId": 52,
+    "leagueId": 68,
+    "clubId": 325,
     "card": [
+     82,
      80,
-     81,
-     46
+     37
     ],
     "chem": 3,
     "eff": [
-     83,
      84,
-     49
+     82,
+     39
     ],
-    "tiebreak": 213
+    "tiebreak": 205
    },
    {
     "slot": "ST",
@@ -292,34 +291,37 @@
   "boosts": [
    {
     "on": "nation",
-    "id": 54,
-    "att": 2,
-    "ctl": 1,
-    "def": 0
-   },
-   {
-    "on": "league",
-    "id": 31,
+    "id": 18,
     "att": 1,
     "ctl": 1,
     "def": 1
    }
   ],
-  "minutes": 30
+  "minutes": 30,
+  "bonuses": [
+   {
+    "kind": "leagues",
+    "max": 2,
+    "att": 0,
+    "ctl": 2,
+    "def": 0
+   }
+  ]
  },
  "base_ids": [
-  "id224987",
-  "id247103",
-  "id229237",
-  "id67351699",
-  "id50590296",
-  "id50575428",
+  "id264865",
+  "id205452",
+  "id227346",
+  "id50596532",
   "id197781",
-  "id210514",
+  "id262457",
+  "id257279",
+  "id264309",
+  "id50575428",
   "id50583500",
-  "id231447",
-  "id255475"
+  "id267531"
  ],
- "built": "2026-10-29 20:38 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }

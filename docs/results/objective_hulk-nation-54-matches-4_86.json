@@ -1,45 +1,40 @@
 {
  "g": 4,
  "obj_ids": [
-  "id273136",
   "id184943",
-  "id67335759",
-  "id189362"
+  "id189362",
+  "id247851",
+  "id67335759"
  ],
- "strength": 100.1,
- "group_cards": 494,
- "reddit": [
-  {
-   "you_lead_first": "WIN",
-   "they_lead_first": "WIN"
-  }
- ],
+ "strength": 102.5,
+ "group_cards": 497,
+ "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "4-3-2-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id273136",
-    "name": "Lorena",
+    "id": "id204935",
+    "name": "Pickford",
     "rating": 85,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 54,
-    "leagueId": 2221,
-    "clubId": 116309,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 7,
     "card": [
-     37,
-     41,
+     45,
+     45,
      85
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     37,
-     41,
-     85
+     48,
+     47,
+     90
     ],
-    "tiebreak": 163
+    "tiebreak": 181
    },
    {
     "slot": "LB",
@@ -81,9 +76,9 @@
     ],
     "chem": 3,
     "eff": [
-     69,
+     70,
      72,
-     89
+     92
     ],
     "tiebreak": 230
    },
@@ -112,29 +107,29 @@
    },
    {
     "slot": "RB",
-    "id": "evo_Rall_86",
-    "name": "Rall",
+    "id": "id50557023",
+    "name": "Laimer",
     "rating": 86,
-    "color": "evo",
+    "color": "star_performer",
     "position": "RB",
-    "nationId": 21,
-    "leagueId": 2215,
-    "clubId": 36,
+    "nationId": 4,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
      82,
-     88,
+     80,
      85
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     84,
-     90,
-     87
+     83,
+     81,
+     86
     ],
-    "tiebreak": 261
+    "tiebreak": 250
    },
    {
-    "slot": "CDM",
+    "slot": "CM",
     "id": "id67335759",
     "name": "Formiga",
     "rating": 85,
@@ -157,76 +152,30 @@
     "tiebreak": 250
    },
    {
-    "slot": "LM",
-    "id": "id50603487",
-    "name": "Vobian",
+    "slot": "CM",
+    "id": "id247851",
+    "name": "Bruno Guimarães",
     "rating": 86,
-    "color": "halloween",
-    "position": "LM",
-    "nationId": 21,
-    "leagueId": 2215,
-    "clubId": 25,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 1,
     "card": [
-     85,
-     86,
-     63
+     79,
+     84,
+     79
     ],
     "chem": 3,
     "eff": [
-     87,
-     88,
-     65
-    ],
-    "tiebreak": 240
-   },
-   {
-    "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
-    "card": [
-     85,
-     88,
+     81,
+     86,
      81
     ],
-    "chem": 3,
-    "eff": [
-     87,
-     90,
-     83
-    ],
-    "tiebreak": 260
+    "tiebreak": 248
    },
    {
     "slot": "CM",
-    "id": "id67355727",
-    "name": "Nmecha",
-    "rating": 86,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 22,
-    "card": [
-     83,
-     81,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     85,
-     83,
-     86
-    ],
-    "tiebreak": 254
-   },
-   {
-    "slot": "RM",
     "id": "id184943",
     "name": "Ramires",
     "rating": 86,
@@ -247,6 +196,52 @@
      86
     ],
     "tiebreak": 253
+   },
+   {
+    "slot": "CAM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
+    "card": [
+     86,
+     87,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     89,
+     74
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CAM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
+     85,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     90,
+     86
+    ],
+    "tiebreak": 260
    },
    {
     "slot": "ST",
@@ -288,35 +283,36 @@
   "cap": 86,
   "boosts": [
    {
-    "on": "club",
-    "id": 243,
-    "att": 3,
-    "ctl": 1,
-    "def": 0
+    "on": "nation",
+    "id": 14,
+    "att": 1,
+    "ctl": 0,
+    "def": 3
    },
    {
-    "on": "club",
-    "id": 11,
-    "att": 2,
-    "ctl": 2,
-    "def": 2
+    "on": "league",
+    "id": 31,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
    }
   ],
   "minutes": 30
  },
  "base_ids": [
-  "id44897",
-  "id50595413",
-  "evo_Can_85",
+  "id204935",
+  "id5467",
+  "id50564404",
+  "id50559326",
   "id50752",
   "evo_Rall_86",
-  "id227327",
-  "id67230808",
-  "id15723",
+  "id262090",
+  "id50575305",
   "id50592947",
-  "id67335223",
-  "id50572365"
+  "id50487969",
+  "id67335223"
  ],
- "built": "2026-10-31 07:01 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }
