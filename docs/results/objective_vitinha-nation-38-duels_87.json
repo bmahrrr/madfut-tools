@@ -1,20 +1,19 @@
 {
- "g": 2,
+ "g": 1,
  "obj_ids": [
-  "id239818",
   "id83906855"
  ],
- "strength": 99.7,
- "group_cards": 6,
+ "strength": 99.8,
+ "group_cards": 2,
  "reddit": [
   {
-   "you_lead_first": "DRAW",
+   "you_lead_first": "LOSS",
    "they_lead_first": "WIN"
   }
  ],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 30,
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -64,75 +63,121 @@
    },
    {
     "slot": "CB",
-    "id": "id239818",
-    "name": "Rúben Dias",
-    "rating": 87,
-    "color": "rare_gold",
+    "id": "id67375554",
+    "name": "Lúcio",
+    "rating": 85,
+    "color": "debut_icon",
     "position": "CB",
-    "nationId": 38,
-    "leagueId": 13,
-    "clubId": 10,
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     59,
-     69,
-     86
+     71,
+     71,
+     84
     ],
     "chem": 3,
     "eff": [
-     61,
-     71,
-     88
+     73,
+     73,
+     86
     ],
-    "tiebreak": 220
+    "tiebreak": 232
    },
    {
     "slot": "CB",
-    "id": "id84113342",
-    "name": "Scott",
-    "rating": 87,
-    "color": "halloween_hero",
-    "position": "CB",
-    "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 114605,
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
-     81,
-     81,
+     76,
+     86,
      85
     ],
     "chem": 3,
     "eff": [
-     84,
-     86,
+     78,
+     88,
      87
     ],
     "tiebreak": 253
    },
    {
     "slot": "LM",
-    "id": "evo_Oxlade-Chamberlain_87",
-    "name": "Oxlade-Chamberlain",
+    "id": "id83906855",
+    "name": "Quaresma",
     "rating": 87,
-    "color": "evo",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 50,
-    "clubId": 78,
+    "color": "halloween_hero",
+    "position": "LW",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 114605,
     "card": [
-     88,
-     88,
-     81
+     87,
+     86,
+     38
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     90,
-     92,
-     82
+     89,
+     88,
+     40
     ],
-    "tiebreak": 260
+    "tiebreak": 217
    },
    {
     "slot": "CM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
+    "card": [
+     86,
+     87,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     92,
+     71
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CM",
+    "id": "id50589182",
+    "name": "Palmer",
+    "rating": 87,
+    "color": "halloween",
+    "position": "RW",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 5,
+    "card": [
+     86,
+     86,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     91,
+     57
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "RM",
     "id": "id50569340",
     "name": "Foden",
     "rating": 87,
@@ -155,50 +200,27 @@
     "tiebreak": 239
    },
    {
-    "slot": "CM",
-    "id": "id50575052",
-    "name": "Stanway",
+    "slot": "CAM",
+    "id": "evo_Oxlade-Chamberlain_87",
+    "name": "Oxlade-Chamberlain",
     "rating": 87,
-    "color": "totw_gold",
+    "color": "evo",
     "position": "CM",
     "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 1,
+    "leagueId": 50,
+    "clubId": 78,
     "card": [
-     85,
-     84,
-     79
-    ],
-    "chem": 3,
-    "eff": [
      88,
-     89,
+     88,
      81
     ],
-    "tiebreak": 254
-   },
-   {
-    "slot": "RM",
-    "id": "id83906855",
-    "name": "Quaresma",
-    "rating": 87,
-    "color": "halloween_hero",
-    "position": "LW",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 114605,
-    "card": [
-     87,
-     86,
-     38
-    ],
     "chem": 3,
     "eff": [
-     89,
-     88,
-     40
+     91,
+     93,
+     83
     ],
-    "tiebreak": 217
+    "tiebreak": 263
    },
    {
     "slot": "CAM",
@@ -224,50 +246,27 @@
     "tiebreak": 260
    },
    {
-    "slot": "CAM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
+    "slot": "ST",
+    "id": "id67322964",
+    "name": "Gullit",
+    "rating": 86,
+    "color": "debut_icon",
     "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
+    "nationId": 34,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     86,
-     87,
-     69
+     84,
+     81,
+     79
     ],
     "chem": 3,
     "eff": [
-     89,
-     92,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "ST",
-    "id": "id50593503",
-    "name": "Kika Nazareth",
-    "rating": 86,
-    "color": "destined_for_glory",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
      86,
-     85,
-     66
+     83,
+     81
     ],
-    "chem": 1,
-    "eff": [
-     86,
-     85,
-     66
-    ],
-    "tiebreak": 237
+    "tiebreak": 250
    }
   ]
  },
@@ -303,17 +302,18 @@
  },
  "base_ids": [
   "id191694",
-  "id012",
+  "evo_Can_85",
   "id16619",
-  "id47390",
+  "id012",
   "ltm_ngumoha87",
-  "id50610776",
-  "id50402434",
-  "id50569340",
+  "id50589182",
   "id50592947",
+  "id50569340",
   "evo_Oxlade-Chamberlain_87",
-  "id5661"
+  "id50402434",
+  "id67322964"
  ],
- "built": "2026-11-09 01:29 UTC",
- "week": "2026-11-09"
+ "built": "2026-11-14 02:46 UTC",
+ "week": "2026-11-09",
+ "changed": "2026-11-14 02:46 UTC"
 }

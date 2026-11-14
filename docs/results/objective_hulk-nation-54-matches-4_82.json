@@ -1,12 +1,12 @@
 {
  "g": 4,
  "obj_ids": [
-  "id210257",
   "id258648",
-  "id266866",
-  "id236499"
+  "id80170",
+  "id259075",
+  "id266866"
  ],
- "strength": 99.1,
+ "strength": 99.5,
  "group_cards": 471,
  "reddit": [
   {
@@ -15,54 +15,54 @@
   }
  ],
  "team": {
-  "formation": "4-1-2-1-2 (2)",
-  "chem": 30,
+  "formation": "4-2-3-1 (2)",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id210257",
-    "name": "Ederson",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "GK",
-    "nationId": 54,
-    "leagueId": 68,
-    "clubId": 326,
-    "card": [
-     47,
-     50,
-     83
-    ],
-    "chem": 1,
-    "eff": [
-     47,
-     50,
-     83
-    ],
-    "tiebreak": 180
-   },
-   {
-    "slot": "LB",
-    "id": "id50593513",
-    "name": "Miguel Gutiérrez",
+    "id": "id50586951",
+    "name": "Caprile",
     "rating": 82,
     "color": "totw_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "position": "GK",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 1842,
     "card": [
-     79,
-     80,
-     81
+     38,
+     36,
+     84
     ],
     "chem": 3,
     "eff": [
-     81,
-     82,
-     83
+     41,
+     39,
+     87
     ],
-    "tiebreak": 246
+    "tiebreak": 164
+   },
+   {
+    "slot": "LB",
+    "id": "id80170",
+    "name": "Wesley",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 52,
+    "card": [
+     76,
+     77,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     80,
+     82
+    ],
+    "tiebreak": 238
    },
    {
     "slot": "CB",
@@ -135,29 +135,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id236499",
-    "name": "Douglas Luiz",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     76,
-     79,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     82,
-     78
-    ],
-    "tiebreak": 236
-   },
-   {
-    "slot": "CM",
     "id": "id266866",
     "name": "Éderson",
     "rating": 82,
@@ -180,73 +157,96 @@
     "tiebreak": 241
    },
    {
-    "slot": "CM",
-    "id": "id250723",
-    "name": "Koné",
-    "rating": 81,
+    "slot": "CDM",
+    "id": "id210406",
+    "name": "Zieliński",
+    "rating": 82,
     "color": "rare_gold",
     "position": "CM",
-    "nationId": 18,
+    "nationId": 37,
     "leagueId": 31,
-    "clubId": 52,
+    "clubId": 131682,
     "card": [
-     79,
-     79,
-     77
+     80,
+     81,
+     68
     ],
     "chem": 3,
     "eff": [
-     82,
-     82,
-     80
+     83,
+     84,
+     71
     ],
-    "tiebreak": 241
+    "tiebreak": 235
    },
    {
-    "slot": "CAM",
-    "id": "id84161109",
-    "name": "Maza",
+    "slot": "LM",
+    "id": "id50593513",
+    "name": "Miguel Gutiérrez",
     "rating": 82,
     "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 97,
+    "position": "LB",
+    "nationId": 45,
     "leagueId": 19,
     "clubId": 32,
     "card": [
-     81,
-     83,
-     64
+     79,
+     80,
+     81
     ],
     "chem": 3,
     "eff": [
-     83,
-     85,
-     66
+     81,
+     82,
+     83
     ],
-    "tiebreak": 234
+    "tiebreak": 246
    },
    {
-    "slot": "ST",
-    "id": "id67341275",
-    "name": "Nkunku",
+    "slot": "CAM",
+    "id": "id67349814",
+    "name": "Pedro Gonçalves",
     "rating": 82,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 18,
-    "leagueId": 19,
-    "clubId": 112172,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 110374,
     "card": [
-     83,
      81,
-     47
+     81,
+     62
     ],
     "chem": 3,
     "eff": [
-     85,
-     83,
-     49
+     84,
+     84,
+     65
     ],
-    "tiebreak": 217
+    "tiebreak": 230
+   },
+   {
+    "slot": "RM",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     75,
+     80,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     83,
+     78
+    ],
+    "tiebreak": 236
    },
    {
     "slot": "ST",
@@ -263,13 +263,13 @@
      77,
      50
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     85,
-     78,
-     51
+     84,
+     77,
+     50
     ],
-    "tiebreak": 214
+    "tiebreak": 211
    }
   ]
  },
@@ -311,15 +311,15 @@
   "id203574",
   "ltm_comuzzo82",
   "id239340",
-  "id84161109",
   "id50593513",
-  "id250723",
+  "id84161109",
   "id210406",
   "evo_Lucas Vázquez_80",
-  "id50570548",
-  "id67341275"
+  "id67349814",
+  "id261050",
+  "id50570548"
  ],
- "built": "2026-11-13 05:08 UTC",
+ "built": "2026-11-14 02:46 UTC",
  "week": "2026-11-09",
- "changed": "2026-11-13 05:08 UTC"
+ "changed": "2026-11-14 02:46 UTC"
 }

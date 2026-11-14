@@ -1,8 +1,9 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
-  "id183898",
-  "id204970"
+  "id204970",
+  "id50401665",
+  "id183898"
  ],
  "strength": 99.7,
  "group_cards": 7,
@@ -13,8 +14,8 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 26,
+  "formation": "4-1-2-1-2",
+  "chem": 25,
   "players": [
    {
     "slot": "GK",
@@ -54,13 +55,13 @@
      80,
      81
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     81,
-     84,
-     83
+     80,
+     83,
+     82
     ],
-    "tiebreak": 246
+    "tiebreak": 243
    },
    {
     "slot": "CB",
@@ -123,13 +124,13 @@
      83,
      78
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     84,
-     87,
-     80
+     83,
+     86,
+     79
     ],
-    "tiebreak": 249
+    "tiebreak": 246
    },
    {
     "slot": "CDM",
@@ -156,95 +157,72 @@
    },
    {
     "slot": "LM",
-    "id": "evo_Acuña_81",
-    "name": "Acuña",
+    "id": "id50542904",
+    "name": "Tagliafico",
     "rating": 81,
-    "color": "evo",
+    "color": "squad_foundations",
     "position": "LB",
     "nationId": 52,
-    "leagueId": 353,
-    "clubId": 1876,
+    "leagueId": 16,
+    "clubId": 66,
     "card": [
-     80,
-     83,
+     72,
+     75,
+     80
+    ],
+    "chem": 2,
+    "eff": [
+     73,
+     78,
      81
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "RM",
+    "id": "id50401665",
+    "name": "Yassine",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "RW",
+    "nationId": 129,
+    "leagueId": 16,
+    "clubId": 76,
+    "card": [
+     82,
+     83,
+     53
     ],
     "chem": 1,
     "eff": [
-     80,
+     82,
      85,
-     81
+     53
     ],
-    "tiebreak": 244
+    "tiebreak": 218
    },
    {
-    "slot": "CM",
-    "id": "id247246",
-    "name": "Thuram",
+    "slot": "CAM",
+    "id": "id250723",
+    "name": "Koné",
     "rating": 81,
     "color": "rare_gold",
     "position": "CM",
     "nationId": 18,
     "leagueId": 31,
-    "clubId": 45,
+    "clubId": 52,
     "card": [
-     76,
-     78,
-     80
+     79,
+     79,
+     77
     ],
     "chem": 3,
     "eff": [
-     79,
-     83,
-     83
-    ],
-    "tiebreak": 240
-   },
-   {
-    "slot": "CM",
-    "id": "id84161109",
-    "name": "Maza",
-    "rating": 82,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 97,
-    "leagueId": 19,
-    "clubId": 32,
-    "card": [
-     81,
-     83,
-     64
-    ],
-    "chem": 2,
-    "eff": [
      82,
-     86,
-     65
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "RM",
-    "id": "id204970",
-    "name": "Thauvin",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
-    "card": [
-     81,
-     82,
-     49
-    ],
-    "chem": 1,
-    "eff": [
-     81,
      84,
-     49
+     80
     ],
-    "tiebreak": 212
+    "tiebreak": 241
    },
    {
     "slot": "ST",
@@ -268,6 +246,29 @@
      46
     ],
     "tiebreak": 210
+   },
+   {
+    "slot": "ST",
+    "id": "id204970",
+    "name": "Thauvin",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 64,
+    "card": [
+     81,
+     82,
+     49
+    ],
+    "chem": 2,
+    "eff": [
+     82,
+     85,
+     50
+    ],
+    "tiebreak": 215
    }
   ]
  },
@@ -308,15 +309,15 @@
   "id203574",
   "ltm_comuzzo82",
   "id239340",
-  "id84161109",
   "id50593513",
-  "id250723",
+  "id84161109",
   "id210406",
   "evo_Lucas Vázquez_80",
-  "id50570548",
-  "id67341275"
+  "id67349814",
+  "id261050",
+  "id50570548"
  ],
- "built": "2026-11-13 05:08 UTC",
+ "built": "2026-11-14 02:46 UTC",
  "week": "2026-11-09",
- "changed": "2026-11-13 05:08 UTC"
+ "changed": "2026-11-14 02:46 UTC"
 }

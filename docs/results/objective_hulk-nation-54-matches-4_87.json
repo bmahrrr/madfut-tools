@@ -1,13 +1,13 @@
 {
  "g": 4,
  "obj_ids": [
+  "id67375554",
   "id012",
-  "id47390",
   "id28765",
   "id50571891"
  ],
- "strength": 100.0,
- "group_cards": 503,
+ "strength": 99.6,
+ "group_cards": 505,
  "reddit": [
   {
    "you_lead_first": "DRAW",
@@ -43,26 +43,49 @@
    },
    {
     "slot": "CB",
-    "id": "id47390",
-    "name": "Gilberto Silva",
+    "id": "id012",
+    "name": "David Luiz",
     "rating": 87,
-    "color": "hero",
-    "position": "CDM",
+    "color": "evo",
+    "position": "CB",
     "nationId": 54,
     "leagueId": 13,
-    "clubId": 114605,
+    "clubId": 1,
     "card": [
-     77,
-     81,
-     85
+     74,
+     80,
+     88
     ],
     "chem": 3,
     "eff": [
-     79,
-     83,
-     87
+     76,
+     82,
+     90
     ],
-    "tiebreak": 249
+    "tiebreak": 248
+   },
+   {
+    "slot": "CB",
+    "id": "id67375554",
+    "name": "Lúcio",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     71,
+     71,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     73,
+     86
+    ],
+    "tiebreak": 232
    },
    {
     "slot": "CB",
@@ -88,53 +111,7 @@
     "tiebreak": 253
    },
    {
-    "slot": "CB",
-    "id": "id012",
-    "name": "David Luiz",
-    "rating": 87,
-    "color": "evo",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 1,
-    "card": [
-     74,
-     80,
-     88
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     82,
-     90
-    ],
-    "tiebreak": 248
-   },
-   {
     "slot": "LM",
-    "id": "evo_Oxlade-Chamberlain_87",
-    "name": "Oxlade-Chamberlain",
-    "rating": 87,
-    "color": "evo",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 50,
-    "clubId": 78,
-    "card": [
-     88,
-     88,
-     81
-    ],
-    "chem": 2,
-    "eff": [
-     90,
-     92,
-     82
-    ],
-    "tiebreak": 260
-   },
-   {
-    "slot": "CM",
     "id": "id28765",
     "name": "Zé Roberto",
     "rating": 87,
@@ -158,24 +135,47 @@
    },
    {
     "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
     "color": "future_stars",
-    "position": "CM",
+    "position": "CAM",
     "nationId": 14,
     "leagueId": 13,
-    "clubId": 1943,
+    "clubId": 144,
     "card": [
-     85,
-     88,
-     81
+     86,
+     87,
+     69
     ],
     "chem": 3,
     "eff": [
+     89,
+     92,
+     71
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CM",
+    "id": "evo_Oxlade-Chamberlain_87",
+    "name": "Oxlade-Chamberlain",
+    "rating": 87,
+    "color": "evo",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 50,
+    "clubId": 78,
+    "card": [
      88,
-     93,
-     83
+     88,
+     81
+    ],
+    "chem": 2,
+    "eff": [
+     90,
+     92,
+     82
     ],
     "tiebreak": 260
    },
@@ -204,49 +204,49 @@
    },
    {
     "slot": "CAM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
+    "id": "id50589182",
+    "name": "Palmer",
+    "rating": 87,
+    "color": "halloween",
+    "position": "RW",
     "nationId": 14,
     "leagueId": 13,
-    "clubId": 144,
+    "clubId": 5,
     "card": [
      86,
-     87,
-     69
+     86,
+     55
     ],
     "chem": 3,
     "eff": [
      89,
-     92,
-     71
+     91,
+     57
     ],
-    "tiebreak": 248
+    "tiebreak": 233
    },
    {
     "slot": "CAM",
-    "id": "id50610776",
-    "name": "Nyoni",
+    "id": "id50592947",
+    "name": "Scott",
     "rating": 86,
-    "color": "star_performer",
+    "color": "future_stars",
     "position": "CM",
     "nationId": 14,
     "leagueId": 13,
-    "clubId": 9,
+    "clubId": 1943,
     "card": [
-     83,
      85,
-     79
+     88,
+     81
     ],
     "chem": 3,
     "eff": [
-     86,
-     90,
-     81
+     88,
+     93,
+     83
     ],
-    "tiebreak": 253
+    "tiebreak": 260
    },
    {
     "slot": "ST",
@@ -306,17 +306,18 @@
  },
  "base_ids": [
   "id191694",
-  "id012",
+  "evo_Can_85",
   "id16619",
-  "id47390",
+  "id012",
   "ltm_ngumoha87",
-  "id50610776",
-  "id50402434",
-  "id50569340",
+  "id50589182",
   "id50592947",
+  "id50569340",
   "evo_Oxlade-Chamberlain_87",
-  "id5661"
+  "id50402434",
+  "id67322964"
  ],
- "built": "2026-11-09 01:29 UTC",
- "week": "2026-11-09"
+ "built": "2026-11-14 02:46 UTC",
+ "week": "2026-11-09",
+ "changed": "2026-11-14 02:46 UTC"
 }
