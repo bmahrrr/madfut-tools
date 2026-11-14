@@ -1,0 +1,11 @@
+name: Probe data sources
+on:
+  push:
+    branches: [sim-rules]
+    paths: ["probe/**"]
+jobs:
+  probe:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 probe/probe.py
