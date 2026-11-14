@@ -1,83 +1,61 @@
 {
- "g": 1,
+ "g": 2,
  "obj_ids": [
-  "id230977"
+  "id230977",
+  "id247351"
  ],
- "strength": 100.8,
+ "strength": 100.6,
  "group_cards": 19,
  "reddit": [],
  "team": {
-  "formation": "3-1-4-2",
+  "formation": "4-1-2-1-2",
   "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id189117",
-    "name": "Bürki",
+    "id": "id266282",
+    "name": "Kahlina",
     "rating": 75,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 47,
+    "nationId": 10,
     "leagueId": 39,
-    "clubId": 113018,
+    "clubId": 114640,
     "card": [
-     34,
      30,
+     23,
      76
     ],
     "chem": 3,
     "eff": [
-     37,
-     32,
+     33,
+     25,
      80
     ],
-    "tiebreak": 146
+    "tiebreak": 135
    },
    {
-    "slot": "CB",
-    "id": "id231227",
-    "name": "Dorsch",
-    "rating": 74,
+    "slot": "LB",
+    "id": "id257771",
+    "name": "Juranović",
+    "rating": 73,
     "color": "rare_silver",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 39,
-    "clubId": 111651,
+    "position": "RB",
+    "nationId": 10,
+    "leagueId": 19,
+    "clubId": 1831,
     "card": [
-     74,
+     71,
      73,
-     70
+     72
     ],
     "chem": 3,
     "eff": [
-     79,
+     75,
      77,
      76
     ],
-    "tiebreak": 223
-   },
-   {
-    "slot": "CB",
-    "id": "id243354",
-    "name": "Sander",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 23,
-    "card": [
-     72,
-     73,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     74,
-     75,
-     77
-    ],
-    "tiebreak": 226
+    "tiebreak": 222
    },
    {
     "slot": "CB",
@@ -103,76 +81,76 @@
     "tiebreak": 203
    },
    {
-    "slot": "CDM",
-    "id": "id236898",
-    "name": "Aebischer",
+    "slot": "CB",
+    "id": "id231227",
+    "name": "Dorsch",
     "rating": 74,
     "color": "rare_silver",
     "position": "CM",
-    "nationId": 47,
-    "leagueId": 19,
-    "clubId": 1831,
+    "nationId": 21,
+    "leagueId": 39,
+    "clubId": 111651,
     "card": [
-     71,
-     72,
-     72
+     74,
+     73,
+     70
     ],
     "chem": 3,
     "eff": [
-     75,
-     76,
+     79,
+     77,
      76
     ],
-    "tiebreak": 221
+    "tiebreak": 223
+   },
+   {
+    "slot": "RB",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
+    "card": [
+     76,
+     77,
+     72
+    ],
+    "chem": 2,
+    "eff": [
+     79,
+     80,
+     75
+    ],
+    "tiebreak": 228
+   },
+   {
+    "slot": "CDM",
+    "id": "id199564",
+    "name": "Sergi Roberto",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 45,
+    "leagueId": 39,
+    "clubId": 697,
+    "card": [
+     71,
+     77,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     74,
+     79,
+     75
+    ],
+    "tiebreak": 225
    },
    {
     "slot": "LM",
-    "id": "id230977",
-    "name": "Almirón",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 58,
-    "leagueId": 39,
-    "clubId": 112885,
-    "card": [
-     75,
-     72,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     74,
-     59
-    ],
-    "tiebreak": 208
-   },
-   {
-    "slot": "CM",
-    "id": "id204497",
-    "name": "Stöger",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "CAM",
-    "nationId": 4,
-    "leagueId": 19,
-    "clubId": 23,
-    "card": [
-     73,
-     77,
-     61
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     81,
-     65
-    ],
-    "tiebreak": 217
-   },
-   {
-    "slot": "CM",
     "id": "id215449",
     "name": "Skov",
     "rating": 72,
@@ -196,26 +174,49 @@
    },
    {
     "slot": "RM",
-    "id": "id208618",
-    "name": "Lucas Vázquez",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "id": "id230977",
+    "name": "Almirón",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 58,
+    "leagueId": 39,
+    "clubId": 112885,
     "card": [
-     76,
-     77,
-     72
+     75,
+     72,
+     55
     ],
     "chem": 3,
     "eff": [
-     80,
-     81,
-     76
+     78,
+     74,
+     59
     ],
-    "tiebreak": 231
+    "tiebreak": 208
+   },
+   {
+    "slot": "CAM",
+    "id": "id240040",
+    "name": "Holse",
+    "rating": 73,
+    "color": "rare_silver",
+    "position": "CAM",
+    "nationId": 13,
+    "leagueId": 39,
+    "clubId": 113018,
+    "card": [
+     74,
+     73,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     77,
+     64
+    ],
+    "tiebreak": 211
    },
    {
     "slot": "ST",
@@ -255,13 +256,13 @@
      72,
      49
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     77,
-     75,
-     54
+     78,
+     76,
+     55
     ],
-    "tiebreak": 197
+    "tiebreak": 200
    }
   ]
  },
@@ -308,7 +309,7 @@
   "id242816",
   "id229286"
  ],
- "built": "2026-11-14 22:11 UTC",
+ "built": "2026-11-14 22:12 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-14 22:11 UTC"
+ "changed": "2026-11-14 22:12 UTC"
 }
