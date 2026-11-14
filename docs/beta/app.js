@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261114b";
+const APP_V = "20261115a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -988,7 +988,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261114b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261115a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1014,7 +1014,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261114b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261115a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1741,7 +1741,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261114b");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261115a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2233,10 +2233,12 @@ function renderWeekForm() {
     if (!confirm("Start a new season? This clears every series. Nothing is saved until you tap Save & rebuild.")) return;
     // Seasons start every Saturday 17:00 UTC (Sunday 00:00 in Thailand); a season is keyed by the Monday after its start
     const W = 6048e5, start1 = Date.UTC(2026, 8, 26, 17), n = Math.floor((Date.now() - start1) / W);
-    const key = new Date(start1 + n * W + 2 * 864e5).toISOString().slice(0, 10);
+    let key = new Date(start1 + n * W + 2 * 864e5).toISOString().slice(0, 10);
     if (key === ((WEEK && WEEK.week) || "")) {
-      alert(`The new season hasn't started yet: it starts ${new Date(start1 + (n + 1) * W).toLocaleString(undefined, { weekday: "long", hour: "2-digit", minute: "2-digit" })}. Start it then, or the current season would be overwritten.`);
-      return;
+      const next = start1 + (n + 1) * W, when = new Date(next).toLocaleString(undefined, { weekday: "long", hour: "2-digit", minute: "2-digit" });
+      // up to 3 hours early (boosts are often known before the reset): the teams are ready sooner
+      if (next - Date.now() <= 3 * 36e5 && confirm(`The new season starts ${when}. Set it up now, so its teams are ready sooner?\n\nThe current teams move to the Vault as soon as the new ones are built.`)) key = new Date(next + 2 * 864e5).toISOString().slice(0, 10);
+      else { alert(`The new season hasn't started yet: it starts ${when}. Start it then, or the current season would be overwritten.`); return; }
     }
     WS.week = key;
     WS.myclub = []; WS.sim = []; WSUI.open = ""; WSOPEN.clear();
