@@ -12,7 +12,7 @@ Chemistry rules (as used in SBCs and both Fatal modes):
 import collections, json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AUTO = {"icon", "debut_icon", "hero", "hall_of_fut"}
+AUTO = {"icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"}   # HoF Upgraded: full chem, +1 nation, +1 league
 ICON = {"icon", "debut_icon"}
 CHEM_BONUS = {0: -3, 1: 0, 2: 1, 3: 2}
 FORMATIONS = json.load(open(os.path.join(ROOT, "fatal", "formations.json")))
