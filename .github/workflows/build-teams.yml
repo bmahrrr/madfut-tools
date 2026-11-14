@@ -40,9 +40,24 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+      # a Season Setup save often comes minutes after the 3am reset, before the daily card update: get the newest cards
+      # first, so the new season's first build already has them
+      - name: Newest cards
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          python3 scripts/update_data.py
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/cards.json docs/cards.json docs/names.json
+          git diff --cached --quiet || (git commit -m "Update card data" && git pull --rebase && git push)
       - id: list
         run: |
           ONLY="${{ github.event.inputs.only || (github.event_name == 'workflow_run' && 'all') || 'all' }}"
+          # reset day (Sunday, Brisbane): last season is over, so no nightly build; the new season builds when Season
+          # Setup is saved (a nightly here would rebuild last season's series and hold up the new ones for hours)
+          if [ "${{ github.event_name }}" = "workflow_run" ] && [ "$(TZ=Australia/Brisbane date +%u)" = "7" ]; then
+            ONLY=""; echo "reset day: no nightly build"
+          fi
           # a save in Season Setup: a new season builds everything; later edits (e.g. a Reddit team added) only rebuild
           # the series that changed. A change to the cards (extras.json) rebuilds everything.
           if [ "${{ github.event_name }}" = "push" ] && ! git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep -q "config/extras.json"; then
