@@ -1,16 +1,24 @@
-import json, urllib.request, os
-H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0 Safari/537.36"}
-def get(u):
-    with urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=60) as r: return r.read()
-os.makedirs("out", exist_ok=True)
-for name in ["EvoCards.js", "Card.js", "Mappings.js", "Filter.js"]:
-    open(f"out/{name}", "wb").write(get(f"https://madfutdata.com/27/js/{name}"))
-FS = "https://firestore.googleapis.com/v1/projects/trivela-madfut/databases/%28default%29/documents/evosStandard"
+import json, sys, os, collections
+sys.path.insert(0, "scripts")
+import update_data as U, evos as EV
+H = {}
+src = json.load(open("config/sources.json"))
+realm = U.fetch(src["realm_urls"][0]); players = U.players_from(realm)
+upd = U.players_from(U.fetch(src["update_urls"][0]))
+by = {}
+for p in players + upd:
+    if "id" in p: by[p["id"]] = p
+print("players", len(by), "sample keys", sorted(list(by.values())[0])[:40])
 docs, tok = [], ""
 while True:
-    d = json.loads(get(FS + "?pageSize=300" + ("&pageToken=" + tok if tok else "")))
+    d = U.fetch(src["firestore_base"] + "/evosStandard?pageSize=300" + ("&pageToken=" + tok if tok else ""))
     docs += d.get("documents", []); tok = d.get("nextPageToken", "")
     if not tok: break
-json.dump(docs, open("out/evosStandard.json", "w"))
-print("docs", len(docs), [x["name"].split("/")[-1] for x in docs])
-# run 1794680615
+evs = EV.read_evos(docs); print("evos", len(evs), [e["name"] for e in evs])
+rows = EV.build(list(by.values()), evs, U.FIELDS)
+print("EVOLVED CARDS", len(rows), "unique base", len({r["base"] for r in rows}))
+print("by chain length", collections.Counter(len(r["evos"]) for r in rows))
+os.makedirs("evodata", exist_ok=True)
+EV.save(rows, U.FIELDS, "evodata/evos_all.json")
+top = sorted(rows, key=lambda r: -r["rating"])[:8]
+for r in top: print(r["rating"], r["name"], r["position"], r["attack"], r["control"], r["defense"], r["evos"], r["specialChem"])
