@@ -1,21 +1,24 @@
-import json, urllib.request, re
-H = {"User-Agent": "Mozilla/5.0 (madfut-tools updater)"}
-with urllib.request.urlopen(urllib.request.Request("https://madfutdata.com/27/json/realm27.json", headers=H), timeout=60) as r: d = json.loads(r.read())
-f = d["fields"]; print("REALM field keys:", list(f)[:80])
-def walk(x, path, out):
-    if isinstance(x, dict):
-        for k, v in x.items():
-            if re.search(r"evo|upgrade|chain", k, re.I): out.append(path + "/" + k)
-            walk(v, path + "/" + k, out)
-    elif isinstance(x, list):
-        for i, v in enumerate(x[:3]): walk(v, path + f"[{i}]", out)
-out = []; walk(f, "", out); print("evo-ish paths:", sorted(set(re.sub(r"\[\d+\]", "[]", p) for p in out))[:80])
-for k in f:
-    if re.search(r"evo|upgrade|chain", k, re.I): print("KEY", k, json.dumps(f[k])[:2500])
-FS = "https://firestore.googleapis.com/v1/projects/trivela-madfut/databases/%28default%29/documents"
-with urllib.request.urlopen(urllib.request.Request(FS + "/evosElite?pageSize=300", headers=H), timeout=60) as r: e = json.loads(r.read())
-docs = e.get("documents", []); print("evosElite docs", len(docs))
-ev = docs[0]["fields"]["evos"]["arrayValue"]["values"][0]["mapValue"]["fields"]
-print("elite evo keys:", list(ev)); print("standardUpgrades sample:", json.dumps(ev.get("standardUpgrades"))[:800])
-for k in ev:
-    if k not in ("players", "rewards"): print(" ", k, json.dumps(ev[k])[:600])
+import json, asyncio, re
+from playwright.async_api import async_playwright
+async def main():
+    async with async_playwright() as p:
+        b = await p.chromium.launch(); pg = await b.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36")
+        seen = []
+        async def on_resp(r):
+            u = r.url; ct = r.headers.get("content-type", "")
+            if any(x in u for x in ("json", "firestore", "api", ".js")) or "json" in ct:
+                body = b""
+                try: body = await r.body()
+                except Exception: pass
+                seen.append((r.status, u, ct, len(body), body[:1500]))
+        pg.on("response", on_resp)
+        for url in ["https://madfutdata.com/27/Evo-Chains", "https://madfutdata.com/27/Upgrade-Hub"]:
+            try:
+                await pg.goto(url, wait_until="networkidle", timeout=90000); await pg.wait_for_timeout(5000)
+                txt = await pg.inner_text("body"); print("PAGE", url, "text:", txt[:3000].replace("\n", " | "))
+            except Exception as e: print("PAGE FAIL", url, e)
+        for st, u, ct, n, b0 in seen:
+            print("REQ", st, u, ct, n)
+            if ("evo" in u.lower() or "chain" in u.lower() or "upgrade" in u.lower()) and n: print("   BODY", b0.decode("utf8", "replace")[:1500])
+        await b.close()
+asyncio.run(main())
