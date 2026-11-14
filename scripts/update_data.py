@@ -223,6 +223,31 @@ def main():
             old = json.load(open(path)).get("cards")
         except Exception:
             pass
+    # every possible standard Evo card of the game year (the "All Evos" teams use them; the other teams don't)
+    if not a.realm:
+        try:
+            import evos as EV
+            docs, tok = [], ""
+            while True:
+                d = fetch(src["firestore_base"] + "/evosStandard?pageSize=300" + ("&pageToken=" + urllib.parse.quote(tok) if tok else ""))
+                docs += d.get("documents", []); tok = d.get("nextPageToken", "")
+                if not tok: break
+            ev = EV.read_evos(docs, prefix)
+            keep = {c[0] for c in cards}
+            rows = EV.build([p for p in by_id.values() if p.get("id") in keep], ev, FIELDS)
+            epath = os.path.join(ROOT, "data", "evos_all.json")
+            prev = json.load(open(epath)) if os.path.exists(epath) else None
+            data = {"fields": FIELDS + ["evos", "base"], "evos": ev, "count": len(rows),
+                    "cards": [[r.get(k, "" if k in ("altPositions", "specialChem") else None) for k in FIELDS + ["evos", "base"]]
+                              for r in sorted(rows, key=lambda r: (-r["rating"], r["name"], r["id"]))]}
+            if not prev or prev.get("cards") != data["cards"] or prev.get("evos") != ev:
+                for f in (epath, os.path.join(ROOT, "docs", "evos_all.json")):
+                    json.dump(data, open(f, "w"), separators=(",", ":"), ensure_ascii=False)
+                print("wrote", len(rows), "evo cards from", len(ev), "evos")
+            else:
+                print("no change in evo cards")
+        except Exception as e:
+            print("evo cards skipped:", e)
     if old == cards:
         print("no change in card data"); return
     json.dump(out, open(path, "w"), separators=(",", ":"), ensure_ascii=False)
