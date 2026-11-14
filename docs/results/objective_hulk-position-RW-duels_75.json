@@ -1,127 +1,190 @@
 {
- "g": 2,
+ "g": 1,
  "obj_ids": [
-  "id263929",
-  "id266969"
+  "id230977"
  ],
- "strength": 100.0,
- "group_cards": 12,
- "reddit": [
-  {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "DRAW"
-  }
- ],
+ "strength": 100.8,
+ "group_cards": 19,
+ "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 31,
+  "formation": "3-1-4-2",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id247796",
-    "name": "Roebuck",
+    "id": "id189117",
+    "name": "Bürki",
     "rating": 75,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 2,
+    "nationId": 47,
+    "leagueId": 39,
+    "clubId": 113018,
     "card": [
-     38,
-     29,
+     34,
+     30,
      76
     ],
     "chem": 3,
     "eff": [
-     40,
-     31,
-     78
+     37,
+     32,
+     80
     ],
-    "tiebreak": 149
+    "tiebreak": 146
    },
    {
-    "slot": "LB",
-    "id": "id258976",
-    "name": "Parisi",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 110374,
+    "slot": "CB",
+    "id": "id231227",
+    "name": "Dorsch",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 39,
+    "clubId": 111651,
     "card": [
-     71,
-     72,
-     74
+     74,
+     73,
+     70
     ],
     "chem": 3,
     "eff": [
-     75,
-     74,
-     77
+     79,
+     77,
+     76
     ],
     "tiebreak": 223
    },
    {
     "slot": "CB",
-    "id": "id266551",
-    "name": "George",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 14,
-    "leagueId": 2216,
-    "clubId": 1808,
-    "card": [
-     62,
-     67,
-     78
-    ],
-    "chem": 2,
-    "eff": [
-     63,
-     68,
-     79
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CB",
-    "id": "id265237",
-    "name": "Patten",
+    "id": "id243354",
+    "name": "Sander",
     "rating": 75,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 25,
-    "leagueId": 2216,
-    "clubId": 2,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 23,
     "card": [
-     57,
-     63,
+     72,
+     73,
      75
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     58,
-     64,
-     76
+     74,
+     75,
+     77
     ],
-    "tiebreak": 198
+    "tiebreak": 226
    },
    {
-    "slot": "RB",
-    "id": "id235374",
-    "name": "Lazzari",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 115841,
+    "slot": "CB",
+    "id": "id220337",
+    "name": "Alonso",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "CB",
+    "nationId": 58,
+    "leagueId": 39,
+    "clubId": 112885,
     "card": [
+     61,
+     62,
+     74
+    ],
+    "chem": 3,
+    "eff": [
+     66,
+     66,
+     80
+    ],
+    "tiebreak": 203
+   },
+   {
+    "slot": "CDM",
+    "id": "id236898",
+    "name": "Aebischer",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 47,
+    "leagueId": 19,
+    "clubId": 1831,
+    "card": [
+     71,
+     72,
+     72
+    ],
+    "chem": 3,
+    "eff": [
      75,
      76,
-     72
+     76
+    ],
+    "tiebreak": 221
+   },
+   {
+    "slot": "LM",
+    "id": "id230977",
+    "name": "Almirón",
+    "rating": 75,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 58,
+    "leagueId": 39,
+    "clubId": 112885,
+    "card": [
+     75,
+     72,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     74,
+     59
+    ],
+    "tiebreak": 208
+   },
+   {
+    "slot": "CM",
+    "id": "id204497",
+    "name": "Stöger",
+    "rating": 74,
+    "color": "rare_silver",
+    "position": "CAM",
+    "nationId": 4,
+    "leagueId": 19,
+    "clubId": 23,
+    "card": [
+     73,
+     77,
+     61
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     81,
+     65
+    ],
+    "tiebreak": 217
+   },
+   {
+    "slot": "CM",
+    "id": "id215449",
+    "name": "Skov",
+    "rating": 72,
+    "color": "rare_silver",
+    "position": "LB",
+    "nationId": 13,
+    "leagueId": 19,
+    "clubId": 1831,
+    "card": [
+     75,
+     74,
+     71
     ],
     "chem": 3,
     "eff": [
@@ -129,145 +192,76 @@
      78,
      75
     ],
-    "tiebreak": 229
-   },
-   {
-    "slot": "CDM",
-    "id": "id252060",
-    "name": "Pobega",
-    "rating": 74,
-    "color": "rare_silver",
-    "position": "CDM",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 189,
-    "card": [
-     74,
-     71,
-     73
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     73,
-     76
-    ],
-    "tiebreak": 224
-   },
-   {
-    "slot": "LM",
-    "id": "id201389",
-    "name": "Biraghi",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 54,
-    "card": [
-     73,
-     75,
-     74
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     77,
-     77
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "CM",
-    "id": "id50600450",
-    "name": "Miretti",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 27,
-    "leagueId": 68,
-    "clubId": 327,
-    "card": [
-     72,
-     76,
-     67
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     78,
-     70
-    ],
-    "tiebreak": 221
-   },
-   {
-    "slot": "CM",
-    "id": "id224982",
-    "name": "Palumbo",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 27,
-    "leagueId": 32,
-    "clubId": 1843,
-    "card": [
-     74,
-     74,
-     67
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     76,
-     70
-    ],
-    "tiebreak": 221
+    "tiebreak": 226
    },
    {
     "slot": "RM",
-    "id": "id263929",
-    "name": "Cancellieri",
+    "id": "id208618",
+    "name": "Lucas Vázquez",
     "rating": 74,
     "color": "rare_silver",
-    "position": "RW",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 115841,
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     74,
-     71,
-     45
+     76,
+     77,
+     72
     ],
     "chem": 3,
     "eff": [
-     78,
-     73,
-     48
+     80,
+     81,
+     76
     ],
-    "tiebreak": 196
+    "tiebreak": 231
    },
    {
     "slot": "ST",
-    "id": "id266969",
-    "name": "Corelli",
+    "id": "id242816",
+    "name": "Riqui Puig",
     "rating": 74,
     "color": "rare_silver",
-    "position": "RW",
-    "nationId": 27,
-    "leagueId": 2236,
-    "clubId": 52,
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 39,
+    "clubId": 697,
     "card": [
-     74,
-     70,
-     30
+     75,
+     76,
+     49
     ],
     "chem": 3,
     "eff": [
-     78,
-     72,
-     33
+     80,
+     80,
+     55
     ],
-    "tiebreak": 180
+    "tiebreak": 206
+   },
+   {
+    "slot": "ST",
+    "id": "id247351",
+    "name": "Bogusz",
+    "rating": 73,
+    "color": "rare_silver",
+    "position": "RW",
+    "nationId": 37,
+    "leagueId": 39,
+    "clubId": 698,
+    "card": [
+     73,
+     72,
+     49
+    ],
+    "chem": 2,
+    "eff": [
+     77,
+     75,
+     54
+    ],
+    "tiebreak": 197
    }
   ]
  },
@@ -285,35 +279,36 @@
   "cap": 75,
   "boosts": [
    {
-    "on": "league",
-    "id": 53,
-    "att": 0,
+    "on": "color",
+    "id": "silver",
+    "att": 2,
     "ctl": 2,
-    "def": 0
+    "def": 2
    },
    {
-    "on": "nation",
-    "id": 27,
-    "att": 2,
+    "on": "league",
+    "id": 39,
+    "att": 1,
     "ctl": 0,
-    "def": 1
+    "def": 2
    }
   ],
   "minutes": 30
  },
  "base_ids": [
-  "id247796",
-  "id201389",
-  "id266551",
-  "id220534",
-  "id235374",
-  "id252060",
-  "id50590554",
-  "id265292",
-  "id212404",
-  "id269276",
-  "id240797"
+  "id247506",
+  "id214436",
+  "id243354",
+  "id220337",
+  "id204497",
+  "id260651",
+  "id215449",
+  "id184941",
+  "id208618",
+  "id242816",
+  "id229286"
  ],
- "built": "2026-10-31 07:01 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }

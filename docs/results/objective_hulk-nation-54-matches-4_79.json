@@ -1,48 +1,158 @@
 {
  "g": 4,
  "obj_ids": [
-  "id50562318",
-  "id273463",
-  "id279709",
-  "id50562314"
+  "id50562314",
+  "id259075",
+  "id236499",
+  "id230658"
  ],
- "strength": 100.5,
+ "strength": 100.9,
  "group_cards": 441,
- "reddit": [
-  {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
-  }
- ],
+ "reddit": [],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 27,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id50562318",
-    "name": "Lucas Perri",
-    "rating": 76,
+    "id": "id227186",
+    "name": "Batalla",
+    "rating": 79,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 54,
+    "nationId": 52,
+    "leagueId": 53,
+    "clubId": 480,
     "card": [
-     32,
-     31,
-     77
+     36,
+     34,
+     80
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     32,
-     31,
-     77
+     38,
+     38,
+     83
     ],
-    "tiebreak": 140
+    "tiebreak": 156
    },
    {
     "slot": "LB",
+    "id": "id224334",
+    "name": "Acuña",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
+    "card": [
+     75,
+     77,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     81,
+     78
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "CB",
+    "id": "id237221",
+    "name": "Foyth",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 52,
+    "leagueId": 53,
+    "clubId": 483,
+    "card": [
+     63,
+     71,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     65,
+     75,
+     82
+    ],
+    "tiebreak": 219
+   },
+   {
+    "slot": "CB",
+    "id": "id50574483",
+    "name": "Balerdi",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 52,
+    "leagueId": 31,
+    "clubId": 52,
+    "card": [
+     63,
+     67,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     65,
+     71,
+     82
+    ],
+    "tiebreak": 215
+   },
+   {
+    "slot": "RB",
+    "id": "id259075",
+    "name": "Yan Couto",
+    "rating": 77,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 1745,
+    "card": [
+     75,
+     80,
+     75
+    ],
+    "chem": 2,
+    "eff": [
+     76,
+     81,
+     76
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "CDM",
+    "id": "id230658",
+    "name": "Arthur",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     74,
+     79,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     81,
+     73
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "LM",
     "id": "id220651",
     "name": "Angeliño",
     "rating": 78,
@@ -58,149 +168,34 @@
     ],
     "chem": 3,
     "eff": [
-     80,
-     82,
+     78,
+     81,
      79
     ],
     "tiebreak": 238
    },
    {
-    "slot": "CB",
-    "id": "id279709",
-    "name": "Lucas Beraldo",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     60,
-     71,
-     79
-    ],
-    "chem": 1,
-    "eff": [
-     60,
-     71,
-     79
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "CB",
-    "id": "id192638",
-    "name": "Marcos Alonso",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 450,
-    "card": [
-     73,
-     77,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     80,
-     81
-    ],
-    "tiebreak": 235
-   },
-   {
-    "slot": "RB",
-    "id": "id259307",
-    "name": "Gusto",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 18,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     72,
-     76,
-     78
-    ],
-    "chem": 2,
-    "eff": [
-     75,
-     79,
-     81
-    ],
-    "tiebreak": 229
-   },
-   {
-    "slot": "CDM",
-    "id": "id234153",
-    "name": "Carlos Soler",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 457,
-    "card": [
-     76,
-     79,
-     70
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     82,
-     72
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "LM",
-    "id": "id258371",
-    "name": "Pep Chavarría",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     76,
-     73,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     78,
-     82
-    ],
-    "tiebreak": 233
-   },
-   {
     "slot": "CM",
-    "id": "id273463",
-    "name": "João Gomes",
+    "id": "id236499",
+    "name": "Douglas Luiz",
     "rating": 78,
     "color": "rare_gold",
     "position": "CDM",
     "nationId": 54,
-    "leagueId": 13,
-    "clubId": 2,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     71,
-     75,
-     76
-    ],
-    "chem": 2,
-    "eff": [
-     72,
      76,
+     79,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     81,
      77
     ],
-    "tiebreak": 225
+    "tiebreak": 236
    },
    {
     "slot": "CM",
@@ -219,34 +214,34 @@
     ],
     "chem": 3,
     "eff": [
+     79,
      81,
-     82,
      78
     ],
     "tiebreak": 238
    },
    {
     "slot": "RM",
-    "id": "id225201",
-    "name": "Berenguer",
-    "rating": 79,
+    "id": "id245371",
+    "name": "Almada",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 448,
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     79,
-     77,
-     66
+     78,
+     78,
+     53
     ],
     "chem": 3,
     "eff": [
-     83,
      80,
-     68
+     82,
+     56
     ],
-    "tiebreak": 228
+    "tiebreak": 215
    },
    {
     "slot": "ST",
@@ -288,35 +283,36 @@
   "cap": 79,
   "boosts": [
    {
-    "on": "nation",
-    "id": 45,
-    "att": 2,
+    "on": "league",
+    "id": 308,
+    "att": 1,
     "ctl": 1,
-    "def": 0
+    "def": 1
    },
    {
-    "on": "club",
-    "id": 5,
-    "att": 2,
+    "on": "nation",
+    "id": 52,
+    "att": 0,
     "ctl": 2,
-    "def": 2
+    "def": 1
    }
   ],
   "minutes": 30
  },
  "base_ids": [
-  "id257235",
-  "id258371",
+  "id227186",
   "id192638",
-  "id248695",
-  "id259307",
+  "id233230",
+  "id236804",
+  "id50574483",
+  "id237221",
   "id241811",
   "id263370",
-  "id225201",
-  "id266032",
-  "id50596345",
-  "id259377"
+  "id245371",
+  "id214997",
+  "id254551"
  ],
- "built": "2026-10-31 07:01 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }

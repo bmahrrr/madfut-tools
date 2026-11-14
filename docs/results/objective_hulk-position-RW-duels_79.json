@@ -1,89 +1,60 @@
 {
- "g": 2,
+ "g": 1,
  "obj_ids": [
-  "id225201",
-  "id246044"
+  "id225201"
  ],
- "strength": 101.4,
- "group_cards": 4,
- "reddit": [
-  {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "DRAW"
-  }
- ],
+ "strength": 100.0,
+ "group_cards": 7,
+ "reddit": [],
  "team": {
-  "formation": "4-4-1-1",
-  "chem": 33,
+  "formation": "4-3-3 (4)",
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
-    "id": "id270821",
-    "name": "Penders",
-    "rating": 78,
+    "id": "id227186",
+    "name": "Batalla",
+    "rating": 79,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 7,
-    "leagueId": 13,
-    "clubId": 5,
+    "nationId": 52,
+    "leagueId": 53,
+    "clubId": 480,
     "card": [
-     33,
-     41,
-     79
+     36,
+     34,
+     80
     ],
     "chem": 3,
     "eff": [
-     37,
-     45,
+     38,
+     38,
      83
     ],
-    "tiebreak": 159
+    "tiebreak": 156
    },
    {
     "slot": "LB",
-    "id": "id220651",
-    "name": "Angeliño",
-    "rating": 78,
+    "id": "id224334",
+    "name": "Acuña",
+    "rating": 76,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 242,
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     76,
-     79,
-     77
+     75,
+     77,
+     75
     ],
     "chem": 3,
     "eff": [
-     80,
-     82,
-     79
+     77,
+     81,
+     78
     ],
-    "tiebreak": 238
-   },
-   {
-    "slot": "CB",
-    "id": "id248695",
-    "name": "Fofana",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     60,
-     65,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     64,
-     69,
-     83
-    ],
-    "tiebreak": 210
+    "tiebreak": 233
    },
    {
     "slot": "CB",
@@ -102,11 +73,34 @@
     ],
     "chem": 3,
     "eff": [
-     77,
-     80,
+     75,
+     79,
      81
     ],
     "tiebreak": 235
+   },
+   {
+    "slot": "CB",
+    "id": "id237221",
+    "name": "Foyth",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 52,
+    "leagueId": 53,
+    "clubId": 483,
+    "card": [
+     63,
+     71,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     65,
+     75,
+     82
+    ],
+    "tiebreak": 219
    },
    {
     "slot": "RB",
@@ -123,36 +117,13 @@
      76,
      78
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     76,
-     80,
-     82
-    ],
-    "tiebreak": 232
-   },
-   {
-    "slot": "LM",
-    "id": "id258371",
-    "name": "Pep Chavarría",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     76,
      73,
-     78
+     77,
+     79
     ],
-    "chem": 3,
-    "eff": [
-     82,
-     78,
-     82
-    ],
-    "tiebreak": 233
+    "tiebreak": 229
    },
    {
     "slot": "CM",
@@ -171,57 +142,34 @@
     ],
     "chem": 3,
     "eff": [
+     79,
      81,
-     82,
      78
     ],
     "tiebreak": 238
    },
    {
     "slot": "CM",
-    "id": "id234153",
-    "name": "Carlos Soler",
+    "id": "id263370",
+    "name": "Barco",
     "rating": 79,
     "color": "rare_gold",
     "position": "CM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 457,
+    "nationId": 52,
+    "leagueId": 13,
+    "clubId": 5,
     "card": [
-     76,
-     79,
-     70
-    ],
-    "chem": 3,
-    "eff": [
+     72,
      80,
-     82,
-     72
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "RM",
-    "id": "id246044",
-    "name": "Andrés Martín",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 456,
-    "card": [
-     77,
-     74,
-     40
+     71
     ],
     "chem": 3,
     "eff": [
-     81,
-     77,
-     42
+     74,
+     84,
+     74
     ],
-    "tiebreak": 197
+    "tiebreak": 229
    },
    {
     "slot": "CAM",
@@ -240,34 +188,80 @@
     ],
     "chem": 3,
     "eff": [
-     83,
-     80,
+     81,
+     79,
      68
     ],
     "tiebreak": 228
    },
    {
+    "slot": "LW",
+    "id": "id236918",
+    "name": "Dreyer",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 13,
+    "leagueId": 39,
+    "clubId": 131439,
+    "card": [
+     79,
+     76,
+     44
+    ],
+    "chem": 0,
+    "eff": [
+     76,
+     73,
+     41
+    ],
+    "tiebreak": 190
+   },
+   {
     "slot": "ST",
-    "id": "id235944",
-    "name": "Brais Méndez",
+    "id": "id214997",
+    "name": "Correa",
     "rating": 78,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 39,
-    "clubId": 687,
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     77,
-     78,
-     66
+     79,
+     76,
+     53
     ],
     "chem": 3,
     "eff": [
      81,
-     81,
-     68
+     80,
+     56
     ],
-    "tiebreak": 227
+    "tiebreak": 214
+   },
+   {
+    "slot": "RW",
+    "id": "id265860",
+    "name": "Dufour",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 2221,
+    "clubId": 111140,
+    "card": [
+     78,
+     78,
+     51
+    ],
+    "chem": 1,
+    "eff": [
+     78,
+     78,
+     51
+    ],
+    "tiebreak": 207
    }
   ]
  },
@@ -285,35 +279,36 @@
   "cap": 79,
   "boosts": [
    {
-    "on": "nation",
-    "id": 45,
-    "att": 2,
+    "on": "league",
+    "id": 308,
+    "att": 1,
     "ctl": 1,
-    "def": 0
+    "def": 1
    },
    {
-    "on": "club",
-    "id": 5,
-    "att": 2,
+    "on": "nation",
+    "id": 52,
+    "att": 0,
     "ctl": 2,
-    "def": 2
+    "def": 1
    }
   ],
   "minutes": 30
  },
  "base_ids": [
-  "id257235",
-  "id258371",
+  "id227186",
   "id192638",
-  "id248695",
-  "id259307",
+  "id233230",
+  "id236804",
+  "id50574483",
+  "id237221",
   "id241811",
   "id263370",
-  "id225201",
-  "id266032",
-  "id50596345",
-  "id259377"
+  "id245371",
+  "id214997",
+  "id254551"
  ],
- "built": "2026-10-31 07:01 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }

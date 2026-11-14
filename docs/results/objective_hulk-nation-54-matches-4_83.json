@@ -1,45 +1,40 @@
 {
  "g": 4,
  "obj_ids": [
-  "id80170",
   "id50590296",
   "id266866",
+  "id256632",
   "id255475"
  ],
  "strength": 101.4,
- "group_cards": 476,
- "reddit": [
-  {
-   "you_lead_first": "WIN",
-   "they_lead_first": "WIN"
-  }
- ],
+ "group_cards": 478,
+ "reddit": [],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 32,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id224987",
-    "name": "Provedel",
-    "rating": 83,
+    "id": "id264865",
+    "name": "Chavas",
+    "rating": 82,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 111817,
     "card": [
-     37,
-     37,
-     84
+     30,
+     25,
+     83
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     40,
-     40,
-     87
+     32,
+     27,
+     85
     ],
-    "tiebreak": 164
+    "tiebreak": 141
    },
    {
     "slot": "LB",
@@ -66,6 +61,29 @@
    },
    {
     "slot": "CB",
+    "id": "id67377753",
+    "name": "Álvaro Carreras",
+    "rating": 83,
+    "color": "totw_gold",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 243,
+    "card": [
+     79,
+     80,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     82,
+     84
+    ],
+    "tiebreak": 247
+   },
+   {
+    "slot": "CB",
     "id": "id50590296",
     "name": "Carlos Augusto",
     "rating": 83,
@@ -81,57 +99,34 @@
     ],
     "chem": 3,
     "eff": [
-     84,
-     84,
-     85
+     81,
+     82,
+     84
     ],
     "tiebreak": 247
    },
    {
-    "slot": "CB",
-    "id": "id67351699",
-    "name": "Balerdi",
-    "rating": 83,
-    "color": "totw_gold",
-    "position": "CB",
-    "nationId": 52,
-    "leagueId": 31,
-    "clubId": 52,
-    "card": [
-     68,
-     73,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     71,
-     76,
-     87
-    ],
-    "tiebreak": 231
-   },
-   {
     "slot": "RB",
-    "id": "id80170",
-    "name": "Wesley",
-    "rating": 80,
+    "id": "id256632",
+    "name": "Luis Henrique",
+    "rating": 77,
     "color": "rare_gold",
-    "position": "LB",
+    "position": "RB",
     "nationId": 54,
     "leagueId": 31,
-    "clubId": 52,
+    "clubId": 131682,
     "card": [
-     76,
      77,
-     79
+     73,
+     75
     ],
     "chem": 3,
     "eff": [
-     81,
-     81,
-     82
+     79,
+     75,
+     77
     ],
-    "tiebreak": 238
+    "tiebreak": 231
    },
    {
     "slot": "CDM",
@@ -158,26 +153,49 @@
    },
    {
     "slot": "LM",
-    "id": "id50572598",
-    "name": "Pedro Gonçalves",
+    "id": "id262457",
+    "name": "Olga Carmona",
     "rating": 83,
-    "color": "otw",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 2218,
+    "clubId": 73,
     "card": [
-     82,
-     82,
-     63
+     79,
+     78,
+     82
     ],
     "chem": 3,
     "eff": [
-     85,
-     85,
-     66
+     81,
+     80,
+     84
     ],
-    "tiebreak": 233
+    "tiebreak": 245
+   },
+   {
+    "slot": "CM",
+    "id": "id264309",
+    "name": "Güler",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "RM",
+    "nationId": 48,
+    "leagueId": 53,
+    "clubId": 243,
+    "card": [
+     82,
+     84,
+     53
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     86,
+     55
+    ],
+    "tiebreak": 225
    },
    {
     "slot": "CM",
@@ -194,36 +212,13 @@
      78,
      80
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     82,
-     82,
-     83
+     78,
+     79,
+     81
     ],
-    "tiebreak": 241
-   },
-   {
-    "slot": "CM",
-    "id": "id197781",
-    "name": "Isco",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     80,
-     84,
-     58
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     86,
-     60
-    ],
-    "tiebreak": 228
+    "tiebreak": 238
    },
    {
     "slot": "RM",
@@ -242,34 +237,34 @@
     ],
     "chem": 3,
     "eff": [
-     86,
-     83,
+     84,
+     82,
      52
     ],
     "tiebreak": 218
    },
    {
     "slot": "ST",
-    "id": "id261855",
-    "name": "Kika Nazareth",
+    "id": "id50597548",
+    "name": "Feller",
     "rating": 83,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 2222,
-    "clubId": 241,
+    "color": "showdown",
+    "position": "LW",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 73,
     "card": [
-     83,
      82,
-     63
+     78,
+     46
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     84,
-     83,
-     64
+     85,
+     81,
+     49
     ],
-    "tiebreak": 231
+    "tiebreak": 212
    }
   ]
  },
@@ -289,34 +284,37 @@
   "boosts": [
    {
     "on": "nation",
-    "id": 54,
-    "att": 2,
-    "ctl": 1,
-    "def": 0
-   },
-   {
-    "on": "league",
-    "id": 31,
+    "id": 18,
     "att": 1,
     "ctl": 1,
     "def": 1
    }
   ],
-  "minutes": 30
+  "minutes": 30,
+  "bonuses": [
+   {
+    "kind": "leagues",
+    "max": 2,
+    "att": 0,
+    "ctl": 2,
+    "def": 0
+   }
+  ]
  },
  "base_ids": [
-  "id224987",
-  "id247103",
-  "id229237",
-  "id67351699",
-  "id50590296",
-  "id50575428",
+  "id264865",
+  "id205452",
+  "id227346",
+  "id50596532",
   "id197781",
-  "id210514",
+  "id262457",
+  "id257279",
+  "id264309",
+  "id50575428",
   "id50583500",
-  "id231447",
-  "id255475"
+  "id267531"
  ],
- "built": "2026-10-29 20:38 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }

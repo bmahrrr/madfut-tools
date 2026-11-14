@@ -1,19 +1,18 @@
 {
- "g": 1,
+ "g": 5,
  "obj_ids": [
-  "id212197"
+  "id212197",
+  "id50588606",
+  "id252144",
+  "id270674",
+  "id266096"
  ],
- "strength": 100.8,
- "group_cards": 27,
- "reddit": [
-  {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "DRAW"
-  }
- ],
+ "strength": 100.4,
+ "group_cards": 8,
+ "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 27,
+  "formation": "3-4-2-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -30,36 +29,59 @@
      35,
      80
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     33,
      35,
-     80
+     37,
+     82
     ],
-    "tiebreak": 148
+    "tiebreak": 154
    },
    {
-    "slot": "LB",
-    "id": "id220651",
-    "name": "Angeliño",
+    "slot": "CB",
+    "id": "id266096",
+    "name": "Tomás Araújo",
     "rating": 78,
     "color": "rare_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 242,
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 234,
     "card": [
-     76,
-     79,
+     61,
+     70,
      77
     ],
     "chem": 3,
     "eff": [
-     80,
-     82,
-     79
+     64,
+     73,
+     80
     ],
-    "tiebreak": 238
+    "tiebreak": 214
+   },
+   {
+    "slot": "CB",
+    "id": "id252144",
+    "name": "Eduardo Quaresma",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 237,
+    "card": [
+     69,
+     70,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     73,
+     80
+    ],
+    "tiebreak": 222
    },
    {
     "slot": "CB",
@@ -78,126 +100,34 @@
     ],
     "chem": 3,
     "eff": [
-     77,
-     80,
+     75,
+     79,
      81
     ],
     "tiebreak": 235
    },
    {
-    "slot": "CB",
-    "id": "id248695",
-    "name": "Fofana",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 18,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     60,
-     65,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     64,
-     69,
-     83
-    ],
-    "tiebreak": 210
-   },
-   {
-    "slot": "RB",
-    "id": "id259307",
-    "name": "Gusto",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 18,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     72,
-     76,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     80,
-     82
-    ],
-    "tiebreak": 232
-   },
-   {
-    "slot": "CDM",
-    "id": "id234153",
-    "name": "Carlos Soler",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 457,
-    "card": [
-     76,
-     79,
-     70
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     82,
-     72
-    ],
-    "tiebreak": 231
-   },
-   {
     "slot": "LM",
-    "id": "id258371",
-    "name": "Pep Chavarría",
-    "rating": 79,
+    "id": "id220651",
+    "name": "Angeliño",
+    "rating": 78,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 45,
-    "leagueId": 13,
-    "clubId": 5,
+    "leagueId": 53,
+    "clubId": 242,
     "card": [
      76,
-     73,
-     78
+     79,
+     77
     ],
     "chem": 3,
     "eff": [
-     82,
      78,
-     82
+     81,
+     79
     ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "CM",
-    "id": "id212729",
-    "name": "Tozé",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 350,
-    "clubId": 113037,
-    "card": [
-     78,
-     79,
-     55
-    ],
-    "chem": 1,
-    "eff": [
-     78,
-     79,
-     55
-    ],
-    "tiebreak": 212
+    "tiebreak": 238
    },
    {
     "slot": "CM",
@@ -216,14 +146,83 @@
     ],
     "chem": 3,
     "eff": [
+     79,
      81,
-     82,
      78
     ],
     "tiebreak": 238
    },
    {
+    "slot": "CM",
+    "id": "id234153",
+    "name": "Carlos Soler",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 457,
+    "card": [
+     76,
+     79,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     81,
+     72
+    ],
+    "tiebreak": 231
+   },
+   {
     "slot": "RM",
+    "id": "id270674",
+    "name": "Alberto Costa",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 236,
+    "card": [
+     70,
+     70,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     73,
+     73,
+     80
+    ],
+    "tiebreak": 223
+   },
+   {
+    "slot": "CAM",
+    "id": "id50588606",
+    "name": "Fábio Vieira",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 19,
+    "clubId": 28,
+    "card": [
+     77,
+     78,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     80,
+     57
+    ],
+    "tiebreak": 216
+   },
+   {
+    "slot": "CAM",
     "id": "id225201",
     "name": "Berenguer",
     "rating": 79,
@@ -239,34 +238,34 @@
     ],
     "chem": 3,
     "eff": [
-     83,
-     80,
+     81,
+     79,
      68
     ],
     "tiebreak": 228
    },
    {
     "slot": "ST",
-    "id": "id216531",
-    "name": "Paulinho",
-    "rating": 79,
+    "id": "id235944",
+    "name": "Brais Méndez",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "ST",
-    "nationId": 38,
-    "leagueId": 341,
-    "clubId": 1882,
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 39,
+    "clubId": 687,
     "card": [
-     79,
-     70,
-     49
+     77,
+     78,
+     66
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
+     78,
      79,
-     70,
-     49
+     67
     ],
-    "tiebreak": 198
+    "tiebreak": 224
    }
   ]
  },
@@ -284,35 +283,36 @@
   "cap": 79,
   "boosts": [
    {
-    "on": "nation",
-    "id": 45,
-    "att": 2,
+    "on": "league",
+    "id": 308,
+    "att": 1,
     "ctl": 1,
-    "def": 0
+    "def": 1
    },
    {
-    "on": "club",
-    "id": 5,
-    "att": 2,
+    "on": "nation",
+    "id": 52,
+    "att": 0,
     "ctl": 2,
-    "def": 2
+    "def": 1
    }
   ],
   "minutes": 30
  },
  "base_ids": [
-  "id257235",
-  "id258371",
+  "id227186",
   "id192638",
-  "id248695",
-  "id259307",
+  "id233230",
+  "id236804",
+  "id50574483",
+  "id237221",
   "id241811",
   "id263370",
-  "id225201",
-  "id266032",
-  "id50596345",
-  "id259377"
+  "id245371",
+  "id214997",
+  "id254551"
  ],
- "built": "2026-10-31 07:01 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }

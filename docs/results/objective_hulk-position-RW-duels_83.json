@@ -1,79 +1,74 @@
 {
  "g": 4,
  "obj_ids": [
+  "id272163",
   "id50575428",
   "id192629",
-  "id222737",
   "id255475"
  ],
- "strength": 100.0,
- "group_cards": 9,
- "reddit": [
-  {
-   "you_lead_first": "WIN",
-   "they_lead_first": "WIN"
-  }
- ],
+ "strength": 100.6,
+ "group_cards": 11,
+ "reddit": [],
  "team": {
   "formation": "4-5-1",
   "chem": 28,
   "players": [
    {
     "slot": "GK",
-    "id": "id224987",
-    "name": "Provedel",
-    "rating": 83,
+    "id": "id210257",
+    "name": "Ederson",
+    "rating": 82,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 54,
+    "leagueId": 68,
+    "clubId": 326,
     "card": [
-     37,
-     37,
-     84
+     47,
+     50,
+     83
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     40,
-     40,
-     87
+     47,
+     50,
+     83
     ],
-    "tiebreak": 164
+    "tiebreak": 180
    },
    {
     "slot": "LB",
-    "id": "id50575350",
-    "name": "Spence",
+    "id": "id210514",
+    "name": "João Cancelo",
     "rating": 83,
-    "color": "otw",
+    "color": "rare_gold",
     "position": "LB",
-    "nationId": 14,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
-     75,
-     77,
-     82
+     80,
+     83,
+     81
     ],
     "chem": 3,
     "eff": [
-     78,
-     80,
-     85
+     82,
+     85,
+     83
     ],
-    "tiebreak": 240
+    "tiebreak": 250
    },
    {
     "slot": "CB",
-    "id": "id50590296",
-    "name": "Carlos Augusto",
+    "id": "id67377753",
+    "name": "Álvaro Carreras",
     "rating": 83,
-    "color": "showdown",
+    "color": "totw_gold",
     "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 243,
     "card": [
      79,
      80,
@@ -81,34 +76,34 @@
     ],
     "chem": 3,
     "eff": [
-     84,
-     84,
-     85
+     81,
+     82,
+     84
     ],
     "tiebreak": 247
    },
    {
     "slot": "CB",
-    "id": "id229237",
-    "name": "Akanji",
+    "id": "id227346",
+    "name": "Mbock",
     "rating": 83,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 47,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 73,
     "card": [
-     64,
-     71,
+     61,
+     66,
      83
     ],
     "chem": 3,
     "eff": [
-     67,
-     74,
+     64,
+     69,
      86
     ],
-    "tiebreak": 224
+    "tiebreak": 216
    },
    {
     "slot": "RB",
@@ -135,26 +130,26 @@
    },
    {
     "slot": "LM",
-    "id": "id210514",
-    "name": "João Cancelo",
+    "id": "id262457",
+    "name": "Olga Carmona",
     "rating": 83,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 38,
-    "leagueId": 53,
-    "clubId": 241,
+    "nationId": 45,
+    "leagueId": 2218,
+    "clubId": 73,
     "card": [
-     80,
-     83,
-     81
+     79,
+     78,
+     82
     ],
     "chem": 3,
     "eff": [
-     82,
-     85,
-     83
+     81,
+     80,
+     84
     ],
-    "tiebreak": 250
+    "tiebreak": 245
    },
    {
     "slot": "CM",
@@ -181,6 +176,29 @@
    },
    {
     "slot": "CAM",
+    "id": "id272163",
+    "name": "Elena Julve",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 131125,
+    "card": [
+     83,
+     81,
+     64
+    ],
+    "chem": 2,
+    "eff": [
+     84,
+     82,
+     65
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "CAM",
     "id": "id192629",
     "name": "Iago Aspas",
     "rating": 81,
@@ -203,29 +221,6 @@
     "tiebreak": 209
    },
    {
-    "slot": "CAM",
-    "id": "id222737",
-    "name": "Malcom",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 350,
-    "clubId": 605,
-    "card": [
-     82,
-     81,
-     45
-    ],
-    "chem": 1,
-    "eff": [
-     84,
-     82,
-     45
-    ],
-    "tiebreak": 208
-   },
-   {
     "slot": "RM",
     "id": "id255475",
     "name": "Antony",
@@ -242,34 +237,34 @@
     ],
     "chem": 3,
     "eff": [
-     86,
-     83,
+     84,
+     82,
      52
     ],
     "tiebreak": 218
    },
    {
     "slot": "ST",
-    "id": "id272163",
-    "name": "Elena Julve",
+    "id": "id265905",
+    "name": "Becho",
     "rating": 83,
     "color": "rare_gold",
     "position": "RW",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 131125,
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 66,
     "card": [
-     83,
      81,
-     64
+     76,
+     48
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
      83,
-     81,
-     64
+     78,
+     50
     ],
-    "tiebreak": 228
+    "tiebreak": 208
    }
   ]
  },
@@ -288,34 +283,37 @@
   "boosts": [
    {
     "on": "nation",
-    "id": 54,
-    "att": 2,
-    "ctl": 1,
-    "def": 0
-   },
-   {
-    "on": "league",
-    "id": 31,
+    "id": 18,
     "att": 1,
     "ctl": 1,
     "def": 1
    }
   ],
-  "minutes": 30
+  "minutes": 30,
+  "bonuses": [
+   {
+    "kind": "leagues",
+    "max": 2,
+    "att": 0,
+    "ctl": 2,
+    "def": 0
+   }
+  ]
  },
  "base_ids": [
-  "id224987",
-  "id247103",
-  "id229237",
-  "id67351699",
-  "id50590296",
-  "id50575428",
+  "id264865",
+  "id205452",
+  "id227346",
+  "id50596532",
   "id197781",
-  "id210514",
+  "id262457",
+  "id257279",
+  "id264309",
+  "id50575428",
   "id50583500",
-  "id231447",
-  "id255475"
+  "id267531"
  ],
- "built": "2026-10-29 20:38 UTC",
- "week": "2026-10-26"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }

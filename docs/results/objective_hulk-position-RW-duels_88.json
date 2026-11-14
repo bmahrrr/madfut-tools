@@ -1,14 +1,15 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
+  "id50569340",
   "id71557",
-  "id50569340"
+  "id251570"
  ],
- "strength": 101.7,
- "group_cards": 2,
+ "strength": 100.7,
+ "group_cards": 3,
  "reddit": [],
  "team": {
-  "formation": "4-2-3-1",
+  "formation": "4-1-4-1",
   "chem": 33,
   "players": [
    {
@@ -51,11 +52,34 @@
     ],
     "chem": 3,
     "eff": [
-     81,
+     84,
      83,
-     89
+     90
     ],
     "tiebreak": 253
+   },
+   {
+    "slot": "CB",
+    "id": "id138956",
+    "name": "Chiellini",
+    "rating": 88,
+    "color": "icon",
+    "position": "CB",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     64,
+     62,
+     90
+    ],
+    "chem": 3,
+    "eff": [
+     69,
+     64,
+     93
+    ],
+    "tiebreak": 222
    },
    {
     "slot": "CB",
@@ -81,30 +105,34 @@
     "tiebreak": 239
    },
    {
-    "slot": "CB",
-    "id": "id012",
-    "name": "David Luiz",
-    "rating": 87,
+    "slot": "RB",
+    "id": "evo_Clauss_88",
+    "name": "Clauss",
+    "rating": 88,
     "color": "evo",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 1,
+    "position": "RB",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 72,
     "card": [
-     74,
-     80,
-     88
+     87,
+     90,
+     87
     ],
     "chem": 3,
     "eff": [
-     76,
-     82,
-     90
+     89,
+     92,
+     89
     ],
-    "tiebreak": 248
+    "tiebreak": 270,
+    "evos": [
+     "Defender Control Upgrade",
+     "Les Bleus Defender"
+    ]
    },
    {
-    "slot": "RB",
+    "slot": "CDM",
     "id": "id50568420",
     "name": "Szoboszlai",
     "rating": 88,
@@ -127,30 +155,33 @@
     "tiebreak": 264
    },
    {
-    "slot": "CDM",
-    "id": "id237289",
-    "name": "Patri Guijarro",
-    "rating": 88,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 241,
+    "slot": "LM",
+    "id": "evo_Oxlade-Chamberlain_87",
+    "name": "Oxlade-Chamberlain",
+    "rating": 87,
+    "color": "evo",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 50,
+    "clubId": 78,
     "card": [
-     86,
-     85,
-     86
+     88,
+     88,
+     81
     ],
     "chem": 3,
     "eff": [
-     89,
-     88,
-     89
+     90,
+     90,
+     83
     ],
-    "tiebreak": 263
+    "tiebreak": 263,
+    "evos": [
+     "Scottish Premiership Silver"
+    ]
    },
    {
-    "slot": "CDM",
+    "slot": "CM",
     "id": "evo_Groß_88",
     "name": "Groß",
     "rating": 88,
@@ -173,30 +204,30 @@
     "tiebreak": 264
    },
    {
-    "slot": "CAM",
-    "id": "id23174",
-    "name": "Riquelme",
-    "rating": 88,
-    "color": "icon",
-    "position": "CAM",
-    "nationId": 52,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "slot": "CM",
+    "id": "id251570",
+    "name": "Cherki",
+    "rating": 86,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 13,
+    "clubId": 10,
     "card": [
+     84,
      86,
-     89,
-     39
+     44
     ],
     "chem": 3,
     "eff": [
-     90,
-     94,
-     41
+     87,
+     89,
+     47
     ],
     "tiebreak": 220
    },
    {
-    "slot": "CAM",
+    "slot": "RM",
     "id": "id50569340",
     "name": "Foden",
     "rating": 87,
@@ -212,34 +243,11 @@
     ],
     "chem": 3,
     "eff": [
+     91,
      90,
-     89,
-     60
+     61
     ],
     "tiebreak": 239
-   },
-   {
-    "slot": "CAM",
-    "id": "id84165253",
-    "name": "Mastantuono",
-    "rating": 88,
-    "color": "future_stars",
-    "position": "RM",
-    "nationId": 52,
-    "leagueId": 31,
-    "clubId": 110374,
-    "card": [
-     87,
-     87,
-     62
-    ],
-    "chem": 3,
-    "eff": [
-     91,
-     92,
-     64
-    ],
-    "tiebreak": 242
    },
    {
     "slot": "ST",
@@ -281,14 +289,14 @@
   "boosts": [
    {
     "on": "nation",
-    "id": 52,
-    "att": 2,
-    "ctl": 3,
-    "def": 0
+    "id": 27,
+    "att": 3,
+    "ctl": 0,
+    "def": 1
    },
    {
     "on": "club",
-    "id": 241,
+    "id": 10,
     "att": 1,
     "ctl": 1,
     "def": 1
@@ -298,17 +306,18 @@
  },
  "base_ids": [
   "id48940",
-  "id50595413",
+  "id250890",
+  "ltm_comuzzo88",
   "id138956",
-  "id161840",
-  "new_Xavi Espart_88",
-  "id82092",
+  "evo_Rall_86",
   "evo_Groß_88",
-  "id10959",
+  "evo_Oxlade-Chamberlain_87",
+  "id50569340",
   "id23174",
-  "id84165253",
-  "id262271"
+  "id50518275",
+  "id120274"
  ],
- "built": "2026-11-01 02:15 UTC",
- "week": "2026-11-02"
+ "built": "2026-11-14 22:11 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 22:11 UTC"
 }
