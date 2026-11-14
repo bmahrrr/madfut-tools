@@ -13,3 +13,4 @@ while True:
     if not tok: break
 json.dump(docs, open("out/evosStandard.json", "w"))
 print("docs", len(docs), [x["name"].split("/")[-1] for x in docs])
+# run 1794680615
