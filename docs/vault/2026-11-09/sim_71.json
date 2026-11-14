@@ -1,0 +1,904 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "71",
+  "cap": 71,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 63,
+    "att": 0,
+    "ctl": 2,
+    "def": 1
+   },
+   {
+    "on": "nation",
+    "id": 10,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id256156",
+     "name": "Morínigo",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      26,
+      20,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      28,
+      22,
+      72
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id214343",
+     "name": "Moreno",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      60,
+      61,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id197831",
+     "name": "Davidson",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 195,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      58,
+      62,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      60,
+      64,
+      67
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id235514",
+     "name": "Al Rubaie",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 183,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      42,
+      44,
+      64
+     ],
+     "chem": 2,
+     "eff": [
+      43,
+      45,
+      65
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214040",
+     "name": "Fabra",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      72,
+      73,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id178088",
+     "name": "Juan Mata",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      68,
+      74,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      76,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id237183",
+     "name": "Rojas",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      72,
+      73,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      57
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      73,
+      74,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      76,
+      58
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id209888",
+     "name": "Goodwin",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 195,
+     "leagueId": 351,
+     "clubId": 111393,
+     "card": [
+      71,
+      67,
+      57
+     ],
+     "chem": 2,
+     "eff": [
+      72,
+      68,
+      58
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id231138",
+     "name": "Bassogog",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RM",
+     "nationId": 103,
+     "leagueId": 350,
+     "clubId": 112389,
+     "card": [
+      72,
+      63,
+      43
+     ],
+     "chem": 1,
+     "eff": [
+      72,
+      63,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.624,
+    "control": 75.4,
+    "attack": 72.78,
+    "defence": 69.0,
+    "net": 0.1466,
+    "vs_reddit": null,
+    "control_cards": [
+     76,
+     76,
+     75,
+     75,
+     75
+    ],
+    "attack_cards": [
+     75,
+     74,
+     74,
+     72,
+     72,
+     72,
+     70
+    ],
+    "defence_cards": [
+     72,
+     72,
+     67,
+     65
+    ],
+    "p_att": 0.6639,
+    "p_def": 0.1334,
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 202.4,
+    "att_total": 196.4,
+    "def_total": 165.75,
+    "swaps_checked": 36238,
+    "round_robin": {
+     "wins": 2.0,
+     "margin": 1.6114
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id256156",
+     "name": "Morínigo",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      26,
+      20,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      28,
+      22,
+      72
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id214343",
+     "name": "Moreno",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      60,
+      61,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id197831",
+     "name": "Davidson",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 195,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      58,
+      62,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      60,
+      64,
+      67
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id235514",
+     "name": "Al Rubaie",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 183,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      42,
+      44,
+      64
+     ],
+     "chem": 2,
+     "eff": [
+      43,
+      45,
+      65
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214040",
+     "name": "Fabra",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      72,
+      73,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id178088",
+     "name": "Juan Mata",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      68,
+      74,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      76,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      73,
+      74,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      76,
+      58
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id237183",
+     "name": "Rojas",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      72,
+      73,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      57
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id231138",
+     "name": "Bassogog",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RM",
+     "nationId": 103,
+     "leagueId": 350,
+     "clubId": 112389,
+     "card": [
+      72,
+      63,
+      43
+     ],
+     "chem": 1,
+     "eff": [
+      72,
+      63,
+      43
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id209888",
+     "name": "Goodwin",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 195,
+     "leagueId": 351,
+     "clubId": 111393,
+     "card": [
+      71,
+      67,
+      57
+     ],
+     "chem": 2,
+     "eff": [
+      72,
+      68,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.64,
+    "control": 75.4,
+    "attack": 72.4,
+    "defence": 69.0,
+    "net": 0.1236,
+    "vs_reddit": null,
+    "control_cards": [
+     76,
+     76,
+     75,
+     75,
+     75
+    ],
+    "attack_cards": [
+     74,
+     74,
+     72,
+     72,
+     72,
+     70
+    ],
+    "defence_cards": [
+     72,
+     72,
+     67,
+     65
+    ],
+    "p_att": 0.6386,
+    "p_def": 0.0873,
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 202.4,
+    "att_total": 194.53,
+    "def_total": 165.75,
+    "swaps_checked": 36238,
+    "round_robin": {
+     "wins": 3.0,
+     "margin": 1.2233
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id256156",
+     "name": "Morínigo",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      26,
+      20,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      28,
+      22,
+      72
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id214343",
+     "name": "Moreno",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      60,
+      61,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id211363",
+     "name": "Lockyer",
+     "rating": 63,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 50,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      46,
+      53,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      55,
+      64
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id235514",
+     "name": "Al Rubaie",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 183,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      42,
+      44,
+      64
+     ],
+     "chem": 2,
+     "eff": [
+      43,
+      45,
+      65
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214040",
+     "name": "Fabra",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      72,
+      73,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id178088",
+     "name": "Juan Mata",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      68,
+      74,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      76,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      73,
+      74,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      76,
+      58
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id237183",
+     "name": "Rojas",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      72,
+      73,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      57
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id211513",
+     "name": "Lawrence",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 50,
+     "leagueId": 351,
+     "clubId": 111399,
+     "card": [
+      71,
+      69,
+      46
+     ],
+     "chem": 2,
+     "eff": [
+      72,
+      70,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id231138",
+     "name": "Bassogog",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RM",
+     "nationId": 103,
+     "leagueId": 350,
+     "clubId": 112389,
+     "card": [
+      72,
+      63,
+      43
+     ],
+     "chem": 1,
+     "eff": [
+      72,
+      63,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.64,
+    "control": 75.4,
+    "attack": 72.4,
+    "defence": 68.25,
+    "net": 0.1192,
+    "vs_reddit": null,
+    "control_cards": [
+     76,
+     76,
+     75,
+     75,
+     75
+    ],
+    "attack_cards": [
+     74,
+     74,
+     72,
+     72,
+     72,
+     70
+    ],
+    "defence_cards": [
+     72,
+     72,
+     65,
+     64
+    ],
+    "p_att": 0.6322,
+    "p_def": 0.087,
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 202.4,
+    "att_total": 191.76,
+    "def_total": 159.75
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-11-14 16:37 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-14 16:37 UTC"
+}
