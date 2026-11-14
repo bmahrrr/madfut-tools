@@ -1,13 +1,13 @@
 {
  "g": 5,
  "obj_ids": [
-  "id255754",
-  "id78971",
-  "id87407",
+  "id207899",
+  "id271562",
+  "id83757",
   "id207734",
-  "id83757"
+  "id78971"
  ],
- "strength": 100.4,
+ "strength": 100.6,
  "group_cards": 261,
  "reddit": [
   {
@@ -16,77 +16,54 @@
   }
  ],
  "team": {
-  "formation": "4-1-2-1-2",
-  "chem": 29,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 27,
   "players": [
    {
     "slot": "GK",
-    "id": "id255754",
-    "name": "Warleson",
+    "id": "id207899",
+    "name": "Neto Volpi",
     "rating": 70,
     "color": "rare_silver",
     "position": "GK",
     "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
+    "leagueId": 1003,
+    "clubId": 111722,
     "card": [
-     23,
-     21,
+     35,
+     32,
      71
     ],
     "chem": 3,
     "eff": [
-     25,
-     23,
+     37,
+     34,
      73
     ],
-    "tiebreak": 121
+    "tiebreak": 144
    },
    {
     "slot": "LB",
-    "id": "id83757",
-    "name": "Cristiano",
+    "id": "id255098",
+    "name": "Carabalí",
     "rating": 70,
     "color": "rare_silver",
     "position": "LB",
-    "nationId": 54,
+    "nationId": 57,
     "leagueId": 1003,
-    "clubId": 111013,
+    "clubId": 110986,
     "card": [
-     66,
-     67,
-     69
+     68,
+     65,
+     68
     ],
     "chem": 2,
     "eff": [
-     67,
-     68,
-     70
+     69,
+     66,
+     69
     ],
-    "tiebreak": 205
-   },
-   {
-    "slot": "CB",
-    "id": "id87407",
-    "name": "Gabriel Justino",
-    "rating": 69,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 1014,
-    "clubId": 517,
-    "card": [
-     54,
-     56,
-     70
-    ],
-    "chem": 3,
-    "eff": [
-     56,
-     58,
-     72
-    ],
-    "tiebreak": 186
+    "tiebreak": 204
    },
    {
     "slot": "CB",
@@ -103,108 +80,62 @@
      65,
      70
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
-     60,
-     66,
-     72
+     61,
+     67,
+     73
     ],
-    "tiebreak": 195
+    "tiebreak": 198
    },
    {
-    "slot": "RB",
-    "id": "id224511",
-    "name": "Bonifacio",
-    "rating": 70,
+    "slot": "CB",
+    "id": "id271562",
+    "name": "Matheus Nunes",
+    "rating": 69,
     "color": "rare_silver",
-    "position": "RB",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 111020,
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 308,
+    "clubId": 1438,
     "card": [
+     67,
+     67,
+     68
+    ],
+    "chem": 2,
+    "eff": [
      68,
      68,
      69
     ],
-    "chem": 3,
-    "eff": [
-     70,
-     70,
-     71
-    ],
-    "tiebreak": 211
+    "tiebreak": 205
    },
    {
-    "slot": "CDM",
-    "id": "id205633",
-    "name": "Castro",
+    "slot": "RB",
+    "id": "id83757",
+    "name": "Cristiano",
     "rating": 70,
     "color": "rare_silver",
-    "position": "CM",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 111707,
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 1003,
+    "clubId": 111013,
     "card": [
-     70,
-     69,
-     66
-    ],
-    "chem": 3,
-    "eff": [
-     72,
-     71,
-     68
-    ],
-    "tiebreak": 211
-   },
-   {
-    "slot": "LM",
-    "id": "id275343",
-    "name": "Rodríguez",
-    "rating": 70,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 101083,
-    "card": [
-     70,
-     71,
-     54
-    ],
-    "chem": 3,
-    "eff": [
-     72,
-     73,
-     56
-    ],
-    "tiebreak": 201
-   },
-   {
-    "slot": "RM",
-    "id": "id76997",
-    "name": "López García",
-    "rating": 70,
-    "color": "rare_silver",
-    "position": "RB",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 110404,
-    "card": [
-     68,
+     66,
      67,
      69
     ],
     "chem": 3,
     "eff": [
-     70,
+     68,
      69,
      71
     ],
-    "tiebreak": 210
+    "tiebreak": 208
    },
    {
-    "slot": "CAM",
+    "slot": "CDM",
     "id": "id78971",
     "name": "Ageu",
     "rating": 69,
@@ -227,6 +158,75 @@
     "tiebreak": 202
    },
    {
+    "slot": "CM",
+    "id": "id205633",
+    "name": "Castro",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 111707,
+    "card": [
+     70,
+     69,
+     66
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     71,
+     68
+    ],
+    "tiebreak": 211
+   },
+   {
+    "slot": "CM",
+    "id": "id255137",
+    "name": "Cifuentes",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 57,
+    "leagueId": 50,
+    "clubId": 86,
+    "card": [
+     70,
+     69,
+     69
+    ],
+    "chem": 2,
+    "eff": [
+     71,
+     71,
+     72
+    ],
+    "tiebreak": 211
+   },
+   {
+    "slot": "CAM",
+    "id": "id184144",
+    "name": "Gaitán",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 111707,
+    "card": [
+     69,
+     72,
+     49
+    ],
+    "chem": 3,
+    "eff": [
+     71,
+     74,
+     51
+    ],
+    "tiebreak": 196
+   },
+   {
     "slot": "ST",
     "id": "id253908",
     "name": "Luna Diale",
@@ -241,13 +241,13 @@
      68,
      63
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     75,
-     70,
-     65
+     74,
+     69,
+     64
     ],
-    "tiebreak": 210
+    "tiebreak": 207
    },
    {
     "slot": "ST",
@@ -306,18 +306,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id228562",
-  "id275634",
-  "id198904",
+  "id258983",
+  "id266736",
   "id246352",
-  "id224511",
+  "id253111",
   "id74835",
   "id256885",
-  "id82264",
   "id184144",
-  "id253908",
-  "evo_Jerdea_70"
+  "id205633",
+  "id82264",
+  "evo_Jerdea_70",
+  "id253908"
  ],
- "built": "2026-11-08 07:54 UTC",
- "week": "2026-11-09"
+ "built": "2026-11-14 02:46 UTC",
+ "week": "2026-11-09",
+ "changed": "2026-11-14 02:46 UTC"
 }

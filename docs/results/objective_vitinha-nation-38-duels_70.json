@@ -1,9 +1,10 @@
 {
- "g": 1,
+ "g": 2,
  "obj_ids": [
+  "id270060",
   "id209449"
  ],
- "strength": 100.4,
+ "strength": 100.6,
  "group_cards": 3,
  "reddit": [
   {
@@ -12,8 +13,8 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 27,
+  "formation": "4-1-2-1-2",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -30,82 +31,82 @@
      37,
      71
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     38,
-     38,
-     72
+     39,
+     39,
+     73
     ],
-    "tiebreak": 148
+    "tiebreak": 151
    },
    {
     "slot": "LB",
-    "id": "id235172",
-    "name": "Rúben Vinagre",
-    "rating": 69,
+    "id": "id218936",
+    "name": "Rafa Soares",
+    "rating": 70,
     "color": "rare_silver",
     "position": "LB",
     "nationId": 38,
-    "leagueId": 66,
-    "clubId": 1871,
+    "leagueId": 308,
+    "clubId": 718,
     "card": [
-     68,
-     70,
-     67
-    ],
-    "chem": 2,
-    "eff": [
-     69,
-     71,
-     68
-    ],
-    "tiebreak": 208
-   },
-   {
-    "slot": "CB",
-    "id": "id226370",
-    "name": "André Horta",
-    "rating": 69,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 54,
-    "clubId": 1861,
-    "card": [
-     69,
-     70,
-     63
+     67,
+     67,
+     69
     ],
     "chem": 3,
     "eff": [
-     71,
-     72,
-     65
+     69,
+     69,
+     71
     ],
-    "tiebreak": 208
+    "tiebreak": 209
    },
    {
     "slot": "CB",
-    "id": "id246352",
-    "name": "Hugo Guillamón",
+    "id": "id76488",
+    "name": "Amarfil",
     "rating": 70,
     "color": "rare_silver",
     "position": "CM",
-    "nationId": 45,
-    "leagueId": 54,
-    "clubId": 459,
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 112689,
     "card": [
      65,
-     66,
-     73
+     69,
+     66
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     65,
-     66,
-     73
+     67,
+     71,
+     68
     ],
-    "tiebreak": 204
+    "tiebreak": 206
+   },
+   {
+    "slot": "CB",
+    "id": "id212213",
+    "name": "Ricardo Esgaio",
+    "rating": 68,
+    "color": "rare_silver",
+    "position": "RM",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 1888,
+    "card": [
+     67,
+     67,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     69,
+     69,
+     70
+    ],
+    "tiebreak": 208
    },
    {
     "slot": "RB",
@@ -177,52 +178,6 @@
     "tiebreak": 186
    },
    {
-    "slot": "CM",
-    "id": "id205633",
-    "name": "Castro",
-    "rating": 70,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 111707,
-    "card": [
-     70,
-     69,
-     66
-    ],
-    "chem": 3,
-    "eff": [
-     72,
-     71,
-     68
-    ],
-    "tiebreak": 211
-   },
-   {
-    "slot": "CM",
-    "id": "id74835",
-    "name": "Lencina",
-    "rating": 70,
-    "color": "rare_silver",
-    "position": "CAM",
-    "nationId": 52,
-    "leagueId": 54,
-    "clubId": 10846,
-    "card": [
-     71,
-     71,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     73,
-     57
-    ],
-    "tiebreak": 203
-   },
-   {
     "slot": "RM",
     "id": "id259054",
     "name": "Tiago Morais",
@@ -246,6 +201,29 @@
     "tiebreak": 169
    },
    {
+    "slot": "CAM",
+    "id": "id205633",
+    "name": "Castro",
+    "rating": 70,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 111707,
+    "card": [
+     70,
+     69,
+     66
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     71,
+     68
+    ],
+    "tiebreak": 211
+   },
+   {
     "slot": "ST",
     "id": "id253908",
     "name": "Luna Diale",
@@ -267,6 +245,29 @@
      65
     ],
     "tiebreak": 210
+   },
+   {
+    "slot": "ST",
+    "id": "evo_Jerdea_70",
+    "name": "Jerdea",
+    "rating": 70,
+    "color": "evo",
+    "position": "CAM",
+    "nationId": 39,
+    "leagueId": 330,
+    "clubId": 110078,
+    "card": [
+     70,
+     73,
+     46
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     75,
+     48
+    ],
+    "tiebreak": 195
    }
   ]
  },
@@ -301,18 +302,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id228562",
-  "id275634",
-  "id198904",
+  "id258983",
+  "id266736",
   "id246352",
-  "id224511",
+  "id253111",
   "id74835",
   "id256885",
-  "id82264",
   "id184144",
-  "id253908",
-  "evo_Jerdea_70"
+  "id205633",
+  "id82264",
+  "evo_Jerdea_70",
+  "id253908"
  ],
- "built": "2026-11-08 07:54 UTC",
- "week": "2026-11-09"
+ "built": "2026-11-14 02:46 UTC",
+ "week": "2026-11-09",
+ "changed": "2026-11-14 02:46 UTC"
 }

@@ -1,22 +1,22 @@
 {
  "g": 4,
  "obj_ids": [
-  "id50589182",
-  "id246669",
   "id27",
-  "id50569340"
+  "id50589182",
+  "id50569340",
+  "id246669"
  ],
- "strength": 100.1,
- "group_cards": 6,
+ "strength": 99.8,
+ "group_cards": 4,
  "reddit": [
   {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "DRAW"
+   "you_lead_first": "DRAW",
+   "they_lead_first": "WIN"
   }
  ],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 33,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -43,29 +43,6 @@
    },
    {
     "slot": "CB",
-    "id": "id50752",
-    "name": "King",
-    "rating": 86,
-    "color": "hero",
-    "position": "CB",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 114605,
-    "card": [
-     67,
-     70,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     70,
-     75,
-     89
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CB",
     "id": "id012",
     "name": "David Luiz",
     "rating": 87,
@@ -89,29 +66,75 @@
    },
    {
     "slot": "CB",
-    "id": "id84113342",
-    "name": "Scott",
+    "id": "id16619",
+    "name": "Córdoba",
     "rating": 87,
-    "color": "halloween_hero",
+    "color": "hero",
     "position": "CB",
-    "nationId": 14,
-    "leagueId": 2216,
+    "nationId": 56,
+    "leagueId": 31,
     "clubId": 114605,
     "card": [
-     81,
-     81,
+     70,
+     66,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     68,
+     90
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
      85
     ],
     "chem": 3,
     "eff": [
-     84,
-     86,
+     78,
+     88,
      87
     ],
     "tiebreak": 253
    },
    {
     "slot": "LM",
+    "id": "id27",
+    "name": "Cole",
+    "rating": 87,
+    "color": "hero",
+    "position": "RW",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 114605,
+    "card": [
+     86,
+     86,
+     53
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     91,
+     55
+    ],
+    "tiebreak": 231
+   },
+   {
+    "slot": "CM",
     "id": "evo_Oxlade-Chamberlain_87",
     "name": "Oxlade-Chamberlain",
     "rating": 87,
@@ -125,13 +148,13 @@
      88,
      81
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     91,
-     93,
-     83
+     90,
+     92,
+     82
     ],
-    "tiebreak": 263
+    "tiebreak": 260
    },
    {
     "slot": "CM",
@@ -155,29 +178,6 @@
      57
     ],
     "tiebreak": 233
-   },
-   {
-    "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
-    "card": [
-     85,
-     88,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     93,
-     83
-    ],
-    "tiebreak": 260
    },
    {
     "slot": "RM",
@@ -204,29 +204,6 @@
    },
    {
     "slot": "CAM",
-    "id": "id27",
-    "name": "Cole",
-    "rating": 87,
-    "color": "hero",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 114605,
-    "card": [
-     86,
-     86,
-     53
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     91,
-     55
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CAM",
     "id": "id50569340",
     "name": "Foden",
     "rating": 87,
@@ -247,6 +224,29 @@
      60
     ],
     "tiebreak": 239
+   },
+   {
+    "slot": "CAM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
+     85,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     93,
+     83
+    ],
+    "tiebreak": 260
    },
    {
     "slot": "ST",
@@ -305,17 +305,18 @@
  },
  "base_ids": [
   "id191694",
-  "id012",
+  "evo_Can_85",
   "id16619",
-  "id47390",
+  "id012",
   "ltm_ngumoha87",
-  "id50610776",
-  "id50402434",
-  "id50569340",
+  "id50589182",
   "id50592947",
+  "id50569340",
   "evo_Oxlade-Chamberlain_87",
-  "id5661"
+  "id50402434",
+  "id67322964"
  ],
- "built": "2026-11-09 01:29 UTC",
- "week": "2026-11-09"
+ "built": "2026-11-14 02:46 UTC",
+ "week": "2026-11-09",
+ "changed": "2026-11-14 02:46 UTC"
 }
