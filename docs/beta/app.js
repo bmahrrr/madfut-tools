@@ -738,9 +738,13 @@ async function renderTeams() {
   const vfiles = files.filter(f => (f.startsWith("myclub_") || f.startsWith("sim_")) && f.includes("--"));
   // each series: All Evos / Recommended Evos (the main team) / No LTM & Evos, one at a time (only the ones built so far)
   const VORDER = ["allevo", "", "noltmevo", "myevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos" };
-  const ME = !V && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`) : "";
+  const ME = !V && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
   const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
-  const vpanel = (v, inner) => `<div class="vpanel"${v === "" ? "" : " hidden"} data-vp="${v}">${inner}</div>`;
+  // each version carries its own header result (Unbeatable, or when it last changed): the header follows the version shown
+  const vpanel = (v, inner, sres = "", mid = "", avgs = "") => `<div class="vpanel"${v === "" ? "" : " hidden"} data-vp="${v}" data-sres="${esc(sres)}" data-mid="${esc(mid)}" data-avgs="${esc(avgs)}">${inner}</div>`;
+  const midOf = (form, chem, tag = "") => `<b>${esc(form || "")}</b><small>${chem} chem${tag}</small>`;
+  const avgsOf = m => { const st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`; return `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`; };
+  const UNB = `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>`;
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
   html += `<h3>Fatal My Club</h3>`;
   for (const f of mc) {
@@ -756,7 +760,7 @@ async function renderTeams() {
       // the strip only calls out a team nothing beats (every tested team, both lead orders)
       const sres = worst && worst.r === "WIN" ? `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>` : lastChange(d);
       const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="">${bar}${vtag(which, d)}`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, t.chem, mineTag))}">${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">Hand-built team <span>Beat the builder's own team</span></p>`;
@@ -785,7 +789,8 @@ async function renderTeams() {
           html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
             ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
             ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}${box("Tested against", `<b class="bignum">${nV}</b>`, "teams")}</div>` : ""}
-            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`);
+            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
+            vw && vw.r === "WIN" ? UNB : lastChange(vd), midOf(vt.formation, vt.chem));
         } catch (e) {}
       }
       html += mePanel(sid) + `</div></details>`;
@@ -803,7 +808,7 @@ async function renderTeams() {
       const sres = lastChange(d), st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`;
       const cad = `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`;
       const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, m.chem, mineTag))}" data-avgs="${esc(cad)}">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
       for (const vf of myV) {
         try {
           let vd = await getJSON(base + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
@@ -816,7 +821,8 @@ async function renderTeams() {
           const vm = vt.metrics, gone = vd.not_owned || [];
           html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vm.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
             ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
-            <div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", vm.control)}${avg("Attack", vm.attack)}${avg("Defence", vm.defence)}</div>${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`);
+            <div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", vm.control)}${avg("Attack", vm.attack)}${avg("Defence", vm.defence)}</div>${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
+            lastChange(vd), midOf(vt.formation, vm.chem), avgsOf(vm));
         } catch (e) {}
       }
       html += mePanel(sid) + `</div></details>`;
@@ -834,6 +840,11 @@ async function renderTeams() {
     sw.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
     sw.parentElement.querySelectorAll(":scope > .vpanel").forEach(p => p.hidden = p.dataset.vp !== b.dataset.v);
     VSEL.set(sw.dataset.vsw, b.dataset.v); if (b.dataset.v === "myevo") myEvoShow(sw.dataset.vsw);
+    const p = sw.parentElement.querySelector(`:scope > .vpanel[data-vp="${b.dataset.v}"]`), res = sw.closest("details").querySelector(":scope > summary .res");
+    if (p && res) res.innerHTML = p.dataset.sres || "";
+    const sm = sw.closest("details").querySelector(":scope > summary"), mid = sm && sm.querySelector(".mid"), av = sm && sm.querySelector(".avgs");
+    if (p && mid && p.dataset.mid) mid.innerHTML = p.dataset.mid;
+    if (p && av && p.dataset.avgs) av.outerHTML = p.dataset.avgs;
   };
   document.querySelectorAll("[data-vsw]").forEach(sw => {
     sw.onclick = e => { const b = e.target.closest("button[data-v]"); if (b) pickV(sw, b); };
