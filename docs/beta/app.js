@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261115b";
+const APP_V = "20261115c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -697,7 +697,8 @@ const UPDATES = [
   { day: "2026-11-15", items: [
     "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos.",
     "<b>Evo names:</b> shown on every card that uses one, with both names for a chain.",
-    "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone."
+    "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone.",
+    "<b>Match Helper:</b> new Play Against Them mode. You make every move and the site plays their team perfectly."
   ] },
   { day: "2026-11-14", items: [
     "<b>Cards:</b> HoF Upgraded and Showdown Plus cards added, with HoF Upgraded on full chem like Hall of FUT."
@@ -1153,7 +1154,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261115b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261115c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1179,7 +1180,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261115b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261115c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1187,11 +1188,12 @@ function ask(msg) {
 const STAT = ["attack", "control", "defence"], COUNTER = [2, 1, 0];
 let M = null;
 $("iFirst").onclick = () => startMatch(0); $("theyFirst").onclick = () => startMatch(1);
-async function startMatch(first) {
+$("playMe").onclick = () => startMatch(0, true); $("playThem").onclick = () => startMatch(1, true);
+async function startMatch(first, play) {
   if (state.A.length !== 11 || state.B.length !== 11) { alert("Set up both teams in Head to head first."); return; }
   const s = mcSeries();
   M = { first, A: effective(state.A, s), B: effective(state.B, s), TB: state.B.slice(), swapped: new Set(), cap: s.cap || 99, ser: s,
-    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [], hist: [] };
+    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [], hist: [], play: !!play };
   $("matchBox").hidden = false; $("matchBox").innerHTML = `<p class="muted">Working out the match… a few seconds</p>`;
   await ask({ type: "start", A: M.A, B: M.B, first });
   matchStep();
@@ -1215,10 +1217,11 @@ function beatShare(i, s) {           // share of their unplayed cards this lead 
 }
 const vName = v => ["Losing", "Losing by 1", "Drawing", "Winning", "Winning"][v];
 async function matchStep() {
+  if (M.play) return playStep();
   const box = $("matchBox");
   if (M.n === 10) {
     const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb);
-    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div>${mObjFn() ? `<p class="gold">🎯 Objective duels won: ${M.obj || 0}</p>` : ""}<p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first)">Restart</button></div>`;
+    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div>${mObjFn() ? `<p class="gold">🎯 Objective duels won: ${M.obj || 0}</p>` : ""}<p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first, M.play)">Restart</button></div>`;
     return;
   }
   const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
@@ -1243,6 +1246,51 @@ async function matchStep() {
   if (M.hist.length) html += `<div class="row" style="margin-top:12px">${undoBtn()}</div>`;
   box.innerHTML = html + logHtml();
 }
+// ---- Play Against Them: you make every move, the site plays their team perfectly ----
+const statV = (E, s) => [E.a, E.c, E.d][s];
+async function playStep() {
+  const box = $("matchBox");
+  if (M.n === 10) {
+    const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb), gap = M.A[i].t - M.B[j].t;
+    let me = M.me, them = M.them, tb = "";
+    if (Math.abs(me - them) <= 1) {
+      if (gap > 5) { me++; tb = `Your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) beats their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}) by more than 5: a point to you.`; }
+      else if (gap < -5) { them++; tb = `Their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}) beats your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) by more than 5: a point to them.`; }
+      else tb = `Your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}): within 5, no point.`;
+    } else tb = "No tiebreak needed.";
+    const res = me > them ? "You Win" : me < them ? "They Win" : "Draw";
+    box.innerHTML = `<h3 style="margin:0 0 6px">${res}</h3><div class="big">${me} – ${them}</div><p class="small">Tiebreak: ${tb}</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first, true)">Play Again</button></div>`;
+    return;
+  }
+  const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
+  let html = `<div class="row"><span class="big">${M.me} – ${M.them}</span><span class="muted">Round ${M.n + 1}/10 · their team plays perfectly · with your best play from here you're ${pill(LEVEL_NAME(val))}</span></div>`;
+  if (myTurn()) {
+    html += `<h3>Your lead: pick a card</h3><div class="row">${teamButtons("A", M.ma, i => `playStat(${i})`)}</div>`;
+  } else {
+    box.innerHTML = html + `<p class="muted">They're choosing their lead…</p>`;
+    const L = await ask({ type: "bLead", ma: M.ma, mb: M.mb, d: M.d });
+    html += `<div class="move">They lead <b>${esc(M.TB[L.j].name)}</b>: ${STAT[L.s]} ${statV(M.B[L.j], L.s)}</div><h3>Your answer (${STAT[COUNTER[L.s]]})</h3><div class="row">` +
+      state.A.map((c, i) => (M.ma >> i & 1) ? `<button class="ghost" onclick="playAnswer(${i},${L.j},${L.s})">${esc(c.name)} ${statV(M.A[i], COUNTER[L.s])}</button>` : "").join("") + `</div>`;
+    html += `<p class="small" style="margin-top:8px"><a href="#" onclick="playHint(${L.j},${L.s});return false">Show my best answer</a> <span id="playHint" class="gold"></span></p>`;
+  }
+  if (myTurn()) html += `<p class="small" style="margin-top:8px"><a href="#" onclick="playHint();return false">Show my best lead</a> <span id="playHint" class="gold"></span></p>`;
+  if (M.hist.length) html += `<div class="row" style="margin-top:12px">${undoBtn()}</div>`;
+  box.innerHTML = html + logHtml();
+}
+window.playStat = i => {
+  $("matchBox").innerHTML = `<h3>${esc(state.A[i].name)}: which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="playLead(${i},${s})">${STAT[s]} ${statV(M.A[i], s)}</button>`).join("")}</div>${backBtn()}`;
+};
+window.playLead = async (i, s) => {
+  $("matchBox").innerHTML = `<p class="muted">They're answering…</p>`;
+  const a = await ask({ type: "bAnswer", ma: M.ma, mb: M.mb, d: M.d, i, s });
+  apply(i, a.j, a.r, `You led ${esc(state.A[i].name)} (${STAT[s]} ${statV(M.A[i], s)}) · they answered ${esc(M.TB[a.j].name)} (${STAT[COUNTER[s]]} ${statV(M.B[a.j], COUNTER[s])})`);
+};
+window.playAnswer = (i, j, s) => apply(i, j, duelR(i, j, s, false), `They led ${esc(M.TB[j].name)} (${STAT[s]} ${statV(M.B[j], s)}) · you answered ${esc(state.A[i].name)} (${STAT[COUNTER[s]]} ${statV(M.A[i], COUNTER[s])})`);
+window.playHint = async (j, s) => {
+  const el = $("playHint"); if (!el) return; el.textContent = "…";
+  if (j == null) { const o = (await ask({ type: "leads", ma: M.ma, mb: M.mb, d: M.d }))[0]; el.textContent = `${state.A[o.i].name}, ${STAT[o.s]}`; }
+  else { const o = (await ask({ type: "answers", ma: M.ma, mb: M.mb, d: M.d, j, s }))[0]; el.textContent = state.A[o.i].name; }
+};
 // ---- a different card in their team: swap it, re-solve from the current state ----
 window.swapPick = () => {
   $("matchBox").innerHTML = `<h3>Which of their cards is different?</h3><div class="row">${teamButtons("B", M.mb, j => `swapFind(${j})`)}</div>
@@ -1906,7 +1954,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261115b");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261115c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
