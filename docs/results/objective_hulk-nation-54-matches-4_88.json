@@ -1,86 +1,86 @@
 {
  "g": 4,
  "obj_ids": [
-  "id135455",
   "id012",
+  "id50539513",
   "id192190",
-  "id28765"
+  "id135455"
  ],
- "strength": 100.2,
+ "strength": 100.5,
  "group_cards": 512,
  "reddit": [],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 30,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id191694",
-    "name": "Campos",
-    "rating": 87,
-    "color": "hero",
+    "id": "id48940",
+    "name": "Čech",
+    "rating": 88,
+    "color": "icon",
     "position": "GK",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 114605,
+    "nationId": 12,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     77,
-     68,
-     88
+     40,
+     35,
+     89
     ],
     "chem": 3,
     "eff": [
-     79,
-     70,
-     90
+     42,
+     37,
+     91
     ],
-    "tiebreak": 239
+    "tiebreak": 170
    },
    {
     "slot": "LB",
-    "id": "id28765",
-    "name": "Zé Roberto",
+    "id": "id50535199",
+    "name": "Florenzi",
     "rating": 87,
-    "color": "hero",
-    "position": "LM",
-    "nationId": 54,
-    "leagueId": 19,
-    "clubId": 114605,
+    "color": "hall_of_fut_upgraded",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 132794,
     "card": [
      85,
-     86,
-     77
+     83,
+     86
     ],
     "chem": 3,
     "eff": [
-     87,
-     88,
-     79
+     90,
+     85,
+     89
     ],
-    "tiebreak": 254
+    "tiebreak": 260
    },
    {
     "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
+    "id": "id50539513",
+    "name": "Marquinhos",
+    "rating": 88,
+    "color": "totw_gold",
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 16,
+    "clubId": 73,
     "card": [
+     71,
      76,
-     86,
-     85
+     87
     ],
     "chem": 3,
     "eff": [
+     73,
      78,
-     88,
-     87
+     89
     ],
-    "tiebreak": 253
+    "tiebreak": 240
    },
    {
     "slot": "CB",
@@ -107,30 +107,26 @@
    },
    {
     "slot": "RB",
-    "id": "evo_Clauss_88",
-    "name": "Clauss",
+    "id": "id135455",
+    "name": "Maicon",
     "rating": 88,
-    "color": "evo",
+    "color": "icon",
     "position": "RB",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 72,
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     87,
-     90,
+     83,
+     81,
      87
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     87,
-     90,
-     87
+     85,
+     83,
+     89
     ],
-    "tiebreak": 264,
-    "evos": [
-     "Defender Control Upgrade",
-     "Les Bleus Defender"
-    ]
+    "tiebreak": 257
    },
    {
     "slot": "CDM",
@@ -157,52 +153,49 @@
    },
    {
     "slot": "LM",
-    "id": "evo_Oxlade-Chamberlain_87",
-    "name": "Oxlade-Chamberlain",
-    "rating": 87,
-    "color": "evo",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 50,
-    "clubId": 78,
+    "id": "id50565310",
+    "name": "Karchaoui",
+    "rating": 88,
+    "color": "uwcl_rttk",
+    "position": "RM",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 73,
     "card": [
+     86,
      88,
-     88,
-     81
-    ],
-    "chem": 2,
-    "eff": [
-     89,
-     89,
-     82
-    ],
-    "tiebreak": 260,
-    "evos": [
-     "Scottish Premiership Silver"
-    ]
-   },
-   {
-    "slot": "CM",
-    "id": "id50569340",
-    "name": "Foden",
-    "rating": 87,
-    "color": "star_performer",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 10,
-    "card": [
-     88,
-     87,
-     58
+     79
     ],
     "chem": 3,
     "eff": [
-     91,
+     88,
      90,
-     61
+     81
     ],
-    "tiebreak": 239
+    "tiebreak": 259
+   },
+   {
+    "slot": "CM",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     87,
+     88,
+     78
+    ],
+    "chem": 2,
+    "eff": [
+     88,
+     89,
+     79
+    ],
+    "tiebreak": 256
    },
    {
     "slot": "CM",
@@ -225,30 +218,37 @@
      91,
      84
     ],
-    "tiebreak": 264
+    "tiebreak": 264,
+    "evos": [
+     "Midfielder Attack Upgrade"
+    ]
    },
    {
     "slot": "RM",
-    "id": "id135455",
-    "name": "Maicon",
+    "id": "evo_Clauss_88",
+    "name": "Clauss",
     "rating": 88,
-    "color": "icon",
+    "color": "evo",
     "position": "RB",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 72,
     "card": [
-     83,
-     81,
+     87,
+     90,
      87
     ],
     "chem": 3,
     "eff": [
-     85,
-     83,
+     89,
+     92,
      89
     ],
-    "tiebreak": 257
+    "tiebreak": 270,
+    "evos": [
+     "Defender Control Upgrade",
+     "Les Bleus Defender"
+    ]
    },
    {
     "slot": "ST",
@@ -308,18 +308,18 @@
  },
  "base_ids": [
   "id48940",
-  "id250890",
-  "ltm_comuzzo88",
+  "id50595413",
   "id138956",
-  "evo_Rall_86",
+  "ltm_comuzzo88",
+  "evo_Clauss_88",
   "evo_Groß_88",
-  "evo_Oxlade-Chamberlain_87",
-  "id50569340",
+  "id120274",
+  "id50565310",
   "id23174",
-  "id50518275",
-  "id120274"
+  "id262112",
+  "id50518275"
  ],
- "built": "2026-11-14 22:13 UTC",
+ "built": "2026-11-15 13:13 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-14 22:13 UTC"
+ "changed": "2026-11-15 13:13 UTC"
 }
