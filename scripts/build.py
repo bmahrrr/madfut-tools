@@ -54,6 +54,11 @@ def new_variant(f):
     return "--" in f and (f.startswith("sim_") or "--allevo" in f)
 
 
+def uses_extra_evo(players):
+    """An All Evos team only differs from the Recommended Evos team when it uses an Evo card nobody has by default."""
+    return any(str(p.get("id", "")).startswith("evx_") for p in players)
+
+
 def variant_of(base, vid, mode="myclub"):
     v = variants().get(mode, {})
     return next(x for x in v.get("*", []) + v.get(base, []) if x["id"] == vid)
@@ -424,6 +429,13 @@ def main():
             print("previous sim team not compared:", e)
         out = {"mode": "sim", "series": s, "teams": teams, "not_owned": no_names}
         if variant: out["variant"] = {"id": vid, "label": variant["label"], "exclude": variant.get("exclude", []), "include": variant.get("include")}
+        if variant and variant.get("include") and teams and not uses_extra_evo(teams[0]["players"]):
+            try:                            # owner: an All Evos team without an extra Evo is the Recommended Evos team
+                full = json.load(open(os.path.join(RES, f"sim_{base}.json")))
+                if full.get("week") == week().get("week") and full.get("teams"):
+                    out["teams"], out["same_as_full"] = full["teams"], True; print("no extra Evo used: the main team is shown")
+            except FileNotFoundError:
+                pass
         save(f"sim_{key}.json", out)
         if mode == "simpick":                # the raw searches never get published
             import glob as _g
@@ -557,6 +569,13 @@ def main():
         if tag:
             json.dump(out, open(os.path.join(RES, f"myclub_{key}.{tag}.raw"), "w"), ensure_ascii=False)
             print("search", tag, "saved"); return
+        if variant and variant.get("include") and not uses_extra_evo(team["players"]):
+            try:                            # owner: an All Evos team without an extra Evo is the Recommended Evos team
+                full = json.load(open(os.path.join(RES, f"myclub_{base}.json")))
+                if full.get("week") == week().get("week") and full.get("team"):
+                    out["team"], out["same_as_full"] = full["team"], True; print("no extra Evo used: the main team is shown")
+            except FileNotFoundError:
+                pass
         save(f"myclub_{key}.json", out)
 
 

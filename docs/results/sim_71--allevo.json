@@ -273,11 +273,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6373,
+    "ctrl_win": 0.6253,
     "control": 75.4,
     "attack": 72.78,
     "defence": 69.0,
-    "net": 0.1479,
+    "net": 0.1358,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -301,8 +301,8 @@
      67,
      65
     ],
-    "p_att": 0.6527,
-    "p_def": 0.1043,
+    "p_att": 0.6762,
+    "p_def": 0.1051,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -311,10 +311,10 @@
     "ctrl_total": 202.4,
     "att_total": 196.4,
     "def_total": 165.75,
-    "swaps_checked": 37340,
+    "swaps_checked": 36238,
     "round_robin": {
      "wins": 5.5,
-     "margin": 1.5079
+     "margin": 1.6027
     }
    }
   },
@@ -343,6 +343,28 @@
       72
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id214343",
+     "name": "Moreno",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      60,
+      61,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      72
+     ],
+     "slot": "CB"
     },
     {
      "id": "id197831",
@@ -389,28 +411,6 @@
      "slot": "CB"
     },
     {
-     "id": "id214343",
-     "name": "Moreno",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "CDM",
-     "nationId": 56,
-     "leagueId": 1003,
-     "clubId": 101103,
-     "card": [
-      60,
-      61,
-      70
-     ],
-     "chem": 3,
-     "eff": [
-      62,
-      63,
-      72
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id214040",
      "name": "Fabra",
      "rating": 71,
@@ -524,28 +524,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id231138",
-     "name": "Bassogog",
-     "rating": 69,
-     "color": "rare_silver",
-     "position": "RM",
-     "nationId": 103,
-     "leagueId": 350,
-     "clubId": 112389,
-     "card": [
-      72,
-      63,
-      43
-     ],
-     "chem": 1,
-     "eff": [
-      72,
-      63,
-      43
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id209888",
      "name": "Goodwin",
      "rating": 70,
@@ -566,15 +544,37 @@
       58
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id231138",
+     "name": "Bassogog",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RM",
+     "nationId": 103,
+     "leagueId": 350,
+     "clubId": 112389,
+     "card": [
+      72,
+      63,
+      43
+     ],
+     "chem": 1,
+     "eff": [
+      72,
+      63,
+      43
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6373,
+    "ctrl_win": 0.6253,
     "control": 75.4,
     "attack": 72.78,
     "defence": 67.5,
-    "net": 0.1479,
+    "net": 0.1358,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -598,8 +598,8 @@
      67,
      59
     ],
-    "p_att": 0.6527,
-    "p_def": 0.1043,
+    "p_att": 0.6762,
+    "p_def": 0.1051,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -637,24 +637,24 @@
      "slot": "GK"
     },
     {
-     "id": "id211363",
-     "name": "Lockyer",
-     "rating": 63,
-     "color": "rare_bronze",
-     "position": "CB",
-     "nationId": 50,
-     "leagueId": 351,
-     "clubId": 111397,
+     "id": "id214343",
+     "name": "Moreno",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
      "card": [
-      46,
-      53,
-      62
+      60,
+      61,
+      70
      ],
      "chem": 3,
      "eff": [
-      48,
-      55,
-      64
+      62,
+      63,
+      72
      ],
      "slot": "CB"
     },
@@ -681,24 +681,24 @@
      "slot": "CB"
     },
     {
-     "id": "id214343",
-     "name": "Moreno",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "CDM",
-     "nationId": 56,
-     "leagueId": 1003,
-     "clubId": 101103,
+     "id": "id211363",
+     "name": "Lockyer",
+     "rating": 63,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 50,
+     "leagueId": 351,
+     "clubId": 111397,
      "card": [
-      60,
-      61,
-      70
+      46,
+      53,
+      62
      ],
      "chem": 3,
      "eff": [
-      62,
-      63,
-      72
+      48,
+      55,
+      64
      ],
      "slot": "CB"
     },
@@ -816,28 +816,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id231138",
-     "name": "Bassogog",
-     "rating": 69,
-     "color": "rare_silver",
-     "position": "RM",
-     "nationId": 103,
-     "leagueId": 350,
-     "clubId": 112389,
-     "card": [
-      72,
-      63,
-      43
-     ],
-     "chem": 1,
-     "eff": [
-      72,
-      63,
-      43
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id211513",
      "name": "Lawrence",
      "rating": 70,
@@ -858,15 +836,37 @@
       47
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id231138",
+     "name": "Bassogog",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RM",
+     "nationId": 103,
+     "leagueId": 350,
+     "clubId": 112389,
+     "card": [
+      72,
+      63,
+      43
+     ],
+     "chem": 1,
+     "eff": [
+      72,
+      63,
+      43
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6373,
+    "ctrl_win": 0.6253,
     "control": 75.4,
     "attack": 72.78,
     "defence": 68.25,
-    "net": 0.1427,
+    "net": 0.1306,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -890,8 +890,8 @@
      65,
      64
     ],
-    "p_att": 0.645,
-    "p_def": 0.1043,
+    "p_att": 0.6685,
+    "p_def": 0.1048,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -912,5 +912,6 @@
  },
  "built": "2026-11-15 05:12 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-15 05:12 UTC"
+ "changed": "2026-11-15 05:12 UTC",
+ "same_as_full": true
 }

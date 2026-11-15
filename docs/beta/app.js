@@ -579,9 +579,10 @@ async function myEvoData(sid) {
   return { dR, dA, sim: kind === "sim" };
 }
 async function myEvoBuild(sid, onP) {
-  const E = await evoAll(), { dR, dA, sim } = await myEvoData(sid), mine = new Set(myEvos());
+  const E = await evoAll(), mine = new Set(myEvos()); let { dR, dA, sim } = await myEvoData(sid);
   const gone = E.cards.filter(c => !mine.has(c.id)).map(c => c.id), goneS = new Set(gone);   // every Evo card you haven't done
   const pool = E.cards.filter(c => c._evx && mine.has(c.id)), sig = myEvoSig(dR, dA);
+  if (dA && !myEvoTm(sim, dA).players.some(p => String(p.id).startsWith("evx_"))) dA = null;   // no extra Evo: same as Recommended
   if (dA && myEvoTm(sim, dA).players.every(p => !goneS.has(p.id))) return { sig, instant: true };
   // the same strong teams for both searches: the All Evos team (else the Recommended one), both teams' counters, Reddit
   const ST = myEvoTm(sim, dA || dR), RES = {}, OT = {};
@@ -773,8 +774,9 @@ async function renderTeams() {
         try {
           let vd = await getJSON(base + vf), vt = vd.team; const vid = vf.replace(/\.json$/, "").split("--")[1];
           const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
-          if (vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v)))) {
-            vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;    // the main team has none of those cards
+          if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
+              || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
+            vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;    // the main team has none of those cards / no extra Evo used
           }
           let vw = null;
           for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
@@ -807,7 +809,8 @@ async function renderTeams() {
           let vd = await getJSON(base + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
           let vt = vd.teams && vd.teams[0]; if (!vt) continue;
           const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
-          if (vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v)))) {
+          if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
+              || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
             vd = Object.assign({}, vd, { built: d.built, same_as_full: true }); vt = t;
           }
           const vm = vt.metrics, gone = vd.not_owned || [];
