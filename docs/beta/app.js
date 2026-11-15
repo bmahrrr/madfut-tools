@@ -745,6 +745,9 @@ async function renderTeams() {
   const midOf = (form, chem, tag = "") => `<b>${esc(form || "")}</b><small>${chem} chem${tag}</small>`;
   const avgsOf = m => { const st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`; return `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`; };
   const UNB = `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>`;
+  // owner: Unbeatable = 5+ cards no card in the series beats in attack (or 5+ in defence), plus a tiebreak card that
+  // can't lose the end tiebreak (the builder saves this as the team's shape). Not "wins every test team".
+  const unbOf = t => !!(t && t.shape && t.shape.unbeatable >= 5 && ["attack", "defence"].includes(t.shape.stat) && t.shape.tiebreak != null);
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
   html += `<h3>Fatal My Club</h3>`;
   for (const f of mc) {
@@ -758,7 +761,7 @@ async function renderTeams() {
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
       const sid = "myclub:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
       // the strip only calls out a team nothing beats (every tested team, both lead orders)
-      const sres = worst && worst.r === "WIN" ? `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>` : lastChange(d);
+      const sres = unbOf(t) ? UNB : lastChange(d);
       const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
       html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, t.chem, mineTag))}">${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
@@ -790,7 +793,7 @@ async function renderTeams() {
             ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
             ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}${box("Tested against", `<b class="bignum">${nV}</b>`, "teams")}</div>` : ""}
             ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
-            vw && vw.r === "WIN" ? UNB : lastChange(vd), midOf(vt.formation, vt.chem));
+            unbOf(vt) ? UNB : lastChange(vd), midOf(vt.formation, vt.chem));
         } catch (e) {}
       }
       html += mePanel(sid) + `</div></details>`;
