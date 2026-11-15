@@ -1,0 +1,329 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "66",
+  "cap": 66,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 1003,
+    "att": 2,
+    "ctl": 1,
+    "def": 0
+   },
+   {
+    "on": "league",
+    "id": 1014,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "variant": {
+  "id": "winodds",
+  "label": "Win Odds (Test)"
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id266215",
+     "name": "Falcón",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 60,
+     "leagueId": 1014,
+     "clubId": 111011,
+     "card": [
+      25,
+      26,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      28,
+      29,
+      70
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id260962",
+     "name": "Bortagaray",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 60,
+     "leagueId": 1014,
+     "clubId": 114611,
+     "card": [
+      39,
+      35,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      42,
+      38,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id261821",
+     "name": "González",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 60,
+     "leagueId": 1014,
+     "clubId": 112868,
+     "card": [
+      38,
+      31,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      41,
+      34,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id209005",
+     "name": "Cardozo",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 58,
+     "leagueId": 1014,
+     "clubId": 131826,
+     "card": [
+      43,
+      47,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      46,
+      50,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id267397",
+     "name": "Hernández",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "LW",
+     "nationId": 61,
+     "leagueId": 1014,
+     "clubId": 114611,
+     "card": [
+      67,
+      65,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      68,
+      43
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id76401",
+     "name": "Robles",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 59,
+     "leagueId": 1014,
+     "clubId": 111011,
+     "card": [
+      65,
+      67,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      70,
+      56
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id214308",
+     "name": "Martínez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 55,
+     "leagueId": 1014,
+     "clubId": 111328,
+     "card": [
+      67,
+      68,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      71,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id231301",
+     "name": "Saavedra",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 53,
+     "leagueId": 1003,
+     "clubId": 110968,
+     "card": [
+      66,
+      64,
+      57
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      67,
+      59
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id201508",
+     "name": "Ramírez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 60,
+     "leagueId": 1014,
+     "clubId": 112868,
+     "card": [
+      66,
+      66,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      69,
+      53
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id71646",
+     "name": "Velásquez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 53,
+     "leagueId": 1003,
+     "clubId": 110968,
+     "card": [
+      66,
+      60,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      63,
+      35
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id279245",
+     "name": "Correa",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 60,
+     "leagueId": 1003,
+     "clubId": 111325,
+     "card": [
+      67,
+      54,
+      30
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      57,
+      32
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": null,
+    "control": 69.0,
+    "attack": 70.16,
+    "defence": 70.75,
+    "net": null,
+    "vs_reddit": null,
+    "control_cards": [
+     71,
+     70,
+     69,
+     68,
+     67
+    ],
+    "attack_cards": [
+     71,
+     70,
+     70,
+     70,
+     70,
+     69,
+     68
+    ],
+    "defence_cards": [
+     72,
+     71,
+     70,
+     70
+    ],
+    "p_att": null,
+    "p_def": null,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 191.6,
+    "att_total": 173.9,
+    "def_total": 147.75
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-11-15 23:37 UTC",
+ "week": "2026-11-16",
+ "test": {
+  "vs_recommended": [
+   52,
+   36,
+   12
+  ],
+  "note": "Built for win odds against the strongest teams found (the published team, then each best response). Preview only."
+ }
+}
