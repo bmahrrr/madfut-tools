@@ -240,7 +240,7 @@ function localSet(k, v) { const a = lsGet("local"); if (v) a[k] = v; else delete
 const SW_ICONS = new Set(["icon", "debut_icon"]);
 function swapCtx(k, d, missing) {               // shared by the instant fill and the smart search
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, gone = new Set(missing);
-  const slots = t.players.map(p => p.slot);
+  const slots = t.players.map(p => p.slot), pool = d._pool ? CARDS.concat(d._pool) : CARDS;
   const ok = c => c && !gone.has(c.id) && c.rating <= (s.cap || 99) && !(c._extra && c.owned === false);
   const score = tm => {                          // quick judge of a full team: chem first, then in-game stats
     const E = effective(tm, s), ch = E.reduce((a, e) => a + e.chem, 0);
@@ -250,7 +250,7 @@ function swapCtx(k, d, missing) {               // shared by the instant fill an
   const options = (team, i, n) => {              // the best n cards for slot i, the rest of the team fixed
     const keys = new Set(team.filter((x, j) => j !== i && x).map(playerKey));
     const icons = team.filter((x, j) => j !== i && x && SW_ICONS.has(x.color)).length, out = [];
-    for (const x of CARDS) {
+    for (const x of pool) {
       if (!ok(x) || !(x.P && x.P.has(slots[i])) || keys.has(playerKey(x))) continue;
       if (!sim && s.key !== "X" && SW_ICONS.has(x.color) && icons >= 5) continue;
       const tm = team.slice(); tm[i] = x;
@@ -258,7 +258,7 @@ function swapCtx(k, d, missing) {               // shared by the instant fill an
     }
     return out.sort((a, b) => b[0] - a[0]).slice(0, n);
   };
-  return { sim, s, t, slots, ok, score, options };
+  return { sim, s, t, slots, ok, score, options, pool };
 }
 function instantFill(k, d, missing) {
   const C = swapCtx(k, d, missing), team = C.t.players.map(p => BYID.get(p.id));
@@ -289,7 +289,7 @@ async function simSwapBest(k, d, missing, onP) {
   const C = swapCtx(k, d, missing), s = C.s, slots = C.slots, f = instantFill(k, d, missing); if (!f) return null;
   const floor = s.attack_floor != null ? s.attack_floor : String(s.key) === "X" ? 0 : (s.cap || 99) - 1;
   // the strong teams to measure against: the full site team and the Reddit teams (their defenders and attackers)
-  const full = C.t.players.map(p => BYID.get(p.id)), FLD = { A: [], D: [] }, teams = [[full, slots]];
+  const full = (d._full ? d._full.ids : C.t.players.map(p => p.id)).map(i => BYID.get(i)), FLD = { A: [], D: [] }, teams = full.every(Boolean) ? [[full, d._full ? d._full.slots : slots]] : [];
   const wser = ((WEEK && WEEK.sim) || []).find(x => x.key === s.key) || {};
   (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); const fs = SIM_FORMS[wser.opponent_formation] || slots; if (tm.length === 11 && tm.every(Boolean)) teams.push([tm, fs]); });
   for (const [tm, fs] of teams) {
@@ -297,7 +297,7 @@ async function simSwapBest(k, d, missing, onP) {
     di.forEach(r => FLD.D.push([r, 1 / (teams.length * di.length)])); R.forEach((r, i) => { if (W[i] > 0) FLD.A.push([r, W[i] / teams.length]); });
   }
   const ev = tm => simSwapEval(tm, slots, s, floor, FLD), pool = {};
-  for (const sl of new Set(slots)) pool[sl] = CARDS.filter(x => C.ok(x) && x.P && x.P.has(sl));
+  for (const sl of new Set(slots)) pool[sl] = C.pool.filter(x => C.ok(x) && x.P && x.P.has(sl));
   const seen = new Map(), keep = r => { const id = r.tm.map(x => x.id).join(); if (!seen.has(id)) seen.set(id, r); return r; };
   const fill = (t, j) => {                     // every card for slot j, the rest of the team fixed
     const keys = new Set(t.filter((x, q) => q !== j).map(playerKey)); let best = null;
@@ -337,12 +337,12 @@ async function simSwapBest(k, d, missing, onP) {
       fieldR.forEach(R2 => { const y = simMatch(a.R, R2); m += y.scoreA - y.scoreB; }); return [w, m]; });
     let bi = 0; sc.forEach((v, i) => { if (v[0] > sc[bi][0] || (v[0] === sc[bi][0] && v[1] > sc[bi][1])) bi = i; }); win = fin[bi];
   }
-  return { team: win.tm.map(x => x.id), slots, sim: true, tested: seen.size };
+  return { team: win.tm.map(x => x.id), slots, sim: true, tested: seen.size, key: win.key, R: win.R };
 }
 function versionData(k, d, team, slots, missing) {
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, E = effective(team, s);
   const players = team.map((c, i) => ({ slot: slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
-    card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t }));
+    card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t, evos: c.evos }));
   const chem = E.reduce((a, e) => a + e.chem, 0), avg = v => v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 100) / 100 : 0;
   if (!sim) return Object.assign({}, d, { team: Object.assign({}, t, { players, chem, plan: null, results: null, source: null }), not_owned_ids: missing });
   const R = players.map((p, i) => ({ slot: p.slot, pos: team[i].position, a: p.eff[0], c: p.eff[1], d: p.eff[2] })), W = attackWeights(R);
@@ -368,10 +368,11 @@ async function smartSwap(k, d, missing, onP) {
   (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); if (tm.length === 11 && tm.every(Boolean)) opps.push(tm); });
   const R = t.results || {}, OT = t.opponent_teams || {};
   Object.entries(R).filter(([n]) => OT[n] && n !== "mirror" && !n.startsWith("reference"))
-    .sort((a, b) => (SW_RANK[a[1].you_lead_first] + SW_RANK[a[1].they_lead_first]) - (SW_RANK[b[1].you_lead_first] + SW_RANK[b[1].they_lead_first])).slice(0, 4)
-    .forEach(([n]) => { const tm = OT[n].players.map(p => BYID.get(p.id)); if (tm.length === 11 && tm.every(Boolean)) opps.push(tm); });
-  opps.push(t.players.map(p => BYID.get(p.id)));         // last: the full team (with the card you don't have), a tiebreak only
-  const OE = opps.map(o => effective(o, s)), nRed = (wser.opponents || []).length ? 1 : 0;
+    .sort((a, b) => (SW_RANK[a[1].you_lead_first] + SW_RANK[a[1].they_lead_first]) - (SW_RANK[b[1].you_lead_first] + SW_RANK[b[1].they_lead_first]))
+    .map(([n]) => OT[n].players.map(p => BYID.get(p.id))).filter(tm => tm.length === 11 && tm.every(Boolean)).slice(0, 4).forEach(tm => opps.push(tm));   // the 4 hardest still possible
+  const fullT = (d._full ? d._full.ids : t.players.map(p => p.id)).map(i => BYID.get(i));
+  if (fullT.every(Boolean)) opps.push(fullT);         // last: the full team (with the card you don't have), a tiebreak only
+  const OE = opps.map(o => effective(o, s)), nFull = fullT.every(Boolean) ? 1 : 0, nRed = (wser.opponents || []).length ? 1 : 0;
   const seen = new Set(), cands = [], add = tm => { const key = tm.map(x => x.id).join(); if (!seen.has(key)) { seen.add(key); cands.push([C.score(tm), tm]); } };
   add(base);
   for (const i of gaps) for (const [, x] of C.options(base, i, 8)) { const tm = base.slice(); tm[i] = x; add(tm); }
@@ -379,12 +380,12 @@ async function smartSwap(k, d, missing, onP) {
   for (const b of firsts) for (let j = 0; j < 11; j++) if (!gaps.includes(j))
     for (const [, x] of C.options(b, j, 3)) { if (x.id === b[j].id) continue; const tm = b.slice(); tm[j] = x; add(tm); }
   const list = [cands[0], ...cands.slice(1).sort((a, b) => b[0] - a[0])].slice(0, 48).map(c => c[1]);
-  let best = null, n = 0, solves = 0; const t0 = Date.now(), LIMIT = 75000, W = Math.min(4, navigator.hardwareConcurrency || 2);
+  let best = null, n = 0, solves = 0; const t0 = Date.now(), LIMIT = d._limit || 75000, W = Math.min(4, navigator.hardwareConcurrency || 2);
   const judge = async tm => {
     const A = effective(tm, s); let worst = 3, sum = 0, red = null;
     for (let o = 0; o < OE.length; o++) {
       const r = await poolAsk(solves++, { type: "o2", A, B: OE[o] });
-      if (o < OE.length - 1) worst = Math.min(worst, r[0], r[1]);
+      if (o < OE.length - nFull) worst = Math.min(worst, r[0], r[1]);
       sum += r[0] + r[1] + (o < nRed ? 10 * (r[0] + r[1]) : 0);   // the Reddit result counts most after the worst case
       if (o === 0 && nRed) red = r;
       if (best && worst < best.worst) return null;              // can't beat the best so far
@@ -410,7 +411,7 @@ async function smartSwap(k, d, missing, onP) {
       for (const g of got) if (g && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
     }
   }
-  return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, tested: n, opps: OE.length };
+  return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, sum: best.sum, score: best.score, tested: n, opps: OE.length };
 }
 const SIMSW = new Set();     // Sim versions being searched right now
 async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
@@ -514,6 +515,131 @@ async function rebuildWithout(k, ids, afterGot) {
   } catch (e) { alert("Couldn't start the rebuild: " + e.message); }
 }
 
+// ---------- My Evos: the Evos you've done, and each series' team built around them on this phone ----------
+// Every possible Evo card of the game year is in evos_all.json. You pick the card you put each Evo on (a chain card
+// covers all its Evos), kept on this phone. A series' My Evos team: the All Evos team when your Evos cover it (nothing
+// can beat that for you), otherwise the same search as "Missing a card?", run from both the All Evos and Recommended
+// Evos teams against the same strong teams, and the better of the two kept.
+let EVOALL = null;
+async function evoAll() {
+  if (EVOALL) return EVOALL;
+  const d = await getJSON("evos_all.json"), own = new Map(), out = new Map();
+  CARDS.forEach(c => { if (c._extra && c.evos && c.evos.length && c.owned !== false) own.set(c.baseId + "|" + c.evos.join(">"), c); });
+  for (const r of d.cards) {
+    const c = {}; d.fields.forEach((f, i) => c[f] = r[i]);
+    const o = own.get(c.baseId + "|" + (c.evos || []).join(">"));     // one of the site's own Evo cards: that card
+    if (o) { out.set(o.id, o); if (!BYID.has(c.id)) BYID.set(c.id, o); continue; }
+    Object.assign(c, { name: cap(c.name), specialChem: c.specialChem || "", _extra: true, _evx: true, owned: true });
+    c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]);
+    BYID.set(c.id, c); out.set(c.id, c);
+  }
+  own.forEach(c => out.set(c.id, c));                                  // own Evo cards the Evo data can't make (e.g. from a special card)
+  const names = d.evos.map(e => e.name); own.forEach(c => c.evos.forEach(n => { if (!names.includes(n)) names.push(n); }));
+  EVOALL = { evos: names, cards: [...out.values()] };
+  return EVOALL;
+}
+const myEvos = () => { try { return JSON.parse(localStorage.getItem("myevos") || "[]"); } catch (e) { return []; } };
+const myEvosSet = ids => { try { localStorage.setItem("myevos", JSON.stringify(ids)); } catch (e) {} };
+const recEvos = () => CARDS.filter(c => c._extra && c.evos && c.evos.length && c.owned !== false).map(c => c.id);
+function myEvosBox() {
+  const n = myEvos().length;
+  return `<details class="card" id="myEvosBox" data-ser="myevos"${OPEN.has("myevos") ? " open" : ""}><summary>My Evos <span class="small muted">· ${n ? `${n} card${n === 1 ? "" : "s"} picked` : "Not set"}</span></summary><div id="myEvosBody"><p class="small muted">Loading…</p></div></details>`;
+}
+async function fillMyEvos() {
+  const body = $("myEvosBody"); if (!body) return;
+  let E; try { E = await evoAll(); } catch (e) { body.innerHTML = `<p class="small muted">Evo data missing.</p>`; return; }
+  const ids = myEvos().filter(i => BYID.has(i)), on = new Map();
+  ids.forEach(i => BYID.get(i).evos.forEach(n => on.set(n, BYID.get(i))));
+  body.innerHTML = `<p class="small" style="margin:6px 0">Pick the card you put each Evo on. Each series then gets a <b>My Evos</b> team, built around them on this phone.</p>
+    <div class="row" style="margin:0 0 8px"><button class="ghost" id="evRec">Use Recommended Evos</button><button class="ghost" id="evClr">Clear All</button></div>
+    ${E.evos.map(n => { const c = on.get(n); return `<div class="evrow"><span class="en"><b>${esc(n)}</b><small>${c ? `${esc(c.name)} ${c.rating}${c.evos.length > 1 ? ` · ${esc(c.evos.join(" → "))}` : ""}` : "Not done"}</small></span><button class="ghost" data-evpick="${esc(n)}">${c ? "Change" : "Pick"}</button></div><div class="evlist" data-evl="${esc(n)}" hidden></div>`; }).join("")}`;
+  const save = v => { myEvosSet(v); renderTeams(); };
+  $("evRec").onclick = () => save(recEvos());
+  $("evClr").onclick = () => save([]);
+  body.querySelectorAll("[data-evpick]").forEach(b => b.onclick = () => {
+    const n = b.dataset.evpick, box = body.querySelector(`[data-evl="${CSS.escape(n)}"]`);
+    if (!box.hidden) { box.hidden = true; return; }
+    const all = E.cards.filter(c => c.evos.includes(n)).sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
+    box.innerHTML = `<input type="search" placeholder="Search ${all.length} cards" data-evq><div data-evr></div>`; box.hidden = false;
+    const list = box.querySelector("[data-evr]"), q = box.querySelector("[data-evq]");
+    const draw = () => { const t = norm(q.value || ""); const hits = all.filter(c => !t || c._n.includes(t)).slice(0, 40);
+      list.innerHTML = (on.get(n) ? `<button class="evopt" data-evset=""><b>Not done</b></button>` : "") + hits.map(c => `<button class="evopt" data-evset="${esc(c.id)}"><b>${esc(c.name)}</b> ${c.rating}<small>${esc(TYPE(c.color === "evo" && c.base ? (BYID.get(c.base) || c).color : c.color))} · ${esc(c.position)}${c.evos.length > 1 ? ` · ${esc(c.evos.join(" → "))}` : ""}</small></button>`).join("") || `<p class="small muted">No cards found.</p>`;
+      list.querySelectorAll("[data-evset]").forEach(x => x.onclick = () => {
+        const id = x.dataset.evset, c = BYID.get(id), drop = c ? c.evos : [n];     // each Evo on one card only
+        save([...ids.filter(i => !BYID.get(i).evos.some(e => drop.includes(e))), ...(id ? [id] : [])]);
+      }); };
+    q.oninput = draw; draw(); q.focus();
+  });
+}
+const MYEVO_RUN = new Set(), myEvoTm = (sim, d) => sim ? d.teams[0] : d.team;
+const myEvoSig = (dR, dA) => myEvos().slice().sort().join(",") + "|" + (dR.built || "") + "|" + ((dA && dA.built) || "");
+async function myEvoData(sid) {
+  const [kind, key] = sid.split(":"), dR = await getJSON(`results/${kind}_${key}.json`);
+  let dA = null; try { dA = await getJSON(`results/${kind}_${key}--allevo.json`); } catch (e) {}
+  return { dR, dA, sim: kind === "sim" };
+}
+async function myEvoBuild(sid, onP) {
+  const E = await evoAll(), { dR, dA, sim } = await myEvoData(sid), mine = new Set(myEvos());
+  const gone = E.cards.filter(c => !mine.has(c.id)).map(c => c.id), goneS = new Set(gone);   // every Evo card you haven't done
+  const pool = E.cards.filter(c => c._evx && mine.has(c.id)), sig = myEvoSig(dR, dA);
+  if (dA && myEvoTm(sim, dA).players.every(p => !goneS.has(p.id))) return { sig, instant: true };
+  // the same strong teams for both searches: the All Evos team (else the Recommended one), both teams' counters, Reddit
+  const ST = myEvoTm(sim, dA || dR), RES = {}, OT = {};
+  if (!sim) for (const [d, tag] of [[dR, "r"], [dA, "a"]]) if (d) {
+    const t = myEvoTm(sim, d);
+    Object.entries(t.results || {}).forEach(([n, v]) => { if (n !== "mirror" && !n.startsWith("reference") && (t.opponent_teams || {})[n]) { RES[n + "@" + tag] = v; OT[n + "@" + tag] = t.opponent_teams[n]; } });
+  }
+  const run = (d, from) => { const t = Object.assign({}, myEvoTm(sim, d), sim ? {} : { results: RES, opponent_teams: OT });
+    return Object.assign({}, d, sim ? { teams: [t] } : { team: t }, { _pool: pool, _full: { ids: ST.players.map(p => p.id), slots: ST.players.map(p => p.slot) }, _limit: dA ? 40000 : 75000, _from: from }); };
+  const starts = [[dR, ""], ...(dA ? [[dA, "allevo"]] : [])].map(([d, f]) => run(d, f));
+  let best = null, tested = 0;
+  for (let i = 0; i < starts.length; i++) {
+    const d = starts[i], P = (a, b) => onP && onP(i, starts.length, a, b);
+    const r = sim ? await simSwapBest(sid, d, gone) : await smartSwap(sid, d, gone, P);
+    if (!r) continue; r.from = d._from;
+    const better = !best ? true : sim
+      ? (r.key[0] !== best.key[0] || r.key[1] !== best.key[1] ? simKeyCmp(r, best) > 0 : simMatch(r.R, best.R).scoreA - simMatch(r.R, best.R).scoreB > 0.0005)
+      : r.worst > best.worst || (r.worst === best.worst && (r.sum > best.sum || (r.sum === best.sum && r.score > best.score)));
+    tested += r.tested || 0; if (better) best = r;
+  }
+  if (!best) return null;
+  delete best.R; return Object.assign(best, { sig, tested });
+}
+function myEvoHtml(sid, dR, dA, r) {
+  const sim = sid.startsWith("sim"), n = myEvos().length;
+  const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
+  const show = (d, note) => { const t = myEvoTm(sim, d), m = sim ? t.metrics : null;
+    return `<p class="meta" style="margin:2px 0 8px">${esc(t.formation || "")}, ${sim ? m.chem : t.chem} chem</p><p class="small muted" style="margin:0 0 8px">${note}</p>
+      ${sim ? `<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>` : ""}${playersTable(t.players, !sim, null)}`; };
+  if (r.instant) return show(dA, `Your ${n} Evos cover every Evo card in the All Evos team, so that is your best team.`);
+  const base = r.from === "allevo" && dA ? dA : dR, team = r.team.map(id => BYID.get(id));
+  if (!team.every(Boolean)) return `<p class="small muted">Rebuild needed.</p>`;
+  const WDL = v => ["Loss", "", "Draw", "Win"][v] || "?";
+  const vd = versionData(sid, base, team, r.slots, []);
+  return show(vd, r.quick ? `<span data-mestat="${esc(sid)}">Quick version shown. Searching for a stronger one…</span>`
+    : sim ? `Built on this phone around your ${n} Evos. Best of ${(r.tested || 0).toLocaleString()} teams tried.`
+    : `Built on this phone around your ${n} Evos. Best of ${r.tested} teams, worst case <b>${WDL(r.worst)}</b> against ${r.opps} strong teams.`);
+}
+async function myEvoShow(sid) {
+  const el = () => document.querySelector(`[data-myevo="${CSS.escape(sid)}"]`); if (!el()) return;
+  const { dR, dA } = await myEvoData(sid), have = lsGet("myevo")[sid];
+  if (have && have.sig === myEvoSig(dR, dA)) { await evoAll(); el().innerHTML = myEvoHtml(sid, dR, dA, have); return; }
+  if (MYEVO_RUN.has(sid)) return; MYEVO_RUN.add(sid);
+  try {
+    await evoAll();
+    // a quick version first (the Recommended team with your Evos swapped in), then the full search
+    const E = EVOALL, mine = new Set(myEvos()), gone = E.cards.filter(c => !mine.has(c.id)).map(c => c.id);
+    const qd = Object.assign({}, dR, { _pool: E.cards.filter(c => c._evx && mine.has(c.id)) }), f = instantFill(sid, qd, gone);
+    if (f && el()) el().innerHTML = myEvoHtml(sid, dR, dA, { team: f.team.map(c => c.id), slots: f.slots, quick: true });
+    else if (el()) el().innerHTML = `<p class="small muted" data-mestat="${esc(sid)}">Building your team…</p>`;
+    const r = await myEvoBuild(sid, (i, n, a, b) => { const s = document.querySelector(`[data-mestat="${CSS.escape(sid)}"]`);
+      if (s) s.textContent = `Quick version shown. Searching for a stronger one: start ${i + 1} of ${n}${b ? `, ${a} of ${b} tested` : a ? `, ${a} tested` : ""}…`; });
+    if (r) { const a = lsGet("myevo"); a[sid] = r; lsSet("myevo", a); if (el()) el().innerHTML = myEvoHtml(sid, dR, dA, r); }
+    else if (el()) el().innerHTML = `<p class="small muted">Couldn't build a full team with these cards.</p>`;
+  } finally { MYEVO_RUN.delete(sid); }
+}
+const VSEL = new Map();     // the version shown in each series (kept when the page redraws)
+
 const vtag = (which, d) => !which ? "" : which === "mine"
   ? `<p class="vtag mine">Your version <span>· without ${esc(cardNames(d.not_owned_ids || []).join(", "))}</span></p>`
   : `<p class="vtag">Everyone's team <span>· assumes every card</span></p>`;
@@ -570,7 +696,8 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 const UPDATES = [
   { day: "2026-11-15", items: [
     "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos.",
-    "<b>Evo names:</b> shown on every card that uses one, with both names for a chain."
+    "<b>Evo names:</b> shown on every card that uses one, with both names for a chain.",
+    "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone."
   ] },
   { day: "2026-11-14", items: [
     "<b>Cards:</b> HoF Upgraded and Showdown Plus cards added, with HoF Upgraded on full chem like Hall of FUT."
@@ -602,13 +729,14 @@ async function renderTeams() {
             : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
   OPPS = []; let html = `<div class="card"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>
-    ${mcFunnel()}${simFunnel()}</div>` + (V ? "" : updateCard()) + vaultBox;
+    ${mcFunnel()}${simFunnel()}</div>` + (V ? "" : updateCard() + myEvosBox()) + vaultBox;
   const files = V ? V.files : INDEX.files || [];
   // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_") && !f.includes("--"));
   const vfiles = files.filter(f => (f.startsWith("myclub_") || f.startsWith("sim_")) && f.includes("--"));
   // each series: All Evos / Recommended Evos (the main team) / No LTM & Evos, one at a time (only the ones built so far)
-  const VORDER = ["allevo", "", "noltmevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos" };
+  const VORDER = ["allevo", "", "noltmevo", "myevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos" };
+  const ME = !V && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`) : "";
   const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
   const vpanel = (v, inner) => `<div class="vpanel"${v === "" ? "" : " hidden"} data-vp="${v}">${inner}</div>`;
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
@@ -626,7 +754,7 @@ async function renderTeams() {
       // the strip only calls out a team nothing beats (every tested team, both lead orders)
       const sres = worst && worst.r === "WIN" ? `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>` : lastChange(d);
       const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1])])}<div class="vpanel" data-vp="">${bar}${vtag(which, d)}`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="">${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">Hand-built team <span>Beat the builder's own team</span></p>`;
@@ -658,7 +786,7 @@ async function renderTeams() {
             ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`);
         } catch (e) {}
       }
-      html += `</div></details>`;
+      html += mePanel(sid) + `</div></details>`;
     } catch (e) {}
   }
   html += `<h3>Fatal Sim</h3>`;
@@ -673,7 +801,7 @@ async function renderTeams() {
       const sres = lastChange(d), st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`;
       const cad = `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`;
       const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1])])}<div class="vpanel" data-vp="">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
       for (const vf of myV) {
         try {
           let vd = await getJSON(base + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
@@ -689,7 +817,7 @@ async function renderTeams() {
             <div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", vm.control)}${avg("Attack", vm.attack)}${avg("Defence", vm.defence)}</div>${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`);
         } catch (e) {}
       }
-      html += `</div></details>`;
+      html += mePanel(sid) + `</div></details>`;
     } catch (e) {}
   }
   if (!V) {
@@ -700,11 +828,16 @@ async function renderTeams() {
     $("vaultBack").onclick = () => { VAULT = null; renderTeams(); window.scrollTo(0, 0); };
   }
   document.querySelectorAll("details.sercard").forEach(x => x.ontoggle = () => { x.open ? OPEN.add(x.dataset.ser) : OPEN.delete(x.dataset.ser); });
-  document.querySelectorAll("[data-vsw]").forEach(sw => sw.onclick = e => {
-    const b = e.target.closest("button[data-v]"); if (!b) return;
+  const pickV = (sw, b) => {
     sw.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
     sw.parentElement.querySelectorAll(":scope > .vpanel").forEach(p => p.hidden = p.dataset.vp !== b.dataset.v);
+    VSEL.set(sw.dataset.vsw, b.dataset.v); if (b.dataset.v === "myevo") myEvoShow(sw.dataset.vsw);
+  };
+  document.querySelectorAll("[data-vsw]").forEach(sw => {
+    sw.onclick = e => { const b = e.target.closest("button[data-v]"); if (b) pickV(sw, b); };
+    const keep = VSEL.get(sw.dataset.vsw), b = keep != null && sw.querySelector(`button[data-v="${keep}"]`); if (b) pickV(sw, b);
   });
+  const mb = $("myEvosBox"); if (mb) { mb.ontoggle = () => { mb.open ? OPEN.add("myevos") : OPEN.delete("myevos"); if (mb.open) fillMyEvos(); }; if (mb.open) fillMyEvos(); }
   wireOpps(); if (!V) wireNoHave();
 }
 function playersTable(ps, showTB, nh, mark) {     // nh = "myclub:73" adds a Don't have button to each player; mark(p): highlight
