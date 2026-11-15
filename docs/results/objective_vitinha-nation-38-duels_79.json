@@ -1,61 +1,58 @@
 {
- "g": 4,
+ "g": 1,
  "obj_ids": [
-  "id212197",
-  "id252144",
-  "id270674",
-  "id50588606"
+  "id266096"
  ],
- "strength": 100.5,
+ "strength": 100.1,
  "group_cards": 8,
  "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 33,
+  "formation": "4-1-2-1-2",
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id212197",
-    "name": "Heuer Fernandes",
+    "id": "id227186",
+    "name": "Batalla",
     "rating": 79,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 38,
-    "leagueId": 19,
-    "clubId": 28,
+    "nationId": 52,
+    "leagueId": 53,
+    "clubId": 480,
     "card": [
-     33,
-     35,
+     36,
+     34,
      80
     ],
     "chem": 3,
     "eff": [
-     35,
-     37,
-     82
+     38,
+     38,
+     83
     ],
-    "tiebreak": 154
+    "tiebreak": 156
    },
    {
     "slot": "LB",
-    "id": "id220651",
-    "name": "Angeliño",
+    "id": "id241811",
+    "name": "Sergio Gómez",
     "rating": 78,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 45,
     "leagueId": 53,
-    "clubId": 242,
+    "clubId": 457,
     "card": [
-     76,
+     77,
      79,
-     77
+     76
     ],
     "chem": 3,
     "eff": [
-     78,
+     79,
      81,
-     79
+     78
     ],
     "tiebreak": 238
    },
@@ -84,26 +81,26 @@
    },
    {
     "slot": "CB",
-    "id": "id252144",
-    "name": "Eduardo Quaresma",
+    "id": "id266096",
+    "name": "Tomás Araújo",
     "rating": 78,
     "color": "rare_gold",
     "position": "CB",
     "nationId": 38,
     "leagueId": 308,
-    "clubId": 237,
+    "clubId": 234,
     "card": [
-     69,
+     61,
      70,
      77
     ],
     "chem": 3,
     "eff": [
-     72,
+     64,
      73,
      80
     ],
-    "tiebreak": 222
+    "tiebreak": 214
    },
    {
     "slot": "RB",
@@ -120,151 +117,151 @@
      70,
      77
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     73,
-     73,
-     80
+     72,
+     72,
+     79
     ],
-    "tiebreak": 223
+    "tiebreak": 220
    },
    {
     "slot": "CDM",
-    "id": "ltm_espart79",
-    "name": "Xavi Espart",
-    "rating": 79,
-    "color": "ltm",
-    "position": "RB",
-    "nationId": 45,
+    "id": "id234060",
+    "name": "Herrera",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 61,
     "leagueId": 53,
-    "clubId": 241,
+    "clubId": 457,
     "card": [
-     71,
-     77,
+     76,
+     75,
      78
     ],
     "chem": 3,
     "eff": [
-     73,
-     79,
+     78,
+     77,
      80
     ],
-    "tiebreak": 232
+    "tiebreak": 235
    },
    {
     "slot": "LM",
-    "id": "id227890",
-    "name": "Nuno Santos",
-    "rating": 75,
-    "color": "rare_gold",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 237,
-    "card": [
-     75,
-     73,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     76,
-     71
-    ],
-    "tiebreak": 222
-   },
-   {
-    "slot": "CM",
-    "id": "id241811",
-    "name": "Sergio Gómez",
+    "id": "id220651",
+    "name": "Angeliño",
     "rating": 78,
     "color": "rare_gold",
     "position": "LB",
     "nationId": 45,
     "leagueId": 53,
-    "clubId": 457,
+    "clubId": 242,
     "card": [
-     77,
+     76,
      79,
-     76
+     77
     ],
     "chem": 3,
     "eff": [
-     79,
+     78,
      81,
-     78
+     79
     ],
     "tiebreak": 238
    },
    {
-    "slot": "CM",
-    "id": "id50588606",
-    "name": "Fábio Vieira",
+    "slot": "RM",
+    "id": "id245371",
+    "name": "Almada",
     "rating": 78,
     "color": "rare_gold",
     "position": "CAM",
-    "nationId": 38,
-    "leagueId": 19,
-    "clubId": 28,
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     77,
      78,
-     55
+     78,
+     53
     ],
     "chem": 3,
     "eff": [
-     79,
      80,
-     57
+     82,
+     56
     ],
-    "tiebreak": 216
+    "tiebreak": 215
    },
    {
-    "slot": "RM",
-    "id": "id225201",
-    "name": "Berenguer",
-    "rating": 79,
+    "slot": "CAM",
+    "id": "id259913",
+    "name": "Sudakov",
+    "rating": 78,
     "color": "rare_gold",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 448,
+    "position": "CAM",
+    "nationId": 49,
+    "leagueId": 308,
+    "clubId": 234,
+    "card": [
+     77,
+     77,
+     61
+    ],
+    "chem": 2,
+    "eff": [
+     79,
+     79,
+     63
+    ],
+    "tiebreak": 218
+   },
+   {
+    "slot": "ST",
+    "id": "id235467",
+    "name": "Moreno",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 110395,
     "card": [
      79,
      77,
-     66
+     54
+    ],
+    "chem": 2,
+    "eff": [
+     80,
+     80,
+     56
+    ],
+    "tiebreak": 213
+   },
+   {
+    "slot": "ST",
+    "id": "id214997",
+    "name": "Correa",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
+    "card": [
+     79,
+     76,
+     53
     ],
     "chem": 3,
     "eff": [
      81,
-     79,
-     68
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "ST",
-    "id": "id50562314",
-    "name": "Gabriel Jesus",
-    "rating": 79,
-    "color": "rare_gold",
-    "position": "ST",
-    "nationId": 54,
-    "leagueId": 53,
-    "clubId": 241,
-    "card": [
      80,
-     77,
-     44
+     56
     ],
-    "chem": 3,
-    "eff": [
-     82,
-     79,
-     46
-    ],
-    "tiebreak": 207
+    "tiebreak": 214
    }
   ]
  },
@@ -301,17 +298,17 @@
  "base_ids": [
   "id227186",
   "id192638",
-  "id233230",
   "id236804",
   "id50574483",
   "id237221",
-  "id241811",
   "id263370",
+  "id241811",
   "id245371",
   "id214997",
-  "id254551"
+  "id254551",
+  "id235467"
  ],
- "built": "2026-11-14 22:12 UTC",
+ "built": "2026-11-15 08:59 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-14 22:12 UTC"
+ "changed": "2026-11-15 08:59 UTC"
 }
