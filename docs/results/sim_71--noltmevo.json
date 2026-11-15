@@ -1,0 +1,935 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "71",
+  "cap": 71,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 63,
+    "att": 0,
+    "ctl": 2,
+    "def": 1
+   },
+   {
+    "on": "nation",
+    "id": 10,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id256156",
+     "name": "Morínigo",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      26,
+      20,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      28,
+      22,
+      72
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id209196",
+     "name": "Ziereis",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      45,
+      54,
+      68
+     ],
+     "chem": 1,
+     "eff": [
+      45,
+      54,
+      68
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id235514",
+     "name": "Al Rubaie",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 183,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      42,
+      44,
+      64
+     ],
+     "chem": 1,
+     "eff": [
+      42,
+      44,
+      64
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214343",
+     "name": "Moreno",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      60,
+      61,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214040",
+     "name": "Fabra",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      72,
+      73,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id178088",
+     "name": "Juan Mata",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      68,
+      74,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      76,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id202651",
+     "name": "Suso",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 1968,
+     "card": [
+      71,
+      72,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      74,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id237183",
+     "name": "Rojas",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      72,
+      73,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      57
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      73,
+      74,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      76,
+      58
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id272430",
+     "name": "Ale García",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 472,
+     "card": [
+      72,
+      64,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      66,
+      54
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id269643",
+     "name": "Alex Forés",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 10846,
+     "card": [
+      71,
+      60,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      62,
+      42
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6013,
+    "control": 75.2,
+    "attack": 73.77,
+    "defence": 69.0,
+    "net": 0.2797,
+    "vs_reddit": null,
+    "control_cards": [
+     76,
+     76,
+     75,
+     75,
+     74
+    ],
+    "attack_cards": [
+     75,
+     74,
+     74,
+     74,
+     73,
+     73
+    ],
+    "defence_cards": [
+     72,
+     72,
+     68,
+     64
+    ],
+    "p_att": 0.8719,
+    "p_def": 0.0663,
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 199.8,
+    "att_total": 194.66,
+    "def_total": 159.0,
+    "round_robin": {
+     "wins": 4.0,
+     "margin": 2.0253
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id256156",
+     "name": "Morínigo",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      26,
+      20,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      28,
+      22,
+      72
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id209196",
+     "name": "Ziereis",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      45,
+      54,
+      68
+     ],
+     "chem": 1,
+     "eff": [
+      45,
+      54,
+      68
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214343",
+     "name": "Moreno",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      60,
+      61,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id228784",
+     "name": "Lajami",
+     "rating": 63,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 183,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      47,
+      48,
+      63
+     ],
+     "chem": 1,
+     "eff": [
+      47,
+      48,
+      63
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214040",
+     "name": "Fabra",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      72,
+      73,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id202651",
+     "name": "Suso",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 1968,
+     "card": [
+      71,
+      72,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      74,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id178088",
+     "name": "Juan Mata",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      68,
+      74,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      76,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id237183",
+     "name": "Rojas",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      72,
+      73,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      57
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      73,
+      74,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      76,
+      58
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id221014",
+     "name": "Carlos Fernández",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 110827,
+     "card": [
+      71,
+      65,
+      34
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      67,
+      36
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id272430",
+     "name": "Ale García",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 472,
+     "card": [
+      72,
+      64,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      66,
+      54
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6013,
+    "control": 75.2,
+    "attack": 73.77,
+    "defence": 68.75,
+    "net": 0.2823,
+    "vs_reddit": null,
+    "control_cards": [
+     76,
+     76,
+     75,
+     75,
+     74
+    ],
+    "attack_cards": [
+     75,
+     74,
+     74,
+     74,
+     73,
+     73
+    ],
+    "defence_cards": [
+     72,
+     72,
+     68,
+     63
+    ],
+    "p_att": 0.8758,
+    "p_def": 0.0663,
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 199.8,
+    "att_total": 194.35,
+    "def_total": 161.0
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id256156",
+     "name": "Morínigo",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      26,
+      20,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      28,
+      22,
+      72
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id209196",
+     "name": "Ziereis",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      45,
+      54,
+      68
+     ],
+     "chem": 1,
+     "eff": [
+      45,
+      54,
+      68
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214343",
+     "name": "Moreno",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      60,
+      61,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      63,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id235514",
+     "name": "Al Rubaie",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 183,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      42,
+      44,
+      64
+     ],
+     "chem": 1,
+     "eff": [
+      42,
+      44,
+      64
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id214040",
+     "name": "Fabra",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 56,
+     "leagueId": 1003,
+     "clubId": 101103,
+     "card": [
+      72,
+      73,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      72
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id202651",
+     "name": "Suso",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 1968,
+     "card": [
+      71,
+      72,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      74,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id178088",
+     "name": "Juan Mata",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      68,
+      74,
+      33
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      76,
+      35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id237183",
+     "name": "Rojas",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 58,
+     "leagueId": 1003,
+     "clubId": 111008,
+     "card": [
+      72,
+      73,
+      55
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      75,
+      57
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      73,
+      74,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      76,
+      58
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id269643",
+     "name": "Alex Forés",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 10846,
+     "card": [
+      71,
+      60,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      62,
+      42
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id272430",
+     "name": "Ale García",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 472,
+     "card": [
+      72,
+      64,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      66,
+      54
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6013,
+    "control": 75.2,
+    "attack": 73.77,
+    "defence": 69.0,
+    "net": 0.2797,
+    "vs_reddit": null,
+    "control_cards": [
+     76,
+     76,
+     75,
+     75,
+     74
+    ],
+    "attack_cards": [
+     75,
+     74,
+     74,
+     74,
+     73,
+     73
+    ],
+    "defence_cards": [
+     72,
+     72,
+     68,
+     64
+    ],
+    "p_att": 0.8719,
+    "p_def": 0.0663,
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 199.8,
+    "att_total": 194.66,
+    "def_total": 159.0,
+    "swaps_checked": 36227
+   }
+  }
+ ],
+ "not_owned": [
+  "Acuña Evo",
+  "Bruno Costa Evo",
+  "Can Evo",
+  "Clauss Evo",
+  "Comuzzo (every level)",
+  "David Luiz Evo",
+  "Diomande Evo",
+  "Gerso Evo",
+  "Groß Evo",
+  "Jerdea Evo",
+  "Kanté Evo",
+  "Karetsas (every level)",
+  "Lucas Vázquez Evo",
+  "Markovic Evo",
+  "Ngumoha (every level)",
+  "Olschowsky Evo",
+  "Oxlade-Chamberlain Evo",
+  "Rafael Leão Evo",
+  "Rogers Evo",
+  "Sarkaria Evo",
+  "Tiffoney Evo",
+  "Wedemeyer Evo",
+  "Xavi Espart (every level)"
+ ],
+ "variant": {
+  "id": "noltmevo",
+  "label": "No LTMs or Evos",
+  "exclude": [
+   {
+    "color": "ltm"
+   },
+   {
+    "color": "evo"
+   }
+  ],
+  "include": null
+ },
+ "built": "2026-11-15 05:15 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-15 05:15 UTC"
+}
