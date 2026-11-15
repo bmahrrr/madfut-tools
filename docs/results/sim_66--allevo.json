@@ -1,0 +1,917 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "66",
+  "cap": 66,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 1003,
+    "att": 2,
+    "ctl": 1,
+    "def": 0
+   },
+   {
+    "on": "league",
+    "id": 1014,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 28,
+   "players": [
+    {
+     "id": "id279033",
+     "name": "Sergio Aragoneses",
+     "rating": 60,
+     "color": "rare_bronze",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 260,
+     "card": [
+      24,
+      24,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      26,
+      26,
+      63
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id261821",
+     "name": "González",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 60,
+     "leagueId": 1014,
+     "clubId": 112868,
+     "card": [
+      38,
+      31,
+      69
+     ],
+     "chem": 1,
+     "eff": [
+      39,
+      32,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50407394",
+     "name": "Álvaro Cortés",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 4,
+     "clubId": 230,
+     "card": [
+      51,
+      54,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      56,
+      68
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id263141",
+     "name": "Ceza",
+     "rating": 64,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 55,
+     "leagueId": 1014,
+     "clubId": 111328,
+     "card": [
+      39,
+      34,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      42,
+      37,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id192634",
+     "name": "Marc Mateu",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 260,
+     "card": [
+      68,
+      69,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      71,
+      67
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id278499",
+     "name": "Granados",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 4,
+     "clubId": 231,
+     "card": [
+      65,
+      68,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      70,
+      51
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id214308",
+     "name": "Martínez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 55,
+     "leagueId": 1014,
+     "clubId": 111328,
+     "card": [
+      67,
+      68,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      71,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id75922_9",
+     "name": "Cîmpean",
+     "rating": 66,
+     "color": "rare_bronze",
+     "position": "CM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 113378,
+     "card": [
+      67,
+      68,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      70,
+      64
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id195065",
+     "name": "Hairemans",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 7,
+     "leagueId": 4,
+     "clubId": 230,
+     "card": [
+      66,
+      69,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      71,
+      53
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id79146",
+     "name": "Iratxe Pérez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116332,
+     "card": [
+      68,
+      58,
+      22
+     ],
+     "chem": 2,
+     "eff": [
+      69,
+      59,
+      23
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id270864",
+     "name": "Nsingi",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 7,
+     "leagueId": 17,
+     "clubId": 111659,
+     "card": [
+      69,
+      61,
+      31
+     ],
+     "chem": 1,
+     "eff": [
+      69,
+      61,
+      31
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5853,
+    "control": 70.6,
+    "attack": 68.98,
+    "defence": 67.5,
+    "net": 0.1624,
+    "vs_reddit": null,
+    "control_cards": [
+     71,
+     71,
+     71,
+     70,
+     70
+    ],
+    "attack_cards": [
+     70,
+     70,
+     69,
+     69,
+     69,
+     68,
+     67
+    ],
+    "defence_cards": [
+     70,
+     69,
+     68,
+     63
+    ],
+    "p_att": 0.6416,
+    "p_def": 0.2488,
+    "chem": 28,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 197.4,
+    "att_total": 172.95,
+    "def_total": 145.25,
+    "swaps_checked": 22769,
+    "round_robin": {
+     "wins": 17.0,
+     "margin": 1.9777
+    }
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 28,
+   "players": [
+    {
+     "id": "id279033",
+     "name": "Sergio Aragoneses",
+     "rating": 60,
+     "color": "rare_bronze",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 260,
+     "card": [
+      24,
+      24,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      26,
+      26,
+      63
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50407394",
+     "name": "Álvaro Cortés",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 4,
+     "clubId": 230,
+     "card": [
+      51,
+      54,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      56,
+      68
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id261821",
+     "name": "González",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 60,
+     "leagueId": 1014,
+     "clubId": 112868,
+     "card": [
+      38,
+      31,
+      69
+     ],
+     "chem": 1,
+     "eff": [
+      39,
+      32,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id263141",
+     "name": "Ceza",
+     "rating": 64,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 55,
+     "leagueId": 1014,
+     "clubId": 111328,
+     "card": [
+      39,
+      34,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      42,
+      37,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id75922_9",
+     "name": "Cîmpean",
+     "rating": 66,
+     "color": "rare_bronze",
+     "position": "CM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 113378,
+     "card": [
+      67,
+      68,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      70,
+      64
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id192634",
+     "name": "Marc Mateu",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 260,
+     "card": [
+      68,
+      69,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      71,
+      67
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id278499",
+     "name": "Granados",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 4,
+     "clubId": 231,
+     "card": [
+      65,
+      68,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      70,
+      51
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id214308",
+     "name": "Martínez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 55,
+     "leagueId": 1014,
+     "clubId": 111328,
+     "card": [
+      67,
+      68,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      71,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id195065",
+     "name": "Hairemans",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 7,
+     "leagueId": 4,
+     "clubId": 230,
+     "card": [
+      66,
+      69,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      71,
+      53
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id79146",
+     "name": "Iratxe Pérez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116332,
+     "card": [
+      68,
+      58,
+      22
+     ],
+     "chem": 2,
+     "eff": [
+      69,
+      59,
+      23
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id270864",
+     "name": "Nsingi",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 7,
+     "leagueId": 17,
+     "clubId": 111659,
+     "card": [
+      69,
+      61,
+      31
+     ],
+     "chem": 1,
+     "eff": [
+      69,
+      61,
+      31
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5853,
+    "control": 70.6,
+    "attack": 68.97,
+    "defence": 66.8,
+    "net": 0.1399,
+    "vs_reddit": null,
+    "control_cards": [
+     71,
+     71,
+     71,
+     70,
+     70
+    ],
+    "attack_cards": [
+     70,
+     70,
+     69,
+     69,
+     69,
+     68,
+     67
+    ],
+    "defence_cards": [
+     70,
+     69,
+     68,
+     64,
+     63
+    ],
+    "p_att": 0.6334,
+    "p_def": 0.199,
+    "chem": 28,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 197.4,
+    "att_total": 170.97,
+    "def_total": 156.8
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id188202",
+     "name": "Thoelen",
+     "rating": 64,
+     "color": "rare_bronze",
+     "position": "GK",
+     "nationId": 7,
+     "leagueId": 4,
+     "clubId": 230,
+     "card": [
+      28,
+      25,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      30,
+      27,
+      67
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id263141",
+     "name": "Ceza",
+     "rating": 64,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 55,
+     "leagueId": 1014,
+     "clubId": 111328,
+     "card": [
+      39,
+      34,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      42,
+      37,
+      69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id261821",
+     "name": "González",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 60,
+     "leagueId": 1014,
+     "clubId": 112868,
+     "card": [
+      38,
+      31,
+      69
+     ],
+     "chem": 1,
+     "eff": [
+      39,
+      32,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id272126",
+     "name": "Amaia Martínez",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 448,
+     "card": [
+      48,
+      55,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      50,
+      57,
+      67
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id192634",
+     "name": "Marc Mateu",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 260,
+     "card": [
+      68,
+      69,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      71,
+      67
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id278499",
+     "name": "Granados",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 4,
+     "clubId": 231,
+     "card": [
+      65,
+      68,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      70,
+      51
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id214308",
+     "name": "Martínez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 55,
+     "leagueId": 1014,
+     "clubId": 111328,
+     "card": [
+      67,
+      68,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      71,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id75922_9",
+     "name": "Cîmpean",
+     "rating": 66,
+     "color": "rare_bronze",
+     "position": "CM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 113378,
+     "card": [
+      67,
+      68,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      70,
+      64
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id195065",
+     "name": "Hairemans",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 7,
+     "leagueId": 4,
+     "clubId": 230,
+     "card": [
+      66,
+      69,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      71,
+      53
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id276445",
+     "name": "Patri Zugasti",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 448,
+     "card": [
+      67,
+      65,
+      37
+     ],
+     "chem": 3,
+     "eff": [
+      69,
+      67,
+      39
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id83386",
+     "name": "Baba",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "LW",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 260,
+     "card": [
+      66,
+      60,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      62,
+      49
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5853,
+    "control": 70.6,
+    "attack": 68.67,
+    "defence": 68.25,
+    "net": 0.1107,
+    "vs_reddit": null,
+    "control_cards": [
+     71,
+     71,
+     71,
+     70,
+     70
+    ],
+    "attack_cards": [
+     70,
+     70,
+     69,
+     69,
+     68,
+     68,
+     67
+    ],
+    "defence_cards": [
+     70,
+     69,
+     67,
+     67
+    ],
+    "p_att": 0.5768,
+    "p_def": 0.222,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 197.4,
+    "att_total": 185.9,
+    "def_total": 146.75
+   }
+  }
+ ],
+ "not_owned": [],
+ "variant": {
+  "id": "allevo",
+  "label": "All Evos",
+  "exclude": [],
+  "include": "evos_all"
+ },
+ "built": "2026-11-15 04:57 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-15 04:57 UTC"
+}
