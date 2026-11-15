@@ -782,7 +782,6 @@ async function renderTeams() {
           const gone = vd.not_owned || [], nV = Object.keys(vt.results || {}).length;
           html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
             ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
-            ${gone.length && !vd.same_as_full ? `<p class="small muted" style="margin:0 0 6px">Left out: ${esc(gone.slice(0, 12).join(", "))}${gone.length > 12 ? ` and ${gone.length - 12} more` : ""}</p>` : ""}
             ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}${box("Tested against", `<b class="bignum">${nV}</b>`, "teams")}</div>` : ""}
             ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`);
         } catch (e) {}
@@ -814,7 +813,6 @@ async function renderTeams() {
           const vm = vt.metrics, gone = vd.not_owned || [];
           html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vm.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
             ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
-            ${gone.length && !vd.same_as_full ? `<p class="small muted" style="margin:0 0 6px">Left out: ${esc(gone.slice(0, 12).join(", "))}${gone.length > 12 ? ` and ${gone.length - 12} more` : ""}</p>` : ""}
             <div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", vm.control)}${avg("Attack", vm.attack)}${avg("Defence", vm.defence)}</div>${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`);
         } catch (e) {}
       }
