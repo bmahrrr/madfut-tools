@@ -54,6 +54,12 @@ def _pool(series, cards):
     return pool
 
 
+def _max_attack(pool, series):
+    """The highest in-game attack a card can reach in this series: boosts, full chem (+2) and every squad bonus a team
+    could earn (89: the 7 card types bonus gives +1, so 93 attackers exist and a 93 defence is not unbeatable)."""
+    return max(x["A"] for x in pool if x["P"] & ATT) + 2 + sum(b.get("att", 0) for b in series.get("bonuses", []))
+
+
 OPP = None      # profile of the strongest teams in the series (set by build_sim): what our team plays against
 MAXA = None     # the highest in-game attack any card in the series can reach (set by build_sim)
 FIELD = None    # the strongest teams found (set by build_sim), as match sides: the simulated-match tie-break plays each
@@ -476,8 +482,8 @@ def build_sim(series, cards, formations=None, margin=4, topk=20, time_limit=200,
     maxC = max(x["C"] for x in pool if x["P"] & CTRL)
     # an unbeatable defence: every defender's defence (at full chem) above the best attack anyone can field
     global MAXA
-    MAXA = max(x["A"] for x in pool if x["P"] & ATT) + 2
-    UNB = {x["_i"] for x in pool if x["D"] + 2 > MAXA}
+    MAXA = _max_attack(pool, series)
+    UNB = {x["_i"] for x in pool if x["D"] + 2 + sum(b.get("def", 0) for b in series.get("bonuses", [])) > MAXA}
     # candidate lists of three sizes, all solved, the best team kept: a short list lets the solver finish (68 needed it:
     # 8,000 cards hit the time limit with weak teams) but can miss a card a wider list has (73 and 86 lost attack)
     CONFIGS = ((margin, topk, 2, 2), (margin + 2, topk * 3, 4, 3), (margin + 4, topk * 6, 6, 4))
@@ -845,7 +851,7 @@ def best_of(series, cards, teams, log=print):
     head-to-head final decides (most wins, then margin). An attack-floor miss against higher control is also settled
     head to head (owner's rule), so the best floor-meeting team plays too."""
     pool = _pool(series, cards); by = {c["id"]: c for c in pool}
-    MA = max(x["A"] for x in pool if x["P"] & ATT) + 2
+    MA = _max_attack(pool, series)
     global MAXA, OPP
     MAXA, OPP = MA, None
     rows = []
