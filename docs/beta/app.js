@@ -106,6 +106,7 @@ async function init() {
   try { const ex = await getJSON("results/extras.json"); ex.cards.forEach(c => CARDS.push(Object.assign({specialChem: "", _extra: true}, c))); } catch (e) {}
   if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`;   // same total as the Cards tab
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
+  try { await evoAll(); } catch (e) {}       // every evolved card of the year: searchable everywhere, needed for All Evos teams
   try { INDEX = await getJSON("results/index.json"); if (INDEX.all) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
@@ -121,15 +122,18 @@ function search(q, limit = 12, cap = 0) {
   if (m) { q = m[1]; want = +m[2]; }
   if (q.length < 2) return [];
   const out = [];
-  for (const c of CARDS) { if ((c._n || (c._n = norm(c.name))).includes(q) && (!want || c.rating === want)) { out.push(c); if (out.length > 300) break; } }
+  for (const c of searchPool()) { if ((c._n || (c._n = norm(c.name))).includes(q) && (!want || c.rating === want)) { out.push(c); if (out.length > 300) break; } }
   // exact name matches first, then cards within the cap, then highest rated
   const score = c => (c._n === q ? 0 : c._n.startsWith(q) ? 1 : 2) * 2 + (cap && c.rating > cap ? 1 : 0);
   // every card with exactly that name is listed (up to 40), so a common name like Müller shows its low-rated cards too
   const exact = out.filter(c => c._n === q).length;
   return out.sort((a, b) => score(a) - score(b) || b.rating - a.rating).slice(0, Math.max(limit, Math.min(exact, 40)));
 }
+// the site's cards plus every evolved card of the year (an opponent can have any Evo)
+const searchPool = () => EVOALL ? (EVOALL.pool || (EVOALL.pool = CARDS.concat(EVOALL.cards.filter(c => c._evx)))) : CARDS;
+const evoTag = c => c.evos && c.evos.length ? ` · <span class="gold">Evo: ${esc(c.evos.join(" → "))}</span>` : "";
 function cardLine(c) {
-  return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(String(cName(c.clubId)).trim())}</span> <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
+  return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(String(cName(c.clubId)).trim())}</span>${evoTag(c)} <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
 }
 function hookSearch(inputId, listId, onPick, capOf) {
   const inp = $(inputId), ul = $(listId);
@@ -1327,12 +1331,12 @@ window.swapFind = j => {
     const q = norm($("swQ").value.trim());
     if (q.length < 2) { $("swRes").innerHTML = `<p class="small muted">Type at least 2 letters. Cards up to ${M.cap} only, strongest first.</p>`; return; }
     const anyPos = $("swAny").checked;
-    const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.name + "|" + c.nationId) && (anyPos || c.P.has(old.position)) &&
+    const L = searchPool().filter(c => c.rating <= M.cap && !used.has(c.name + "|" + c.nationId) && (anyPos || c.P.has(old.position)) &&
         (c._n.includes(q) || norm(nName(c.nationId)).includes(q) || norm(lName(c.leagueId)).includes(q) || norm(cName(c.clubId)).includes(q)))
       .map(c => ({ c, e: swapEff(j, c) })).sort((x, y) => (y.e.a + y.e.c + y.e.d) - (x.e.a + x.e.c + x.e.d)).slice(0, 25);
     $("swRes").innerHTML = L.length ? L.map(({ c, e }, k) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="swapDo(${j},'${esc(c.id)}')">
         <b>${esc(c.name)} ${c.rating}${k === 0 ? ` <span class="tag">Strongest</span>` : ""}</b>
-        <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))} · in game ${e.a}/${e.c}/${e.d}, TB ${e.t}</span></button>`).join("")
+        <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}${evoTag(c)} · in game ${e.a}/${e.c}/${e.d}, TB ${e.t}</span></button>`).join("")
       : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
   };
   $("swQ").oninput = draw; $("swAny").onchange = draw; draw(); $("swQ").focus();
