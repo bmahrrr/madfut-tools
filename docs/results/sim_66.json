@@ -270,11 +270,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.64,
+    "ctrl_win": 0.6187,
     "control": 70.6,
     "attack": 68.15,
     "defence": 68.5,
-    "net": 0.1195,
+    "net": 0.1194,
     "vs_reddit": null,
     "control_cards": [
      71,
@@ -298,8 +298,8 @@
      68,
      68
     ],
-    "p_att": 0.5008,
-    "p_def": 0.2299,
+    "p_att": 0.5061,
+    "p_def": 0.2745,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -309,8 +309,8 @@
     "att_total": 173.46,
     "def_total": 155.75,
     "round_robin": {
-     "wins": 6.0,
-     "margin": 1.5437
+     "wins": 11.0,
+     "margin": 1.7891
     }
    }
   },
@@ -563,11 +563,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.64,
+    "ctrl_win": 0.6187,
     "control": 70.6,
     "attack": 68.28,
     "defence": 66.0,
-    "net": 0.1261,
+    "net": 0.1221,
     "vs_reddit": null,
     "control_cards": [
      71,
@@ -592,8 +592,8 @@
      68,
      56
     ],
-    "p_att": 0.5299,
-    "p_def": 0.1839,
+    "p_att": 0.5352,
+    "p_def": 0.2196,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -610,26 +610,70 @@
    "chem": 32,
    "players": [
     {
-     "id": "id278696",
-     "name": "Vanden Driessche",
-     "rating": 63,
-     "color": "rare_bronze",
+     "id": "id277674",
+     "name": "Coke Carrillo",
+     "rating": 66,
+     "color": "rare_silver",
      "position": "GK",
-     "nationId": 7,
-     "leagueId": 4,
-     "clubId": 231,
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 110716,
      "card": [
-      21,
-      18,
-      64
+      26,
+      25,
+      67
      ],
      "chem": 3,
      "eff": [
-      23,
-      20,
-      66
+      28,
+      27,
+      69
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id84372",
+     "name": "Schelfhout",
+     "rating": 59,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 7,
+     "leagueId": 4,
+     "clubId": 230,
+     "card": [
+      45,
+      43,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      47,
+      45,
+      61
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id252094",
+     "name": "Lapeña",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 54,
+     "clubId": 1894,
+     "card": [
+      51,
+      51,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      53,
+      68
+     ],
+     "slot": "CB"
     },
     {
      "id": "id263141",
@@ -650,50 +694,6 @@
       42,
       37,
       69
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id245021",
-     "name": "Loum",
-     "rating": 66,
-     "color": "rare_silver",
-     "position": "CDM",
-     "nationId": 136,
-     "leagueId": 54,
-     "clubId": 459,
-     "card": [
-      56,
-      60,
-      65
-     ],
-     "chem": 2,
-     "eff": [
-      57,
-      61,
-      66
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50407394",
-     "name": "Álvaro Cortés",
-     "rating": 66,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 45,
-     "leagueId": 4,
-     "clubId": 230,
-     "card": [
-      51,
-      54,
-      66
-     ],
-     "chem": 3,
-     "eff": [
-      53,
-      56,
-      68
      ],
      "slot": "CB"
     },
@@ -808,6 +808,28 @@
      "slot": "CAM"
     },
     {
+     "id": "id79146",
+     "name": "Iratxe Pérez",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116332,
+     "card": [
+      68,
+      58,
+      22
+     ],
+     "chem": 2,
+     "eff": [
+      69,
+      59,
+      23
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id260643",
      "name": "Succar",
      "rating": 65,
@@ -828,37 +850,15 @@
       32
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id50404883",
-     "name": "Gomis",
-     "rating": 66,
-     "color": "rare_silver",
-     "position": "ST",
-     "nationId": 136,
-     "leagueId": 54,
-     "clubId": 260,
-     "card": [
-      67,
-      56,
-      37
-     ],
-     "chem": 3,
-     "eff": [
-      69,
-      58,
-      39
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.64,
+    "ctrl_win": 0.6187,
     "control": 70.6,
     "attack": 68.15,
-    "defence": 67.25,
-    "net": 0.086,
+    "defence": 66.75,
+    "net": 0.1011,
     "vs_reddit": null,
     "control_cards": [
      71,
@@ -878,25 +878,25 @@
     ],
     "defence_cards": [
      69,
+     69,
      68,
-     66,
-     66
+     61
     ],
-    "p_att": 0.5008,
-    "p_def": 0.118,
+    "p_att": 0.5036,
+    "p_def": 0.222,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 195.6,
-    "att_total": 175.0,
-    "def_total": 154.5
+    "att_total": 170.38,
+    "def_total": 149.75
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-14 16:37 UTC",
+ "built": "2026-11-15 01:02 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-14 16:37 UTC"
 }
