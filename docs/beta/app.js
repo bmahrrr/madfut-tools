@@ -106,7 +106,7 @@ async function init() {
   try { const ex = await getJSON("results/extras.json"); ex.cards.forEach(c => CARDS.push(Object.assign({specialChem: "", _extra: true}, c))); } catch (e) {}
   if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`;   // same total as the Cards tab
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
-  try { await evoAll(); } catch (e) {}       // every evolved card of the year: searchable everywhere, needed for All Evos teams
+  try { await evoAll(); if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`; } catch (e) {}   // every evolved card of the year: searchable everywhere, needed for All Evos teams
   try { INDEX = await getJSON("results/index.json"); if (INDEX.all) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
@@ -2100,13 +2100,16 @@ const TCOL = {   // [light, dark, text], taken from the in-game collection scree
   ucl_rttk: ["#2f5fe0", "#0a1a5c", "#ffffff"], uwcl_rttk: ["#7cc4f0", "#2f6fb8", "#ffffff"], ecl_rttk: ["#2fbf4a", "#06140a", "#ffffff"], europa_rttk: ["#e2701e", "#1a0d06", "#ffffff"] };
 // LTMs each have their own card design: the strip beside them uses that card's colours
 const LTMCOL = { "Xavi Espart": ["#3a6fe0", "#8a1640"], "Karetsas": ["#f5e04a", "#2a2614"], "Ngumoha": ["#e3262f", "#3b0a12"], "Comuzzo": ["#a3283c", "#3a0c14"] };
-const cardStrip = c => { const L = c.color === "ltm" && LTMCOL[c.name]; return L ? `background:linear-gradient(135deg,${L[0]},${L[1]})` : tgrad(typeKey(c)); };
+const cardStrip = c => { const L = c.color === "ltm" && LTMCOL[c.name]; return L ? `background:linear-gradient(135deg,${L[0]},${L[1]})` : tgrad(c._evx ? "evo" : typeKey(c)); };
 const tcol = t => TCOL[t] || (h => [`hsl(${h} 70% 72%)`, `hsl(${h} 55% 38%)`, "#0d0a0b"])([...String(t)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 360, 7));
 const tgrad = t => { const [a, b, c] = tcol(t); return `background:linear-gradient(135deg,${a},${b});color:${c}`; };      // hand-added cards listed in the Cards tab
 const inCards = c => !c._extra || SHOW_EXTRA.has(c.color);
+// the Cards tab: the site's cards plus every evolved card of the year, all evolved cards listed under Evo
+const cardsPool = () => CARDS.filter(inCards).concat(EVOALL ? EVOALL.cards.filter(c => c._evx) : []);
+const ctKey = c => c._evx ? "evo" : typeKey(c);
 const cardCount = (t, cs) => t === "ltm" ? new Set(cs.map(c => c.name)).size : cs.length;   // an LTM counts once, whatever its level
 function siteTotal() {          // every card on the site, counted as the Cards tab does (hand-added Evo / Elite Evo / LTM included, each LTM once)
-  const byT = new Map(); CARDS.filter(inCards).forEach(c => { const k = typeKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
+  const byT = new Map(); cardsPool().forEach(c => { const k = ctKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
   return [...byT].reduce((a, [t, cs]) => a + cardCount(t, cs), 0);
 }
 // ---------- Most used cards (docs/usage.json, made by scripts/usage.py) ----------
@@ -2275,13 +2278,13 @@ function wireObjForm() {
 }
 function setupCards() {
   setupUsage();
-  const real = CARDS.filter(inCards);
-  const byT = new Map(); real.forEach(c => { const k = typeKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
+  const real = cardsPool();
+  const byT = new Map(); real.forEach(c => { const k = ctKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
   const cnt = new Map([...byT].map(([t, cs]) => [t, cardCount(t, cs)]));
   const special = [...cnt].filter(([t]) => !["gold", "silver", "bronze"].includes(t)).reduce((a, [, n]) => a + n, 0);
   const order = ["gold", "silver", "bronze", ...[...cnt.keys()].filter(t => !["gold", "silver", "bronze"].includes(t)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b)))];
   const total = [...cnt.values()].reduce((a, n) => a + n, 0);
-  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Evos, Elite Evos and LTMs are added by hand and can't be used in SBCs.`;
+  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Evo lists every evolved card of the year. Evos, Elite Evos and LTMs can't be used in SBCs.`;
   $("cardsTypes").innerHTML = `<button class="ctile wide" data-ct="special" style="background:var(--grad);color:#1a0b05"><b>All special</b><span>${special.toLocaleString()}</span></button>` +
     order.map(t => `<button class="ctile" data-ct="${esc(t)}" style="${tgrad(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t).toLocaleString()}</span></button>`).join("");
   $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
@@ -2300,7 +2303,7 @@ function setupCards() {
 const eliteNames = () => new Set(CARDS.filter(c => c.color === "elite_evo").map(c => c.name));
 const extraTag = c => !c._extra || c.color === "ltm" ? "" : c.owned === false ? ` <span class="small muted">Opponents only</span>`
   : c.color === "evo" && !eliteNames().has(c.name) ? ` <span class="small ok">Yours</span>` : "";
-const cardRow = c => `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${c.rating}</b></span><span class="nm"><b>${esc(c.name)}</b><span class="r">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span>${extraTag(c)}<small>${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</small></span><span class="st"><span class="a">${c.attack}</span><span class="c">${c.control}</span><span class="d">${c.defense}</span></span></div>`;
+const cardRow = c => `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${c.rating}</b></span><span class="nm"><b>${esc(c.name)}</b><span class="r">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span>${extraTag(c)}<small>${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</small>${c.evos && c.evos.length ? `<small class="evon">Evo: ${esc(c.evos.join(" → "))}</small>` : ""}</span><span class="st"><span class="a">${c.attack}</span><span class="c">${c.control}</span><span class="d">${c.defense}</span></span></div>`;
 function byRatingHtml(L, nested) {        // cards grouped under rating headings (big groups fold away)
   const G = new Map(); L.forEach(c => { if (!G.has(c.rating)) G.set(c.rating, []); G.get(c.rating).push(c); });
   return [...G.entries()].sort((a, b) => b[0] - a[0]).map(([r, cs]) => nested
@@ -2310,10 +2313,10 @@ function byRatingHtml(L, nested) {        // cards grouped under rating headings
 function drawCards() {
   const q = norm($("cQ").value.trim()), t = $("cType").value, pos = $("cPos").value, lo = +$("cMin").value || 0, hi = +$("cMax").value || 99;
   const filtering = q || pos || $("cMin").value || $("cMax").value;
-  const L = CARDS.filter(c => inCards(c) && (!q || c._n.includes(q)) && (!t || (t === "special" ? !["gold", "silver", "bronze"].includes(typeKey(c)) : typeKey(c) === t))
+  const L = cardsPool().filter(c => (!q || c._n.includes(q)) && (!t || (t === "special" ? !["gold", "silver", "bronze"].includes(ctKey(c)) : ctKey(c) === t))
     && (!pos || c.position === pos || String(c.altPositions || "").split(",").includes(pos)) && c.rating >= lo && c.rating <= hi)
     .sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
-  const groups = new Map(); L.forEach(c => { const k = typeKey(c); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(c); });
+  const groups = new Map(); L.forEach(c => { const k = ctKey(c); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(c); });
   const order = ["gold", "silver", "bronze"].filter(k => groups.has(k)).concat([...groups.keys()].filter(k => !["gold", "silver", "bronze"].includes(k)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b))));
   const shown = [...groups].reduce((a, [k, cs]) => a + cardCount(k, cs), 0);
   $("cCount").textContent = `${shown.toLocaleString()} card${shown === 1 ? "" : "s"} in ${groups.size} type${groups.size === 1 ? "" : "s"}${filtering ? " (filtered)" : ""}`;
