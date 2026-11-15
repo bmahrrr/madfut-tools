@@ -184,8 +184,10 @@ jobs:
         run: bash scripts/publish_one.sh "docs/results/myclub_${{ matrix.key }}.json" || echo "early publish failed; the final step publishes it"
 
   # the same deep search without LTMs / Evos (config/variants.json), started only after every all-cards team is published
+  # versions (All Evos, No LTM & Evos) start once the quick Sim builds are done, alongside the long My Club searches,
+  # so a new season has everything by morning (40 machines: 21 My Club searches + up to 21 versions)
   variants:
-    needs: [plan, myclub_pick, publish]
+    needs: [plan, sim]
     if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.variants != '[]' }}
     runs-on: ubuntu-26.04   # pinned (ubuntu-latest moves without notice)
     timeout-minutes: 355
@@ -196,7 +198,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main     # includes the all-cards teams just published
+          ref: main     # this week's main team when there is one (a starting point), else built without it
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

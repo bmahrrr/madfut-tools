@@ -54,6 +54,14 @@ def new_variant(f):
     return "--" in f and (f.startswith("sim_") or "--allevo" in f)
 
 
+def evos_seen():
+    """The Evos known when an All Evos team is built: a later new Evo that fits the series rebuilds it."""
+    try:
+        return sorted(e["name"] for e in json.load(open(os.path.join(ROOT, "data", "evos_all.json"))).get("evos", []))
+    except Exception:
+        return []
+
+
 def uses_extra_evo(players):
     """An All Evos team only differs from the Recommended Evos team when it uses an Evo card nobody has by default."""
     return any(str(p.get("id", "")).startswith("evx_") for p in players)
@@ -226,11 +234,29 @@ def main():
         out = {m: [s["key"] for s in w.get(m, [])] for m in ("sim", "myclub")}
         # "No LTMs or Evos" versions: built once per season, after the all-cards teams (never rebuilt nightly).
         # A version already built this season is skipped unless asked for by name ("myclub:89--noltmevo").
+        try:
+            EV = json.load(open(os.path.join(ROOT, "data", "evos_all.json")))
+            ev_names = {e["name"] for e in EV.get("evos", [])}
+            ev_cards = [dict(zip(EV["fields"], r)) for r in EV["cards"]]
+        except Exception:
+            ev_names, ev_cards = set(), []
+        caps = {(m, x["key"]): x.get("cap") or (int(x["key"]) if str(x["key"]).isdigit() else 99) for m in ("sim", "myclub") for x in w.get(m, [])}
+
         def built(m, k):
             try:
-                return json.load(open(os.path.join(RES, f"{m}_{k}.json"))).get("week") == w.get("week")
+                d = json.load(open(os.path.join(RES, f"{m}_{k}.json")))
             except Exception:
                 return False
+            if d.get("week") != w.get("week"):
+                return False
+            if k.endswith("--allevo") and d.get("evos_seen") is not None:
+                # a new Evo since this All Evos team was built: rebuild only if one of its cards fits this series' cap
+                new = ev_names - set(d["evos_seen"])
+                cap = caps.get((m, k.split("--")[0]), 99)
+                if new and any(c["rating"] <= cap and set(c.get("evos") or []) & new for c in ev_cards):
+                    print(f"{m} {k}: new Evo {sorted(new)} can play here, rebuilding", file=sys.stderr)
+                    return False
+            return True
         named = {x.strip().lower().replace(":", "|") for x in (sys.argv[2] if len(sys.argv) > 2 else "").split(",") if "--" in x}
         out["variants"] = [f"{m}|{k}" for m in ("myclub", "sim") for k in variant_keys(m, out[m])
                            if f"{m}|{k}".lower() in named or not built(m, k)]
@@ -429,6 +455,7 @@ def main():
             print("previous sim team not compared:", e)
         out = {"mode": "sim", "series": s, "teams": teams, "not_owned": no_names}
         if variant: out["variant"] = {"id": vid, "label": variant["label"], "exclude": variant.get("exclude", []), "include": variant.get("include")}
+        if variant and variant.get("include"): out["evos_seen"] = evos_seen()
         if variant and variant.get("include") and teams and not uses_extra_evo(teams[0]["players"]):
             try:                            # owner: an All Evos team without an extra Evo is the Recommended Evos team
                 full = json.load(open(os.path.join(RES, f"sim_{base}.json")))
@@ -569,6 +596,7 @@ def main():
         if tag:
             json.dump(out, open(os.path.join(RES, f"myclub_{key}.{tag}.raw"), "w"), ensure_ascii=False)
             print("search", tag, "saved"); return
+        if variant and variant.get("include"): out["evos_seen"] = evos_seen()
         if variant and variant.get("include") and not uses_extra_evo(team["players"]):
             try:                            # owner: an All Evos team without an extra Evo is the Recommended Evos team
                 full = json.load(open(os.path.join(RES, f"myclub_{base}.json")))
