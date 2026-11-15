@@ -795,7 +795,7 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
         valid = []
         for label, cand in candidates:
             cand = [owned_ids.get(c["id"]) for c in cand]
-            if all(cand) and fits(cand): valid.append((label, cand))
+            if len(cand) == 11 and all(cand) and fits(cand): valid.append((label, cand))   # a card no longer in the game leaves 10
             else: log(f"  {label}: skipped (not ownable or no formation fits)")
         n_chk = max(verify, 2); i = 0
         for label, cand in valid:
