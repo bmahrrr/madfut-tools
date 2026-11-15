@@ -1,0 +1,943 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "87",
+  "cap": 87,
+  "boosts": [
+   {
+    "on": "color",
+    "id": "hero",
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   },
+   {
+    "on": "club",
+    "id": 21,
+    "att": 0,
+    "ctl": 2,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "evx_id215213_4",
+     "name": "Werner",
+     "rating": 76,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 110580,
+     "card": [
+      44,
+      35,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      46,
+      37,
+      80
+     ],
+     "evos": [
+      "Silver Goalie #1"
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50752",
+     "name": "King",
+     "rating": 86,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      67,
+      70,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id213331",
+     "name": "Tah",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      54,
+      61,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      65,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id238179_13_8",
+     "name": "Happe",
+     "rating": 82,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 77,
+     "card": [
+      61,
+      70,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      72,
+      85
+     ],
+     "evos": [
+      "Scottish Premiership Bronze",
+      "Defender Control Upgrade"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id226362",
+     "name": "Necib",
+     "rating": 87,
+     "color": "hero",
+     "position": "LM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 114605,
+     "card": [
+      86,
+      88,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      91,
+      50
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      90,
+      83
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Oxlade-Chamberlain_87",
+     "name": "Oxlade-Chamberlain",
+     "rating": 87,
+     "color": "evo",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 78,
+     "card": [
+      88,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      90,
+      83
+     ],
+     "evos": [
+      "Scottish Premiership Silver"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id183898_12",
+     "name": "Di María",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 110580,
+     "card": [
+      86,
+      89,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      91,
+      54
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      81
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id67336134",
+     "name": "White",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      75,
+      58
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      77,
+      60
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id10704",
+     "name": "Makaay",
+     "rating": 87,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      88,
+      76,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      79,
+      41
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6469,
+    "control": 90.8,
+    "attack": 88.87,
+    "defence": 86.0,
+    "net": 0.1353,
+    "vs_reddit": null,
+    "control_cards": [
+     92,
+     91,
+     91,
+     90,
+     90
+    ],
+    "attack_cards": [
+     91,
+     90,
+     89,
+     89,
+     88,
+     87,
+     87
+    ],
+    "defence_cards": [
+     90,
+     89,
+     85,
+     80
+    ],
+    "p_att": 0.6197,
+    "p_def": 0.1562,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 249.6,
+    "att_total": 227.42,
+    "def_total": 206.5,
+    "round_robin": {
+     "wins": 24.0,
+     "margin": 3.4089
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "evx_id215213_4",
+     "name": "Werner",
+     "rating": 76,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 110580,
+     "card": [
+      44,
+      35,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      46,
+      37,
+      80
+     ],
+     "evos": [
+      "Silver Goalie #1"
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id012",
+     "name": "David Luiz",
+     "rating": 87,
+     "color": "evo",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      74,
+      80,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      82,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id213331",
+     "name": "Tah",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      54,
+      61,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      65,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id226362",
+     "name": "Necib",
+     "rating": 87,
+     "color": "hero",
+     "position": "LM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 114605,
+     "card": [
+      86,
+      88,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      91,
+      50
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evx_id220697_6",
+     "name": "Maddison",
+     "rating": 86,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 18,
+     "card": [
+      87,
+      88,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      90,
+      61
+     ],
+     "evos": [
+      "Midfielder Attack Upgrade"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      90,
+      83
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id183898_12",
+     "name": "Di María",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 110580,
+     "card": [
+      86,
+      89,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      91,
+      54
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      81
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id330",
+     "name": "Keane",
+     "rating": 86,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 25,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      87,
+      79,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      82,
+      50
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id10704",
+     "name": "Makaay",
+     "rating": 87,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      88,
+      76,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      79,
+      41
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6087,
+    "control": 90.8,
+    "attack": 89.77,
+    "defence": 86.25,
+    "net": 0.2054,
+    "vs_reddit": null,
+    "control_cards": [
+     92,
+     91,
+     91,
+     90,
+     90
+    ],
+    "attack_cards": [
+     91,
+     90,
+     89,
+     89,
+     89,
+     88,
+     87
+    ],
+    "defence_cards": [
+     90,
+     89,
+     86,
+     80
+    ],
+    "p_att": 0.7028,
+    "p_def": 0.2002,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 245.0,
+    "att_total": 226.42,
+    "def_total": 213.25,
+    "swaps_checked": 57221
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "evx_id215213_4",
+     "name": "Werner",
+     "rating": 76,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 110580,
+     "card": [
+      44,
+      35,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      46,
+      37,
+      80
+     ],
+     "evos": [
+      "Silver Goalie #1"
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id50752",
+     "name": "King",
+     "rating": 86,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      67,
+      70,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id213331",
+     "name": "Tah",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      54,
+      61,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      65,
+      89
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id238179_13_8",
+     "name": "Happe",
+     "rating": 82,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 77,
+     "card": [
+      61,
+      70,
+      83
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      72,
+      85
+     ],
+     "evos": [
+      "Scottish Premiership Bronze",
+      "Defender Control Upgrade"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      90,
+      83
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id226362",
+     "name": "Necib",
+     "rating": 87,
+     "color": "hero",
+     "position": "LM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 114605,
+     "card": [
+      86,
+      88,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      91,
+      50
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50595413",
+     "name": "Bischof",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      87,
+      88,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      92,
+      81
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Oxlade-Chamberlain_87",
+     "name": "Oxlade-Chamberlain",
+     "rating": 87,
+     "color": "evo",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 78,
+     "card": [
+      88,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      90,
+      83
+     ],
+     "evos": [
+      "Scottish Premiership Silver"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id183898_12",
+     "name": "Di María",
+     "rating": 87,
+     "color": "rare_gold",
+     "position": "RW",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 110580,
+     "card": [
+      86,
+      89,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      91,
+      54
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id10704",
+     "name": "Makaay",
+     "rating": 87,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      88,
+      76,
+      38
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      79,
+      41
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id67336134",
+     "name": "White",
+     "rating": 86,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      75,
+      58
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      77,
+      60
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.6469,
+    "control": 90.8,
+    "attack": 88.84,
+    "defence": 85.4,
+    "net": 0.1244,
+    "vs_reddit": null,
+    "control_cards": [
+     92,
+     91,
+     91,
+     90,
+     90
+    ],
+    "attack_cards": [
+     91,
+     90,
+     89,
+     89,
+     88,
+     87,
+     87
+    ],
+    "defence_cards": [
+     90,
+     89,
+     85,
+     83,
+     80
+    ],
+    "p_att": 0.6185,
+    "p_def": 0.1258,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 249.6,
+    "att_total": 225.42,
+    "def_total": 217.2
+   }
+  }
+ ],
+ "not_owned": [],
+ "variant": {
+  "id": "allevo",
+  "label": "All Evos",
+  "exclude": [],
+  "include": "evos_all"
+ },
+ "built": "2026-11-15 04:48 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-15 04:48 UTC"
+}
