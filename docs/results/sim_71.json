@@ -155,6 +155,9 @@
       75,
       48
      ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
      "slot": "CM"
     },
     {
@@ -224,28 +227,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id209888",
-     "name": "Goodwin",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 195,
-     "leagueId": 351,
-     "clubId": 111393,
-     "card": [
-      71,
-      67,
-      57
-     ],
-     "chem": 2,
-     "eff": [
-      72,
-      68,
-      58
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id231138",
      "name": "Bassogog",
      "rating": 69,
@@ -266,15 +247,37 @@
       43
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id209888",
+     "name": "Goodwin",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 195,
+     "leagueId": 351,
+     "clubId": 111393,
+     "card": [
+      71,
+      67,
+      57
+     ],
+     "chem": 2,
+     "eff": [
+      72,
+      68,
+      58
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.624,
+    "ctrl_win": 0.6253,
     "control": 75.4,
     "attack": 72.78,
     "defence": 69.0,
-    "net": 0.1466,
+    "net": 0.1358,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -298,8 +301,8 @@
      67,
      65
     ],
-    "p_att": 0.6639,
-    "p_def": 0.1334,
+    "p_att": 0.6762,
+    "p_def": 0.1051,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -310,8 +313,8 @@
     "def_total": 165.75,
     "swaps_checked": 36238,
     "round_robin": {
-     "wins": 2.0,
-     "margin": 1.6114
+     "wins": 5.5,
+     "margin": 1.6027
     }
    }
   },
@@ -386,24 +389,24 @@
      "slot": "CB"
     },
     {
-     "id": "id235514",
-     "name": "Al Rubaie",
-     "rating": 65,
+     "id": "id239042",
+     "name": "Al Qahtani",
+     "rating": 66,
      "color": "rare_silver",
-     "position": "CB",
+     "position": "CM",
      "nationId": 183,
      "leagueId": 350,
      "clubId": 113224,
      "card": [
-      42,
-      44,
-      64
+      62,
+      65,
+      58
      ],
      "chem": 2,
      "eff": [
-      43,
-      45,
-      65
+      63,
+      66,
+      59
      ],
      "slot": "CB"
     },
@@ -430,6 +433,31 @@
      "slot": "LM"
     },
     {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "id178088",
      "name": "Juan Mata",
      "rating": 71,
@@ -448,28 +476,6 @@
       70,
       76,
       35
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id239335",
-     "name": "Óscar",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 45,
-     "leagueId": 350,
-     "clubId": 113224,
-     "card": [
-      73,
-      74,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      76,
-      58
      ],
      "slot": "CM"
     },
@@ -496,48 +502,26 @@
      "slot": "RM"
     },
     {
-     "id": "evo_Jerdea_70",
-     "name": "Jerdea",
-     "rating": 70,
-     "color": "evo",
-     "position": "CAM",
-     "nationId": 39,
-     "leagueId": 330,
-     "clubId": 110078,
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
      "card": [
-      70,
       73,
-      46
+      74,
+      56
      ],
      "chem": 3,
      "eff": [
-      72,
       75,
-      48
+      76,
+      58
      ],
      "slot": "CAM"
-    },
-    {
-     "id": "id231138",
-     "name": "Bassogog",
-     "rating": 69,
-     "color": "rare_silver",
-     "position": "RM",
-     "nationId": 103,
-     "leagueId": 350,
-     "clubId": 112389,
-     "card": [
-      72,
-      63,
-      43
-     ],
-     "chem": 1,
-     "eff": [
-      72,
-      63,
-      43
-     ],
-     "slot": "ST"
     },
     {
      "id": "id209888",
@@ -560,15 +544,37 @@
       58
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id231138",
+     "name": "Bassogog",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RM",
+     "nationId": 103,
+     "leagueId": 350,
+     "clubId": 112389,
+     "card": [
+      72,
+      63,
+      43
+     ],
+     "chem": 1,
+     "eff": [
+      72,
+      63,
+      43
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.64,
+    "ctrl_win": 0.6253,
     "control": 75.4,
-    "attack": 72.4,
-    "defence": 69.0,
-    "net": 0.1236,
+    "attack": 72.78,
+    "defence": 67.5,
+    "net": 0.1358,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -578,6 +584,7 @@
      75
     ],
     "attack_cards": [
+     75,
      74,
      74,
      72,
@@ -589,23 +596,18 @@
      72,
      72,
      67,
-     65
+     59
     ],
-    "p_att": 0.6386,
-    "p_def": 0.0873,
+    "p_att": 0.6762,
+    "p_def": 0.1051,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 202.4,
-    "att_total": 194.53,
-    "def_total": 165.75,
-    "swaps_checked": 36238,
-    "round_robin": {
-     "wins": 3.0,
-     "margin": 1.2233
-    }
+    "att_total": 196.4,
+    "def_total": 174.5
    }
   },
   {
@@ -657,28 +659,6 @@
      "slot": "CB"
     },
     {
-     "id": "id211363",
-     "name": "Lockyer",
-     "rating": 63,
-     "color": "rare_bronze",
-     "position": "CB",
-     "nationId": 50,
-     "leagueId": 351,
-     "clubId": 111397,
-     "card": [
-      46,
-      53,
-      62
-     ],
-     "chem": 3,
-     "eff": [
-      48,
-      55,
-      64
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id235514",
      "name": "Al Rubaie",
      "rating": 65,
@@ -697,6 +677,28 @@
       43,
       45,
       65
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id211363",
+     "name": "Lockyer",
+     "rating": 63,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 50,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      46,
+      53,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      55,
+      64
      ],
      "slot": "CB"
     },
@@ -723,6 +725,31 @@
      "slot": "LM"
     },
     {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "id178088",
      "name": "Juan Mata",
      "rating": 71,
@@ -741,28 +768,6 @@
       70,
       76,
       35
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id239335",
-     "name": "Óscar",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 45,
-     "leagueId": 350,
-     "clubId": 113224,
-     "card": [
-      73,
-      74,
-      56
-     ],
-     "chem": 3,
-     "eff": [
-      75,
-      76,
-      58
      ],
      "slot": "CM"
     },
@@ -789,24 +794,24 @@
      "slot": "RM"
     },
     {
-     "id": "evo_Jerdea_70",
-     "name": "Jerdea",
-     "rating": 70,
-     "color": "evo",
-     "position": "CAM",
-     "nationId": 39,
-     "leagueId": 330,
-     "clubId": 110078,
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
      "card": [
-      70,
       73,
-      46
+      74,
+      56
      ],
      "chem": 3,
      "eff": [
-      72,
       75,
-      48
+      76,
+      58
      ],
      "slot": "CAM"
     },
@@ -857,11 +862,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.64,
+    "ctrl_win": 0.6253,
     "control": 75.4,
-    "attack": 72.4,
+    "attack": 72.78,
     "defence": 68.25,
-    "net": 0.1192,
+    "net": 0.1306,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -871,6 +876,7 @@
      75
     ],
     "attack_cards": [
+     75,
      74,
      74,
      72,
@@ -884,21 +890,21 @@
      65,
      64
     ],
-    "p_att": 0.6322,
-    "p_def": 0.087,
+    "p_att": 0.6685,
+    "p_def": 0.1048,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 202.4,
-    "att_total": 191.76,
+    "att_total": 193.62,
     "def_total": 159.75
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-14 16:37 UTC",
+ "built": "2026-11-15 01:03 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-14 16:37 UTC"
 }
