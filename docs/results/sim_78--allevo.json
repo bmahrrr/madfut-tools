@@ -1,0 +1,945 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "78",
+  "cap": 78,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 47,
+    "att": 2,
+    "ctl": 0,
+    "def": 1
+   },
+   {
+    "on": "league",
+    "id": 2215,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "evx_id235820_4",
+     "name": "Gartler",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 4,
+     "leagueId": 80,
+     "clubId": 254,
+     "card": [
+      36,
+      33,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      38,
+      35,
+      77
+     ],
+     "evos": [
+      "Silver Goalie #1"
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id265576",
+     "name": "Querfeld",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 1831,
+     "card": [
+      57,
+      58,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      59,
+      60,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id237595",
+     "name": "Friedl",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      60,
+      65,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      67,
+      80
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id50600062_15",
+     "name": "Kambwala",
+     "rating": 77,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      58,
+      65,
+      77
+     ],
+     "chem": 2,
+     "eff": [
+      59,
+      66,
+      78
+     ],
+     "evos": [
+      "Les Bleus Defender"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id215449_1",
+     "name": "Skov",
+     "rating": 78,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 13,
+     "leagueId": 19,
+     "clubId": 1831,
+     "card": [
+      81,
+      80,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      82,
+      79
+     ],
+     "evos": [
+      "Silver Maestro"
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id239701",
+     "name": "Schmid",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 31,
+     "clubId": 111657,
+     "card": [
+      77,
+      79,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      81,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id192318",
+     "name": "Götze",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      76,
+      80,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      82,
+      56
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      77
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evx_id276129_5",
+     "name": "Bajlicz",
+     "rating": 78,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 4,
+     "leagueId": 80,
+     "clubId": 254,
+     "card": [
+      78,
+      80,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      82,
+      70
+     ],
+     "evos": [
+      "Austrian Bundesliga Silver"
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id71178",
+     "name": "El Mala",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 31,
+     "card": [
+      80,
+      73,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      75,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id73398",
+     "name": "Rômulo",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 19,
+     "clubId": 112172,
+     "card": [
+      78,
+      71,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      73,
+      45
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5213,
+    "control": 81.8,
+    "attack": 80.58,
+    "defence": 78.5,
+    "net": 0.1664,
+    "vs_reddit": null,
+    "control_cards": [
+     82,
+     82,
+     82,
+     82,
+     81
+    ],
+    "attack_cards": [
+     83,
+     82,
+     80,
+     80,
+     79,
+     77
+    ],
+    "defence_cards": [
+     80,
+     79,
+     78,
+     77
+    ],
+    "p_att": 0.7717,
+    "p_def": 0.2584,
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 228.6,
+    "att_total": 214.18,
+    "def_total": 190.0,
+    "round_robin": {
+     "wins": 28.0,
+     "margin": 2.1339
+    }
+   }
+  },
+  {
+   "formation": "5-3-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "evx_id235820_4",
+     "name": "Gartler",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 4,
+     "leagueId": 80,
+     "clubId": 254,
+     "card": [
+      36,
+      33,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      38,
+      35,
+      77
+     ],
+     "evos": [
+      "Silver Goalie #1"
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "evx_id215449_1",
+     "name": "Skov",
+     "rating": 78,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 13,
+     "leagueId": 19,
+     "clubId": 1831,
+     "card": [
+      81,
+      80,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      82,
+      79
+     ],
+     "evos": [
+      "Silver Maestro"
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "evx_id50600062_15",
+     "name": "Kambwala",
+     "rating": 77,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      58,
+      65,
+      77
+     ],
+     "chem": 2,
+     "eff": [
+      59,
+      66,
+      78
+     ],
+     "evos": [
+      "Les Bleus Defender"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id265576",
+     "name": "Querfeld",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 1831,
+     "card": [
+      57,
+      58,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      59,
+      60,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id237595",
+     "name": "Friedl",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      60,
+      65,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      67,
+      80
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      77
+     ],
+     "slot": "RB"
+    },
+    {
+     "id": "id239701",
+     "name": "Schmid",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 31,
+     "clubId": 111657,
+     "card": [
+      77,
+      79,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      81,
+      55
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id192318",
+     "name": "Götze",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      76,
+      80,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      82,
+      56
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id276129_5",
+     "name": "Bajlicz",
+     "rating": 78,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 4,
+     "leagueId": 80,
+     "clubId": 254,
+     "card": [
+      78,
+      80,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      82,
+      70
+     ],
+     "evos": [
+      "Austrian Bundesliga Silver"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id71178",
+     "name": "El Mala",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 31,
+     "card": [
+      80,
+      73,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      75,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id73398",
+     "name": "Rômulo",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 54,
+     "leagueId": 19,
+     "clubId": 112172,
+     "card": [
+      78,
+      71,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      73,
+      45
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5213,
+    "control": 81.8,
+    "attack": 80.37,
+    "defence": 78.33,
+    "net": 0.1618,
+    "vs_reddit": null,
+    "control_cards": [
+     82,
+     82,
+     82,
+     82,
+     81
+    ],
+    "attack_cards": [
+     83,
+     82,
+     80,
+     80,
+     79,
+     78,
+     77
+    ],
+    "defence_cards": [
+     80,
+     79,
+     79,
+     78,
+     77,
+     77
+    ],
+    "p_att": 0.7601,
+    "p_def": 0.2644,
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 228.6,
+    "att_total": 208.0,
+    "def_total": 206.67
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id201269",
+     "name": "Rønnow",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 13,
+     "leagueId": 19,
+     "clubId": 1831,
+     "card": [
+      31,
+      24,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      33,
+      26,
+      81
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "evx_id256500_0",
+     "name": "Collins",
+     "rating": 78,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      64,
+      70,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      72,
+      80
+     ],
+     "evos": [
+      "German Defender"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id250780_3",
+     "name": "Gugganig",
+     "rating": 71,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 4,
+     "leagueId": 80,
+     "clubId": 15040,
+     "card": [
+      50,
+      55,
+      72
+     ],
+     "chem": 2,
+     "eff": [
+      51,
+      56,
+      73
+     ],
+     "evos": [
+      "Austrian Bundesliga Bronze"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id251167_15",
+     "name": "Raux-Yao",
+     "rating": 77,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 80,
+     "clubId": 254,
+     "card": [
+      55,
+      59,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      61,
+      80
+     ],
+     "evos": [
+      "Les Bleus Defender"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id215449_1",
+     "name": "Skov",
+     "rating": 78,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 13,
+     "leagueId": 19,
+     "clubId": 1831,
+     "card": [
+      81,
+      80,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      82,
+      79
+     ],
+     "evos": [
+      "Silver Maestro"
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id192318",
+     "name": "Götze",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      76,
+      80,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      82,
+      56
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id236499",
+     "name": "Douglas Luiz",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      76,
+      79,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      81,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      77
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "evx_id276129_5",
+     "name": "Bajlicz",
+     "rating": 78,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 4,
+     "leagueId": 80,
+     "clubId": 254,
+     "card": [
+      78,
+      80,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      82,
+      70
+     ],
+     "evos": [
+      "Austrian Bundesliga Silver"
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id237679",
+     "name": "Kolo Muani",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 31,
+     "clubId": 45,
+     "card": [
+      77,
+      71,
+      42
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      73,
+      44
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id261478",
+     "name": "Douvikas",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 22,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      78,
+      70,
+      42
+     ],
+     "chem": 2,
+     "eff": [
+      79,
+      71,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.54,
+    "control": 81.8,
+    "attack": 79.32,
+    "defence": 78.5,
+    "net": 0.0992,
+    "vs_reddit": null,
+    "control_cards": [
+     82,
+     82,
+     82,
+     82,
+     81
+    ],
+    "attack_cards": [
+     83,
+     80,
+     79,
+     79,
+     78,
+     77
+    ],
+    "defence_cards": [
+     81,
+     80,
+     80,
+     73
+    ],
+    "p_att": 0.5489,
+    "p_def": 0.4248,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 232.8,
+    "att_total": 210.21,
+    "def_total": 184.0
+   }
+  }
+ ],
+ "not_owned": [],
+ "variant": {
+  "id": "allevo",
+  "label": "All Evos",
+  "exclude": [],
+  "include": "evos_all"
+ },
+ "built": "2026-11-15 05:13 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-15 05:13 UTC"
+}
