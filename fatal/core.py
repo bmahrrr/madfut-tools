@@ -103,7 +103,9 @@ def pid(c):
 
 
 def card_type(c):
-    return str(c["color"]).replace("rare_", "")
+    """The card's type for card-type rules and boosts. An evolved card counts as an Evo card in the game, whatever it was
+    before (owner, checked in game); its chem still follows its original type (an evolved Icon is still an Icon)."""
+    return "evo" if c.get("evos") else str(c["color"]).replace("rare_", "")
 
 
 def is_special(c):
@@ -160,7 +162,7 @@ def boosted(c, boosts):
         key = KEYMAP[b["on"]]
         val = c.get(key)
         if key == "color":
-            match = str(val).replace("rare_", "") == str(b["id"]).replace("rare_", "")
+            match = card_type(c) == str(b["id"]).replace("rare_", "")     # an evolved card is an Evo card here too
         else:
             match = val == b["id"]
         if match:

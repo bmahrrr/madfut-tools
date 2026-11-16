@@ -7,7 +7,7 @@ const CTRL = new Set(["LM", "LW", "RM", "RW", "CAM", "CM", "CDM", "LB", "RB"]);
 const ATT = new Set(["ST", "CAM", "LW", "LM", "RW", "RM", "CF"]);   // Sim attackers (full-backs never attack)
 const DEF = new Set(["LB", "RB", "CDM", "CB", "GK"]);
 
-function cardType(c) { return String(c.color).replace("rare_", ""); }
+function cardType(c) { return c.evos && c.evos.length ? "evo" : String(c.color).replace("rare_", ""); }   // an evolved card counts as an Evo card (chem still follows its original type)
 
 const SOLO = x => x.specialChem === "solo";      // always full chem, adds nothing to anyone else (e.g. Evo Jones)
 const AUTOX = x => AUTO.has(x.color) || x.specialChem === "auto";   // also Heroes-club cards that aren't Heroes (SBC Premium Sara): full chem, +1 nation, +1 league
@@ -36,7 +36,7 @@ function boosted(c, boosts) {
   let a = c.attack, k = c.control, d = c.defense;
   for (const b of boosts || []) {
     const key = KEYMAP[b.on]; const v = c[key];
-    const match = key === "color" ? String(v).replace("rare_", "") === String(b.id).replace("rare_", "") : v === b.id;
+    const match = key === "color" ? cardType(c) === String(b.id).replace("rare_", "") : v === b.id;
     if (match) { a += b.att || 0; k += b.ctl || 0; d += b.def || 0; }
   }
   return [a, k, d];
