@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261116c";
+const APP_V = "20261116d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -705,7 +705,7 @@ const UPDATES = [
     "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone.",
     "<b>Match Helper:</b> new Play Against Them mode. You make every move and the site plays their team perfectly.",
     "<b>Sim Odds:</b> removing a player leaves his spot empty, so the next card you add goes straight into it.",
-    "<b>Sim Odds:</b> a card out of position is flagged and plays on 0 chem, like in the game."
+    "<b>Sim Odds:</b> a card out of position is flagged and plays on 0 chem, and adds nothing to anyone else's chem, like in the game."
   ] },
   { day: "2026-11-14", items: [
     "<b>Cards:</b> HoF Upgraded and Showdown Plus cards added, with HoF Upgraded on full chem like Hall of FUT."
@@ -1178,7 +1178,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1204,7 +1204,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1532,12 +1532,12 @@ function useSimTeam() {
   state.simAC = A.players.map(p => BYID.get(p.id)).filter(Boolean);
   if (SIM_FORMS[A.formation]) $("simFormA").value = A.formation;
 }
-// a card out of position (not its main or alt position) plays on 0 chem: every stat takes the 0 chem minus
+// a card out of position (not its main or alt position) plays on 0 chem and adds nothing to anyone else's chem
 const offPos = (c, slot) => !c.P || !c.P.has(slot);
-const simEff = (cards, slots) => { const P = cards.filter(Boolean), EP = effective(P, simSeries());
-  return cards.map((c, i) => { if (!c) return null; const e = EP[P.indexOf(c)];
-    if (!offPos(c, slots[i]) || e.chem === 0) return e;
-    const k = CHEM_BONUS[0] - CHEM_BONUS[e.chem]; return { ...e, a: e.a + k, c: e.c + k, d: e.d + k, t: e.t + 3 * k, chem: 0, off: true }; }); };
+const simEff = (cards, slots) => { const S = simSeries(), P = cards.filter(Boolean), IN = cards.filter((c, i) => c && !offPos(c, slots[i]));
+  const ch = chem(IN), sb = squadBonus(P, S && S.bonuses);
+  return cards.map((c, i) => { if (!c) return null; const off = offPos(c, slots[i]), k = off ? 0 : ch[IN.indexOf(c)], b = CHEM_BONUS[k], [a, kk, d] = boosted(c, S && S.boosts);
+    return { a: a + b + sb[0], c: kk + b + sb[1], d: d + b + sb[2], t: c.attack + c.control + c.defense + 3 * b, chem: k, off }; }); };
 const simSide = (cards, form, id, top) => { const slots = SIM_FORMS[form], E = simEff(cards, slots);
   return top + `<table>${slots.map((s, i) => { const c = cards[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) + (E[i].off ? ` <span class="tag">Out of position · 0 chem</span>` : "") : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`; };
 function drawSim() {
@@ -1987,7 +1987,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116c");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
