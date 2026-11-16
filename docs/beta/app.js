@@ -1334,13 +1334,44 @@ function ask(msg) {
 const STAT = ["attack", "control", "defence"], COUNTER = [2, 1, 0];
 let M = null;
 $("iFirst").onclick = () => startMatch(0); $("theyFirst").onclick = () => startMatch(1);
+// Match Helper / Play vs AI switch, and how the AI plays
+let AISTYLE = lsStr("aiStyle") || "human";
+document.querySelectorAll(".mseg [data-mm]").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".mseg [data-mm]").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll("[data-mmp]").forEach(p => p.hidden = p.dataset.mmp !== b.dataset.mm);
+  $("matchBox").hidden = true;
+});
+document.querySelectorAll(".aistyle [data-ai]").forEach(b => { b.classList.toggle("on", b.dataset.ai === AISTYLE); b.onclick = () => {
+  AISTYLE = b.dataset.ai; try { localStorage.setItem("aiStyle", AISTYLE); } catch (e) {}
+  document.querySelectorAll(".aistyle [data-ai]").forEach(x => x.classList.toggle("on", x === b)); }; });
+// their lead in Play mode. Perfect: the strongest line. Varied: any lead that is just as good, so openings change.
+// Human: like Varied, but early on it sometimes picks a lead that is only nearly as good, and it favours leading a card
+// with the stat it's best at (what people do)
+async function aiLead() {
+  if (AISTYLE === "perfect") return ask({ type: "bLead", ma: M.ma, mb: M.mb, d: M.d });
+  const L = await ask({ type: "bLeads", ma: M.ma, mb: M.mb, d: M.d }), best = Math.min(...L.map(x => x.v));
+  let pool = L.filter(x => x.v === best);
+  if (AISTYLE === "human" && M.n < 4 && Math.random() < .35) pool = L.filter(x => x.v <= best + 1);
+  const w = x => { const e = M.B[x.j], v = [e.a, e.c, e.d][x.s]; return AISTYLE === "human" ? (v === Math.max(e.a, e.c, e.d) ? 4 : 1) : 1; };
+  let r = Math.random() * pool.reduce((a, x) => a + w(x), 0);
+  for (const x of pool) { r -= w(x); if (r <= 0) return x; }
+  return pool[0];
+}
+const AINAME = { human: "Human AI", varied: "Varied AI", perfect: "Perfect AI" };
+// score, round dots and the outlook, at the top of every move
+function mHead(val, note) {
+  const rr = M.rr || [];
+  return `<div class="mscore"><div class="sides"><span><small>You</small>${M.me}</span><span class="dash">–</span><span><small>${M.play ? "AI" : "Them"}</small>${M.them}</span></div>
+    <div class="out">Round ${Math.min(M.n + 1, 10)} of 10${note ? ` · ${note}` : ""}<br>${val == null ? "" : `With best play: ${pill(LEVEL_NAME(val))}`}</div></div>
+    <div class="mdots">${Array.from({ length: 10 }, (_, k) => `<i class="${k < rr.length ? (rr[k] > 0 ? "w" : rr[k] < 0 ? "l" : "d") : k === M.n ? "now" : ""}"></i>`).join("")}</div>`;
+}
 $("playMe").onclick = () => startMatch(0, true); $("playThem").onclick = () => startMatch(1, true);
 async function startMatch(first, play) {
   if (state.A.length !== 11 || state.B.length !== 11) { alert("Set up both teams in Head to head first."); return; }
   const s = mcSeries();
   M = { first, A: effective(state.A, s), B: effective(state.B, s), TB: state.B.slice(), swapped: new Set(), cap: s.cap || 99, ser: s,
-    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [], hist: [], play: !!play };
-  $("matchBox").hidden = false; $("matchBox").innerHTML = `<p class="muted">Working out the match… a few seconds</p>`;
+    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [], hist: [], rr: [], play: !!play };
+  $("matchBox").hidden = false; $("matchBox").innerHTML = `<p class="muted">Working out the match… a few seconds</p>`; $("matchBox").scrollIntoView({ behavior: "smooth", block: "start" });
   await ask({ type: "start", A: M.A, B: M.B, first });
   matchStep();
 }
@@ -1371,7 +1402,7 @@ async function matchStep() {
     return;
   }
   const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
-  let html = `<div class="row"><span class="big">${M.me} – ${M.them}</span><span class="muted">Round ${M.n + 1}/10 · with perfect play you're ${pill(LEVEL_NAME(val))}</span></div>${mObjFn() ? `<p class="small gold" style="margin:4px 0">🎯 Objective duels won this match: ${M.obj || 0}</p>` : ""}`;
+  let html = `${mHead(val)}${mObjFn() ? `<p class="small gold" style="margin:4px 0">🎯 Objective duels won this match: ${M.obj || 0}</p>` : ""}`;
   if (myTurn()) {
     box.innerHTML = html + `<p class="muted">Working out your best lead…</p>`;
     const opts = await ask({ type: "leads", ma: M.ma, mb: M.mb, d: M.d });
@@ -1384,10 +1415,10 @@ async function matchStep() {
     html += `<div class="move">Lead <b>${esc(state.A[best.i].name)}</b>: ${STAT[best.s]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][best.s]}</div>` + objNote;
     const alts = opts.filter(o => o.value === best.value && !(o.i === best.i && o.s === best.s)).slice(0, 4);
     if (alts.length) html += `<p class="small muted">Also fine: ${alts.map(o => `${esc(state.A[o.i].name)} ${STAT[o.s]}`).join(", ")}</p>`;
-    html += `<h3>What did they answer with?</h3><div class="row">` + teamButtons("B", M.mb, j => `ansTheirs(${best.i},${best.s},${j})`) + otherBtn(`ans:${best.i}:${best.s}`) + `</div>`;
+    html += `<h3>What did they answer with?</h3><div class="mbtns">` + teamButtons("B", M.mb, j => `ansTheirs(${best.i},${best.s},${j})`, COUNTER[best.s]) + otherBtn(`ans:${best.i}:${best.s}`) + `</div>`;
     html += `<p class="small muted">Played something else? <a href="#" onclick="pickMyLead();return false">Choose the lead you played</a></p>`;
   } else {
-    html += `<h3>Which card did they lead with?</h3><div class="row">` + teamButtons("B", M.mb, j => `theirLead(${j})`) + otherBtn("lead") + `</div>`;
+    html += `<h3>Which card did they lead with?</h3><div class="mbtns">` + teamButtons("B", M.mb, j => `theirLead(${j})`) + otherBtn("lead") + `</div>`;
   }
   if (M.hist.length) html += `<div class="row" style="margin-top:12px">${undoBtn()}</div>`;
   box.innerHTML = html + logHtml();
@@ -1409,14 +1440,14 @@ async function playStep() {
     return;
   }
   const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
-  let html = `<div class="row"><span class="big">${M.me} – ${M.them}</span><span class="muted">Round ${M.n + 1}/10 · their team plays perfectly · with your best play from here you're ${pill(LEVEL_NAME(val))}</span></div>`;
+  let html = mHead(val, AINAME[AISTYLE]);
   if (myTurn()) {
-    html += `<h3>Your lead: pick a card</h3><div class="row">${teamButtons("A", M.ma, i => `playStat(${i})`)}</div>`;
+    html += `<h3>Your lead: pick a card</h3><div class="mbtns">${teamButtons("A", M.ma, i => `playStat(${i})`)}</div>`;
   } else {
     box.innerHTML = html + `<p class="muted">They're choosing their lead…</p>`;
-    const L = await ask({ type: "bLead", ma: M.ma, mb: M.mb, d: M.d });
-    html += `<div class="move">They lead <b>${esc(M.TB[L.j].name)}</b>: ${STAT[L.s]} ${statV(M.B[L.j], L.s)}</div><h3>Your answer (${STAT[COUNTER[L.s]]})</h3><div class="row">` +
-      state.A.map((c, i) => (M.ma >> i & 1) ? `<button class="ghost" onclick="playAnswer(${i},${L.j},${L.s})">${esc(c.name)} ${statV(M.A[i], COUNTER[L.s])}</button>` : "").join("") + `</div>`;
+    const L = await aiLead();
+    html += `<div class="move">They lead <b>${esc(M.TB[L.j].name)}</b>: ${STAT[L.s]} ${statV(M.B[L.j], L.s)}</div><h3>Your answer (${STAT[COUNTER[L.s]]})</h3><div class="mbtns">` +
+      teamButtons("A", M.ma, i => `playAnswer(${i},${L.j},${L.s})`, COUNTER[L.s]) + `</div>`;
     html += `<p class="small" style="margin-top:8px"><a href="#" onclick="playHint(${L.j},${L.s});return false">Show my best answer</a> <span id="playHint" class="gold"></span></p>`;
   }
   if (myTurn()) html += `<p class="small" style="margin-top:8px"><a href="#" onclick="playHint();return false">Show my best lead</a> <span id="playHint" class="gold"></span></p>`;
@@ -1439,7 +1470,7 @@ window.playHint = async (j, s) => {
 };
 // ---- a different card in their team: swap it, re-solve from the current state ----
 window.swapPick = () => {
-  $("matchBox").innerHTML = `<h3>Which of their cards is different?</h3><div class="row">${teamButtons("B", M.mb, j => `swapFind(${j})`)}</div>
+  $("matchBox").innerHTML = `<h3>Which of their cards is different?</h3><div class="mbtns">${teamButtons("B", M.mb, j => `swapFind(${j})`)}</div>
     <p class="small muted">Only cards they haven't played yet.</p><button class="ghost" onclick="matchStep()">Back</button>`;
 };
 function swapEff(j, card) {                 // their new card on full chem with this series' boosts
@@ -1484,7 +1515,7 @@ window.undoMove = async () => {
   let h = M.hist.pop(); if (!h) return;
   if (M.hist.length && M.hist[M.hist.length - 1].merge) h = M.hist.pop();   // the move and the card entered for it
   const swapChanged = h.TB.some((c, k) => c !== M.TB[k]);
-  Object.assign(M, { ma: h.ma, mb: h.mb, d: h.d, n: h.n, me: h.me, them: h.them, obj: h.obj, log: h.log, TB: h.TB, B: h.B, swapped: h.swapped });
+  Object.assign(M, { ma: h.ma, mb: h.mb, d: h.d, n: h.n, me: h.me, them: h.them, obj: h.obj, log: h.log, TB: h.TB, B: h.B, swapped: h.swapped, rr: h.rr });
   if (swapChanged) { $("matchBox").innerHTML = `<p class="muted">Going back…</p>`; await ask({ type: "start", A: M.A, B: M.B, first: M.first, ma: M.ma, mb: M.mb, d: M.d }); }
   matchStep();
 };
@@ -1569,25 +1600,25 @@ window.otherDo = async (ctx, id) => {
   const [k, a, b] = ctx.split(":");
   if (k === "lead") theirLead(j); else ansTheirs(+a, +b, j);
 };
-function teamButtons(side, mask, fn) {
-  const team = side === "A" ? state.A : M.TB;
-  return team.map((c, i) => (mask >> i & 1) ? `<button class="ghost" onclick="${fn(i)}">${esc(c.name)}${side === "B" && M.swapped.has(i) ? ` <span class="tag">swapped</span>` : ""}</button>` : "").join("");
+function teamButtons(side, mask, fn, hs) {          // hs: the stat that matters now, lit
+  const team = side === "A" ? state.A : M.TB, E = side === "A" ? M.A : M.B;
+  return team.map((c, i) => (mask >> i & 1) ? `<button onclick="${fn(i)}"><b>${esc(c.name)}${side === "B" && M.swapped.has(i) ? ` <span class="tag">swapped</span>` : ""}</b><span>${[E[i].a, E[i].c, E[i].d].map((v, k) => `<i class="${hs === k ? "k " + "acd"[k] : ""}">${"ACD"[k]} ${v}</i>`).join("")}</span></button>` : "").join("");
 }
-function logHtml() { return M.log.length ? `<h3>Moves</h3><ol class="small">${M.log.map(l => `<li>${l}</li>`).join("")}</ol>` : ""; }
-function snap() { M.hist.push({ ma: M.ma, mb: M.mb, d: M.d, n: M.n, me: M.me, them: M.them, obj: M.obj, log: M.log.slice(), TB: M.TB.slice(), B: M.B.slice(), swapped: new Set(M.swapped) }); }
-function apply(i, j, r, text) { snap(); M.ma &= ~(1 << i); M.mb &= ~(1 << j); M.d += r; M.n++; if (r > 0) M.me++; if (r < 0) M.them++;
+function logHtml() { return M.log.length ? `<h3>Moves</h3><ol class="mlog">${M.log.map(l => `<li class="${l.includes("✅") ? "w" : l.includes("❌") ? "l" : ""}">${l}</li>`).join("")}</ol>` : ""; }
+function snap() { M.hist.push({ ma: M.ma, mb: M.mb, d: M.d, n: M.n, me: M.me, them: M.them, obj: M.obj, log: M.log.slice(), TB: M.TB.slice(), B: M.B.slice(), swapped: new Set(M.swapped), rr: (M.rr || []).slice() }); }
+function apply(i, j, r, text) { snap(); M.ma &= ~(1 << i); M.mb &= ~(1 << j); M.d += r; M.n++; if (r > 0) M.me++; if (r < 0) M.them++; (M.rr = M.rr || []).push(r);
   const ob = r > 0 && isObj(i); if (ob) M.obj = (M.obj || 0) + 1;
   M.log.push(text + (r > 0 ? " ✅" : r < 0 ? " ❌" : " ➖") + (ob ? " 🎯" : "")); matchStep(); }
 window.ansTheirs = (i, s, j) => apply(i, j, duelR(i, j, s, true), `You led ${esc(state.A[i].name)} (${STAT[s]}) · they answered ${esc(M.TB[j].name)}`);
 window.pickMyLead = () => {
   const box = $("matchBox");
-  box.innerHTML = `<h3>Which card did you lead with?</h3><div class="row">${teamButtons("A", M.ma, i => `pickMyStat(${i})`)}</div>${backBtn()}`;
+  box.innerHTML = `<h3>Which card did you lead with?</h3><div class="mbtns">${teamButtons("A", M.ma, i => `pickMyStat(${i})`)}</div>${backBtn()}`;
 };
 window.pickMyStat = i => {
   $("matchBox").innerHTML = `<h3>Which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="pickTheirAns(${i},${s})">${STAT[s]}</button>`).join("")}</div>${backBtn()}`;
 };
 window.pickTheirAns = (i, s) => {
-  $("matchBox").innerHTML = `<h3>What did they answer with?</h3><div class="row">${teamButtons("B", M.mb, j => `ansTheirs(${i},${s},${j})`)}${otherBtn(`ans:${i}:${s}`)}</div>${backBtn()}`;
+  $("matchBox").innerHTML = `<h3>What did they answer with?</h3><div class="mbtns">${teamButtons("B", M.mb, j => `ansTheirs(${i},${s},${j})`)}${otherBtn(`ans:${i}:${s}`)}</div>${backBtn()}`;
 };
 window.theirLead = j => {
   $("matchBox").innerHTML = `<h3>${esc(M.TB[j].name)}: which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="theirStat(${j},${s})">${STAT[s]} ${[M.B[j].a, M.B[j].c, M.B[j].d][s]}</button>`).join("")}</div>${backBtn()}`;
@@ -1602,7 +1633,7 @@ window.theirStat = async (j, s) => {
   }
   let html = `<div class="move">Answer with <b>${esc(state.A[best.i].name)}</b> (${STAT[COUNTER[s]]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][COUNTER[s]]}): ${best.r > 0 ? "wins the round" : best.r < 0 ? "dump, loses the round" : "draws the round"}</div>` + objNote;
   html += `<div class="row"><button class="btn" onclick="ansMine(${j},${s},${best.i})">I played it</button></div>`;
-  html += `<h3>Or tap the card you actually played</h3><div class="row">${teamButtons("A", M.ma, i => `ansMine(${j},${s},${i})`)}</div>${backBtn()}`;
+  html += `<h3>Or tap the card you actually played</h3><div class="mbtns">${teamButtons("A", M.ma, i => `ansMine(${j},${s},${i})`)}</div>${backBtn()}`;
   box.innerHTML = html + logHtml();
 };
 window.ansMine = (j, s, i) => apply(i, j, duelR(i, j, s, false), `They led ${esc(M.TB[j].name)} (${STAT[s]}) · you answered ${esc(state.A[i].name)}`);

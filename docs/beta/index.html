@@ -417,6 +417,38 @@ body.simmode .pc{background:rgba(10,14,22,.93)}
   #moreSheet small{color:var(--muted);font-size:12px}
 }
 #moreSheet[hidden]{display:none}
+/* Match Helper / Play vs AI */
+.seg.mseg{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:14px;padding:3px;margin:0 0 14px}
+.seg.mseg button{flex:1;background:none;border:0;color:var(--muted);font:700 16px/1 var(--display);letter-spacing:.8px;text-transform:uppercase;padding:10px 0 9px;border-radius:11px;cursor:pointer}
+.seg.mseg button.on{background:var(--grad);color:var(--on-accent);box-shadow:0 0 16px rgba(255,120,30,.3)}
+.mgo{gap:8px}.mgo button{flex:1}
+.aistyle{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:0 0 12px}
+.aistyle button{text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--line2);color:var(--text);border-radius:12px;padding:8px 9px;cursor:pointer}
+.aistyle button b{display:block;font:700 15px/1.1 var(--display);letter-spacing:.5px;text-transform:uppercase}
+.aistyle button small{display:block;color:var(--muted);font-size:11px;line-height:1.25;margin-top:3px}
+.aistyle button.on{border-color:var(--fire);background:rgba(255,138,31,.1)}
+.mscore{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 6px}
+.mscore .sides{display:flex;align-items:flex-end;gap:12px;font:800 italic 40px/1 var(--display)}
+.mscore .sides>span{display:flex;flex-direction:column;align-items:center;gap:4px}
+.mscore .sides .dash{color:var(--muted);font-size:28px;padding-bottom:4px}
+.mscore .sides small{font:700 11px/1 var(--display);letter-spacing:1.2px;color:var(--muted);font-style:normal;text-transform:uppercase}
+.mscore .out{text-align:right;font-size:11.5px;color:var(--muted)}
+.mscore .out .pill{display:inline-block;margin-top:4px;border-radius:999px;transform:none}
+.mdots{display:flex;gap:4px;margin:6px 0 12px}.mdots i{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.08)}
+.mdots i.w{background:var(--win)}.mdots i.l{background:var(--loss)}.mdots i.d{background:var(--draw)}.mdots i.now{background:var(--fire);box-shadow:0 0 8px var(--fire)}
+#matchBox .move{font:800 22px/1.2 var(--display);font-style:normal;margin:4px 0 8px;padding:12px 14px;border-radius:14px;background:rgba(255,138,31,.08);border:1px solid rgba(255,138,31,.25)}
+body.simmode #matchBox .move{background:rgba(59,155,255,.08);border-color:rgba(59,155,255,.25)}
+#matchBox h3{margin:14px 0 8px}
+#matchBox{scroll-margin-top:12px}
+.mbtns{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px}
+.mbtns button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--line2);color:var(--text);border-radius:12px;padding:8px 9px;cursor:pointer;min-width:0}
+.mbtns button b{font:700 15px/1.1 var(--display);letter-spacing:.3px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbtns button span{display:flex;gap:3px}.mbtns button span i{font:700 10px/1.5 var(--body);font-style:normal;padding:0 4px;border-radius:4px;background:rgba(255,255,255,.06);color:var(--muted)}
+.mbtns button span i.k{color:#fff}.mbtns button span i.k.a{background:#2f8f46}.mbtns button span i.k.c{background:#2f6fc0}.mbtns button span i.k.d{background:#c03a3a}
+.mbtns button:active{transform:scale(.97)}
+.mlog{list-style:none;padding:0;margin:6px 0 0}.mlog li{font-size:12.5px;padding:7px 0 7px 12px;border-left:2px solid var(--line2);margin-left:4px;color:var(--muted)}
+.mlog li.w{border-left-color:var(--win)}.mlog li.l{border-left-color:var(--loss)}
+
 /* chips above the team: Latest Update, My Evos, Vault, About */
 .tdock{margin:0 0 12px}
 .tchips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
@@ -505,17 +537,22 @@ body.simmode .tpanel{background:rgba(13,19,31,.8)}
 
   <section id="match">
     <div class="card" id="matchSetup">
-      <h2>Match helper</h2>
-      <p class="small muted">Plays the two teams from <b>Head to head</b>, move by move.</p>
-      <details class="howres" style="margin-bottom:12px"><summary class="small">How results work</summary>
-        <p class="small muted">Every result assumes you both play perfectly. Each lead and reply is checked, including holding cards back.</p>
-        <ul class="upd small muted"><li><b>Win:</b> you win whatever they do, as long as you follow the moves here.</li><li><b>Draw:</b> perfect play from both sides ends level.</li><li><b>Loss:</b> they win if they play perfectly. A mistake from them can still hand you the game.</li></ul>
-        <p class="small muted">It only holds against that exact team. A different team, or a mistake from you, can change it.</p></details>
+      <div class="seg mseg"><button data-mm="help" class="on">Match Helper</button><button data-mm="play">Play vs AI</button></div>
+      <div data-mmp="help">
+        <p class="small muted" style="margin:0 0 10px">Tells you the best move every round of a real match, using the two teams from <b>Head to Head</b>. Tap what they play and it works out your next move.</p>
+        <div class="row mgo"><button class="btn" id="iFirst">I lead first</button><button class="ghost" id="theyFirst">They lead first</button></div>
+        <details class="howres" style="margin-top:10px"><summary class="small">How results work</summary>
+          <p class="small muted">Every result assumes you both play perfectly. Each lead and reply is checked, including holding cards back.</p>
+          <ul class="upd small muted"><li><b>Win:</b> you win whatever they do, as long as you follow the moves here.</li><li><b>Draw:</b> perfect play from both sides ends level.</li><li><b>Loss:</b> they win if they play perfectly. A mistake from them can still hand you the game.</li></ul>
+          <p class="small muted">It only holds against that exact team. A different team, or a mistake from you, can change it.</p></details>
+      </div>
+      <div data-mmp="play" hidden>
+        <p class="small muted" style="margin:0 0 10px">Practise against their team. You make every move and the AI plays theirs.</p>
+        <p class="small" style="margin:0 0 6px"><b>AI style</b></p>
+        <div class="aistyle"><button data-ai="human" class="on"><b>Human</b><small>Mixes up its openings, can slip early</small></button><button data-ai="varied"><b>Varied</b><small>Never makes a mistake, but varies its moves</small></button><button data-ai="perfect"><b>Perfect</b><small>Always the strongest line</small></button></div>
+        <div class="row mgo"><button class="btn" id="playMe">I lead first</button><button class="ghost" id="playThem">They lead first</button></div>
+      </div>
       <div hidden><select id="mObj"><option value="">None</option></select><p id="mObjNote"></p></div>
-      <div class="row"><button class="btn" id="iFirst">I lead first</button><button class="ghost" id="theyFirst">They lead first</button></div>
-      <h3 style="margin:16px 0 4px">Play Against Them</h3>
-      <p class="small muted" style="margin:0 0 8px">You make every move. The site plays their team as well as it can be played, so you can see the result for yourself.</p>
-      <div class="row"><button class="ghost" id="playMe">Play: I lead first</button><button class="ghost" id="playThem">Play: They lead first</button></div>
     </div>
     <div class="card" id="matchBox" hidden></div>
   </section>
