@@ -59,7 +59,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261116b";
+const APP_V = "20261116c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -704,7 +704,8 @@ const UPDATES = [
     "<b>Evo names:</b> shown on every card that uses one, with both names for a chain.",
     "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone.",
     "<b>Match Helper:</b> new Play Against Them mode. You make every move and the site plays their team perfectly.",
-    "<b>Sim Odds:</b> removing a player leaves his spot empty, so the next card you add goes straight into it."
+    "<b>Sim Odds:</b> removing a player leaves his spot empty, so the next card you add goes straight into it.",
+    "<b>Sim Odds:</b> a card out of position is flagged and plays on 0 chem, like in the game."
   ] },
   { day: "2026-11-14", items: [
     "<b>Cards:</b> HoF Upgraded and Showdown Plus cards added, with HoF Upgraded on full chem like Hall of FUT."
@@ -1177,7 +1178,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1203,7 +1204,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1531,8 +1532,14 @@ function useSimTeam() {
   state.simAC = A.players.map(p => BYID.get(p.id)).filter(Boolean);
   if (SIM_FORMS[A.formation]) $("simFormA").value = A.formation;
 }
-const simSide = (cards, form, id, top) => { const slots = SIM_FORMS[form], P = cards.filter(Boolean), EP = effective(P, simSeries()), E = cards.map(c => c && EP[P.indexOf(c)]);
-  return top + `<table>${slots.map((s, i) => { const c = cards[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`; };
+// a card out of position (not its main or alt position) plays on 0 chem: every stat takes the 0 chem minus
+const offPos = (c, slot) => !c.P || !c.P.has(slot);
+const simEff = (cards, slots) => { const P = cards.filter(Boolean), EP = effective(P, simSeries());
+  return cards.map((c, i) => { if (!c) return null; const e = EP[P.indexOf(c)];
+    if (!offPos(c, slots[i]) || e.chem === 0) return e;
+    const k = CHEM_BONUS[0] - CHEM_BONUS[e.chem]; return { ...e, a: e.a + k, c: e.c + k, d: e.d + k, t: e.t + 3 * k, chem: 0, off: true }; }); };
+const simSide = (cards, form, id, top) => { const slots = SIM_FORMS[form], E = simEff(cards, slots);
+  return top + `<table>${slots.map((s, i) => { const c = cards[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) + (E[i].off ? ` <span class="tag">Out of position · 0 chem</span>` : "") : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`; };
 function drawSim() {
   const A = state.simA, tm = "S" + seasonOf((SIMW.base.match(/vault\/([^/]+)\//) || [])[1] || (WEEK && WEEK.week)), btn = (id, t) => `<button class="ghost" id="${id}" style="font-size:12.5px;margin:0 6px 8px 0">${t}</button>`;
   const topA = (A && (state.simAC.length !== 11 || state.simAC.some((c, i) => !c || c.id !== (A.players[i] || {}).id)) ? btn("simUseA", `Load the ${esc(tm)} Team`) : "") + (state.simAC.some(Boolean) ? btn("simClrA", "Clear") : "");
@@ -1553,7 +1560,7 @@ function drawSim() {
 }
 function runSim() {
   if (state.simAC.filter(Boolean).length !== 11 || state.simB.filter(Boolean).length !== 11) { $("simOut").textContent = "Need 11 cards on each side."; return; }
-  const side = (cards, form) => { const slots = SIM_FORMS[form], E = effective(cards, simSeries());
+  const side = (cards, form) => { const slots = SIM_FORMS[form], E = simEff(cards, slots);
     return slots.map((s, i) => ({ name: cards[i].name, slot: s, pos: cards[i].position, a: E[i].a, c: E[i].c, d: E[i].d })); };
   const R1 = side(state.simAC, $("simFormA").value), R2 = side(state.simB, $("simFormB").value);
   const m = simMatch(R1, R2);
@@ -1980,7 +1987,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116b");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
