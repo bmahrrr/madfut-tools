@@ -2,85 +2,62 @@
  "g": 4,
  "obj_ids": [
   "id013",
-  "id238430",
-  "id191190",
-  "id100896715"
+  "id226895",
+  "id100896715",
+  "id191190"
  ],
- "strength": 101.7,
+ "strength": 100.9,
  "group_cards": 531,
  "reddit": [],
  "team": {
-  "formation": "4-1-2-1-2",
-  "chem": 33,
+  "formation": "4-1-2-1-2 (2)",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
-    "id": "id191694",
-    "name": "Campos",
-    "rating": 87,
-    "color": "hero",
+    "id": "id5479",
+    "name": "Casillas",
+    "rating": 90,
+    "color": "icon",
     "position": "GK",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 114605,
+    "nationId": 45,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     77,
-     68,
-     88
+     48,
+     47,
+     91
     ],
     "chem": 3,
     "eff": [
-     80,
-     71,
-     91
+     51,
+     50,
+     94
     ],
-    "tiebreak": 239
+    "tiebreak": 192
    },
    {
     "slot": "LB",
-    "id": "id238430",
-    "name": "Roberto Carlos",
+    "id": "id029",
+    "name": "Grimaldo",
     "rating": 90,
-    "color": "icon",
+    "color": "world_potm_nominee",
     "position": "LB",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 240,
     "card": [
-     83,
-     81,
-     89
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     84,
-     92
-    ],
-    "tiebreak": 259
-   },
-   {
-    "slot": "CB",
-    "id": "id238435",
-    "name": "Matthäus",
-    "rating": 90,
-    "color": "icon",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     85,
-     84,
-     88
-    ],
-    "chem": 3,
-    "eff": [
      88,
-     87,
-     91
+     91,
+     84
     ],
-    "tiebreak": 263
+    "chem": 3,
+    "eff": [
+     91,
+     94,
+     87
+    ],
+    "tiebreak": 269
    },
    {
     "slot": "CB",
@@ -106,76 +83,30 @@
     "tiebreak": 255
    },
    {
-    "slot": "RB",
-    "id": "ltm_espart90",
-    "name": "Xavi Espart",
+    "slot": "CB",
+    "id": "ltm_comuzzo90",
+    "name": "Comuzzo",
     "rating": 90,
     "color": "ltm",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
+    "position": "CB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 54,
     "card": [
-     81,
-     88,
-     89
+     68,
+     78,
+     91
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     84,
-     91,
+     69,
+     79,
      92
     ],
-    "tiebreak": 264
+    "tiebreak": 237
    },
    {
-    "slot": "CDM",
-    "id": "id50568937",
-    "name": "Patri Guijarro",
-    "rating": 89,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
-     87,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     91,
-     90
-    ],
-    "tiebreak": 264
-   },
-   {
-    "slot": "LM",
-    "id": "id191190",
-    "name": "Rivellino",
-    "rating": 90,
-    "color": "icon",
-    "position": "CAM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     89,
-     90,
-     50
-    ],
-    "chem": 3,
-    "eff": [
-     92,
-     93,
-     53
-    ],
-    "tiebreak": 235
-   },
-   {
-    "slot": "RM",
+    "slot": "RB",
     "id": "evo_Clauss_88",
     "name": "Clauss",
     "rating": 88,
@@ -202,50 +133,96 @@
     ]
    },
    {
-    "slot": "CAM",
-    "id": "id227324",
-    "name": "Abily",
+    "slot": "CDM",
+    "id": "id50568937",
+    "name": "Patri Guijarro",
+    "rating": 89,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
+    "card": [
+     87,
+     86,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     91,
+     90
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "CM",
+    "id": "id226895",
+    "name": "Formiga",
     "rating": 90,
     "color": "icon",
-    "position": "CM",
-    "nationId": 18,
+    "position": "CDM",
+    "nationId": 54,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     88,
-     89,
-     78
+     83,
+     86,
+     88
     ],
     "chem": 3,
     "eff": [
-     91,
-     92,
-     81
+     86,
+     89,
+     91
     ],
-    "tiebreak": 261
+    "tiebreak": 263
    },
    {
-    "slot": "ST",
-    "id": "id025",
-    "name": "Thauvin",
+    "slot": "CM",
+    "id": "id50573315",
+    "name": "Aitana Bonmatí",
     "rating": 90,
-    "color": "world_potm_nominee",
+    "color": "uwcl_rttk",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
+    "card": [
+     88,
+     87,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     91,
+     92,
+     82
+    ],
+    "tiebreak": 258
+   },
+   {
+    "slot": "CAM",
+    "id": "id191190",
+    "name": "Rivellino",
+    "rating": 90,
+    "color": "icon",
     "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
      89,
-     91,
-     62
+     90,
+     50
     ],
     "chem": 3,
     "eff": [
      92,
-     94,
-     65
+     93,
+     53
     ],
-    "tiebreak": 248
+    "tiebreak": 235
    },
    {
     "slot": "ST",
@@ -269,6 +246,29 @@
      62
     ],
     "tiebreak": 242
+   },
+   {
+    "slot": "ST",
+    "id": "id025",
+    "name": "Thauvin",
+    "rating": 90,
+    "color": "world_potm_nominee",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 64,
+    "card": [
+     89,
+     91,
+     62
+    ],
+    "chem": 3,
+    "eff": [
+     92,
+     94,
+     65
+    ],
+    "tiebreak": 248
    }
   ]
  },
@@ -307,18 +307,18 @@
  },
  "base_ids": [
   "id5479",
-  "id50565310",
-  "id013",
+  "id50583793",
   "ltm_comuzzo90",
+  "id013",
   "evo_Clauss_88",
-  "evo_Can_89",
-  "id50603094",
   "id7763",
+  "id50573315",
+  "evo_Can_89",
+  "id025",
   "id50573494",
-  "id243075",
-  "id025"
+  "id243075"
  ],
- "built": "2026-11-15 08:59 UTC",
+ "built": "2026-11-16 02:52 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-15 08:59 UTC"
+ "changed": "2026-11-16 02:52 UTC"
 }
