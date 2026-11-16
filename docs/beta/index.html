@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261116m">
+<meta name="app-version" content="20261116n">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -339,23 +339,24 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 .upd{margin:6px 0 0;padding-left:18px}.upd li{margin:5px 0;line-height:1.45}
 
 /* ===== Fatal Night refresh: glass panels on a striped glow, rounded pills, Sim turns everything blue ===== */
-body{background:repeating-linear-gradient(-28deg,rgba(255,255,255,.018) 0 2px,transparent 2px 9px) fixed,radial-gradient(120% 520px at 50% -120px,rgba(255,110,20,.24),transparent 70%) no-repeat fixed,#0d0907;transition:background-color .3s}
-body.simmode{--fire:#2f8dff;--gold:#6fb6ff;--accent:#6fb6ff;--on-accent:#fff;--grad:linear-gradient(95deg,#8cc8ff,#2f6dff);--line:rgba(120,180,255,.10);--line2:rgba(120,180,255,.16);--muted:#93a0b6;
-  background:repeating-linear-gradient(-28deg,rgba(255,255,255,.018) 0 2px,transparent 2px 9px) fixed,radial-gradient(120% 520px at 50% -120px,rgba(40,130,255,.26),transparent 70%) no-repeat fixed,#07090f}
+body{background:transparent}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;transform:translateZ(0);background:radial-gradient(120% 520px at 50% -120px,rgba(255,110,20,.24),transparent 70%) no-repeat,repeating-linear-gradient(-28deg,rgba(255,255,255,.018) 0 2px,transparent 2px 9px),#0d0907}
+body.simmode{--fire:#2f8dff;--gold:#6fb6ff;--accent:#6fb6ff;--on-accent:#fff;--grad:linear-gradient(95deg,#8cc8ff,#2f6dff);--line:rgba(120,180,255,.10);--line2:rgba(120,180,255,.16);--muted:#93a0b6}
+body.simmode::after{background:radial-gradient(120% 520px at 50% -120px,rgba(40,130,255,.26),transparent 70%) no-repeat,repeating-linear-gradient(-28deg,rgba(255,255,255,.018) 0 2px,transparent 2px 9px),#07090f}
 body::before{background:transparent}
 .top{padding:calc(12px + env(safe-area-inset-top)) 16px 8px;align-items:center}
 .top h1{font-size:28px;transform:none}.top h1 small{display:none}
 .top .sub{text-align:right;font-size:11px}
-.card{border-radius:18px;clip-path:none;background:rgba(30,20,15,.55);border:1px solid var(--line2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-body.simmode .card{background:rgba(14,20,32,.55)}
+.card{border-radius:18px;clip-path:none;background:rgba(28,19,14,.78);border:1px solid var(--line2);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+body.simmode .card{background:rgba(13,19,31,.8)}
 .card .num{display:none}
-details.sercard{clip-path:none;border-radius:18px;background:rgba(30,20,15,.55)}
-body.simmode details.sercard{background:rgba(14,20,32,.55)}
+details.sercard{clip-path:none;border-radius:18px;background:rgba(28,19,14,.78)}
+body.simmode details.sercard{background:rgba(13,19,31,.8)}
 details.sercard[open]>summary.strip,details.sercard[open]>summary.strip.sim{box-shadow:none;background:transparent}
 .strip.sim .k{-webkit-text-stroke-color:var(--fire)}
 nav button{transform:none;border-radius:999px;margin-left:0;padding:8px 14px}
-.navwrap{background:rgba(13,9,7,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-body.simmode .navwrap{background:rgba(7,9,15,.8)}
+.navwrap{background:rgba(13,9,7,.94);backdrop-filter:none;-webkit-backdrop-filter:none}
+body.simmode .navwrap{background:rgba(7,9,15,.94)}
 .vsw button{border-radius:999px;font-size:13px;padding:8px 6px}
 .vsw button.on,.sim .vsw button.on,.sercard[data-ser^='sim:'] .vsw button.on{background:var(--grad);color:var(--on-accent);box-shadow:0 0 14px rgba(255,120,30,.25)}
 body.simmode .vsw button.on{box-shadow:0 0 14px rgba(50,140,255,.3)}
@@ -382,7 +383,7 @@ body.simmode .pitch{background:linear-gradient(180deg,rgba(40,130,255,.08),rgba(
 .pitch svg g{fill:none;stroke:rgba(255,190,140,.13);stroke-width:1;vector-effect:non-scaling-stroke}
 body.simmode .pitch svg g{stroke:rgba(150,200,255,.14)}
 .pitch svg *{vector-effect:non-scaling-stroke}
-.pc{position:absolute;width:64px;transform:translate(-50%,-50%);border-radius:10px;padding:5px 3px;text-align:center;background:rgba(18,13,10,.93);border:1px solid rgba(255,255,255,.08);box-shadow:0 4px 12px rgba(0,0,0,.4);display:flex;flex-direction:column;align-items:center}
+.pc{position:absolute;width:64px;transform:translate(-50%,-50%);border-radius:10px;padding:5px 3px;text-align:center;background:rgba(18,13,10,.95);border:1px solid rgba(255,255,255,.08);box-shadow:0 3px 8px rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center}
 body.simmode .pc{background:rgba(10,14,22,.93)}
 .pc::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:10px 10px 0 0;background:var(--tint)}
 .pc .r{font:800 20px/1 var(--display)}
@@ -401,8 +402,8 @@ body.simmode .pc{background:rgba(10,14,22,.93)}
 #tabbar{display:none}
 @media (max-width:760px){
   .navwrap{display:none}
-  #tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));background:rgba(14,10,8,.86);border-top:1px solid var(--line2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-  body.simmode #tabbar{background:rgba(8,10,16,.88)}
+  #tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));background:rgba(14,10,8,.95);border-top:1px solid var(--line2)}
+  body.simmode #tabbar{background:rgba(8,10,16,.95)}
   #tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;color:var(--muted);font:600 10.5px/1 var(--body);padding:2px 0;cursor:pointer}
   #tabbar svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   #tabbar button.on{color:var(--fire)}
@@ -579,8 +580,8 @@ body.simmode .pc{background:rgba(10,14,22,.93)}
   <button data-mt="setup"><b>Season Setup</b><small>Series, boosts and builds</small></button>
 </div></div>
 
-<script src="beta/engine.js?v=20261116m"></script>
-<script src="beta/sbc-solver.js?v=20261116m"></script>
-<script src="beta/app.js?v=20261116m"></script>
+<script src="beta/engine.js?v=20261116n"></script>
+<script src="beta/sbc-solver.js?v=20261116n"></script>
+<script src="beta/app.js?v=20261116n"></script>
 </body>
 </html>
