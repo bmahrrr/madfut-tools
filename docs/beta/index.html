@@ -417,6 +417,32 @@ body.simmode .pc{background:rgba(10,14,22,.93)}
   #moreSheet small{color:var(--muted);font-size:12px}
 }
 #moreSheet[hidden]{display:none}
+/* chips above the team: Latest Update, My Evos, Vault, About */
+.tdock{margin:0 0 12px}
+.tchips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.tchips::-webkit-scrollbar{display:none}
+.tchips button{flex:none;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid var(--line2);color:var(--text);font:600 13px/1 var(--body);padding:8px 12px;border-radius:999px;cursor:pointer}
+.tchips button small{color:var(--muted);font:500 12px/1 var(--body)}
+.tchips button.on{border-color:var(--fire);background:rgba(255,138,31,.1)}
+body.simmode .tchips button.on{background:rgba(59,155,255,.12)}
+.tchips .dot{width:7px;height:7px;border-radius:50%;background:var(--fire);box-shadow:0 0 8px var(--fire)}
+.tpanel{margin-top:8px;padding:12px 14px;border-radius:16px;background:rgba(28,19,14,.78);border:1px solid var(--line2)}
+body.simmode .tpanel{background:rgba(13,19,31,.8)}
+.tpanel .upd{margin:0}
+.tpanel .fun,.tpanel details{margin-top:8px}
+.vaultbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;padding:10px 12px;border-radius:14px;border:1px solid var(--gold);font-size:13px}
+
+/* compact facts under the pitch (instead of big boxes) */
+.facts{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0 2px 12px;font-size:12.5px;color:var(--muted)}
+.facts>span{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.facts i{font:700 11px/1 var(--display);font-style:normal;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.facts b{font:700 16px/1 var(--display);color:var(--text)}
+.facts .pill{font-size:12px;padding:2px 8px 1px;border-radius:999px;transform:none}
+.facts small{font-size:12px;color:var(--muted)}
+.verdict{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font:600 13px/1.3 var(--body);margin:0 2px 8px;padding:0;border:0}
+.verdict::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--win);flex:none;transform:translateY(-1px)}
+.verdict span{display:inline;font:400 12px/1.3 var(--body)}
+
 </style>
 </head>
 <body>

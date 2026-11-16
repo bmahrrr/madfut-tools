@@ -639,7 +639,7 @@ function myEvoHtml(sid, dR, dA, r) {
   const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
   const show = (d, note) => { const t = myEvoTm(sim, d), m = sim ? t.metrics : null;
     return `<p class="meta" style="margin:2px 0 8px">${esc(t.formation || "")}, ${sim ? m.chem : t.chem} chem</p><p class="small muted" style="margin:0 0 8px">${note}</p>
-      ${sim ? `<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>` : ""}${pitchHTML(t.players, sim ? "sim" : "myclub", ((dR || dA || {}).series || {}).cap)}${playersTable(t.players, !sim, null)}`; };
+      ${pitchHTML(t.players, sim ? "sim" : "myclub", ((dR || dA || {}).series || {}).cap)}${sim ? `<div class="facts"><span><i>Control</i><b>${m.control}</b></span><span><i>Attack</i><b>${m.attack}</b></span><span><i>Defence</i><b>${m.defence}</b></span></div>` : ""}${playersTable(t.players, !sim, null)}`; };
   if (r.instant) return show(dA, `Your ${n} Evos cover every Evo card in the All Evos team, so that is your best team.`);
   const base = r.from === "allevo" && dA ? dA : dR, team = r.team.map(id => BYID.get(id));
   if (!team.every(Boolean)) return `<p class="small muted">Rebuild needed.</p>`;
@@ -759,18 +759,28 @@ const UPDATES = [
 const updItems = u => u.items.filter(x => typeof x === "string" || PREVIEW).map(x => typeof x === "string" ? x : x.t);
 const updateCard = () => { const u = UPDATES.find(u => updItems(u).length); return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${updItems(u).map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
 let VAULT = null;     // { week, files } when looking at a past week
+let DOCK = "";        // which chip panel above the team is open
+const lsStr = k => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } };
 async function renderTeams() {
   const box = $("teamsBody"), V = VAULT, base = V ? `vault/${V.week}/` : "results/";
   if (!INDEX && !V) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Season Setup</b> and they'll appear here once the build finishes.</div>`; return; }
   let weeks = []; if (!V) { try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {} }
-  const vaultBox = V ? "" : `<details class="card"><summary>Vault</summary><p class="small muted" style="margin:6px 0">Past seasons' teams, saved automatically when a new season starts.</p>${weeks.length
+  const vaultBox = V ? "" : `<p class="small muted" style="margin:0 0 8px">Past seasons' teams, saved automatically when a new season starts.</p>${weeks.length
       ? `<div class="chips">${weeks.map((w, i) => { return w.files.length ? `<button class="chipbtn" data-vault="${i}"><b>${esc(seasonName(w.week))}</b><span>Week of ${esc(fmtDay(w.week))} · ${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`
             : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
-      : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
-  OPPS = []; ALLRES = []; OPPB = []; let html = `<div id="tsel"></div>`, intro = `<div class="card"><h2 data-abouth>About These Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<div data-about="myclub"><p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>${mcFunnel()}</div>
+      : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}`;
+  OPPS = []; ALLRES = []; OPPB = []; let html = "", intro = `<div><div data-about="myclub"><p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>${mcFunnel()}</div>
     <div data-about="sim" hidden><p class="small" style="margin:6px 0 0">The strongest team in each series: the best control in every control spot, then the best attack and defence.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem.</p>${simFunnel()}</div></div>`;
-  const tail = intro + (V ? "" : updateCard() + (PREVIEW ? myEvosBox() : "")) + vaultBox;
-  TSEL.title = `S${seasonOf(V ? V.week : INDEX.week)} Teams`; TSEL.sub = `${V ? "Vault · " : ""}Week of ${fmtDay(V ? V.week : INDEX.week || "")}`;
+  // above the team: the season title, then a row of chips (Latest Update, My Evos, Vault, About) that open small panels
+  const u = V ? null : UPDATES.find(u => updItems(u).length), seenU = lsStr("updSeen");
+  const chips = [u && ["upd", `Update<small>${esc(fmtDay(u.day).replace(/,? \d{4}$/, ""))}</small>`, `<ul class="upd small">${updItems(u).map(x => `<li>${x}</li>`).join("")}</ul>`, u.day > seenU],
+    !V && PREVIEW && ["evo", `My Evos<small>${myEvos().length || "Not set"}</small>`, `<div id="myEvosBody"><p class="small muted">Loading…</p></div>`],
+    !V && ["vault", "Vault", vaultBox],
+    ["about", `<span data-abouth>About</span>`, intro]].filter(Boolean);
+  html = `<div class="tsel-h"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><span>${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</span></div>`
+    + (V ? `<div class="vaultbar"><span><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</span><button class="ghost" id="vaultBack">Back to This Season</button></div>` : "")
+    + `<div class="tdock"><div class="tchips">${chips.map(([k, l, , dot]) => `<button data-tc="${k}" class="${DOCK === k ? "on" : ""}">${dot ? `<i class="dot"></i>` : ""}${l}</button>`).join("")}</div>${chips.map(([k, , body]) => `<div class="tpanel" data-tp="${k}"${DOCK === k ? "" : " hidden"}>${body}</div>`).join("")}</div><div id="tsel"></div>`;
+  const tail = "";
   const files = V ? V.files : INDEX.files || [];
   // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_") && !f.includes("--"));
@@ -801,16 +811,17 @@ async function renderTeams() {
       // the strip only calls out a team nothing beats (every tested team, both lead orders)
       const sres = unbOf(t) ? UNB : lastChange(d);
       const allV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--")), myV = PREVIEW ? allV : [];
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, t.chem, mineTag))}">${bar}${vtag(which, d)}`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, t.chem, mineTag))}">${bar}${vtag(which, d)}${pitchHTML(t.players, "myclub", d.series.cap)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">Hand-built team <span>Beat the builder's own team</span></p>`;
       else if (t.source === "Polished") html += `<p class="verdict">Improved <span>A card swap made it stronger</span></p>`;
       const box = (label, inner, note) => `<div class="sc"><span>${label}</span>${inner}${note ? `<small>${note}</small>` : ""}</div>`;
+      const facts = (w, n, extra = "") => `<div class="facts">${w ? `<span><i>Worst case</i>${pill(w.r)}<small>${esc(resultLabel(w.k))}, ${w.who}</small></span>` : ""}${n ? `<span><i>Tested</i><b>${n}</b><small>teams${extra}</small></span>` : ""}</div>`;
       const nT = Object.keys(t.results || {}).length;
-      if (worst) html += `<div class="score">${box("Worst case", pill(worst.r), `${esc(resultLabel(worst.k))}, ${worst.who}`)}${box("Tested against", `<b class="bignum">${nT}</b>`, `teams${refs.length ? `, including the Reddit team by ${mcCredit()}` : ""}`)}</div>`;
+      if (worst) html += facts(worst, nT, refs.length ? `, including the Reddit team by ${mcCredit()}` : "");
       if (t.plan) html += planHtml(t.plan);
-      html += pitchHTML(t.players, "myclub", d.series.cap) + nh + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
+      html += nh + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
       const RR = Object.values(t.results || {});
       if (RR.length) html += `<details class="allres"><summary class="small">All ${RR.length} results <span class="gwdl">You lead ${wdl(RR, "you_lead_first")}</span><span class="gwdl">They lead ${wdl(RR, "they_lead_first")}</span></summary><p class="small muted" style="margin:6px 0 2px">Tap an opponent to see their team. Results are you lead first, then they lead first.</p></details>`.replace('<details class="allres">', `<details class="allres" data-ar="${ALLRES.push([t, wser]) - 1}">`);
@@ -829,8 +840,8 @@ async function renderTeams() {
           const gone = vd.not_owned || [], nV = Object.keys(vt.results || {}).length;
           html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
             ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
-            ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}${box("Tested against", `<b class="bignum">${nV}</b>`, "teams")}</div>` : ""}
-            ${vt.plan ? planHtml(vt.plan) : ""}${pitchHTML(vt.players, "myclub", d.series.cap)}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
+            ${pitchHTML(vt.players, "myclub", d.series.cap)}${vw ? facts(vw, nV) : ""}
+            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
             unbOf(vt) ? UNB : lastChange(vd), midOf(vt.formation, vt.chem));
         } catch (e) {}
       }
@@ -847,7 +858,7 @@ async function renderTeams() {
             if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
           html += `<details class="oteam vteam"><summary><b>${esc(lab)} version</b><span class="small muted">${vd.same_as_full ? "Same as the full team" : "Without those cards"}</span><span class="ores">${unbOf(vt) ? `<span class="pill WIN unb">Unbeatable</span>` : ""}</span></summary>
             <p class="meta" style="margin:6px 0">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? "" : ". Tested against teams that have them"}</p>
-            ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}</div>` : ""}
+            ${vw ? facts(vw, 0) : ""}
             ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
         } catch (e) {}
       }
@@ -865,7 +876,7 @@ async function renderTeams() {
       const sres = lastChange(d), st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`;
       const cad = `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`;
       const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, m.chem, mineTag))}" data-avgs="${esc(cad)}">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${pitchHTML(t.players, "sim", d.series.cap)}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, m.chem, mineTag))}" data-avgs="${esc(cad)}">${bar}${vtag(which, d)}${pitchHTML(t.players, "sim", d.series.cap)}${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<div class="facts"><span><i>Tested</i><small>against the Reddit team by ${simCredit()}</small></span></div>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
       for (const vf of myV) {
         try {
           let vd = await getJSON(base + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
@@ -878,7 +889,7 @@ async function renderTeams() {
           const vm = vt.metrics, gone = vd.not_owned || [];
           html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vm.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
             ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
-            <div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", vm.control)}${avg("Attack", vm.attack)}${avg("Defence", vm.defence)}</div>${pitchHTML(vt.players, "sim", d.series.cap)}${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
+            ${pitchHTML(vt.players, "sim", d.series.cap)}${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
             lastChange(vd), midOf(vt.formation, vm.chem), avgsOf(vm));
         } catch (e) {}
       }
@@ -909,6 +920,15 @@ async function renderTeams() {
     sw.onclick = e => { const b = e.target.closest("button[data-v]"); if (b) pickV(sw, b); };
     const keep = VSEL.get(sw.dataset.vsw), b = keep != null && sw.querySelector(`button[data-v="${keep}"]`); if (b) pickV(sw, b);
   });
+  document.querySelectorAll(".tchips").forEach(row => row.onclick = e => {
+    const b = e.target.closest("[data-tc]"); if (!b) return;
+    DOCK = DOCK === b.dataset.tc ? "" : b.dataset.tc;
+    row.querySelectorAll("[data-tc]").forEach(x => x.classList.toggle("on", x.dataset.tc === DOCK));
+    document.querySelectorAll(".tpanel").forEach(p => p.hidden = p.dataset.tp !== DOCK);
+    if (DOCK === "upd") { const u = UPDATES.find(u => updItems(u).length); if (u) { try { localStorage.setItem("updSeen", u.day); } catch (e) {} } const d = b.querySelector(".dot"); if (d) d.remove(); }
+    if (DOCK === "evo") fillMyEvos();
+  });
+  if (DOCK === "evo") fillMyEvos();
   const mb = $("myEvosBox"); if (mb) { mb.ontoggle = () => { mb.open ? OPEN.add("myevos") : OPEN.delete("myevos"); if (mb.open) fillMyEvos(); }; if (mb.open) fillMyEvos(); }
   wireOpps(); if (!V) wireNoHave();
 }
@@ -954,13 +974,13 @@ function teamSelector() {
   const keys = m => cards.filter(c => c.dataset.ser.startsWith(m + ":")).map(c => c.dataset.ser.split(":")[1]);
   const draw = () => {
     const ks = keys(TSEL.mode); if (!ks.includes(TSEL[TSEL.mode])) TSEL[TSEL.mode] = ks[0];
-    box.innerHTML = `<div class="tsel-h"><h2>${esc(TSEL.title || "Teams")}</h2><span>${esc(TSEL.sub || "")}</span></div><div class="seg"><button data-m="myclub" class="${TSEL.mode === "myclub" ? "on" : ""}">My Club</button><button data-m="sim" class="${TSEL.mode === "sim" ? "on" : ""}">Sim</button></div>
+    box.innerHTML = `<div class="seg"><button data-m="myclub" class="${TSEL.mode === "myclub" ? "on" : ""}">My Club</button><button data-m="sim" class="${TSEL.mode === "sim" ? "on" : ""}">Sim</button></div>
       <div class="spills">${ks.map(k => `<button data-k="${esc(k)}" class="${k === TSEL[TSEL.mode] ? "on" : ""}">${esc(k)}</button>`).join("")}</div>`;
     const sid = TSEL.mode + ":" + TSEL[TSEL.mode];
     cards.forEach(c => { const on = c.dataset.ser === sid; c.classList.toggle("tsel-off", !on); c.classList.add("tsel-one"); if (on && !c.open) c.open = true; });
     try { localStorage.setItem("teamSel", JSON.stringify({ mode: TSEL.mode, myclub: TSEL.myclub, sim: TSEL.sim })); } catch (e) {}
     document.querySelectorAll("[data-about]").forEach(x => x.hidden = x.dataset.about !== TSEL.mode);
-    const ah = document.querySelector("[data-abouth]"); if (ah) ah.textContent = TSEL.mode === "sim" ? "About Sim Teams" : "About My Club Teams";
+    const ah = document.querySelector("[data-abouth]"); if (ah) ah.textContent = TSEL.mode === "sim" ? "About Sim" : "About My Club";
     if (document.querySelector("#teams.on")) simLook(TSEL.mode === "sim");
   };
   box.onclick = e => { const m = e.target.closest("[data-m]"), k = e.target.closest("[data-k]");
