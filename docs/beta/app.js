@@ -56,7 +56,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
   tabbarSync(b.dataset.t); scrollTo(0, 0);
 });
 // ---------- look: bottom tab bar on phones, Sim blue ----------
-const MORE_TABS = ["mc", "sim", "beat", "setup"];
+const MORE_TABS = ["mc", "sim", "beat", "games", "setup"];
 function tabbarSync(t) {
   document.querySelectorAll("#tabbar [data-tb]").forEach(x => x.classList.toggle("on", x.dataset.tb === t || (x.dataset.tb === "more" && MORE_TABS.includes(t))));
   const sh = $("moreSheet"); if (sh) sh.hidden = true;
@@ -2712,3 +2712,77 @@ async function renderSetup() {
   await wsLoad(); renderWeekForm();
 }
 init();
+
+// ---------- Games: Higher or Lower, Guess the Player ----------
+const GM = { mode: "hl" };
+const gPool = () => GM.pool || (GM.pool = (() => { const seen = new Set();
+  return CARDS.filter(c => c.rating >= 80 && !/evo|ltm|sbc_premium/.test(c.color)).sort((a, b) => b.rating - a.rating)
+    .filter(c => { const k = c.name + "|" + c.nationId; if (seen.has(k)) return false; seen.add(k); return true; }); })());
+const gRand = (L, rnd = Math.random) => L[Math.floor(rnd() * L.length)];
+const gBest = (k, v) => { let b = +lsStr(k) || 0; if (v != null && v > b) { b = v; try { localStorage.setItem(k, b); } catch (e) {} } return b; };
+const gStat = (c, k) => [c.attack, c.control, c.defense][k];
+const STATN = ["Attack", "Control", "Defence"];
+function gCard(c, val, cls = "") {
+  const tint = (typeof TCOL !== "undefined" && TCOL[c.color]) ? TCOL[c.color][0] : tintOf(c);
+  return `<div class="gcard ${cls}" style="--tint:${tint}"><span class="r">${c.rating}</span><span class="ps">${esc(c.position)} · ${esc(TYPE(c.color))}</span><span class="nm">${esc(cap(c.name))}</span><span class="meta2">${esc(nName(c.nationId))}<br>${esc(cName(c.clubId))}</span>${val != null ? `<span class="val${val === "?" ? " q" : ""}">${val}</span>` : ""}</div>`;
+}
+// Higher or Lower: is the next card's stat higher or lower? A tie counts either way
+function hlNew(keep) {
+  const P = gPool(), k = Math.floor(Math.random() * 3);
+  let a = keep || gRand(P), b; do b = gRand(P); while (b.name === a.name);
+  GM.hl = { a, b, k, streak: keep ? GM.hl.streak : 0, done: false };
+}
+function hlDraw(res) {
+  const H = GM.hl, box = $("gameBox");
+  const va = gStat(H.a, H.k), vb = gStat(H.b, H.k);
+  box.innerHTML = `<div class="gtop"><span>Streak <b>${H.streak}</b></span><span>Best <b>${gBest("hlBest")}</b></span></div>
+    <p class="gstat">Which has more <b>${STATN[H.k]}</b>?</p>
+    <div class="gduel">${gCard(H.a, va)}<span class="gvs">VS</span>${gCard(H.b, res ? vb : "?", res ? (res === "ok" ? "ok" : "bad") : "")}</div>
+    ${res ? (res === "ok" ? `<div class="gbtns"><button class="hi" style="grid-column:span 2" id="hlNext">Next</button></div>`
+      : `<div class="gwin"><b>Streak over: ${H.streak}</b><span class="small muted">${esc(cap(H.b.name))} has ${vb} ${STATN[H.k].toLowerCase()}.</span></div><div class="gbtns"><button class="hi" style="grid-column:span 2" id="hlAgain">Play again</button></div>`)
+      : `<div class="gbtns"><button class="hi" data-hl="1">▲ Higher</button><button class="lo" data-hl="-1">▼ Lower</button></div>`}
+    <p class="small muted" style="margin:12px 0 0">Base card stats, no boosts or chem. Same value counts as right.</p>`;
+  box.querySelectorAll("[data-hl]").forEach(b => b.onclick = () => {
+    const up = b.dataset.hl === "1", ok = up ? vb >= va : vb <= va;
+    if (ok) { H.streak++; gBest("hlBest", H.streak); } hlDraw(ok ? "ok" : "bad");
+  });
+  if ($("hlNext")) $("hlNext").onclick = () => { hlNew(H.b); hlDraw(); };
+  if ($("hlAgain")) $("hlAgain").onclick = () => { hlNew(); hlDraw(); };
+}
+// Guess the Player: a new clue after each wrong guess. The daily player is the same for everyone
+const GP_CLUES = [["Position", c => c.position], ["Rating", c => c.rating], ["League", c => lName(c.leagueId)], ["Nation", c => nName(c.nationId)],
+  ["Club", c => cName(c.clubId)], ["Stats", c => `A ${c.attack} · C ${c.control} · D ${c.defense}`]];
+function gpNew(daily) {
+  const P = gPool().filter(c => c.rating >= 84), day = Math.floor((Date.now() + 10 * 3600e3) / 864e5);
+  let seed = daily ? day * 9301 + 49297 : Math.random() * 1e9; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const t = gRand(P, rnd); GM.gp = { t, daily, day, tries: [], won: false, lost: false };
+  if (daily) { const st = lsStr("gpDay"); if (st) { try { const o = JSON.parse(st); if (o.day === day) Object.assign(GM.gp, { tries: o.tries, won: o.won, lost: o.lost }); } catch (e) {} } }
+}
+function gpSave() { const G = GM.gp; if (G.daily) try { localStorage.setItem("gpDay", JSON.stringify({ day: G.day, tries: G.tries, won: G.won, lost: G.lost })); } catch (e) {} }
+function gpDraw() {
+  const G = GM.gp, box = $("gameBox"), shown = Math.min(GP_CLUES.length, G.tries.length + 1), over = G.won || G.lost;
+  box.innerHTML = `<div class="gtop"><span>${G.daily ? "Daily player" : "Practice"}</span><span>Clues <b>${over ? GP_CLUES.length : shown}/${GP_CLUES.length}</b></span></div>
+    <ul class="gclues">${GP_CLUES.map(([n, f], k) => `<li class="${k < shown || over ? "" : "locked"}"><span>${n}</span><b>${k < shown || over ? esc(String(f(G.t))) : "?"}</b></li>`).join("")}</ul>
+    ${over ? `<div class="gwin"><b>${G.won ? `Got it in ${G.tries.length + 1}!` : "Out of guesses"}</b></div>${gCard(G.t)}<div class="gbtns"><button class="hi" id="gpMore" style="grid-column:span 2">Play a practice round</button></div>`
+      : `<div class="gguess"><input type="text" id="gpQ" placeholder="Guess the player…" autocomplete="off"><div class="gsugg" id="gpS" hidden></div></div>`}
+    ${G.tries.length ? `<div class="gtries">${G.tries.map(n => `<span>✕ ${esc(n)}</span>`).join("")}</div>` : ""}
+    <p class="small muted" style="margin:12px 0 0">${G.daily ? "A new player every day at midnight (Brisbane time). " : ""}6 guesses, one more clue after each miss.</p>`;
+  if ($("gpMore")) $("gpMore").onclick = () => { gpNew(false); gpDraw(); };
+  const q = $("gpQ"); if (!q) return;
+  q.oninput = () => {
+    const v = norm(q.value.trim()), S = $("gpS"); if (v.length < 2) { S.hidden = true; return; }
+    const seen = new Set(), L = CARDS.filter(c => c._n.includes(v)).filter(c => !seen.has(c.name) && seen.add(c.name)).slice(0, 6);
+    S.hidden = !L.length; S.innerHTML = L.map(c => `<button data-g="${esc(c.name)}">${esc(cap(c.name))}</button>`).join("");
+    S.querySelectorAll("[data-g]").forEach(b => b.onclick = () => {
+      if (norm(b.dataset.g) === norm(G.t.name)) G.won = true; else { G.tries.push(cap(b.dataset.g)); if (G.tries.length >= GP_CLUES.length) G.lost = true; }
+      gpSave(); gpDraw();
+    });
+  };
+}
+function gamesDraw() {
+  if (!CARDS.length) { $("gameBox").innerHTML = `<p class="muted">Loading cards…</p>`; return; }
+  if (GM.mode === "hl") { if (!GM.hl) hlNew(); hlDraw(); } else { if (!GM.gp) gpNew(true); gpDraw(); }
+}
+document.querySelectorAll(".gseg [data-gm]").forEach(b => b.onclick = () => {
+  GM.mode = b.dataset.gm; document.querySelectorAll(".gseg [data-gm]").forEach(x => x.classList.toggle("on", x === b)); gamesDraw(); });
+document.querySelector('#tabs button[data-t="games"]').addEventListener("click", () => gamesDraw());
