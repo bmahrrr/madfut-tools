@@ -57,9 +57,10 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 });
 
 // ---------- data ----------
-const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
+const APPDIR = window.APPDIR || "";
+const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261115b";
+const APP_V = "20261116e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -106,7 +107,8 @@ async function init() {
   try { const ex = await getJSON("results/extras.json"); ex.cards.forEach(c => CARDS.push(Object.assign({specialChem: "", _extra: true}, c))); } catch (e) {}
   if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`;   // same total as the Cards tab
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
-  try { INDEX = await getJSON("results/index.json"); WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
+  try { await evoAll(); if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`; } catch (e) {}   // every evolved card of the year: searchable everywhere, needed for All Evos teams
+  try { INDEX = await getJSON("results/index.json"); if (INDEX.all && PREVIEW) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
 }
@@ -121,15 +123,18 @@ function search(q, limit = 12, cap = 0) {
   if (m) { q = m[1]; want = +m[2]; }
   if (q.length < 2) return [];
   const out = [];
-  for (const c of CARDS) { if ((c._n || (c._n = norm(c.name))).includes(q) && (!want || c.rating === want)) { out.push(c); if (out.length > 300) break; } }
+  for (const c of searchPool()) { if ((c._n || (c._n = norm(c.name))).includes(q) && (!want || c.rating === want)) { out.push(c); if (out.length > 300) break; } }
   // exact name matches first, then cards within the cap, then highest rated
   const score = c => (c._n === q ? 0 : c._n.startsWith(q) ? 1 : 2) * 2 + (cap && c.rating > cap ? 1 : 0);
   // every card with exactly that name is listed (up to 40), so a common name like Müller shows its low-rated cards too
   const exact = out.filter(c => c._n === q).length;
   return out.sort((a, b) => score(a) - score(b) || b.rating - a.rating).slice(0, Math.max(limit, Math.min(exact, 40)));
 }
+// the site's cards plus every evolved card of the year (an opponent can have any Evo)
+const searchPool = () => EVOALL ? (EVOALL.pool || (EVOALL.pool = CARDS.concat(EVOALL.cards.filter(c => c._evx)))) : CARDS;
+const evoTag = c => c.evos && c.evos.length ? ` · <span class="gold">Evo: ${esc(c.evos.join(" → "))}</span>` : "";
 function cardLine(c) {
-  return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(String(cName(c.clubId)).trim())}</span> <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
+  return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(String(cName(c.clubId)).trim())}</span>${evoTag(c)} <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
 }
 function hookSearch(inputId, listId, onPick, capOf) {
   const inp = $(inputId), ul = $(listId);
@@ -240,7 +245,7 @@ function localSet(k, v) { const a = lsGet("local"); if (v) a[k] = v; else delete
 const SW_ICONS = new Set(["icon", "debut_icon"]);
 function swapCtx(k, d, missing) {               // shared by the instant fill and the smart search
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, gone = new Set(missing);
-  const slots = t.players.map(p => p.slot);
+  const slots = t.players.map(p => p.slot), pool = d._pool ? CARDS.concat(d._pool) : CARDS;
   const ok = c => c && !gone.has(c.id) && c.rating <= (s.cap || 99) && !(c._extra && c.owned === false);
   const score = tm => {                          // quick judge of a full team: chem first, then in-game stats
     const E = effective(tm, s), ch = E.reduce((a, e) => a + e.chem, 0);
@@ -250,7 +255,7 @@ function swapCtx(k, d, missing) {               // shared by the instant fill an
   const options = (team, i, n) => {              // the best n cards for slot i, the rest of the team fixed
     const keys = new Set(team.filter((x, j) => j !== i && x).map(playerKey));
     const icons = team.filter((x, j) => j !== i && x && SW_ICONS.has(x.color)).length, out = [];
-    for (const x of CARDS) {
+    for (const x of pool) {
       if (!ok(x) || !(x.P && x.P.has(slots[i])) || keys.has(playerKey(x))) continue;
       if (!sim && s.key !== "X" && SW_ICONS.has(x.color) && icons >= 5) continue;
       const tm = team.slice(); tm[i] = x;
@@ -258,7 +263,7 @@ function swapCtx(k, d, missing) {               // shared by the instant fill an
     }
     return out.sort((a, b) => b[0] - a[0]).slice(0, n);
   };
-  return { sim, s, t, slots, ok, score, options };
+  return { sim, s, t, slots, ok, score, options, pool };
 }
 function instantFill(k, d, missing) {
   const C = swapCtx(k, d, missing), team = C.t.players.map(p => BYID.get(p.id));
@@ -289,7 +294,7 @@ async function simSwapBest(k, d, missing, onP) {
   const C = swapCtx(k, d, missing), s = C.s, slots = C.slots, f = instantFill(k, d, missing); if (!f) return null;
   const floor = s.attack_floor != null ? s.attack_floor : String(s.key) === "X" ? 0 : (s.cap || 99) - 1;
   // the strong teams to measure against: the full site team and the Reddit teams (their defenders and attackers)
-  const full = C.t.players.map(p => BYID.get(p.id)), FLD = { A: [], D: [] }, teams = [[full, slots]];
+  const full = (d._full ? d._full.ids : C.t.players.map(p => p.id)).map(i => BYID.get(i)), FLD = { A: [], D: [] }, teams = full.every(Boolean) ? [[full, d._full ? d._full.slots : slots]] : [];
   const wser = ((WEEK && WEEK.sim) || []).find(x => x.key === s.key) || {};
   (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); const fs = SIM_FORMS[wser.opponent_formation] || slots; if (tm.length === 11 && tm.every(Boolean)) teams.push([tm, fs]); });
   for (const [tm, fs] of teams) {
@@ -297,7 +302,7 @@ async function simSwapBest(k, d, missing, onP) {
     di.forEach(r => FLD.D.push([r, 1 / (teams.length * di.length)])); R.forEach((r, i) => { if (W[i] > 0) FLD.A.push([r, W[i] / teams.length]); });
   }
   const ev = tm => simSwapEval(tm, slots, s, floor, FLD), pool = {};
-  for (const sl of new Set(slots)) pool[sl] = CARDS.filter(x => C.ok(x) && x.P && x.P.has(sl));
+  for (const sl of new Set(slots)) pool[sl] = C.pool.filter(x => C.ok(x) && x.P && x.P.has(sl));
   const seen = new Map(), keep = r => { const id = r.tm.map(x => x.id).join(); if (!seen.has(id)) seen.set(id, r); return r; };
   const fill = (t, j) => {                     // every card for slot j, the rest of the team fixed
     const keys = new Set(t.filter((x, q) => q !== j).map(playerKey)); let best = null;
@@ -337,12 +342,12 @@ async function simSwapBest(k, d, missing, onP) {
       fieldR.forEach(R2 => { const y = simMatch(a.R, R2); m += y.scoreA - y.scoreB; }); return [w, m]; });
     let bi = 0; sc.forEach((v, i) => { if (v[0] > sc[bi][0] || (v[0] === sc[bi][0] && v[1] > sc[bi][1])) bi = i; }); win = fin[bi];
   }
-  return { team: win.tm.map(x => x.id), slots, sim: true, tested: seen.size };
+  return { team: win.tm.map(x => x.id), slots, sim: true, tested: seen.size, key: win.key, R: win.R };
 }
 function versionData(k, d, team, slots, missing) {
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, E = effective(team, s);
   const players = team.map((c, i) => ({ slot: slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
-    card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t }));
+    card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t, evos: c.evos }));
   const chem = E.reduce((a, e) => a + e.chem, 0), avg = v => v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 100) / 100 : 0;
   if (!sim) return Object.assign({}, d, { team: Object.assign({}, t, { players, chem, plan: null, results: null, source: null }), not_owned_ids: missing });
   const R = players.map((p, i) => ({ slot: p.slot, pos: team[i].position, a: p.eff[0], c: p.eff[1], d: p.eff[2] })), W = attackWeights(R);
@@ -368,10 +373,11 @@ async function smartSwap(k, d, missing, onP) {
   (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); if (tm.length === 11 && tm.every(Boolean)) opps.push(tm); });
   const R = t.results || {}, OT = t.opponent_teams || {};
   Object.entries(R).filter(([n]) => OT[n] && n !== "mirror" && !n.startsWith("reference"))
-    .sort((a, b) => (SW_RANK[a[1].you_lead_first] + SW_RANK[a[1].they_lead_first]) - (SW_RANK[b[1].you_lead_first] + SW_RANK[b[1].they_lead_first])).slice(0, 4)
-    .forEach(([n]) => { const tm = OT[n].players.map(p => BYID.get(p.id)); if (tm.length === 11 && tm.every(Boolean)) opps.push(tm); });
-  opps.push(t.players.map(p => BYID.get(p.id)));         // last: the full team (with the card you don't have), a tiebreak only
-  const OE = opps.map(o => effective(o, s)), nRed = (wser.opponents || []).length ? 1 : 0;
+    .sort((a, b) => (SW_RANK[a[1].you_lead_first] + SW_RANK[a[1].they_lead_first]) - (SW_RANK[b[1].you_lead_first] + SW_RANK[b[1].they_lead_first]))
+    .map(([n]) => OT[n].players.map(p => BYID.get(p.id))).filter(tm => tm.length === 11 && tm.every(Boolean)).slice(0, 4).forEach(tm => opps.push(tm));   // the 4 hardest still possible
+  const fullT = (d._full ? d._full.ids : t.players.map(p => p.id)).map(i => BYID.get(i));
+  if (fullT.every(Boolean)) opps.push(fullT);         // last: the full team (with the card you don't have), a tiebreak only
+  const OE = opps.map(o => effective(o, s)), nFull = fullT.every(Boolean) ? 1 : 0, nRed = (wser.opponents || []).length ? 1 : 0;
   const seen = new Set(), cands = [], add = tm => { const key = tm.map(x => x.id).join(); if (!seen.has(key)) { seen.add(key); cands.push([C.score(tm), tm]); } };
   add(base);
   for (const i of gaps) for (const [, x] of C.options(base, i, 8)) { const tm = base.slice(); tm[i] = x; add(tm); }
@@ -379,12 +385,12 @@ async function smartSwap(k, d, missing, onP) {
   for (const b of firsts) for (let j = 0; j < 11; j++) if (!gaps.includes(j))
     for (const [, x] of C.options(b, j, 3)) { if (x.id === b[j].id) continue; const tm = b.slice(); tm[j] = x; add(tm); }
   const list = [cands[0], ...cands.slice(1).sort((a, b) => b[0] - a[0])].slice(0, 48).map(c => c[1]);
-  let best = null, n = 0, solves = 0; const t0 = Date.now(), LIMIT = 75000, W = Math.min(4, navigator.hardwareConcurrency || 2);
+  let best = null, n = 0, solves = 0; const t0 = Date.now(), LIMIT = d._limit || 75000, W = Math.min(4, navigator.hardwareConcurrency || 2);
   const judge = async tm => {
     const A = effective(tm, s); let worst = 3, sum = 0, red = null;
     for (let o = 0; o < OE.length; o++) {
       const r = await poolAsk(solves++, { type: "o2", A, B: OE[o] });
-      if (o < OE.length - 1) worst = Math.min(worst, r[0], r[1]);
+      if (o < OE.length - nFull) worst = Math.min(worst, r[0], r[1]);
       sum += r[0] + r[1] + (o < nRed ? 10 * (r[0] + r[1]) : 0);   // the Reddit result counts most after the worst case
       if (o === 0 && nRed) red = r;
       if (best && worst < best.worst) return null;              // can't beat the best so far
@@ -410,7 +416,7 @@ async function smartSwap(k, d, missing, onP) {
       for (const g of got) if (g && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
     }
   }
-  return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, tested: n, opps: OE.length };
+  return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, sum: best.sum, score: best.score, tested: n, opps: OE.length };
 }
 const SIMSW = new Set();     // Sim versions being searched right now
 async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
@@ -514,6 +520,132 @@ async function rebuildWithout(k, ids, afterGot) {
   } catch (e) { alert("Couldn't start the rebuild: " + e.message); }
 }
 
+// ---------- My Evos: the Evos you've done, and each series' team built around them on this phone ----------
+// Every possible Evo card of the game year is in evos_all.json. You pick the card you put each Evo on (a chain card
+// covers all its Evos), kept on this phone. A series' My Evos team: the All Evos team when your Evos cover it (nothing
+// can beat that for you), otherwise the same search as "Missing a card?", run from both the All Evos and Recommended
+// Evos teams against the same strong teams, and the better of the two kept.
+let EVOALL = null;
+async function evoAll() {
+  if (EVOALL) return EVOALL;
+  const d = await getJSON("evos_all.json"), own = new Map(), out = new Map();
+  CARDS.forEach(c => { if (c._extra && c.evos && c.evos.length && c.owned !== false) own.set(c.baseId + "|" + c.evos.join(">"), c); });
+  for (const r of d.cards) {
+    const c = {}; d.fields.forEach((f, i) => c[f] = r[i]);
+    const o = own.get(c.baseId + "|" + (c.evos || []).join(">"));     // one of the site's own Evo cards: that card
+    if (o) { out.set(o.id, o); if (!BYID.has(c.id)) BYID.set(c.id, o); continue; }
+    Object.assign(c, { name: cap(c.name), specialChem: c.specialChem || "", _extra: true, _evx: true, owned: true });
+    c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]);
+    BYID.set(c.id, c); out.set(c.id, c);
+  }
+  own.forEach(c => out.set(c.id, c));                                  // own Evo cards the Evo data can't make (e.g. from a special card)
+  const names = d.evos.map(e => e.name); own.forEach(c => c.evos.forEach(n => { if (!names.includes(n)) names.push(n); }));
+  EVOALL = { evos: names, cards: [...out.values()] };
+  return EVOALL;
+}
+const myEvos = () => { try { return JSON.parse(localStorage.getItem("myevos") || "[]"); } catch (e) { return []; } };
+const myEvosSet = ids => { try { localStorage.setItem("myevos", JSON.stringify(ids)); } catch (e) {} };
+const recEvos = () => CARDS.filter(c => c._extra && c.evos && c.evos.length && c.owned !== false).map(c => c.id);
+function myEvosBox() {
+  const n = myEvos().length;
+  return `<details class="card" id="myEvosBox" data-ser="myevos"${OPEN.has("myevos") ? " open" : ""}><summary>My Evos <span class="small muted">· ${n ? `${n} card${n === 1 ? "" : "s"} picked` : "Not set"}</span></summary><div id="myEvosBody"><p class="small muted">Loading…</p></div></details>`;
+}
+async function fillMyEvos() {
+  const body = $("myEvosBody"); if (!body) return;
+  let E; try { E = await evoAll(); } catch (e) { body.innerHTML = `<p class="small muted">Evo data missing.</p>`; return; }
+  const ids = myEvos().filter(i => BYID.has(i)), on = new Map();
+  ids.forEach(i => BYID.get(i).evos.forEach(n => on.set(n, BYID.get(i))));
+  body.innerHTML = `<p class="small" style="margin:6px 0">Pick the card you put each Evo on. Each series then gets a <b>My Evos</b> team, built around them on this phone.</p>
+    <div class="row" style="margin:0 0 8px"><button class="ghost" id="evRec">Use Recommended Evos</button><button class="ghost" id="evClr">Clear All</button></div>
+    ${E.evos.map(n => { const c = on.get(n); return `<div class="evrow"><span class="en"><b>${esc(n)}</b><small>${c ? `${esc(c.name)} ${c.rating}${c.evos.length > 1 ? ` · ${esc(c.evos.join(" → "))}` : ""}` : "Not done"}</small></span><button class="ghost" data-evpick="${esc(n)}">${c ? "Change" : "Pick"}</button></div><div class="evlist" data-evl="${esc(n)}" hidden></div>`; }).join("")}`;
+  const save = v => { myEvosSet(v); renderTeams(); };
+  $("evRec").onclick = () => save(recEvos());
+  $("evClr").onclick = () => save([]);
+  body.querySelectorAll("[data-evpick]").forEach(b => b.onclick = () => {
+    const n = b.dataset.evpick, box = body.querySelector(`[data-evl="${CSS.escape(n)}"]`);
+    if (!box.hidden) { box.hidden = true; return; }
+    const all = E.cards.filter(c => c.evos.includes(n)).sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
+    box.innerHTML = `<input type="search" placeholder="Search ${all.length} cards" data-evq><div data-evr></div>`; box.hidden = false;
+    const list = box.querySelector("[data-evr]"), q = box.querySelector("[data-evq]");
+    const draw = () => { const t = norm(q.value || ""); const hits = all.filter(c => !t || c._n.includes(t)).slice(0, 40);
+      list.innerHTML = (on.get(n) ? `<button class="evopt" data-evset=""><b>Not done</b></button>` : "") + hits.map(c => `<button class="evopt" data-evset="${esc(c.id)}"><b>${esc(c.name)}</b> ${c.rating}<small>${esc(TYPE(c.color === "evo" && c.base ? (BYID.get(c.base) || c).color : c.color))} · ${esc(c.position)}${c.evos.length > 1 ? ` · ${esc(c.evos.join(" → "))}` : ""}</small></button>`).join("") || `<p class="small muted">No cards found.</p>`;
+      list.querySelectorAll("[data-evset]").forEach(x => x.onclick = () => {
+        const id = x.dataset.evset, c = BYID.get(id), drop = c ? c.evos : [n];     // each Evo on one card only
+        save([...ids.filter(i => !BYID.get(i).evos.some(e => drop.includes(e))), ...(id ? [id] : [])]);
+      }); };
+    q.oninput = draw; draw(); q.focus();
+  });
+}
+const MYEVO_RUN = new Set(), myEvoTm = (sim, d) => sim ? d.teams[0] : d.team;
+const myEvoSig = (dR, dA) => myEvos().slice().sort().join(",") + "|" + (dR.built || "") + "|" + ((dA && dA.built) || "");
+async function myEvoData(sid) {
+  const [kind, key] = sid.split(":"), dR = await getJSON(`results/${kind}_${key}.json`);
+  let dA = null; try { dA = await getJSON(`results/${kind}_${key}--allevo.json`); } catch (e) {}
+  return { dR, dA, sim: kind === "sim" };
+}
+async function myEvoBuild(sid, onP) {
+  const E = await evoAll(), mine = new Set(myEvos()); let { dR, dA, sim } = await myEvoData(sid);
+  const gone = E.cards.filter(c => !mine.has(c.id)).map(c => c.id), goneS = new Set(gone);   // every Evo card you haven't done
+  const pool = E.cards.filter(c => c._evx && mine.has(c.id)), sig = myEvoSig(dR, dA);
+  if (dA && !myEvoTm(sim, dA).players.some(p => String(p.id).startsWith("evx_"))) dA = null;   // no extra Evo: same as Recommended
+  if (dA && myEvoTm(sim, dA).players.every(p => !goneS.has(p.id))) return { sig, instant: true };
+  // the same strong teams for both searches: the All Evos team (else the Recommended one), both teams' counters, Reddit
+  const ST = myEvoTm(sim, dA || dR), RES = {}, OT = {};
+  if (!sim) for (const [d, tag] of [[dR, "r"], [dA, "a"]]) if (d) {
+    const t = myEvoTm(sim, d);
+    Object.entries(t.results || {}).forEach(([n, v]) => { if (n !== "mirror" && !n.startsWith("reference") && (t.opponent_teams || {})[n]) { RES[n + "@" + tag] = v; OT[n + "@" + tag] = t.opponent_teams[n]; } });
+  }
+  const run = (d, from) => { const t = Object.assign({}, myEvoTm(sim, d), sim ? {} : { results: RES, opponent_teams: OT });
+    return Object.assign({}, d, sim ? { teams: [t] } : { team: t }, { _pool: pool, _full: { ids: ST.players.map(p => p.id), slots: ST.players.map(p => p.slot) }, _limit: dA ? 40000 : 75000, _from: from }); };
+  const starts = [[dR, ""], ...(dA ? [[dA, "allevo"]] : [])].map(([d, f]) => run(d, f));
+  let best = null, tested = 0;
+  for (let i = 0; i < starts.length; i++) {
+    const d = starts[i], P = (a, b) => onP && onP(i, starts.length, a, b);
+    const r = sim ? await simSwapBest(sid, d, gone) : await smartSwap(sid, d, gone, P);
+    if (!r) continue; r.from = d._from;
+    const better = !best ? true : sim
+      ? (r.key[0] !== best.key[0] || r.key[1] !== best.key[1] ? simKeyCmp(r, best) > 0 : simMatch(r.R, best.R).scoreA - simMatch(r.R, best.R).scoreB > 0.0005)
+      : r.worst > best.worst || (r.worst === best.worst && (r.sum > best.sum || (r.sum === best.sum && r.score > best.score)));
+    tested += r.tested || 0; if (better) best = r;
+  }
+  if (!best) return null;
+  delete best.R; return Object.assign(best, { sig, tested });
+}
+function myEvoHtml(sid, dR, dA, r) {
+  const sim = sid.startsWith("sim"), n = myEvos().length;
+  const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
+  const show = (d, note) => { const t = myEvoTm(sim, d), m = sim ? t.metrics : null;
+    return `<p class="meta" style="margin:2px 0 8px">${esc(t.formation || "")}, ${sim ? m.chem : t.chem} chem</p><p class="small muted" style="margin:0 0 8px">${note}</p>
+      ${sim ? `<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>` : ""}${playersTable(t.players, !sim, null)}`; };
+  if (r.instant) return show(dA, `Your ${n} Evos cover every Evo card in the All Evos team, so that is your best team.`);
+  const base = r.from === "allevo" && dA ? dA : dR, team = r.team.map(id => BYID.get(id));
+  if (!team.every(Boolean)) return `<p class="small muted">Rebuild needed.</p>`;
+  const WDL = v => ["Loss", "", "Draw", "Win"][v] || "?";
+  const vd = versionData(sid, base, team, r.slots, []);
+  return show(vd, r.quick ? `<span data-mestat="${esc(sid)}">Quick version shown. Searching for a stronger one…</span>`
+    : sim ? `Built on this phone around your ${n} Evos. Best of ${(r.tested || 0).toLocaleString()} teams tried.`
+    : `Built on this phone around your ${n} Evos. Best of ${r.tested} teams, worst case <b>${WDL(r.worst)}</b> against ${r.opps} strong teams.`);
+}
+async function myEvoShow(sid) {
+  const el = () => document.querySelector(`[data-myevo="${CSS.escape(sid)}"]`); if (!el()) return;
+  const { dR, dA } = await myEvoData(sid), have = lsGet("myevo")[sid];
+  if (have && have.sig === myEvoSig(dR, dA)) { await evoAll(); el().innerHTML = myEvoHtml(sid, dR, dA, have); return; }
+  if (MYEVO_RUN.has(sid)) return; MYEVO_RUN.add(sid);
+  try {
+    await evoAll();
+    // a quick version first (the Recommended team with your Evos swapped in), then the full search
+    const E = EVOALL, mine = new Set(myEvos()), gone = E.cards.filter(c => !mine.has(c.id)).map(c => c.id);
+    const qd = Object.assign({}, dR, { _pool: E.cards.filter(c => c._evx && mine.has(c.id)) }), f = instantFill(sid, qd, gone);
+    if (f && el()) el().innerHTML = myEvoHtml(sid, dR, dA, { team: f.team.map(c => c.id), slots: f.slots, quick: true });
+    else if (el()) el().innerHTML = `<p class="small muted" data-mestat="${esc(sid)}">Building your team…</p>`;
+    const r = await myEvoBuild(sid, (i, n, a, b) => { const s = document.querySelector(`[data-mestat="${CSS.escape(sid)}"]`);
+      if (s) s.textContent = `Quick version shown. Searching for a stronger one: start ${i + 1} of ${n}${b ? `, ${a} of ${b} tested` : a ? `, ${a} tested` : ""}…`; });
+    if (r) { const a = lsGet("myevo"); a[sid] = r; lsSet("myevo", a); if (el()) el().innerHTML = myEvoHtml(sid, dR, dA, r); }
+    else if (el()) el().innerHTML = `<p class="small muted">Couldn't build a full team with these cards.</p>`;
+  } finally { MYEVO_RUN.delete(sid); }
+}
+const VSEL = new Map();     // the version shown in each series (kept when the page redraws)
+
 const vtag = (which, d) => !which ? "" : which === "mine"
   ? `<p class="vtag mine">Your version <span>· without ${esc(cardNames(d.not_owned_ids || []).join(", "))}</span></p>`
   : `<p class="vtag">Everyone's team <span>· assumes every card</span></p>`;
@@ -568,6 +700,16 @@ const mcFunnel = () => funnel("How My Club teams are built", MC_STEPS);
 const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
+  { day: "2026-11-16", items: [
+    { p: 1, t: "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos." },
+    { p: 1, t: "<b>Evo names:</b> shown on every card that uses one, with both names for a chain." },
+    { p: 1, t: "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone." },
+    "<b>Match Helper:</b> new Play Against Them mode. You make every move and the site plays their team perfectly.",
+    "<b>Evo cards:</b> every evolved card this game year is in the Cards tab and in every card search.",
+    "<b>Unbeatable:</b> a My Club team gets the label when 5+ cards can't be beaten in the same stat and its tiebreak card can't lose.",
+    "<b>Sim Odds:</b> removing a player leaves his spot empty, so the next card you add goes straight into it.",
+    "<b>Sim Odds:</b> a card out of position is flagged and plays on 0 chem, and adds nothing to anyone else's chem, like in the game."
+  ] },
   { day: "2026-11-14", items: [
     "<b>Cards:</b> HoF Upgraded and Showdown Plus cards added, with HoF Upgraded on full chem like Hall of FUT."
   ] },
@@ -587,7 +729,9 @@ const UPDATES = [
     "<b>Best Teams:</b> each series shows when its team last changed."
   ] }
 ];
-const updateCard = () => { const u = UPDATES[0]; return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${u.items.map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
+// an item marked p: still on the preview only, so the main site doesn't announce it yet
+const updItems = u => u.items.filter(x => typeof x === "string" || PREVIEW).map(x => typeof x === "string" ? x : x.t);
+const updateCard = () => { const u = UPDATES.find(u => updItems(u).length); return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${updItems(u).map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
 let VAULT = null;     // { week, files } when looking at a past week
 async function renderTeams() {
   const box = $("teamsBody"), V = VAULT, base = V ? `vault/${V.week}/` : "results/";
@@ -598,11 +742,25 @@ async function renderTeams() {
             : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
   OPPS = []; let html = `<div class="card"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>
-    ${mcFunnel()}${simFunnel()}</div>` + (V ? "" : updateCard()) + vaultBox;
+    ${mcFunnel()}${simFunnel()}</div>` + (V ? "" : updateCard() + (PREVIEW ? myEvosBox() : "")) + vaultBox;
   const files = V ? V.files : INDEX.files || [];
   // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
-  const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_"));
-  const vfiles = files.filter(f => f.startsWith("myclub_") && f.includes("--"));
+  const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_") && !f.includes("--"));
+  const vfiles = files.filter(f => (f.startsWith("myclub_") || f.startsWith("sim_")) && f.includes("--"));
+  // each series: All Evos / Recommended Evos (the main team) / No LTM & Evos, one at a time (only the ones built so far)
+  const VORDER = ["allevo", "", "noltmevo", "myevo", "winodds"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos", winodds: "Win Odds (Test)" };
+  // preview only: test versions kept in beta/preview (never on the main site)
+  const PREV = !V && APPDIR ? (((await getJSON(APPDIR + "preview/index.json").catch(() => null)) || {}).files || []) : [];
+  const ME = !V && PREVIEW && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
+  const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
+  // each version carries its own header result (Unbeatable, or when it last changed): the header follows the version shown
+  const vpanel = (v, inner, sres = "", mid = "", avgs = "") => `<div class="vpanel"${v === "" ? "" : " hidden"} data-vp="${v}" data-sres="${esc(sres)}" data-mid="${esc(mid)}" data-avgs="${esc(avgs)}">${inner}</div>`;
+  const midOf = (form, chem, tag = "") => `<b>${esc(form || "")}</b><small>${chem} chem${tag}</small>`;
+  const avgsOf = m => { const st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`; return `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`; };
+  const UNB = `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>`;
+  // owner: Unbeatable = 5+ cards no card in the series beats in attack (or 5+ in defence), plus a tiebreak card that
+  // can't lose the end tiebreak (the builder saves this as the team's shape). Not "wins every test team".
+  const unbOf = t => !!(t && t.shape && t.shape.unbeatable >= 5 && ["attack", "defence"].includes(t.shape.stat) && t.shape.tiebreak != null);
   const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
   html += `<h3>Fatal My Club</h3>`;
   for (const f of mc) {
@@ -616,8 +774,9 @@ async function renderTeams() {
       const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
       const sid = "myclub:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
       // the strip only calls out a team nothing beats (every tested team, both lead orders)
-      const sres = worst && worst.r === "WIN" ? `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>` : lastChange(d);
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${bar}${vtag(which, d)}`;
+      const sres = unbOf(t) ? UNB : lastChange(d);
+      const allV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--")), myV = PREVIEW ? allV : [];
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, t.chem, mineTag))}">${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
       else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">Hand-built team <span>Beat the builder's own team</span></p>`;
@@ -630,25 +789,44 @@ async function renderTeams() {
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
       const RR = Object.values(t.results || {});
       if (RR.length) html += `<details class="allres"><summary class="small">All ${RR.length} results <span class="gwdl">You lead ${wdl(RR, "you_lead_first")}</span><span class="gwdl">They lead ${wdl(RR, "they_lead_first")}</span></summary><p class="small muted" style="margin:6px 0 2px">Tap an opponent to see their team. Results are you lead first, then they lead first.</p>${oppList(t, wser)}</details>`;
-      for (const vf of vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"))) {
+      html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      for (const vf of myV) {
         try {
-          let vd = await getJSON(base + vf), vt = vd.team; const lab = (vd.variant && vd.variant.label) || "Alternative";
-          const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vd.variant && vd.variant.id] || [];
-          if (vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v)))) {
-            vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;    // built earlier: the full team now has none of those cards
+          let vd = await getJSON(base + vf), vt = vd.team; const vid = vf.replace(/\.json$/, "").split("--")[1];
+          const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
+          if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
+              || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
+            vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;    // the main team has none of those cards / no extra Evo used
           }
           let vw = null;
           for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
             if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
-          const gone = vd.not_owned || [];
-          html += `<details class="oteam vteam"><summary><b>${esc(lab)} version</b><span class="small muted">${vd.same_as_full ? "Same as the full team" : "Without those cards"}</span><span class="ores">${vw && vw.r === "WIN" ? `<span class="pill WIN unb">Unbeatable</span>` : ""}</span></summary>
+          const gone = vd.not_owned || [], nV = Object.keys(vt.results || {}).length;
+          html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
+            ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
+            ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}${box("Tested against", `<b class="bignum">${nV}</b>`, "teams")}</div>` : ""}
+            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
+            unbOf(vt) ? UNB : lastChange(vd), midOf(vt.formation, vt.chem));
+        } catch (e) {}
+      }
+      // main site, for now: other versions (No LTM & Evos) as a section under the team, like before
+      if (!PREVIEW) for (const vf of allV) {
+        try {
+          let vd = await getJSON(base + vf), vt = vd.team; const lab = (vd.variant && vd.variant.label) || "Alternative";
+          const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vd.variant && vd.variant.id] || [];
+          if (vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v)))) {
+            vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;
+          }
+          let vw = null;
+          for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
+            if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
+          html += `<details class="oteam vteam"><summary><b>${esc(lab)} version</b><span class="small muted">${vd.same_as_full ? "Same as the full team" : "Without those cards"}</span><span class="ores">${unbOf(vt) ? `<span class="pill WIN unb">Unbeatable</span>` : ""}</span></summary>
             <p class="meta" style="margin:6px 0">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? "" : ". Tested against teams that have them"}</p>
-            ${gone.length && !vd.same_as_full ? `<p class="small muted" style="margin:0 0 6px">Left out: ${esc(gone.slice(0, 12).join(", "))}${gone.length > 12 ? ` and ${gone.length - 12} more` : ""}</p>` : ""}
             ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}</div>` : ""}
             ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
         } catch (e) {}
       }
-      html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div></details>`;
+      html += mePanel(sid) + `</div></details>`;
     } catch (e) {}
   }
   html += `<h3>Fatal Sim</h3>`;
@@ -662,23 +840,57 @@ async function renderTeams() {
       const sid = "sim:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
       const sres = lastChange(d), st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`;
       const cad = `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`;
-      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div></details>`;
+      const myV = vfiles.concat(PREV).filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, m.chem, mineTag))}" data-avgs="${esc(cad)}">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      for (const vf of myV) {
+        try {
+          let vd = await getJSON((PREV.includes(vf) ? APPDIR + "preview/" : base) + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
+          let vt = vd.teams && vd.teams[0]; if (!vt) continue;
+          const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
+          if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
+              || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
+            vd = Object.assign({}, vd, { built: d.built, same_as_full: true }); vt = t;
+          }
+          const vm = vt.metrics, gone = vd.not_owned || [], wo = vd.test && vd.test.vs_recommended;
+          html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vm.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
+            ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
+            ${vid === "winodds" ? `<p class="small muted" style="margin:0 0 8px">Test, preview only: built for the best win odds against the strongest teams, not control first.${wo ? ` Against the Recommended Evos team: ${wo[0]}% win, ${wo[1]}% draw, ${wo[2]}% loss.` : ""}</p>` : ""}
+            <div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", vm.control)}${avg("Attack", vm.attack)}${avg("Defence", vm.defence)}</div>${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
+            lastChange(vd), midOf(vt.formation, vm.chem), avgsOf(vm));
+        } catch (e) {}
+      }
+      html += mePanel(sid) + `</div></details>`;
     } catch (e) {}
   }
   if (!V) {
     box.innerHTML = html;
-    document.querySelectorAll("[data-vault]").forEach(b => b.onclick = () => { VAULT = weeks[+b.dataset.vault]; renderTeams(); window.scrollTo(0, 0); });
+    document.querySelectorAll("[data-vault]").forEach(b => b.onclick = () => { VAULT = weeks[+b.dataset.vault]; if (VAULT.all && PREVIEW) VAULT = { ...VAULT, files: VAULT.all }; renderTeams(); window.scrollTo(0, 0); });
   } else {
     box.innerHTML = html;
     $("vaultBack").onclick = () => { VAULT = null; renderTeams(); window.scrollTo(0, 0); };
   }
   document.querySelectorAll("details.sercard").forEach(x => x.ontoggle = () => { x.open ? OPEN.add(x.dataset.ser) : OPEN.delete(x.dataset.ser); });
+  const pickV = (sw, b) => {
+    sw.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+    sw.parentElement.querySelectorAll(":scope > .vpanel").forEach(p => p.hidden = p.dataset.vp !== b.dataset.v);
+    VSEL.set(sw.dataset.vsw, b.dataset.v); if (b.dataset.v === "myevo") myEvoShow(sw.dataset.vsw);
+    const p = sw.parentElement.querySelector(`:scope > .vpanel[data-vp="${b.dataset.v}"]`), res = sw.closest("details").querySelector(":scope > summary .res");
+    if (p && res) res.innerHTML = p.dataset.sres || "";
+    const sm = sw.closest("details").querySelector(":scope > summary"), mid = sm && sm.querySelector(".mid"), av = sm && sm.querySelector(".avgs");
+    if (p && mid && p.dataset.mid) mid.innerHTML = p.dataset.mid;
+    if (p && av && p.dataset.avgs) av.outerHTML = p.dataset.avgs;
+  };
+  document.querySelectorAll("[data-vsw]").forEach(sw => {
+    sw.onclick = e => { const b = e.target.closest("button[data-v]"); if (b) pickV(sw, b); };
+    const keep = VSEL.get(sw.dataset.vsw), b = keep != null && sw.querySelector(`button[data-v="${keep}"]`); if (b) pickV(sw, b);
+  });
+  const mb = $("myEvosBox"); if (mb) { mb.ontoggle = () => { mb.open ? OPEN.add("myevos") : OPEN.delete("myevos"); if (mb.open) fillMyEvos(); }; if (mb.open) fillMyEvos(); }
   wireOpps(); if (!V) wireNoHave();
 }
 function playersTable(ps, showTB, nh, mark) {     // nh = "myclub:73" adds a Don't have button to each player; mark(p): highlight
   const key = `<span>Att</span><span>Ctl</span><span>Def</span>`, nhOn = nh && noHave(nh).length;
   return `${nh ? `<div class="sqhead"><span>Squad</span><button class="ghost nhtog${nhOn ? " on" : ""}" data-nhtog>${nhOn ? "Done" : "Missing a card?"}</button></div>` : ""}<div class="squad${nh && !nhOn ? " nhoff" : ""}"><div class="stkey">${key}</div><div class="stkey k2">${key}</div>${ps.map(p =>
-    `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><span class="l1"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}</span><small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Base ${p.card.join("/")} · Chem ${p.chem}</small></span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
+    `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><span class="l1"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}</span><small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Base ${p.card.join("/")} · Chem ${p.chem}</small>${PREVIEW && p.evos && p.evos.length ? `<small class="evon">Evo: ${esc(p.evos.join(" → "))}</small>` : ""}</span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
 }
 
 // ---------- My Club compare ----------
@@ -704,7 +916,7 @@ async function setupMC() {
     const wk = $("mcWeek").value;
     if (!wk) MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
     else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {}
-      MCW = { week: wk, base: `vault/${wk}/`, myclub: w.myclub || [], files: (weeks.find(x => x.week === wk) || { files: [] }).files }; }
+      MCW = { week: wk, base: `vault/${wk}/`, myclub: w.myclub || [], files: (x => (PREVIEW && x.all) || x.files)(weeks.find(x => x.week === wk) || { files: [] }) }; }
     fillSeries(); drawMC(); $("solveOut").innerHTML = "";
   };
   fillSeries();
@@ -988,7 +1200,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261115b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1014,7 +1226,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261115b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1022,11 +1234,12 @@ function ask(msg) {
 const STAT = ["attack", "control", "defence"], COUNTER = [2, 1, 0];
 let M = null;
 $("iFirst").onclick = () => startMatch(0); $("theyFirst").onclick = () => startMatch(1);
-async function startMatch(first) {
+$("playMe").onclick = () => startMatch(0, true); $("playThem").onclick = () => startMatch(1, true);
+async function startMatch(first, play) {
   if (state.A.length !== 11 || state.B.length !== 11) { alert("Set up both teams in Head to head first."); return; }
   const s = mcSeries();
   M = { first, A: effective(state.A, s), B: effective(state.B, s), TB: state.B.slice(), swapped: new Set(), cap: s.cap || 99, ser: s,
-    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [], hist: [] };
+    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [], hist: [], play: !!play };
   $("matchBox").hidden = false; $("matchBox").innerHTML = `<p class="muted">Working out the match… a few seconds</p>`;
   await ask({ type: "start", A: M.A, B: M.B, first });
   matchStep();
@@ -1050,10 +1263,11 @@ function beatShare(i, s) {           // share of their unplayed cards this lead 
 }
 const vName = v => ["Losing", "Losing by 1", "Drawing", "Winning", "Winning"][v];
 async function matchStep() {
+  if (M.play) return playStep();
   const box = $("matchBox");
   if (M.n === 10) {
     const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb);
-    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div>${mObjFn() ? `<p class="gold">🎯 Objective duels won: ${M.obj || 0}</p>` : ""}<p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first)">Restart</button></div>`;
+    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div>${mObjFn() ? `<p class="gold">🎯 Objective duels won: ${M.obj || 0}</p>` : ""}<p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first, M.play)">Restart</button></div>`;
     return;
   }
   const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
@@ -1078,6 +1292,51 @@ async function matchStep() {
   if (M.hist.length) html += `<div class="row" style="margin-top:12px">${undoBtn()}</div>`;
   box.innerHTML = html + logHtml();
 }
+// ---- Play Against Them: you make every move, the site plays their team perfectly ----
+const statV = (E, s) => [E.a, E.c, E.d][s];
+async function playStep() {
+  const box = $("matchBox");
+  if (M.n === 10) {
+    const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb), gap = M.A[i].t - M.B[j].t;
+    let me = M.me, them = M.them, tb = "";
+    if (Math.abs(me - them) <= 1) {
+      if (gap > 5) { me++; tb = `Your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) beats their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}) by more than 5: a point to you.`; }
+      else if (gap < -5) { them++; tb = `Their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}) beats your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) by more than 5: a point to them.`; }
+      else tb = `Your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}): within 5, no point.`;
+    } else tb = "No tiebreak needed.";
+    const res = me > them ? "You Win" : me < them ? "They Win" : "Draw";
+    box.innerHTML = `<h3 style="margin:0 0 6px">${res}</h3><div class="big">${me} – ${them}</div><p class="small">Tiebreak: ${tb}</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first, true)">Play Again</button></div>`;
+    return;
+  }
+  const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
+  let html = `<div class="row"><span class="big">${M.me} – ${M.them}</span><span class="muted">Round ${M.n + 1}/10 · their team plays perfectly · with your best play from here you're ${pill(LEVEL_NAME(val))}</span></div>`;
+  if (myTurn()) {
+    html += `<h3>Your lead: pick a card</h3><div class="row">${teamButtons("A", M.ma, i => `playStat(${i})`)}</div>`;
+  } else {
+    box.innerHTML = html + `<p class="muted">They're choosing their lead…</p>`;
+    const L = await ask({ type: "bLead", ma: M.ma, mb: M.mb, d: M.d });
+    html += `<div class="move">They lead <b>${esc(M.TB[L.j].name)}</b>: ${STAT[L.s]} ${statV(M.B[L.j], L.s)}</div><h3>Your answer (${STAT[COUNTER[L.s]]})</h3><div class="row">` +
+      state.A.map((c, i) => (M.ma >> i & 1) ? `<button class="ghost" onclick="playAnswer(${i},${L.j},${L.s})">${esc(c.name)} ${statV(M.A[i], COUNTER[L.s])}</button>` : "").join("") + `</div>`;
+    html += `<p class="small" style="margin-top:8px"><a href="#" onclick="playHint(${L.j},${L.s});return false">Show my best answer</a> <span id="playHint" class="gold"></span></p>`;
+  }
+  if (myTurn()) html += `<p class="small" style="margin-top:8px"><a href="#" onclick="playHint();return false">Show my best lead</a> <span id="playHint" class="gold"></span></p>`;
+  if (M.hist.length) html += `<div class="row" style="margin-top:12px">${undoBtn()}</div>`;
+  box.innerHTML = html + logHtml();
+}
+window.playStat = i => {
+  $("matchBox").innerHTML = `<h3>${esc(state.A[i].name)}: which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="playLead(${i},${s})">${STAT[s]} ${statV(M.A[i], s)}</button>`).join("")}</div>${backBtn()}`;
+};
+window.playLead = async (i, s) => {
+  $("matchBox").innerHTML = `<p class="muted">They're answering…</p>`;
+  const a = await ask({ type: "bAnswer", ma: M.ma, mb: M.mb, d: M.d, i, s });
+  apply(i, a.j, a.r, `You led ${esc(state.A[i].name)} (${STAT[s]} ${statV(M.A[i], s)}) · they answered ${esc(M.TB[a.j].name)} (${STAT[COUNTER[s]]} ${statV(M.B[a.j], COUNTER[s])})`);
+};
+window.playAnswer = (i, j, s) => apply(i, j, duelR(i, j, s, false), `They led ${esc(M.TB[j].name)} (${STAT[s]} ${statV(M.B[j], s)}) · you answered ${esc(state.A[i].name)} (${STAT[COUNTER[s]]} ${statV(M.A[i], COUNTER[s])})`);
+window.playHint = async (j, s) => {
+  const el = $("playHint"); if (!el) return; el.textContent = "…";
+  if (j == null) { const o = (await ask({ type: "leads", ma: M.ma, mb: M.mb, d: M.d }))[0]; el.textContent = `${state.A[o.i].name}, ${STAT[o.s]}`; }
+  else { const o = (await ask({ type: "answers", ma: M.ma, mb: M.mb, d: M.d, j, s }))[0]; el.textContent = state.A[o.i].name; }
+};
 // ---- a different card in their team: swap it, re-solve from the current state ----
 window.swapPick = () => {
   $("matchBox").innerHTML = `<h3>Which of their cards is different?</h3><div class="row">${teamButtons("B", M.mb, j => `swapFind(${j})`)}</div>
@@ -1099,12 +1358,12 @@ window.swapFind = j => {
     const q = norm($("swQ").value.trim());
     if (q.length < 2) { $("swRes").innerHTML = `<p class="small muted">Type at least 2 letters. Cards up to ${M.cap} only, strongest first.</p>`; return; }
     const anyPos = $("swAny").checked;
-    const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.name + "|" + c.nationId) && (anyPos || c.P.has(old.position)) &&
+    const L = searchPool().filter(c => c.rating <= M.cap && !used.has(c.name + "|" + c.nationId) && (anyPos || c.P.has(old.position)) &&
         (c._n.includes(q) || norm(nName(c.nationId)).includes(q) || norm(lName(c.leagueId)).includes(q) || norm(cName(c.clubId)).includes(q)))
       .map(c => ({ c, e: swapEff(j, c) })).sort((x, y) => (y.e.a + y.e.c + y.e.d) - (x.e.a + x.e.c + x.e.d)).slice(0, 25);
     $("swRes").innerHTML = L.length ? L.map(({ c, e }, k) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="swapDo(${j},'${esc(c.id)}')">
         <b>${esc(c.name)} ${c.rating}${k === 0 ? ` <span class="tag">Strongest</span>` : ""}</b>
-        <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))} · in game ${e.a}/${e.c}/${e.d}, TB ${e.t}</span></button>`).join("")
+        <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}${evoTag(c)} · in game ${e.a}/${e.c}/${e.d}, TB ${e.t}</span></button>`).join("")
       : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
   };
   $("swQ").oninput = draw; $("swAny").onchange = draw; draw(); $("swQ").focus();
@@ -1274,8 +1533,10 @@ async function setupSim() {
   $("simFormB").innerHTML = $("simFormA").innerHTML = Object.keys(SIM_FORMS).map(f => `<option>${f}</option>`).join("");
   $("simSeries").onchange = () => { state.simB = []; loadSimA(); }; $("simFormB").onchange = $("simFormA").onchange = drawSim;
   const simCap = () => simSeries().cap || 0;
-  hookSearch("searchS", "srS", c => { if (state.simB.length < 11) state.simB.push(c); drawSim(); }, simCap);
-  hookSearch("searchSA", "srSA", c => { if (state.simAC.length < 11) state.simAC.push(c); drawSim(); }, simCap);
+  // a removed player leaves an empty spot: the next card typed in fills the first empty spot, so 1 for 1 swaps keep everyone else in place
+  const put = (L, c) => { const i = L.indexOf(null); if (i >= 0) L[i] = c; else if (L.length < 11) L.push(c); };
+  hookSearch("searchS", "srS", c => { put(state.simB, c); drawSim(); }, simCap);
+  hookSearch("searchSA", "srSA", c => { put(state.simAC, c); drawSim(); }, simCap);
   $("simBtn").onclick = runSim;
   loadSimA();
 }
@@ -1293,17 +1554,24 @@ function useSimTeam() {
   state.simAC = A.players.map(p => BYID.get(p.id)).filter(Boolean);
   if (SIM_FORMS[A.formation]) $("simFormA").value = A.formation;
 }
-const simSide = (cards, form, id, top) => { const slots = SIM_FORMS[form], E = effective(cards, simSeries());
-  return top + `<table>${slots.map((s, i) => { const c = cards[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`; };
+// a card out of position (not its main or alt position) plays on 0 chem and adds nothing to anyone else's chem
+const offPos = (c, slot) => !c.P || !c.P.has(slot);
+const simEff = (cards, slots) => { const S = simSeries(), P = cards.filter(Boolean), IN = cards.filter((c, i) => c && !offPos(c, slots[i]));
+  const ch = chem(IN), sb = squadBonus(P, S && S.bonuses);
+  return cards.map((c, i) => { if (!c) return null; const off = offPos(c, slots[i]), k = off ? 0 : ch[IN.indexOf(c)], b = CHEM_BONUS[k], [a, kk, d] = boosted(c, S && S.boosts);
+    return { a: a + b + sb[0], c: kk + b + sb[1], d: d + b + sb[2], t: c.attack + c.control + c.defense + 3 * b, chem: k, off }; }); };
+const simSide = (cards, form, id, top) => { const slots = SIM_FORMS[form], E = simEff(cards, slots);
+  return top + `<table>${slots.map((s, i) => { const c = cards[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) + (E[i].off ? ` <span class="tag">Out of position · 0 chem</span>` : "") : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`; };
 function drawSim() {
   const A = state.simA, tm = "S" + seasonOf((SIMW.base.match(/vault\/([^/]+)\//) || [])[1] || (WEEK && WEEK.week)), btn = (id, t) => `<button class="ghost" id="${id}" style="font-size:12.5px;margin:0 6px 8px 0">${t}</button>`;
-  const topA = (A && (state.simAC.length !== 11 || state.simAC.some((c, i) => c.id !== (A.players[i] || {}).id)) ? btn("simUseA", `Load the ${esc(tm)} Team`) : "") + (state.simAC.length ? btn("simClrA", "Clear") : "");
+  const topA = (A && (state.simAC.length !== 11 || state.simAC.some((c, i) => !c || c.id !== (A.players[i] || {}).id)) ? btn("simUseA", `Load the ${esc(tm)} Team`) : "") + (state.simAC.some(Boolean) ? btn("simClrA", "Clear") : "");
   $("simA").innerHTML = simSide(state.simAC, $("simFormA").value, "A", topA);
   const ref = (simSeries().opponents || [])[0];
-  const topB = (ref && !state.simB.length ? `<button class="ghost" id="simRef" style="font-size:12.5px;margin-bottom:8px">Load the Reddit Team <span class="small muted">by u/${SIM_CREDIT}</span></button>` : "") + (state.simB.length ? btn("simClrB", "Clear") : "");
+  const topB = (ref && !state.simB.some(Boolean) ? `<button class="ghost" id="simRef" style="font-size:12.5px;margin-bottom:8px">Load the Reddit Team <span class="small muted">by u/${SIM_CREDIT}</span></button>` : "") + (state.simB.some(Boolean) ? btn("simClrB", "Clear") : "");
   $("simB").innerHTML = simSide(state.simB, $("simFormB").value, "B", topB);
-  document.querySelectorAll("#simA .x").forEach(b => b.onclick = () => { state.simAC.splice(+b.dataset.i, 1); drawSim(); });
-  document.querySelectorAll("#simB .x").forEach(b => b.onclick = () => { state.simB.splice(+b.dataset.i, 1); drawSim(); });
+  const drop = (L, i) => { L[i] = null; while (L.length && !L[L.length - 1]) L.pop(); drawSim(); };   // the spot stays empty for the next card
+  document.querySelectorAll("#simA .x").forEach(b => b.onclick = () => drop(state.simAC, +b.dataset.i));
+  document.querySelectorAll("#simB .x").forEach(b => b.onclick = () => drop(state.simB, +b.dataset.i));
   if ($("simUseA")) $("simUseA").onclick = () => { useSimTeam(); drawSim(); };
   if ($("simClrA")) $("simClrA").onclick = () => { state.simAC = []; drawSim(); };
   if ($("simClrB")) $("simClrB").onclick = () => { state.simB = []; drawSim(); };
@@ -1313,8 +1581,8 @@ function drawSim() {
   };
 }
 function runSim() {
-  if (state.simAC.length !== 11 || state.simB.length !== 11) { $("simOut").textContent = "Need 11 cards on each side."; return; }
-  const side = (cards, form) => { const slots = SIM_FORMS[form], E = effective(cards, simSeries());
+  if (state.simAC.filter(Boolean).length !== 11 || state.simB.filter(Boolean).length !== 11) { $("simOut").textContent = "Need 11 cards on each side."; return; }
+  const side = (cards, form) => { const slots = SIM_FORMS[form], E = simEff(cards, slots);
     return slots.map((s, i) => ({ name: cards[i].name, slot: s, pos: cards[i].position, a: E[i].a, c: E[i].c, d: E[i].d })); };
   const R1 = side(state.simAC, $("simFormA").value), R2 = side(state.simB, $("simFormB").value);
   const m = simMatch(R1, R2);
@@ -1741,7 +2009,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261115b");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -1868,13 +2136,16 @@ const TCOL = {   // [light, dark, text], taken from the in-game collection scree
   ucl_rttk: ["#2f5fe0", "#0a1a5c", "#ffffff"], uwcl_rttk: ["#7cc4f0", "#2f6fb8", "#ffffff"], ecl_rttk: ["#2fbf4a", "#06140a", "#ffffff"], europa_rttk: ["#e2701e", "#1a0d06", "#ffffff"] };
 // LTMs each have their own card design: the strip beside them uses that card's colours
 const LTMCOL = { "Xavi Espart": ["#3a6fe0", "#8a1640"], "Karetsas": ["#f5e04a", "#2a2614"], "Ngumoha": ["#e3262f", "#3b0a12"], "Comuzzo": ["#a3283c", "#3a0c14"] };
-const cardStrip = c => { const L = c.color === "ltm" && LTMCOL[c.name]; return L ? `background:linear-gradient(135deg,${L[0]},${L[1]})` : tgrad(typeKey(c)); };
+const cardStrip = c => { const L = c.color === "ltm" && LTMCOL[c.name]; return L ? `background:linear-gradient(135deg,${L[0]},${L[1]})` : tgrad(c._evx ? "evo" : typeKey(c)); };
 const tcol = t => TCOL[t] || (h => [`hsl(${h} 70% 72%)`, `hsl(${h} 55% 38%)`, "#0d0a0b"])([...String(t)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 360, 7));
 const tgrad = t => { const [a, b, c] = tcol(t); return `background:linear-gradient(135deg,${a},${b});color:${c}`; };      // hand-added cards listed in the Cards tab
 const inCards = c => !c._extra || SHOW_EXTRA.has(c.color);
+// the Cards tab: the site's cards plus every evolved card of the year, all evolved cards listed under Evo
+const cardsPool = () => CARDS.filter(inCards).concat(EVOALL ? EVOALL.cards.filter(c => c._evx) : []);
+const ctKey = c => c._evx ? "evo" : typeKey(c);
 const cardCount = (t, cs) => t === "ltm" ? new Set(cs.map(c => c.name)).size : cs.length;   // an LTM counts once, whatever its level
 function siteTotal() {          // every card on the site, counted as the Cards tab does (hand-added Evo / Elite Evo / LTM included, each LTM once)
-  const byT = new Map(); CARDS.filter(inCards).forEach(c => { const k = typeKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
+  const byT = new Map(); cardsPool().forEach(c => { const k = ctKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
   return [...byT].reduce((a, [t, cs]) => a + cardCount(t, cs), 0);
 }
 // ---------- Most used cards (docs/usage.json, made by scripts/usage.py) ----------
@@ -1885,7 +2156,7 @@ async function setupUsage() {
   let shown = 25;
   const fmt = d => { const r = Math.round(d); return r ? String(r) : "<1"; };
   const f1 = d => { const r = Math.round(d * 10) / 10; return (r || "<0.1") + (r === 1 ? " day" : " days"); };
-  const label = s => { const [k, v] = s.split("_")[1].split("--"); return (s.startsWith("myclub") ? "My Club " : "Sim ") + k + (v === "noltmevo" ? " (No LTMs or Evos)" : v ? " (" + v + ")" : ""); };
+  const label = s => { const [k, v] = s.split("_")[1].split("--"); return (s.startsWith("myclub") ? "My Club " : "Sim ") + k + (v === "noltmevo" ? " (No LTM & Evos)" : v === "allevo" ? " (All Evos)" : v ? " (" + v + ")" : ""); };
   const draw = () => {
     const wk = $("uSeason").value, md = $("uMode").value, q = norm($("uFind").value.trim());
     const L = U.cards.map(c => {
@@ -2043,13 +2314,13 @@ function wireObjForm() {
 }
 function setupCards() {
   setupUsage();
-  const real = CARDS.filter(inCards);
-  const byT = new Map(); real.forEach(c => { const k = typeKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
+  const real = cardsPool();
+  const byT = new Map(); real.forEach(c => { const k = ctKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
   const cnt = new Map([...byT].map(([t, cs]) => [t, cardCount(t, cs)]));
   const special = [...cnt].filter(([t]) => !["gold", "silver", "bronze"].includes(t)).reduce((a, [, n]) => a + n, 0);
   const order = ["gold", "silver", "bronze", ...[...cnt.keys()].filter(t => !["gold", "silver", "bronze"].includes(t)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b)))];
   const total = [...cnt.values()].reduce((a, n) => a + n, 0);
-  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Evos, Elite Evos and LTMs are added by hand and can't be used in SBCs.`;
+  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Evo lists every evolved card of the year. Evos, Elite Evos and LTMs can't be used in SBCs.`;
   $("cardsTypes").innerHTML = `<button class="ctile wide" data-ct="special" style="background:var(--grad);color:#1a0b05"><b>All special</b><span>${special.toLocaleString()}</span></button>` +
     order.map(t => `<button class="ctile" data-ct="${esc(t)}" style="${tgrad(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t).toLocaleString()}</span></button>`).join("");
   $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
@@ -2068,7 +2339,7 @@ function setupCards() {
 const eliteNames = () => new Set(CARDS.filter(c => c.color === "elite_evo").map(c => c.name));
 const extraTag = c => !c._extra || c.color === "ltm" ? "" : c.owned === false ? ` <span class="small muted">Opponents only</span>`
   : c.color === "evo" && !eliteNames().has(c.name) ? ` <span class="small ok">Yours</span>` : "";
-const cardRow = c => `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${c.rating}</b></span><span class="nm"><b>${esc(c.name)}</b><span class="r">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span>${extraTag(c)}<small>${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</small></span><span class="st"><span class="a">${c.attack}</span><span class="c">${c.control}</span><span class="d">${c.defense}</span></span></div>`;
+const cardRow = c => `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${c.rating}</b></span><span class="nm"><b>${esc(c.name)}</b><span class="r">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span>${extraTag(c)}<small>${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</small>${c.evos && c.evos.length ? `<small class="evon">Evo: ${esc(c.evos.join(" → "))}</small>` : ""}</span><span class="st"><span class="a">${c.attack}</span><span class="c">${c.control}</span><span class="d">${c.defense}</span></span></div>`;
 function byRatingHtml(L, nested) {        // cards grouped under rating headings (big groups fold away)
   const G = new Map(); L.forEach(c => { if (!G.has(c.rating)) G.set(c.rating, []); G.get(c.rating).push(c); });
   return [...G.entries()].sort((a, b) => b[0] - a[0]).map(([r, cs]) => nested
@@ -2078,10 +2349,10 @@ function byRatingHtml(L, nested) {        // cards grouped under rating headings
 function drawCards() {
   const q = norm($("cQ").value.trim()), t = $("cType").value, pos = $("cPos").value, lo = +$("cMin").value || 0, hi = +$("cMax").value || 99;
   const filtering = q || pos || $("cMin").value || $("cMax").value;
-  const L = CARDS.filter(c => inCards(c) && (!q || c._n.includes(q)) && (!t || (t === "special" ? !["gold", "silver", "bronze"].includes(typeKey(c)) : typeKey(c) === t))
+  const L = cardsPool().filter(c => (!q || c._n.includes(q)) && (!t || (t === "special" ? !["gold", "silver", "bronze"].includes(ctKey(c)) : ctKey(c) === t))
     && (!pos || c.position === pos || String(c.altPositions || "").split(",").includes(pos)) && c.rating >= lo && c.rating <= hi)
     .sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
-  const groups = new Map(); L.forEach(c => { const k = typeKey(c); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(c); });
+  const groups = new Map(); L.forEach(c => { const k = ctKey(c); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(c); });
   const order = ["gold", "silver", "bronze"].filter(k => groups.has(k)).concat([...groups.keys()].filter(k => !["gold", "silver", "bronze"].includes(k)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b))));
   const shown = [...groups].reduce((a, [k, cs]) => a + cardCount(k, cs), 0);
   $("cCount").textContent = `${shown.toLocaleString()} card${shown === 1 ? "" : "s"} in ${groups.size} type${groups.size === 1 ? "" : "s"}${filtering ? " (filtered)" : ""}`;

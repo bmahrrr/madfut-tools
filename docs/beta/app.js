@@ -57,9 +57,10 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 });
 
 // ---------- data ----------
-const APPDIR = window.APPDIR || "";      // "beta/" on the private preview: its own scripts and version, the main site's data
+const APPDIR = window.APPDIR || "";
+const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261116d";
+const APP_V = "20261116e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -107,7 +108,7 @@ async function init() {
   if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`;   // same total as the Cards tab
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { await evoAll(); if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`; } catch (e) {}   // every evolved card of the year: searchable everywhere, needed for All Evos teams
-  try { INDEX = await getJSON("results/index.json"); if (INDEX.all) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
+  try { INDEX = await getJSON("results/index.json"); if (INDEX.all && PREVIEW) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
 }
@@ -699,11 +700,13 @@ const mcFunnel = () => funnel("How My Club teams are built", MC_STEPS);
 const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
-  { day: "2026-11-15", items: [
-    "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos.",
-    "<b>Evo names:</b> shown on every card that uses one, with both names for a chain.",
-    "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone.",
+  { day: "2026-11-16", items: [
+    { p: 1, t: "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos." },
+    { p: 1, t: "<b>Evo names:</b> shown on every card that uses one, with both names for a chain." },
+    { p: 1, t: "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone." },
     "<b>Match Helper:</b> new Play Against Them mode. You make every move and the site plays their team perfectly.",
+    "<b>Evo cards:</b> every evolved card this game year is in the Cards tab and in every card search.",
+    "<b>Unbeatable:</b> a My Club team gets the label when 5+ cards can't be beaten in the same stat and its tiebreak card can't lose.",
     "<b>Sim Odds:</b> removing a player leaves his spot empty, so the next card you add goes straight into it.",
     "<b>Sim Odds:</b> a card out of position is flagged and plays on 0 chem, and adds nothing to anyone else's chem, like in the game."
   ] },
@@ -726,7 +729,9 @@ const UPDATES = [
     "<b>Best Teams:</b> each series shows when its team last changed."
   ] }
 ];
-const updateCard = () => { const u = UPDATES[0]; return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${u.items.map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
+// an item marked p: still on the preview only, so the main site doesn't announce it yet
+const updItems = u => u.items.filter(x => typeof x === "string" || PREVIEW).map(x => typeof x === "string" ? x : x.t);
+const updateCard = () => { const u = UPDATES.find(u => updItems(u).length); return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${updItems(u).map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
 let VAULT = null;     // { week, files } when looking at a past week
 async function renderTeams() {
   const box = $("teamsBody"), V = VAULT, base = V ? `vault/${V.week}/` : "results/";
@@ -737,7 +742,7 @@ async function renderTeams() {
             : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
   OPPS = []; let html = `<div class="card"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>
-    ${mcFunnel()}${simFunnel()}</div>` + (V ? "" : updateCard() + myEvosBox()) + vaultBox;
+    ${mcFunnel()}${simFunnel()}</div>` + (V ? "" : updateCard() + (PREVIEW ? myEvosBox() : "")) + vaultBox;
   const files = V ? V.files : INDEX.files || [];
   // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_") && !f.includes("--"));
@@ -746,7 +751,7 @@ async function renderTeams() {
   const VORDER = ["allevo", "", "noltmevo", "myevo", "winodds"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos", winodds: "Win Odds (Test)" };
   // preview only: test versions kept in beta/preview (never on the main site)
   const PREV = !V && APPDIR ? (((await getJSON(APPDIR + "preview/index.json").catch(() => null)) || {}).files || []) : [];
-  const ME = !V && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
+  const ME = !V && PREVIEW && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
   const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
   // each version carries its own header result (Unbeatable, or when it last changed): the header follows the version shown
   const vpanel = (v, inner, sres = "", mid = "", avgs = "") => `<div class="vpanel"${v === "" ? "" : " hidden"} data-vp="${v}" data-sres="${esc(sres)}" data-mid="${esc(mid)}" data-avgs="${esc(avgs)}">${inner}</div>`;
@@ -770,7 +775,7 @@ async function renderTeams() {
       const sid = "myclub:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
       // the strip only calls out a team nothing beats (every tested team, both lead orders)
       const sres = unbOf(t) ? UNB : lastChange(d);
-      const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
+      const allV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--")), myV = PREVIEW ? allV : [];
       html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, t.chem, mineTag))}">${bar}${vtag(which, d)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
@@ -802,6 +807,23 @@ async function renderTeams() {
             ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}${box("Tested against", `<b class="bignum">${nV}</b>`, "teams")}</div>` : ""}
             ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
             unbOf(vt) ? UNB : lastChange(vd), midOf(vt.formation, vt.chem));
+        } catch (e) {}
+      }
+      // main site, for now: other versions (No LTM & Evos) as a section under the team, like before
+      if (!PREVIEW) for (const vf of allV) {
+        try {
+          let vd = await getJSON(base + vf), vt = vd.team; const lab = (vd.variant && vd.variant.label) || "Alternative";
+          const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vd.variant && vd.variant.id] || [];
+          if (vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v)))) {
+            vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;
+          }
+          let vw = null;
+          for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
+            if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
+          html += `<details class="oteam vteam"><summary><b>${esc(lab)} version</b><span class="small muted">${vd.same_as_full ? "Same as the full team" : "Without those cards"}</span><span class="ores">${unbOf(vt) ? `<span class="pill WIN unb">Unbeatable</span>` : ""}</span></summary>
+            <p class="meta" style="margin:6px 0">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? "" : ". Tested against teams that have them"}</p>
+            ${vw ? `<div class="score">${box("Worst case", pill(vw.r), `${esc(resultLabel(vw.k))}, ${vw.who}`)}</div>` : ""}
+            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
         } catch (e) {}
       }
       html += mePanel(sid) + `</div></details>`;
@@ -842,7 +864,7 @@ async function renderTeams() {
   }
   if (!V) {
     box.innerHTML = html;
-    document.querySelectorAll("[data-vault]").forEach(b => b.onclick = () => { VAULT = weeks[+b.dataset.vault]; if (VAULT.all) VAULT = { ...VAULT, files: VAULT.all }; renderTeams(); window.scrollTo(0, 0); });
+    document.querySelectorAll("[data-vault]").forEach(b => b.onclick = () => { VAULT = weeks[+b.dataset.vault]; if (VAULT.all && PREVIEW) VAULT = { ...VAULT, files: VAULT.all }; renderTeams(); window.scrollTo(0, 0); });
   } else {
     box.innerHTML = html;
     $("vaultBack").onclick = () => { VAULT = null; renderTeams(); window.scrollTo(0, 0); };
@@ -868,7 +890,7 @@ async function renderTeams() {
 function playersTable(ps, showTB, nh, mark) {     // nh = "myclub:73" adds a Don't have button to each player; mark(p): highlight
   const key = `<span>Att</span><span>Ctl</span><span>Def</span>`, nhOn = nh && noHave(nh).length;
   return `${nh ? `<div class="sqhead"><span>Squad</span><button class="ghost nhtog${nhOn ? " on" : ""}" data-nhtog>${nhOn ? "Done" : "Missing a card?"}</button></div>` : ""}<div class="squad${nh && !nhOn ? " nhoff" : ""}"><div class="stkey">${key}</div><div class="stkey k2">${key}</div>${ps.map(p =>
-    `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><span class="l1"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}</span><small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Base ${p.card.join("/")} · Chem ${p.chem}</small>${p.evos && p.evos.length ? `<small class="evon">Evo: ${esc(p.evos.join(" → "))}</small>` : ""}</span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
+    `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><span class="l1"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}</span><small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Base ${p.card.join("/")} · Chem ${p.chem}</small>${PREVIEW && p.evos && p.evos.length ? `<small class="evon">Evo: ${esc(p.evos.join(" → "))}</small>` : ""}</span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
 }
 
 // ---------- My Club compare ----------
@@ -894,7 +916,7 @@ async function setupMC() {
     const wk = $("mcWeek").value;
     if (!wk) MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
     else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {}
-      MCW = { week: wk, base: `vault/${wk}/`, myclub: w.myclub || [], files: (x => x.all || x.files)(weeks.find(x => x.week === wk) || { files: [] }) }; }
+      MCW = { week: wk, base: `vault/${wk}/`, myclub: w.myclub || [], files: (x => (PREVIEW && x.all) || x.files)(weeks.find(x => x.week === wk) || { files: [] }) }; }
     fillSeries(); drawMC(); $("solveOut").innerHTML = "";
   };
   fillSeries();
@@ -1178,7 +1200,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1204,7 +1226,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1987,7 +2009,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116d");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

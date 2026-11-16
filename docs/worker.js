@@ -1,5 +1,5 @@
 // Runs the exact My Club solver off the main thread so the page stays responsive.
-importScripts("engine.js?v=20261115b");
+importScripts("engine.js?v=20261116e");
 let S = null;
 // The C solver compiled to WebAssembly: same answers as Solver, about 3x faster. Falls back to Solver if it can't load.
 let WX = null;
@@ -69,6 +69,25 @@ onmessage = async (e) => {
       const ai = 31 - Math.clz32(ma), bi = 31 - Math.clz32(mb), gap = P.TA[ai] - P.TB[bi];
       const tb = d >= -1 && d <= 1 ? (gap > 5 ? 1 : gap < -5 ? -1 : 0) : 0;
       postMessage({ id: m.id, ok: true, result: { steps, ai, bi, gap, tb, d } });
+    } else if (m.type === "bAnswer") {        // Play mode: their perfect answer to your lead (i, s)
+      const { ma, mb, d, i, s: st } = m; let best = null;
+      for (let j = 0; j < 11; j++) if (mb >> j & 1) {
+        const r = S.duel(i, j, st, true), v = S.outcome(ma & ~(1 << i), mb & ~(1 << j), d + r), k = [v, r, -S.TB[j]];
+        if (!best || k[0] < best.k[0] || (k[0] === best.k[0] && (k[1] < best.k[1] || (k[1] === best.k[1] && k[2] > best.k[2])))) best = { j, r, k };
+      }
+      postMessage({ id: m.id, ok: true, result: { j: best.j, r: best.r } });
+    } else if (m.type === "bLead") {          // Play mode: their perfect lead (the one that holds you lowest after your best reply)
+      const { ma, mb, d } = m; let best = null;
+      for (let j = 0; j < 11; j++) if (mb >> j & 1) for (let st = 0; st < 3; st++) {
+        let rep = null;
+        for (let i = 0; i < 11; i++) if (ma >> i & 1) {
+          const r = S.duel(i, j, st, false), v = S.outcome(ma & ~(1 << i), mb & ~(1 << j), d + r), k = [v, r, -S.TA[i]];
+          if (!rep || k[0] > rep.k[0] || (k[0] === rep.k[0] && (k[1] > rep.k[1] || (k[1] === rep.k[1] && k[2] > rep.k[2])))) rep = { i, r, k };
+        }
+        const key = [rep.k[0], rep.r, S.TB[j]];
+        if (!best || key[0] < best.key[0] || (key[0] === best.key[0] && (key[1] < best.key[1] || (key[1] === best.key[1] && key[2] < best.key[2])))) best = { j, s: st, key };
+      }
+      postMessage({ id: m.id, ok: true, result: { j: best.j, s: best.s } });
     } else if (m.type === "value") {
       postMessage({ id: m.id, ok: true, result: S.outcome(m.ma, m.mb, m.d) });
     } else if (m.type === "leads") {          // leads for side A that keep the best reachable result
