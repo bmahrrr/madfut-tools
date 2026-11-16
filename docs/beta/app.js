@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261116n";
+const APP_V = "20261116o";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -218,17 +218,24 @@ function oppTeamRows(t, k, series) {    // the opponent's team: saved by the bui
   return { meta: `${E.reduce((a, e) => a + e.chem, 0)} chem`, players: team.map((c, i) => ({ slot: c.position, id: c.id, name: c.name, rating: c.rating, color: c.color,
     nationId: c.nationId, leagueId: c.leagueId, card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t })) };
 }
-let OPPS = [];
+let OPPS = [], ALLRES = [], OPPB = [];   // ALLRES: each "All results" list, drawn only when opened (100+ teams per series)
 function oppList(t, series) {          // every opponent tested: tap a name to see their team
   return `<div class="opps">${Object.entries(t.results || {}).map(([k, v]) => {
     const o = oppTeamRows(t, k, series); let body;
     if (o) { OPPS.push({ mine: t.players.map(p => p.id), theirs: o.players.map(p => p.id), key: series && series.key });
       body = `<p class="meta" style="margin:6px 0 4px">${esc(o.meta)}</p>${playersTable(o.players, true)}<div class="row" style="margin:8px 0 4px"><button class="ghost" data-opp="${OPPS.length - 1}" style="font-size:12.5px">Open in My Club Compare</button></div>`; }
     else body = `<p class="small muted" style="margin:6px 0">This team wasn't saved by this build. Teams are saved from the next build onwards.</p>`;
-    return `<details class="opp"><summary><span class="on">${esc(resultLabel(k))}</span><span class="res">${pill(v.you_lead_first)} ${pill(v.they_lead_first)}</span></summary>${body}</details>`;
+    return `<details class="opp" data-ob="${OPPB.push(body) - 1}"><summary><span class="on">${esc(resultLabel(k))}</span><span class="res">${pill(v.you_lead_first)} ${pill(v.they_lead_first)}</span></summary></details>`;
   }).join("")}</div>`;
 }
 function wireOpps() {
+  document.querySelectorAll("details.allres[data-ar]").forEach(d => d.ontoggle = () => {
+    if (!d.open || d.dataset.done) return; d.dataset.done = "1";
+    const [t, ser] = ALLRES[+d.dataset.ar]; d.insertAdjacentHTML("beforeend", oppList(t, ser)); wireOpps();
+  });
+  document.querySelectorAll("details.opp[data-ob]").forEach(d => d.ontoggle = () => {
+    if (!d.open || d.dataset.done) return; d.dataset.done = "1"; d.insertAdjacentHTML("beforeend", OPPB[+d.dataset.ob]); wireOpps();
+  });
   document.querySelectorAll("[data-opp]").forEach(b => b.onclick = () => {
     const o = OPPS[+b.dataset.opp];
     state.A = o.mine.map(id => BYID.get(id)).filter(Boolean); state.B = o.theirs.map(id => BYID.get(id)).filter(Boolean);
@@ -760,7 +767,7 @@ async function renderTeams() {
       ? `<div class="chips">${weeks.map((w, i) => { return w.files.length ? `<button class="chipbtn" data-vault="${i}"><b>${esc(seasonName(w.week))}</b><span>Week of ${esc(fmtDay(w.week))} · ${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`
             : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
       : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}</details>`;
-  OPPS = []; let html = `<div id="tsel"></div>`, intro = `<div class="card"><h2 data-abouth>About These Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<div data-about="myclub"><p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>${mcFunnel()}</div>
+  OPPS = []; ALLRES = []; OPPB = []; let html = `<div id="tsel"></div>`, intro = `<div class="card"><h2 data-abouth>About These Teams</h2><p class="meta">${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</p>${V ? `<p class="small" style="margin:4px 0 8px"><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</p><p style="margin:0 0 8px"><button class="ghost" id="vaultBack">Back to This Season</button></p>` : ""}<div data-about="myclub"><p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>${mcFunnel()}</div>
     <div data-about="sim" hidden><p class="small" style="margin:6px 0 0">The strongest team in each series: the best control in every control spot, then the best attack and defence.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem.</p>${simFunnel()}</div></div>`;
   const tail = intro + (V ? "" : updateCard() + (PREVIEW ? myEvosBox() : "")) + vaultBox;
   TSEL.title = `S${seasonOf(V ? V.week : INDEX.week)} Teams`; TSEL.sub = `${V ? "Vault · " : ""}Week of ${fmtDay(V ? V.week : INDEX.week || "")}`;
@@ -806,7 +813,7 @@ async function renderTeams() {
       html += pitchHTML(t.players, "myclub", d.series.cap) + nh + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
       const RR = Object.values(t.results || {});
-      if (RR.length) html += `<details class="allres"><summary class="small">All ${RR.length} results <span class="gwdl">You lead ${wdl(RR, "you_lead_first")}</span><span class="gwdl">They lead ${wdl(RR, "they_lead_first")}</span></summary><p class="small muted" style="margin:6px 0 2px">Tap an opponent to see their team. Results are you lead first, then they lead first.</p>${oppList(t, wser)}</details>`;
+      if (RR.length) html += `<details class="allres"><summary class="small">All ${RR.length} results <span class="gwdl">You lead ${wdl(RR, "you_lead_first")}</span><span class="gwdl">They lead ${wdl(RR, "they_lead_first")}</span></summary><p class="small muted" style="margin:6px 0 2px">Tap an opponent to see their team. Results are you lead first, then they lead first.</p></details>`.replace('<details class="allres">', `<details class="allres" data-ar="${ALLRES.push([t, wser]) - 1}">`);
       html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
       for (const vf of myV) {
         try {
@@ -1273,7 +1280,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116n"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116o"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1299,7 +1306,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116n"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116o"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2082,7 +2089,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116n");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116o");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
