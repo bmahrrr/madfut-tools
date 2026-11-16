@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261116i">
+<meta name="app-version" content="20261116k">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -337,6 +337,85 @@ body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area
 .navwrap{top:env(safe-area-inset-top)}
 main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 .upd{margin:6px 0 0;padding-left:18px}.upd li{margin:5px 0;line-height:1.45}
+
+/* ===== Fatal Night refresh: glass panels on a striped glow, rounded pills, Sim turns everything blue ===== */
+body{background:repeating-linear-gradient(-28deg,rgba(255,255,255,.018) 0 2px,transparent 2px 9px) fixed,radial-gradient(120% 520px at 50% -120px,rgba(255,110,20,.24),transparent 70%) no-repeat fixed,#0d0907;transition:background-color .3s}
+body.simmode{--fire:#2f8dff;--gold:#6fb6ff;--accent:#6fb6ff;--on-accent:#fff;--grad:linear-gradient(95deg,#8cc8ff,#2f6dff);--line:rgba(120,180,255,.10);--line2:rgba(120,180,255,.16);--muted:#93a0b6;
+  background:repeating-linear-gradient(-28deg,rgba(255,255,255,.018) 0 2px,transparent 2px 9px) fixed,radial-gradient(120% 520px at 50% -120px,rgba(40,130,255,.26),transparent 70%) no-repeat fixed,#07090f}
+body::before{background:transparent}
+.top{padding:calc(12px + env(safe-area-inset-top)) 16px 8px;align-items:center}
+.top h1{font-size:28px;transform:none}.top h1 small{display:none}
+.top .sub{text-align:right;font-size:11px}
+.card{border-radius:18px;clip-path:none;background:rgba(30,20,15,.55);border:1px solid var(--line2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+body.simmode .card{background:rgba(14,20,32,.55)}
+.card .num{display:none}
+details.sercard{clip-path:none;border-radius:18px;background:rgba(30,20,15,.55)}
+body.simmode details.sercard{background:rgba(14,20,32,.55)}
+details.sercard[open]>summary.strip,details.sercard[open]>summary.strip.sim{box-shadow:none;background:transparent}
+.strip.sim .k{-webkit-text-stroke-color:var(--fire)}
+nav button{transform:none;border-radius:999px;margin-left:0;padding:8px 14px}
+.navwrap{background:rgba(13,9,7,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+body.simmode .navwrap{background:rgba(7,9,15,.8)}
+.vsw button{border-radius:999px;font-size:13px;padding:8px 6px}
+.vsw button.on,.sim .vsw button.on,.sercard[data-ser^='sim:'] .vsw button.on{background:var(--grad);color:var(--on-accent);box-shadow:0 0 14px rgba(255,120,30,.25)}
+body.simmode .vsw button.on{box-shadow:0 0 14px rgba(50,140,255,.3)}
+input,select,textarea{border-radius:10px}
+button.ghost,.chipbtn{border-radius:12px}
+/* Teams: My Club / Sim switch, series pills, one series at a time */
+#tsel{margin:8px 0 4px}
+.tsel-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 10px}.tsel-h h2{margin:0;font-size:30px}.tsel-h span{color:var(--muted);font-size:12.5px}
+#tsel .seg{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:14px;padding:3px;margin-bottom:10px}
+#tsel .seg button{flex:1;background:none;border:0;color:var(--muted);font:700 17px/1 var(--display);letter-spacing:.8px;text-transform:uppercase;padding:10px 0 9px;border-radius:11px;cursor:pointer}
+#tsel .seg button.on{background:linear-gradient(90deg,#ff9a2e,#ff5e1a);color:#1a0d04;box-shadow:0 0 16px rgba(255,120,30,.35)}
+#tsel .seg button[data-m="sim"].on{background:linear-gradient(90deg,#4aa8ff,#2f6dff);color:#fff;box-shadow:0 0 16px rgba(50,140,255,.4)}
+#tsel .spills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+#tsel .spills::-webkit-scrollbar{display:none}
+#tsel .spills button{flex:none;min-width:44px;background:none;border:1px solid var(--line2);color:var(--muted);font:700 17px/1 var(--display);padding:8px 12px 7px;border-radius:999px;cursor:pointer}
+#tsel .spills button.on{border-color:var(--fire);color:var(--fire);background:rgba(255,138,31,.1)}
+body.simmode #tsel .spills button.on{background:rgba(59,155,255,.12)}
+details.sercard.tsel-off{display:none}
+details.sercard.tsel-one>summary{pointer-events:none}
+/* mini pitch */
+.pitch{position:relative;height:470px;max-width:460px;margin:6px auto 8px;border-radius:14px;background:linear-gradient(180deg,rgba(255,120,30,.07),rgba(255,255,255,.02));overflow:hidden}
+body.simmode .pitch{background:linear-gradient(180deg,rgba(40,130,255,.08),rgba(255,255,255,.02))}
+.pitch svg{position:absolute;inset:0;width:100%;height:100%}
+.pitch svg g{fill:none;stroke:rgba(255,190,140,.13);stroke-width:1;vector-effect:non-scaling-stroke}
+body.simmode .pitch svg g{stroke:rgba(150,200,255,.14)}
+.pitch svg *{vector-effect:non-scaling-stroke}
+.pc{position:absolute;width:64px;transform:translate(-50%,-50%);border-radius:10px;padding:5px 3px;text-align:center;background:rgba(18,13,10,.93);border:1px solid rgba(255,255,255,.08);box-shadow:0 4px 12px rgba(0,0,0,.4);display:flex;flex-direction:column;align-items:center}
+body.simmode .pc{background:rgba(10,14,22,.93)}
+.pc::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:10px 10px 0 0;background:var(--tint)}
+.pc .r{font:800 20px/1 var(--display)}
+.pc .ps{font:700 9px/1.3 var(--body);color:var(--muted);letter-spacing:.5px}
+.pc .pn{font:600 10.5px/1.25 var(--body);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 3px}
+.pc .pst{display:flex;gap:2px}
+.pc .pst i{font:700 9.5px/1.45 var(--body);font-style:normal;width:19px;border-radius:4px;background:rgba(255,255,255,.06);color:var(--muted)}
+.pc .pst i.on{color:#fff}.pc .pst i.on.a{background:#2f8f46}.pc .pst i.on.c{background:#2f6fc0}.pc .pst i.on.d{background:#c03a3a}
+.plegend{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;margin:0 2px 12px;font-size:11px;color:var(--muted)}
+.plegend em{font-style:normal;display:inline-flex;align-items:center;gap:5px}
+.plegend em::before{content:"";width:10px;height:3px;border-radius:2px;background:var(--t)}
+@media (max-width:360px){.pc{width:58px}.pc .pst i{width:17px;font-size:9px}}
+/* Unbeatable: gold with a glow */
+.pill.unb{transform:none;border-radius:999px;padding:5px 11px 4px;color:#1a1204;background:linear-gradient(110deg,#b8862b 0%,#ffe08a 40%,#fff5cf 50%,#ffe08a 60%,#b8862b 100%);box-shadow:0 0 16px rgba(255,200,80,.45),inset 0 0 0 1px rgba(255,255,255,.4);letter-spacing:1px}
+/* bottom tab bar on phones */
+#tabbar{display:none}
+@media (max-width:760px){
+  .navwrap{display:none}
+  #tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));background:rgba(14,10,8,.86);border-top:1px solid var(--line2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  body.simmode #tabbar{background:rgba(8,10,16,.88)}
+  #tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;color:var(--muted);font:600 10.5px/1 var(--body);padding:2px 0;cursor:pointer}
+  #tabbar svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  #tabbar button.on{color:var(--fire)}
+  main{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  #moreSheet{position:fixed;inset:0;z-index:29;background:rgba(0,0,0,.45)}
+  #moreSheet .sheet{position:absolute;left:10px;right:10px;bottom:calc(74px + env(safe-area-inset-bottom));padding:8px;border-radius:18px;background:rgba(24,17,13,.97);border:1px solid var(--line2);box-shadow:0 -10px 40px rgba(0,0,0,.5)}
+  body.simmode #moreSheet .sheet{background:rgba(12,16,26,.97)}
+  #moreSheet button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--text);padding:12px 12px;border-radius:12px;cursor:pointer}
+  #moreSheet button:active{background:rgba(255,255,255,.05)}
+  #moreSheet b{display:block;font:700 18px/1.1 var(--display);letter-spacing:.6px;text-transform:uppercase}
+  #moreSheet small{color:var(--muted);font-size:12px}
+}
+#moreSheet[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -486,8 +565,22 @@ main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
-<script src="beta/engine.js?v=20261116i"></script>
-<script src="beta/sbc-solver.js?v=20261116i"></script>
-<script src="beta/app.js?v=20261116i"></script>
+<nav id="tabbar" aria-label="Sections">
+  <button data-tb="teams" class="on"><svg viewBox="0 0 24 24"><path d="M4 20V8l8-5 8 5v12"/><path d="M9 20v-6h6v6"/></svg>Teams</button>
+  <button data-tb="match"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/></svg>Match</button>
+  <button data-tb="sbc"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>SBC</button>
+  <button data-tb="cards"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 8h6M9 12h6"/></svg>Cards</button>
+  <button data-tb="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg>More</button>
+</nav>
+<div id="moreSheet" hidden><div class="sheet">
+  <button data-mt="mc"><b>Head to Head</b><small>Your team vs theirs, every move</small></button>
+  <button data-mt="sim"><b>Sim Odds</b><small>Win chances for a Sim match</small></button>
+  <button data-mt="beat"><b>Beat a Team</b><small>Find a team that beats theirs</small></button>
+  <button data-mt="setup"><b>Season Setup</b><small>Series, boosts and builds</small></button>
+</div></div>
+
+<script src="beta/engine.js?v=20261116k"></script>
+<script src="beta/sbc-solver.js?v=20261116k"></script>
+<script src="beta/app.js?v=20261116k"></script>
 </body>
 </html>
