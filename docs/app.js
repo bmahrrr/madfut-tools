@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117b";
+const APP_V = "20261117c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1304,7 +1304,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1330,7 +1330,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2144,7 +2144,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117b");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2738,11 +2738,11 @@ function hlDraw(res) {
   const H = GM.hl, box = $("gameBox");
   const va = gStat(H.a, H.k), vb = gStat(H.b, H.k);
   box.innerHTML = `<div class="gtop"><span>Streak <b>${H.streak}</b></span><span>Best <b>${gBest("hlBest")}</b></span></div>
-    <p class="gstat">Which has more <b>${STATN[H.k]}</b>?</p>
+    <p class="gstat">Does <b>${esc(cap(H.b.name))}</b> have more or less <b>${STATN[H.k]}</b> than ${esc(cap(H.a.name))}?</p>
     <div class="gduel">${gCard(H.a, va)}<span class="gvs">VS</span>${gCard(H.b, res ? vb : "?", res ? (res === "ok" ? "ok" : "bad") : "")}</div>
     ${res ? (res === "ok" ? `<div class="gbtns"><button class="hi" style="grid-column:span 2" id="hlNext">Next</button></div>`
-      : `<div class="gwin"><b>Streak over: ${H.streak}</b><span class="small muted">${esc(cap(H.b.name))} has ${vb} ${STATN[H.k].toLowerCase()}.</span></div><div class="gbtns"><button class="hi" style="grid-column:span 2" id="hlAgain">Play again</button></div>`)
-      : `<div class="gbtns"><button class="hi" data-hl="1">▲ Higher</button><button class="lo" data-hl="-1">▼ Lower</button></div>`}
+      : `<div class="gwin"><b>Streak over: ${H.streak}</b><span class="small muted">${esc(cap(H.b.name))} has ${vb} ${STATN[H.k].toLowerCase()}, ${esc(cap(H.a.name))} has ${va}.</span></div><div class="gbtns"><button class="hi" style="grid-column:span 2" id="hlAgain">Play again</button></div>`)
+      : `<div class="gbtns"><button class="hi" data-hl="1">▲ More than ${va}</button><button class="lo" data-hl="-1">▼ Less than ${va}</button></div>`}
     <p class="small muted" style="margin:12px 0 0">Base card stats, no boosts or chem. Same value counts as right.</p>`;
   box.querySelectorAll("[data-hl]").forEach(b => b.onclick = () => {
     const up = b.dataset.hl === "1", ok = up ? vb >= va : vb <= va;
