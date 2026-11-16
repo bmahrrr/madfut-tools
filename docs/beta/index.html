@@ -417,6 +417,20 @@ body.simmode .pc{background:rgba(10,14,22,.93)}
   #moreSheet small{color:var(--muted);font-size:12px}
 }
 #moreSheet[hidden]{display:none}
+/* SBC */
+#sbcList{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
+#sbcList .req{border:1px solid var(--line2);border-radius:999px;padding:6px 6px 6px 12px;font-size:13.5px;background:rgba(255,255,255,.03);gap:6px}
+#sbcList .req .x{background:rgba(255,255,255,.06);border:0;color:var(--muted);width:22px;height:22px;border-radius:50%;padding:0;font-size:11px;cursor:pointer}
+.rulebox{border-radius:14px}
+.sbchead{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:6px;margin:0 0 10px}
+.sbchead>div{border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line2);padding:8px 10px}
+.sbchead span{display:block;font:700 11px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.sbchead b{display:block;font:800 26px/1.1 var(--display);margin-top:3px}
+.pc .pchem{display:flex;gap:3px;margin-top:1px}.pc .pchem i{width:8px;height:8px;transform:rotate(45deg);border-radius:2px;background:rgba(255,255,255,.12)}.pc .pchem i.on{background:#3ddcff;box-shadow:0 0 6px rgba(61,220,255,.6)}
+table.sq{border-collapse:separate;border-spacing:0 4px}
+table.sq td{border:0;background:rgba(255,255,255,.03);padding:8px}
+table.sq td:first-child{border-radius:10px 0 0 10px;font:700 14px var(--display);color:var(--muted)}table.sq td:last-child{border-radius:0 10px 10px 0}
+
 /* Match Helper / Play vs AI */
 .seg.mseg{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:14px;padding:3px;margin:0 0 14px}
 .seg.mseg button{flex:1;background:none;border:0;color:var(--muted);font:700 16px/1 var(--display);letter-spacing:.8px;text-transform:uppercase;padding:10px 0 9px;border-radius:11px;cursor:pointer}
@@ -572,6 +586,7 @@ body.simmode .tpanel{background:rgba(13,19,31,.8)}
 
   <section id="sbc">
     <div class="card">
+      <h2>SBC Solver</h2><p class="small muted" style="margin:0 0 12px">Add the requirements, or paste them as the game shows them, and get the cheapest squad.</p>
       <div class="row"><label>Formation <select id="sbcForm"></select></label></div>
       <h3>Requirements</h3>
       <div id="sbcList"></div>

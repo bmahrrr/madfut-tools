@@ -937,7 +937,7 @@ const PSIDE = s => s[0] === "L" ? 0 : s[0] === "R" ? 2 : 1;
 const PBAND = s => ({ GK: "g", LB: "d", CB: "d", RB: "d", CDM: "dm", LM: "m", CM: "m", RM: "m", CAM: "am", LW: "f", ST: "f", RW: "f" })[s] || "m";
 const TINTS = { icon: "#efe3c2", debut_icon: "#efe3c2", hero: "#a66bff", halloween_hero: "#a66bff", gold: "#e9c25a", silver: "#c9d0d6", bronze: "#c98a55", evo: "#3fe0c5", ltm: "#ff4d6a", totw: "#2a2a2a", hall_of_fut: "#ff8a1f", hall_of_fut_upgraded: "#ff8a1f" };
 const tintOf = p => { const k = p.evos && p.evos.length ? "evo" : String(p.color).replace(/^rare_/, "").replace(/_gold$/, "") === "totw" ? "totw" : String(p.color).replace(/^rare_/, "");
-  if (TINTS[k]) return TINTS[k]; let h = 0; for (const ch of k) h = (h * 31 + ch.charCodeAt(0)) % 360; return `hsl(${h} 80% 62%)`; };
+  if (TINTS[k]) return TINTS[k]; if (typeof TCOL !== "undefined" && TCOL[p.color]) return TCOL[p.color][0]; let h = 0; for (const ch of k) h = (h * 31 + ch.charCodeAt(0)) % 360; return `hsl(${h} 80% 62%)`; };
 const typeOf = p => p.evos && p.evos.length ? "Evo" : TYPE(p.color);
 function pitchHTML(ps, mode, cap) {
   const bands = {}; ps.forEach((p, i) => (bands[PBAND(p.slot)] = bands[PBAND(p.slot)] || []).push(i));
@@ -950,12 +950,14 @@ function pitchHTML(ps, mode, cap) {
     o.forEach((i, k) => xy[i] = [n === 1 ? 50 : span[0] + (span[1] - span[0]) * k / (n - 1), ys[PBAND(ps[i].slot)] + lift(ps[i].slot)]);
   }
   // lit stats: My Club = within 4 of the card's rating (like the game); Sim = the stat that slot uses
-  const lit = p => { if (mode !== "sim") return (p.card || p.eff).map(v => v >= p.rating - 4);
+  const lit = p => { if (mode === "sbc") return []; if (mode !== "sim") return (p.card || p.eff).map(v => v >= p.rating - 4);
     if (p.slot === "ST") return [1, 0, 0]; if (p.slot === "GK" || p.slot === "CB") return [0, 0, 1];
     return [(["LB", "RB", "CDM"].includes(p.slot) ? 0 : p.eff[0] >= cap - 1), 1, 0]; };
   const seen = new Map(); ps.forEach(p => seen.set(typeOf(p), tintOf(p)));
   return `<div class="pitch"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g><rect x="3" y="2" width="94" height="96" rx="1"/><line x1="3" y1="50" x2="97" y2="50"/><ellipse cx="50" cy="50" rx="13" ry="6.5"/><rect x="28" y="84" width="44" height="14"/><rect x="28" y="2" width="44" height="14"/></g></svg>${ps.map((p, i) => { const L = lit(p);
-    return `<div class="pc" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(p)}"><b class="r">${p.rating}</b><span class="ps">${esc(p.slot)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(p.name))}<span class="pst">${p.eff.map((v, k) => `<i class="${L[k] ? "on " + "acd"[k] : ""}">${v}</i>`).join("")}</span></div>`; }).join("")}</div>
+    return `<div class="pc" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(p)}"><b class="r">${p.rating}</b><span class="ps">${esc(p.slot)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(p.name))}${mode === "sbc"
+      ? `<span class="pchem" title="Chem ${p.chem}">${[0, 1, 2].map(k => `<i class="${k < p.chem ? "on" : ""}"></i>`).join("")}</span>`
+      : `<span class="pst">${p.eff.map((v, k) => `<i class="${L[k] ? "on " + "acd"[k] : ""}">${v}</i>`).join("")}</span>`}</div>`; }).join("")}</div>
     <div class="plegend">${[...seen].map(([n, t]) => `<em style="--t:${t}">${esc(n)}</em>`).join("")}</div>`;
 }
 // full name if it fits at 10px or more, else the last name (like the game's short names)
@@ -2232,7 +2234,8 @@ function drawSBCResult(working = false) {
     const head = working ? `<p><b>Squad found.</b> <span class="muted small" id="sbcWorking">Checking for a cheaper one…</span></p>`
       : r.proven ? `<p class="ok"><b>✓ Cheapest squad</b></p>`
       : `<p><b>Good squad</b> <span class="muted small">There may be a slightly cheaper one.</span> <button class="ghost" id="sbcLonger" style="padding:4px 9px;font-size:12px">Search longer</button></p>`;
-    out.innerHTML = `<h2>${esc(r.formation)} · rating ${r.rating} · chem ${r.chem}</h2>${head}
+    const pch = sbcChem(sq), pps = r.players.map((p, k) => Object.assign({}, p, { chem: pch[k] }));
+    out.innerHTML = `<div class="sbchead"><div><span>Formation</span><b>${esc(r.formation)}</b></div><div><span>Rating</span><b>${r.rating}</b></div><div><span>Chem</span><b>${r.chem}</b></div></div>${head}${pitchHTML(pps, "sbc")}
       <table class="sq"><tr><th>Pos</th><th>Player</th><th></th></tr>${r.players.map(p =>
         `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(cName(p.clubId))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
       ${skipHtml}
