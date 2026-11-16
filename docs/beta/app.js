@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261116l";
+const APP_V = "20261116m";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -928,10 +928,18 @@ function pitchHTML(ps, mode, cap) {
     return [(["LB", "RB", "CDM"].includes(p.slot) ? 0 : p.eff[0] >= cap - 1), 1, 0]; };
   const seen = new Map(); ps.forEach(p => seen.set(typeOf(p), tintOf(p)));
   return `<div class="pitch"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g><rect x="3" y="2" width="94" height="96" rx="1"/><line x1="3" y1="50" x2="97" y2="50"/><ellipse cx="50" cy="50" rx="13" ry="6.5"/><rect x="28" y="84" width="44" height="14"/><rect x="28" y="2" width="44" height="14"/></g></svg>${ps.map((p, i) => { const L = lit(p);
-    return `<div class="pc" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(p)}"><b class="r">${p.rating}</b><span class="ps">${esc(p.slot)}</span><span class="pn">${esc(cap1(p.name))}</span><span class="pst">${p.eff.map((v, k) => `<i class="${L[k] ? "on " + "acd"[k] : ""}">${v}</i>`).join("")}</span></div>`; }).join("")}</div>
+    return `<div class="pc" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(p)}"><b class="r">${p.rating}</b><span class="ps">${esc(p.slot)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(p.name))}<span class="pst">${p.eff.map((v, k) => `<i class="${L[k] ? "on " + "acd"[k] : ""}">${v}</i>`).join("")}</span></div>`; }).join("")}</div>
     <div class="plegend">${[...seen].map(([n, t]) => `<em style="--t:${t}">${esc(n)}</em>`).join("")}</div>`;
 }
-const cap1 = n => { const s = cap(n); return s.length > 11 ? s.split(/[ -]/).pop() : s; };
+// full name if it fits at 10px or more, else the last name (like the game's short names)
+const pnFit = n => { const s = cap(n), z = pnSize(s); if (z >= 10 || !/[ -]/.test(s)) return [s, z]; const l = s.split(/[ -]/).pop(); return [l, pnSize(l)]; };
+if (document.fonts) document.fonts.ready.then(() => document.querySelectorAll(".pc .pn").forEach(e => { PN_FIT.delete(e.textContent); e.style.fontSize = pnSize(e.textContent) + "px"; }));
+// whole name always fits the card: measured in the card font, shrunk until it fits
+const PN_FIT = new Map(); let PN_CTX = null;
+const pnSize = n => { if (PN_FIT.has(n)) return PN_FIT.get(n);
+  PN_CTX = PN_CTX || document.createElement("canvas").getContext("2d"); let z = 13;
+  for (; z > 8; z -= .5) { PN_CTX.font = `700 ${z}px "Saira Extra Condensed","Arial Narrow",sans-serif`; if (PN_CTX.measureText(n).width + .2 * z * 0.02 * n.length <= 54) break; }
+  if (document.fonts && document.fonts.status === "loaded") PN_FIT.set(n, z); return z; };
 // Teams tab: My Club / Sim switch and series pills; one series shown at a time
 function teamSelector() {
   const box = $("tsel"); if (!box) return;
@@ -1263,7 +1271,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116l"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116m"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1289,7 +1297,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116l"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116m"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2072,7 +2080,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116l");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116m");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
