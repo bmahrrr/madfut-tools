@@ -1,5 +1,5 @@
 // Runs the exact My Club solver off the main thread so the page stays responsive.
-importScripts("engine.js?v=20261116j");
+importScripts("engine.js?v=20261117b");
 let S = null;
 // The C solver compiled to WebAssembly: same answers as Solver, about 3x faster. Falls back to Solver if it can't load.
 let WX = null;
@@ -88,6 +88,17 @@ onmessage = async (e) => {
         if (!best || key[0] < best.key[0] || (key[0] === best.key[0] && (key[1] < best.key[1] || (key[1] === best.key[1] && key[2] < best.key[2])))) best = { j, s: st, key };
       }
       postMessage({ id: m.id, ok: true, result: { j: best.j, s: best.s } });
+    } else if (m.type === "bLeads") {         // Play mode: every lead they could make, with the result it holds you to (lower is better for them)
+      const { ma, mb, d } = m, out = [];
+      for (let j = 0; j < 11; j++) if (mb >> j & 1) for (let st = 0; st < 3; st++) {
+        let rep = null;
+        for (let i = 0; i < 11; i++) if (ma >> i & 1) {
+          const r = S.duel(i, j, st, false), v = S.outcome(ma & ~(1 << i), mb & ~(1 << j), d + r);
+          if (!rep || v > rep.v || (v === rep.v && r > rep.r)) rep = { v, r };
+        }
+        out.push({ j, s: st, v: rep.v, r: rep.r });
+      }
+      postMessage({ id: m.id, ok: true, result: out });
     } else if (m.type === "value") {
       postMessage({ id: m.id, ok: true, result: S.outcome(m.ma, m.mb, m.d) });
     } else if (m.type === "leads") {          // leads for side A that keep the best reachable result

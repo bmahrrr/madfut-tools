@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117a";
+const APP_V = "20261117b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -726,14 +726,13 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
   { day: "2026-11-16", items: [
-    { p: 1, t: "<b>Play vs AI:</b> now its own mode in Match, with three AI styles. Human and Varied mix up their openings instead of always making the same move." },
-    { p: 1, t: "<b>Games:</b> new tab with Higher or Lower and a daily Guess the Player." },
-    { p: 1, t: "<b>SBC:</b> solved squads now show on a pitch with each player's chem." },
-    { p: 1, t: "<b>New look:</b> pick My Club or Sim and a series to see that team laid out on a pitch. Sim switches the site to blue, and phones get a tab bar at the bottom." },
+    { t: "<b>Play vs AI:</b> new mode in Match. You make every move and the AI plays theirs, in one of three styles. Human and Varied mix up their openings." },
+    { t: "<b>Games:</b> new tab with Higher or Lower and a daily Guess the Player." },
+    { t: "<b>SBC:</b> solved squads now show on a pitch with each player's chem." },
+    { t: "<b>New look:</b> pick My Club or Sim and a series to see that team laid out on a pitch. Sim switches the site to blue, and phones get a tab bar at the bottom." },
     { p: 1, t: "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos." },
     { p: 1, t: "<b>Evo names:</b> shown on every card that uses one, with both names for a chain." },
     { p: 1, t: "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone." },
-    "<b>Match Helper:</b> new Play Against Them mode. You make every move and the site plays their team perfectly.",
     "<b>Evo cards:</b> every evolved card this game year is in the Cards tab and in every card search.",
     "<b>Unbeatable:</b> a My Club team gets the label when 5+ cards can't be beaten in the same stat and its tiebreak card can't lose.",
     "<b>Sim Odds:</b> removing a player leaves his spot empty, so the next card you add goes straight into it.",
@@ -759,7 +758,7 @@ const UPDATES = [
   ] }
 ];
 // an item marked p: still on the preview only, so the main site doesn't announce it yet
-const updItems = u => u.items.filter(x => typeof x === "string" || PREVIEW).map(x => typeof x === "string" ? x : x.t);
+const updItems = u => u.items.filter(x => typeof x === "string" || !x.p || PREVIEW).map(x => typeof x === "string" ? x : x.t);
 const updateCard = () => { const u = UPDATES.find(u => updItems(u).length); return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${updItems(u).map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
 let VAULT = null;     // { week, files } when looking at a past week
 let DOCK = "";        // which chip panel above the team is open
@@ -1305,7 +1304,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1331,7 +1330,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2145,7 +2144,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117a");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
