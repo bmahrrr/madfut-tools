@@ -8,7 +8,9 @@ const SBC_AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_
 const SBC_ICON = new Set(["icon", "debut_icon"]);
 const SBC_HERO = new Set(["hero", "hall_of_fut"]);
 // Card types the game doesn't allow in SBCs.
-const NO_SBC = new Set(["evo", "elite_evo", "sbc_premium", "ltm", "epl_potm", "laliga_potm", "seriea_potm", "bundesliga_potm", "ligue1_potm", "ligue_1_potm", "liga_f_potm"]);
+const NO_SBC = new Set(["evo", "elite_evo", "sbc_premium", "ltm", "world_potm", "epl_potm", "laliga_potm", "seriea_potm", "bundesliga_potm", "ligue1_potm", "ligue_1_potm", "liga_f_potm"]);
+// Single cards the game won't take in SBCs.
+const NO_SBC_ID = new Set(["id50575350"]);   // Spence 83 Ones to Watch
 const COMMON_FORMS = ["4-3-3", "4-4-2", "4-2-3-1", "3-5-2", "4-1-2-1-2", "3-4-3", "4-4-1-1", "5-3-2", "4-3-2-1", "3-4-1-2"];
 const THRESH = { n: [2, 5, 8], l: [3, 5, 8], k: [2, 4, 7] };
 
@@ -74,7 +76,7 @@ function sbcPool(req, cards) {
   const rules = req.rules || [];
   const lo = req.min_card_rating || 0, hi = req.max_card_rating || 99;
   return cards.filter(c => {
-    if (ex.has(c.id) || NO_SBC.has(c.color) || NO_SBC.has(String(c.color).replace("rare_", ""))) return false;
+    if (ex.has(c.id) || NO_SBC_ID.has(c.id) || NO_SBC.has(c.color) || NO_SBC.has(String(c.color).replace("rare_", ""))) return false;
     if (inc.has(c.id)) return true;
     if (c.rating < lo || c.rating > hi) return false;
     const named = rules.some(r => r.on === "player" && r.op !== "<=" && r.n > 0 && ruleMatch(c, r));   // a version of a player the SBC asks for
@@ -1151,6 +1153,29 @@ function sbcResult(best, proven, FORMS, ncand) {
     candidates: ncand,
   };
 }
+// Greedy cheapening: each round makes the single swap (one slot, any card that fits it) that saves the most while the
+// squad stays valid; stops when no swap helps.
+function cheapenSBC(req, pool, slots, sq, ms = 3000) {
+  const t0 = Date.now(), pr = req.priority, cost = x => sbcCost(x, pr);
+  const bySlot = new Map();
+  for (const sl of new Set(slots)) bySlot.set(sl, pool.filter(c => c.P.has(sl)).sort((a, b) => cost(a) - cost(b)));
+  sq = sq.slice();
+  for (let round = 0; round < 40 && Date.now() - t0 < ms; round++) {
+    let bestSave = 0, bk = -1, bc = null;
+    for (let k = 0; k < sq.length; k++) {
+      const cur = cost(sq[k]);
+      for (const c of bySlot.get(slots[k])) {          // cheapest first: the first valid one is this slot's best swap
+        if (cur - cost(c) <= bestSave) break;
+        if (c.id === sq[k].id) continue;
+        const s2 = sq.slice(); s2[k] = c;
+        if (validSBC(req, s2)) { bestSave = cur - cost(c); bk = k; bc = c; break; }
+      }
+    }
+    if (bk < 0) break;
+    sq[bk] = bc;
+  }
+  return sq;
+}
 // highs: the loaded HiGHS module. FORMS: {formation: [11 positions]}. progress(text) for status updates.
 // "Card types: Min 4+" needs gold, silver and bronze plus specials. Saying so as rules steers the fast search to them
 // (the final check and the exact solver still use the real requirement).
@@ -1168,12 +1193,13 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
   const cands = sbcCandidates(req, pool, forms, FORMS, req._K || (timeLimit >= 60 ? { per: 90, rule: 40, tr: 50, groups: 10, depth: 14, types: 6 } : {}));
   const tr = req.min_rating || 0;
   let best = null, proven = true, timedOut = false;
+  const found = [];                     // every squad found, per formation: each gets a cheapening pass at the end
   const safeLink = (...a) => { try { return linkSearch(...a); } catch (e) { return null; } };   // a new step must never break the solver
   const HYB = (req.min_types || 0) >= 5 || (req.rules || []).some(r => r.on === "rarity" && r.id === "special" && r.op !== "<=" && r.n >= 3);
   forms.forEach((form, fi) => {
     const slots = FORMS[form], tag = forms.length > 1 ? ` (${fi + 1}/${forms.length})` : "", ft0 = Date.now();
     let formBest = null;
-    const offer = (f) => { if (f && (!formBest || f.cost < formBest.cost)) { formBest = f; if (!best || f.cost < best.cost) { best = { cost: f.cost, form, sq: f.sq }; onPartial(sbcResult(best, false, FORMS, cands.length)); } } };
+    const offer = (f) => { if (f) found.push({ form, sq: f.sq }); if (f && (!formBest || f.cost < formBest.cost)) { formBest = f; if (!best || f.cost < best.cost) { best = { cost: f.cost, form, sq: f.sq }; onPartial(sbcResult(best, false, FORMS, cands.length)); } } };
     if ((req.min_chem || 0) >= 25 || req.min_player_chem) {            // chem-heavy (the usual hybrid SBC): Icon + perfect-link groups first
       progress(`Building linked groups ${form}${tag}…`);
       offer(hybridSBC(req, pool, slots, forms.length > 1 ? 800 : 2500));
@@ -1231,6 +1257,7 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
     const got = !sq.includes(null) && (res.Status === "Optimal" || res.Status === "Time limit reached") && validSBC(req, sq);
     if (got) {
       const c = sq.reduce((a, x) => a + sbcCost(x, req.priority), 0);
+      found.push({ form, sq });
       if (!best || c < best.cost) best = { cost: c, form, sq };
     }
     if (res.Status === "Optimal" || res.Status === "Infeasible") return;   // this formation is settled
@@ -1243,10 +1270,21 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
       if (best) return;
       progress(`Linking cards ${form}${forms.length > 1 ? ` (${fi + 1}/${forms.length})` : ""}…`);
       const f = safeLink(req, pool, FORMS[form], per, fi + 1, highs);
-      if (f) { best = { cost: f.cost, form, sq: f.sq }; proven = false; }
+      if (f) { best = { cost: f.cost, form, sq: f.sq }; found.push({ form, sq: f.sq }); proven = false; }
     });
   }
   if (!best) return { none: true, timedOut, candidates: cands.length };
+  // last step: swap cards for cheaper ones one at a time while every requirement still holds (drops a squad rating
+  // that overshoots, extra specials, pricey cards a cheaper link could replace). Best few squads per formation only.
+  progress("Making it cheaper…");
+  const seenSq = new Set(), byForm = new Map();
+  for (const f of found) { const k = f.form + "|" + f.sq.map(x => x.id).sort().join(","); if (seenSq.has(k)) continue; seenSq.add(k); (byForm.get(f.form) || byForm.set(f.form, []).get(f.form)).push(f); }
+  const tc = Date.now(), cost = sq => sq.reduce((a, x) => a + sbcCost(x, req.priority), 0);
+  for (const [form, list] of byForm) for (const f of list.sort((a, b) => cost(a.sq) - cost(b.sq)).slice(0, 3)) {
+    if (Date.now() - tc > 6000) break;
+    const sq = cheapenSBC(req, pool, FORMS[form], f.sq), c = cost(sq);
+    if (c < best.cost) best = { cost: c, form, sq };
+  }
   const rt = teamRatingOf(best.sq.map(x => x.rating));
   if (tr && rt < tr) throw new Error("Internal check failed: squad rating " + rt + " below " + tr);
   return sbcResult(best, proven, FORMS, cands.length);

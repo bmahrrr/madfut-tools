@@ -60,7 +60,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261116e";
+const APP_V = "20261116j";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1200,7 +1200,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116j"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1226,7 +1226,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1742,7 +1742,7 @@ function drawAddBody() {
       addItem({ t: "num", key: t === "count" ? `${m}_${k}s` : `${m}_same_${k}`, v });
     };
   } else if (t === "ctype") {
-    const types = [...new Set(CARDS.filter(c => !c._extra && !NO_SBC.has(c.color)).map(sbcType))].filter(x => !["gold", "silver", "bronze"].includes(x)).sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
+    const types = [...new Set(CARDS.filter(c => !c._extra && !(NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))).map(sbcType))].filter(x => !["gold", "silver", "bronze"].includes(x)).sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
     box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
       <select id="aC"><option value="rarity:gold">Gold</option><option value="rarity:silver">Silver</option><option value="rarity:bronze">Bronze</option><option value="rarity:special">Special Cards</option>${types.map(x => `<option value="color:${esc(x)}">${esc(TYPE(x))}</option>`).join("")}</select> ${addBtn}</div>`; done();
     $("aOk").onclick = () => { const [on, id] = $("aC").value.split(":"); addItem({ t: "rule", rule: { on, id, op: $("aOp").value, n: +$("aN").value || 0 } }); };
@@ -1753,7 +1753,7 @@ function drawAddBody() {
     $("aQ").focus();
   } else if (t === "inc") {
     box.innerHTML = `<input type="text" id="aQ" placeholder="Search a player"><ul class="sr" id="aSr" hidden></ul><div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
-    hookSearch("aQ", "aSr", c => { if (c._extra || NO_SBC.has(c.color)) { alert(`${TYPE(c.color)} cards can't be used in SBCs.`); return; } addItem({ t: "inc", id: c.id }); });
+    hookSearch("aQ", "aSr", c => { if (c._extra || (NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))) { alert(NO_SBC_ID.has(c.id) ? `This ${c.name} card can't be used in SBCs.` : `${TYPE(c.color)} cards can't be used in SBCs.`); return; } addItem({ t: "inc", id: c.id }); });
     $("aQ").focus();
   } else if (t === "from") {
     box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
@@ -1830,7 +1830,7 @@ let NAME_IDX = null;
 function nameIndex() {
   if (NAME_IDX) return NAME_IDX;
   const has = { nation: new Set(), league: new Set(), club: new Set() };
-  CARDS.forEach(c => { if (c._extra || NO_SBC.has(c.color)) return; has.nation.add(c.nationId); has.league.add(c.leagueId); has.club.add(c.clubId); });
+  CARDS.forEach(c => { if (c._extra || (NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))) return; has.nation.add(c.nationId); has.league.add(c.leagueId); has.club.add(c.clubId); });
   NAME_IDX = [];
   for (const [kind, names] of [["nation", NATIONS], ["league", LEAGUES], ["club", CLUBS]])
     for (const [id, label] of Object.entries(names)) if (has[kind].has(+id)) {
@@ -1880,7 +1880,7 @@ function parseSBCText(text, picks = {}) {
   const out = { items: [], formation: null, icons: null, specials: null, notes: [], amb: [], skipped: [] };
   const num = (key, op, v) => out.items.push({ t: "num", key: (op === "<=" ? "max_" : op === "=" ? "exact_" : "min_") + key, v });
   const rule = (on, id, op, n, name) => out.items.push({ t: "rule", rule: name ? { on, id, op, n, name } : { on, id, op, n } });
-  const types = [...new Set(CARDS.filter(c => !c._extra && !NO_SBC.has(c.color)).map(sbcType))];
+  const types = [...new Set(CARDS.filter(c => !c._extra && !(NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))).map(sbcType))];
   const lines = String(text).split(/\n/).map(l => l.replace(/[*_•]/g, "").replace(/^\s*[-–]\s*/, "").trim()).filter(Boolean);
   lines.forEach((line, li) => {
     const fm = line.match(/^formation\s*:?\s*(\d(?:-\d){2,4})/i) || line.match(/^(\d(?:-\d){2,4})$/);
@@ -1975,7 +1975,7 @@ function drawCheck() {
 function setupCheck() {
   try { CHK.ids = JSON.parse(localStorage.getItem("sbcCheck") || "[]").filter(id => BYID.has(id)); } catch (e) {}
   hookSearch("chkQ", "chkSr", c => {
-    if (c._extra || NO_SBC.has(c.color)) { alert(`${TYPE(c.color)} cards can't be used in SBCs.`); return; }
+    if (c._extra || (NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))) { alert(NO_SBC_ID.has(c.id) ? `This ${c.name} card can't be used in SBCs.` : `${TYPE(c.color)} cards can't be used in SBCs.`); return; }
     if (CHK.ids.length >= 11) { alert("The squad already has 11. Remove one first."); return; }
     CHK.ids.push(c.id); saveChk(); drawCheck(); $("chkQ").focus();
   });
@@ -2009,7 +2009,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116e");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116j");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2074,7 +2074,7 @@ function sbcHints(req) {
   const out = [], icons = !!req.allow_icons;
   const clubs = [...new Set((req.rules || []).filter(r => r.on === "club" && r.op !== "<=" && r.n > 0).map(r => r.id))];
   if (!icons && (req.min_chem || 0) >= 30 && (req.min_leagues || 0) >= 5 && clubs.length >= 5) {
-    const lg = new Map(clubs.map(k => [k, new Set(CARDS.filter(c => c.clubId === k && !NO_SBC.has(c.color)).map(c => c.leagueId))]));
+    const lg = new Map(clubs.map(k => [k, new Set(CARDS.filter(c => c.clubId === k && !(NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))).map(c => c.leagueId))]));
     const pairs = [];
     for (let i = 0; i < clubs.length; i++) for (let j = i + 1; j < clubs.length; j++) if ([...lg.get(clubs[i])].some(l => lg.get(clubs[j]).has(l))) pairs.push([clubs[i], clubs[j]]);
     const name = k => CLUBS[k] || k;
