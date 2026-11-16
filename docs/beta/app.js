@@ -60,7 +60,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261116e";
+const APP_V = "20261116f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -748,9 +748,7 @@ async function renderTeams() {
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_") && !f.includes("--"));
   const vfiles = files.filter(f => (f.startsWith("myclub_") || f.startsWith("sim_")) && f.includes("--"));
   // each series: All Evos / Recommended Evos (the main team) / No LTM & Evos, one at a time (only the ones built so far)
-  const VORDER = ["allevo", "", "noltmevo", "myevo", "winodds"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos", winodds: "Win Odds (Test)" };
-  // preview only: test versions kept in beta/preview (never on the main site)
-  const PREV = !V && APPDIR ? (((await getJSON(APPDIR + "preview/index.json").catch(() => null)) || {}).files || []) : [];
+  const VORDER = ["allevo", "", "noltmevo", "myevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos" };
   const ME = !V && PREVIEW && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
   const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
   // each version carries its own header result (Unbeatable, or when it last changed): the header follows the version shown
@@ -840,21 +838,20 @@ async function renderTeams() {
       const sid = "sim:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
       const sres = lastChange(d), st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`;
       const cad = `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`;
-      const myV = vfiles.concat(PREV).filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
+      const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
       html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, m.chem, mineTag))}" data-avgs="${esc(cad)}">${bar}${vtag(which, d)}<div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", m.control)}${avg("Attack", m.attack)}${avg("Defence", m.defence)}</div>${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<p class="small muted" style="margin:-6px 0 10px">Tested against the Reddit team by ${simCredit()}</p>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
       for (const vf of myV) {
         try {
-          let vd = await getJSON((PREV.includes(vf) ? APPDIR + "preview/" : base) + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
+          let vd = await getJSON(base + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
           let vt = vd.teams && vd.teams[0]; if (!vt) continue;
           const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
           if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
               || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
             vd = Object.assign({}, vd, { built: d.built, same_as_full: true }); vt = t;
           }
-          const vm = vt.metrics, gone = vd.not_owned || [], wo = vd.test && vd.test.vs_recommended;
+          const vm = vt.metrics, gone = vd.not_owned || [];
           html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vm.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
             ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
-            ${vid === "winodds" ? `<p class="small muted" style="margin:0 0 8px">Test, preview only: built for the best win odds against the strongest teams, not control first.${wo ? ` Against the Recommended Evos team: ${wo[0]}% win, ${wo[1]}% draw, ${wo[2]}% loss.` : ""}</p>` : ""}
             <div class="score" style="grid-template-columns:1fr 1fr 1fr">${avg("Control", vm.control)}${avg("Attack", vm.attack)}${avg("Defence", vm.defence)}</div>${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
             lastChange(vd), midOf(vt.formation, vm.chem), avgsOf(vm));
         } catch (e) {}
@@ -1200,7 +1197,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261116f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1226,7 +1223,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261116f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2009,7 +2006,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116e");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261116f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
