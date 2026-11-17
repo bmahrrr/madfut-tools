@@ -29,6 +29,9 @@ const TIER = {
   hard:   { locks: 4, t0: 31, t1: 33, pts: 350, step: 20, each: 40, noIcon: 150, reverse: true },
   expert: { locks: 5, t0: 33, t1: 33, pts: 500, step: 25, each: 50, noIcon: 250, reverse: true },
 };
+// each set's name (puzzle and set ids stay the same, so leaderboards aren't affected by a rename)
+const SET_NAMES = { easy: ["Kick Off", "Sunday League", "Pre-Season", "Warm Up", "Five-a-Side"], medium: ["Derby Day", "Cup Run", "Midweek Lights", "Transfer Window", "Extra Time"],
+  hard: ["Title Race", "Away Days", "Deadline Day", "Relegation Battle", "Penalty Shootout"], expert: ["Final Whistle", "Invincibles", "The Treble", "Hall of Fame", "Golden Boot"] };
 const FORMATIONS = ["4-3-3", "4-4-2", "4-2-3-1", "3-5-2", "4-1-2-1-2", "3-4-3", "4-4-1-1", "5-3-2", "4-3-2-1", "3-4-1-2", "4-5-1", "4-2-2-2", "5-2-1-2", "3-1-4-2"].filter(f => FORMS[f]);
 
 // cards that can be locked: real players people know, gold or special, not Icons / Heroes, rated 70 to 86
@@ -60,7 +63,7 @@ function chooseLocks(n, slots) {
     if (ONLY && tier !== ONLY) continue;
     seed = 20261117 + tier.length * 7919;
     for (let si = 1; si <= SETS; si++) {
-      const set = { id: `${tier}-${si}`, tier, name: `${PZ_TIERS[tier].name} ${si}`, puzzles: [] };
+      const set = { id: `${tier}-${si}`, tier, name: (SET_NAMES[tier] || [])[si - 1] || `${PZ_TIERS[tier].name} ${si}`, puzzles: [] };
       while (set.puzzles.length < PER) {
         const n = set.puzzles.length + 1, f = pick(FORMATIONS), slots = FORMS[f];
         const target = Math.round(T.t0 + (T.t1 - T.t0) * (n - 1) / Math.max(1, PER - 1));

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261117f">
+<meta name="app-version" content="20261117g">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -569,6 +569,34 @@ body.simmode .tpanel{background:rgba(13,19,31,.8)}
 .verdict::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--win);flex:none;transform:translateY(-1px)}
 .verdict span{display:inline;font:400 12px/1.3 var(--body)}
 
+/* Puzzles v2: tier colours, rings, links on the pitch */
+.t-easy{--tc:#3ddc97}.t-medium{--tc:#3ba7ff}.t-hard{--tc:#ff8a1f}.t-expert{--tc:#ff4d6a}
+#gameBox .pzlogo{font:800 italic 44px/1 var(--display);letter-spacing:1px;background:linear-gradient(90deg,#b6ff5c,#3ddc97 45%,#3ba7ff);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(61,220,151,.35));margin:0 0 6px}
+#gameBox .pztier{color:var(--tc)}.pztier::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--tc);box-shadow:0 0 10px var(--tc);align-self:center}
+#gameBox .pzsets{grid-template-columns:1fr;gap:8px}
+#gameBox .pzset{flex-direction:row;align-items:center;gap:14px;padding:12px 14px;border-color:color-mix(in srgb,var(--tc) 35%,transparent);background:linear-gradient(100deg,color-mix(in srgb,var(--tc) 14%,transparent),rgba(255,255,255,.02) 70%)}
+#gameBox .pzset .ring{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--tc) calc(var(--p)*1%),rgba(255,255,255,.08) 0)}
+#gameBox .pzset .ring em{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#17110e;font:800 17px/1 var(--display);font-style:normal}
+body.simmode #gameBox .pzset .ring em{background:#0d131e}
+#gameBox .pzset .ring small{font-size:10px;color:var(--muted)}
+#gameBox .pzset .tx{display:flex;flex-direction:column;gap:3px;min-width:0}
+#gameBox .pzset .tx b{font-size:22px}.pzset .tx small{font-size:12px;color:var(--muted)}.pzset .pts{color:var(--tc)!important}
+#gameBox .pzbar b{display:flex;flex-direction:column;align-items:center;line-height:1}.pzbar b small{font:700 11px/1.4 var(--display);letter-spacing:1.2px;color:var(--tc,var(--muted))}
+#gameBox .pzgrid .pztile{border-color:color-mix(in srgb,var(--tc) 25%,transparent)}
+#gameBox .pzgrid .pztile.done{border-color:var(--tc);background:color-mix(in srgb,var(--tc) 14%,transparent)}.pzgrid .pztile.done small{color:var(--tc)}
+#gameBox .pzpitch{height:520px}
+.pc .plink{display:flex;align-items:center;gap:2px;margin-top:3px;max-width:100%}
+.pc .plink i{font:700 8px/1.5 var(--body);font-style:normal;padding:0 3px;border-radius:3px;white-space:nowrap;overflow:hidden;max-width:30px;color:#fff;background:var(--g,rgba(255,255,255,.12))}
+.pc .plink i:not([style*="#"]){color:var(--muted)}
+.pc .plink i.ic{background:linear-gradient(90deg,#efe3c2,#c9b27a);color:#1a1204}
+.pc .plink b{width:8px;height:8px;border-radius:50%;flex:none;background:var(--g,rgba(255,255,255,.15))}
+.pc .plink b:not([style*="#"]){background:rgba(255,255,255,.15)}
+.pzlinks{margin:0 0 10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line2)}
+.pzlk{display:flex;gap:10px;align-items:flex-start;padding:4px 0}.pzlk>span{flex:none;width:58px;font:700 11px/2 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.pzlk>div{display:flex;flex-wrap:wrap;gap:4px}
+.pzlk em{font-style:normal;font-size:12px;display:inline-flex;align-items:baseline;gap:4px;padding:3px 8px;border-radius:999px;border:1px solid var(--g);background:color-mix(in srgb,var(--g) 14%,transparent)}
+.pzlk em b{font-weight:600;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pzlk em small{color:var(--muted)}
+
 </style>
 </head>
 <body>
@@ -746,9 +774,9 @@ body.simmode .tpanel{background:rgba(13,19,31,.8)}
   <button data-mt="setup"><b>Season Setup</b><small>Series, boosts and builds</small></button>
 </div></div>
 
-<script src="beta/engine.js?v=20261117f"></script>
-<script src="beta/sbc-solver.js?v=20261117f"></script>
-<script src="beta/puzzle-core.js?v=20261117f"></script>
-<script src="beta/app.js?v=20261117f"></script>
+<script src="beta/engine.js?v=20261117g"></script>
+<script src="beta/sbc-solver.js?v=20261117g"></script>
+<script src="beta/puzzle-core.js?v=20261117g"></script>
+<script src="beta/app.js?v=20261117g"></script>
 </body>
 </html>

@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117f";
+const APP_V = "20261117g";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1333,7 +1333,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1359,7 +1359,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2173,7 +2173,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117f");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117g");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2772,6 +2772,28 @@ const setSolved = set => { const b = pzBest(); return set.puzzles.filter(p => b[
 const fmtN = n => Number(n || 0).toLocaleString();
 const bonusText = pz => `+${pz.bonus.each} each ${esc(pz.bonus.label)} card`;
 
+// short codes for the pitch: nation (FIFA style), league, and a colour per link group
+const NAT3 = { England: "ENG", Germany: "GER", Spain: "ESP", France: "FRA", Argentina: "ARG", "United States": "USA", Italy: "ITA", Netherlands: "NED", Brazil: "BRA", Sweden: "SWE", Norway: "NOR", Denmark: "DEN", Portugal: "POR", "Korea Republic": "KOR", Belgium: "BEL", "Republic of Ireland": "IRL", Poland: "POL", "Saudi Arabia": "KSA", Mexico: "MEX", Switzerland: "SUI", Austria: "AUT", Colombia: "COL", "China PR": "CHN", Scotland: "SCO", Romania: "ROU", Australia: "AUS", "Türkiye": "TUR", Uruguay: "URU", India: "IND", Paraguay: "PAR", Nigeria: "NGA", Wales: "WAL", Morocco: "MAR", Croatia: "CRO", Senegal: "SEN", Japan: "JPN", "Ivory Coast": "CIV", Chile: "CHI", Ecuador: "ECU", Ghana: "GHA", Canada: "CAN", Venezuela: "VEN", Serbia: "SRB", "Czech Republic": "CZE", Greece: "GRE", Ukraine: "UKR", Finland: "FIN", "Northern Ireland": "NIR", Cameroon: "CMR", Peru: "PER", Iceland: "ISL", Mali: "MLI", Algeria: "ALG", Hungary: "HUN", "Bosnia Herzegovina": "BIH", Kosovo: "KVX", "DR Congo": "COD", Bolivia: "BOL", Albania: "ALB", Jamaica: "JAM", Slovenia: "SVN", Slovakia: "SVK", "New Zealand": "NZL", Guinea: "GUI", Gambia: "GAM", Tunisia: "TUN", Georgia: "GEO", "Cape Verde Islands": "CPV", Cyprus: "CYP", "Burkina Faso": "BFA", Egypt: "EGY", Israel: "ISR", Russia: "RUS", Montenegro: "MNE", "North Macedonia": "MKD", Bulgaria: "BUL", Iran: "IRN", "Costa Rica": "CRC", Honduras: "HON", Panama: "PAN" };
+const LG3 = { "Premier League": "EPL", "EFL Championship": "CHAMP", "EFL League One": "EFL1", "EFL League Two": "EFL2", "LALIGA EA SPORTS": "LIGA", "LALIGA HYPERMOTION": "LIGA2", "Serie A Enilive": "SERIE A", "Serie BKT": "SERIE B",
+  "Bundesliga": "BUND", "Bundesliga 2": "BUND2", "3. Liga": "3LIGA", "Ligue 1 McDonald's": "LIGUE1", "Ligue 2 BKT": "LIGUE2", "Eredivisie": "ERED", "Liga Portugal": "LPOR", "ROSHN Saudi League": "SAUDI", "Major League Soccer": "MLS",
+  "Liga Profesional de Fútbol": "ARG", "Trendyol Süper Lig": "SÜPER", "1A Pro League": "PRO", "Scottish Premiership": "SPFL", "Icons": "ICON", "Google Pixel Frauen-Bundesliga": "FBL", "Barclays Women’s Super League": "WSL", "Liga F Moeve": "LIGA F",
+  "Arkema Première Ligue": "D1F", "National Women's Soccer League": "NWSL", "Liga BBVA MX": "LIGA MX", "CONMEBOL Libertadores": "LIBERT", "CONMEBOL Sudamericana": "SUDAM", "K League 1": "K1", "Allsvenskan": "ALLSV", "Eliteserien": "ELITE",
+  "PKO Bank Polski Ekstraklasa": "EKSTR", "SUPERLIGA": "SUPERL", "3F Superliga": "3F SL", "Brack Super League": "SWISS", "Österreichische Fußball-Bundesliga": "AUT BL", "Indian Super League": "ISL", "Isuzu UTE A League": "A-LG", "Hellas Liga": "HELLAS", "Česká Liga": "CZE", "Ukrayina Liha": "UKR" };
+const nat3 = id => { const n = nName(id); return NAT3[n] || n.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase(); };
+const lg3 = id => { const n = lName(id); return LG3[n] || n.split(/\s+/).map(w => w[0]).join("").slice(0, 4).toUpperCase(); };
+const LINKC = ["#ff8a1f", "#3ba7ff", "#3ddc97", "#c77dff", "#ffd36b", "#ff5c8a", "#5ce1e6", "#a3e635"];
+// counts (in-position cards only, Icons count for their nation; Heroes / Icons have no club) and colours for groups of 2+
+function pzLinks(slots, team) {
+  const on = team.map((c, i) => c && pzFits(c, slots[i]) ? c : null).filter(Boolean), G = { n: new Map(), l: new Map(), c: new Map() };
+  for (const c of on) {
+    G.n.set(c.nationId, (G.n.get(c.nationId) || 0) + (SC2(c, "nation") ? 2 : 1));
+    if (!SBC_ICON.has(c.color)) G.l.set(c.leagueId, (G.l.get(c.leagueId) || 0) + (SC2(c, "league") || SBC_HERO.has(c.color) ? 2 : 1));
+    if (!SBC_AUTO.has(c.color)) G.c.set(c.clubId, (G.c.get(c.clubId) || 0) + (SC2(c, "club") ? 2 : 1));
+  }
+  const col = {}; for (const k of "nlc") { let j = 0; col[k] = new Map([...G[k]].sort((a, b) => b[1] - a[1]).map(([id, n]) => [id, n >= 2 ? LINKC[(j++ + "nlc".indexOf(k) * 3) % LINKC.length] : ""])); }
+  return { G, col };
+}
+const NEXT = { n: [2, 5, 8], l: [3, 5, 8], c: [2, 4, 7] };
 function pzDraw() {
   const box = $("gameBox"); if (!box) return;
   if (!PZ.data) { box.innerHTML = `<p class="muted">Loading puzzles…</p>`; pzLoad().then(pzDraw).catch(e => box.innerHTML = `<p class="muted">Couldn't load the puzzles: ${esc(e.message)}</p>`); return; }
@@ -2779,34 +2801,39 @@ function pzDraw() {
 }
 function pzHome() {
   const tiers = Object.keys(PZ_TIERS), all = PZ.data.sets, total = all.reduce((a, s) => a + setPts(s), 0), r = PZ.me && PZ.me.ranks && PZ.me.ranks.all;
-  $("gameBox").innerHTML = `<div class="pzintro"><h2>Puzzles</h2><p class="small muted">Finish each squad around the locked cards and reach the chem target. Bonus points for cards from the puzzle's league, nation or club, and for using no Icons or Heroes. Open any set.</p>
+  $("gameBox").innerHTML = `<div class="pzintro"><h2 class="pzlogo">Puzzles</h2><p class="small muted">Finish each squad around the locked cards and reach the chem target. Bonus points for cards from the puzzle's league, nation or club, and for using no Icons or Heroes. Open any set.</p>
     <div class="pzme"><div><span>Your points</span><b>${fmtN(total)}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><button class="ghost" data-pzlb="all">Leaderboard</button></div>
     <p class="small muted" style="margin:6px 0 0">Playing as <b>${esc(pzName() || "no name yet")}</b> · <a href="#" id="pzRename">${pzName() ? "change" : "set a name"}</a></p></div>
-    ${tiers.map(t => { const sets = all.filter(s => s.tier === t); return sets.length ? `<h3 class="pztier">${esc(PZ_TIERS[t].name)}<small>${esc(PZ_TIERS[t].note)}</small></h3>
-      <div class="pzsets">${sets.map(s => `<button class="pzset" data-pzset="${esc(s.id)}"><b>${esc(s.name)}</b><span>${setSolved(s)}/${s.puzzles.length} solved</span><span class="pts">${fmtN(setPts(s))} pts</span><i style="width:${Math.round(100 * setSolved(s) / s.puzzles.length)}%"></i></button>`).join("")}</div>` : ""; }).join("")}`;
+    ${tiers.map(t => { const sets = all.filter(s => s.tier === t); return sets.length ? `<h3 class="pztier t-${t}">${esc(PZ_TIERS[t].name)}<small>${esc(PZ_TIERS[t].note)}</small></h3>
+      <div class="pzsets">${sets.map(s => { const pc = Math.round(100 * setSolved(s) / s.puzzles.length);
+        return `<button class="pzset t-${s.tier}" data-pzset="${esc(s.id)}"><span class="ring" style="--p:${pc}"><em>${setSolved(s)}<small>/${s.puzzles.length}</small></em></span><span class="tx"><b>${esc(s.name)}</b><small>${esc(PZ_TIERS[s.tier].name)} · ${s.puzzles[0].target}–${s.puzzles[s.puzzles.length - 1].target} chem</small><span class="pts">${fmtN(setPts(s))} pts</span></span></button>`; }).join("")}</div>` : ""; }).join("")}`;
   pzWire();
 }
 function pzSetView() {
   const s = PZ.set, b = pzBest(), r = PZ.me && PZ.me.ranks && PZ.me.ranks[s.id];
-  $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="home">‹ Sets</button><b>${esc(s.name)}</b><button class="ghost" data-pzlb="${esc(s.id)}">Leaderboard</button></div>
+  $("gameBox").innerHTML = `<div class="pzbar t-${s.tier}"><button class="ghost" data-pzgo="home">‹ Sets</button><b>${esc(s.name)}<small>${esc(PZ_TIERS[s.tier].name)}</small></b><button class="ghost" data-pzlb="${esc(s.id)}">Leaderboard</button></div>
     <div class="pzme"><div><span>Points</span><b>${fmtN(setPts(s))}</b></div><div><span>Solved</span><b>${setSolved(s)}/${s.puzzles.length}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div></div>
-    <div class="pzgrid">${s.puzzles.map(p => `<button class="pztile${b[p.id] ? " done" : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${b[p.id] ? fmtN(b[p.id]) + " pts" : p.target + " chem"}</small></button>`).join("")}</div>
+    <div class="pzgrid t-${s.tier}">${s.puzzles.map(p => `<button class="pztile${b[p.id] ? " done" : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${b[p.id] ? "✓ " + fmtN(b[p.id]) : p.target + " chem"}</small></button>`).join("")}</div>
     <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
   pzWire();
 }
 function pzPlay() {
-  const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i));
+  const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
+  const linkRow = (k, label, nm) => { const L = [...LK.G[k]].sort((a, b) => b[1] - a[1]); return L.length ? `<div class="pzlk"><span>${label}</span><div>${L.map(([id, n]) => { const nx = NEXT[k].find(t => t > n);
+    return `<em style="--g:${LK.col[k].get(id) || "rgba(255,255,255,.18)"}"><b>${esc(nm(id))}</b>${n}${nx ? `<small>/${nx}</small>` : `<small> max</small>`}</em>`; }).join("")}</div></div>` : ""; };
   const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i));
   const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
   const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon), pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
   const set = PZ.data.sets.find(s => s.puzzles.includes(pz)), nx = set.puzzles[set.puzzles.indexOf(pz) + 1];
-  $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}</b><span class="small muted">${esc(pz.formation)}</span></div>
+  $("gameBox").innerHTML = `<div class="pzbar t-${set.tier}"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}<small>${esc(pz.formation)}</small></b><span></span></div>
     <div class="pzhud"><div class="pzchem"><b class="${sc.total >= pz.target ? "ok" : ""}">${sc.total}</b><span>/ ${pz.target} chem</span><div class="bar"><i style="width:${pct}%"></i><em style="left:${tp}%"></em></div></div>
       <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best ${fmtN(best)}` : ""}</small></div></div>
     <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span><span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span></div>
     <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
-      return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
+      return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
+        <span class="plink"><i style="--g:${LK.col.n.get(c.nationId) || ""}">${esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<b style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cName(c.clubId))}"></b>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
         : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
+    <div class="pzlinks">${linkRow("n", "Nations", nName)}${linkRow("l", "Leagues", lName)}${linkRow("c", "Clubs", cName)}<p class="small muted" style="margin:6px 0 0">Number = cards linked so far, /next = how many for the next chem step.</p></div>
     <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
     <div id="pzMsg"></div>`;
   pzWire();
