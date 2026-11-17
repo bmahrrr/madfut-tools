@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118e";
+const APP_V = "20261118h";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1358,7 +1358,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118h"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1384,7 +1384,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2199,7 +2199,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118e");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118h");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -3002,7 +3002,7 @@ function pzPick(i) {
     const TORDER = ["gold", "silver", "bronze"], keepX = $("pzFl").scrollLeft;
     $("pzFl").innerHTML = `<label class="pzsel on"><span>Position</span><select id="pzFpos">${PZ_POS.map(p => `<option${p === F.pos ? " selected" : ""}>${p}</option>`).join("")}<option value="any"${F.pos === "any" ? " selected" : ""}>Any</option></select></label>`
       + sel("pzFnat", "Nation", F.nat, opts("nat", c => c.nationId, k => nName(k)), "Any")
-      + sel("pzFlg", "League", F.lg, opts("lg", c => SBC_ICON.has(c.color) ? null : c.leagueId, k => lName(k)), "Any")
+      + sel("pzFlg", "League", F.lg, opts("lg", c => SBC_ICON.has(c.color) ? null : c.leagueId, k => lShort(k)), "Any")
       + sel("pzFcl", "Club", F.cl, opts("cl", c => SBC_AUTO.has(c.color) ? null : c.clubId, k => cName(k)), "Any")
       + sel("pzFty", "Card Type", F.type, opts("type", tk, tl, (a, b) => ((TORDER.indexOf(a[0]) + 1 || 9) - (TORDER.indexOf(b[0]) + 1 || 9)) || a[1].localeCompare(b[1])), "Any")
       + `<label class="pzsel${F.lo || F.hi ? " on" : ""}"><span>Rating</span><span class="rr"><select id="pzFlo"><option value="">Min</option>${RATINGS.slice().reverse().map(r => `<option${+F.lo === r ? " selected" : ""}>${r}</option>`).join("")}</select><select id="pzFhi"><option value="">Max</option>${RATINGS.map(r => `<option${+F.hi === r ? " selected" : ""}>${r}</option>`).join("")}</select></span></label>`

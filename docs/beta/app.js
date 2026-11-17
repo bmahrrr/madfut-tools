@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118f";
+const APP_V = "20261118g";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1364,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1390,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2205,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118f");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118g");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2984,46 +2984,70 @@ function pzPlay() {
   $("pzGo").onclick = () => pzSubmit(sc);
   document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (PZ.team[i]) pzInfo(i); else pzPick(i); });
 }
-// card picker for one spot: search, and quick filters for the links already in the squad
+// card picker, filters like the game's: position, nation, league, club, card type, rating (range or exact), sort by rating.
+// Every matching card can be reached (the list keeps loading as you scroll). Position "Any" shows cards for other
+// spots too: they can go in, but get 0 chem there (like the game).
+const PZ_POS = ["GK", "LB", "CB", "RB", "CDM", "CM", "CAM", "LM", "RM", "LW", "RW", "ST"];
 function pzPick(i) {
   const pz = PZ.pz, sl = pzSlots(pz)[i], have = new Set(PZ.team.filter((c, j) => c && j !== i).map(playerKey));
-  const seen = (m, k, v) => m.set(k, v); const links = new Map();
-  PZ.team.forEach((c, j) => { if (!c || j === i) return; seen(links, "n" + c.nationId, ["nation", c.nationId, flagOf(c.nationId) + " " + nName(c.nationId)]); if (!SBC_ICON.has(c.color)) seen(links, "l" + c.leagueId, ["league", c.leagueId, lShort(c.leagueId)]); if (!SBC_AUTO.has(c.color)) seen(links, "c" + c.clubId, ["club", c.clubId, cShort(c.clubId)]); });
-  seen(links, "b", [pz.bonus.on, pz.bonus.id, "★ " + bonusName(pz.bonus)]);
-  const pool = CARDS.filter(c => c.P && c.P.has(sl) && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
-  let f = null, q = "";
+  const all = CARDS.filter(c => c.P && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
+  const tk = c => SBC_AUTO.has(c.color) ? "icon" : typeKey(c), tl = t => t === "icon" ? "Icons & Heroes" : typeLabel(t);
+  let F = { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "", sort: lsStr("pzSort") || "up" }, q = "", shown = 0, list = [], top = null;
   const sheet = document.createElement("div"); sheet.id = "pzSheet";
-  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Player, club, league or nation" enterkeyhint="done" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
-    <div class="pzf">${[...links.values()].map(([on, id, n], k) => `<button data-f="${k}">${esc(n)}</button>`).join("")}<button data-f="icon">Icons & Heroes</button></div><div class="pzlist" id="pzL"></div></div>`;
+  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Search a player" enterkeyhint="done" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
+    <div class="pzfl" id="pzFl"></div>
+    <div class="pzcount" id="pzN"></div><div class="pzlist" id="pzL"></div></div>`;
   document.body.appendChild(sheet);
-  // full screen from the top on phones, fitted above the keyboard, page behind it frozen
   const vv = window.visualViewport, root = document.documentElement, oldOv = root.style.overflow;
   const fit = () => { if (!vv) return; sheet.style.top = vv.offsetTop + "px"; sheet.style.height = vv.height + "px"; };
   fit(); if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); } root.style.overflow = "hidden";
-  const L = [...links.values()], close = () => { sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } };
-  // search matches the name, club, league or nation (every word has to match somewhere)
-  const hay = c => c._h || (c._h = norm([c.name, cName(c.clubId), cShort(c.clubId), lName(c.leagueId), lShort(c.leagueId), nName(c.nationId)].join(" ")));
-  let top = null;
-  const draw = () => {
-    const nq = norm(q).trim(), words = nq.split(/\s+/).filter(Boolean); let r = pool;
-    if (nq.length >= 2) r = r.filter(c => words.every(w => hay(c).includes(w)));
-    if (f === "icon") r = r.filter(c => SBC_AUTO.has(c.color));
-    else if (f != null) { const [on, id] = L[f]; r = r.filter(c => on === "nation" ? c.nationId === id : on === "league" ? c.leagueId === id && !SBC_ICON.has(c.color) : c.clubId === id); }
-    const nameHit = c => nq.length >= 2 && words.some(w => c._n.includes(w)) ? 0 : 1;
-    r = r.slice().sort((a, b) => nameHit(a) - nameHit(b) || b.rating - a.rating).slice(0, 60); top = r[0] || null;
-    $("pzL").innerHTML = r.length ? r.map(c => `<button data-c="${esc(c.id)}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`).join("")
-      : `<p class="small muted" style="padding:12px">No cards for that. Try another search.</p>`;
-    $("pzL").querySelectorAll("[data-c]").forEach(b => b.onclick = () => { PZ.team[i] = BYID.get(b.dataset.c); pzSave(); close(); pzPlay(); });
+  const close = () => { sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } };
+  const put = c => { PZ.team[i] = c; pzSave(); close(); pzPlay(); };
+  // each filter, with the others applied (so the lists only offer what's there, like the game)
+  const pass = (c, skip) => (skip === "pos" || F.pos === "any" || c.P.has(F.pos)) && (skip === "nat" || !F.nat || c.nationId === +F.nat)
+    && (skip === "lg" || !F.lg || (c.leagueId === +F.lg && !SBC_ICON.has(c.color))) && (skip === "cl" || !F.cl || c.clubId === +F.cl)
+    && (skip === "type" || !F.type || tk(c) === F.type) && (skip === "r" || ((!F.lo || c.rating >= +F.lo) && (!F.hi || c.rating <= +F.hi)));
+  const nq = () => norm(q).trim();
+  const opts = (skip, key, label, sortBy) => { const m = new Map(); for (const c of all) if (pass(c, skip)) { const k = key(c); if (k != null && !m.has(k)) m.set(k, label(k)); } return [...m].sort(sortBy || ((a, b) => String(a[1]).localeCompare(String(b[1])))); };
+  const sel = (id, name, cur, L, any) => `<label class="pzsel${cur ? " on" : ""}"><span>${name}</span><select id="${id}"><option value="">${any}</option>${L.map(([k, n]) => `<option value="${esc(String(k))}"${String(k) === String(cur) ? " selected" : ""}>${esc(n)}</option>`).join("")}</select></label>`;
+  const RATINGS = Array.from({ length: 60 }, (_, k) => 99 - k);
+  const drawFilters = () => {
+    const TORDER = ["gold", "silver", "bronze"], keepX = $("pzFl").scrollLeft;
+    $("pzFl").innerHTML = `<label class="pzsel on"><span>Position</span><select id="pzFpos">${PZ_POS.map(p => `<option${p === F.pos ? " selected" : ""}>${p}</option>`).join("")}<option value="any"${F.pos === "any" ? " selected" : ""}>Any</option></select></label>`
+      + sel("pzFnat", "Nation", F.nat, opts("nat", c => c.nationId, k => nName(k)), "Any")
+      + sel("pzFlg", "League", F.lg, opts("lg", c => SBC_ICON.has(c.color) ? null : c.leagueId, k => lShort(k)), "Any")
+      + sel("pzFcl", "Club", F.cl, opts("cl", c => SBC_AUTO.has(c.color) ? null : c.clubId, k => cName(k)), "Any")
+      + sel("pzFty", "Card Type", F.type, opts("type", tk, tl, (a, b) => ((TORDER.indexOf(a[0]) + 1 || 9) - (TORDER.indexOf(b[0]) + 1 || 9)) || a[1].localeCompare(b[1])), "Any")
+      + `<label class="pzsel${F.lo || F.hi ? " on" : ""}"><span>Rating</span><span class="rr"><select id="pzFlo"><option value="">Min</option>${RATINGS.slice().reverse().map(r => `<option${+F.lo === r ? " selected" : ""}>${r}</option>`).join("")}</select><select id="pzFhi"><option value="">Max</option>${RATINGS.map(r => `<option${+F.hi === r ? " selected" : ""}>${r}</option>`).join("")}</select></span></label>`
+      + `<div class="pzseg" role="group" aria-label="Sort by rating"><span>Sort</span><div><button data-sort="up" class="${F.sort === "up" ? "on" : ""}">Low ↑</button><button data-sort="down" class="${F.sort === "down" ? "on" : ""}">High ↓</button></div></div>`
+      + (F.nat || F.lg || F.cl || F.type || F.lo || F.hi || F.pos !== sl ? `<button class="pzreset" id="pzReset">Reset</button>` : "");
+    const on = (id, k) => { $(id).onchange = e => { F[k] = e.target.value; drawAll(); }; };
+    on("pzFpos", "pos"); on("pzFnat", "nat"); on("pzFlg", "lg"); on("pzFcl", "cl"); on("pzFty", "type");
+    $("pzFlo").onchange = e => { F.lo = e.target.value; if (F.hi && +F.lo > +F.hi) F.hi = F.lo; drawAll(); };
+    $("pzFhi").onchange = e => { F.hi = e.target.value; if (F.lo && +F.hi < +F.lo) F.lo = F.hi; drawAll(); };
+    $("pzFl").querySelectorAll("[data-sort]").forEach(b => b.onclick = () => { F.sort = b.dataset.sort; try { localStorage.setItem("pzSort", F.sort); } catch (e) {} drawAll(); });
+    if ($("pzReset")) $("pzReset").onclick = () => { Object.assign(F, { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "" }); drawAll(); };
+    $("pzFl").scrollLeft = keepX;     // stay where you were in the row after picking
   };
+  const row = c => { const off = !c.P.has(sl);
+    return `<button data-c="${esc(c.id)}" class="${off ? "off" : ""}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))} · ${esc(c.position)}${c.altPositions ? "/" + esc(String(c.altPositions).replace(/,/g, "/")) : ""}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${off ? `<i class="oop">0 chem at ${esc(sl)}</i>` : ""}${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`; };
+  const more = () => { const L = $("pzL"), n = Math.min(list.length, shown + 80); L.insertAdjacentHTML("beforeend", list.slice(shown, n).map(row).join("")); shown = n; };
+  const drawList = () => {
+    const w = nq().split(/\s+/).filter(Boolean);
+    list = all.filter(c => pass(c) && (nq().length < 2 || w.every(x => c._n.includes(x))));
+    const d = F.sort === "up" ? 1 : -1; list.sort((a, b) => d * (a.rating - b.rating) || a.name.localeCompare(b.name));
+    top = list[0] || null; shown = 0; $("pzL").innerHTML = list.length ? "" : `<p class="small muted" style="padding:12px">No cards for that. Try other filters.</p>`; $("pzL").scrollTop = 0; more();
+    $("pzN").textContent = `${list.length.toLocaleString()} card${list.length === 1 ? "" : "s"}`;
+  };
+  const drawAll = () => { drawFilters(); drawList(); };
+  $("pzL").onscroll = () => { const L = $("pzL"); if (shown < list.length && L.scrollTop + L.clientHeight > L.scrollHeight - 600) more(); };
+  $("pzL").onclick = e => { const b = e.target.closest("[data-c]"); if (b) put(BYID.get(b.dataset.c)); };
   sheet.onclick = e => { if (e.target === sheet) close(); };
   $("pzX").onclick = close;
   if ($("pzRm")) $("pzRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); };
-  $("pzQ").oninput = e => { q = e.target.value; draw(); $("pzL").scrollTop = 0; };
-  $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); PZ.team[i] = top; pzSave(); close(); pzPlay(); } };
-  sheet.querySelectorAll("[data-f]").forEach(b => b.onclick = () => { const v = b.dataset.f === "icon" ? "icon" : +b.dataset.f; f = f === v ? null : v;
-    sheet.querySelectorAll("[data-f]").forEach(x => x.classList.toggle("on", (x.dataset.f === "icon" ? "icon" : +x.dataset.f) === f)); draw(); });
-  draw();
-  $("pzQ").focus();
+  $("pzQ").oninput = e => { q = e.target.value; drawList(); };
+  $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); put(top); } };
+  drawAll();
 }
 async function pzSubmit(sc) {
   const pz = PZ.pz, b = pzBest(), msg = $("pzMsg");
