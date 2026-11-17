@@ -75,8 +75,9 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 // ---------- data ----------
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
+const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118b";
+const APP_V = "20261118d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -143,7 +144,7 @@ async function init() {
   if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`;   // same total as the Cards tab
   CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
   try { await evoAll(); if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`; } catch (e) {}   // every evolved card of the year: searchable everywhere, needed for All Evos teams
-  try { INDEX = await getJSON("results/index.json"); if (INDEX.all && PREVIEW) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
+  try { INDEX = await getJSON("results/index.json"); if (INDEX.all && EVOS) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip(); welcome();
   if (!PREVIEW) document.querySelectorAll('#tabs [data-t="games"], #moreSheet [data-mt="games"]').forEach(b => b.remove());   // Puzzles: preview only for now
@@ -760,6 +761,9 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 const UPDATES = [
   { day: "2026-11-17", items: [
     { p: 1, t: "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert." },
+    "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos.",
+    "<b>Evo names:</b> shown on every card that uses one, with both names for a chain.",
+    "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone.",
     "<b>Missing a card:</b> your version can now switch formation if a different shape is better without that card.",
     "<b>Pitch highlights:</b> a card's top two stats are only both lit when they're within 3 of each other.",
     "<b>Head to Head:</b> teams only take cards within the series cap.",
@@ -771,9 +775,6 @@ const UPDATES = [
     { t: "<b>Play vs AI:</b> new mode in Match. You make every move and the AI plays theirs, in one of three styles. Human and Varied mix up their openings." },
     { t: "<b>SBC:</b> solved squads now show on a pitch with each player's chem." },
     { t: "<b>New look:</b> pick My Club or Sim and a series to see that team laid out on a pitch. Sim switches the site to blue, and phones get a tab bar at the bottom." },
-    { p: 1, t: "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos." },
-    { p: 1, t: "<b>Evo names:</b> shown on every card that uses one, with both names for a chain." },
-    { p: 1, t: "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone." },
     "<b>Evo cards:</b> every evolved card this game year is in the Cards tab and in every card search.",
     "<b>Unbeatable:</b> a My Club team gets the label when 5+ cards can't be beaten in the same stat and its tiebreak card can't lose.",
     "<b>Sim Odds:</b> removing a player leaves his spot empty, so the next card you add goes straight into it.",
@@ -817,7 +818,7 @@ async function renderTeams() {
   // above the team: the season title, then a row of chips (Latest Update, My Evos, Vault, About) that open small panels
   const u = V ? null : UPDATES.find(u => updItems(u).length), seenU = lsStr("updSeen");
   const chips = [u && ["upd", `Update<small>${esc(fmtDay(u.day).replace(/,? \d{4}$/, ""))}</small>`, `<ul class="upd small">${updItems(u).map(x => `<li>${x}</li>`).join("")}</ul>`, u.day > seenU],
-    !V && PREVIEW && ["evo", `My Evos<small>${myEvos().length || "Not set"}</small>`, `<div id="myEvosBody"><p class="small muted">Loading…</p></div>`],
+    !V && EVOS && ["evo", `My Evos<small>${myEvos().length || "Not set"}</small>`, `<div id="myEvosBody"><p class="small muted">Loading…</p></div>`],
     !V && ["vault", "Vault", vaultBox],
     ["about", `<span data-abouth>About</span>`, intro]].filter(Boolean);
   html = `<div class="tsel-h"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><span>${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</span></div>`
@@ -830,7 +831,7 @@ async function renderTeams() {
   const vfiles = files.filter(f => (f.startsWith("myclub_") || f.startsWith("sim_")) && f.includes("--"));
   // each series: All Evos / Recommended Evos (the main team) / No LTM & Evos, one at a time (only the ones built so far)
   const VORDER = ["allevo", "", "noltmevo", "myevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos" };
-  const ME = !V && PREVIEW && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
+  const ME = !V && EVOS && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
   const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
   // each version carries its own header result (Unbeatable, or when it last changed): the header follows the version shown
   const vpanel = (v, inner, sres = "", mid = "", avgs = "") => `<div class="vpanel"${v === "" ? "" : " hidden"} data-vp="${v}" data-sres="${esc(sres)}" data-mid="${esc(mid)}" data-avgs="${esc(avgs)}">${inner}</div>`;
@@ -853,7 +854,7 @@ async function renderTeams() {
       const sid = "myclub:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
       // the strip only calls out a team nothing beats (every tested team, both lead orders)
       const sres = unbOf(t) ? UNB : lastChange(d);
-      const allV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--")), myV = PREVIEW ? allV : [];
+      const allV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--")), myV = EVOS ? allV : [];
       html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, t.chem, mineTag))}">${bar}${vtag(which, d)}${pitchHTML(t.players, "myclub", d.series.cap)}`;
       if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
       else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
@@ -889,7 +890,7 @@ async function renderTeams() {
         } catch (e) {}
       }
       // main site, for now: other versions (No LTM & Evos) as a section under the team, like before
-      if (!PREVIEW) for (const vf of allV) {
+      if (!EVOS) for (const vf of allV) {
         try {
           let vd = await getJSON(base + vf), vt = vd.team; const lab = (vd.variant && vd.variant.label) || "Alternative";
           const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vd.variant && vd.variant.id] || [];
@@ -942,7 +943,7 @@ async function renderTeams() {
   html += tail;
   if (!V) {
     box.innerHTML = html;
-    document.querySelectorAll("[data-vault]").forEach(b => b.onclick = () => { VAULT = weeks[+b.dataset.vault]; if (VAULT.all && PREVIEW) VAULT = { ...VAULT, files: VAULT.all }; renderTeams(); window.scrollTo(0, 0); });
+    document.querySelectorAll("[data-vault]").forEach(b => b.onclick = () => { VAULT = weeks[+b.dataset.vault]; if (VAULT.all && EVOS) VAULT = { ...VAULT, files: VAULT.all }; renderTeams(); window.scrollTo(0, 0); });
   } else {
     box.innerHTML = html;
     $("vaultBack").onclick = () => { VAULT = null; renderTeams(); window.scrollTo(0, 0); };
@@ -1048,7 +1049,7 @@ function teamSelector() {
 function playersTable(ps, showTB, nh, mark) {     // nh = "myclub:73" adds a Don't have button to each player; mark(p): highlight
   const key = `<span>Att</span><span>Ctl</span><span>Def</span>`, nhOn = nh && noHave(nh).length;
   return `${nh ? `<div class="sqhead"><span>Squad</span><button class="ghost nhtog${nhOn ? " on" : ""}" data-nhtog>${nhOn ? "Done" : "Missing a card?"}</button></div>` : ""}<div class="squad${nh && !nhOn ? " nhoff" : ""}"><div class="stkey">${key}</div><div class="stkey k2">${key}</div>${ps.map(p =>
-    `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><span class="l1"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}</span><small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Base ${p.card.join("/")} · Chem ${p.chem}</small>${PREVIEW && p.evos && p.evos.length ? `<small class="evon">Evo: ${esc(p.evos.join(" → "))}</small>` : ""}</span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
+    `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><span class="l1"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}</span><small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Base ${p.card.join("/")} · Chem ${p.chem}</small>${EVOS && p.evos && p.evos.length ? `<small class="evon">Evo: ${esc(p.evos.join(" → "))}</small>` : ""}</span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
 }
 
 // ---------- My Club compare ----------
@@ -1074,7 +1075,7 @@ async function setupMC() {
     const wk = $("mcWeek").value;
     if (!wk) MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
     else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {}
-      MCW = { week: wk, base: `vault/${wk}/`, myclub: w.myclub || [], files: (x => (PREVIEW && x.all) || x.files)(weeks.find(x => x.week === wk) || { files: [] }) }; }
+      MCW = { week: wk, base: `vault/${wk}/`, myclub: w.myclub || [], files: (x => (EVOS && x.all) || x.files)(weeks.find(x => x.week === wk) || { files: [] }) }; }
     fillSeries(); drawMC(); $("solveOut").innerHTML = "";
   };
   fillSeries();
@@ -1363,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1389,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2204,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118b");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
