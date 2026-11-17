@@ -270,11 +270,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.472,
+    "ctrl_win": 0.4967,
     "control": 96.8,
     "attack": 96.0,
     "defence": 94.6,
-    "net": 0.0971,
+    "net": 0.0956,
     "vs_reddit": null,
     "control_cards": [
      98,
@@ -298,8 +298,8 @@
      94,
      88
     ],
-    "p_att": 0.6371,
-    "p_def": 0.4042,
+    "p_att": 0.5873,
+    "p_def": 0.4096,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -308,10 +308,10 @@
     "ctrl_total": 264.4,
     "att_total": 258.88,
     "def_total": 247.4,
-    "swaps_checked": 51316,
+    "swaps_checked": 51319,
     "round_robin": {
-     "wins": 5.0,
-     "margin": 0.8312
+     "wins": 2.0,
+     "margin": 0.62
     }
    }
   },
@@ -340,28 +340,6 @@
       88
      ],
      "slot": "GK"
-    },
-    {
-     "id": "ltm_comuzzo96",
-     "name": "Comuzzo",
-     "rating": 96,
-     "color": "ltm",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 54,
-     "card": [
-      74,
-      86,
-      97
-     ],
-     "chem": 1,
-     "eff": [
-      74,
-      86,
-      97
-     ],
-     "slot": "CB"
     },
     {
      "id": "new_Can_92",
@@ -408,26 +386,26 @@
      "slot": "CB"
     },
     {
-     "id": "new_Xavi Espart_96",
-     "name": "Xavi Espart",
+     "id": "ltm_comuzzo96",
+     "name": "Comuzzo",
      "rating": 96,
      "color": "ltm",
-     "position": "RB",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 241,
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
      "card": [
-      87,
-      94,
-      95
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      96,
+      74,
+      86,
       97
      ],
-     "slot": "CDM"
+     "chem": 1,
+     "eff": [
+      74,
+      86,
+      97
+     ],
+     "slot": "CB"
     },
     {
      "id": "new_Karetsas_96",
@@ -448,6 +426,28 @@
       93,
       98,
       81
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      96,
+      97
      ],
      "slot": "CDM"
     },
@@ -518,28 +518,6 @@
      "slot": "RM"
     },
     {
-     "id": "id022",
-     "name": "Kane",
-     "rating": 97,
-     "color": "world_potm",
-     "position": "ST",
-     "nationId": 14,
-     "leagueId": 19,
-     "clubId": 21,
-     "card": [
-      96,
-      94,
-      71
-     ],
-     "chem": 3,
-     "eff": [
-      98,
-      96,
-      73
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id237067",
      "name": "Pelé",
      "rating": 95,
@@ -560,15 +538,37 @@
       63
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id022",
+     "name": "Kane",
+     "rating": 97,
+     "color": "world_potm",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      96,
+      94,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      98,
+      96,
+      73
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.472,
+    "ctrl_win": 0.4967,
     "control": 96.8,
     "attack": 96.05,
     "defence": 92.33,
-    "net": 0.0664,
+    "net": 0.0667,
     "vs_reddit": null,
     "control_cards": [
      98,
@@ -593,8 +593,8 @@
      88,
      81
     ],
-    "p_att": 0.6349,
-    "p_def": 0.3369,
+    "p_att": 0.5866,
+    "p_def": 0.3413,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -632,28 +632,6 @@
      "slot": "GK"
     },
     {
-     "id": "id031",
-     "name": "Konsa",
-     "rating": 94,
-     "color": "world_potm",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      77,
-      84,
-      95
-     ],
-     "chem": 3,
-     "eff": [
-      79,
-      86,
-      97
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "ltm_comuzzo96",
      "name": "Comuzzo",
      "rating": 96,
@@ -670,6 +648,28 @@
      "chem": 1,
      "eff": [
       74,
+      86,
+      97
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id031",
+     "name": "Konsa",
+     "rating": 94,
+     "color": "world_potm",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      77,
+      84,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      79,
       86,
       97
      ],
@@ -720,28 +720,6 @@
      "slot": "LM"
     },
     {
-     "id": "new_Xavi Espart_96",
-     "name": "Xavi Espart",
-     "rating": 96,
-     "color": "ltm",
-     "position": "RB",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 241,
-     "card": [
-      87,
-      94,
-      95
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      96,
-      97
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "new_Karetsas_96",
      "name": "Karetsas",
      "rating": 96,
@@ -760,6 +738,28 @@
       93,
       98,
       81
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      96,
+      97
      ],
      "slot": "CM"
     },
@@ -808,28 +808,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id237067",
-     "name": "Pelé",
-     "rating": 95,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      93,
-      91,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      96,
-      94,
-      63
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id022",
      "name": "Kane",
      "rating": 97,
@@ -850,15 +828,37 @@
       73
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      96,
+      94,
+      63
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.472,
+    "ctrl_win": 0.4967,
     "control": 96.8,
     "attack": 96.05,
     "defence": 94.0,
-    "net": 0.0652,
+    "net": 0.0668,
     "vs_reddit": null,
     "control_cards": [
      98,
@@ -881,8 +881,8 @@
      94,
      88
     ],
-    "p_att": 0.6349,
-    "p_def": 0.3341,
+    "p_att": 0.5866,
+    "p_def": 0.3414,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -895,7 +895,7 @@
   }
  ],
  "not_owned": [],
- "built": "2026-11-15 23:35 UTC",
+ "built": "2026-11-17 02:26 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-15 23:35 UTC"
 }
