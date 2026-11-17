@@ -661,6 +661,7 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 #pzSheet .pzsel select option{background:#1a1310;color:var(--text)}
 #pzSheet .pzsel .rr{display:flex;gap:6px}#pzSheet .pzsel .rr select{width:42px}
 #pzSheet .pzsort{flex:none;font:600 12.5px/1 var(--body);padding:0 12px;border-radius:12px;border:1px solid var(--line2);background:none;color:var(--text);cursor:pointer;white-space:nowrap}
+@media (min-width:700px){#pzSheet .pzfl{flex-wrap:wrap;overflow:visible}}   /* PC: no swiping, so the filters wrap onto a second line */
 #pzSheet .pzcount{flex:none;font-size:11.5px;color:var(--muted);padding:2px 2px 4px}
 #pzSheet .pzlist button.off{opacity:.62}#pzSheet .pzlist button i.oop{font-size:11px;color:var(--loss);white-space:nowrap}
 @media (min-width:700px){#pzSheet .sheet{top:6vh;bottom:6vh;left:50%;right:auto;width:560px;transform:translateX(-50%);border-radius:18px;border:1px solid var(--line2);padding:12px}}

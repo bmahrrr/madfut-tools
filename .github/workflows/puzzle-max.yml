@@ -21,7 +21,7 @@ permissions:
 
 concurrency:
   group: puzzle-max
-  cancel-in-progress: true
+  cancel-in-progress: false   # a newer run waits for the one running
 
 jobs:
   sets:
@@ -31,7 +31,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: l
-        run: echo "list=$(python3 -c "import json;print(json.dumps([s['id'] for s in json.load(open('docs/puzzles.json'))['sets']]))")" >> $GITHUB_OUTPUT
+        # Easy sets are being remade (locked cards that need full chem): their top scores come with the new sets
+        run: echo "list=$(python3 -c "import json;print(json.dumps([s['id'] for s in json.load(open('docs/puzzles.json'))['sets'] if s['tier'] != 'easy' or any(p.get('lockChem') for p in s['puzzles'])]))")" >> $GITHUB_OUTPUT
 
   solve:
     needs: sets

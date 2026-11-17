@@ -5,14 +5,14 @@
 const fs = require("fs"), path = require("path"), vm = require("vm");
 const D = path.join(__dirname, "..", "docs") + "/";
 vm.runInThisContext(fs.readFileSync(D + "sbc-solver.js", "utf8"));
-vm.runInThisContext(fs.readFileSync(D + "puzzle-core.js", "utf8"));
+vm.runInThisContext(fs.readFileSync(process.env.PZ_CORE || D + "puzzle-core.js", "utf8"));   // PZ_CORE / PZ_FILE: a test copy's own
 const d = JSON.parse(fs.readFileSync(D + "cards.json", "utf8")), FORMS = JSON.parse(fs.readFileSync(D + "formations.json", "utf8"));
 const cards = d.cards.map(r => { const c = {}; d.fields.forEach((f, i) => c[f] = r[i]); return c; });
 const [mode, out, ...ins] = process.argv.slice(2);
 if (mode === "elig") {
   fs.writeFileSync(out, JSON.stringify(cards.filter(c => !pzNoSBC(c) && !SBC_AUTO.has(c.color)).map(c => c.id)));
 } else if (mode === "merge") {
-  const P = JSON.parse(fs.readFileSync(D + "puzzles.json", "utf8")), by = new Map(cards.map(c => [c.id, c]));
+  const P = JSON.parse(fs.readFileSync(process.env.PZ_FILE || D + "puzzles.json", "utf8")), by = new Map(cards.map(c => [c.id, c]));
   const all = new Map(P.sets.flatMap(s => s.puzzles).map(p => [p.id, p]));
   let res = {}; try { res = JSON.parse(fs.readFileSync(out, "utf8")).puzzles || {}; } catch (e) {}
   // a kept top score only stands if its squad still passes (the puzzle or the cards may have changed)
