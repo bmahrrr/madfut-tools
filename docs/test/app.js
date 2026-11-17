@@ -1,0 +1,3107 @@
+"use strict";
+const REPO = "bmahrrr/madfut-tools";
+let NATIONS = {1:"Albania",4:"Austria",12:"Czechia",23:"Hungary",35:"Northern Ireland",43:"Slovakia",44:"Slovenia",58:"Paraguay",59:"Peru",61:"Venezuela",70:"Canada",117:"Ghana",133:"Nigeria",163:"Japan",167:"Korea Republic",7:"Belgium",10:"Croatia",13:"Denmark",14:"England",18:"France",20:"Georgia",21:"Germany",22:"Greece",25:"Rep. of Ireland",27:"Italy",34:"Netherlands",36:"Norway",37:"Poland",38:"Portugal",39:"Romania",42:"Scotland",45:"Spain",46:"Sweden",47:"Switzerland",48:"Türkiye",49:"Ukraine",50:"Wales",51:"Serbia",52:"Argentina",54:"Brazil",55:"Chile",56:"Colombia",57:"Ecuador",60:"Uruguay",83:"Mexico",95:"USA",97:"Algeria",103:"Cameroon",108:"Ivory Coast",129:"Morocco",136:"Senegal",195:"Australia"};
+let LEAGUES = {1:"Superliga (Denmark)",7:"Brasileirão",41:"Eliteserien",50:"Scottish Premiership",56:"Allsvenskan",60:"League One",61:"League Two",66:"Ekstraklasa",68:"Süper Lig",80:"Austrian Bundesliga",189:"Swiss Super League",4:"Belgian Pro League",10:"Eredivisie",13:"Premier League",14:"Championship",16:"Ligue 1",17:"Ligue 2",19:"Bundesliga",20:"2. Bundesliga",31:"Serie A",32:"Serie B",39:"MLS",53:"LaLiga",54:"LaLiga 2",308:"Liga Portugal",350:"Saudi Pro League",2118:"Icons",2215:"Frauen-Bundesliga",2216:"WSL",2218:"D1 Arkema",2221:"NWSL",2222:"Liga F",2236:"Serie A Femminile"};
+let CLUBS = {};
+const cName = id => CLUBS[id] || `club ${id}`;
+const nName = id => NATIONS[id] || (typeof groupSample === "function" && CARDS.length ? `${groupSample("nation", id)[0] || "?"}'s nation` : `Nation ${id}`);
+const lName = id => LEAGUES[id] || (typeof groupSample === "function" && CARDS.length ? `${groupSample("league", id)[0] || "?"}'s league` : `League ${id}`);
+const $ = id => document.getElementById(id);
+const fmtDay = d => { const x = new Date(String(d).slice(0, 10) + "T12:00:00Z"); return isNaN(x) ? String(d) : x.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }); };
+const fmtStamp = d => { const x = new Date(String(d).replace(" UTC", "Z").replace(" ", "T")); return isNaN(x) ? String(d) : x.toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }); };
+const SEASON1 = "2026-09-26";       // Fatal season 1 (FC 27) started Saturday Sep 26; a new season every Saturday
+const seasonOf = d => 1 + Math.floor((Date.parse(String(d).slice(0, 10)) - Date.parse(SEASON1)) / 6048e5);
+const seasonName = d => d ? "Season " + seasonOf(d) : "Season";
+const cap = t => { t = String(t ?? ""); return t.charAt(0).toUpperCase() + t.slice(1); };   // first letter always a capital
+const MINOR = new Set(["a", "an", "the", "and", "but", "or", "nor", "of", "to", "in", "on", "at", "by", "for", "vs", "as", "per"]);
+const titleWord = (w, first) => w.split("-").map((p, j) => {            // leaves LaLiga, TOTW, 4-3-3 as they are
+  if (!/^[a-z]/.test(p)) return p;
+  if (j === 0 && !first && MINOR.has(p.replace(/[^a-z]/g, ""))) return p;
+  return p.charAt(0).toUpperCase() + p.slice(1);
+}).join("-");
+const tc = t => String(t ?? "").split(/(\s+)/).map((w, i) => /\s/.test(w) ? w : titleWord(w, i === 0)).join("");   // Title Case
+const HEADS = "h1,h2,h3,nav button,summary:not(.ok):not(.bad),.chipbtn>b,.tc";
+function titleAll(root) {
+  const h = root.closest && root.closest(HEADS), els = h ? [h] : [];
+  if (root.querySelectorAll) els.push(...root.querySelectorAll(HEADS));
+  for (const el of els) {
+    if (el.closest(".notc")) continue;
+    let first = true;
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let n = w.nextNode(); n; n = w.nextNode()) {
+      if (n.parentElement.closest(".pill,.notc,input,select,textarea")) { if (n.nodeValue.trim()) first = false; continue; }
+      const v = n.nodeValue.split(/(\s+)/).map((x, i) => { if (/^\s*$/.test(x)) return x; const r = titleWord(x, first); first = false; return r; }).join("");
+      if (v !== n.nodeValue) n.nodeValue = v;
+    }
+  }
+}
+new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) if (n.nodeType === 1) titleAll(n); else if (n.nodeType === 3 && n.parentElement) titleAll(n.parentElement); })
+  .observe(document.documentElement, { childList: true, subtree: true });
+document.addEventListener("DOMContentLoaded", () => titleAll(document.body));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const TYPE = c => cap({rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",hall_of_fut_upgraded:"HoF Upgraded",showdown_plus:"Showdown Plus",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",ligue1_potm:"Ligue 1 POTM",ligue_1_potm:"Ligue 1 POTM",liga_f_potm:"Liga F POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo",halloween:"Ultimate Scream",halloween_hero:"Ultimate Scream Hero",ucl_rttk:"UCL RTTK",uwcl_rttk:"UWCL RTTK",ecl_rttk:"ECL RTTK",europa_rttk:"UEL RTTK",world_potm:"World POTM",world_potm_nominee:"World POTM Nominee",star_performer:"Star Performer",heritage:"Heritage",showdown:"Showdown"}[c] || String(c).replace(/_/g, " "));
+
+let CARDS = [], BYID = new Map(), WEEK = null, INDEX = null;
+const state = { A: [], B: [], T: [], simB: [], simA: null, simAC: [] };
+
+// ---------- tabs ----------
+const teamsTab = () => { const b = document.querySelector('#tabs button[data-t="teams"]'); if (b && INDEX && INDEX.week) b.textContent = `S${seasonOf(INDEX.week)} Teams`; };
+// Owner-only tabs (Beat a team builds and Season Setup need the site's GitHub key). Everyone else never sees them.
+// The owner's phone has the key; on a new device open the site with #owner once.
+const IS_OWNER = (() => { try { if (location.hash === "#owner") localStorage.setItem("owner", "1"); return !!(localStorage.getItem("ghToken") || localStorage.getItem("owner")); } catch (e) { return false; } })();
+if (!IS_OWNER) { document.querySelectorAll('#tabs button[data-t="setup"]').forEach(b => b.hidden = true); document.querySelectorAll(".owneronly").forEach(x => x.hidden = true); }
+document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll("main section").forEach(s => s.classList.toggle("on", s.id === b.dataset.t));
+  tabbarSync(b.dataset.t); scrollTo(0, 0);
+});
+// ---------- look: bottom tab bar on phones, Sim blue ----------
+const MORE_TABS = ["mc", "sim", "beat", "games", "setup"];
+function tabbarSync(t) {
+  document.querySelectorAll("#tabbar [data-tb]").forEach(x => x.classList.toggle("on", x.dataset.tb === t || (x.dataset.tb === "more" && MORE_TABS.includes(t))));
+  const sh = $("moreSheet"); if (sh) sh.hidden = true;
+  simLook(t === "sim" || (t === "teams" && TSEL.mode === "sim"));
+}
+function simLook(on) { document.body.classList.toggle("simmode", !!on); const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = on ? "#07090f" : "#0d0907"; }
+(function tabbar() {
+  const bar = $("tabbar"); if (!bar) return;
+  bar.onclick = e => { const b = e.target.closest("[data-tb]"); if (!b) return;
+    if (b.dataset.tb === "more") { const sh = $("moreSheet"); sh.hidden = !sh.hidden; return; }
+    document.querySelector(`#tabs button[data-t="${b.dataset.tb}"]`).click(); };
+  $("moreSheet").onclick = e => { if (e.target.closest("[data-welcome]")) { $("moreSheet").hidden = true; return welcome(true); } const b = e.target.closest("[data-mt]"); if (b) document.querySelector(`#tabs button[data-t="${b.dataset.mt}"]`).click(); else if (e.target.id === "moreSheet") $("moreSheet").hidden = true; };
+  if (!IS_OWNER) document.querySelectorAll('#moreSheet [data-mt="setup"]').forEach(b => b.hidden = true);
+})();
+
+// ---------- data ----------
+const APPDIR = window.APPDIR || "";
+const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
+async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
+const APP_V = "20261117z";
+async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
+  // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
+  const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
+  if (htmlV !== APP_V) {
+    let tried = null; try { tried = sessionStorage.getItem("triedHtml"); } catch (e) {}
+    if (tried !== APP_V) { try { sessionStorage.setItem("triedHtml", APP_V); } catch (e) {} location.replace(location.pathname + "?v=" + APP_V + "&t=" + Date.now()); return true; }
+  }
+  try {
+    const r = await fetch(APPDIR + "version.json?t=" + Date.now(), { cache: "no-store" }); const v = (await r.json()).v;
+    if (v && v !== APP_V) {
+      let tried = null; try { tried = sessionStorage.getItem("triedV"); } catch (e) {}
+      if (tried !== v) { try { sessionStorage.setItem("triedV", v); } catch (e) {} location.replace(location.pathname + "?v=" + v); return true; }
+    }
+  } catch (e) {}
+  return false;
+}
+let DATA_UPDATED = "";
+if ("serviceWorker" in navigator && !APPDIR) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));   // install as an app, works offline
+// a one-time tip to install the site as an app (phones only, not once installed or dismissed)
+let INSTALL_EV = null;
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); INSTALL_EV = e; const b = $("installTip"); if (b) b.remove(); installTip(); });
+function installTip() {
+  const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  let off = false; try { off = localStorage.getItem("installTipOff") === "1"; } catch (e) {}
+  if (standalone || off || !matchMedia("(max-width: 900px)").matches || $("installTip")) return;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent), samsung = /SamsungBrowser/i.test(navigator.userAgent);
+  const box = document.createElement("div"); box.className = "card"; box.id = "installTip";
+  box.innerHTML = `<p class="small" style="margin:0 0 8px"><b>Install as an app:</b> opens from your home screen and keeps working with poor signal mid-match. ${INSTALL_EV ? "" : ios ? "In Safari, tap <b>Share</b> then <b>Add to Home Screen</b>." : samsung ? "Tap the menu (<b>≡</b>), then <b>Add page to</b> → <b>Home screen</b> (or the install icon in the address bar)." : "In your browser menu (<b>⋮</b>), tap <b>Install app</b> or <b>Add to Home screen</b>."}</p>
+    <div class="row">${INSTALL_EV ? `<button class="btn" id="installGo">Install</button>` : ""}<button class="ghost" id="installNo">Not now</button></div>`;
+  const main = document.querySelector("main"); main.insertBefore(box, main.firstChild);
+  $("installNo").onclick = () => { try { localStorage.setItem("installTipOff", "1"); } catch (e) {} box.remove(); };
+  if (INSTALL_EV) $("installGo").onclick = async () => { INSTALL_EV.prompt(); await INSTALL_EV.userChoice; INSTALL_EV = null; box.remove(); };
+}
+// first visit: a short welcome sheet pointing to the three main places (open it again any time from More)
+function welcome(force) {
+  let seen = false; try { seen = localStorage.getItem("welcomeSeen") === "1"; } catch (e) {}
+  if ((seen && !force) || $("welcome")) return;
+  const o = document.createElement("div"); o.id = "welcome";
+  const IC = {
+    teams: `<path d="M20.4 3.5 16 2a4 4 0 0 1-8 0L3.6 3.5a2 2 0 0 0-1.3 2.2l.6 3.5a1 1 0 0 0 1 .8H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.2a1 1 0 0 0 1-.8l.6-3.5a2 2 0 0 0-1.3-2.2z"/>`,
+    sbc: `<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>`,
+    games: `<path d="M19.4 7.9c0 .3.1.6.3.9l1.6 1.5a2.4 2.4 0 0 1 0 3.4l-1.6 1.6a1 1 0 0 1-.8.3c-.5-.1-.8-.5-1-.9a2.5 2.5 0 1 0-3.2 3.2c.4.2.9.5.9 1a1 1 0 0 1-.3.8l-1.6 1.6a2.4 2.4 0 0 1-3.4 0l-1.6-1.6a1 1 0 0 0-.8-.3c-.5.1-.9.5-1 1a2.5 2.5 0 1 1-3.3-3.3c.5-.2.9-.5 1-1a1 1 0 0 0-.3-.8L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.5-1.5c.3-.3.6-.4 1-.3.5.1.8.5 1 1a2.5 2.5 0 1 0 3.3-3.3c-.5-.2-.9-.5-1-1 0-.4.1-.7.3-1l1.5-1.5a2.4 2.4 0 0 1 3.4 0l1.6 1.6c.2.2.5.3.8.3.5-.1.9-.5 1-1a2.5 2.5 0 1 1 3.3 3.3c-.5.2-.9.5-1 1z"/>` };
+  const tile = (t, ic, title, txt) => `<button class="wt" data-wt="${t}"><i><svg viewBox="0 0 24 24">${IC[t]}</svg></i><span><b>${title}</b><small>${txt}</small></span><em>›</em></button>`;
+  o.innerHTML = `<div class="wbox"><button class="wx" aria-label="Close">✕</button><h3>Welcome to the ToolKit</h3><p class="ws">Everything you need for Fatal and SBCs, updated every day.</p>
+    ${tile("teams", "T", "Best Teams", `This week's strongest Fatal My Club and Sim teams for every series. Tap "Don't have" on a card for your own version.`)}
+    ${tile("sbc", "SBC", "SBC Solver", "Paste the requirements and get the cheapest squad.")}
+    ${tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.")}
+    <button class="wgo">Show Me the Teams</button></div>`;
+  document.body.appendChild(o);
+  const close = t => { try { localStorage.setItem("welcomeSeen", "1"); } catch (e) {} o.remove(); if (t) document.querySelector(`#tabs button[data-t="${t}"]`).click(); };
+  o.onclick = e => { const b = e.target.closest("[data-wt]"); if (b) return close(b.dataset.wt); if (e.target.closest(".wgo")) return close("teams"); if (e.target.closest(".wx") || e.target === o) close(); };
+}
+async function init() {
+  if (await selfUpdate()) return;
+  $("appV").textContent = "Version " + APP_V;
+  try {
+    const d = await getJSON("cards.json");
+    CARDS = d.cards.map(r => { const c = {}; d.fields.forEach((f, i) => c[f] = r[i]); return c; });
+    DATA_UPDATED = fmtStamp(d.updated); $("dataInfo").textContent = `${d.count.toLocaleString()} cards · Updated ${DATA_UPDATED}`;
+  } catch (e) { $("dataInfo").textContent = "Card data missing"; }
+  try { const nm = await getJSON("names.json"); Object.assign(NATIONS, nm.nations); Object.assign(LEAGUES, nm.leagues); CLUBS = nm.clubs || {}; } catch (e) {}
+  for (const M of [NATIONS, LEAGUES, CLUBS]) for (const k in M) M[k] = cap(M[k]);
+  try { const ex = await getJSON("results/extras.json"); ex.cards.forEach(c => CARDS.push(Object.assign({specialChem: "", _extra: true}, c))); } catch (e) {}
+  if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`;   // same total as the Cards tab
+  CARDS.forEach(c => { c.name = cap(c.name); c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]); BYID.set(c.id, c); });
+  try { await evoAll(); if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`; } catch (e) {}   // every evolved card of the year: searchable everywhere, needed for All Evos teams
+  try { INDEX = await getJSON("results/index.json"); if (INDEX.all && PREVIEW) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
+  try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
+  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip(); welcome();
+}
+
+// ---------- shared card UI ----------
+const norm = t => String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+  .replace(/ø/g, "o").replace(/æ/g, "ae").replace(/ß/g, "ss").replace(/ł/g, "l").replace(/ı/g, "i").replace(/đ/g, "d");
+function search(q, limit = 12, cap = 0) {
+  q = norm(q.trim());
+  // "muller 63": a rating after the name keeps only that rating
+  const m = q.match(/^(.*\S)\s+(\d{2})$/); let want = 0;
+  if (m) { q = m[1]; want = +m[2]; }
+  if (q.length < 2) return [];
+  const out = [];
+  for (const c of searchPool()) { if ((c._n || (c._n = norm(c.name))).includes(q) && (!want || c.rating === want)) { out.push(c); if (out.length > 300) break; } }
+  // exact name matches first, then cards within the cap, then highest rated
+  const score = c => (c._n === q ? 0 : c._n.startsWith(q) ? 1 : 2) * 2 + (cap && c.rating > cap ? 1 : 0);
+  // every card with exactly that name is listed (up to 40), so a common name like Müller shows its low-rated cards too
+  const exact = out.filter(c => c._n === q).length;
+  return out.sort((a, b) => score(a) - score(b) || b.rating - a.rating).slice(0, Math.max(limit, Math.min(exact, 40)));
+}
+// the site's cards plus every evolved card of the year (an opponent can have any Evo)
+const searchPool = () => EVOALL ? (EVOALL.pool || (EVOALL.pool = CARDS.concat(EVOALL.cards.filter(c => c._evx)))) : CARDS;
+const evoTag = c => c.evos && c.evos.length ? ` · <span class="gold">Evo: ${esc(c.evos.join(" → "))}</span>` : "";
+function cardLine(c) {
+  return `<b>${esc(c.name)}</b> ${c.rating} <span class="muted">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(String(cName(c.clubId)).trim())}</span>${evoTag(c)} <span class="small">${c.attack}/${c.control}/${c.defense}</span>`;
+}
+function hookSearch(inputId, listId, onPick, capOf) {
+  const inp = $(inputId), ul = $(listId);
+  inp.oninput = () => {
+    const cap = capOf ? capOf() : 0;     // a series' cap: only cards that can be played in it
+    const res = cap ? search(inp.value, 60, cap).filter(c => c.rating <= cap).slice(0, 12) : search(inp.value);
+    ul.hidden = !res.length;
+    ul.innerHTML = res.map(c => `<li data-id="${esc(c.id)}">${cardLine(c)}</li>`).join("");
+  };
+  ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; onPick(BYID.get(li.dataset.id)); inp.value = ""; ul.hidden = true; };
+}
+function pill(r) { return `<span class="pill ${r}">${cap(String(r).toLowerCase())}</span>`; }
+
+// ---------- custom builds (run on GitHub) ----------
+const SIM_CREDIT = "Striking_Beat4479", simCredit = () => `<a href="https://www.reddit.com/user/${SIM_CREDIT}" target="_blank" rel="noopener">u/${SIM_CREDIT}</a>`;   // the Reddit Sim teams
+const MC_CREDIT = "tm4p29", mcCredit = () => `<a href="https://www.reddit.com/user/${MC_CREDIT}" target="_blank" rel="noopener">u/${MC_CREDIT}</a>`;   // the Reddit My Club teams are his
+const resultLabel = k => k.replace(/^reference 1$/, `Reddit Team by u/${MC_CREDIT}`).replace(/^reference (\d+)$/, `Reddit Team $1 by u/${MC_CREDIT}`).replace(/^counter (\d+)$/, "Counter Team $1")
+  .replace(/^mirror$/, "Copy of This Team").replace(/^balanced (\d+)$/, "Balanced Full-Chem Team $1").replace(/^target (\d+)$/, "Team to Beat").replace(/^fresh test (\d+)$/, "Fresh Stress Test $1").replace(/^final check (\d+)$/, "Final Check Team $1");
+// The site can start builds itself with a GitHub key saved on this phone only (Weekly setup → Connect GitHub).
+const ghToken = () => { try { return localStorage.getItem("ghToken") || ""; } catch (e) { return ""; } };
+async function ghGetFile(path) {          // { text, sha } of a file on main, or null
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=main&t=${Date.now()}`, { headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" }, cache: "no-store" });
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`GitHub said ${r.status}`);
+  const j = await r.json();
+  return { sha: j.sha, text: decodeURIComponent(escape(atob(j.content.replace(/\n/g, "")))) };
+}
+async function ghDeleteFile(path, message) {
+  const f = await ghGetFile(path); if (!f) return;
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, { method: "DELETE",
+    headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" }, body: JSON.stringify({ message, branch: "main", sha: f.sha }) });
+  if (!r.ok) throw new Error(`GitHub said ${r.status}`);
+}
+async function ghPutFile(path, content, message, sha) {
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+    method: "PUT", headers: { Authorization: `Bearer ${ghToken()}`, Accept: "application/vnd.github+json" },
+    body: JSON.stringify(Object.assign({ message, branch: "main", content: btoa(unescape(encodeURIComponent(content))) }, sha ? { sha } : {})) });
+  if (!r.ok) throw new Error(`GitHub said ${r.status}${r.status === 401 || r.status === 403 ? " (the GitHub key is wrong or expired)" : ""}`);
+  return r.json();
+}
+async function startBuild(req) {
+  const t = new Date(), pad = n => String(n).padStart(2, "0");
+  const stem = `${req.mode}-${req.series}-${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}-${pad(t.getHours())}${pad(t.getMinutes())}`;
+  req.created = t.toISOString();
+  const mins = Math.round((req.minutes || 30) * 1.1 + 8);
+  if (!ghToken()) {
+    alert(`To start builds from the site, connect GitHub once:\n\nSeason Setup tab → "Connect GitHub".\n\nIt takes about 2 minutes and then every build is one tap.`);
+    document.querySelector('#tabs button[data-t="setup"]').click();
+    const box = $("ghBox"); if (box) box.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+  if (!confirm(`Start this build?\n\nIt runs on GitHub, so you can close the site. Ready in about ${mins} minutes.`)) return;
+  try {
+    await ghPutFile(`config/requests/${stem}.json`, JSON.stringify(req, null, 1), `Build request: ${req.name}`);
+    alert(`Started ✓\n\nCheck back in about ${mins} minutes. Progress: GitHub → Actions → "Custom build".`);
+  } catch (e) { alert("Couldn't start the build: " + e.message); }
+}
+function oppTeamRows(t, k, series) {    // the opponent's team: saved by the builder, or (Reddit teams) from the weekly setup
+  const sv = t.opponent_teams && t.opponent_teams[k];
+  if (sv) return { meta: `${sv.formation || ""} · ${sv.chem} chem`, players: sv.players };
+  const m = /^reference (\d+)$/.exec(k), ids = m && series && (series.opponents || [])[+m[1] - 1];
+  if (!ids) return null;
+  const team = ids.map(id => BYID.get(id)).filter(Boolean); if (team.length !== 11) return null;
+  const E = effective(team, series);
+  return { meta: `${E.reduce((a, e) => a + e.chem, 0)} chem`, players: team.map((c, i) => ({ slot: c.position, id: c.id, name: c.name, rating: c.rating, color: c.color,
+    nationId: c.nationId, leagueId: c.leagueId, card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t })) };
+}
+let OPPS = [], ALLRES = [], OPPB = [];   // ALLRES: each "All results" list, drawn only when opened (100+ teams per series)
+function oppList(t, series) {          // every opponent tested: tap a name to see their team
+  return `<div class="opps">${Object.entries(t.results || {}).map(([k, v]) => {
+    const o = oppTeamRows(t, k, series); let body;
+    if (o) { OPPS.push({ mine: t.players.map(p => p.id), theirs: o.players.map(p => p.id), key: series && series.key });
+      body = `<p class="meta" style="margin:6px 0 4px">${esc(o.meta)}</p>${playersTable(o.players, true)}<div class="row" style="margin:8px 0 4px"><button class="ghost" data-opp="${OPPS.length - 1}" style="font-size:12.5px">Open in My Club Compare</button></div>`; }
+    else body = `<p class="small muted" style="margin:6px 0">This team wasn't saved by this build. Teams are saved from the next build onwards.</p>`;
+    return `<details class="opp" data-ob="${OPPB.push(body) - 1}"><summary><span class="on">${esc(resultLabel(k))}</span><span class="res">${pill(v.you_lead_first)} ${pill(v.they_lead_first)}</span></summary></details>`;
+  }).join("")}</div>`;
+}
+function wireOpps() {
+  document.querySelectorAll("details.allres[data-ar]").forEach(d => d.ontoggle = () => {
+    if (!d.open || d.dataset.done) return; d.dataset.done = "1";
+    const [t, ser] = ALLRES[+d.dataset.ar]; d.insertAdjacentHTML("beforeend", oppList(t, ser)); wireOpps();
+  });
+  document.querySelectorAll("details.opp[data-ob]").forEach(d => d.ontoggle = () => {
+    if (!d.open || d.dataset.done) return; d.dataset.done = "1"; d.insertAdjacentHTML("beforeend", OPPB[+d.dataset.ob]); wireOpps();
+  });
+  document.querySelectorAll("[data-opp]").forEach(b => b.onclick = () => {
+    const o = OPPS[+b.dataset.opp];
+    state.A = o.mine.map(id => BYID.get(id)).filter(Boolean); state.B = o.theirs.map(id => BYID.get(id)).filter(Boolean);
+    if (o.key) $("mcSeries").value = o.key; drawMC(); $("solveOut").innerHTML = "";
+    document.querySelector('#tabs button[data-t="mc"]').click(); window.scrollTo(0, 0);
+  });
+}
+function resultsTable(res) {
+  return `<table><tr><th>Opponent</th><th>You lead first</th><th>They lead first</th></tr>${Object.entries(res).map(([k, v]) => `<tr><td>${esc(resultLabel(k))}</td><td>${pill(v.you_lead_first)}</td><td>${pill(v.they_lead_first)}</td></tr>`).join("")}</table>`;
+}
+
+// ---------- Don't have: a personal version of a team, rebuilt without cards you don't own ----------
+// Best Teams always assume everyone owns every card. A "Don't have" rebuild makes YOUR version
+// (docs/results/mine/...), shown only on this phone; everyone else keeps seeing the full team.
+const wkKey = p => p + ":" + ((INDEX && INDEX.week) || "");
+const lsGet = k => { try { return JSON.parse(localStorage.getItem(wkKey(k)) || "{}"); } catch (e) { return {}; } };
+const lsSet = (k, v) => { try { localStorage.setItem(wkKey(k), JSON.stringify(v)); } catch (e) {} };
+const noHave = k => lsGet("nohave")[k] || [];                       // picked, not rebuilt yet
+function nhSet(k, ids) { const a = lsGet("nohave"); if (ids.length) a[k] = ids; else delete a[k]; lsSet("nohave", a); }
+const mineOf = k => lsGet("mine")[k] || null;                      // { ids, at } = your version was requested
+function mineSet(k, v) { const a = lsGet("mine"); if (v) a[k] = v; else delete a[k]; lsSet("mine", a); }
+const viewOf = k => lsGet("mineview")[k] || "mine";
+function viewSet(k, v) { const a = lsGet("mineview"); a[k] = v; lsSet("mineview", a); }
+const cardNames = ids => ids.map(id => { const c = BYID.get(id); return !c ? id : c.color === "ltm" ? cap(c.name) + " (every level)" : cap(c.name) + " " + c.rating; });   // no LTM = none of its levels
+const sameSet = (a, b) => (a || []).length === (b || []).length && (a || []).every(x => (b || []).includes(x));
+// ---- quick swap: anyone can get their own version instantly, in the browser (no GitHub key needed) ----
+// Each card you don't have is replaced by the best card for that slot, judged on the whole team (chem + boosts).
+const localOf = k => lsGet("local")[k] || null;
+function localSet(k, v) { const a = lsGet("local"); if (v) a[k] = v; else delete a[k]; lsSet("local", a); }
+const SW_ICONS = new Set(["icon", "debut_icon"]);
+function swapCtx(k, d, missing, slotsIn) {      // shared by the instant fill and the smart search (slotsIn: another formation)
+  const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, gone = new Set(missing);
+  const slots = slotsIn || t.players.map(p => p.slot), pool = d._pool ? CARDS.concat(d._pool) : CARDS;
+  const ok = c => c && !gone.has(c.id) && c.rating <= (s.cap || 99) && !(c._extra && c.owned === false);
+  const score = tm => {                          // quick judge of a full team: chem first, then in-game stats
+    const E = effective(tm, s), ch = E.reduce((a, e) => a + e.chem, 0);
+    if (!sim) return ch * 6 + E.reduce((a, e) => a + e.a + e.c + e.d, 0);
+    return ch * 4 + E.reduce((a, e, i) => a + (CTRL.has(slots[i]) ? 3 * e.c : 0) + (ATT.has(slots[i]) ? 2 * e.a : 0) + (DEF.has(slots[i]) ? e.d : 0), 0);
+  };
+  const options = (team, i, n) => {              // the best n cards for slot i, the rest of the team fixed
+    const keys = new Set(team.filter((x, j) => j !== i && x).map(playerKey));
+    const icons = team.filter((x, j) => j !== i && x && SW_ICONS.has(x.color)).length, out = [];
+    for (const x of pool) {
+      if (!ok(x) || !(x.P && x.P.has(slots[i])) || keys.has(playerKey(x))) continue;
+      if (!sim && s.key !== "X" && SW_ICONS.has(x.color) && icons >= 5) continue;
+      const tm = team.slice(); tm[i] = x;
+      out.push([tm.some(y => !y) ? x.attack + x.control + x.defense : score(tm), x]);
+    }
+    return out.sort((a, b) => b[0] - a[0]).slice(0, n);
+  };
+  return { sim, s, t, slots, ok, score, options, pool };
+}
+function instantFill(k, d, missing) {
+  const C = swapCtx(k, d, missing), team = C.t.players.map(p => BYID.get(p.id));
+  team.forEach((c, i) => { if (!C.ok(c)) team[i] = null; });
+  team.forEach((c, i) => { if (!c) { const o = C.options(team, i, 1)[0]; team[i] = o ? o[1] : null; } });
+  return team.some(x => !x) ? null : { team, slots: C.slots };
+}
+// Sim "missing a card": a proper search on the phone (the same rules as the builder). Fill the gap with every card,
+// try moving another player into the gap and refilling his slot, then try every card in every slot until nothing
+// improves. Ranked like the builder: control cards on full chem, control, the attack floor, attack, then defence; the
+// closest teams then play each other head to head (most wins, then margin).
+function simSwapEval(tm, slots, s, floor, FLD) {
+  const E = effective(tm, s), R = tm.map((c, i) => ({ slot: slots[i], pos: c.position, a: E[i].a, c: E[i].c, d: E[i].d })), W = attackWeights(R);
+  const gA = (x, ys) => ys.reduce((q, [y, w]) => q + w * simAtt(x, y), 0), sD = (x, ys) => ys.reduce((q, [y, w]) => q + w * (1 - simAtt(y, x)), 0);
+  let nf = 0, cs = 0, nc = 0, ds = 0, nd = 0, att = 0, short = 0, tot = 0, pa = 0, pd = 0;
+  R.forEach((r, i) => {
+    if (CTRL.has(r.slot)) { cs += r.c; nc++; tot += r.a + r.c + r.d; if (E[i].chem < 3) nf++; }
+    if (DEF.has(r.slot)) { ds += r.d; nd++; pd += sD(r, FLD.A); }
+    att += W[i] * r.a; if (W[i] > 0) pa += W[i] * gA(r, FLD.D); if (W[i] >= 0.05 && r.a < floor) short += W[i] * (floor - r.a);
+  });
+  const c = Math.round(cs / nc * 100) / 100, d = Math.round(ds / nd * 100) / 100, a = Math.round(att * 100) / 100, r4 = v => Math.round(v * 10000) / 10000;
+  pd /= nd; short = Math.round(short * 1000) / 1000;
+  // the builder's order: full chem in control, control, the attack floor, then the chance to beat strong teams' cards
+  return { tm, R, nf, c, a, d, short, key: [nf === 0 ? 1 : 0, c, -short, r4(pa + pd / 3), r4(pa), Math.round((a + d / 3) * 100) / 100, a, d, tot] };
+}
+const simKeyCmp = (x, y) => { for (let i = 0; i < x.key.length; i++) if (x.key[i] !== y.key[i]) return x.key[i] > y.key[i] ? 1 : -1; return 0; };
+async function simSwapBest(k, d, missing, onP) {
+  const C = swapCtx(k, d, missing), s = C.s, slots = C.slots, f = instantFill(k, d, missing); if (!f) return null;
+  const floor = s.attack_floor != null ? s.attack_floor : String(s.key) === "X" ? 0 : (s.cap || 99) - 1;
+  // the strong teams to measure against: the full site team and the Reddit teams (their defenders and attackers)
+  const full = (d._full ? d._full.ids : C.t.players.map(p => p.id)).map(i => BYID.get(i)), FLD = { A: [], D: [] }, teams = full.every(Boolean) ? [[full, d._full ? d._full.slots : slots]] : [];
+  const wser = ((WEEK && WEEK.sim) || []).find(x => x.key === s.key) || {};
+  (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); const fs = SIM_FORMS[wser.opponent_formation] || slots; if (tm.length === 11 && tm.every(Boolean)) teams.push([tm, fs]); });
+  for (const [tm, fs] of teams) {
+    const E = effective(tm, s), R = tm.map((c, i) => ({ slot: fs[i], pos: c.position, a: E[i].a, c: E[i].c, d: E[i].d })), W = attackWeights(R), di = R.filter(r => DEF.has(r.slot));
+    di.forEach(r => FLD.D.push([r, 1 / (teams.length * di.length)])); R.forEach((r, i) => { if (W[i] > 0) FLD.A.push([r, W[i] / teams.length]); });
+  }
+  const ev = tm => simSwapEval(tm, slots, s, floor, FLD), pool = {};
+  for (const sl of new Set(slots)) pool[sl] = C.pool.filter(x => C.ok(x) && x.P && x.P.has(sl));
+  const seen = new Map(), keep = r => { const id = r.tm.map(x => x.id).join(); if (!seen.has(id)) seen.set(id, r); return r; };
+  const fill = (t, j) => {                     // every card for slot j, the rest of the team fixed
+    const keys = new Set(t.filter((x, q) => q !== j).map(playerKey)); let best = null;
+    for (const x of pool[slots[j]]) { if (keys.has(playerKey(x))) continue; const tm = t.slice(); tm[j] = x; const r = keep(ev(tm)); if (!best || simKeyCmp(r, best) > 0) best = r; }
+    return best;
+  };
+  const gaps = C.t.players.map((p, i) => missing.includes(p.id) ? i : -1).filter(i => i >= 0);
+  let cur = keep(ev(f.team)); const greedy = cur;
+  for (const i of gaps) {                      // the gap: every card, or another player moved in and his slot refilled
+    let b = fill(cur.tm, i); if (b && simKeyCmp(b, cur) > 0) cur = b;
+    for (let j = 0; j < 11; j++) if (j !== i && cur.tm[j].P.has(slots[i])) {
+      const t2 = cur.tm.slice(); t2[i] = cur.tm[j]; const r = fill(t2, j); if (r && simKeyCmp(r, cur) > 0) cur = r;
+    }
+    if (onP) onP(); await new Promise(r => setTimeout(r, 0));
+  }
+  // every card in every slot until nothing improves, from the gap fix and from the quick pick: a quick pick with one
+  // control card off chem is often one link card away from a much better team (85: Pirlo kept, a link for Akliouche)
+  const climb = async st => {
+    for (let pass = 0, better = true; better && pass < 6; pass++) {
+      better = false;
+      for (let j = 0; j < 11; j++) { const r = fill(st.tm, j); if (r && simKeyCmp(r, st) > 0) { st = r; better = true; } if (onP) onP(); await new Promise(r => setTimeout(r, 0)); }
+    }
+    return st;
+  };
+  const a1 = await climb(cur), a2 = await climb(greedy);
+  cur = simKeyCmp(a2, a1) > 0 ? a2 : a1;
+  // the final: the best teams level with it on full chem and control play each other (and the full team)
+  const lvl = r => r.key[0] === cur.key[0] && r.key[1] === cur.key[1];
+  const L = [...seen.values()].filter(lvl), raw = (x, y) => (y.key[5] - x.key[5]) || (y.key[6] - x.key[6]) || (y.key[7] - x.key[7]);
+  const fin = [...new Set([...L.sort((a, b) => -simKeyCmp(a, b)).slice(0, 10), ...L.slice().sort(raw).slice(0, 6)])];   // best vs strong teams, best raw averages
+  if (lvl(greedy) && !fin.includes(greedy)) fin.push(greedy);           // the quick pick always plays the final too
+  const fieldR = teams.map(([tm, fs]) => simSwapEval(tm, fs, s, floor, FLD).R);
+  let win = cur;
+  if (fin.length > 1) {
+    const sc = fin.map((a, i) => { let w = 0, m = 0;
+      fin.forEach((b, j) => { if (i === j) return; const x = simMatch(a.R, b.R); const g = x.scoreA - x.scoreB; m += g; w += g > 0.0005 ? 1 : g < -0.0005 ? 0 : 0.5; });
+      fieldR.forEach(R2 => { const y = simMatch(a.R, R2); m += y.scoreA - y.scoreB; }); return [w, m]; });
+    let bi = 0; sc.forEach((v, i) => { if (v[0] > sc[bi][0] || (v[0] === sc[bi][0] && v[1] > sc[bi][1])) bi = i; }); win = fin[bi];
+  }
+  return { team: win.tm.map(x => x.id), slots, sim: true, tested: seen.size, key: win.key, R: win.R };
+}
+function versionData(k, d, team, slots, missing, formation) {
+  const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, E = effective(team, s);
+  const players = team.map((c, i) => ({ slot: slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
+    card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t, evos: c.evos }));
+  const chem = E.reduce((a, e) => a + e.chem, 0), avg = v => v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 100) / 100 : 0;
+  if (!sim) return Object.assign({}, d, { team: Object.assign({}, t, { players, chem, formation: formation || t.formation, plan: null, results: null, source: null }), not_owned_ids: missing });
+  const R = players.map((p, i) => ({ slot: p.slot, pos: team[i].position, a: p.eff[0], c: p.eff[1], d: p.eff[2] })), W = attackWeights(R);
+  const metrics = Object.assign({}, t.metrics, { chem, control: avg(R.filter(r => CTRL.has(r.slot)).map(r => r.c)), defence: avg(R.filter(r => DEF.has(r.slot)).map(r => r.d)),
+    attack: Math.round(R.reduce((a, r, i) => a + W[i] * r.a, 0) * 100) / 100 });
+  return Object.assign({}, d, { teams: [Object.assign({}, t, { players, metrics })], not_owned_ids: missing });
+}
+function swapTeam(k, d, missing) {
+  const L = localOf(k);
+  if (L && L.team && sameSet(L.ids, missing)) {   // the smart search's team
+    const team = L.team.map(id => BYID.get(id)); if (team.every(Boolean)) return versionData(k, d, team, L.slots, missing, L.formation);
+  }
+  const f = instantFill(k, d, missing); return f && versionData(k, d, f.team, f.slots, missing);
+}
+// Smart swap (My Club): ~1 minute on the phone. Tries the best cards for each gap, plus a second change elsewhere,
+// and keeps the team with the best worst result (win / draw / loss) against the Reddit team, the full team and
+// the hardest counter teams the builder saved for this series.
+const SW_RANK = { WIN: 2, DRAW: 1, LOSS: 0 };
+async function smartSwap(k, d, missing, onP) {
+  const C = swapCtx(k, d, missing), f = instantFill(k, d, missing); if (!f) return null;
+  const s = C.s, t = C.t, base = f.team, gaps = t.players.map((p, i) => missing.includes(p.id) ? i : -1).filter(i => i >= 0);
+  const wser = ((WEEK && WEEK.myclub) || []).find(x => x.key === s.key) || s, opps = [];
+  (wser.opponents || []).forEach(ids => { const tm = ids.map(i => BYID.get(i)); if (tm.length === 11 && tm.every(Boolean)) opps.push(tm); });
+  const R = t.results || {}, OT = t.opponent_teams || {};
+  Object.entries(R).filter(([n]) => OT[n] && n !== "mirror" && !n.startsWith("reference"))
+    .sort((a, b) => (SW_RANK[a[1].you_lead_first] + SW_RANK[a[1].they_lead_first]) - (SW_RANK[b[1].you_lead_first] + SW_RANK[b[1].they_lead_first]))
+    .map(([n]) => OT[n].players.map(p => BYID.get(p.id))).filter(tm => tm.length === 11 && tm.every(Boolean)).slice(0, 4).forEach(tm => opps.push(tm));   // the 4 hardest still possible
+  const fullT = (d._full ? d._full.ids : t.players.map(p => p.id)).map(i => BYID.get(i));
+  if (fullT.every(Boolean)) opps.push(fullT);         // last: the full team (with the card you don't have), a tiebreak only
+  const OE = opps.map(o => effective(o, s)), nFull = fullT.every(Boolean) ? 1 : 0, nRed = (wser.opponents || []).length ? 1 : 0;
+  // candidates: [quick score, team, context (formation), formation name]
+  const seen = new Set(), cands = [], add = (tm, Cx = C, f = t.formation) => { const key = f + ":" + tm.map(x => x.id).join(); if (!seen.has(key)) { seen.add(key); cands.push([Cx.score(tm), tm, Cx, f]); } };
+  add(base);
+  for (const i of gaps) for (const [, x] of C.options(base, i, 8)) { const tm = base.slice(); tm[i] = x; add(tm); }
+  const firsts = cands.slice(0, 3).map(c => c[1]);
+  for (const b of firsts) for (let j = 0; j < 11; j++) if (!gaps.includes(j))
+    for (const [, x] of C.options(b, j, 3)) { if (x.id === b[j].id) continue; const tm = b.slice(); tm[j] = x; add(tm); }
+  // other formations: the strong teams the builder saved for this series (any formation), with your missing cards
+  // refilled. Losing a card can make a different shape the better team, so the best few of these are tested too
+  const CX = new Map(), ctxFor = sl => CX.get(sl.join()) || CX.set(sl.join(), swapCtx(k, d, missing, sl)).get(sl.join()), alts = [];
+  for (const [n, ot] of Object.entries(OT)) {
+    if (n === "mirror" || !ot.players || ot.players.length !== 11) continue;
+    const sl = ot.players.map(p => p.slot), Cx = ctxFor(sl), tm = ot.players.map(p => { const c = BYID.get(p.id); return Cx.ok(c) ? c : null; });
+    tm.forEach((c, i) => { if (!c) { const o = Cx.options(tm, i, 1)[0]; tm[i] = o ? o[1] : null; } });
+    if (tm.every(Boolean)) alts.push([Cx.score(tm), tm, Cx, ot.formation || ""]);
+  }
+  const perF = {}; alts.sort((a, b) => b[0] - a[0]).filter(a => (perF[a[3]] = (perF[a[3]] || 0) + 1) <= 2).slice(0, 10).forEach(a => add(a[1], a[2], a[3]));
+  const same = cands.filter(c => c[3] === t.formation), other = cands.filter(c => c[3] !== t.formation);
+  const list = [same[0], ...other, ...same.slice(1).sort((a, b) => b[0] - a[0])].slice(0, 56);
+  let best = null, n = 0, solves = 0; const t0 = Date.now(), LIMIT = d._limit || 75000, W = Math.min(4, navigator.hardwareConcurrency || 2);
+  const better = g => g && (!best || g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))));
+  const judge = async ([sc, tm, Cx, f]) => {
+    const A = effective(tm, s); let worst = 3, sum = 0, red = null;
+    for (let o = 0; o < OE.length; o++) {
+      const r = await poolAsk(solves++, { type: "o2", A, B: OE[o] });
+      if (o < OE.length - nFull) worst = Math.min(worst, r[0], r[1]);
+      sum += r[0] + r[1] + (o < nRed ? 10 * (r[0] + r[1]) : 0);   // the Reddit result counts most after the worst case
+      if (o === 0 && nRed) red = r;
+      if (best && worst < best.worst) return null;              // can't beat the best so far
+    }
+    return { worst, sum, red, score: sc, tm, Cx, f };
+  };
+  for (let i = 0; i < list.length && Date.now() - t0 < LIMIT; i += W) {
+    const got = await Promise.all(list.slice(i, i + W).map(judge));
+    for (const g of got) if (better(g)) best = g;
+    n = Math.min(list.length, i + W); if (onP) onP(n, list.length);
+  }
+  // then climb with the time left: from the best team (in its formation), the strongest few cards in every slot,
+  // again from any better team, until nothing improves (some better teams are two or three single changes away)
+  for (let grew = true; best && grew && Date.now() - t0 < LIMIT;) {
+    grew = false; const from = best.tm, Cb = best.Cx, fb = best.f, next = [];
+    for (let j = 0; j < 11; j++) for (const [, x] of Cb.options(from, j, 4)) {
+      if (x.id === from[j].id) continue; const tm = from.slice(); tm[j] = x; const key = fb + ":" + tm.map(y => y.id).join();
+      if (!seen.has(key)) { seen.add(key); next.push([Cb.score(tm), tm, Cb, fb]); }
+    }
+    next.sort((a, b) => b[0] - a[0]);
+    for (let i = 0; i < next.length && Date.now() - t0 < LIMIT && !grew; i += W) {
+      const got = await Promise.all(next.slice(i, i + W).map(judge)); n += got.length; if (onP) onP(n, 0);
+      for (const g of got) if (g && best && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
+    }
+  }
+  return best && { team: best.tm.map(x => x.id), slots: best.Cx.slots, formation: best.f, worst: best.worst, red: best.red, sum: best.sum, score: best.score, tested: n, opps: OE.length };
+}
+const SIMSW = new Set();     // Sim versions being searched right now
+async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
+  if (!ghToken()) {                          // visitors: the instant swap, kept on this phone
+    const L = localOf(k);
+    if (!L || !L.ids.length) return { d, bar: "", nh: noHaveBar(k), which: null };
+    const names = esc(cardNames(L.ids).join(", "));
+    if (viewOf(k) === "everyone") return { d, bar: `<div class="minebar"><p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><button class="ghost" data-view="${esc(k)}|mine">Show my version</button></div>`, nh: noHaveBar(k), which: "everyone" };
+    const dm = swapTeam(k, d, L.ids); if (!dm) return { d, bar: "", nh: noHaveBar(k), which: null };
+    const WDL = v => ["Loss", "", "Draw", "Win"][v] || "?";
+    if (k.startsWith("sim") && !L.team && !SIMSW.has(k)) {    // a version made before the full search: run it now
+      SIMSW.add(k); simSwapBest(k, d, L.ids).then(r => { const cur = localOf(k); if (r && cur && sameSet(cur.ids, L.ids)) { localSet(k, Object.assign({ ids: L.ids }, r)); renderTeams(); } });
+    }
+    const how = L.team && L.sim ? `Best of ${L.tested.toLocaleString()} teams tried.`
+      : L.team ? `Best of ${L.tested} teams, tested against ${L.opps} strong teams${L.red ? `. Vs Reddit: <b>${WDL(L.red[0])}</b> if you lead, <b>${WDL(L.red[1])}</b> if they lead` : ""}.`
+      : `<span data-sstat="${esc(k)}">Quick swap shown. Searching for a stronger version…</span>`;
+    return { d: dm, nh: noHaveBar(k), which: "mine",
+      bar: `<div class="minebar"><p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names}. ${how}</p><div class="row"><button class="ghost" data-view="${esc(k)}|everyone">Everyone's team</button><button class="ghost" data-lreset="${esc(k)}">Back to full team</button></div></div>` };
+  }
+  let dm = null; try { dm = await getJSON("results/mine/" + f); } catch (e) {}
+  if (dm && (dm.week !== INDEX.week || !(dm.not_owned_ids || []).length)) dm = null;
+  let m = mineOf(k);
+  if (m && !m.ids.length) return { d, bar: "", nh: noHaveBar(k), which: null };     // you got every card back: everyone's team
+  if (!m && dm) m = { ids: dm.not_owned_ids };                   // built earlier (or on another visit)
+  if (!m) return { d, bar: "", nh: noHaveBar(k), which: null };
+  const ready = dm && sameSet(dm.not_owned_ids, m.ids); let which = "everyone";
+  const names = esc(cardNames(m.ids).join(", ")), got = m.ids.map(id => `<button class="ghost small" data-got="${esc(k)}|${esc(id)}" data-all="${esc(m.ids.join(","))}" style="padding:3px 9px">Got ${esc(cardNames([id])[0])}</button>`).join("");
+  let bar = `<div class="minebar">`;
+  if (!ready) bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b> without ${names} is building (about 40 min). Showing everyone's team for now.</p>`;
+  else if (viewOf(k) === "mine") { bar += `<p class="small" style="margin:0 0 6px"><b>Your version</b>, built without ${names}. Everyone else sees the full team.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|everyone" style="padding:4px 10px;font-size:12.5px">Show Everyone's Team</button></div>`; d = dm; which = "mine"; }
+  else bar += `<p class="small" style="margin:0 0 6px">Showing <b>everyone's team</b>.</p><div class="row" style="margin:0 0 6px"><button class="ghost" data-view="${esc(k)}|mine" style="padding:4px 10px;font-size:12.5px">Show Your Version (without ${names})</button></div>`;
+  bar += `<div class="row" style="margin:0 0 4px">${got}</div><div class="row" data-gotgo-row="${esc(k)}" hidden style="margin:4px 0"><button class="btn" data-gotgo="${esc(k)}" data-all="${esc(m.ids.join(","))}">Update Your Version</button></div><p class="small muted" style="margin:0 0 8px">Got cards since? Tap each one, then Update Your Version (one rebuild).</p></div>`;
+  return { d, bar, nh: noHaveBar(k), which };
+}
+function noHaveBar(k) {
+  const ids = noHave(k);
+  let h = `<div class="nhbar" data-nhbar="${esc(k)}">`;
+  if (ids.length) h += `<p class="small" style="margin:2px 0 6px"><b>Don't have:</b> ${esc(cardNames(ids).join(", "))}</p><div class="row" style="margin:0 0 10px"><button class="btn" data-nhgo="${esc(k)}">Make My Version</button><button class="ghost" data-nhclear="${esc(k)}">Undo</button></div>`;
+  return h + `</div>`;
+}
+function wireNoHave() {
+  const redraw = k => { const bar = document.querySelector(`[data-nhbar="${k}"]`); if (bar) bar.outerHTML = noHaveBar(k); wireNoHave(); };
+  document.querySelectorAll("[data-nhtog]").forEach(b => b.onclick = () => {
+    const sq = b.parentElement.nextElementSibling; b.classList.toggle("on"); b.textContent = b.classList.contains("on") ? "Done" : "Missing a card?"; if (sq) sq.classList.toggle("nhoff", !b.classList.contains("on"));
+  });
+  document.querySelectorAll("[data-nh]").forEach(b => b.onclick = () => {
+    const k = b.dataset.nh, ids = noHave(k), i = ids.indexOf(b.dataset.id);
+    if (i >= 0) ids.splice(i, 1); else ids.push(b.dataset.id);
+    nhSet(k, ids); b.classList.toggle("on", i < 0); redraw(k);
+  });
+  document.querySelectorAll("[data-nhclear]").forEach(b => b.onclick = () => {
+    const k = b.dataset.nhclear; nhSet(k, []);
+    document.querySelectorAll(`[data-nh="${k}"]`).forEach(x => x.classList.remove("on")); redraw(k);
+  });
+  document.querySelectorAll("[data-nhgo]").forEach(b => b.onclick = () => rebuildWithout(b.dataset.nhgo, [...new Set([...((mineOf(b.dataset.nhgo) || {}).ids || []), ...noHave(b.dataset.nhgo)])]));
+  document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => { const [k, v] = b.dataset.view.split("|"); viewSet(k, v); renderTeams(); });
+  document.querySelectorAll("[data-lreset]").forEach(b => b.onclick = () => { localSet(b.dataset.lreset, null); viewSet(b.dataset.lreset, "mine"); renderTeams(); });
+  document.querySelectorAll("[data-got]").forEach(b => b.onclick = () => {     // mark; one rebuild for all of them
+    b.classList.toggle("on"); b.style.borderColor = b.classList.contains("on") ? "var(--win)" : "";
+    const k = b.dataset.got.split("|")[0], any = document.querySelectorAll(`[data-got^="${CSS.escape(k)}|"].on`).length;
+    const row = document.querySelector(`[data-gotgo-row="${CSS.escape(k)}"]`); if (row) row.hidden = !any;
+  });
+  document.querySelectorAll("[data-gotgo]").forEach(b => b.onclick = () => {
+    const k = b.dataset.gotgo, cur = mineOf(k) || { ids: (b.dataset.all || "").split(",").filter(Boolean) };
+    const got = [...document.querySelectorAll(`[data-got^="${CSS.escape(k)}|"].on`)].map(x => x.dataset.got.split("|")[1]);
+    const rest = cur.ids.filter(x => !got.includes(x));
+    if (!rest.length) {                                   // nothing missing any more: back to everyone's team
+      const [kind, key] = k.split(":");
+      mineSet(k, { ids: [], at: new Date().toISOString() }); viewSet(k, "everyone");
+      ghDeleteFile(`docs/results/mine/${kind}_${key}.json`, `Got every card for ${k}: back to everyone's team`).catch(() => {});
+      renderTeams(); return;
+    }
+    rebuildWithout(k, rest, true);
+  });
+}
+async function rebuildWithout(k, ids, afterGot) {
+  const [kind, key] = k.split(":");
+  if (!ghToken()) {                          // instant, on this phone
+    const L = localOf(k), all = [...new Set([...((L && L.ids) || []), ...ids])];
+    localSet(k, { ids: all }); viewSet(k, "mine"); nhSet(k, []); OPEN.add(k); await renderTeams();
+    if (kind === "sim") {                      // then the full search, a few seconds
+      const d = await getJSON(`results/sim_${key}.json`), r = await simSwapBest(k, d, all);
+      const cur = localOf(k); if (r && cur && sameSet(cur.ids, all)) { localSet(k, Object.assign({ ids: all }, r)); renderTeams(); }
+    }
+    if (kind === "myclub") {                   // then the smart search, about a minute
+      const d = await getJSON(`results/myclub_${key}.json`);
+      const r = await smartSwap(k, d, all, (i, n) => { const el = document.querySelector(`[data-sstat="${CSS.escape(k)}"]`); if (el) el.textContent = n ? `Quick swap shown. Testing stronger versions: ${i} of ${n}…` : `Quick swap shown. Fine-tuning the best version: ${i} tested…`; });
+      const cur = localOf(k); if (r && cur && sameSet(cur.ids, all)) { localSet(k, Object.assign({ ids: all }, r)); renderTeams(); }
+    }
+    return;
+  }
+  const mins = 40;
+  if (!confirm(`${afterGot ? "Rebuild your version" : "Build your own version of"} the ${key} series without ${cardNames(ids).join(", ")}?\n\nTakes about ${mins} minutes. Only you see it, and it lasts until the season ends.`)) return;
+  try {
+    const t = new Date(), pad = n => String(n).padStart(2, "0");
+    await ghPutFile(`config/requests/rebuild-${kind}-${key}-${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}-${pad(t.getHours())}${pad(t.getMinutes())}${pad(t.getSeconds())}.json`,
+      JSON.stringify({ mode: "rebuild", kind, series: key, not_owned: ids, name: `Rebuild ${k}`, created: t.toISOString() }, null, 1), `Personal rebuild ${k} without ${ids.length} card(s)`);
+    mineSet(k, { ids, at: t.toISOString() }); viewSet(k, "mine"); nhSet(k, []);
+    alert(`Started ✓\n\nYour version of ${key} appears here in about ${mins} minutes (refresh the site).`);
+    renderTeams();
+  } catch (e) { alert("Couldn't start the rebuild: " + e.message); }
+}
+
+// ---------- My Evos: the Evos you've done, and each series' team built around them on this phone ----------
+// Every possible Evo card of the game year is in evos_all.json. You pick the card you put each Evo on (a chain card
+// covers all its Evos), kept on this phone. A series' My Evos team: the All Evos team when your Evos cover it (nothing
+// can beat that for you), otherwise the same search as "Missing a card?", run from both the All Evos and Recommended
+// Evos teams against the same strong teams, and the better of the two kept.
+let EVOALL = null;
+async function evoAll() {
+  if (EVOALL) return EVOALL;
+  const d = await getJSON("evos_all.json"), own = new Map(), out = new Map();
+  CARDS.forEach(c => { if (c._extra && c.evos && c.evos.length && c.owned !== false) own.set(c.baseId + "|" + c.evos.join(">"), c); });
+  for (const r of d.cards) {
+    const c = {}; d.fields.forEach((f, i) => c[f] = r[i]);
+    const o = own.get(c.baseId + "|" + (c.evos || []).join(">"));     // one of the site's own Evo cards: that card
+    if (o) { out.set(o.id, o); if (!BYID.has(c.id)) BYID.set(c.id, o); continue; }
+    Object.assign(c, { name: cap(c.name), specialChem: c.specialChem || "", _extra: true, _evx: true, owned: true });
+    c._n = norm(c.name); c.P = new Set([c.position, ...String(c.altPositions || "").split(",").filter(Boolean)]);
+    BYID.set(c.id, c); out.set(c.id, c);
+  }
+  own.forEach(c => out.set(c.id, c));                                  // own Evo cards the Evo data can't make (e.g. from a special card)
+  const names = d.evos.map(e => e.name); own.forEach(c => c.evos.forEach(n => { if (!names.includes(n)) names.push(n); }));
+  EVOALL = { evos: names, cards: [...out.values()] };
+  return EVOALL;
+}
+const myEvos = () => { try { return JSON.parse(localStorage.getItem("myevos") || "[]"); } catch (e) { return []; } };
+const myEvosSet = ids => { try { localStorage.setItem("myevos", JSON.stringify(ids)); } catch (e) {} };
+const recEvos = () => CARDS.filter(c => c._extra && c.evos && c.evos.length && c.owned !== false).map(c => c.id);
+function myEvosBox() {
+  const n = myEvos().length;
+  return `<details class="card" id="myEvosBox" data-ser="myevos"${OPEN.has("myevos") ? " open" : ""}><summary>My Evos <span class="small muted">· ${n ? `${n} card${n === 1 ? "" : "s"} picked` : "Not set"}</span></summary><div id="myEvosBody"><p class="small muted">Loading…</p></div></details>`;
+}
+async function fillMyEvos() {
+  const body = $("myEvosBody"); if (!body) return;
+  let E; try { E = await evoAll(); } catch (e) { body.innerHTML = `<p class="small muted">Evo data missing.</p>`; return; }
+  const ids = myEvos().filter(i => BYID.has(i)), on = new Map();
+  ids.forEach(i => BYID.get(i).evos.forEach(n => on.set(n, BYID.get(i))));
+  body.innerHTML = `<p class="small" style="margin:6px 0">Pick the card you put each Evo on. Each series then gets a <b>My Evos</b> team, built around them on this phone.</p>
+    <div class="row" style="margin:0 0 8px"><button class="ghost" id="evRec">Use Recommended Evos</button><button class="ghost" id="evClr">Clear All</button></div>
+    ${E.evos.map(n => { const c = on.get(n); return `<div class="evrow"><span class="en"><b>${esc(n)}</b><small>${c ? `${esc(c.name)} ${c.rating}${c.evos.length > 1 ? ` · ${esc(c.evos.join(" → "))}` : ""}` : "Not done"}</small></span><button class="ghost" data-evpick="${esc(n)}">${c ? "Change" : "Pick"}</button></div><div class="evlist" data-evl="${esc(n)}" hidden></div>`; }).join("")}`;
+  const save = v => { myEvosSet(v); renderTeams(); };
+  $("evRec").onclick = () => save(recEvos());
+  $("evClr").onclick = () => save([]);
+  body.querySelectorAll("[data-evpick]").forEach(b => b.onclick = () => {
+    const n = b.dataset.evpick, box = body.querySelector(`[data-evl="${CSS.escape(n)}"]`);
+    if (!box.hidden) { box.hidden = true; return; }
+    const all = E.cards.filter(c => c.evos.includes(n)).sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
+    box.innerHTML = `<input type="search" placeholder="Search ${all.length} cards" data-evq><div data-evr></div>`; box.hidden = false;
+    const list = box.querySelector("[data-evr]"), q = box.querySelector("[data-evq]");
+    const draw = () => { const t = norm(q.value || ""); const hits = all.filter(c => !t || c._n.includes(t)).slice(0, 40);
+      list.innerHTML = (on.get(n) ? `<button class="evopt" data-evset=""><b>Not done</b></button>` : "") + hits.map(c => `<button class="evopt" data-evset="${esc(c.id)}"><b>${esc(c.name)}</b> ${c.rating}<small>${esc(TYPE(c.color === "evo" && c.base ? (BYID.get(c.base) || c).color : c.color))} · ${esc(c.position)}${c.evos.length > 1 ? ` · ${esc(c.evos.join(" → "))}` : ""}</small></button>`).join("") || `<p class="small muted">No cards found.</p>`;
+      list.querySelectorAll("[data-evset]").forEach(x => x.onclick = () => {
+        const id = x.dataset.evset, c = BYID.get(id), drop = c ? c.evos : [n];     // each Evo on one card only
+        save([...ids.filter(i => !BYID.get(i).evos.some(e => drop.includes(e))), ...(id ? [id] : [])]);
+      }); };
+    q.oninput = draw; draw(); q.focus();
+  });
+}
+const MYEVO_RUN = new Set(), myEvoTm = (sim, d) => sim ? d.teams[0] : d.team;
+const myEvoSig = (dR, dA) => myEvos().slice().sort().join(",") + "|" + (dR.built || "") + "|" + ((dA && dA.built) || "");
+async function myEvoData(sid) {
+  const [kind, key] = sid.split(":"), dR = await getJSON(`results/${kind}_${key}.json`);
+  let dA = null; try { dA = await getJSON(`results/${kind}_${key}--allevo.json`); } catch (e) {}
+  return { dR, dA, sim: kind === "sim" };
+}
+async function myEvoBuild(sid, onP) {
+  const E = await evoAll(), mine = new Set(myEvos()); let { dR, dA, sim } = await myEvoData(sid);
+  const gone = E.cards.filter(c => !mine.has(c.id)).map(c => c.id), goneS = new Set(gone);   // every Evo card you haven't done
+  const pool = E.cards.filter(c => c._evx && mine.has(c.id)), sig = myEvoSig(dR, dA);
+  if (dA && !myEvoTm(sim, dA).players.some(p => String(p.id).startsWith("evx_"))) dA = null;   // no extra Evo: same as Recommended
+  if (dA && myEvoTm(sim, dA).players.every(p => !goneS.has(p.id))) return { sig, instant: true };
+  // the same strong teams for both searches: the All Evos team (else the Recommended one), both teams' counters, Reddit
+  const ST = myEvoTm(sim, dA || dR), RES = {}, OT = {};
+  if (!sim) for (const [d, tag] of [[dR, "r"], [dA, "a"]]) if (d) {
+    const t = myEvoTm(sim, d);
+    Object.entries(t.results || {}).forEach(([n, v]) => { if (n !== "mirror" && !n.startsWith("reference") && (t.opponent_teams || {})[n]) { RES[n + "@" + tag] = v; OT[n + "@" + tag] = t.opponent_teams[n]; } });
+  }
+  const run = (d, from) => { const t = Object.assign({}, myEvoTm(sim, d), sim ? {} : { results: RES, opponent_teams: OT });
+    return Object.assign({}, d, sim ? { teams: [t] } : { team: t }, { _pool: pool, _full: { ids: ST.players.map(p => p.id), slots: ST.players.map(p => p.slot) }, _limit: dA ? 40000 : 75000, _from: from }); };
+  const starts = [[dR, ""], ...(dA ? [[dA, "allevo"]] : [])].map(([d, f]) => run(d, f));
+  let best = null, tested = 0;
+  for (let i = 0; i < starts.length; i++) {
+    const d = starts[i], P = (a, b) => onP && onP(i, starts.length, a, b);
+    const r = sim ? await simSwapBest(sid, d, gone) : await smartSwap(sid, d, gone, P);
+    if (!r) continue; r.from = d._from;
+    const better = !best ? true : sim
+      ? (r.key[0] !== best.key[0] || r.key[1] !== best.key[1] ? simKeyCmp(r, best) > 0 : simMatch(r.R, best.R).scoreA - simMatch(r.R, best.R).scoreB > 0.0005)
+      : r.worst > best.worst || (r.worst === best.worst && (r.sum > best.sum || (r.sum === best.sum && r.score > best.score)));
+    tested += r.tested || 0; if (better) best = r;
+  }
+  if (!best) return null;
+  delete best.R; return Object.assign(best, { sig, tested });
+}
+function myEvoHtml(sid, dR, dA, r) {
+  const sim = sid.startsWith("sim"), n = myEvos().length;
+  const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
+  const show = (d, note) => { const t = myEvoTm(sim, d), m = sim ? t.metrics : null;
+    return `<p class="meta" style="margin:2px 0 8px">${esc(t.formation || "")}, ${sim ? m.chem : t.chem} chem</p><p class="small muted" style="margin:0 0 8px">${note}</p>
+      ${pitchHTML(t.players, sim ? "sim" : "myclub", ((dR || dA || {}).series || {}).cap)}${sim ? `<div class="facts"><span><i>Control</i><b>${m.control}</b></span><span><i>Attack</i><b>${m.attack}</b></span><span><i>Defence</i><b>${m.defence}</b></span></div>` : ""}${playersTable(t.players, !sim, null)}`; };
+  if (r.instant) return show(dA, `Your ${n} Evos cover every Evo card in the All Evos team, so that is your best team.`);
+  const base = r.from === "allevo" && dA ? dA : dR, team = r.team.map(id => BYID.get(id));
+  if (!team.every(Boolean)) return `<p class="small muted">Rebuild needed.</p>`;
+  const WDL = v => ["Loss", "", "Draw", "Win"][v] || "?";
+  const vd = versionData(sid, base, team, r.slots, []);
+  return show(vd, r.quick ? `<span data-mestat="${esc(sid)}">Quick version shown. Searching for a stronger one…</span>`
+    : sim ? `Built on this phone around your ${n} Evos. Best of ${(r.tested || 0).toLocaleString()} teams tried.`
+    : `Built on this phone around your ${n} Evos. Best of ${r.tested} teams, worst case <b>${WDL(r.worst)}</b> against ${r.opps} strong teams.`);
+}
+async function myEvoShow(sid) {
+  const el = () => document.querySelector(`[data-myevo="${CSS.escape(sid)}"]`); if (!el()) return;
+  const { dR, dA } = await myEvoData(sid), have = lsGet("myevo")[sid];
+  if (have && have.sig === myEvoSig(dR, dA)) { await evoAll(); el().innerHTML = myEvoHtml(sid, dR, dA, have); return; }
+  if (MYEVO_RUN.has(sid)) return; MYEVO_RUN.add(sid);
+  try {
+    await evoAll();
+    // a quick version first (the Recommended team with your Evos swapped in), then the full search
+    const E = EVOALL, mine = new Set(myEvos()), gone = E.cards.filter(c => !mine.has(c.id)).map(c => c.id);
+    const qd = Object.assign({}, dR, { _pool: E.cards.filter(c => c._evx && mine.has(c.id)) }), f = instantFill(sid, qd, gone);
+    if (f && el()) el().innerHTML = myEvoHtml(sid, dR, dA, { team: f.team.map(c => c.id), slots: f.slots, quick: true });
+    else if (el()) el().innerHTML = `<p class="small muted" data-mestat="${esc(sid)}">Building your team…</p>`;
+    const r = await myEvoBuild(sid, (i, n, a, b) => { const s = document.querySelector(`[data-mestat="${CSS.escape(sid)}"]`);
+      if (s) s.textContent = `Quick version shown. Searching for a stronger one: start ${i + 1} of ${n}${b ? `, ${a} of ${b} tested` : a ? `, ${a} tested` : ""}…`; });
+    if (r) { const a = lsGet("myevo"); a[sid] = r; lsSet("myevo", a); if (el()) el().innerHTML = myEvoHtml(sid, dR, dA, r); }
+    else if (el()) el().innerHTML = `<p class="small muted">Couldn't build a full team with these cards.</p>`;
+  } finally { MYEVO_RUN.delete(sid); }
+}
+const VSEL = new Map();     // the version shown in each series (kept when the page redraws)
+
+const vtag = (which, d) => !which ? "" : which === "mine"
+  ? `<p class="vtag mine">Your version <span>· without ${esc(cardNames(d.not_owned_ids || []).join(", "))}</span></p>`
+  : `<p class="vtag">Everyone's team <span>· assumes every card</span></p>`;
+
+// ---------- Game plan (computed after each build by scripts/plan.js) ----------
+function planHtml(p) {
+  const SC = ["a", "c", "d"];
+  const tag = (s, v) => `<span class="gtag ${SC[s]}">${["ATT", "CTL", "DEF"][s]}${v != null ? " " + v : ""}</span>`;
+  const W = (p.watch || []).filter(w => w.s != null);
+  const un = W.filter(w => !w.beat.length && w.s !== 1), lo = W.filter(w => w.beat.length);   // control can still draw
+  if (!un.length && !lo.length) return "";
+  let h = `<details class="plan gp" open><summary>Key matchups</summary><div class="glist">`;
+  const ug = new Map(); for (const w of un) { const k = w.s + "|" + w.v; if (!ug.has(k)) ug.set(k, { ...w, names: [] }); ug.get(k).names.push(w.name); }
+  h += [...ug.values()].map(w => `<div class="grow">${tag(w.s, w.v)}<div class="gtx"><b>${w.names.map(n => esc(cap(n))).join(", ")}</b></div><span class="gwin">Unbeatable</span></div>`).join("");
+  const grp = new Map();                  // same stat, value and beaten by the same card(s): one row
+  for (const w of lo) { const k = w.s + "|" + w.v + "|" + w.beat.map(x => x.name + x.rating).join(","); if (!grp.has(k)) grp.set(k, { ...w, names: [] }); grp.get(k).names.push(w.name); }
+  h += [...grp.values()].map(w => `<div class="grow">${tag(w.s, w.v)}<div class="gtx"><b>${w.names.map(n => esc(cap(n))).join(", ")}</b><span class="glose">Loses only to ${w.beat.map(x => `<b>${esc(cap(x.name))}</b> ${x.v}${x.tie ? " (on total)" : ""}`).join(" or ")}</span></div></div>`).join("");
+  return h + `</div></details>`;
+}
+const wdl = (R, k) => `<b class="w">${R.filter(v => v[k] === "WIN").length}W</b> <b class="d">${R.filter(v => v[k] === "DRAW").length}D</b> <b class="l">${R.filter(v => v[k] === "LOSS").length}L</b>`;
+
+// ---------- Teams tab ----------
+const VARIANT_EXCLUDE = { noltmevo: [{ color: "ltm" }, { color: "evo" }] };   // config/variants.json
+// Each series is a folded strip (like the game): number, formation and results; tap to open the full team.
+let TSEL = (() => { try { return JSON.parse(localStorage.getItem("teamSel")) || {}; } catch (e) { return {}; } })();   // { mode: "myclub"|"sim", myclub: "86", sim: "89" }
+if (!TSEL.mode) TSEL.mode = "myclub";
+const OPEN = new Set();                   // series left open, kept when the page redraws (e.g. switching versions)
+const strip = (k, title, sub, res, cls = "", extra = "") => `<summary class="strip${cls ? " " + cls : ""}${extra ? " wx" : ""}"><span class="k">${esc(k)}</span><span class="mid"><b>${esc(title)}</b><small>${sub}</small></span>${extra}<span class="res">${res}</span></summary>`;
+// When the team last changed: "Today", "Yesterday", else the weekday and date (local time).
+const changedWhen = (d, short) => {
+  const x = new Date(String(d.changed || d.built || "").replace(" UTC", "Z").replace(" ", "T")); if (isNaN(x)) return "";
+  const day = t => new Date(t.getFullYear(), t.getMonth(), t.getDate()), n = Math.round((day(new Date()) - day(x)) / 864e5);
+  return n <= 0 ? "Today" : n === 1 ? "Yesterday" : x.toLocaleDateString(undefined, short ? { day: "numeric", month: "short" } : { weekday: "short", day: "numeric", month: "short" });
+};
+const lastChange = d => { const when = changedWhen(d); return when ? `<span class="lc"><b>${esc(when)}</b><small>Last change</small></span>` : ""; };
+// How a Sim team is found: a funnel from every card to one team (search steps blue, judging steps gold)
+const SIM_STEPS = [["Every Card Up to the Cap", "Series boosts applied", ""], ["Card Lists", "6 formations, short, medium and wide, plus linking teammates", "s"],
+  ["Solver", "The best 11 from every list", "s"], ["Rank", "Full chem, control, then attack and defence", "j"],
+  ["Rebuild", "Back line and strikers re-solved against the strongest teams", "s"], ["Control Swaps", "Equal control cards swapped, the team rebuilt around them", "s"],
+  ["Polish", "Every card tried in every slot", "s"], ["Head to Head", "The finalists play each other, most wins goes through", "j"],
+  ["Tie Rule", "Same stat: the higher total plays", "j"], ["Team", "The best, plus 2 alternatives", ""]];
+const MC_STEPS = [["Every Card Up to the Cap", "Series boosts and chem applied, max 5 Icons (no limit in X)", ""],
+  ["Starting Teams", "Strongest attack, control and defence cores, plus unbeatable cores", "s"],
+  ["Search", "Thousands of changes, with cards from linked clubs, nations and leagues", "s"],
+  ["Every Match Solved", "Perfect play from both sides, whoever leads first", "j"],
+  ["Counter Teams", "Teams built to beat the best so far, then the best improves against them", "s"],
+  ["Polish", "Every promising swap tried, two-card links too", "s"], ["Fresh Tests", "Strong new teams it has never faced", "j"],
+  ["Rank", "5 cards unbeatable in one stat first, then the worst result, then all results", "j"], ["Team", "The best, plus a game plan for Match Helper", ""]];
+const funnel = (title, steps) => `<details class="howres"><summary class="small">${title}</summary><div class="funnel">${steps.map(([t, d, k], i) =>
+  `<div class="fstep ${k}" style="width:max(280px, ${100 - i * 6}%)"><i>${i + 1}</i><span><b>${t}</b><small>${d}</small></span></div>`).join("")}</div>
+  <p class="small muted fleg" style="margin-top:8px"><span class="fkey s"></span>Searching <span class="fkey j"></span>Judging</p></details>`;
+const simFunnel = () => funnel("How Sim teams are built", SIM_STEPS);
+const mcFunnel = () => funnel("How My Club teams are built", MC_STEPS);
+const serOpen = id => OPEN.has(id) ? " open" : "";
+// Latest Update card on the landing page: newest entry first, only the newest is shown
+const UPDATES = [
+  { day: "2026-11-17", items: [
+    "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert.",
+    "<b>Missing a card:</b> your version can now switch formation if a different shape is better without that card."
+  ] },
+  { day: "2026-11-16", items: [
+    { t: "<b>Play vs AI:</b> new mode in Match. You make every move and the AI plays theirs, in one of three styles. Human and Varied mix up their openings." },
+    { t: "<b>SBC:</b> solved squads now show on a pitch with each player's chem." },
+    { t: "<b>New look:</b> pick My Club or Sim and a series to see that team laid out on a pitch. Sim switches the site to blue, and phones get a tab bar at the bottom." },
+    { p: 1, t: "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos." },
+    { p: 1, t: "<b>Evo names:</b> shown on every card that uses one, with both names for a chain." },
+    { p: 1, t: "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone." },
+    "<b>Evo cards:</b> every evolved card this game year is in the Cards tab and in every card search.",
+    "<b>Unbeatable:</b> a My Club team gets the label when 5+ cards can't be beaten in the same stat and its tiebreak card can't lose.",
+    "<b>Sim Odds:</b> removing a player leaves his spot empty, so the next card you add goes straight into it.",
+    "<b>Sim Odds:</b> a card out of position is flagged and plays on 0 chem, and adds nothing to anyone else's chem, like in the game."
+  ] },
+  { day: "2026-11-14", items: [
+    "<b>Cards:</b> HoF Upgraded and Showdown Plus cards added, with HoF Upgraded on full chem like Hall of FUT."
+  ] },
+  { day: "2026-11-13", items: [
+    "<b>Sim teams:</b> each team now shows its averages and when it last changed.",
+    "<b>My Club teams:</b> three searches per series each night, with the strongest team published.",
+    "<b>How teams are built:</b> new step-by-step guide for My Club, alongside Sim.",
+    "<b>Missing a card:</b> smarter My Club swaps when you don't have a player.",
+    "<b>Head to Head:</b> load the site-built team on either side.",
+    "<b>Sim Odds:</b> odds now assume 5 or 6 possessions, like real games."
+  ] },
+  { day: "2026-11-11", items: [
+    "<b>Sim teams:</b> improved solver.",
+    "<b>Missing a card:</b> smarter Sim swaps when you don't have a player.",
+    "<b>Sim Odds:</b> enter your own team too, with a cleaner result screen.",
+    "<b>Match Helper:</b> search by nation, club, league or position.",
+    "<b>Best Teams:</b> each series shows when its team last changed."
+  ] }
+];
+// an item marked p: still on the preview only, so the main site doesn't announce it yet
+const updItems = u => u.items.filter(x => typeof x === "string" || !x.p || PREVIEW).map(x => typeof x === "string" ? x : x.t);
+const updateCard = () => { const u = UPDATES.find(u => updItems(u).length); return u ? `<div class="card"><h2>Latest Update</h2><p class="meta">${esc(fmtDay(u.day))}</p><ul class="upd small">${updItems(u).map(x => `<li>${x}</li>`).join("")}</ul></div>` : ""; };
+let VAULT = null;     // { week, files } when looking at a past week
+let DOCK = "";        // which chip panel above the team is open
+const lsStr = k => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } };
+async function renderTeams() {
+  const box = $("teamsBody"), V = VAULT, base = V ? `vault/${V.week}/` : "results/";
+  if (!INDEX && !V) { box.innerHTML = `<div class="card">No results yet. Fill in <b>Season Setup</b> and they'll appear here once the build finishes.</div>`; return; }
+  let weeks = []; if (!V) { try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {} }
+  const vaultBox = V ? "" : `<p class="small muted" style="margin:0 0 8px">Past seasons' teams, saved automatically when a new season starts.</p>${weeks.length
+      ? `<div class="chips">${weeks.map((w, i) => { return w.files.length ? `<button class="chipbtn" data-vault="${i}"><b>${esc(seasonName(w.week))}</b><span>Week of ${esc(fmtDay(w.week))} · ${w.files.length} team${w.files.length === 1 ? "" : "s"}</span></button>`
+            : `<div class="chipbtn off"><b>${esc(seasonName(w.week))} <span class="tag">Not built</span></b><span>Week of ${esc(fmtDay(w.week))} · ${esc(w.missing || "Not available")}</span></div>`; }).join("")}</div>`
+      : `<p class="small muted">Nothing yet. This season moves here when the next one starts.</p>`}`;
+  OPPS = []; ALLRES = []; OPPB = []; let html = "", intro = `<div><div data-about="myclub"><p class="small" style="margin:6px 0 0">The hardest team to beat in each series, tested against dozens of counters.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem. TB is the tiebreak total.</p>${mcFunnel()}</div>
+    <div data-about="sim" hidden><p class="small" style="margin:6px 0 0">The strongest team in each series: the best control in every control spot, then the best attack and defence.</p><p class="small muted" style="margin:4px 0 0">Stats include boosts and chem.</p>${simFunnel()}</div></div>`;
+  // above the team: the season title, then a row of chips (Latest Update, My Evos, Vault, About) that open small panels
+  const u = V ? null : UPDATES.find(u => updItems(u).length), seenU = lsStr("updSeen");
+  const chips = [u && ["upd", `Update<small>${esc(fmtDay(u.day).replace(/,? \d{4}$/, ""))}</small>`, `<ul class="upd small">${updItems(u).map(x => `<li>${x}</li>`).join("")}</ul>`, u.day > seenU],
+    !V && PREVIEW && ["evo", `My Evos<small>${myEvos().length || "Not set"}</small>`, `<div id="myEvosBody"><p class="small muted">Loading…</p></div>`],
+    !V && ["vault", "Vault", vaultBox],
+    ["about", `<span data-abouth>About</span>`, intro]].filter(Boolean);
+  html = `<div class="tsel-h"><h2>S${seasonOf(V ? V.week : INDEX.week)} Teams</h2><span>${esc(seasonName(V ? V.week : INDEX.week))} · Week of ${esc(fmtDay(V ? V.week : INDEX.week || ""))}</span></div>`
+    + (V ? `<div class="vaultbar"><span><b>Vault:</b> a past season, kept for reference.${V.note ? " " + esc(V.note) : ""}</span><button class="ghost" id="vaultBack">Back to This Season</button></div>` : "")
+    + `<div class="tdock"><div class="tchips">${chips.map(([k, l, , dot]) => `<button data-tc="${k}" class="${DOCK === k ? "on" : ""}">${dot ? `<i class="dot"></i>` : ""}${l}</button>`).join("")}</div>${chips.map(([k, , body]) => `<div class="tpanel" data-tp="${k}"${DOCK === k ? "" : " hidden"}>${body}</div>`).join("")}</div><div id="tsel"></div>`;
+  const tail = "";
+  const files = V ? V.files : INDEX.files || [];
+  // "myclub_89--noltm.json": a public version of the 89 team without some cards (e.g. No LTMs), shown inside the 89 card
+  const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_") && !f.includes("--"));
+  const vfiles = files.filter(f => (f.startsWith("myclub_") || f.startsWith("sim_")) && f.includes("--"));
+  // each series: All Evos / Recommended Evos (the main team) / No LTM & Evos, one at a time (only the ones built so far)
+  const VORDER = ["allevo", "", "noltmevo", "myevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos" };
+  const ME = !V && PREVIEW && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
+  const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
+  // each version carries its own header result (Unbeatable, or when it last changed): the header follows the version shown
+  const vpanel = (v, inner, sres = "", mid = "", avgs = "") => `<div class="vpanel"${v === "" ? "" : " hidden"} data-vp="${v}" data-sres="${esc(sres)}" data-mid="${esc(mid)}" data-avgs="${esc(avgs)}">${inner}</div>`;
+  const midOf = (form, chem, tag = "") => `<b>${esc(form || "")}</b><small>${chem} chem${tag}</small>`;
+  const avgsOf = m => { const st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`; return `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`; };
+  const UNB = `<span class="rp"><span class="pill WIN unb">Unbeatable</span></span>`;
+  // owner: Unbeatable = 5+ cards no card in the series beats in attack (or 5+ in defence), plus a tiebreak card that
+  // can't lose the end tiebreak (the builder saves this as the team's shape). Not "wins every test team".
+  const unbOf = t => !!(t && t.shape && t.shape.unbeatable >= 5 && ["attack", "defence"].includes(t.shape.stat) && t.shape.tiebreak != null);
+  const rank = { WIN: 2, DRAW: 1, LOSS: 0 };
+  for (const f of mc) {
+    try {
+      let d = await getJSON(base + f), bar = "", nh = "", which = null;
+      if (!V) ({ d, bar, nh, which } = await versionOf("myclub:" + d.series.key, f, d));
+      const t = d.team;
+      let worst = null;
+      for (const [k, v] of Object.entries(t.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
+        if (!worst || rank[r] < rank[worst.r]) worst = { r, who, k };
+      const refs = Object.entries(t.results || {}).filter(([k]) => k.startsWith("reference"));
+      const sid = "myclub:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
+      // the strip only calls out a team nothing beats (every tested team, both lead orders)
+      const sres = unbOf(t) ? UNB : lastChange(d);
+      const allV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--")), myV = PREVIEW ? allV : [];
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation || "", `${t.chem} chem${mineTag}`, sres)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, t.chem, mineTag))}">${bar}${vtag(which, d)}${pitchHTML(t.players, "myclub", d.series.cap)}`;
+      if (t.source && t.source.startsWith("Reddit")) html += `<p class="verdict">Same as the Reddit team <span>Nothing found beats it</span></p>`;
+      else if (t.source === "Previous Best") html += `<p class="verdict">Still the best <span>Latest search found nothing better</span></p>`;
+      else if (t.source && t.source.startsWith("Hand")) html += `<p class="verdict">Hand-built team <span>Beat the builder's own team</span></p>`;
+      else if (t.source === "Polished") html += `<p class="verdict">Improved <span>A card swap made it stronger</span></p>`;
+      const box = (label, inner, note) => `<div class="sc"><span>${label}</span>${inner}${note ? `<small>${note}</small>` : ""}</div>`;
+      const facts = (w, n, extra = "") => `<div class="facts">${w ? `<span><i>Worst case</i>${pill(w.r)}<small>${esc(resultLabel(w.k))}, ${w.who}</small></span>` : ""}${n ? `<span><i>Tested</i><b>${n}</b><small>teams${extra}</small></span>` : ""}</div>`;
+      const nT = Object.keys(t.results || {}).length;
+      if (worst) html += facts(worst, nT, refs.length ? `, including the Reddit team by ${mcCredit()}` : "");
+      if (t.plan) html += planHtml(t.plan);
+      html += nh + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
+      const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
+      const RR = Object.values(t.results || {});
+      if (RR.length) html += `<details class="allres"><summary class="small">All ${RR.length} results <span class="gwdl">You lead ${wdl(RR, "you_lead_first")}</span><span class="gwdl">They lead ${wdl(RR, "they_lead_first")}</span></summary><p class="small muted" style="margin:6px 0 2px">Tap an opponent to see their team. Results are you lead first, then they lead first.</p></details>`.replace('<details class="allres">', `<details class="allres" data-ar="${ALLRES.push([t, wser]) - 1}">`);
+      html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      for (const vf of myV) {
+        try {
+          let vd = await getJSON(base + vf), vt = vd.team; const vid = vf.replace(/\.json$/, "").split("--")[1];
+          const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
+          if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
+              || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
+            vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;    // the main team has none of those cards / no extra Evo used
+          }
+          let vw = null;
+          for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
+            if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
+          const gone = vd.not_owned || [], nV = Object.keys(vt.results || {}).length;
+          html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
+            ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
+            ${pitchHTML(vt.players, "myclub", d.series.cap)}${vw ? facts(vw, nV) : ""}
+            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
+            unbOf(vt) ? UNB : lastChange(vd), midOf(vt.formation, vt.chem));
+        } catch (e) {}
+      }
+      // main site, for now: other versions (No LTM & Evos) as a section under the team, like before
+      if (!PREVIEW) for (const vf of allV) {
+        try {
+          let vd = await getJSON(base + vf), vt = vd.team; const lab = (vd.variant && vd.variant.label) || "Alternative";
+          const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vd.variant && vd.variant.id] || [];
+          if (vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v)))) {
+            vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;
+          }
+          let vw = null;
+          for (const [k, v] of Object.entries(vt.results || {})) for (const [who, r] of [["you lead first", v.you_lead_first], ["they lead first", v.they_lead_first]])
+            if (!vw || rank[r] < rank[vw.r]) vw = { r, who, k };
+          html += `<details class="oteam vteam"><summary><b>${esc(lab)} version</b><span class="small muted">${vd.same_as_full ? "Same as the full team" : "Without those cards"}</span><span class="ores">${unbOf(vt) ? `<span class="pill WIN unb">Unbeatable</span>` : ""}</span></summary>
+            <p class="meta" style="margin:6px 0">${esc(vt.formation || "")}, ${vt.chem} chem${vd.same_as_full ? "" : ". Tested against teams that have them"}</p>
+            ${vw ? facts(vw, 0) : ""}
+            ${vt.plan ? planHtml(vt.plan) : ""}${playersTable(vt.players, true, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p></details>`;
+        } catch (e) {}
+      }
+      html += mePanel(sid) + `</div></details>`;
+    } catch (e) {}
+  }
+  for (const f of sim) {
+    try {
+      let d = await getJSON(base + f), bar = "", nh = "", which = null;
+      if (!V) ({ d, bar, nh, which } = await versionOf("sim:" + d.series.key, f, d));
+      const t = d.teams && d.teams[0]; if (!t) continue;
+      const m = t.metrics;
+      const avg = (l, v) => `<div class="sc"><span>${l}</span><b class="big" style="font-size:28px">${v}</b></div>`;
+      const sid = "sim:" + d.series.key, mineTag = which === "mine" ? " · <b class=\"gold\">Your version</b>" : "";
+      const sres = lastChange(d), st = (l, v) => `<span><b>${v}</b><small>${l}</small></span>`;
+      const cad = `<span class="avgs" title="Averages">${st("Ctrl", m.control)}${st("Att", m.attack)}${st("Def", m.defence)}</span>`;
+      const myV = vfiles.filter(x => x.startsWith(f.replace(/\.json$/, "") + "--"));
+      html += `<details class="card sercard" data-ser="${esc(sid)}"${serOpen(sid)}>${strip(d.series.key, t.formation, `${m.chem} chem${mineTag}`, sres, "sim", cad)}<div class="body">${vswitch(sid, ["", ...myV.map(x => x.replace(/\.json$/, "").split("--")[1]), ...ME])}<div class="vpanel" data-vp="" data-sres="${esc(sres)}" data-mid="${esc(midOf(t.formation, m.chem, mineTag))}" data-avgs="${esc(cad)}">${bar}${vtag(which, d)}${pitchHTML(t.players, "sim", d.series.cap)}${(((WEEK && WEEK.sim) || []).find(x => x.key === d.series.key) || {}).opponents ? `<div class="facts"><span><i>Tested</i><small>against the Reddit team by ${simCredit()}</small></span></div>` : ""}${nh}${playersTable(t.players, false, V ? null : "sim:" + d.series.key)}<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
+      for (const vf of myV) {
+        try {
+          let vd = await getJSON(base + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
+          let vt = vd.teams && vd.teams[0]; if (!vt) continue;
+          const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
+          if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
+              || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
+            vd = Object.assign({}, vd, { built: d.built, same_as_full: true }); vt = t;
+          }
+          const vm = vt.metrics, gone = vd.not_owned || [];
+          html += vpanel(vid, `<p class="meta" style="margin:2px 0 8px">${esc(vt.formation || "")}, ${vm.chem} chem${vd.same_as_full ? " · Same as the Recommended Evos team" : ""}</p>
+            ${vid === "allevo" ? `<p class="small muted" style="margin:0 0 8px">Every Evo this game year can be used (one card per Evo). Needs those Evos done.</p>` : ""}
+            ${pitchHTML(vt.players, "sim", d.series.cap)}${playersTable(vt.players, false, null)}<p class="built">Built ${esc(fmtStamp(vd.built))}</p>`,
+            lastChange(vd), midOf(vt.formation, vm.chem), avgsOf(vm));
+        } catch (e) {}
+      }
+      html += mePanel(sid) + `</div></details>`;
+    } catch (e) {}
+  }
+  html += tail;
+  if (!V) {
+    box.innerHTML = html;
+    document.querySelectorAll("[data-vault]").forEach(b => b.onclick = () => { VAULT = weeks[+b.dataset.vault]; if (VAULT.all && PREVIEW) VAULT = { ...VAULT, files: VAULT.all }; renderTeams(); window.scrollTo(0, 0); });
+  } else {
+    box.innerHTML = html;
+    $("vaultBack").onclick = () => { VAULT = null; renderTeams(); window.scrollTo(0, 0); };
+  }
+  document.querySelectorAll("details.sercard").forEach(x => x.ontoggle = () => { x.open ? OPEN.add(x.dataset.ser) : OPEN.delete(x.dataset.ser); });
+  teamSelector();
+  const pickV = (sw, b) => {
+    sw.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+    sw.parentElement.querySelectorAll(":scope > .vpanel").forEach(p => p.hidden = p.dataset.vp !== b.dataset.v);
+    VSEL.set(sw.dataset.vsw, b.dataset.v); if (b.dataset.v === "myevo") myEvoShow(sw.dataset.vsw);
+    const p = sw.parentElement.querySelector(`:scope > .vpanel[data-vp="${b.dataset.v}"]`), res = sw.closest("details").querySelector(":scope > summary .res");
+    if (p && res) res.innerHTML = p.dataset.sres || "";
+    const sm = sw.closest("details").querySelector(":scope > summary"), mid = sm && sm.querySelector(".mid"), av = sm && sm.querySelector(".avgs");
+    if (p && mid && p.dataset.mid) mid.innerHTML = p.dataset.mid;
+    if (p && av && p.dataset.avgs) av.outerHTML = p.dataset.avgs;
+  };
+  document.querySelectorAll("[data-vsw]").forEach(sw => {
+    sw.onclick = e => { const b = e.target.closest("button[data-v]"); if (b) pickV(sw, b); };
+    const keep = VSEL.get(sw.dataset.vsw), b = keep != null && sw.querySelector(`button[data-v="${keep}"]`); if (b) pickV(sw, b);
+  });
+  document.querySelectorAll(".tchips").forEach(row => row.onclick = e => {
+    const b = e.target.closest("[data-tc]"); if (!b) return;
+    DOCK = DOCK === b.dataset.tc ? "" : b.dataset.tc;
+    row.querySelectorAll("[data-tc]").forEach(x => x.classList.toggle("on", x.dataset.tc === DOCK));
+    document.querySelectorAll(".tpanel").forEach(p => p.hidden = p.dataset.tp !== DOCK);
+    if (DOCK === "upd") { const u = UPDATES.find(u => updItems(u).length); if (u) { try { localStorage.setItem("updSeen", u.day); } catch (e) {} } const d = b.querySelector(".dot"); if (d) d.remove(); }
+    if (DOCK === "evo") fillMyEvos();
+  });
+  if (DOCK === "evo") fillMyEvos();
+  const mb = $("myEvosBox"); if (mb) { mb.ontoggle = () => { mb.open ? OPEN.add("myevos") : OPEN.delete("myevos"); if (mb.open) fillMyEvos(); }; if (mb.open) fillMyEvos(); }
+  wireOpps(); if (!V) wireNoHave();
+}
+// ---------- mini pitch: the team in its formation, like the game screen ----------
+const PSIDE = s => s[0] === "L" ? 0 : s[0] === "R" ? 2 : 1;
+const PBAND = s => ({ GK: "g", LB: "d", CB: "d", RB: "d", CDM: "dm", LM: "m", CM: "m", RM: "m", CAM: "am", LW: "f", ST: "f", RW: "f" })[s] || "m";
+const TINTS = { icon: "#efe3c2", debut_icon: "#efe3c2", hero: "#a66bff", halloween_hero: "#a66bff", gold: "#e9c25a", silver: "#c9d0d6", bronze: "#c98a55", evo: "#3fe0c5", ltm: "#ff4d6a", totw: "#2a2a2a", hall_of_fut: "#ff8a1f", hall_of_fut_upgraded: "#ff8a1f" };
+const tintOf = p => { const k = p.evos && p.evos.length ? "evo" : String(p.color).replace(/^rare_/, "").replace(/_gold$/, "") === "totw" ? "totw" : String(p.color).replace(/^rare_/, "");
+  if (TINTS[k]) return TINTS[k]; if (typeof TCOL !== "undefined" && TCOL[p.color]) return TCOL[p.color][0]; let h = 0; for (const ch of k) h = (h * 31 + ch.charCodeAt(0)) % 360; return `hsl(${h} 80% 62%)`; };
+const typeOf = p => p.evos && p.evos.length ? "Evo" : TYPE(p.color);
+function pitchXY(slots) {                     // where each spot of a formation sits on the mini pitch, in %
+  const bands = {}; slots.forEach((sl, i) => (bands[PBAND(sl)] = bands[PBAND(sl)] || []).push(i));
+  const xy = [], order = ["f", "am", "m", "dm", "d", "g"].filter(b => bands[b]), ys = {};
+  order.forEach((b, i) => ys[b] = order.length < 2 ? 50 : 7 + (88 - 7) * i / (order.length - 1));
+  const lift = s => ({ LW: 3, RW: 3, LM: -3, RM: -3, LB: -3, RB: -3 })[s] || 0;
+  for (const idx of Object.values(bands)) {
+    const o = idx.slice().sort((a, b) => PSIDE(slots[a]) - PSIDE(slots[b]) || a - b), n = o.length;
+    const span = n >= 5 ? [10, 90] : n === 4 ? [13, 87] : n === 3 ? [20, 80] : n === 2 ? [28, 72] : [50, 50];
+    o.forEach((i, k) => xy[i] = [n === 1 ? 50 : span[0] + (span[1] - span[0]) * k / (n - 1), ys[PBAND(slots[i])] + lift(slots[i])]);
+  }
+  return xy;
+}
+const PITCH_SVG = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g><rect x="3" y="2" width="94" height="96" rx="1"/><line x1="3" y1="50" x2="97" y2="50"/><ellipse cx="50" cy="50" rx="13" ry="6.5"/><rect x="28" y="84" width="44" height="14"/><rect x="28" y="2" width="44" height="14"/></g></svg>`;
+function pitchHTML(ps, mode, cap) {
+  const bands = {}; ps.forEach((p, i) => (bands[PBAND(p.slot)] = bands[PBAND(p.slot)] || []).push(i));
+  const xy = [], order = ["f", "am", "m", "dm", "d", "g"].filter(b => bands[b]), ys = {};
+  order.forEach((b, i) => ys[b] = order.length < 2 ? 50 : 7 + (88 - 7) * i / (order.length - 1));
+  const lift = s => ({ LW: 3, RW: 3, LM: -3, RM: -3, LB: -3, RB: -3 })[s] || 0;
+  for (const idx of Object.values(bands)) {
+    const o = idx.slice().sort((a, b) => PSIDE(ps[a].slot) - PSIDE(ps[b].slot) || a - b), n = o.length;
+    const span = n >= 5 ? [10, 90] : n === 4 ? [13, 87] : n === 3 ? [20, 80] : n === 2 ? [28, 72] : [50, 50];
+    o.forEach((i, k) => xy[i] = [n === 1 ? 50 : span[0] + (span[1] - span[0]) * k / (n - 1), ys[PBAND(ps[i].slot)] + lift(ps[i].slot)]);
+  }
+  // lit stats: My Club = its best stat, plus any other within 3 of it; Sim = the stat that slot uses (a second one only within 3 of it)
+  const lit = p => { if (mode === "sbc") return []; if (mode !== "sim") { const v = p.eff, top = Math.max(...v); return v.map(x => top - x <= 3); }   // by the numbers shown (boosts and chem in)
+    if (p.slot === "ST") return [1, 0, 0]; if (p.slot === "GK" || p.slot === "CB") return [0, 0, 1];
+    return [(["LB", "RB", "CDM"].includes(p.slot) ? 0 : p.eff[0] >= cap - 1 && Math.abs(p.eff[0] - p.eff[1]) <= 3), 1, 0]; };
+  const seen = new Map(); ps.forEach(p => seen.set(typeOf(p), tintOf(p)));
+  return `<div class="pitch"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g><rect x="3" y="2" width="94" height="96" rx="1"/><line x1="3" y1="50" x2="97" y2="50"/><ellipse cx="50" cy="50" rx="13" ry="6.5"/><rect x="28" y="84" width="44" height="14"/><rect x="28" y="2" width="44" height="14"/></g></svg>${ps.map((p, i) => { const L = lit(p);
+    return `<div class="pc" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(p)}"><b class="r">${p.rating}</b><span class="ps">${esc(p.slot)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(p.name))}${mode === "sbc"
+      ? `<span class="pchem" title="Chem ${p.chem}">${[0, 1, 2].map(k => `<i class="${k < p.chem ? "on" : ""}"></i>`).join("")}</span>`
+      : `<span class="pst">${p.eff.map((v, k) => `<i class="${L[k] ? "on " + "acd"[k] : ""}">${v}</i>`).join("")}</span>`}</div>`; }).join("")}</div>
+    <div class="plegend">${[...seen].map(([n, t]) => `<em style="--t:${t}">${esc(n)}</em>`).join("")}</div>`;
+}
+// full name if it fits at 10px or more, else the last name (like the game's short names)
+const pnFit = n => { const s = cap(n), z = pnSize(s); if (z >= 10 || !/[ -]/.test(s)) return [s, z]; const l = s.split(/[ -]/).pop(); return [l, pnSize(l)]; };
+if (document.fonts) document.fonts.ready.then(() => document.querySelectorAll(".pc .pn").forEach(e => { PN_FIT.delete(e.textContent); e.style.fontSize = pnSize(e.textContent) + "px"; }));
+// whole name always fits the card: measured in the card font, shrunk until it fits
+const PN_FIT = new Map(); let PN_CTX = null;
+const pnSize = n => { if (PN_FIT.has(n)) return PN_FIT.get(n);
+  PN_CTX = PN_CTX || document.createElement("canvas").getContext("2d"); let z = 13;
+  for (; z > 8; z -= .5) { PN_CTX.font = `700 ${z}px "Saira Extra Condensed","Arial Narrow",sans-serif`; if (PN_CTX.measureText(n).width + .2 * z * 0.02 * n.length <= 54) break; }
+  if (document.fonts && document.fonts.status === "loaded") PN_FIT.set(n, z); return z; };
+// Teams tab: My Club / Sim switch and series pills; one series shown at a time
+function teamSelector() {
+  const box = $("tsel"); if (!box) return;
+  const cards = [...document.querySelectorAll("#teamsBody details.sercard[data-ser]")];
+  const keys = m => cards.filter(c => c.dataset.ser.startsWith(m + ":")).map(c => c.dataset.ser.split(":")[1]);
+  const draw = () => {
+    const ks = keys(TSEL.mode); if (!ks.includes(TSEL[TSEL.mode])) TSEL[TSEL.mode] = ks[0];
+    box.innerHTML = `<div class="seg"><button data-m="myclub" class="${TSEL.mode === "myclub" ? "on" : ""}">My Club</button><button data-m="sim" class="${TSEL.mode === "sim" ? "on" : ""}">Sim</button></div>
+      <div class="spills">${ks.map(k => `<button data-k="${esc(k)}" class="${k === TSEL[TSEL.mode] ? "on" : ""}">${esc(k)}</button>`).join("")}</div>`;
+    const sid = TSEL.mode + ":" + TSEL[TSEL.mode];
+    cards.forEach(c => { const on = c.dataset.ser === sid; c.classList.toggle("tsel-off", !on); c.classList.add("tsel-one"); if (on && !c.open) c.open = true; });
+    try { localStorage.setItem("teamSel", JSON.stringify({ mode: TSEL.mode, myclub: TSEL.myclub, sim: TSEL.sim })); } catch (e) {}
+    document.querySelectorAll("[data-about]").forEach(x => x.hidden = x.dataset.about !== TSEL.mode);
+    const ah = document.querySelector("[data-abouth]"); if (ah) ah.textContent = TSEL.mode === "sim" ? "About Sim" : "About My Club";
+    if (document.querySelector("#teams.on")) simLook(TSEL.mode === "sim");
+  };
+  box.onclick = e => { const m = e.target.closest("[data-m]"), k = e.target.closest("[data-k]");
+    if (m) TSEL.mode = m.dataset.m; else if (k) TSEL[TSEL.mode] = k.dataset.k; else return; draw(); };
+  draw();
+}
+function playersTable(ps, showTB, nh, mark) {     // nh = "myclub:73" adds a Don't have button to each player; mark(p): highlight
+  const key = `<span>Att</span><span>Ctl</span><span>Def</span>`, nhOn = nh && noHave(nh).length;
+  return `${nh ? `<div class="sqhead"><span>Squad</span><button class="ghost nhtog${nhOn ? " on" : ""}" data-nhtog>${nhOn ? "Done" : "Missing a card?"}</button></div>` : ""}<div class="squad${nh && !nhOn ? " nhoff" : ""}"><div class="stkey">${key}</div><div class="stkey k2">${key}</div>${ps.map(p =>
+    `<div class="prow${mark && mark(p) ? " gmark" : ""}"><span class="pos">${esc(p.slot)}</span><span class="nm"><span class="l1"><b>${esc(cap(p.name))}</b><span class="r">${p.rating}</span>${showTB && p.tiebreak != null ? `<span class="tb">TB ${p.tiebreak}</span>` : ""}</span><small>${esc(TYPE(p.color))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</small><small>Base ${p.card.join("/")} · Chem ${p.chem}</small>${PREVIEW && p.evos && p.evos.length ? `<small class="evon">Evo: ${esc(p.evos.join(" → "))}</small>` : ""}</span><span class="sc2"><span class="st"><span class="a">${p.eff[0]}</span><span class="c">${p.eff[1]}</span><span class="d">${p.eff[2]}</span></span>${nh ? `<button class="nohave${noHave(nh).includes(p.id) ? " on" : ""}" data-nh="${esc(nh)}" data-id="${esc(p.id)}">Don't have</button>` : ""}</span></div>`).join("")}</div>`;
+}
+
+// ---------- My Club compare ----------
+let MYTEAMS = {}, CUSTOM = [];
+let MCW = { week: "", base: "results/", myclub: [], files: [] };   // the week My Club Compare uses: this week or a Vault week
+function mcSeries() { const k = $("mcSeries").value; return MCW.myclub.find(s => s.key === k) || { boosts: [], key: "" }; }
+function beatSeries() { const k = $("beatSeries").value; return (WEEK && WEEK.myclub || []).find(s => s.key === k) || { boosts: [], key: "" }; }
+const serOf = side => side === "T" ? beatSeries() : mcSeries();
+const SIDE = { A: "1. Your team", B: "2. Their team", T: "Team to beat" };
+const short = ids => ids.map(id => BYID.get(id)).filter(Boolean).slice(0, 3).map(c => c.name).join(", ") + "…";
+function savedTeams() { try { return JSON.parse(localStorage.getItem("mcSaved") || "[]"); } catch (e) { return []; } }
+function setSaved(list) { try { localStorage.setItem("mcSaved", JSON.stringify(list)); } catch (e) {} }
+async function setupMC() {
+  for (const f of ((INDEX && INDEX.files) || []).filter(f => f.startsWith("custom_"))) { try { CUSTOM.push(await getJSON("results/" + f)); } catch (e) {} }
+  try { const mt = await getJSON("myteams.json"); if (WEEK && mt.week === WEEK.week) MYTEAMS = mt.teams || {}; } catch (e) {}
+  const ser = (WEEK && WEEK.myclub) || [];
+  MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
+  let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
+  weeks = weeks.filter(w => w.files.some(f => f.startsWith("myclub_")));
+  if ($("mcWeek")) $("mcWeek").innerHTML = `<option value="">${esc(seasonName(WEEK && WEEK.week))} (This Season)</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(seasonName(w.week))}</option>`).join("");
+  const fillSeries = () => { $("mcSeries").innerHTML = MCW.myclub.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") + `<option value="">No Series (No Boosts)</option>`; };
+  if ($("mcWeek")) $("mcWeek").onchange = async () => {
+    const wk = $("mcWeek").value;
+    if (!wk) MCW = { week: "", base: "results/", myclub: ser, files: (INDEX && INDEX.files) || [] };
+    else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {}
+      MCW = { week: wk, base: `vault/${wk}/`, myclub: w.myclub || [], files: (x => (PREVIEW && x.all) || x.files)(weeks.find(x => x.week === wk) || { files: [] }) }; }
+    fillSeries(); drawMC(); $("solveOut").innerHTML = "";
+  };
+  fillSeries();
+  $("mcSeries").onchange = () => { drawMC(); $("solveOut").innerHTML = ""; };
+  $("solveBtn").onclick = solveMC;
+  $("swapBtn").onclick = () => { [state.A, state.B] = [state.B, state.A]; drawMC(); $("solveOut").innerHTML = ""; };
+  $("beatSeries").innerHTML = ser.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("");
+  $("beatSeries").onchange = () => { drawMC(); drawBeatResults(); };
+  $("beatLocalGo").onclick = async () => {
+    const s = beatSeries();
+    if (state.T.length !== 11) { alert("Add all 11 players of the team you want to beat first."); return; }
+    if (BEAT_RUN && !BEAT_RUN.stop && $("beatLocalGo").dataset.busy) { BEAT_RUN.stop = true; return; }
+    const btn = $("beatLocalGo"), mins = +$("beatLocalMin").value; btn.dataset.busy = "1"; btn.textContent = "Stop and show results";
+    const prog = $("beatLocalProg"), LV = ["Loss", "Loss", "Draw", "Win", "Win"];
+    const t0 = Date.now();
+    const tick = setInterval(() => { const el = $("beatLocalBar"); if (el) el.style.width = Math.min(100, (Date.now() - t0) / (mins * 600)) + "%"; }, 500);
+    prog.innerHTML = `<div class="pbar"><i id="beatLocalBar"></i></div><p class="small muted" id="beatLocalTxt">Starting…</p>`; $("beatLocalOut").innerHTML = "";
+    const res = await beatLocal(s, state.T, mins, p => { const el = $("beatLocalTxt"); if (!el) return;
+      el.textContent = (p.phase === 1 ? `Checking the site's strongest teams: ${p.n} of ${p.of}` : `Improving the best teams: ${p.tested} tested`) +
+        (p.best ? `. Best so far: ${LV[p.best.r[0]]} if you lead, ${LV[p.best.r[1]]} if they lead` : ""); });
+    clearInterval(tick); delete btn.dataset.busy; btn.textContent = "Find a team to beat it"; prog.innerHTML = "";
+    drawBeatLocal(res, s);
+  };
+  $("beatGo").onclick = () => {
+    const s = beatSeries();
+    if (state.T.length !== 11) { alert("Add all 11 players of the team you want to beat first."); return; }
+    startBuild({ name: `Beat ${state.T.slice(0, 3).map(c => c.name).join(", ")}`, series: s.key, mode: "beat", minutes: +$("beatMin").value, opponents: [state.T.map(c => c.id)] });
+  };
+  drawMC(); drawBeatResults();
+}
+// ---------- Beat a team on the phone (everyone) ----------
+// Starts from the strongest full-chem teams the site already built for this series (the Best Team and its 100+
+// counter teams), finds the ones that do best against their team, then improves them card by card. Every team is
+// judged with the exact solver (both lead orders, perfect play), so the results shown are exact.
+let BEAT_RUN = null;
+async function beatLocal(s, T, minutes, onP) {
+  const run = BEAT_RUN = { stop: false }, t0 = Date.now(), LIMIT = minutes * 60000;
+  const TE = effective(T, s), ICONS = new Set(["icon", "debut_icon"]);
+  const d = await getJSON(`results/myclub_${s.key}.json`).catch(() => null);
+  const seeds = [], seen = new Set();
+  const addSeed = (ps, form) => { const cards = ps.map(p => BYID.get(p.id)), slots = ps.map(p => p.slot);
+    if (cards.length !== 11 || cards.some(c => !c || c.rating > s.cap) || slots.some(x => !x)) return;
+    const k = cards.map(c => c.id).sort().join(); if (seen.has(k)) return; seen.add(k); seeds.push({ cards, slots, form }); };
+  if (d && d.team) { addSeed(d.team.players, d.team.formation); Object.values(d.team.opponent_teams || {}).forEach(o => addSeed(o.players, o.formation)); }
+  for (const f of (INDEX && INDEX.files) || []) if (f.startsWith(`myclub_${s.key}--`)) { const v = await getJSON("results/" + f).catch(() => null); if (v && v.team) addSeed(v.team.players, v.team.formation); }
+  if (!seeds.length) return { error: "No teams built for this series yet." };
+  // duel strength against their team: how many of their cards each of ours beats, stat for stat
+  const cmpT = (x, y, tx, ty) => (x > y ? 1 : x < y ? 0 : tx > ty ? 1 : tx < ty ? 0 : 0.5);
+  const H = E => E.reduce((a, e) => a + TE.reduce((b, t) => b + cmpT(e.a, t.d, e.t, t.t) + cmpT(e.d, t.a, e.t, t.t) + cmpT(e.c, t.c, e.t, t.t), 0), 0);
+  let k = 0; const lv = async E => { const r = await Promise.all([0, 1].map(f => poolAsk(k++, { type: "lv1", A: E, B: TE, f }))); return r; };
+  const keyOf = r => [Math.min(r[0], r[1]), r[0] + r[1]], better = (a, b) => !b || a.key[0] > b.key[0] || (a.key[0] === b.key[0] && (a.key[1] > b.key[1] || (a.key[1] === b.key[1] && a.h > b.h)));
+  const done = new Set(), found = [];
+  const judge = async (cards, slots, form) => {
+    const id = cards.map(c => c.id).join(); if (done.has(id)) return null; done.add(id);
+    const E = effective(cards, s), r = await lv(E), x = { cards, slots, form, r, key: keyOf(r), h: H(E), chem: E.reduce((a, e) => a + e.chem, 0) };
+    found.push(x); return x;
+  };
+  // 1. every seed, exact, a few at a time
+  const W = Math.min(4, navigator.hardwareConcurrency || 2); let n = 0;
+  const order = seeds.map(x => ({ x, h: H(effective(x.cards, s)) })).sort((a, b) => b.h - a.h).map(o => o.x);
+  for (let i = 0; i < order.length && !run.stop && Date.now() - t0 < LIMIT * 0.4; i += W) {
+    await Promise.all(order.slice(i, i + W).map(x => judge(x.cards, x.slots, x.form)));
+    n = Math.min(order.length, i + W); onP && onP({ phase: 1, n, of: order.length, best: found.slice().sort((a, b) => better(a, b) ? -1 : 1)[0], t: Date.now() - t0 });
+  }
+  // 2. improve the best few, one card at a time (same formation, full chem kept)
+  const okCard = (c, team, i, slot) => c.rating <= s.cap && c.P && c.P.has(slot) && !(c._extra && c.owned === false) &&
+    !team.some((x, j) => j !== i && playerKey(x) === playerKey(c)) && !(s.key !== "X" && ICONS.has(c.color) && team.filter((x, j) => j !== i && ICONS.has(x.color)).length >= 5);
+  const bySlot = new Map(), slotList = sl => { if (!bySlot.has(sl)) bySlot.set(sl, CARDS.filter(c => c.rating <= s.cap && c.P && c.P.has(sl)).sort((a, b) => (b.attack + b.control + b.defense) - (a.attack + a.control + a.defense)).slice(0, 250)); return bySlot.get(sl); };
+  const pool2 = () => found.slice().sort((a, b) => better(a, b) ? -1 : 1);
+  const tried = new Set();
+  while (!run.stop && Date.now() - t0 < LIMIT) {
+    const base = pool2().find(x => !tried.has(x.cards.map(c => c.id).join())); if (!base) break;
+    tried.add(base.cards.map(c => c.id).join());
+    let cur = base;
+    for (let step = 0; step < 12 && !run.stop && Date.now() - t0 < LIMIT; step++) {
+      const cand = [];
+      for (let i = 0; i < 11; i++) for (const c of slotList(cur.slots[i])) {
+        if (c.id === cur.cards[i].id || !okCard(c, cur.cards, i, cur.slots[i])) continue;
+        const tm = cur.cards.slice(); tm[i] = c; const E = effective(tm, s), ch = E.reduce((a, e) => a + e.chem, 0);
+        if (ch < Math.min(cur.chem, 33)) continue;                 // never trade chem away
+        cand.push({ tm, h: H(E) });
+      }
+      cand.sort((a, b) => b.h - a.h);
+      let best = null;
+      for (let i = 0; i < Math.min(8, cand.length) && !run.stop; i += W) {
+        const got = await Promise.all(cand.slice(i, i + W).map(c => judge(c.tm, cur.slots, cur.form)));
+        for (const g of got) if (g && better(g, best)) best = g;
+      }
+      onP && onP({ phase: 2, best: pool2()[0], tested: found.length, t: Date.now() - t0 });
+      if (!best || !better(best, cur)) break;
+      cur = best;
+    }
+  }
+  // the 3 best different teams
+  const out = []; for (const x of pool2()) { if (out.length >= 3) break; if (out.some(o => o.cards.filter(c => x.cards.includes(c)).length >= 10)) continue; out.push(x); }
+  return { teams: out, tested: found.length, secs: Math.round((Date.now() - t0) / 1000) };
+}
+function drawBeatLocal(res, s) {
+  const box = $("beatLocalOut");
+  if (res.error) { box.innerHTML = `<p class="small bad">${esc(res.error)}</p>`; return; }
+  const LV = ["LOSS", "LOSS", "DRAW", "WIN", "WIN"], LT = ["Loss by 2+", "Loss by 1", "Draw", "Win by 1", "Win by 2+"];
+  box.innerHTML = `<p class="small muted" style="margin:0 0 10px">Tested ${res.tested} teams in ${res.secs}s. Results assume both sides play perfectly.</p>` + res.teams.map((x, n) => {
+    const E = effective(x.cards, s), ps = x.cards.map((c, i) => ({ slot: x.slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
+      card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t }));
+    return `<details class="oteam beatres"${n === 0 ? " open" : ""}><summary><b>Option ${n + 1}</b><span class="small muted">${esc(x.form || "")} · ${x.chem} chem</span></summary>
+      <div class="score"><div class="sc"><span>You lead first</span>${pill(LV[x.r[0]])}<small>${LT[x.r[0]]}</small></div><div class="sc"><span>They lead first</span>${pill(LV[x.r[1]])}<small>${LT[x.r[1]]}</small></div></div>
+      ${playersTable(ps, true)}<div class="row" style="margin-top:10px"><button class="btn" data-beatuse="${n}">Open in Head to head</button></div></details>`;
+  }).join("");
+  box.querySelectorAll("[data-beatuse]").forEach(b => b.onclick = () => {
+    const x = res.teams[+b.dataset.beatuse];
+    state.A = x.cards.slice(); state.B = state.T.slice(); $("mcSeries").value = s.key; drawMC(); $("solveOut").innerHTML = "";
+    document.querySelector('#tabs button[data-t="mc"]').click(); window.scrollTo(0, 0);
+  });
+}
+function drawBeatResults() {
+  const key = beatSeries().key, L = CUSTOM.filter(c => c.request && c.request.mode === "beat" && c.series.key === key)
+    .sort((a, b) => String(b.built).localeCompare(String(a.built)));
+  $("beatResults").innerHTML = `<h3>Finished ${esc(key)} builds</h3>` + (L.length ? L.map(d => {
+    const t = d.team, r = Object.values(t.results || {})[0] || {};
+    return `<div class="card"><h2>Against ${esc((d.opponents[0] || []).map(cap).slice(0, 4).join(", "))}…</h2>
+      <p>You lead first ${pill(r.you_lead_first || "?")} &nbsp; They lead first ${pill(r.they_lead_first || "?")}</p>
+      <p class="small muted">${esc(t.formation || "")} · ${t.chem} chem · ${esc(d.request.minutes)} min search · built ${esc(d.built)}</p>${playersTable(t.players, true)}
+      <div class="row" style="margin-top:8px"><button class="ghost" data-usebeat="${CUSTOM.indexOf(d)}" style="font-size:12.5px">Open in Head to head</button></div></div>`;
+  }).join("") : `<p class="small muted">None yet for this series. Builds you start appear here when they finish (refresh the site).</p>`);
+  document.querySelectorAll("[data-usebeat]").forEach(b => b.onclick = () => {
+    const d = CUSTOM[+b.dataset.usebeat];
+    state.A = d.team.players.map(p => BYID.get(p.id)).filter(Boolean);
+    state.B = (d.request.opponents[0] || []).map(id => BYID.get(id)).filter(Boolean);
+    $("mcSeries").value = d.series.key; drawMC(); $("solveOut").innerHTML = "";
+    document.querySelector('#tabs button[data-t="mc"]').click();
+  });
+}
+function loadButtons(side) {
+  const s = serOf(side), out = [];
+  const vault = side !== "T" && MCW.week;      // a past week: only that week's own teams (plus your saved ones)
+  if (side === "A" && !vault && MYTEAMS[s.key]) out.push({ k: "mine", t: `Hand-Built ${s.key} Team`, d: (MYTEAMS[s.key].note ? MYTEAMS[s.key].note + " · " : "") + short(MYTEAMS[s.key].ids) });
+  if ((side === "A" || side === "B") && MCW.files.includes(`myclub_${s.key}.json`)) out.push({ k: "built", t: `Site-Built ${s.key} Team`, d: vault ? "From that season's build" : "From this season's build" });
+  if (side === "A" && !vault) CUSTOM.filter(c => c.series.key === s.key && c.request.mode === "beat").forEach(c => out.push({ k: "custom" + CUSTOM.indexOf(c), t: "Built to Beat", d: "Against " + (c.opponents[0] || []).slice(0, 3).map(cap).join(", ") + "…" }));
+  (s.opponents || []).forEach((ids, i) => out.push({ k: "ref" + i, t: `Reddit Team ${(s.opponents.length > 1 ? i + 1 : "")}`.trim(), d: `By u/${MC_CREDIT}: ` + short(ids) }));
+  savedTeams().forEach((t, i) => out.push({ k: "saved" + i, t: "★ " + t.name, d: short(t.ids), del: i }));
+  return out;
+}
+function panelHtml(side) {
+  const team = state[side], s = serOf(side), E = team.length ? effective(team, s) : [];
+  const btns = loadButtons(side);
+  let h = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${SIDE[side]} <span class="muted small">${team.length}/11${team.length ? " · chem " + E.reduce((a, e) => a + e.chem, 0) : ""}</span></h2>
+    ${team.length ? `<button class="ghost" data-clear="${side}" style="padding:4px 9px;font-size:12px">Clear</button>` : ""}</div>`;
+  if (btns.length) h += `<div class="small muted" style="margin-top:8px">Load</div><div class="chips">${btns.map(b => `<button class="chipbtn" data-load="${side}:${b.k}"><b>${esc(b.t)}</b><span>${esc(cap(b.d))}</span></button>${b.del != null ? `<button class="x" data-unsave="${b.del}" title="Delete saved team">✕</button>` : ""}`).join("")}</div>`;
+  h += `<div>${Array.from({ length: 11 }, (_, i) => {
+    const c = team[i];
+    if (!c) return `<div class="slot"><span class="num">${i + 1}</span><span class="who muted">-</span></div>`;
+    const e = E[i];
+    const alts = versions(c, side).length > 1;
+    return `<div class="slot"><span class="num">${i + 1}</span><span class="who"><b>${esc(c.name)}</b> ${c.rating}${alts ? ` <button class="x" data-alt="${side}:${i}" title="Other versions of this player" style="font-size:13px;color:var(--accent)">⇄</button>` : ""}<br><span class="muted small">${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(cName(c.clubId))}</span></span>
+      <span class="st">A ${e.a} · C ${e.c} · D ${e.d}<br>TB ${e.t}</span><button class="x" data-del="${side}:${i}">✕</button></div>`;
+  }).join("")}</div>`;
+  if (team.length < 11) h += `<input type="text" id="q${side}" placeholder="Add a player" style="margin-top:10px"><ul class="sr" id="r${side}" hidden></ul>
+    <details style="margin-top:8px"><summary class="small">Paste names</summary>
+      <p class="small muted" style="margin:6px 0">Commas or new lines. Add a rating or club if needed, e.g. <code>Costa 67</code>. Tap ⇄ to switch version.</p>
+      <textarea id="p${side}" placeholder="Radelet, Pupe, Coulibaly, …"></textarea>
+      <div class="row" style="margin-top:6px"><button class="ghost" data-paste="${side}">Add these</button><span id="pm${side}" class="small"></span></div></details>`;
+  else h += `<div class="row" style="margin-top:10px"><button class="ghost" data-save="${side}" style="font-size:12.5px">★ Save this team</button>${side === "B" && mcSeries().key ? `<button class="ghost" data-beat="1" style="font-size:12.5px">Beat this team</button>` : ""}</div>`;
+  return h;
+}
+const seriesInfo = s => s.key ? `Cap ${s.cap || "?"}${(n => n ? ` · ${n} boost${n > 1 ? "s" : ""} applied` : " · no boosts")((s.boosts || []).length + (s.bonuses || []).length)}.` : "No boosts applied.";
+function drawMC() {
+  $("mcInfo").innerHTML = `Add both teams, then Compare. ` + seriesInfo(mcSeries());
+  if ($("beatInfo")) $("beatInfo").innerHTML = seriesInfo(beatSeries());
+  for (const side of ["A", "B", "T"]) if ($("panel" + side)) $("panel" + side).innerHTML = panelHtml(side);
+  document.querySelectorAll("[data-clear]").forEach(b => b.onclick = () => { state[b.dataset.clear] = []; drawMC(); });
+  document.querySelectorAll("[data-alt]").forEach(b => b.onclick = () => {
+    const [sd, i] = b.dataset.alt.split(":"), c = state[sd][+i], L = versions(c, sd).filter(x => x.id === c.id || !state[sd].some(y => y.id === x.id));
+    state[sd][+i] = L[(L.findIndex(x => x.id === c.id) + 1) % L.length]; $("solveOut").innerHTML = ""; drawMC();
+  });
+  document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { const [sd, i] = b.dataset.del.split(":"); state[sd].splice(+i, 1); drawMC(); });
+  document.querySelectorAll("[data-load]").forEach(b => b.onclick = () => loadTeam(...b.dataset.load.split(":")));
+  document.querySelectorAll("[data-unsave]").forEach(b => b.onclick = () => { const l = savedTeams(); if (confirm(`Delete saved team "${l[+b.dataset.unsave].name}"?`)) { l.splice(+b.dataset.unsave, 1); setSaved(l); drawMC(); } });
+  document.querySelectorAll("[data-save]").forEach(b => b.onclick = () => {
+    const n = prompt("Name for this team (e.g. Jake's 79):"); if (!n) return;
+    const l = savedTeams(); l.push({ name: n.trim(), ids: state[b.dataset.save].map(c => c.id), key: serOf(b.dataset.save).key }); setSaved(l); drawMC();
+  });
+  document.querySelectorAll("[data-paste]").forEach(b => b.onclick = () => pasteNames(b.dataset.paste));
+  document.querySelectorAll("[data-beat]").forEach(b => b.onclick = () => {   // send "their team" to the Beat a team tab
+    state.T = state.B.slice(); $("beatSeries").value = mcSeries().key; drawMC(); drawBeatResults();
+    document.querySelector('#tabs button[data-t="beat"]').click();
+  });
+  for (const side of ["A", "B", "T"]) {
+    const inp = $("q" + side), ul = $("r" + side); if (!inp) continue;
+    inp.oninput = () => {
+      // a series only takes cards within its cap ("No Series" takes any card)
+      const cap = serOf(side).cap || 0, res = search(inp.value, 40, cap).filter(c => !cap || c.rating <= cap).slice(0, 10);
+      ul.hidden = !inp.value.trim();
+      ul.innerHTML = res.length ? res.map(c => `<li data-id="${esc(c.id)}">${cardLine(c)}</li>`).join("") : `<li class="muted small">No card within the ${cap} cap</li>`;
+    };
+    ul.onclick = e => { const li = e.target.closest("li[data-id]"); if (!li) return; addToTeam(side, BYID.get(li.dataset.id)); const q = $("q" + side); if (q) q.focus(); };
+  }
+}
+function versions(c, side = "A") {   // every card of the same player name, within the cap first, highest rated first
+  const cap = serOf(side).cap || 0;
+  return CARDS.filter(x => x._n === c._n && (!cap || x.rating <= cap || x.id === c.id)).sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
+}
+function addToTeam(side, c) {
+  if (!c || state[side].length >= 11) return;
+  if (state[side].some(x => x.id === c.id)) { alert(`${c.name} is already in this team.`); return; }
+  const cap = serOf(side).cap || 0; if (cap && c.rating > cap) { alert(`${c.name} ${c.rating} is over the ${cap} cap.`); return; }
+  state[side].push(c); if (side !== "T") $("solveOut").innerHTML = ""; drawMC();
+}
+async function loadTeam(side, k) {
+  const s = serOf(side); let ids = null;
+  if (k === "mine") ids = MYTEAMS[s.key].ids;
+  else if (k === "built") { try { ids = (await getJSON(`${side === "T" ? "results/" : MCW.base}myclub_${s.key}.json`)).team.players.map(p => p.id); } catch (e) { alert("Couldn't load the built team."); return; } }
+  else if (k.startsWith("ref")) ids = s.opponents[+k.slice(3)];
+  else if (k.startsWith("saved")) ids = savedTeams()[+k.slice(5)].ids;
+  else if (k.startsWith("custom")) ids = CUSTOM[+k.slice(6)].team.players.map(p => p.id);
+  state[side] = (ids || []).map(id => BYID.get(id)).filter(Boolean).slice(0, 11);
+  if (side !== "T") $("solveOut").innerHTML = ""; drawMC();
+}
+// Turn "Radelet, Pupe, Costa 67, Sarr Neom" into cards. Returns { cards, miss }.
+function resolveNames(text, cap, taken = []) {
+  const out = [], miss = [];
+  for (let tok of String(text).split(/[,;\n]+/)) {
+    tok = tok.trim(); if (!tok) continue;
+    const m = tok.match(/^(.*?)[\s@]+(\d{2})$/), full = norm(m ? m[1] : tok), r = m ? +m[2] : 0;
+    // "Sarr Neom" = player name + a hint (club, nation or league)
+    let L = [], hint = "";
+    const words = full.split(/\s+/);
+    for (let k = words.length; k >= 1 && !L.length; k--) {
+      const nm = words.slice(0, k).join(" "); L = CARDS.filter(c => c._n === nm); hint = words.slice(k).join(" ");
+    }
+    if (!L.length) { L = CARDS.filter(c => c._n.includes(full)); hint = ""; }
+    if (hint) { const H = L.filter(c => [cName(c.clubId), nName(c.nationId), lName(c.leagueId)].some(t => norm(t).includes(hint))); if (H.length) L = H; }
+    if (r) L = L.filter(c => c.rating === r);
+    if (cap) L = L.filter(c => c.rating <= cap);   // nothing over the series cap
+    L.sort((a, b) => b.rating - a.rating);
+    const pick = L.find(c => !taken.some(x => x.id === c.id) && !out.some(x => x.id === c.id));
+    if (pick) out.push(pick); else miss.push(tok);
+  }
+  return { cards: out, miss };
+}
+function pasteNames(side) {
+  const { cards: out, miss } = resolveNames($("p" + side).value, serOf(side).cap || 0, state[side]);
+  const room = 11 - state[side].length;
+  state[side].push(...out.slice(0, room));
+  drawMC();
+  const msg = $("pm" + side) || $("solveOut");
+  if (msg) msg.innerHTML = (miss.length ? `<span class="bad">Not found: ${esc(miss.join(", "))}</span>` : "") + (out.length > room ? ` <span class="bad">Only ${room} fitted.</span>` : "");
+}
+const LEVEL_TEXT = l => ["Lose by 2+", "Lose by 1", "Draw", "Win by 1", "Win by 2+"][l];
+async function solveMC() {
+  if (state.A.length !== 11 || state.B.length !== 11) { $("solveOut").innerHTML = `<span class="bad">Both teams need 11 players (${state.A.length} and ${state.B.length} so far).</span>`; return; }
+  { const cap = mcSeries().cap || 0, over = cap ? [...state.A, ...state.B].filter(c => c.rating > cap) : [];   // e.g. the series was changed after adding them
+    if (over.length) { $("solveOut").innerHTML = `<span class="bad">Over the ${cap} cap: ${esc(over.map(c => c.name + " " + c.rating).join(", "))}. Swap them out first.</span>`; return; } }
+  $("solveOut").innerHTML = `<span class="muted">Working it out with perfect play from both sides… a few seconds</span>`;
+  const s = mcSeries(); const A = effective(state.A, s), B = effective(state.B, s);
+  const r = await ask({ type: "solve", A, B });
+  $("solveOut").innerHTML = `<div class="score h2h"><div class="sc"><span>You lead first</span>${pill(LEVEL_NAME(r[0]))}<small>${LEVEL_TEXT(r[0])}</small></div><div class="sc"><span>They lead first</span>${pill(LEVEL_NAME(r[1]))}<small>${LEVEL_TEXT(r[1])}</small></div></div>
+    <p class="small muted" style="margin:0 0 12px">Both sides playing perfectly.</p>
+    <button class="btn wide" id="toMatch">Start the match</button>
+    <div class="row" style="margin-top:12px"><button class="ghost" id="pvA">Perfect game: you lead</button><button class="ghost" id="pvB">Perfect game: they lead</button><button class="ghost" id="keyBtn">Key cards</button></div>
+    <div id="mcExtra" style="margin-top:8px"></div>`;
+  $("toMatch").onclick = () => { document.querySelector('#tabs button[data-t="match"]').click(); window.scrollTo(0, 0); };
+  const TA = state.A.slice(), TB = state.B.slice();
+  $("pvA").onclick = () => showPV(A, B, TA, TB, 0); $("pvB").onclick = () => showPV(A, B, TA, TB, 1);
+  $("keyBtn").onclick = () => keyCards(A, B, TA, TB, r);
+}
+// ---- the perfect game, move by move ----
+async function showPV(A, B, TA, TB, first) {
+  const box = $("mcExtra"); box.innerHTML = `<p class="muted small">Playing the perfect game… a few seconds</p>`;
+  const g = await ask({ type: "pv", A, B, first }), st = ["Attack", "Control", "Defence"], ctr = [2, 1, 0], v = (e, k) => [e.a, e.c, e.d][k];
+  let me = 0, them = 0;
+  const rows = g.steps.map((x, n) => {
+    if (x.r > 0) me++; if (x.r < 0) them++;
+    const res = x.r > 0 ? `<span class="ok">✓</span>` : x.r < 0 ? `<span class="bad">✗</span>` : `<span class="muted">=</span>`;
+    const txt = x.lead === "A"
+      ? `You lead <b>${esc(TA[x.i].name)}</b> ${st[x.s]} ${v(A[x.i], x.s)} · they answer <b>${esc(TB[x.j].name)}</b> ${st[ctr[x.s]]} ${v(B[x.j], ctr[x.s])}`
+      : `They lead <b>${esc(TB[x.j].name)}</b> ${st[x.s]} ${v(B[x.j], x.s)} · you answer <b>${esc(TA[x.i].name)}</b> ${st[ctr[x.s]]} ${v(A[x.i], ctr[x.s])}`;
+    return `<div class="opt"><span class="small"><b>${n + 1}.</b> ${txt}</span><span class="small" style="white-space:nowrap">${res} ${me}–${them}</span></div>`;
+  }).join("");
+  const fin = me + Math.max(g.tb, 0), fth = them + Math.max(-g.tb, 0);
+  const tbTxt = g.d < -1 || g.d > 1 ? "No tiebreak: the score is 2 or more apart." :
+    `Tiebreak: your <b>${esc(TA[g.ai].name)}</b> (${A[g.ai].t}) vs their <b>${esc(TB[g.bi].name)}</b> (${B[g.bi].t}): ${g.tb > 0 ? "you win it" : g.tb < 0 ? "they win it" : "5 or less apart, no point"}.`;
+  box.innerHTML = `<h3>Perfect game · ${first === 0 ? "you lead first" : "they lead first"}</h3>${rows}
+    <p class="small" style="margin:8px 0 2px">${tbTxt}</p><p><b class="big" style="font-size:26px">${fin} – ${fth}</b></p>
+    <p class="small muted">Both sides play perfectly. When moves are equal, it picks the one that wins the round.</p>`;
+}
+// ---- key cards: which single cards decide the result ----
+let pool = [];
+function poolAsk(k, msg) {
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117z"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
+}
+async function keyCards(A, B, TA, TB, lv) {
+  const box = $("mcExtra"), base = lv.map(l => (l >= 3 ? 3 : l === 2 ? 2 : 0)), D = 1;
+  const tweak = (T, i, d) => T.map((e, k) => k === i ? Object.assign({}, e, { a: e.a + d, c: e.c + d, d: e.d + d, t: e.t + 3 * d }) : e);
+  const jobs = [...TB.map((_, j) => ({ side: "B", k: j })), ...TA.map((_, i) => ({ side: "A", k: i }))];
+  let done = 0; box.innerHTML = `<p class="muted small">Testing all 22 cards… <span id="kcProg">0</span>/22</p>`;
+  const res = await Promise.all(jobs.map((J, n) => poolAsk(n, { type: "o2", A: J.side === "A" ? tweak(A, J.k, -D) : A, B: J.side === "B" ? tweak(B, J.k, -D) : B })
+    .then(o => { done++; const p = $("kcProg"); if (p) p.textContent = done; return Object.assign(J, { o }); })));
+  const word = { 3: "win", 2: "draw", 0: "lose" }, order = ["you lead", "they lead"];
+  // their card 1 weaker -> better for you; your card 1 weaker -> worse for you
+  const diff = J => [0, 1].filter(f => J.side === "B" ? J.o[f] > base[f] : J.o[f] < base[f]);
+  const gain = J => diff(J).map(f => `${order[f]}: ${word[base[f]]} → <b>${word[J.o[f]]}</b>`).join(", ");
+  const theirs = res.filter(J => J.side === "B" && diff(J).length).sort((x, y) => diff(y).length - diff(x).length);
+  const mine = res.filter(J => J.side === "A" && diff(J).length).sort((x, y) => diff(y).length - diff(x).length);
+  const li = (J, T) => `<li><b>${esc(T[J.k].name)}</b>: ${gain(J)}</li>`;
+  box.innerHTML = `<h3>Key cards</h3>
+    <p class="small" style="margin:4px 0"><b>Their cards that decide it</b>: if this one card were ${D} weaker in every stat:</p>
+    ${theirs.length ? `<ul class="small" style="margin:0;padding-left:18px">${theirs.map(J => li(J, TB)).join("")}</ul>` : `<p class="small muted" style="margin:0">None. No single card of theirs decides it.</p>`}
+    <p class="small" style="margin:10px 0 4px"><b>Your cards holding the result</b>: if this one card of yours were ${D} weaker in every stat:</p>
+    ${mine.length ? `<ul class="small" style="margin:0;padding-left:18px">${mine.map(J => li(J, TA)).join("")}</ul><p class="small muted" style="margin:6px 0 0">Keep these exactly as they are (full chem, same version). Swapping one for a slightly weaker card, or losing a chem link, costs you the result.</p>` : `<p class="small muted" style="margin:0">None. The result survives any one of your cards being slightly weaker.</p>`}
+    <p class="small muted" style="margin:8px 0 0">1 point is the smallest possible change: these cards are what the result hangs on.</p>`;
+}
+let worker = null, reqId = 0; const pending = new Map();
+function ask(msg) {
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117z"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
+}
+
+// ---------- Match helper ----------
+const STAT = ["attack", "control", "defence"], COUNTER = [2, 1, 0];
+let M = null;
+$("iFirst").onclick = () => startMatch(0); $("theyFirst").onclick = () => startMatch(1);
+// Match Helper / Play vs AI switch, and how the AI plays
+let AISTYLE = lsStr("aiStyle") || "human";
+document.querySelectorAll(".mseg [data-mm]").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".mseg [data-mm]").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll("[data-mmp]").forEach(p => p.hidden = p.dataset.mmp !== b.dataset.mm);
+  $("matchBox").hidden = true;
+});
+document.querySelectorAll(".aistyle [data-ai]").forEach(b => { b.classList.toggle("on", b.dataset.ai === AISTYLE); b.onclick = () => {
+  AISTYLE = b.dataset.ai; try { localStorage.setItem("aiStyle", AISTYLE); } catch (e) {}
+  document.querySelectorAll(".aistyle [data-ai]").forEach(x => x.classList.toggle("on", x === b)); }; });
+// their lead in Play mode. Perfect: the strongest line. Varied: any lead that is just as good, so openings change.
+// Human: like Varied, but early on it sometimes picks a lead that is only nearly as good, and it favours leading a card
+// with the stat it's best at (what people do)
+async function aiLead() {
+  if (AISTYLE === "perfect") return ask({ type: "bLead", ma: M.ma, mb: M.mb, d: M.d });
+  const L = await ask({ type: "bLeads", ma: M.ma, mb: M.mb, d: M.d }), best = Math.min(...L.map(x => x.v));
+  let pool = L.filter(x => x.v === best);
+  if (AISTYLE === "human" && M.n < 4 && Math.random() < .35) pool = L.filter(x => x.v <= best + 1);
+  const w = x => { const e = M.B[x.j], v = [e.a, e.c, e.d][x.s]; return AISTYLE === "human" ? (v === Math.max(e.a, e.c, e.d) ? 4 : 1) : 1; };
+  let r = Math.random() * pool.reduce((a, x) => a + w(x), 0);
+  for (const x of pool) { r -= w(x); if (r <= 0) return x; }
+  return pool[0];
+}
+const AINAME = { human: "Human AI", varied: "Varied AI", perfect: "Perfect AI" };
+// score, round dots and the outlook, at the top of every move
+function mHead(val, note) {
+  const rr = M.rr || [];
+  return `<div class="mscore"><div class="sides"><span><small>You</small>${M.me}</span><span class="dash">–</span><span><small>${M.play ? "AI" : "Them"}</small>${M.them}</span></div>
+    <div class="out">Round ${Math.min(M.n + 1, 10)} of 10${note ? ` · ${note}` : ""}<br>${val == null ? "" : `With best play: ${pill(LEVEL_NAME(val))}`}</div></div>
+    <div class="mdots">${Array.from({ length: 10 }, (_, k) => `<i class="${k < rr.length ? (rr[k] > 0 ? "w" : rr[k] < 0 ? "l" : "d") : k === M.n ? "now" : ""}"></i>`).join("")}</div>`;
+}
+$("playMe").onclick = () => startMatch(0, true); $("playThem").onclick = () => startMatch(1, true);
+async function startMatch(first, play) {
+  if (state.A.length !== 11 || state.B.length !== 11) { alert("Set up both teams in Head to head first."); return; }
+  const s = mcSeries();
+  M = { first, A: effective(state.A, s), B: effective(state.B, s), TB: state.B.slice(), swapped: new Set(), cap: s.cap || 99, ser: s,
+    ma: 2047, mb: 2047, d: 0, n: 0, me: 0, them: 0, log: [], hist: [], rr: [], play: !!play };
+  $("matchBox").hidden = false; $("matchBox").innerHTML = `<p class="muted">Working out the match… a few seconds</p>`; $("matchBox").scrollIntoView({ behavior: "smooth", block: "start" });
+  await ask({ type: "start", A: M.A, B: M.B, first });
+  matchStep();
+}
+const myTurn = () => (M.n % 2 === 0) === (M.first === 0);
+// ---- objective mode: prefer objective cards (e.g. Lombardia FC) when they keep the same result ----
+let MOBJ = "";
+const mObjFn = () => { const o = MOBJ && objList().find(x => x.id === MOBJ); return o ? objIn(o) : null; };
+function fillMObj() {
+  const sel = $("mObj"); if (!sel) return;
+  const L = objList().filter(o => o.kind === "duels");
+  sel.innerHTML = `<option value="">None</option>` + L.map(o => `<option value="${esc(o.id)}">${esc(o.player)}: ${esc(objText(o))}</option>`).join("");
+  sel.value = L.some(o => o.id === MOBJ) ? MOBJ : ""; $("mObjNote").hidden = !sel.value;
+  sel.onchange = () => { MOBJ = sel.value; $("mObjNote").hidden = !MOBJ; if (M && M.A && $("matchBox") && !$("matchBox").hidden) matchStep(); };
+}
+const isObj = i => { const f = mObjFn(); return !!(f && state.A[i] && f(state.A[i])); };
+function beatShare(i, s) {           // share of their unplayed cards this lead beats
+  let w = 0, n = 0;
+  for (let k = 0; k < 11; k++) if (M.mb >> k & 1) { n++; if (duelR(i, k, s, true) > 0) w++; }
+  return n ? w / n : 0;
+}
+const vName = v => ["Losing", "Losing by 1", "Drawing", "Winning", "Winning"][v];
+async function matchStep() {
+  if (M.play) return playStep();
+  const box = $("matchBox");
+  if (M.n === 10) {
+    const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb);
+    box.innerHTML = `<div class="big">${M.me} – ${M.them}</div>${mObjFn() ? `<p class="gold">🎯 Objective duels won: ${M.obj || 0}</p>` : ""}<p>Tiebreak: your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}).</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first, M.play)">Restart</button></div>`;
+    return;
+  }
+  const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
+  let html = `${mHead(val)}${mObjFn() ? `<p class="small gold" style="margin:4px 0">🎯 Objective duels won this match: ${M.obj || 0}</p>` : ""}`;
+  if (myTurn()) {
+    box.innerHTML = html + `<p class="muted">Working out your best lead…</p>`;
+    const opts = await ask({ type: "leads", ma: M.ma, mb: M.mb, d: M.d });
+    let best = opts[0], objNote = "";
+    if (mObjFn()) {                     // same result, but led by an objective card that wins its duel most often
+      const cand = opts.filter(o => o.value === best.value && isObj(o.i)).map(o => Object.assign({ share: beatShare(o.i, o.s) }, o)).sort((x, y) => y.share - x.share);
+      if (cand.length && cand[0].share >= 0.5) { best = cand[0]; objNote = `<p class="small gold">🎯 Objective card · beats ${Math.round(best.share * 100)}% of their remaining cards with this stat · same result as the best lead</p>`; }
+      else objNote = `<p class="small muted">No objective card is a safe, likely-winning lead this round.</p>`;
+    }
+    html += `<div class="move">Lead <b>${esc(state.A[best.i].name)}</b>: ${STAT[best.s]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][best.s]}</div>` + objNote;
+    const alts = opts.filter(o => o.value === best.value && !(o.i === best.i && o.s === best.s)).slice(0, 4);
+    if (alts.length) html += `<p class="small muted">Also fine: ${alts.map(o => `${esc(state.A[o.i].name)} ${STAT[o.s]}`).join(", ")}</p>`;
+    html += `<h3>What did they answer with?</h3><div class="mbtns">` + teamButtons("B", M.mb, j => `ansTheirs(${best.i},${best.s},${j})`, COUNTER[best.s]) + otherBtn(`ans:${best.i}:${best.s}`) + `</div>`;
+    html += `<p class="small muted">Played something else? <a href="#" onclick="pickMyLead();return false">Choose the lead you played</a></p>`;
+  } else {
+    html += `<h3>Which card did they lead with?</h3><div class="mbtns">` + teamButtons("B", M.mb, j => `theirLead(${j})`) + otherBtn("lead") + `</div>`;
+  }
+  if (M.hist.length) html += `<div class="row" style="margin-top:12px">${undoBtn()}</div>`;
+  box.innerHTML = html + logHtml();
+}
+// ---- Play Against Them: you make every move, the site plays their team perfectly ----
+const statV = (E, s) => [E.a, E.c, E.d][s];
+async function playStep() {
+  const box = $("matchBox");
+  if (M.n === 10) {
+    const i = 31 - Math.clz32(M.ma), j = 31 - Math.clz32(M.mb), gap = M.A[i].t - M.B[j].t;
+    let me = M.me, them = M.them, tb = "";
+    if (Math.abs(me - them) <= 1) {
+      if (gap > 5) { me++; tb = `Your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) beats their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}) by more than 5: a point to you.`; }
+      else if (gap < -5) { them++; tb = `Their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}) beats your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) by more than 5: a point to them.`; }
+      else tb = `Your <b>${esc(state.A[i].name)}</b> (${M.A[i].t}) vs their <b>${esc(M.TB[j].name)}</b> (${M.B[j].t}): within 5, no point.`;
+    } else tb = "No tiebreak needed.";
+    const res = me > them ? "You Win" : me < them ? "They Win" : "Draw";
+    box.innerHTML = `<h3 style="margin:0 0 6px">${res}</h3><div class="big">${me} – ${them}</div><p class="small">Tiebreak: ${tb}</p>${logHtml()}<div class="row">${undoBtn()}<button class="ghost" onclick="startMatch(M.first, true)">Play Again</button></div>`;
+    return;
+  }
+  const val = await ask({ type: "value", ma: M.ma, mb: M.mb, d: M.d });
+  let html = mHead(val, AINAME[AISTYLE]);
+  if (myTurn()) {
+    html += `<h3>Your lead: pick a card</h3><div class="mbtns">${teamButtons("A", M.ma, i => `playStat(${i})`)}</div>`;
+  } else {
+    box.innerHTML = html + `<p class="muted">They're choosing their lead…</p>`;
+    const L = await aiLead();
+    html += `<div class="move">They lead <b>${esc(M.TB[L.j].name)}</b>: ${STAT[L.s]} ${statV(M.B[L.j], L.s)}</div><h3>Your answer (${STAT[COUNTER[L.s]]})</h3><div class="mbtns">` +
+      teamButtons("A", M.ma, i => `playAnswer(${i},${L.j},${L.s})`, COUNTER[L.s]) + `</div>`;
+    html += `<p class="small" style="margin-top:8px"><a href="#" onclick="playHint(${L.j},${L.s});return false">Show my best answer</a> <span id="playHint" class="gold"></span></p>`;
+  }
+  if (myTurn()) html += `<p class="small" style="margin-top:8px"><a href="#" onclick="playHint();return false">Show my best lead</a> <span id="playHint" class="gold"></span></p>`;
+  if (M.hist.length) html += `<div class="row" style="margin-top:12px">${undoBtn()}</div>`;
+  box.innerHTML = html + logHtml();
+}
+window.playStat = i => {
+  $("matchBox").innerHTML = `<h3>${esc(state.A[i].name)}: which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="playLead(${i},${s})">${STAT[s]} ${statV(M.A[i], s)}</button>`).join("")}</div>${backBtn()}`;
+};
+window.playLead = async (i, s) => {
+  $("matchBox").innerHTML = `<p class="muted">They're answering…</p>`;
+  const a = await ask({ type: "bAnswer", ma: M.ma, mb: M.mb, d: M.d, i, s });
+  apply(i, a.j, a.r, `You led ${esc(state.A[i].name)} (${STAT[s]} ${statV(M.A[i], s)}) · they answered ${esc(M.TB[a.j].name)} (${STAT[COUNTER[s]]} ${statV(M.B[a.j], COUNTER[s])})`);
+};
+window.playAnswer = (i, j, s) => apply(i, j, duelR(i, j, s, false), `They led ${esc(M.TB[j].name)} (${STAT[s]} ${statV(M.B[j], s)}) · you answered ${esc(state.A[i].name)} (${STAT[COUNTER[s]]} ${statV(M.A[i], COUNTER[s])})`);
+window.playHint = async (j, s) => {
+  const el = $("playHint"); if (!el) return; el.textContent = "…";
+  if (j == null) { const o = (await ask({ type: "leads", ma: M.ma, mb: M.mb, d: M.d }))[0]; el.textContent = `${state.A[o.i].name}, ${STAT[o.s]}`; }
+  else { const o = (await ask({ type: "answers", ma: M.ma, mb: M.mb, d: M.d, j, s }))[0]; el.textContent = state.A[o.i].name; }
+};
+// ---- a different card in their team: swap it, re-solve from the current state ----
+window.swapPick = () => {
+  $("matchBox").innerHTML = `<h3>Which of their cards is different?</h3><div class="mbtns">${teamButtons("B", M.mb, j => `swapFind(${j})`)}</div>
+    <p class="small muted">Only cards they haven't played yet.</p><button class="ghost" onclick="matchStep()">Back</button>`;
+};
+function swapEff(j, card) {                 // their new card on full chem with this series' boosts
+  const team = M.TB.slice(); team[j] = card;
+  const sb = squadBonus(team, M.ser.bonuses), [a, k, d] = boosted(card, M.ser.boosts), b = CHEM_BONUS[3];
+  return { a: a + b + sb[0], c: k + b + sb[1], d: d + b + sb[2], t: card.attack + card.control + card.defense + 3 * b, chem: 3 };
+}
+window.swapFind = j => {
+  const old = M.TB[j];
+  $("matchBox").innerHTML = `<h3>Replace ${esc(old.name)}</h3>
+    <input type="text" id="swQ" placeholder="Name, or a hint: nation, league or club (e.g. Czech, Ligue 1, PSG)" autocomplete="off">
+    <label class="chk small"><input type="checkbox" id="swAny"> Any position (otherwise ${esc(old.position)} only, like the card it replaces)</label>
+    <div id="swRes" style="margin-top:8px"></div><button class="ghost" onclick="swapPick()" style="margin-top:8px">Back</button>`;
+  const used = new Set(M.TB.filter((_, k) => k !== j).map(c => c.name + "|" + c.nationId));
+  const draw = () => {
+    const q = norm($("swQ").value.trim());
+    if (q.length < 2) { $("swRes").innerHTML = `<p class="small muted">Type at least 2 letters. Cards up to ${M.cap} only, strongest first.</p>`; return; }
+    const anyPos = $("swAny").checked;
+    const L = searchPool().filter(c => c.rating <= M.cap && !used.has(c.name + "|" + c.nationId) && (anyPos || c.P.has(old.position)) &&
+        (c._n.includes(q) || norm(nName(c.nationId)).includes(q) || norm(lName(c.leagueId)).includes(q) || norm(cName(c.clubId)).includes(q)))
+      .map(c => ({ c, e: swapEff(j, c) })).sort((x, y) => (y.e.a + y.e.c + y.e.d) - (x.e.a + x.e.c + x.e.d)).slice(0, 25);
+    $("swRes").innerHTML = L.length ? L.map(({ c, e }, k) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="swapDo(${j},'${esc(c.id)}')">
+        <b>${esc(c.name)} ${c.rating}${k === 0 ? ` <span class="tag">Strongest</span>` : ""}</b>
+        <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}${evoTag(c)} · in game ${e.a}/${e.c}/${e.d}, TB ${e.t}</span></button>`).join("")
+      : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
+  };
+  $("swQ").oninput = draw; $("swAny").onchange = draw; draw(); $("swQ").focus();
+};
+window.swapDo = async (j, id) => {
+  const card = BYID.get(id); if (!card) return;
+  snap(); const old = M.TB[j]; M.TB[j] = card; M.B[j] = swapEff(j, card); M.swapped.add(j);
+  M.log.push(`Swapped their ${esc(old.name)} for ${esc(card.name)} ${card.rating}`);
+  $("matchBox").innerHTML = `<p class="muted">Re-working the match with ${esc(card.name)}…</p>`;
+  await ask({ type: "start", A: M.A, B: M.B, first: M.first, ma: M.ma, mb: M.mb, d: M.d });
+  matchStep();
+};
+window.matchStep = matchStep;
+// ---- undo the last move (a wrong tap), and go back from a half-entered move ----
+const undoBtn = () => M.hist.length ? `<button class="ghost" onclick="undoMove()">↩ Undo last move</button>` : "";
+const backBtn = () => `<p style="margin-top:10px"><button class="ghost" onclick="matchStep()">← Back</button></p>`;
+window.undoMove = async () => {
+  let h = M.hist.pop(); if (!h) return;
+  if (M.hist.length && M.hist[M.hist.length - 1].merge) h = M.hist.pop();   // the move and the card entered for it
+  const swapChanged = h.TB.some((c, k) => c !== M.TB[k]);
+  Object.assign(M, { ma: h.ma, mb: h.mb, d: h.d, n: h.n, me: h.me, them: h.them, obj: h.obj, log: h.log, TB: h.TB, B: h.B, swapped: h.swapped, rr: h.rr });
+  if (swapChanged) { $("matchBox").innerHTML = `<p class="muted">Going back…</p>`; await ask({ type: "start", A: M.A, B: M.B, first: M.first, ma: M.ma, mb: M.mb, d: M.d }); }
+  matchStep();
+};
+// "germany striker", "premier league cb", "totw winger": every word (or phrase) must fit the card
+const POS_WORDS = { striker: ["ST", "CF"], st: ["ST"], cf: ["CF"], forward: ["ST", "CF", "LW", "RW"], winger: ["LW", "RW", "LM", "RM"], wing: ["LW", "RW", "LM", "RM"],
+  lw: ["LW"], rw: ["RW"], lm: ["LM"], rm: ["RM"], cam: ["CAM"], cm: ["CM"], cdm: ["CDM"], mid: ["CM", "CDM", "CAM", "LM", "RM"], midfielder: ["CM", "CDM", "CAM", "LM", "RM"],
+  defender: ["CB", "LB", "RB"], cb: ["CB"], lb: ["LB"], rb: ["RB"], fullback: ["LB", "RB"], back: ["CB", "LB", "RB"], gk: ["GK"], keeper: ["GK"], goalkeeper: ["GK"] };
+function hintMatcher(q) {
+  const words = q.split(/\s+/).filter(Boolean);
+  const fields = c => [c._n, norm(nName(c.nationId)), norm(lName(c.leagueId)), norm(cName(c.clubId))];
+  return c => {
+    const F = fields(c), all = F.join(" | ");
+    if (all.includes(q)) return true;                       // the whole phrase in one place (a name, "premier league")
+    let rest = words.slice();
+    // multi-word places first: "premier league", "manchester city"
+    for (let n = Math.min(3, rest.length); n >= 2; n--) for (let i = 0; i + n <= rest.length; i++) {
+      const ph = rest.slice(i, i + n).join(" ");
+      if (F.some(f => f.includes(ph))) { rest.splice(i, n); i = -1; }
+    }
+    return rest.every(w => {
+      const P = POS_WORDS[w.replace(/s$/, "")] || POS_WORDS[w];
+      if (P) return P.some(x => c.P && c.P.has(x));          // the position it's played in (main or alternative)
+      return F.some(f => f.includes(w));
+    });
+  };
+}
+// ---- they played a card that isn't in their listed team: find it, no need to say which card it replaces ----
+const otherBtn = ctx => `<button class="ghost" onclick="otherCard('${ctx}')">Someone else…</button>`;
+// how often each card appears in this series' strong teams (the Best Team, its counter teams, the Reddit team)
+const SEEN = {};
+async function seenIn(key) {
+  if (SEEN[key]) return SEEN[key];
+  const n = new Map(), add = id => n.set(id, (n.get(id) || 0) + 1);
+  const d = await getJSON(`results/myclub_${key}.json`).catch(() => null);
+  if (d && d.team) { d.team.players.forEach(p => add(p.id)); Object.values(d.team.opponent_teams || {}).forEach(o => o.players.forEach(p => add(p.id))); }
+  (((WEEK && WEEK.myclub) || []).find(x => x.key === key) || {}).opponents?.forEach(t => t.forEach(id => { add(id); add(id); add(id); }));
+  return (SEEN[key] = n);
+}
+window.otherCard = ctx => {
+  if (M.ser && M.ser.key && !SEEN[M.ser.key]) seenIn(M.ser.key).then(() => { const q = $("ocQ"); if (q && q.value.trim().length >= 2) q.oninput(); });
+  $("matchBox").innerHTML = `<h3>Which card did they play?</h3>
+    <input type="text" id="ocQ" placeholder="Name, or what you saw: nation, club, league, position" autocomplete="off">
+    <div id="ocRes" style="margin-top:8px"></div>
+    <details class="howres"><summary>How Most Likely Works</summary><p class="small">Cards are ordered by: a name match, then cards whose main position is the one you typed, then how often the card appears in this series' strong teams (the S${seasonOf(WEEK && WEEK.week)} team, its counter teams and the Reddit team), then rating, then the stat its position uses with this series' boosts (attack up front, control in midfield, defence at the back).</p><p class="small"><b>It's a best guess, not a guarantee. Use at your own risk.</b></p></details>${backBtn()}`;
+  // every card can be found except their unplayed listed cards themselves (those have their own buttons); another
+  // version of a listed player (e.g. Verón 87 when Verón 86 is listed) is still found
+  const used = new Set(M.TB.filter((_, k) => M.mb >> k & 1).map(c => c.id));
+  const draw = () => {
+    const q = norm($("ocQ").value.trim());
+    if (q.length < 2) { $("ocRes").innerHTML = `<p class="small muted">Type a name, or what you saw, e.g. "Germany ST" or "Bayern CB". The most likely card is first.</p>`; return; }
+    const match = hintMatcher(q);
+    // most likely first: a name match; then a card whose main position is the one played; then how often it's in
+    // this series' strong teams; then the higher rating (what people pick by); then the stat its position is used for
+    // (attack up front, control in midfield, defence at the back), this series' boosts included; then the total
+    const seen = (M.ser && SEEN[M.ser.key]) || new Map(), use = c => seen.get(c.id) || 0;
+    const bst = c => boosted(c, (M.ser && M.ser.boosts) || []), tot = c => { const b = bst(c); return b[0] + b[1] + b[2]; }, byName = c => c._n.includes(q) ? 1 : 0;
+    const KEYSTAT = { ST: 0, CF: 0, LW: 0, RW: 0, LM: 1, RM: 1, CAM: 1, CM: 1, CDM: 1, LB: 2, RB: 2, CB: 2, GK: 2 }, kst = c => bst(c)[KEYSTAT[c.position] ?? 1];
+    const PW = q.split(/\s+/).map(w => POS_WORDS[w.replace(/s$/, "")] || POS_WORDS[w]).filter(Boolean).flat(), mainPos = c => PW.length && PW.includes(c.position) ? 1 : 0;
+    const L = CARDS.filter(c => c.rating <= M.cap && !used.has(c.id) && match(c))
+      .sort((x, y) => byName(y) - byName(x) || mainPos(y) - mainPos(x) || use(y) - use(x) || y.rating - x.rating || kst(y) - kst(x) || tot(y) - tot(x)).slice(0, 25);
+    $("ocRes").innerHTML = L.length ? L.map((c, n) => `<button class="chipbtn" style="display:block;width:100%;margin:4px 0" onclick="otherDo('${ctx}','${esc(c.id)}')">
+        <b>${esc(c.name)} ${c.rating}${n === 0 ? ` <span class="tag">Most likely</span>` : ""}</b> <span>${esc(c.position)} · ${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(cName(c.clubId))}</span></button>`).join("")
+      : `<p class="small muted">No card up to ${M.cap} matches.</p>`;
+  };
+  $("ocQ").oninput = draw; draw(); $("ocQ").focus();
+};
+window.otherDo = async (ctx, id) => {
+  const card = BYID.get(id); if (!card) return;
+  // it takes the place of the unplayed card most like it (same position first, then closest stats); only matters for
+  // what they still have left, and the match is re-worked from here
+  let j = -1, bd = 1e9;
+  for (let k = 0; k < 11; k++) if (M.mb >> k & 1) {
+    const c = M.TB[k], dist = (c.position === card.position ? 0 : 1000) + Math.abs(c.attack - card.attack) + Math.abs(c.control - card.control) + Math.abs(c.defense - card.defense);
+    if (dist < bd) { bd = dist; j = k; }
+  }
+  if (j < 0) return;
+  snap(); const old = M.TB[j]; M.TB[j] = card; M.B[j] = swapEff(j, card); M.swapped.add(j);
+  M.log.push(`They played ${esc(card.name)} ${card.rating} (not in their listed team; counted in place of ${esc(old.name)})`);
+  M.hist[M.hist.length - 1].merge = true;           // one undo takes back the card and the move it was played in
+  $("matchBox").innerHTML = `<p class="muted">Re-working the match with ${esc(card.name)}…</p>`;
+  await ask({ type: "start", A: M.A, B: M.B, first: M.first, ma: M.ma, mb: M.mb, d: M.d });
+  const [k, a, b] = ctx.split(":");
+  if (k === "lead") theirLead(j); else ansTheirs(+a, +b, j);
+};
+function teamButtons(side, mask, fn, hs) {          // hs: the stat that matters now, lit
+  const team = side === "A" ? state.A : M.TB, E = side === "A" ? M.A : M.B;
+  return team.map((c, i) => (mask >> i & 1) ? `<button onclick="${fn(i)}"><b>${esc(c.name)}${side === "B" && M.swapped.has(i) ? ` <span class="tag">swapped</span>` : ""}</b><span>${[E[i].a, E[i].c, E[i].d].map((v, k) => `<i class="${hs === k ? "k " + "acd"[k] : ""}">${"ACD"[k]} ${v}</i>`).join("")}</span></button>` : "").join("");
+}
+function logHtml() { return M.log.length ? `<h3>Moves</h3><ol class="mlog">${M.log.map(l => `<li class="${l.includes("✅") ? "w" : l.includes("❌") ? "l" : ""}">${l}</li>`).join("")}</ol>` : ""; }
+function snap() { M.hist.push({ ma: M.ma, mb: M.mb, d: M.d, n: M.n, me: M.me, them: M.them, obj: M.obj, log: M.log.slice(), TB: M.TB.slice(), B: M.B.slice(), swapped: new Set(M.swapped), rr: (M.rr || []).slice() }); }
+function apply(i, j, r, text) { snap(); M.ma &= ~(1 << i); M.mb &= ~(1 << j); M.d += r; M.n++; if (r > 0) M.me++; if (r < 0) M.them++; (M.rr = M.rr || []).push(r);
+  const ob = r > 0 && isObj(i); if (ob) M.obj = (M.obj || 0) + 1;
+  M.log.push(text + (r > 0 ? " ✅" : r < 0 ? " ❌" : " ➖") + (ob ? " 🎯" : "")); matchStep(); }
+window.ansTheirs = (i, s, j) => apply(i, j, duelR(i, j, s, true), `You led ${esc(state.A[i].name)} (${STAT[s]}) · they answered ${esc(M.TB[j].name)}`);
+window.pickMyLead = () => {
+  const box = $("matchBox");
+  box.innerHTML = `<h3>Which card did you lead with?</h3><div class="mbtns">${teamButtons("A", M.ma, i => `pickMyStat(${i})`)}</div>${backBtn()}`;
+};
+window.pickMyStat = i => {
+  $("matchBox").innerHTML = `<h3>Which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="pickTheirAns(${i},${s})">${STAT[s]}</button>`).join("")}</div>${backBtn()}`;
+};
+window.pickTheirAns = (i, s) => {
+  $("matchBox").innerHTML = `<h3>What did they answer with?</h3><div class="mbtns">${teamButtons("B", M.mb, j => `ansTheirs(${i},${s},${j})`)}${otherBtn(`ans:${i}:${s}`)}</div>${backBtn()}`;
+};
+window.theirLead = j => {
+  $("matchBox").innerHTML = `<h3>${esc(M.TB[j].name)}: which stat?</h3><div class="row">${[0, 1, 2].map(s => `<button class="ghost" onclick="theirStat(${j},${s})">${STAT[s]} ${[M.B[j].a, M.B[j].c, M.B[j].d][s]}</button>`).join("")}</div>${backBtn()}`;
+};
+window.theirStat = async (j, s) => {
+  const box = $("matchBox"); box.innerHTML = `<p class="muted">Working out your best answer…</p>`;
+  const opts = await ask({ type: "answers", ma: M.ma, mb: M.mb, d: M.d, j, s });
+  let best = opts[0], objNote = "";
+  if (mObjFn()) {                       // an objective card that wins this duel without changing the result
+    const o = opts.find(x => x.value === best.value && x.r > 0 && isObj(x.i));
+    if (o) { best = o; objNote = `<p class="small gold">🎯 Objective card · wins the duel · same result as the best answer</p>`; }
+  }
+  let html = `<div class="move">Answer with <b>${esc(state.A[best.i].name)}</b> (${STAT[COUNTER[s]]} ${[M.A[best.i].a, M.A[best.i].c, M.A[best.i].d][COUNTER[s]]}): ${best.r > 0 ? "wins the round" : best.r < 0 ? "dump, loses the round" : "draws the round"}</div>` + objNote;
+  html += `<div class="row"><button class="btn" onclick="ansMine(${j},${s},${best.i})">I played it</button></div>`;
+  html += `<h3>Or tap the card you actually played</h3><div class="mbtns">${teamButtons("A", M.ma, i => `ansMine(${j},${s},${i})`)}</div>${backBtn()}`;
+  box.innerHTML = html + logHtml();
+};
+window.ansMine = (j, s, i) => apply(i, j, duelR(i, j, s, false), `They led ${esc(M.TB[j].name)} (${STAT[s]}) · you answered ${esc(state.A[i].name)}`);
+function duelR(i, j, s, aLeads) {
+  const A = M.A[i], B = M.B[j], v = e => [e.a, e.c, e.d];
+  let va, vb;
+  if (aLeads) { va = v(A)[s]; vb = v(B)[COUNTER[s]]; } else { vb = v(B)[s]; va = v(A)[COUNTER[s]]; }
+  if (va !== vb) return va > vb ? 1 : -1;
+  return A.t > B.t ? 1 : A.t < B.t ? -1 : 0;
+}
+
+// ---------- Sim compare ----------
+const SIM_FORMS = {"3-1-4-2":["GK","CB","CB","CB","CDM","LM","CM","CM","RM","ST","ST"],"3-4-1-2":["GK","CB","CB","CB","LM","CM","CM","RM","CAM","ST","ST"],"3-5-2":["GK","CB","CB","CB","CDM","CDM","LM","CAM","RM","ST","ST"],"5-2-1-2":["GK","LB","CB","CB","CB","RB","CM","CM","CAM","ST","ST"],"5-3-2":["GK","LB","CB","CB","CB","RB","CM","CM","CM","ST","ST"],"5-4-1":["GK","LB","CB","CB","CB","RB","LM","CM","CM","RM","ST"],"4-4-2":["GK","LB","CB","CB","RB","LM","CM","CM","RM","ST","ST"],"4-3-3":["GK","LB","CB","CB","RB","CM","CM","CM","LW","ST","RW"],"4-2-3-1":["GK","LB","CB","CB","RB","CDM","CDM","CAM","CAM","CAM","ST"]};
+let SIMW = { base: "results/", sim: [] };    // the week being compared: this week or one from the Vault
+function simSeries() { const k = $("simSeries").value; return SIMW.sim.find(s => s.key === k) || { boosts: [] }; }
+async function setupSim() {
+  let weeks = []; try { weeks = (await getJSON("vault/index.json")).weeks || []; } catch (e) {}
+  weeks = weeks.filter(w => w.files.some(f => f.startsWith("sim_")));
+  if ($("simWeek")) $("simWeek").innerHTML = `<option value="">${esc(seasonName(WEEK && WEEK.week))} (This Season)</option>` + weeks.map(w => `<option value="${esc(w.week)}">${esc(seasonName(w.week))}</option>`).join("");
+  if ($("simWeek")) $("simWeek").onchange = async () => {
+    const wk = $("simWeek").value;
+    if (!wk) SIMW = { base: "results/", sim: (WEEK && WEEK.sim) || [] };
+    else { let w = {}; try { w = await getJSON(`vault/${wk}/week.json`); } catch (e) {} SIMW = { base: `vault/${wk}/`, sim: w.sim || [] }; }
+    fillSimSeries(); state.simB = []; loadSimA();
+  };
+  SIMW = { base: "results/", sim: (WEEK && WEEK.sim) || [] };
+  fillSimSeries();
+  $("simFormB").innerHTML = $("simFormA").innerHTML = Object.keys(SIM_FORMS).map(f => `<option>${f}</option>`).join("");
+  $("simSeries").onchange = () => { state.simB = []; loadSimA(); }; $("simFormB").onchange = $("simFormA").onchange = drawSim;
+  const simCap = () => simSeries().cap || 0;
+  // a removed player leaves an empty spot: the next card typed in fills the first empty spot, so 1 for 1 swaps keep everyone else in place
+  const put = (L, c) => { const i = L.indexOf(null); if (i >= 0) L[i] = c; else if (L.length < 11) L.push(c); };
+  hookSearch("searchS", "srS", c => { put(state.simB, c); drawSim(); }, simCap);
+  hookSearch("searchSA", "srSA", c => { put(state.simAC, c); drawSim(); }, simCap);
+  $("simBtn").onclick = runSim;
+  loadSimA();
+}
+function fillSimSeries() {
+  $("simSeries").innerHTML = SIMW.sim.map(s => `<option value="${esc(s.key)}">${esc(s.key)} Series</option>`).join("") || `<option value="">No Sim series</option>`;
+}
+async function loadSimA() {
+  state.simA = null; state.simAC = [];
+  try { const d = await getJSON(`${SIMW.base}sim_${simSeries().key}.json`); state.simA = d.teams[0]; } catch (e) {}
+  useSimTeam(); drawSim();
+}
+// your side starts as this season's team; any player can be removed and others typed in
+function useSimTeam() {
+  const A = state.simA; if (!A) return;
+  state.simAC = A.players.map(p => BYID.get(p.id)).filter(Boolean);
+  if (SIM_FORMS[A.formation]) $("simFormA").value = A.formation;
+}
+// a card out of position (not its main or alt position) plays on 0 chem and adds nothing to anyone else's chem
+const offPos = (c, slot) => !c.P || !c.P.has(slot);
+const simEff = (cards, slots) => { const S = simSeries(), P = cards.filter(Boolean), IN = cards.filter((c, i) => c && !offPos(c, slots[i]));
+  const ch = chem(IN), sb = squadBonus(P, S && S.bonuses);
+  return cards.map((c, i) => { if (!c) return null; const off = offPos(c, slots[i]), k = off ? 0 : ch[IN.indexOf(c)], b = CHEM_BONUS[k], [a, kk, d] = boosted(c, S && S.boosts);
+    return { a: a + b + sb[0], c: kk + b + sb[1], d: d + b + sb[2], t: c.attack + c.control + c.defense + 3 * b, chem: k, off }; }); };
+const simSide = (cards, form, id, top) => { const slots = SIM_FORMS[form], E = simEff(cards, slots);
+  return top + `<table>${slots.map((s, i) => { const c = cards[i]; return `<tr><td>${s}</td><td>${c ? esc(c.name) + (E[i].off ? ` <span class="tag">Out of position · 0 chem</span>` : "") : '<span class="muted">-</span>'}</td><td class="n">${c ? `${E[i].a}/${E[i].c}/${E[i].d}` : ""}</td><td>${c ? `<button class="x" data-i="${i}">✕</button>` : ""}</td></tr>`; }).join("")}</table>`; };
+function drawSim() {
+  const A = state.simA, tm = "S" + seasonOf((SIMW.base.match(/vault\/([^/]+)\//) || [])[1] || (WEEK && WEEK.week)), btn = (id, t) => `<button class="ghost" id="${id}" style="font-size:12.5px;margin:0 6px 8px 0">${t}</button>`;
+  const topA = (A && (state.simAC.length !== 11 || state.simAC.some((c, i) => !c || c.id !== (A.players[i] || {}).id)) ? btn("simUseA", `Load the ${esc(tm)} Team`) : "") + (state.simAC.some(Boolean) ? btn("simClrA", "Clear") : "");
+  $("simA").innerHTML = simSide(state.simAC, $("simFormA").value, "A", topA);
+  const ref = (simSeries().opponents || [])[0];
+  const topB = (ref && !state.simB.some(Boolean) ? `<button class="ghost" id="simRef" style="font-size:12.5px;margin-bottom:8px">Load the Reddit Team <span class="small muted">by u/${SIM_CREDIT}</span></button>` : "") + (state.simB.some(Boolean) ? btn("simClrB", "Clear") : "");
+  $("simB").innerHTML = simSide(state.simB, $("simFormB").value, "B", topB);
+  const drop = (L, i) => { L[i] = null; while (L.length && !L[L.length - 1]) L.pop(); drawSim(); };   // the spot stays empty for the next card
+  document.querySelectorAll("#simA .x").forEach(b => b.onclick = () => drop(state.simAC, +b.dataset.i));
+  document.querySelectorAll("#simB .x").forEach(b => b.onclick = () => drop(state.simB, +b.dataset.i));
+  if ($("simUseA")) $("simUseA").onclick = () => { useSimTeam(); drawSim(); };
+  if ($("simClrA")) $("simClrA").onclick = () => { state.simAC = []; drawSim(); };
+  if ($("simClrB")) $("simClrB").onclick = () => { state.simB = []; drawSim(); };
+  if ($("simRef")) $("simRef").onclick = () => {
+    const f = simSeries().opponent_formation; if (f && SIM_FORMS[f]) $("simFormB").value = f;
+    state.simB = ref.map(id => BYID.get(id)).filter(Boolean); drawSim();
+  };
+}
+function runSim() {
+  if (state.simAC.filter(Boolean).length !== 11 || state.simB.filter(Boolean).length !== 11) { $("simOut").textContent = "Need 11 cards on each side."; return; }
+  const side = (cards, form) => { const slots = SIM_FORMS[form], E = simEff(cards, slots);
+    return slots.map((s, i) => ({ name: cards[i].name, slot: s, pos: cards[i].position, a: E[i].a, c: E[i].c, d: E[i].d })); };
+  const R1 = side(state.simAC, $("simFormA").value), R2 = side(state.simB, $("simFormB").value);
+  const m = simMatch(R1, R2);
+  const odds = matchOdds(m.scoreA, m.scoreB);
+  // who does what: control cards fight for the ball, the attacker is picked from cards not used for control, defenders stop it
+  const roles = R => { const W = attackWeights(R);
+    return { c: R.filter(r => CTRL.has(r.slot)).sort((x, y) => y.c - x.c).map(r => [r.name, r.c]),
+      a: R.map((r, i) => [r, W[i]]).filter(([, w]) => w > 0.001).sort((x, y) => y[1] - x[1]).map(([r, w]) => [r.name, r.a, Math.round(w * 100)]),
+      d: R.filter(r => DEF.has(r.slot)).sort((x, y) => y.d - x.d).map(r => [r.name, r.d]) }; };
+  const X = roles(R1), Y = roles(R2);
+  // the cards, matched best against best: names on the outside, values in the middle, the higher value lit
+  const vs = (lab, k, av) => { const L = X[k], M = Y[k], n = Math.max(L.length, M.length);
+    let h = `<tr class="vh"><th>${lab}</th><th class="n">${av[0].toFixed(1)}</th><th class="n">${av[1].toFixed(1)}</th><th></th></tr>`;
+    for (let i = 0; i < n; i++) { const x = L[i], y = M[i], xv = x ? x[1] : -1, yv = y ? y[1] : -1;
+      const both = x && y;
+      h += `<tr><td class="vn">${x ? esc(cap(x[0])) : ""}</td><td class="vv${both && xv > yv ? " up" : ""}">${x ? xv : ""}</td><td class="vv${both && yv > xv ? " up" : ""}">${y ? yv : ""}</td><td class="vn r">${y ? esc(cap(y[0])) : ""}</td></tr>`; }
+    return h; };
+  // one number per role: control and defence averages, attack = the expected attacker
+  const mean = L => L.length ? L.reduce((t, x) => t + x[1], 0) / L.length : 0;
+  const expA = R => { const W = attackWeights(R); return R.reduce((t, r, i) => t + W[i] * r.a, 0); };
+  const vals = [["Control", mean(X.c), mean(Y.c)], ["Attack", expA(R1), expA(R2)], ["Defence", mean(X.d), mean(Y.d)]];
+  const cell = (v, o) => `<td class="n${v > o + 0.05 ? " up" : v < o - 0.05 ? " dn" : ""}">${v.toFixed(1)}</td>`;
+  X.a = X.a.filter(x => x[2] >= 5); Y.a = Y.a.filter(x => x[2] >= 5);      // cards that attack in 5%+ of possessions
+  $("simOut").innerHTML = `<div class="score odds"><div class="sc"><span>Win</span><b class="bignum w">${odds[0]}%</b></div><div class="sc"><span>Draw</span><b class="bignum">${odds[1]}%</b></div><div class="sc"><span>Loss</span><b class="bignum l">${odds[2]}%</b></div></div>
+    <p class="small muted" style="margin:-4px 0 12px">You score on <b>${(m.scoreA * 100).toFixed(1)}%</b> of possessions, they score on <b>${(m.scoreB * 100).toFixed(1)}%</b>. Control duels won: <b>${(m.control * 100).toFixed(0)}%</b>. Odds assume 5 or 6 possessions a match, like real games.</p>
+    <table class="svals"><tr><th></th><th class="n">You</th><th class="n">Them</th></tr>${vals.map(([l, x, y]) => `<tr><td>${l}</td>${cell(x, y)}${cell(y, x)}</tr>`).join("")}</table>
+    <details class="howres vsd"><summary>Show the Cards</summary><table class="vst"><colgroup><col><col class="cv"><col class="cv"><col></colgroup><tr class="vtop"><th colspan="2">You</th><th colspan="2" class="r">Them</th></tr>${vs("Control", "c", [vals[0][1], vals[0][2]])}${vs("Attack", "a", [vals[1][1], vals[1][2]])}${vs("Defence", "d", [vals[2][1], vals[2][2]])}</table><p class="small muted" style="margin:8px 0 0">Attack lists the cards that attack in at least 5% of possessions, most often first.</p></details>`;
+}
+// real matches have 5 or 6 possessions (logged: 6 in 14 of 20, 5 in 6), out of bounds included
+function matchOdds(p, q) {
+  const C = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };
+  const one = n => { let W = 0, D = 0, L = 0;
+    for (let a = 0; a <= n; a++) for (let b = 0; b <= n - a; b++) { const pr = C(n, a) * C(n - a, b) * p ** a * q ** b * (1 - p - q) ** (n - a - b); if (a > b) W += pr; else if (a === b) D += pr; else L += pr; }
+    return [W, D, L]; };
+  const six = one(6), five = one(5);
+  return six.map((x, i) => Math.round((0.7 * x + 0.3 * five[i]) * 100));
+}
+
+// ---------- SBC ----------
+// Requirement lines, worded like the game. Each line maps onto the solver's requirement object.
+const NUM_KEYS = {   // key -> label
+  min_rating: "Squad rating", min_chem: "Team chemistry", min_player_chem: "Chemistry per player", min_types: "Card types",
+  min_card_rating: "Every player rated", max_card_rating: "Every player rated",
+  min_nations: "Nations", max_nations: "Nations", min_leagues: "Leagues", max_leagues: "Leagues", min_clubs: "Clubs", max_clubs: "Clubs",
+  min_same_nation: "Same nation", max_same_nation: "Same nation", min_same_league: "Same league", max_same_league: "Same league",
+  min_same_club: "Same club", max_same_club: "Same club", max_types: "Card types" };
+const SB = { items: [], exclude: [], last: null, lastReq: null, busy: false };
+const OPS = { ">=": "Min", "<=": "Max", "=": "Exactly" };
+const KIND = { nation: "Nation", league: "League", club: "Club", color: "Card type", rarity: "Rarity" };
+const KEYOF = { nation: "nationId", league: "leagueId", club: "clubId" };
+const sampleCache = new Map();
+function groupSample(kind, id) {             // a few well-known players so you can recognise a club / nation / league
+  const k = kind + id; if (sampleCache.has(k)) return sampleCache.get(k);
+  const seen = new Set(), out = [];
+  for (const c of [...CARDS].filter(c => c[KEYOF[kind]] === id).sort((a, b) => b.rating - a.rating)) { if (seen.has(c.name)) continue; seen.add(c.name); out.push(c.name); if (out.length === 3) break; }
+  sampleCache.set(k, out); return out;
+}
+function groupLabel(kind, id) {
+  if (kind === "nation" && NATIONS[id]) return NATIONS[id];
+  if (kind === "league" && LEAGUES[id]) return LEAGUES[id];
+  if (kind === "club" && CLUBS[id]) return CLUBS[id];
+  if (kind === "color") return TYPE(id);
+  if (kind === "rarity") return id[0].toUpperCase() + id.slice(1);
+  return groupSample(kind, id).join(", ") || `${kind} ${id}`;
+}
+function ruleText(r) {              // the game's own wording: "Olympiacos FC: Min 1", "ICON: Max 1"
+  const tail = `: <b>${OPS[r.op]} ${r.n}</b>`;
+  if (r.on === "color" && String(r.id) === "iconhero") return `Icons and Heroes${tail}`;
+  if (r.on === "rarity" && r.id === "special") return `Special Cards${tail}`;
+  if (r.on === "player") return `${esc(r.name || r.id)} Cards${tail}`;
+  if (r.on === "rating") return `Rated ${esc(r.id)}+${tail}`;
+  if (r.on === "color" || r.on === "rarity") return `${esc(["icon", "hero"].includes(String(r.id)) ? String(r.id).toUpperCase() : groupLabel(r.on, r.id))}${tail}`;
+  const known = (r.on === "nation" && NATIONS[r.id]) || (r.on === "league" && LEAGUES[r.id]) || (r.on === "club" && CLUBS[r.id]);
+  if (known) return `${esc(known)}${tail}`;
+  return `${esc(r.via || groupSample(r.on, r.id)[0] || r.id)}'s ${r.on}${tail} <span class="muted">(${esc(groupSample(r.on, r.id).join(", "))})</span>`;
+}
+const GAME_NUM = { min_rating: "Squad Rating", min_chem: "Chemistry", min_player_chem: "Player Chemistry", min_types: "Card Types",
+  min_card_rating: "Player Rating", max_card_rating: "Player Rating", min_nations: "Nations", max_nations: "Nations", min_leagues: "Leagues",
+  max_leagues: "Leagues", min_clubs: "Clubs", max_clubs: "Clubs", min_same_nation: "Same Nation", max_same_nation: "Same Nation",
+  min_same_league: "Same League", max_same_league: "Same League", min_same_club: "Same Club", max_same_club: "Same Club", max_types: "Card Types" };
+const numBase = k => k.replace(/^(min|max|exact)_/, "");
+function itemText(it) {
+  if (it.t === "rule") return ruleText(it.rule);
+  if (it.t === "inc") { const c = BYID.get(it.id); return `Must include <b>${esc(c ? c.name + " " + c.rating : it.id)}</b>`; }
+  const mm = it.key.startsWith("max_") ? "Max" : it.key.startsWith("exact_") ? "Exactly" : "Min";
+  const k = it.key.startsWith("exact_") ? "min_" + numBase(it.key) : it.key;
+  return `${GAME_NUM[k] || NUM_KEYS[k]}: <b>${mm} ${it.v}</b>`;
+}
+let FORMS_CACHE = null;
+const ADD_TYPES = [
+  ["min_rating", "Squad rating"], ["min_chem", "Team chemistry"],
+  ["from", "Club, nation or league"], ["ctype", "Card type (TOTW, Icon…)"], ["pcards", "Any version of a player"],
+  ["count", "Number of nations, leagues or clubs"], ["same", "Same nation, league or club"],
+  ["rated", "Cards rated X or higher"], ["types", "Number of card types"],
+  ["inc", "Must include a player"]];
+function setupSBC() {
+  $("sbcForm").innerHTML = Object.keys(FORMS_CACHE || {}).map(f => `<option>${f}</option>`).join("") + `<option value="any">Any (slower)</option>`;
+  $("sbcForm").value = "4-3-3";
+  $("aType").innerHTML = `<option value="">Choose…</option>` + ADD_TYPES.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("");
+  $("aType").onchange = drawAddBody;
+  $("sbcQuick").onclick = () => {        // the usual hybrid lines in one tap (and Icons/Heroes allowed, since the SBC allows one)
+    for (const id of ["icon", "hero"]) { SB.items = SB.items.filter(x => !(x.t === "rule" && x.rule.on === "color" && x.rule.id === id)); SB.items.push({ t: "rule", rule: { on: "color", id, op: "<=", n: 1 } }); }
+    $("sbcIc").checked = true; drawSBCForm(); saveSBC();
+  };
+  $("sbcAddBtn").onclick = () => { $("sbcAdd").hidden = false; $("sbcAddBtn").hidden = true; $("aType").value = ""; drawAddBody(); };
+  $("sbcGo").onclick = () => { SB.exclude = []; runSBC(15); };
+  $("sbcClear").onclick = () => { SB.items = []; SB.exclude = []; $("sbcOut").hidden = true; drawSBCForm(); saveSBC(); };
+  $("sbcPasteBtn").onclick = () => { $("sbcPaste").hidden = false; $("sbcPasteBtn").hidden = true; PASTE.picks = {}; $("pText").value = ""; drawPaste(); $("pText").focus(); };
+  $("pText").oninput = () => { PASTE.picks = {}; drawPaste(); };
+  $("pUse").onclick = usePaste;
+  $("pCancel").onclick = () => { $("sbcPaste").hidden = true; $("sbcPasteBtn").hidden = false; };
+  setupCheck();
+  ["sbcForm", "sbcPr", "sbcSp", "sbcIc"].forEach(id => $(id).addEventListener("change", saveSBC));
+  loadSBC(); drawSBCForm();
+}
+function closeAdd() { $("sbcAdd").hidden = true; $("sbcAddBtn").hidden = false; }
+// a line that can only be met with special cards (Card Types 4+, TOTW, Special Cards: Min 1...) turns "Allow special cards" on
+const ICONISH = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded", "iconhero"]);
+function needsSpecials(it) {
+  if (it.t === "num") return /^(min|exact)_types$/.test(it.key) && it.v > 3;
+  if (it.t !== "rule" || it.rule.op === "<=" || !(it.rule.n > 0)) return false;
+  return (it.rule.on === "color" && !ICONISH.has(String(it.rule.id))) || (it.rule.on === "rarity" && it.rule.id === "special");
+}
+function addItem(it, keepOpen) {
+  // one line per requirement: Min and Max can sit together, Exactly replaces both (and is replaced by either)
+  if (it.t === "num") SB.items = SB.items.filter(x => !(x.t === "num" && numBase(x.key) === numBase(it.key) &&
+    (x.key === it.key || x.key.startsWith("exact_") || it.key.startsWith("exact_"))));
+  if (it.t === "rule") SB.items = SB.items.filter(x => !(x.t === "rule" && x.rule.on === it.rule.on && x.rule.id === it.rule.id && x.rule.op === it.rule.op));
+  SB.items.push(it);
+  if (needsSpecials(it)) $("sbcSp").checked = true;
+  if (!keepOpen) closeAdd(); drawSBCForm(); saveSBC();
+}
+const numBox = (id, val = "") => `<input type="number" inputmode="numeric" id="${id}" min="0" value="${val}" style="width:80px">`;
+const minMax = id => `<select id="${id}"><option value="min">Min</option><option value="max">Max</option><option value="exact">Exactly</option></select>`;
+function drawAddBody() {
+  const t = $("aType").value, box = $("aBody");
+  const addBtn = `<button class="btn" id="aOk">Add</button> <button class="ghost" id="aCancel">Cancel</button>`;
+  const done = () => { const c = $("aCancel"); if (c) c.onclick = closeAdd; };
+  if (!t) { box.innerHTML = `<button class="ghost" id="aCancel">Cancel</button>`; done(); return; }
+  if (["min_rating", "min_chem", "min_player_chem"].includes(t)) {
+    box.innerHTML = `<div class="row">Min ${numBox("aN")} ${addBtn}</div>`; done();
+    $("aN").focus();
+    $("aOk").onclick = () => { const v = +$("aN").value; if (v > 0) addItem({ t: "num", key: t, v }); };
+  } else if (t === "types") {
+    box.innerHTML = `<div class="row">${minMax("aM")} ${numBox("aN")} ${addBtn}</div>`; done();
+    $("aOk").onclick = () => { const v = +$("aN").value; if (v > 0) addItem({ t: "num", key: $("aM").value + "_types", v }); };
+  } else if (t === "rated") {               // "Rated 84+: Min 4"
+    box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)} <span class="small">cards rated</span> ${numBox("aR", 84)}<span class="small">+</span> ${addBtn}</div>`; done();
+    $("aOk").onclick = () => { const r = +$("aR").value, n = +$("aN").value; if (r > 0 && n >= 0) addItem({ t: "rule", rule: { on: "rating", id: r, op: $("aOp").value, n } }); };
+  } else if (t === "prating") {
+    box.innerHTML = `<div class="row">${minMax("aM")} ${numBox("aN")} ${addBtn}</div>`; done();
+    $("aOk").onclick = () => { const v = +$("aN").value; if (v > 0) addItem({ t: "num", key: $("aM").value + "_card_rating", v }); };
+  } else if (t === "count" || t === "same") {
+    box.innerHTML = `<div class="row">${minMax("aM")} ${numBox("aN")} <select id="aK"><option value="nation">Nations</option><option value="league">Leagues</option><option value="club">Clubs</option></select> ${addBtn}</div>`; done();
+    $("aOk").onclick = () => {
+      const v = +$("aN").value, k = $("aK").value, m = $("aM").value; if (!(v > 0)) return;
+      addItem({ t: "num", key: t === "count" ? `${m}_${k}s` : `${m}_same_${k}`, v });
+    };
+  } else if (t === "ctype") {
+    const types = [...new Set(CARDS.filter(c => !c._extra && !(NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))).map(sbcType))].filter(x => !["gold", "silver", "bronze"].includes(x)).sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
+    box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
+      <select id="aC"><option value="rarity:gold">Gold</option><option value="rarity:silver">Silver</option><option value="rarity:bronze">Bronze</option><option value="rarity:special">Special Cards</option>${types.map(x => `<option value="color:${esc(x)}">${esc(TYPE(x))}</option>`).join("")}</select> ${addBtn}</div>`; done();
+    $("aOk").onclick = () => { const [on, id] = $("aC").value.split(":"); addItem({ t: "rule", rule: { on, id, op: $("aOp").value, n: +$("aN").value || 0 } }); };
+  } else if (t === "pcards") {
+    box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}</div>
+      <input type="text" id="aQ" placeholder="Search a player" style="margin-top:8px"><ul class="sr" id="aSr" hidden></ul><div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
+    hookSearch("aQ", "aSr", c => addItem({ t: "rule", rule: { on: "player", id: playerKey(c), name: c.name, op: $("aOp").value, n: +$("aN").value || 0 } }));
+    $("aQ").focus();
+  } else if (t === "inc") {
+    box.innerHTML = `<input type="text" id="aQ" placeholder="Search a player"><ul class="sr" id="aSr" hidden></ul><div style="margin-top:8px"><button class="ghost" id="aCancel">Cancel</button></div>`; done();
+    hookSearch("aQ", "aSr", c => { if (c._extra || (NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))) { alert(NO_SBC_ID.has(c.id) ? `This ${c.name} card can't be used in SBCs.` : `${TYPE(c.color)} cards can't be used in SBCs.`); return; } addItem({ t: "inc", id: c.id }); });
+    $("aQ").focus();
+  } else if (t === "from") {
+    box.innerHTML = `<div class="row"><select id="aOp"><option value=">=">Min</option><option value="<=">Max</option><option value="=">Exactly</option></select> ${numBox("aN", 1)}
+      <select id="aK"><option value="club">Club</option><option value="nation">Nation</option><option value="league">League</option></select></div>
+      <input type="text" id="aQ" placeholder="Type a name, or several with commas" style="margin-top:8px"><ul class="sr" id="aSr" hidden></ul>
+      <p class="small muted" id="aMsg" style="margin:6px 0 0">Tap a match, or type several with commas.</p>
+      <div class="row" style="margin-top:8px"><button class="btn" id="aAll" hidden>Add all</button><button class="ghost" id="aCancel">Done</button></div>`; done();
+    const inp = $("aQ"), ul = $("aSr");
+    const refresh = () => {
+      const kind = $("aK").value, q = inp.value.trim().toLowerCase(); if (q.length < 2) { ul.hidden = true; return; }
+      const opts = new Map(), names = kind === "nation" ? NATIONS : kind === "league" ? LEAGUES : CLUBS;
+      for (const [id, n] of Object.entries(names)) if (n.toLowerCase().includes(q)) opts.set(+id, null);
+      // only fall back to players' clubs / nations / leagues when no name matches (typing "Valencia" shouldn't list every club with a player called Valencia)
+      if (!opts.size) for (const c of search(q, 8)) if (!opts.has(c[KEYOF[kind]])) opts.set(c[KEYOF[kind]], c.name);
+      const list = [...opts.entries()].slice(0, 10);
+      ul.hidden = !list.length;
+      ul.innerHTML = list.map(([id, via]) => {
+        const known = (kind === "nation" && NATIONS[id]) || (kind === "league" && LEAGUES[id]) || (kind === "club" && CLUBS[id]);
+        const label = known ? `<b>${esc(known)}</b>${via ? ` <span class="small">(${esc(via)}'s ${kind})</span>` : ""}` : `<b>${esc(via)}'s ${kind}</b>`;
+        return `<li data-id="${id}" data-via="${esc(via || "")}">${label} <span class="muted small">${esc(groupSample(kind, id).join(", "))}</span></li>`;
+      }).join("");
+    };
+    const many = () => inp.value.split(/[,;\n]/).map(x => x.trim()).filter(Boolean);
+    const onType = () => { const m = many(); $("aAll").hidden = m.length < 2; $("aAll").textContent = `Add all ${m.length}`; if (m.length < 2) refresh(); else ul.hidden = true; };
+    inp.oninput = onType; $("aK").onchange = onType; inp.focus();
+    ul.onclick = e => {
+      const li = e.target.closest("li"); if (!li) return;
+      const rule = { on: $("aK").value, id: +li.dataset.id, op: $("aOp").value, n: +$("aN").value || 0 };
+      if (li.dataset.via) rule.via = li.dataset.via;
+      addItem({ t: "rule", rule }, true);
+      $("aMsg").innerHTML = `Added <b>${ruleText(rule)}</b>. Type the next one, or tap Done.`;
+      inp.value = ""; ul.hidden = true; inp.focus();
+    };
+    $("aAll").onclick = () => {
+      const kind = $("aK").value, ok = [], miss = [];
+      for (const name of many()) {
+        const r = resolveName(name, [kind]);
+        if (r && r.id != null) { addItem({ t: "rule", rule: { on: kind, id: r.id, op: $("aOp").value, n: +$("aN").value || 0 } }, true); ok.push(r.label); }
+        else miss.push(name);
+      }
+      $("aMsg").innerHTML = (ok.length ? `Added ${ok.length}: ${esc(ok.join(", "))}.` : "") + (miss.length ? ` <span class="bad">Couldn't find: ${esc(miss.join(", "))}. Type it on its own to pick from the list.</span>` : "");
+      inp.value = miss.join(", "); onType(); inp.focus();
+    };
+  }
+}
+// ---------- names typed by hand: "Bosnia", "Luxembourg", "trinidad & tobago" ----------
+const nkey = t => norm(t).replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim();
+const NAME_ALIAS = { "luxembourg": "luxemburg", "bosnia": "bosnia herzegovina", "bosnia and herzegovina": "bosnia herzegovina",
+  "cape verde": "cape verde islands", "north macedonia": "fyr macedonia", "macedonia": "fyr macedonia", "south korea": "korea republic",
+  "north korea": "korea dpr", "usa": "united states", "us": "united states", "uae": "united arab emirates", "czechia": "czech republic",
+  "turkey": "turkiye", "ireland": "republic of ireland", "cote d ivoire": "ivory coast", "china": "china pr", "central african republic": "car",
+  "st kitts and nevis": "st kitts nevis", "saint kitts and nevis": "st kitts nevis", "palestine": "palestinian authority", "holland": "netherlands",
+  "trinidad": "trinidad and tobago", "drc": "dr congo", "congo dr": "dr congo", "curacao": "curacao", "guinea bissau": "guinea bissau",
+  // clubs the game shortens: full name typed -> the game's name
+  "sporting gijon": "r sporting", "gijon": "r sporting", "real sporting": "r sporting", "racing santander": "r racing club", "real racing club": "r racing club",
+  "union saint gilloise": "r union st g", "union st gilloise": "r union st g", "union sg": "r union st g", "royale union saint gilloise": "r union st g",
+  "paris saint germain": "psg", "paris sg": "psg", "olympique lyonnais": "ol", "lyon": "ol", "olympique de marseille": "om", "marseille": "om",
+  "lille": "losc", "lille osc": "losc", "tottenham": "spurs", "tottenham hotspur": "spurs", "nottingham forest": "nott m forest", "forest": "nott m forest",
+  "borussia monchengladbach": "m gladbach", "monchengladbach": "m gladbach", "gladbach": "m gladbach", "queens park rangers": "qpr",
+  "psv eindhoven": "psv", "az alkmaar": "az", "los angeles fc": "lafc", "steaua": "fcsb", "steaua bucuresti": "fcsb", "sochaux": "fcsm",
+  "dc united": "d c united", "lask linz": "lask", "independiente del valle": "idv", "newells old boys": "newell s", "newells": "newell s",
+  "nec nijmegen": "n e c nijmegen", "nec": "n e c nijmegen", "fc copenhagen": "f c kobenhavn", "copenhagen": "f c kobenhavn", "kobenhavn": "f c kobenhavn",
+  "st patricks athletic": "st pats", "st patricks": "st pats", "celta vigo": "celta", "maritimo": "maritimo m", "qingdao west coast": "qingdao w coast",
+  "sonnenhof grossaspach": "s grossaspach", "grossaspach": "s grossaspach", "u craiova": "univ craiova", "universitatea craiova": "univ craiova",
+  "u cluj": "fc univ cluj", "universitatea cluj": "fc univ cluj", "charleroi": "sp charleroi", "sporting charleroi": "sp charleroi",
+  "alaves": "d alaves", "deportivo alaves": "d alaves", "argentinos juniors": "argentinos jrs", "universidad catolica": "uni catolica",
+  "atletico nacional": "atl nacional", "melbourne victory": "melb victory", "wellington phoenix": "well phoenix", "racing louisville": "rac louisville",
+  "alemannia aachen": "aleman aachen", "real oviedo": "r oviedo", "real valladolid": "r valladolid cf", "valladolid": "r valladolid cf",
+  "independiente petrolero": "ind petrolero", "independiente rivadavia": "ind rivadavia", "independiente medellin": "indep medellin",
+  "independiente santa fe": "indep santa fe", "santa fe": "indep santa fe", "deportivo cuenca": "dep cuenca", "deportivo la guaira": "dep la guaira",
+  "deportivo riestra": "dep riestra", "costa adeje tenerife": "c adeje tenerife" };
+const NAME_EXP = { r: "real", atl: "atletico", ind: "independiente", indep: "independiente", dep: "deportivo", aleman: "alemannia", melb: "melbourne",
+  sp: "sporting", univ: "universidad", uni: "universidad", rac: "racing", well: "wellington", ws: "western sydney", jrs: "juniors", utd: "united", wed: "wednesday", man: "manchester", ath: "athletic" };
+let NAME_IDX = null;
+function nameIndex() {
+  if (NAME_IDX) return NAME_IDX;
+  const has = { nation: new Set(), league: new Set(), club: new Set() };
+  CARDS.forEach(c => { if (c._extra || (NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))) return; has.nation.add(c.nationId); has.league.add(c.leagueId); has.club.add(c.clubId); });
+  NAME_IDX = [];
+  for (const [kind, names] of [["nation", NATIONS], ["league", LEAGUES], ["club", CLUBS]])
+    for (const [id, label] of Object.entries(names)) if (has[kind].has(+id)) {
+      const k = nkey(label), k2 = k.split(" ").map(w => NAME_EXP[w] || w).join(" ");      // "Sheffield Wed" also as "sheffield wednesday"
+      const lg = kind === "club" ? [...new Set(CARDS.filter(c => c.clubId === +id).map(c => lName(c.leagueId)))].join(", ") : "";
+      NAME_IDX.push({ kind, id: +id, label, k, k2, lg });
+    }
+  return NAME_IDX;
+}
+// best match for a typed name: exact first (nation, then league, then club), then a unique start or part of a name
+function resolveName(text, kinds = ["nation", "league", "club"]) {
+  let k = nkey(text); k = NAME_ALIAS[k] || k; if (!k) return null;
+  const idx = nameIndex().filter(x => kinds.includes(x.kind)), order = x => kinds.indexOf(x.kind);
+  const kx = k.split(" ").map(w => NAME_EXP[w] || w).join(" ");      // typed "Man City" also as "manchester city"
+  const any = f => x => f(x.k, k) || f(x.k2, k) || (kx !== k && (f(x.k, kx) || f(x.k2, kx)));
+  const tiers = [any((t, q) => t === q), any((t, q) => t.startsWith(q + " ") || t.endsWith(" " + q)), any((t, q) => t.startsWith(q)), any((t, q) => t.includes(q)), any((t, q) => t.length > 3 && q.startsWith(t + " "))]   // last: "Central Coast Mariners" -> "Central Coast";
+  for (const [i, f] of tiers.entries()) {
+    let m = idx.filter(f).sort((a, b) => order(a) - order(b));
+    if (!m.length) continue;
+    if (i === 0) m = m.filter(x => x.kind === m[0].kind);         // exact: a nation beats a club of the same name
+    if (m.length === 1) return m[0];
+    return { amb: m.slice(0, 6) };                                // e.g. BK Häcken men's and women's: ask which
+  }
+  return null;
+}
+// "C.Ronaldo", "Messi", "Rodri": the player (every version shares one key); several fits -> ask which
+function resolvePlayer(text) {
+  const t = nkey(text); if (!t) return null;
+  const w = t.split(" "), last = w[w.length - 1], first = w.slice(0, -1);
+  const fits = name => {
+    const k = nkey(name); if (k === t) return 2;
+    const nw = k.split(" "); if (nw[nw.length - 1] !== last || nw.length < 2 && first.length) return 0;
+    return first.every(f => nw.slice(0, -1).some(x => f.length === 1 ? x.startsWith(f) : x === f)) ? 1 : 0;
+  };
+  const by = new Map();
+  for (const c of CARDS) { const f = fits(c.name); if (!f) continue; const k = playerKey(c), o = by.get(k);
+    if (!o || f > o.f || c.rating > o.c.rating) by.set(k, { f: Math.max(f, o ? o.f : 0), c: o && o.c.rating >= c.rating ? o.c : c }); }
+  let m = [...by.entries()]; if (!m.length) return null;
+  if (m.some(([, x]) => x.f === 2)) m = m.filter(([, x]) => x.f === 2);          // an exact name beats a surname match
+  m.sort((a, b) => b[1].c.rating - a[1].c.rating);
+  const opt = ([id, x]) => ({ kind: "player", id, name: x.c.name, label: `${x.c.name} ${x.c.rating}`, lg: nName(x.c.nationId) });
+  return m.length === 1 ? opt(m[0]) : { amb: m.slice(0, 6).map(opt) };
+}
+// ---------- paste a whole SBC: "Leagues: Min 5", "Zimbabwe: Min 1", "Icons and Heroes: Max 0", "Formation: 3-5-2" ----------
+const OPWORD = { min: ">=", max: "<=", exactly: "=", exact: "=" };
+function parseSBCText(text, picks = {}) {
+  const out = { items: [], formation: null, icons: null, specials: null, notes: [], amb: [], skipped: [] };
+  const num = (key, op, v) => out.items.push({ t: "num", key: (op === "<=" ? "max_" : op === "=" ? "exact_" : "min_") + key, v });
+  const rule = (on, id, op, n, name) => out.items.push({ t: "rule", rule: name ? { on, id, op, n, name } : { on, id, op, n } });
+  const types = [...new Set(CARDS.filter(c => !c._extra && !(NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))).map(sbcType))];
+  const lines = String(text).split(/\n/).map(l => l.replace(/[*_•]/g, "").replace(/^\s*[-–]\s*/, "").trim()).filter(Boolean);
+  lines.forEach((line, li) => {
+    const fm = line.match(/^formation\s*:?\s*(\d(?:-\d){2,4})/i) || line.match(/^(\d(?:-\d){2,4})$/);
+    if (fm) { out.formation = fm[1]; return; }
+    let m = line.match(/^(.*?)\s*:\s*(min|max|exactly|exact)?\s*(\d+)\b/i);
+    let names = null, op = ">=", n = 1, label = "";
+    if (m) { label = m[1]; op = OPWORD[(m[2] || "min").toLowerCase()]; n = +m[3]; }
+    else if ((m = line.match(/from each\s*:\s*(.+)$/i))) names = m[1];
+    else if (/[,;]/.test(line) || resolveName(line)) names = line;      // a bare list of names: Min 1 each
+    else { if (line.split(/\s+/).length < 3 && !/^(requirements|how to enter|solution|rules)$/i.test(line)) out.skipped.push(line); return; }
+    const L = nkey(label);
+    if (!names) {
+      if (/^number of players/.test(L)) return;
+      if (/^(team|squad) rating$|^rating$/.test(L)) return num("rating", ">=", n);
+      if (/^(team |squad )?chem(istry)?$/.test(L)) return num("chem", ">=", n);
+      if (/^player chem(istry)?$|^chem(istry)? per player$/.test(L)) return num("player_chem", ">=", n);
+      if (/^(leagues|nations|clubs)$/.test(L)) return num(L, op, n);
+      if ((m = L.match(/^same (league|nation|club)$/))) return num("same_" + m[1], op, n);
+      if (/^card types$/.test(L)) return num("types", op, n);
+      if (/^player rating$/.test(L)) return num("card_rating", op, n);
+      if ((m = L.match(/^(?:players? |cards? )?(?:rated|rating) (\d{2})\+?(?: or (?:higher|more|above))?(?: players?| cards?)?$|^(\d{2})\+? rated(?: players?| cards?)?$/)))
+        return rule("rating", +(m[1] || m[2]), op, n);
+      if (/^icons? (and )?heroe?s?$/.test(L)) { if (op === "<=" && n === 0) out.icons = false; else { out.icons = true; rule("color", "iconhero", op, n); } return; }
+      if (/^icons?$/.test(L)) { if (op === "<=" && n === 0) return; out.icons = true; return rule("color", "icon", op, n); }
+      if (/^heroe?s?$/.test(L)) { if (op === "<=" && n === 0) return; out.icons = true; return rule("color", "hero", op, n); }
+      if (/^special( cards?)?$|^specials$/.test(L)) { if (op === "<=" && n === 0) out.specials = false; else { if (op !== "<=") out.specials = true; rule("rarity", "special", op, n); } return; }
+      if ((m = L.match(/^(rare )?(gold|silver|bronze)( cards?)?$/))) return rule("rarity", m[2], op, n);
+      const L2 = L.replace(/ cards?$/, "");
+      const ct = types.find(t => [L, L2].includes(nkey(TYPE(t))) || [L, L2].includes(nkey(t)));
+      if (ct) { if (op !== "<=") out.specials = true; return rule("color", ct, op, n); }
+      if (L2 !== L) {                                   // "C.Ronaldo Cards: Min 1": any version of that player
+        const key = li + ":p", r = picks[key] || resolvePlayer(L2);
+        if (r && r.id != null) return rule("player", r.id, op, n, r.name);
+        if (r && r.amb) { out.amb.push({ key, text: label, opts: r.amb }); return; }
+      }
+      names = label;
+    }
+    names.split(/[,;]/).map(x => x.trim()).filter(Boolean).forEach((nm, j) => {
+      const key = li + ":" + j, r = picks[key] || resolveName(nm);
+      if (r && r.id != null) rule(r.kind, r.id, op, n, r.kind === "player" ? r.name : undefined);
+      else if (r && r.amb) out.amb.push({ key, text: nm, opts: r.amb });
+      else out.skipped.push(nm);
+    });
+  });
+  return out;
+}
+const PASTE = { picks: {} };
+function drawPaste() {
+  const p = parseSBCText($("pText").value, PASTE.picks), box = $("pPrev");
+  const lines = [];
+  if (p.formation) lines.push(`<li class="ok">✓ Formation: <b>${esc(p.formation)}</b>${FORMS_CACHE && !FORMS_CACHE[p.formation] ? ' <span class="bad">(not on the list)</span>' : ""}</li>`);
+  p.items.forEach(it => lines.push(`<li class="ok">✓ ${itemText(it)}</li>`));
+  if (p.icons === false) lines.push(`<li class="ok">✓ No Icons or Heroes</li>`);
+  if (p.specials === false) lines.push(`<li class="ok">✓ No special cards</li>`);
+  p.amb.forEach(a => lines.push(`<li>Which <b>${esc(a.text)}</b>? ${a.opts.map((o, i) => `<button class="ghost" style="padding:3px 8px;font-size:12px;margin:2px" data-pick="${esc(a.key)}" data-i="${i}">${esc(o.label)} <span class="muted">(${esc(o.lg || o.kind)})</span></button>`).join("")}</li>`));
+  p.skipped.forEach(x => lines.push(`<li class="bad">✗ Not understood: ${esc(x)}</li>`));
+  box.innerHTML = lines.length ? `<ul class="small" style="padding-left:18px;margin:6px 0">${lines.join("")}</ul>` : "";
+  box.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => { const a = p.amb.find(x => x.key === b.dataset.pick); PASTE.picks[a.key] = a.opts[+b.dataset.i]; drawPaste(); });
+  $("pUse").disabled = !(p.items.length || p.formation || p.icons === false || p.specials === false) || p.amb.length > 0;
+  return p;
+}
+function usePaste() {
+  const p = drawPaste(); if ($("pUse").disabled) return;
+  p.items.forEach(it => addItem(it, true));       // adds to what is already there (same line replaces the old one)
+  if (p.formation && FORMS_CACHE && FORMS_CACHE[p.formation]) $("sbcForm").value = p.formation;
+  if (p.icons != null) $("sbcIc").checked = p.icons;
+  if (p.specials != null) $("sbcSp").checked = p.specials;
+  $("sbcPaste").hidden = true; $("sbcPasteBtn").hidden = false; drawSBCForm(); saveSBC();
+}
+// ---------- check a squad against the requirements above ----------
+const CHK = { ids: [] };
+function saveChk() { try { localStorage.setItem("sbcCheck", JSON.stringify(CHK.ids)); } catch (e) {} }
+function drawCheck() {
+  const sq = CHK.ids.map(id => BYID.get(id)).filter(Boolean), out = $("chkOut");
+  if (!sq.length) { out.innerHTML = `<p class="small muted">Add 11 players to check them against the requirements.</p>`; return; }
+  const ch = sbcChem(sq), req = readReq();
+  const rows = sq.map((c, i) => `<tr><td class="wrap"><b>${esc(c.name)}</b> ${c.rating}<br><span class="muted small">${esc(TYPE(c.color))} · ${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</span></td><td><button class="x" data-cdel="${i}">✕</button></td></tr>`).join("");
+  const checks = [{ label: `Players ${sq.length} (need 11)`, ok: sq.length === 11 }];
+  const dup = sq.length - new Set(sq.map(c => c.baseId || c.name)).size;
+  if (dup) checks.push({ label: `Same player twice`, ok: false });
+  const wantsSpecial = (req.rules || []).some(r => r.op !== "<=" && (r.on === "color" || (r.on === "rarity" && r.id === "special")));
+  if (!req.allow_icons) { const n = sq.filter(c => ["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"].includes(c.color)).length; checks.push({ label: `No Icons or Heroes: ${n}`, ok: n === 0 }); }
+  if (!req.allow_specials && !wantsSpecial) { const n = sq.filter(c => !["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"].includes(c.color) && !["gold", "silver", "bronze"].includes(sbcType(c))).length; checks.push({ label: `No special cards: ${n}`, ok: n === 0 }); }
+  checks.push(...sbcChecks(req, sq));
+  const allOk = sq.length === 11 && checks.every(c => c.ok);
+  out.innerHTML = `<p><b>Rating ${teamRatingOf(sq.map(c => c.rating))} · Chem ${ch.reduce((a, b) => a + b, 0)}</b></p>
+    <table class="sq"><tr><th>Player</th><th></th></tr>${rows}</table>
+    <p class="${allOk ? "ok" : "bad"}" style="margin:10px 0 4px"><b>${allOk ? "✓ Meets every requirement" : sq.length < 11 ? `${11 - sq.length} more to add` : "✗ Doesn't meet every requirement"}</b></p>
+    <ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("")}</ul>`;
+  out.querySelectorAll("[data-cdel]").forEach(b => b.onclick = () => { CHK.ids.splice(+b.dataset.cdel, 1); saveChk(); drawCheck(); });
+}
+function setupCheck() {
+  try { CHK.ids = JSON.parse(localStorage.getItem("sbcCheck") || "[]").filter(id => BYID.has(id)); } catch (e) {}
+  hookSearch("chkQ", "chkSr", c => {
+    if (c._extra || (NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))) { alert(NO_SBC_ID.has(c.id) ? `This ${c.name} card can't be used in SBCs.` : `${TYPE(c.color)} cards can't be used in SBCs.`); return; }
+    if (CHK.ids.length >= 11) { alert("The squad already has 11. Remove one first."); return; }
+    CHK.ids.push(c.id); saveChk(); drawCheck(); $("chkQ").focus();
+  });
+  $("chkLast").onclick = () => { if (!SB.last || SB.last.none) { alert("Solve an SBC first."); return; } CHK.ids = SB.last.players.map(p => p.id); saveChk(); drawCheck(); };
+  $("chkClear").onclick = () => { CHK.ids = []; saveChk(); drawCheck(); };
+  drawCheck();
+}
+function drawSBCForm() {
+  if ($("chkOut")) drawCheck();
+  $("sbcList").innerHTML = SB.items.length ? SB.items.map((it, i) => `<div class="req"><span>${itemText(it)}</span><button class="x" data-del="${i}">✕</button></div>`).join("")
+    : `<p class="muted small">No requirements yet.</p>`;
+  document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { SB.items.splice(+b.dataset.del, 1); drawSBCForm(); saveSBC(); });
+}
+function readReq() {
+  const req = { formation: $("sbcForm").value, priority: $("sbcPr").value, allow_specials: $("sbcSp").checked || SB.items.some(needsSpecials), allow_icons: $("sbcIc").checked,
+    rules: [], include: [], exclude: SB.exclude.slice() };
+  for (const it of SB.items) {
+    if (it.t === "num" && it.key.startsWith("exact_")) req["min_" + numBase(it.key)] = req["max_" + numBase(it.key)] = it.v;
+    else if (it.t === "num") req[it.key] = it.v;
+    else if (it.t === "rule") req.rules.push(it.rule);
+    else if (it.t === "inc") req.include.push(it.id);
+  }
+  return req;
+}
+function saveSBC() { try { localStorage.setItem("sbcV2", JSON.stringify({ items: SB.items, formation: $("sbcForm").value, priority: $("sbcPr").value, sp: $("sbcSp").checked, ic: $("sbcIc").checked })); } catch (e) {} }
+function loadSBC() {
+  let r = null; try { r = JSON.parse(localStorage.getItem("sbcV2") || "null"); } catch (e) {}
+  if (!r) return;
+  SB.items = r.items || []; if (r.formation) $("sbcForm").value = r.formation; if (r.priority) $("sbcPr").value = r.priority;
+  $("sbcSp").checked = !!r.sp; $("sbcIc").checked = !!r.ic;
+}
+let sbcWorker = null, sbcReq = 0;
+function sbcSolve(req, timeLimit, onProgress, onPartial) {
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117z");
+  const id = ++sbcReq;
+  return new Promise((res, rej) => {
+    sbcWorker.onmessage = e => {
+      const m = e.data; if (m.id !== id) return;
+      if (m.type === "progress") onProgress(m.text);
+      else if (m.type === "partial") onPartial(m);
+      else if (m.type === "done") res(m); else rej(new Error(m.error));
+    };
+    sbcWorker.postMessage({ id, req, timeLimit });
+  });
+}
+async function runSBC(timeLimit, reqOverride) {
+  if (SB.busy) return;
+  const req = reqOverride || readReq();
+  if (!req.formation) return;
+  SB.busy = true; $("sbcGo").disabled = true;
+  const out = $("sbcOut"); out.hidden = false;
+  const t0 = Date.now(); let msg = "Loading solver…", hasPartial = false;
+  const status = () => `${esc(msg)} ${Math.round((Date.now() - t0) / 1000)}s`;
+  const tick = setInterval(() => { if (hasPartial) { const el = $("sbcWorking"); if (el) el.innerHTML = status(); } else out.innerHTML = `<p class="muted">${status()}</p>`; }, 500);
+  out.innerHTML = `<p class="muted">${msg}</p>`;
+  const per = req.formation === "any" ? Math.max(5, Math.round(timeLimit / 3)) : timeLimit;
+  try {
+    const onPart = p => { hasPartial = true; SB.last = p.result; SB.lastReq = req; SB.lastSeconds = p.seconds; drawSBCResult(true); };
+    let m = await sbcSolve(req, per, t => msg = t, onPart);
+    // nothing yet: hard ones (obscure nations or clubs, 33 chem) often need longer, so keep going once by itself
+    if (m.result.none && per < 60) m = await sbcSolve(req, req.formation === "any" ? 30 : 60, t => msg = "Hard one, searching longer. " + t, onPart);
+    SB.last = m.result; SB.lastReq = req; SB.lastSeconds = m.seconds;
+    drawSBCResult();
+  } catch (e) {
+    out.innerHTML = `<p class="bad">Something went wrong: ${esc(e.message)}</p>`;
+  } finally { clearInterval(tick); SB.busy = false; $("sbcGo").disabled = false; }
+}
+function sbcChecks(req, sq, slots) {
+  const ch = sbcChemAt(slots, sq), rt = teamRatingOf(sq.map(x => x.rating)), list = [];
+  const cnt = (f) => new Set(sq.map(f)).size;
+  const most = (f) => Math.max(...[...sq.reduce((m, x) => m.set(f(x), (m.get(f(x)) || 0) + 1), new Map()).values()]);
+  const add = (label, ok) => list.push({ label, ok });
+  if (req.min_rating) add(`Squad rating ${rt} (min ${req.min_rating})`, rt >= req.min_rating);
+  if (req.min_chem) add(`Squad chem ${ch.reduce((a, b) => a + b, 0)} (min ${req.min_chem})`, ch.reduce((a, b) => a + b, 0) >= req.min_chem);
+  if (req.min_player_chem) add(`Lowest player chem ${Math.min(...ch)} (min ${req.min_player_chem})`, Math.min(...ch) >= req.min_player_chem);
+  if (req.min_types) add(`Card types ${cnt(sbcType)} (min ${req.min_types})`, cnt(sbcType) >= req.min_types);
+  if (req.max_types) add(`Card types ${cnt(sbcType)} (max ${req.max_types})`, cnt(sbcType) <= req.max_types);
+  if (req.min_card_rating) add(`Lowest player ${Math.min(...sq.map(x => x.rating))} (min ${req.min_card_rating})`, sq.every(x => x.rating >= req.min_card_rating));
+  if (req.max_card_rating) add(`Highest player ${Math.max(...sq.map(x => x.rating))} (max ${req.max_card_rating})`, sq.every(x => x.rating <= req.max_card_rating));
+  for (const [kind, key] of [["nation", "nationId"], ["league", "leagueId"], ["club", "clubId"]]) {
+    const n = cnt(x => x[key]), m = most(x => x[key]);
+    if (req[`min_${kind}s`]) add(`${KIND[kind]}s ${n} (min ${req[`min_${kind}s`]})`, n >= req[`min_${kind}s`]);
+    if (req[`max_${kind}s`]) add(`${KIND[kind]}s ${n} (max ${req[`max_${kind}s`]})`, n <= req[`max_${kind}s`]);
+    if (req[`min_same_${kind}`]) add(`Same ${kind} ${m} (min ${req[`min_same_${kind}`]})`, m >= req[`min_same_${kind}`]);
+    if (req[`max_same_${kind}`]) add(`Same ${kind} ${m} (max ${req[`max_same_${kind}`]})`, m <= req[`max_same_${kind}`]);
+  }
+  for (const r of req.rules || []) {
+    const n = sq.filter(x => ruleMatch(x, r)).length;
+    add(`${ruleText(r)}: ${n}`, r.op === ">=" ? n >= r.n : r.op === "<=" ? n <= r.n : n === r.n);
+  }
+  for (const id of req.include || []) { const c = BYID.get(id); add(`Includes ${esc(c ? c.name : id)}`, sq.some(x => x.id === id)); }
+  return list;
+}
+// Why a hybrid may be impossible (rules of thumb from experienced players), shown when no squad is found
+function sbcHints(req) {
+  const out = [], icons = !!req.allow_icons;
+  const clubs = [...new Set((req.rules || []).filter(r => r.on === "club" && r.op !== "<=" && r.n > 0).map(r => r.id))];
+  if (!icons && (req.min_chem || 0) >= 30 && (req.min_leagues || 0) >= 5 && clubs.length >= 5) {
+    const lg = new Map(clubs.map(k => [k, new Set(CARDS.filter(c => c.clubId === k && !(NO_SBC.has(c.color) || NO_SBC_ID.has(c.id))).map(c => c.leagueId))]));
+    const pairs = [];
+    for (let i = 0; i < clubs.length; i++) for (let j = i + 1; j < clubs.length; j++) if ([...lg.get(clubs[i])].some(l => lg.get(clubs[j]).has(l))) pairs.push([clubs[i], clubs[j]]);
+    const name = k => CLUBS[k] || k;
+    if (!pairs.length) out.push(`These ${clubs.length} clubs are all in different leagues, so this usually needs an Icon or chem boosters. Try allowing Icons.`);
+    else if (!pairs.some(([a, b]) => clubs.some(k => k !== a && k !== b && lg.get(k).size > 1)))
+      out.push(`None of the other clubs has a second league (e.g. a women's team), which this usually needs. Try allowing an Icon.`);
+  }
+  if (!icons && (req.min_leagues || 0) >= 6 && (req.min_nations || 0) >= 6) out.push("6 leagues and 6 nations without an Icon is rarely possible. Try allowing Icons.");
+  if ((req.min_types || 0) > 3 && !req.allow_specials) out.push(`Card types: Min ${req.min_types} needs special cards (bronze, silver and gold are only 3 types). Allow special cards.`);
+  return out;
+}
+function drawSBCResult(working = false) {
+  const out = $("sbcOut"), r = SB.last, req = SB.lastReq;
+  const skip = SB.exclude.map(id => BYID.get(id)).filter(Boolean);
+  const skipHtml = skip.length ? `<p class="small">Skipping: ${skip.map((c, i) => `<span class="chip">${esc(c.name)} ${c.rating}<button class="x" data-undo="${i}">↺</button></span>`).join("")}</p>` : "";
+  if (!r || r.none) {
+    out.innerHTML = (r && r.timedOut
+      ? `<p><b>No squad found yet.</b> It ran out of time before finding one.</p><button class="btn" id="sbcLonger">Search longer (up to 3 min)</button>`
+      : `<p><b>No squad found</b>${skip.length ? " after skipping the cards below" : ""}. It may not be possible with these cards. Check the numbers, or allow special cards or Icons.</p><button class="btn" id="sbcLonger">Search longer (up to 3 min)</button>`)
+      + sbcHints(req || {}).map(h => `<p class="small" style="margin:6px 0">💡 ${esc(h)}</p>`).join("") + skipHtml;
+  } else {
+    const sq = r.players.map(p => BYID.get(p.id));
+    const oopSl = r.oop ? r.players.map(p => p.slot) : null, checks = sbcChecks(req, sq, oopSl), allOk = checks.every(c => c.ok);
+    const head = working ? `<p><b>Squad found.</b> <span class="muted small" id="sbcWorking">Checking for a cheaper one…</span></p>`
+      : r.proven ? `<p class="ok"><b>✓ Cheapest squad</b></p>`
+      : `<p><b>Good squad</b> <span class="muted small">There may be a slightly cheaper one.</span> <button class="ghost" id="sbcLonger" style="padding:4px 9px;font-size:12px">Search longer</button></p>`;
+    const pch = sbcChemAt(oopSl, sq), pps = r.players.map((p, k) => Object.assign({}, p, { chem: pch[k] }));
+    const oopP = r.players.filter(p => p.oop), oopNote = oopP.length ? `<p class="small" style="margin:4px 0 8px">⚠️ <b>${oopP.map(p => esc(p.name)).join(", ")}</b> ${oopP.length > 1 ? "are" : "is"} out of position (0 chem). It can't be done with everyone in position, and the chem target leaves room for ${oopP.length > 1 ? "them" : "it"}.</p>` : "";
+    out.innerHTML = `<div class="sbchead"><div><span>Formation</span><b>${esc(r.formation)}</b></div><div><span>Rating</span><b>${r.rating}</b></div><div><span>Chem</span><b>${r.chem}</b></div></div>${head}${oopNote}${pitchHTML(pps, "sbc")}
+      <table class="sq"><tr><th>Pos</th><th>Player</th><th></th></tr>${r.players.map(p =>
+        `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(cName(p.clubId))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
+      ${skipHtml}
+      <details ${allOk ? "" : "open"} style="margin-top:8px"><summary class="small ${allOk ? "ok" : "bad"}">${allOk ? "✓ Meets every requirement" : "✗ A requirement isn't met. Please report it"}</summary><ul class="small" style="padding-left:18px;margin:4px 0">${checks.map(c => `<li class="${c.ok ? "ok" : "bad"}">${c.ok ? "✓" : "✗"} ${c.label}</li>`).join("") || "<li class='muted'>No requirements set.</li>"}</ul></details>`;
+  }
+  if (working) { out.querySelectorAll("[data-nohave],[data-undo]").forEach(b => b.disabled = true); return; }
+  out.querySelectorAll("[data-nohave]").forEach(b => b.onclick = () => { SB.exclude.push(b.dataset.nohave); runSBC(15, Object.assign({}, SB.lastReq, { exclude: SB.exclude.slice() })); });
+  out.querySelectorAll("[data-undo]").forEach(b => b.onclick = () => { SB.exclude.splice(+b.dataset.undo, 1); runSBC(15, Object.assign({}, SB.lastReq, { exclude: SB.exclude.slice() })); });
+  const longer = $("sbcLonger");
+  if (longer) longer.onclick = () => runSBC(180, Object.assign({}, SB.lastReq, r && !r.none ? { formation: r.formation } : {}, { exclude: SB.exclude.slice() }));
+}
+
+// ---------- Cards (everything in the data, to spot what's missing) ----------
+const CF = { shown: 100 };
+const typeKey = c => { const t = String(c.color).replace("rare_", ""); return ["gold", "silver", "bronze"].includes(t) ? t : t; };
+const typeLabel = t => ({ gold: "Gold", silver: "Silver", bronze: "Bronze" }[t] || TYPE(t));
+const SHOW_EXTRA = new Set(["evo", "elite_evo", "ltm"]);
+// card-type colours (tiles and the strip beside each card): [light, dark, text]
+const TCOL = {   // [light, dark, text], taken from the in-game collection screen
+  gold: ["#f0e296", "#c9a24a", "#1d1405"], silver: ["#e2e4ea", "#9a9eaa", "#10151b"], bronze: ["#edc89a", "#c08452", "#1a0d05"],
+  totw_gold: ["#4a4030", "#141210", "#ecc96a"], icon: ["#f4f2ee", "#b9a57e", "#1b140a"], debut_icon: ["#ece3d8", "#9a7c5e", "#1b140a"],
+  hero: ["#8f7ad8", "#2a1d55", "#ffffff"], hall_of_fut: ["#9a9aa6", "#232126", "#ffffff"], hall_of_fut_upgraded: ["#cf2a2e", "#2c0a0c", "#ffffff"], showdown_plus: ["#b8e33c", "#1a2012", "#d2ff4f"], future_stars: ["#9a6fd0", "#1f0e4c", "#ffffff"],
+  destined_for_glory: ["#c9a868", "#173a3e", "#ffffff"], otw: ["#4fc4d4", "#1e3c6a", "#ffffff"], squad_foundations: ["#5cc8b8", "#1d4d48", "#ffffff"],
+  sbc_premium: ["#a58ad0", "#3a2066", "#ffffff"], partners: ["#a89a88", "#4a3e33", "#ffffff"],
+  epl_potm: ["#4fc3f7", "#2a6fd8", "#ffffff"], laliga_potm: ["#e04a3c", "#0a0618", "#ffffff"], seriea_potm: ["#3d63ff", "#1a10b8", "#ffffff"],
+  bundesliga_potm: ["#c42a22", "#5e0f0f", "#ffffff"], liga_f_potm: ["#2f63c8", "#0a1f5c", "#ffffff"],
+  ligue1_potm: ["#4a5ff0", "#1b1a6e", "#ffffff"], ligue_1_potm: ["#4a5ff0", "#1b1a6e", "#ffffff"],
+  evo: ["#2f6a5e", "#071219", "#c9f3e6"], elite_evo: ["#4f7a64", "#0b1620", "#ecd99a"], ltm: ["#2a4dff", "#c4162a", "#ffffff"],
+  world_potm: ["#d9a63e", "#2a1d08", "#ffffff"], world_potm_nominee: ["#c79a45", "#3a2a10", "#ffffff"], star_performer: ["#f6c04a", "#c9781a", "#1d1003"],
+  heritage: ["#c9b49a", "#3a2a22", "#ffffff"], showdown: ["#d8d8dc", "#1c1c20", "#ffffff"],
+  halloween: ["#f08a24", "#5a2a8a", "#ffffff"], halloween_hero: ["#7be04a", "#1e4fd0", "#ffffff"],
+  ucl_rttk: ["#2f5fe0", "#0a1a5c", "#ffffff"], uwcl_rttk: ["#7cc4f0", "#2f6fb8", "#ffffff"], ecl_rttk: ["#2fbf4a", "#06140a", "#ffffff"], europa_rttk: ["#e2701e", "#1a0d06", "#ffffff"] };
+// LTMs each have their own card design: the strip beside them uses that card's colours
+const LTMCOL = { "Xavi Espart": ["#3a6fe0", "#8a1640"], "Karetsas": ["#f5e04a", "#2a2614"], "Ngumoha": ["#e3262f", "#3b0a12"], "Comuzzo": ["#a3283c", "#3a0c14"] };
+const cardStrip = c => { const L = c.color === "ltm" && LTMCOL[c.name]; return L ? `background:linear-gradient(135deg,${L[0]},${L[1]})` : tgrad(c._evx ? "evo" : typeKey(c)); };
+const tcol = t => TCOL[t] || (h => [`hsl(${h} 70% 72%)`, `hsl(${h} 55% 38%)`, "#0d0a0b"])([...String(t)].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) % 360, 7));
+const tgrad = t => { const [a, b, c] = tcol(t); return `background:linear-gradient(135deg,${a},${b});color:${c}`; };      // hand-added cards listed in the Cards tab
+const inCards = c => !c._extra || SHOW_EXTRA.has(c.color);
+// the Cards tab: the site's cards plus every evolved card of the year, all evolved cards listed under Evo
+const cardsPool = () => CARDS.filter(inCards).concat(EVOALL ? EVOALL.cards.filter(c => c._evx) : []);
+const ctKey = c => c._evx ? "evo" : typeKey(c);
+const cardCount = (t, cs) => t === "ltm" ? new Set(cs.map(c => c.name)).size : cs.length;   // an LTM counts once, whatever its level
+function siteTotal() {          // every card on the site, counted as the Cards tab does (hand-added Evo / Elite Evo / LTM included, each LTM once)
+  const byT = new Map(); cardsPool().forEach(c => { const k = ctKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
+  return [...byT].reduce((a, [t, cs]) => a + cardCount(t, cs), 0);
+}
+// ---------- Most used cards (docs/usage.json, made by scripts/usage.py) ----------
+async function setupUsage() {
+  let U; try { U = await getJSON("usage.json"); } catch (e) { $("uList").innerHTML = `<p class="small muted">No usage data yet.</p>`; return; }
+  const weeks = [...new Set(U.cards.flatMap(c => Object.keys(c.seasons)))].sort().reverse();
+  $("uSeason").innerHTML = `<option value="">All seasons</option>` + weeks.map(w => `<option value="${esc(w)}">${esc(seasonName(w))}</option>`).join("");
+  let shown = 25;
+  const fmt = d => { const r = Math.round(d); return r ? String(r) : "<1"; };
+  const f1 = d => { const r = Math.round(d * 10) / 10; return (r || "<0.1") + (r === 1 ? " day" : " days"); };
+  const label = s => { const [k, v] = s.split("_")[1].split("--"); return (s.startsWith("myclub") ? "My Club " : "Sim ") + k + (v === "noltmevo" ? " (No LTM & Evos)" : v === "allevo" ? " (All Evos)" : v ? " (" + v + ")" : ""); };
+  const draw = () => {
+    const wk = $("uSeason").value, md = $("uMode").value, q = norm($("uFind").value.trim());
+    const L = U.cards.map(c => {
+      let days = 0; const per = [];                     // per season: [week, days, [[series, days, slot]]]
+      for (const [w, v] of Object.entries(c.seasons)) {
+        if (wk && w !== wk) continue;
+        const ser = Array.isArray(v.series) ? Object.fromEntries(v.series.map(x => [x, [null, ""]])) : v.series;
+        const rows = Object.entries(ser).filter(([x]) => !md || x.startsWith(md)).map(([x, [d, sl]]) => [x, d, sl])
+          .sort((p, q) => (q[1] || 0) - (p[1] || 0) || p[0].localeCompare(q[0]));
+        const sd = md ? v[md] : v.myclub + v.sim;
+        if (sd > 0) { days += sd; per.push([w, sd, rows]); }
+      }
+      per.sort((p, q) => q[0].localeCompare(p[0]));
+      return { c, raw: days, per, teams: per.reduce((n, p) => n + p[2].length, 0) };
+    }).filter(x => x.raw > 0).sort((a, b) => b.raw - a.raw || b.teams - a.teams);
+    L.forEach((x, k) => x.rank = k + 1);                 // rank stays the same when searching
+    const F = q ? L.filter(x => norm(x.c.name).includes(q)) : L;
+    $("uList").innerHTML = F.slice(0, shown).map(x => { const c = BYID.get(x.c.id) || x.c;
+      const ns = x.per.length;
+      const body = x.per.map(([w, sd, rows]) => `<div class="useas"><span>${esc(seasonName(w))}</span><span>${f1(sd)}</span></div>`
+        + rows.map(([s, d, sl]) => `<div class="uteam"><span>${esc(label(s))}</span><span class="usl">${esc(sl || "")}</span>
+            <span class="ubar"><i style="width:${d == null ? 100 : Math.min(100, d / 7 * 100)}%"></i></span><span class="ud2">${d == null ? "" : f1(d)}</span></div>`).join("")).join("");
+      return `<details class="urow"><summary class="prow crow notc"><span class="rt"><i style="${cardStrip(c)}"></i><b>${x.c.rating}</b></span><span class="nm"><b>${x.rank}. ${esc(x.c.name)}</b><span class="r">${esc(TYPE(x.c.color))}</span>
+        <small>${x.teams} team${x.teams === 1 ? "" : "s"} · ${ns} season${ns === 1 ? "" : "s"}</small></span>
+        <span class="ud"><b>${fmt(x.raw)}</b><small>days</small></span></summary><div class="ubody">${body}</div></details>`; }).join("")
+      || `<p class="small muted">${q ? "No card by that name here." : "Nothing for this choice yet."}</p>`;
+    $("uMore").hidden = F.length <= shown;
+  };
+  $("uSeason").onchange = $("uMode").onchange = () => { shown = 25; draw(); };
+  $("uFind").oninput = () => { shown = 25; draw(); };
+  $("uMore").onclick = () => { shown += 50; draw(); };
+  draw();
+}
+// ---------- Objectives (the game's Fatal My Club objectives, played against the AI) ----------
+// The list lives in docs/objectives.json (the owner adds/removes from the site). Teams are built on GitHub by
+// fatal/objective.py (workflow objectives.yml): the series' best team with a safe number of objective cards.
+const OBJ_KEY = { club: "clubId", nation: "nationId", league: "leagueId" };
+const objGroup = o => o.on === "position" ? o.gid : groupLabel(o.on, o.gid);
+const objIn = o => o.on === "position" ? (c => c.position === o.gid) : (c => c[OBJ_KEY[o.on]] === o.gid);   // position: the card's main position
+const objText = o => o.kind === "duels" ? `Win ${o.count || "?"} duels with ${objGroup(o)} cards` : `Win ${o.count || "?"} matches with min. ${o.min} ${objGroup(o)} cards in the team`;
+const objShort = o => o.kind === "duels" ? `${o.count} duels · ${objGroup(o)}` : `${o.count} wins · ${o.min}+ ${objGroup(o)}`;
+let OBJ_SHARED = [];
+const objLocal = () => { try { return JSON.parse(localStorage.getItem("objectives") || "[]"); } catch (e) { return []; } };
+const objSave = L => { try { localStorage.setItem("objectives", JSON.stringify(L)); } catch (e) {} };
+const objList = () => OBJ_SHARED.map(o => Object.assign({ shared: true }, o)).concat(objLocal().filter(o => !OBJ_SHARED.some(x => x.id === o.id)));
+async function objPutShared(edit, msg) {          // change docs/objectives.json on GitHub (needs the key saved on this phone)
+  const f = await ghGetFile("docs/objectives.json"), cur = f ? JSON.parse(f.text) : { objectives: [] };
+  cur.objectives = edit(cur.objectives);
+  await ghPutFile("docs/objectives.json", JSON.stringify(cur, null, 1), msg, f && f.sha);
+  OBJ_SHARED = cur.objectives;
+}
+const OBJ_OPEN = new Set(), OBJ_RES = new Map();     // built teams, kept while the page is open
+let OBJ_FORM = false;
+async function renderObjectives(fetch = true) {     // fetch: reload the shared list (not right after changing it)
+  if (fetch) try { OBJ_SHARED = (await getJSON("objectives.json")).objectives || []; } catch (e) {}
+  const box = $("objBody"), L = objList();
+  const players = [...new Set(L.map(o => o.player || "Other"))];
+  let html = `<div class="card"><h2>Objectives</h2><p class="small" style="margin:4px 0 0">Fatal My Club objectives, by the player they unlock. <b>Play these teams against the AI</b> until it's done.</p>
+    <p class="small muted" style="margin:6px 0 0">Each team is the series' best team with a safe number of objective cards swapped in, so it still wins. Updates after every build. Objective cards are marked <span class="gold">▌</span>.</p>
+    ${ghToken() ? `<div style="margin-top:10px">${OBJ_FORM ? objFormHtml(players) : `<button class="btn" id="objAdd">Add Objective</button>`}</div>` : ""}</div>`;
+  if (!L.length) html += `<div class="card small muted">No objectives yet.</div>`;
+  for (const pl of players) {
+    const its = L.filter(o => (o.player || "Other") === pl), sid = "objp:" + pl;
+    html += `<details class="card sercard" data-op="${esc(sid)}"${OBJ_OPEN.has(sid) ? " open" : ""}>${strip(String(its.length), pl, esc(its.map(objShort).join(" · ")), "")}<div class="body">${its.map(o => {
+      const oid = "obj:" + o.id;
+      return `<details class="tgrp" data-oo="${esc(oid)}"${OBJ_OPEN.has(oid) ? " open" : ""}><summary class="notc">${esc(objText(o))}</summary><div id="ob_${esc(o.id)}"><p class="small muted">Building…</p></div></details>`; }).join("")}</div></details>`;
+  }
+  box.innerHTML = html; fillMObj();
+  if (OBJ_FORM && ghToken()) wireObjForm(); else if ($("objAdd")) $("objAdd").onclick = () => { OBJ_FORM = true; renderObjectives(false); };
+  box.querySelectorAll("details[data-op]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.op) : OBJ_OPEN.delete(x.dataset.op); });
+  box.querySelectorAll("details[data-oo]").forEach(x => { x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.oo) : OBJ_OPEN.delete(x.dataset.oo); if (x.open) objFill(x.dataset.oo.slice(4)); }; if (x.open) objFill(x.dataset.oo.slice(4)); });
+}
+async function objFill(id) {
+  const o = objList().find(x => x.id === id), el = $("ob_" + id); if (!o || !el) return;
+  const wk = INDEX && INDEX.week, mark = objIn(o), got = [];
+  for (const f of (INDEX && INDEX.files || []).filter(f => f.startsWith(`objective_${id}_`))) {
+    try { const d = await getJSON("results/" + f); if (d.week === wk) got.push(d); } catch (e) {}
+  }
+  got.sort((a, b) => (a.series.cap || 0) - (b.series.cap || 0));
+  const ok = got.filter(d => d.team), skip = got.filter(d => !d.team);
+  let h = ok.map(d => {
+    const ssid = "obj:" + id + ":" + d.series.key, t = d.team, mk = d.obj_ids ? (p => d.obj_ids.includes(p.id)) : mark;
+    return `<details class="oteam" data-ot="${esc(ssid)}"${OBJ_OPEN.has(ssid) ? " open" : ""}><summary class="notc"><b>${esc(d.series.key)} Series</b> <span class="muted small">· ${d.g} ${esc(objGroup(o))} card${d.g === 1 ? "" : "s"} · ${esc(t.formation || "")} · ${t.chem} chem</span></summary>
+      <p class="small muted" style="margin:6px 0">${d.strength}% of the best team's in-game strength.</p>${playersTable(t.players, true, null, mk)}
+      <p style="margin:8px 0 4px"><button class="ghost" data-objplay="${esc(d.series.key)}">Use This Team</button> <span class="small muted">Loads it in My Club Compare: add the AI's team, then Match Helper${o.kind === "duels" ? " suggests the objective cards" : ""}.</span></p></details>`;
+  }).join("");
+  if (!got.length) h = `<p class="small muted">${o.shared ? "Building… teams appear about 15 minutes after an objective is added, and update after every Best Teams build." : "Teams are built on GitHub for shared objectives only. Ask the site owner to add this one."}</p>`;
+  else if (!ok.length) h = `<p class="small muted">No series can take ${esc(objGroup(o))} cards safely this season.</p>`;
+  if (skip.length) h += `<p class="small muted" style="margin:8px 0 0">Not realistic this season: ${skip.map(d => esc(d.series.key)).join(", ")} (${o.kind === "matches" ? `fewer than ${o.min} ${esc(objGroup(o))} cards fit without weakening the team` : `${esc(objGroup(o))} cards are too weak for that cap, or don't fit without weakening the team`}).</p>`;
+  el.innerHTML = h + `<p style="margin:8px 0 4px"><button class="ghost" data-objdel="${esc(id)}">Remove Objective</button></p>`;
+  el.querySelectorAll("[data-objplay]").forEach(b => b.onclick = () => {
+    const d = ok.find(x => x.series.key === b.dataset.objplay); if (!d) return;
+    if ($("mcWeek") && $("mcWeek").value) { $("mcWeek").value = ""; $("mcWeek").onchange(); }
+    state.A = d.team.players.map(p => BYID.get(p.id)).filter(Boolean); state.B = [];
+    $("mcSeries").value = d.series.key; drawMC();
+    $("solveOut").innerHTML = `<p class="small gold">Objective team loaded (${esc(d.series.key)} Series). Add the AI's team, then open Match Helper.</p>`;
+    if (o.kind === "duels") MOBJ = o.id;
+    fillMObj();
+    document.querySelector('#tabs button[data-t="mc"]').click(); window.scrollTo(0, 0);
+  });
+  el.querySelectorAll("details[data-ot]").forEach(x => x.ontoggle = () => { x.open ? OBJ_OPEN.add(x.dataset.ot) : OBJ_OPEN.delete(x.dataset.ot); });
+  el.querySelector("[data-objdel]").onclick = async () => {
+    if (o.shared && !ghToken()) { alert("This objective is shared with everyone. Only the site owner can remove it."); return; }
+    if (!confirm(o.shared ? "Remove this objective for everyone?" : "Remove this objective?")) return;
+    try { if (o.shared) await objPutShared(L => L.filter(x => x.id !== id), "Remove objective"); objSave(objLocal().filter(x => x.id !== id)); renderObjectives(false); }
+    catch (e) { alert("Couldn't remove it: " + e.message); }
+  };
+}
+const OBJ_POS = ["GK", "LB", "CB", "RB", "CDM", "CM", "CAM", "LM", "RM", "LW", "RW", "ST", "CF"];
+function objFormHtml(players) {
+  return `<div class="fgrid"><label>Player it unlocks<input type="text" id="oPl" list="oPlL" placeholder="e.g. Hulk"><datalist id="oPlL">${players.map(p => `<option value="${esc(p)}">`).join("")}</datalist></label>
+    <label>Objective<select id="oKind"><option value="duels">Win duels with … cards</option><option value="matches">Win matches with min. … cards</option></select></label>
+    <label>How many<input type="number" id="oCount" inputmode="numeric" min="1" value="7"></label>
+    <label id="oMinL" hidden>Min. cards in team<input type="number" id="oMin" inputmode="numeric" min="1" max="11" value="4"></label>
+    <label>Cards from<select id="oOn"><option value="club">Club</option><option value="nation">Nation</option><option value="league">League</option><option value="position">Position</option></select></label>
+    <label id="oPosL" hidden>Position<select id="oPos">${OBJ_POS.map(p => `<option>${p}</option>`).join("")}</select></label></div>
+    <div id="oQL"><input type="text" id="oQ" placeholder="Type the club / nation / league name, or a player from it" style="margin-top:8px"><ul class="sr" id="oSr" hidden></ul></div>
+    <p class="small" id="oPick" style="margin:8px 0"></p>
+    <div class="row"><button class="btn" id="oSave" disabled>Add Objective</button> <button class="ghost" id="oCancel">Cancel</button></div>`;
+}
+function wireObjForm() {
+  let pick = null;
+  const kind = $("oKind"), on = $("oOn"), inp = $("oQ"), ul = $("oSr");
+  const grp = () => on.value === "position" ? { on: "position", id: $("oPos").value } : pick;
+  const objFrom = g => { const o = { player: cap($("oPl").value.trim()), kind: kind.value, on: g.on, gid: g.id, count: +$("oCount").value || 1 }; if (o.kind === "matches") o.min = Math.max(1, Math.min(11, +$("oMin").value || 1)); return o; };
+  const show = () => {
+    const pos = on.value === "position";
+    $("oMinL").hidden = kind.value !== "matches"; $("oPosL").hidden = !pos; $("oQL").hidden = pos;
+    const g = grp(), ready = g && $("oPl").value.trim();
+    $("oPick").innerHTML = g ? `${esc($("oPl").value.trim() || "?")}: <b>${esc(objText(objFrom(g)))}</b>` : ""; $("oSave").disabled = !ready;
+  };
+  const refresh = () => {
+    const k = on.value, q = inp.value.trim().toLowerCase(); if (k === "position" || q.length < 2) { ul.hidden = true; return; }
+    const opts = new Map(), names = k === "nation" ? NATIONS : k === "league" ? LEAGUES : CLUBS;
+    for (const [id, n] of Object.entries(names)) if (n.toLowerCase().includes(q)) opts.set(+id, null);
+    for (const c of search(q, 8)) if (!opts.has(c[KEYOF[k]])) opts.set(c[KEYOF[k]], c.name);
+    const list = [...opts.entries()].slice(0, 10); ul.hidden = !list.length;
+    ul.innerHTML = list.map(([id]) => `<li data-id="${id}"><b>${esc(groupLabel(k, id))}</b> <span class="muted small">${esc(groupSample(k, id).join(", "))}</span></li>`).join("");
+  };
+  inp.oninput = refresh; on.onchange = () => { pick = null; inp.value = ""; refresh(); show(); };
+  ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; pick = { on: on.value, id: +li.dataset.id }; ul.hidden = true; inp.value = groupLabel(pick.on, pick.id); show(); };
+  [kind, $("oCount"), $("oMin"), $("oPos"), $("oPl")].forEach(x => x.oninput = x.onchange = show);
+  $("oCancel").onclick = () => { OBJ_FORM = false; renderObjectives(false); };
+  $("oSave").onclick = async () => {
+    const g = grp(); if (!g || !$("oPl").value.trim()) return;
+    const o = objFrom(g); o.id = `${norm(o.player).replace(/[^a-z0-9]+/g, "")}-${o.on}-${o.gid}-${o.kind}${o.min ? "-" + o.min : ""}`;
+    if (ghToken()) {                       // the owner's phone: shared with everyone
+      $("oSave").disabled = true; $("oSave").textContent = "Saving…";
+      try { await objPutShared(L => L.filter(x => x.id !== o.id).concat([o]), "Objective: " + o.player + " - " + objText(o)); }
+      catch (e) { alert("Couldn't save it for everyone (" + e.message + "). Saved on this phone instead."); objSave(objLocal().filter(x => x.id !== o.id).concat([o])); }
+    } else { alert(`Objective teams are built on GitHub, so adding one needs GitHub connected:\n\nSeason Setup tab → "Connect GitHub".`); return; }
+    OBJ_FORM = false; OBJ_OPEN.add("objp:" + o.player); OBJ_OPEN.add("obj:" + o.id); renderObjectives(false);
+  };
+  show();
+}
+function setupCards() {
+  setupUsage();
+  const real = cardsPool();
+  const byT = new Map(); real.forEach(c => { const k = ctKey(c); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(c); });
+  const cnt = new Map([...byT].map(([t, cs]) => [t, cardCount(t, cs)]));
+  const special = [...cnt].filter(([t]) => !["gold", "silver", "bronze"].includes(t)).reduce((a, [, n]) => a + n, 0);
+  const order = ["gold", "silver", "bronze", ...[...cnt.keys()].filter(t => !["gold", "silver", "bronze"].includes(t)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b)))];
+  const total = [...cnt.values()].reduce((a, n) => a + n, 0);
+  $("cardsInfo").innerHTML = `${total.toLocaleString()} cards · data updated ${esc(DATA_UPDATED)}. Evo lists every evolved card of the year. Evos, Elite Evos and LTMs can't be used in SBCs.`;
+  $("cardsTypes").innerHTML = `<button class="ctile wide" data-ct="special" style="background:var(--grad);color:#1a0b05"><b>All special</b><span>${special.toLocaleString()}</span></button>` +
+    order.map(t => `<button class="ctile" data-ct="${esc(t)}" style="${tgrad(t)}"><b>${esc(typeLabel(t))}</b><span>${cnt.get(t).toLocaleString()}</span></button>`).join("");
+  $("cType").innerHTML = `<option value="">All</option><option value="special">All special</option>` + order.map(t => `<option value="${esc(t)}">${esc(typeLabel(t))} (${cnt.get(t)})</option>`).join("");
+  const poss = [...new Set(real.map(c => c.position))].sort();
+  $("cPos").innerHTML = `<option value="">All</option>` + poss.map(p => `<option>${esc(p)}</option>`).join("");
+  document.querySelectorAll("[data-ct]").forEach(b => b.onclick = () => {
+    $("cType").value = b.dataset.ct === "special" ? "special" : ""; drawCards();
+    const d = b.dataset.ct === "special" ? null : document.querySelector(`.tgrp[data-t="${b.dataset.ct}"]`);
+    if (d) { d.open = true; d.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  });
+  ["cQ", "cType", "cPos", "cMin", "cMax"].forEach(id => $(id).addEventListener("input", () => { CF.shown = 100; drawCards(); }));
+  $("cMore").onclick = () => { CF.shown += 200; drawCards(); };
+  drawCards();
+}
+// "Yours" only on regular Evos you made yourself (not Elite Evos or their lower levels); LTMs are open to everyone
+const eliteNames = () => new Set(CARDS.filter(c => c.color === "elite_evo").map(c => c.name));
+const extraTag = c => !c._extra || c.color === "ltm" ? "" : c.owned === false ? ` <span class="small muted">Opponents only</span>`
+  : c.color === "evo" && !eliteNames().has(c.name) ? ` <span class="small ok">Yours</span>` : "";
+const cardRow = c => `<div class="prow crow"><span class="rt"><i style="${cardStrip(c)}"></i><b>${c.rating}</b></span><span class="nm"><b>${esc(c.name)}</b><span class="r">${esc(c.position)}${c.altPositions ? ", " + esc(String(c.altPositions).split(",").join(", ")) : ""}</span>${extraTag(c)}<small>${esc(cName(c.clubId))} · ${esc(nName(c.nationId))} · ${esc(lName(c.leagueId))}</small>${c.evos && c.evos.length ? `<small class="evon">Evo: ${esc(c.evos.join(" → "))}</small>` : ""}</span><span class="st"><span class="a">${c.attack}</span><span class="c">${c.control}</span><span class="d">${c.defense}</span></span></div>`;
+function byRatingHtml(L, nested) {        // cards grouped under rating headings (big groups fold away)
+  const G = new Map(); L.forEach(c => { if (!G.has(c.rating)) G.set(c.rating, []); G.get(c.rating).push(c); });
+  return [...G.entries()].sort((a, b) => b[0] - a[0]).map(([r, cs]) => nested
+    ? `<details class="rgrp" data-r="${r}"><summary class="small"><b>Rated ${r}</b> · ${cs.length} card${cs.length > 1 ? "s" : ""}</summary><div class="rbody"></div></details>`
+    : `<div class="small" style="margin:10px 0 2px"><b>Rated ${r}</b> <span class="muted">· ${cs.length} card${cs.length > 1 ? "s" : ""}</span></div>${cs.map(cardRow).join("")}`).join("");
+}
+function drawCards() {
+  const q = norm($("cQ").value.trim()), t = $("cType").value, pos = $("cPos").value, lo = +$("cMin").value || 0, hi = +$("cMax").value || 99;
+  const filtering = q || pos || $("cMin").value || $("cMax").value;
+  const L = cardsPool().filter(c => (!q || c._n.includes(q)) && (!t || (t === "special" ? !["gold", "silver", "bronze"].includes(ctKey(c)) : ctKey(c) === t))
+    && (!pos || c.position === pos || String(c.altPositions || "").split(",").includes(pos)) && c.rating >= lo && c.rating <= hi)
+    .sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
+  const groups = new Map(); L.forEach(c => { const k = ctKey(c); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(c); });
+  const order = ["gold", "silver", "bronze"].filter(k => groups.has(k)).concat([...groups.keys()].filter(k => !["gold", "silver", "bronze"].includes(k)).sort((a, b) => typeLabel(a).localeCompare(typeLabel(b))));
+  const shown = [...groups].reduce((a, [k, cs]) => a + cardCount(k, cs), 0);
+  $("cCount").textContent = `${shown.toLocaleString()} card${shown === 1 ? "" : "s"} in ${groups.size} type${groups.size === 1 ? "" : "s"}${filtering ? " (filtered)" : ""}`;
+  const openAll = filtering && L.length <= 300;
+  $("cList").innerHTML = order.map(k => {
+    const cs = groups.get(k), rs = cs.map(c => c.rating);
+    const n = cardCount(k, cs), extra = cs.some(c => c._extra) || (typeof NO_SBC !== "undefined" && NO_SBC.has(k));
+    return `<details class="tgrp" data-t="${esc(k)}"${openAll || groups.size === 1 ? " open" : ""}><summary><b>${esc(typeLabel(k))}</b> <span class="muted small">· ${n} card${n > 1 ? "s" : ""}${n !== cs.length ? ` (${cs.length} levels)` : ""}${extra ? " · Not for SBC" : ""} · Rated ${Math.min(...rs) === Math.max(...rs) ? Math.min(...rs) : Math.min(...rs) + "–" + Math.max(...rs)}</span></summary><div class="tbody"></div></details>`;
+  }).join("") || `<p class="muted small">No cards match.</p>`;
+  const fill = d => {
+    const body = d.querySelector(".tbody"); if (body.dataset.done) return; body.dataset.done = 1;
+    const cs = groups.get(d.dataset.t), nested = cs.length > 150;
+    body.innerHTML = byRatingHtml(cs, nested);
+    if (nested) body.querySelectorAll(".rgrp").forEach(rd => rd.addEventListener("toggle", () => {
+      const rb = rd.querySelector(".rbody"); if (rb.dataset.done) return; rb.dataset.done = 1;
+      rb.innerHTML = cs.filter(c => c.rating === +rd.dataset.r).map(cardRow).join("");
+    }));
+  };
+  $("cList").querySelectorAll(".tgrp").forEach(d => { d.addEventListener("toggle", () => d.open && fill(d)); if (d.open) fill(d); });
+  $("cMore").hidden = true;
+}
+
+// ---------- Weekly setup ----------
+// ---------- Weekly setup form ----------
+let WS = null, WSUI = { open: "" };
+const BKIND = { nation: "Nation", league: "League", club: "Club", color: "Card type" };
+const BNKIND = { nations: "different nations", leagues: "different leagues", clubs: "different clubs", types: "different card types", specials: "special cards",
+  same_nation: "from same nation", same_league: "from same league", same_club: "from same club" };
+const bonusTxt = b => b.max != null ? `Max ${b.max} ${BNKIND[b.kind] || b.kind}` : `${b.min}+ ${BNKIND[b.kind] || b.kind}`;
+const groupName = (on, id) => on === "nation" ? nName(id) : on === "league" ? lName(id) : on === "club" ? cName(id) : TYPE(id);
+const statTxt = o => `A +${o.att || 0} · C +${o.ctl || 0} · D +${o.def || 0}`;
+function wsDraftSave() { try { localStorage.setItem("weekDraft", JSON.stringify(WS)); } catch (e) {} }
+function wsDraftClear() { try { localStorage.removeItem("weekDraft"); } catch (e) {} }
+async function wsLoad(fromLive = false) {
+  let d = null;
+  if (!fromLive) { try { d = JSON.parse(localStorage.getItem("weekDraft") || "null"); } catch (e) {} }
+  if (!d && ghToken()) { try { const f = await ghGetFile("config/week.json"); if (f) d = JSON.parse(f.text); } catch (e) {} }
+  if (!d) d = JSON.parse(JSON.stringify(WEEK || { week: "", myclub: [], sim: [] }));
+  d.myclub = d.myclub || []; d.sim = d.sim || [];
+  WS = d;
+}
+const WSOPEN = new Set();                 // Season Setup series left open between redraws
+function seriesCardHtml(type, i) {
+  const s = WS[type][i], id = `${type}-${i}`, isMC = type === "myclub";
+  const nb = (s.boosts || []).length, nbn = (s.bonuses || []).length, nr = (s.opponents || []).length;
+  const boostNames = [...(s.boosts || []).map(b => groupName(b.on, b.id)), ...(s.bonuses || []).map(bonusTxt)].join(" · ") || "No boosts yet";   // squad bonuses are boosts too
+  const sub = [`${nb} boost${nb === 1 ? "" : "s"}`, nbn ? `${nbn} bonus${nbn === 1 ? "" : "es"}` : "", `${nr} Reddit team${nr === 1 ? "" : "s"}`].filter(Boolean).join(" · ");
+  const isOpen = WSOPEN.has(id) || WSUI.open.startsWith(id + ":");
+  const warn = !(nb + nbn) ? `<span class="pill LOSS">Needs boosts</span>` : isMC && !nr ? `<span class="pill DRAW">No Reddit</span>` : `<span class="pill WIN">Ready</span>`;
+  let h = `<details class="card sercard" data-wser="${id}"${isOpen ? " open" : ""}><summary class="strip${isMC ? "" : " sim"}"><span class="k">${esc(s.key || "?")}</span><span class="mid"><b>${esc(boostNames)}</b><small>${esc(sub)}</small></span><span class="res">${warn}</span></summary><div class="body"><div class="row" style="justify-content:space-between">
+    <label class="small muted">Series <input type="text" inputmode="numeric" data-f="key" data-s="${id}" value="${esc(s.key || "")}" style="width:80px"></label>
+    <button class="x" data-delseries="${id}" title="Remove series">🗑</button></div>`;
+  h += `<div class="small" style="margin-top:8px"><b>Boosts</b></div>` + ((s.boosts || []).map((b, j) =>
+    `<div class="req"><span>${esc(BKIND[b.on])}: <b>${esc(groupName(b.on, b.id))}</b> <span class="muted">${statTxt(b)}</span></span><button class="x" data-delb="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
+  h += `<div class="small" style="margin-top:8px"><b>Squad bonuses</b></div>` + ((s.bonuses || []).map((b, j) =>
+    `<div class="req"><span>${esc(bonusTxt(b))} <span class="muted">${statTxt(b)}</span></span><button class="x" data-delbn="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None</p>`);
+  h += `<div class="small" style="margin-top:8px"><b>Reddit reference teams</b></div>` + ((s.opponents || []).map((t, j) =>
+    `<div class="req"><span>${esc(short(t))}</span><button class="x" data-delref="${id}:${j}">✕</button></div>`).join("") || `<p class="small muted" style="margin:2px 0">None (optional)</p>`);
+  const open = WSUI.open.startsWith(id + ":") ? WSUI.open.split(":")[1] : "";
+  h += `<div class="row" style="margin-top:8px"><button class="ghost" data-open="${id}:boost" style="font-size:12.5px">+ Boost</button><button class="ghost" data-open="${id}:bonus" style="font-size:12.5px">+ Squad bonus</button><button class="ghost" data-open="${id}:ref" style="font-size:12.5px">+ Reddit team</button></div>`;
+  const nums = `<div class="row" style="margin-top:8px"><label class="small">A <input type="number" inputmode="numeric" id="wA" value="0" style="width:62px"></label><label class="small">C <input type="number" inputmode="numeric" id="wC" value="0" style="width:62px"></label><label class="small">D <input type="number" inputmode="numeric" id="wD" value="0" style="width:62px"></label></div>`;
+  if (open === "boost") h += `<div class="rulebox"><div class="row"><select id="wKind"><option value="nation">Nation</option><option value="league">League</option><option value="club">Club</option><option value="color">Card type</option></select></div>
+    <div id="wPick" style="margin-top:8px"></div>${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add boost</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
+  if (open === "bonus") h += `<div class="rulebox"><div class="row"><select id="wBM"><option value="min">Min</option><option value="max">Max</option></select><input type="number" inputmode="numeric" id="wMin" placeholder="e.g. 5" style="width:80px"><select id="wBK"><option value="nations">Different nations</option><option value="leagues">Different leagues</option><option value="clubs">Different clubs</option><option value="types">Different card types</option><option value="specials">Special cards</option><option value="same_nation">From same nation</option><option value="same_league">From same league</option><option value="same_club">From same club</option></select></div>
+    ${nums}<div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add bonus</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
+  if (open === "ref") h += `<div class="rulebox"><p class="small muted" style="margin:0 0 6px">Paste the 11 names. Add a rating or club if needed, e.g. <code>Costa 67</code>.</p>
+    <textarea id="wRef"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="wAdd">Add team</button><button class="ghost" data-close="1">Cancel</button></div><p class="small" id="wMsg"></p></div>`;
+  return h + `</div></details>`;
+}
+function renderWeekForm() {
+  const box = $("weekForm"); if (!box || !WS) return;
+  box.innerHTML = `<div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(seasonName(WS.week))} Series</h2>
+      <label class="small muted">Season start <input type="date" id="wWeek" value="${esc(WS.week || "")}"></label></div>
+    <p class="small muted" style="margin:6px 0 0">Changes are kept on this phone until you tap <b>Save &amp; rebuild</b>.</p>
+    <h3>Fatal My Club</h3>${WS.myclub.map((_, i) => seriesCardHtml("myclub", i)).join("")}<button class="ghost" data-addseries="myclub">+ Add My Club series</button>
+    <h3>Fatal Sim</h3>${WS.sim.map((_, i) => seriesCardHtml("sim", i)).join("")}<button class="ghost" data-addseries="sim">+ Add Sim series</button>
+    <div class="row" style="margin-top:16px"><button class="btn" id="wSave">Save &amp; rebuild</button><button class="ghost" id="wNew">New Season</button><button class="ghost" id="wDiscard">Discard changes</button></div>
+    <p class="small" id="wSaveMsg"></p>`;
+  const S = id => { const [t, i] = id.split("-"); return WS[t][+i]; };
+  const redraw = () => { wsDraftSave(); renderWeekForm(); };
+  box.querySelectorAll("details[data-wser]").forEach(x => x.ontoggle = () => { x.open ? WSOPEN.add(x.dataset.wser) : WSOPEN.delete(x.dataset.wser); });
+  $("wWeek").onchange = e => { WS.week = e.target.value; wsDraftSave(); renderWeekForm(); };
+  box.querySelectorAll("[data-f]").forEach(inp => inp.onchange = () => {
+    const s = S(inp.dataset.s);
+    s.key = inp.value.trim().toUpperCase(); s.cap = /^\d+$/.test(s.key) ? +s.key : 99;   // the series number is the rating cap; X = no cap
+    redraw();
+  });
+  box.querySelectorAll("[data-delseries]").forEach(b => b.onclick = () => { const [t, i] = b.dataset.delseries.split("-"); if (confirm(`Remove the ${WS[t][+i].key || ""} series?`)) { WS[t].splice(+i, 1); WSUI.open = ""; WSOPEN.clear(); redraw(); } });
+  box.querySelectorAll("[data-delb]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delb.split(":"); S(id).boosts.splice(+j, 1); redraw(); });
+  box.querySelectorAll("[data-delbn]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delbn.split(":"); S(id).bonuses.splice(+j, 1); redraw(); });
+  box.querySelectorAll("[data-delref]").forEach(b => b.onclick = () => { const [id, j] = b.dataset.delref.split(":"); S(id).opponents.splice(+j, 1); redraw(); });
+  box.querySelectorAll("[data-open]").forEach(b => b.onclick = () => { WSUI.open = b.dataset.open; renderWeekForm(); });
+  box.querySelectorAll("[data-close]").forEach(b => b.onclick = () => { WSUI.open = ""; renderWeekForm(); });
+  box.querySelectorAll("[data-addseries]").forEach(b => b.onclick = () => {
+    const k = prompt("Series (the rating cap, e.g. 81):"); if (!k) return;
+    const t = b.dataset.addseries, s = { key: k.trim().toUpperCase(), cap: /^\d+$/.test(k.trim()) ? +k.trim() : 99, boosts: [] };
+    if (t === "myclub") { s.opponents = []; s.minutes = 30; }
+    WS[t].push(s); WSOPEN.add(`${t}-${WS[t].length - 1}`); redraw();
+  });
+  // the open "add" panel
+  if (WSUI.open) {
+    const [id, what] = WSUI.open.split(":"), s = S(id), num = k => +($(k) ? $(k).value : 0) || 0;
+    if (what === "boost") {
+      let picked = null;
+      const drawPick = () => {
+        const kind = $("wKind").value;
+        if (kind === "color") {
+          const types = [...new Set(CARDS.filter(c => !c._extra).map(c => String(c.color).replace("rare_", "")))].sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
+          $("wPick").innerHTML = `<select id="wType">${types.map(t => `<option value="${esc(t)}">${esc(TYPE(t))}</option>`).join("")}</select>`;
+          picked = () => $("wType").value; return;
+        }
+        $("wPick").innerHTML = `<input type="text" id="wQ" placeholder="Type the ${kind} name or a player from it"><ul class="sr" id="wSr" hidden></ul><p class="small" id="wSel"></p>`;
+        picked = () => null; let sel = null;
+        const names = kind === "nation" ? NATIONS : kind === "league" ? LEAGUES : CLUBS, key = KEYOF[kind];
+        $("wQ").oninput = () => {
+          const q = norm($("wQ").value.trim()); if (q.length < 2) { $("wSr").hidden = true; return; }
+          const opts = new Map();
+          for (const [gid, n] of Object.entries(names)) if (norm(n).includes(q)) opts.set(+gid, null);
+          for (const c of search(q, 8)) if (!opts.has(c[key])) opts.set(c[key], c.name);
+          const list = [...opts.keys()].slice(0, 10);
+          $("wSr").hidden = !list.length;
+          $("wSr").innerHTML = list.map(gid => `<li data-g="${gid}"><b>${esc(groupName(kind, gid))}</b> <span class="muted small">${esc(groupSample(kind, gid).join(", "))}</span></li>`).join("");
+        };
+        $("wSr").onclick = e => { const li = e.target.closest("li"); if (!li) return; sel = +li.dataset.g; $("wSr").hidden = true; $("wQ").value = groupName(kind, sel); $("wSel").innerHTML = `Selected: <b>${esc(groupName(kind, sel))}</b>`; };
+        picked = () => sel;
+      };
+      $("wKind").onchange = drawPick; drawPick();
+      $("wAdd").onclick = () => {
+        const gid = picked(); if (gid == null || gid === "") { $("wMsg").innerHTML = `<span class="bad">Pick the ${$("wKind").value} first.</span>`; return; }
+        (s.boosts = s.boosts || []).push({ on: $("wKind").value, id: gid, att: num("wA"), ctl: num("wC"), def: num("wD") });
+        WSUI.open = ""; redraw();
+      };
+    } else if (what === "bonus") {
+      $("wAdd").onclick = () => {
+        const mn = num("wMin"); if (!mn) { $("wMsg").innerHTML = `<span class="bad">Enter how many are needed.</span>`; return; }
+        (s.bonuses = s.bonuses || []).push(Object.assign({ kind: $("wBK").value }, $("wBM").value === "max" ? { max: mn } : { min: mn }, { att: num("wA"), ctl: num("wC"), def: num("wD") }));
+        WSUI.open = ""; redraw();
+      };
+    } else if (what === "ref") {
+      $("wAdd").onclick = () => {
+        const { cards, miss } = resolveNames($("wRef").value, s.cap || 0);
+        if (miss.length || cards.length !== 11) { $("wMsg").innerHTML = `<span class="bad">${miss.length ? "Not found: " + esc(miss.join(", ")) + ". " : ""}Found ${cards.length}/11.</span>`; return; }
+        (s.opponents = s.opponents || []).push(cards.map(c => c.id));
+        WSUI.open = ""; redraw();
+      };
+    }
+  }
+  $("wNew").onclick = () => {
+    if (!confirm("Start a new season? This clears every series. Nothing is saved until you tap Save & rebuild.")) return;
+    // Seasons start every Saturday 18:00 UTC (Sunday 4am Brisbane); a season is keyed by the Monday after its start
+    const W = 6048e5, start1 = Date.UTC(2026, 8, 26, 18), n = Math.floor((Date.now() - start1) / W);
+    let key = new Date(start1 + n * W + 2 * 864e5).toISOString().slice(0, 10);
+    if (key === ((WEEK && WEEK.week) || "")) {
+      const next = start1 + (n + 1) * W, when = new Date(next).toLocaleString(undefined, { weekday: "long", hour: "2-digit", minute: "2-digit" });
+      // up to 3 hours early (boosts are often known before the reset): the teams are ready sooner
+      if (next - Date.now() <= 3 * 36e5 && confirm(`The new season starts ${when}. Set it up now, so its teams are ready sooner?\n\nThe current teams move to the Vault as soon as the new ones are built.`)) key = new Date(next + 2 * 864e5).toISOString().slice(0, 10);
+      else { alert(`The new season hasn't started yet: it starts ${when}. Start it then, or the current season would be overwritten.`); return; }
+    }
+    WS.week = key;
+    WS.myclub = []; WS.sim = []; WSUI.open = ""; WSOPEN.clear();
+    redraw();
+  };
+  $("wDiscard").onclick = async () => { if (!confirm("Throw away your changes and reload the live setup?")) return; wsDraftClear(); await wsLoad(true); WSUI.open = ""; renderWeekForm(); };
+  $("wSave").onclick = async () => {
+    const msg = $("wSaveMsg");
+    if (!ghToken()) { msg.innerHTML = `<span class="bad">Connect GitHub first (box below).</span>`; $("ghBox").scrollIntoView({ behavior: "smooth" }); return; }
+    const bad = [...WS.myclub, ...WS.sim].find(s => !s.key || !s.cap);
+    if (bad) { msg.innerHTML = `<span class="bad">Every series needs its number (e.g. 79).</span>`; return; }
+    if (!confirm(`Save and rebuild every team?\n\nSim: about 10 min. My Club: about 3.5 hours, each team appears when done.`)) return;
+    msg.textContent = "Saving…";
+    try {
+      const f = await ghGetFile("config/week.json");
+      await ghPutFile("config/week.json", JSON.stringify(WS, null, 1) + "\n", `Weekly setup ${WS.week || ""}`, f && f.sha);
+      wsDraftClear();
+      msg.innerHTML = `<span class="ok">Saved ✓ Rebuilding now. Sim teams in about 10 min, My Club teams in about 3.5 hours.</span>`;
+    } catch (e) { msg.innerHTML = `<span class="bad">Couldn't save: ${esc(e.message)}</span>`; }
+  };
+}
+async function renderSetup() {
+  $("setupBody").innerHTML = `
+  <div class="card" id="weekForm"><p class="muted">Loading this season's setup…</p></div>
+  <div class="card" id="ghBox"><h2>Connect GitHub <span class="small muted" id="ghState"></span></h2>
+   <p class="small">Lets the site save the season setup and start "Beat a team" builds. It's a key that can only change files in your madfut-tools repo, saved on this phone only (never on the site).</p>
+   <ol class="small" style="padding-left:18px">
+    <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">github.com/settings/personal-access-tokens/new</a> (if the GitHub app opens, long-press the link and choose <b>Open in Safari</b>).</li>
+    <li><b>Token name</b>: madfut site. <b>Expiration</b>: pick the longest option.</li>
+    <li><b>Repository access</b>: Only select repositories → <b>madfut-tools</b>.</li>
+    <li><b>Permissions</b> → Repository permissions → <b>Contents</b>: Read and write.</li>
+    <li>Tap <b>Generate token</b>, copy it and paste it here:</li>
+   </ol>
+   <div class="row"><input type="password" id="ghIn" placeholder="github_pat_…" style="flex:1"><button class="btn" id="ghSave">Save</button></div>
+   <p class="small" id="ghMsg"></p></div>
+  <details class="card"><summary>More</summary>
+   <p class="small">Card data updates itself every day from madfutdata. <a href="https://github.com/${REPO}/actions" target="_blank">See running jobs on GitHub</a>.</p>
+   <p class="small">Evos and maxed LTMs go in <code>config/extras.json</code>.</p>
+   <h3>Card lookup</h3><input type="text" id="idQ" placeholder="Search a card…"><ul class="sr" id="idSr" hidden></ul><p id="idOut" class="small"></p></details>`;
+  const ghState = () => {
+    $("ghState").innerHTML = ghToken() ? `<span class="muted">checking…</span> <a href="#" id="ghOff">disconnect</a>` : "not connected";
+    const o = $("ghOff"); if (o) o.onclick = e => { e.preventDefault(); try { localStorage.removeItem("ghToken"); } catch (x) {} ghState(); };
+    if (!ghToken()) return;
+    fetch(`https://api.github.com/repos/${REPO}`, { headers: { Authorization: "Bearer " + ghToken() } })      // a saved key isn't proof it still works
+      .then(r => r.ok ? r.json() : null).catch(() => null).then(j => {
+        const ok = j && j.permissions && j.permissions.push, el = $("ghState"); if (!el || !ghToken()) return;
+        el.innerHTML = (ok ? `<span class="ok">connected ✓</span>` : `<span class="bad">key can't reach madfut-tools: disconnect and add a new key</span>`) + ` <a href="#" id="ghOff">disconnect</a>`;
+        const o2 = $("ghOff"); if (o2) o2.onclick = e => { e.preventDefault(); try { localStorage.removeItem("ghToken"); } catch (x) {} ghState(); };
+      });
+  };
+  ghState();
+  $("ghSave").onclick = async () => {
+    const t = $("ghIn").value.trim(); if (!t) return;
+    $("ghMsg").textContent = "Checking…";
+    try {
+      const r = await fetch(`https://api.github.com/repos/${REPO}`, { headers: { Authorization: `Bearer ${t}`, Accept: "application/vnd.github+json" } });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.message || r.status);
+      if (!(j.permissions && j.permissions.push)) throw new Error("this key can't change the repo. Set Contents to Read and write");
+      try { localStorage.setItem("ghToken", t); } catch (x) { throw new Error("couldn't save on this phone"); }
+      $("ghIn").value = ""; $("ghMsg").innerHTML = `<span class="ok">Connected ✓</span>`; ghState();
+      await wsLoad(); renderWeekForm();
+    } catch (e) { $("ghMsg").innerHTML = `<span class="bad">Didn't work: ${esc(e.message)}</span>`; }
+  };
+  hookSearch("idQ", "idSr", c => { $("idOut").innerHTML = `${cardLine(c)}<br>id <code>${esc(c.id)}</code> · ${esc(cName(c.clubId))}`; });
+  await wsLoad(); renderWeekForm();
+}
+init();
+
+// ---------- Puzzles: finish the squad around the locked cards ----------
+// puzzles.json: sets at 4 difficulties. Scored by puzzle-core.js (the leaderboard server runs the same code, so a
+// score there is always a real answer). Your bests are kept on this phone too, so it works without the server.
+const PZ_API = "https://madfut-puzzles.bmahrrr1.workers.dev";     // the leaderboard server, once it's set up (e.g. https://madfut-puzzles.<name>.workers.dev)
+const PZ = { data: null, forms: null, view: "home", set: null, pz: null, team: [], me: null, lbSet: "all", lbPz: "", lbFrom: "home" };
+const pzLS = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const pzLSset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const pzBest = () => pzLS("pzBest", {});
+// your leaderboard account: a unique name + PIN, so scores follow you to any device. Saved here once signed in
+const pzAcct = () => pzLS("pzAcct", null);
+const pzName = () => (pzAcct() || {}).name || "";
+async function pzApi(path, body) {
+  const a = pzAcct(), h = { "Content-Type": "application/json" }; if (a && a.token) h.Authorization = "Bearer " + a.token;
+  const r = await fetch(PZ_API + path, body ? { method: "POST", headers: h, body: JSON.stringify(body) } : { headers: h });
+  const j = await r.json().catch(() => ({ error: "Couldn't reach the leaderboard" }));
+  if (r.status === 401 && a && (path === "/me" || path === "/submit" || path === "/name")) { try { localStorage.removeItem("pzAcct"); } catch (e) {} }
+  return j;
+}
+// after signing in: bring the account's bests and squads here, and send up any better scores made on this phone first
+async function pzSync(m) {
+  const b = pzBest(), T = pzLS("pzTeam", {}); let ch = false;
+  for (const [k, v] of Object.entries(m.best || {})) if (!(b[k] >= v)) { b[k] = v; if (m.teams && m.teams[k]) T[k] = m.teams[k]; ch = true; }
+  if (ch) { pzLSset("pzBest", b); pzLSset("pzTeam", T); }
+  for (const [k, v] of Object.entries(b)) if (!((m.best || {})[k] >= v) && T[k]) {
+    const pz = PZ.data.sets.flatMap(s => s.puzzles).find(p => p.id === k); if (!pz) continue;
+    const team = pzSlots(pz).map((x, i) => BYID.get(T[k][i]) || null), sc = pzScore(pz, pzSlots(pz), team);
+    if (sc.ok && sc.pts >= v) await pzApi("/submit", { puzzle: k, team: team.map(c => c.id) }).catch(() => {});
+  }
+}
+// sign in / pick a name: one small form, two modes
+function pzAccount(then, mode = "new") {
+  const ov = document.createElement("div"); ov.id = "pzInfo";
+  const draw = (err = "") => { ov.innerHTML = `<div class="pibox pzacc"><div class="seg mseg"><button data-am="new" class="${mode === "new" ? "on" : ""}">New name</button><button data-am="in" class="${mode === "in" ? "on" : ""}">Sign in</button></div>
+    <p class="small muted" style="margin:0 0 10px">${mode === "new" ? "Pick a name for the leaderboard and a 4 to 6 digit PIN. Use them to sign in on any other phone or computer and your scores come with you." : "Enter your name and PIN to bring your scores to this device."}</p>
+    <input type="text" id="paN" placeholder="Name" maxlength="16" autocomplete="username" value="${esc(ov.dataset.n || "")}">
+    <input type="password" id="paP" placeholder="PIN (4 to 6 digits)" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="${mode === "new" ? "new-password" : "current-password"}" style="margin-top:8px">
+    ${err ? `<p class="small" style="color:var(--loss);margin:8px 0 0">${esc(err)}</p>` : ""}
+    <div class="piact"><button class="ghost" id="paX">Cancel</button><button class="btn" id="paGo">${mode === "new" ? "Create" : "Sign in"}</button></div></div>`;
+    ov.querySelectorAll("[data-am]").forEach(b => b.onclick = () => { ov.dataset.n = $("paN").value; mode = b.dataset.am; draw(); });
+    $("paX").onclick = () => ov.remove();
+    $("paGo").onclick = async () => {
+      const name = $("paN").value.trim(), pin = $("paP").value.trim(); ov.dataset.n = name;
+      if (name.length < 2) return draw("Pick a name of 2 to 16 letters or numbers");
+      if (!/^\d{4,6}$/.test(pin)) return draw("Your PIN needs 4 to 6 digits");
+      $("paGo").disabled = true;
+      const r = await pzApi(mode === "new" ? "/register" : "/login", { name, pin }).catch(() => ({ error: "Couldn't reach the leaderboard" }));
+      if (r.error) return draw(r.error);
+      pzLSset("pzAcct", { pid: r.pid, name: r.name, token: r.token });
+      const m = await pzApi("/me").catch(() => null); if (m && !m.error) await pzSync(m);
+      PZ.me = null; ov.remove(); if (then) then(); else pzDraw();
+    };
+  };
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov); draw();
+}
+async function pzLoad() {
+  if (!PZ.data) [PZ.data, PZ.forms, PZ.max] = await Promise.all([getJSON("puzzles.json"), getJSON("formations.json"), getJSON("puzzles_max.json").then(m => m.puzzles || {}).catch(() => ({}))]);
+  // the top score anyone has (a squad that beats the worked-out top score becomes the new top score)
+  if (PZ_API && !PZ.recAt) { PZ.recAt = 1; fetch(PZ_API + "/records").then(r => r.json()).then(r => { PZ.rec = r.records || {}; if (PZ.view !== "play") pzDraw(); }).catch(() => {}); }
+}
+// the gold "Perfect" score: the top possible score of a puzzle (0 = not known yet)
+const pzTop = id => Math.max((PZ.max && PZ.max[id] && PZ.max[id].max) || 0, (PZ.rec && PZ.rec[id]) || 0);
+const pzPerfect = (id, pts) => { const t = pzTop(id); return !!t && pts >= t; };
+const pzPerfects = L => { const b = pzBest(); return L.filter(p => pzPerfect(p.id, b[p.id] || 0)).length; };
+function pzMe() {
+  if (!PZ_API || !pzAcct() || PZ.me || PZ.meBusy) return; PZ.meBusy = true;
+  pzApi("/me").then(async m => { PZ.meBusy = false; if (m.error) return; PZ.me = m; await pzSync(m);
+    if (PZ.view === "home" || PZ.view === "set") pzDraw(); }).catch(() => { PZ.meBusy = false; });
+}
+const pzSlots = pz => PZ.forms[pz.formation];
+const pzTeamOf = pz => { const saved = pzLS("pzTeam", {})[pz.id] || [], t = pzSlots(pz).map((s, i) => BYID.get(saved[i]) || null);
+  pz.locked.forEach(l => { t[l.i] = BYID.get(l.id) || null; }); return t; };
+const pzSave = () => { const all = pzLS("pzTeam", {}); all[PZ.pz.id] = PZ.team.map(c => c ? c.id : null); pzLSset("pzTeam", all); };
+const setPts = set => { const b = pzBest(); return set.puzzles.reduce((a, p) => a + (b[p.id] || 0), 0); };
+const setSolved = set => { const b = pzBest(); return set.puzzles.filter(p => b[p.id]).length; };
+const fmtN = n => Number(n || 0).toLocaleString();
+const bonusName = b => b.on === "league" ? lShort(b.id) : b.on === "club" ? cShort(b.id) : b.on === "nation" ? `${flagOf(b.id)} ${nName(b.id)}` : b.label;
+const bonusText = pz => `+${pz.bonus.each} each ${esc(bonusName(pz.bonus))} card`;
+
+// short codes for the pitch: nation (FIFA style), league, and a colour per link group
+const NAT3 = { England: "ENG", Germany: "GER", Spain: "ESP", France: "FRA", Argentina: "ARG", "United States": "USA", Italy: "ITA", Netherlands: "NED", Brazil: "BRA", Sweden: "SWE", Norway: "NOR", Denmark: "DEN", Portugal: "POR", "Korea Republic": "KOR", Belgium: "BEL", "Republic of Ireland": "IRL", Poland: "POL", "Saudi Arabia": "KSA", Mexico: "MEX", Switzerland: "SUI", Austria: "AUT", Colombia: "COL", "China PR": "CHN", Scotland: "SCO", Romania: "ROU", Australia: "AUS", "Türkiye": "TUR", Uruguay: "URU", India: "IND", Paraguay: "PAR", Nigeria: "NGA", Wales: "WAL", Morocco: "MAR", Croatia: "CRO", Senegal: "SEN", Japan: "JPN", "Ivory Coast": "CIV", Chile: "CHI", Ecuador: "ECU", Ghana: "GHA", Canada: "CAN", Venezuela: "VEN", Serbia: "SRB", "Czech Republic": "CZE", Greece: "GRE", Ukraine: "UKR", Finland: "FIN", "Northern Ireland": "NIR", Cameroon: "CMR", Peru: "PER", Iceland: "ISL", Mali: "MLI", Algeria: "ALG", Hungary: "HUN", "Bosnia Herzegovina": "BIH", Kosovo: "KVX", "DR Congo": "COD", Bolivia: "BOL", Albania: "ALB", Jamaica: "JAM", Slovenia: "SVN", Slovakia: "SVK", "New Zealand": "NZL", Guinea: "GUI", Gambia: "GAM", Tunisia: "TUN", Georgia: "GEO", "Cape Verde Islands": "CPV", Cyprus: "CYP", "Burkina Faso": "BFA", Egypt: "EGY", Israel: "ISR", Russia: "RUS", Montenegro: "MNE", "North Macedonia": "MKD", Bulgaria: "BUL", Iran: "IRN", "Costa Rica": "CRC", Honduras: "HON", Panama: "PAN" };
+const LG3 = { "Premier League": "EPL", "EFL Championship": "CHAMP", "EFL League One": "EFL1", "EFL League Two": "EFL2", "LALIGA EA SPORTS": "LIGA", "LALIGA HYPERMOTION": "LIGA2", "Serie A Enilive": "SER A", "Serie BKT": "SER B",
+  "Bundesliga": "BUND", "Bundesliga 2": "BUND2", "3. Liga": "3LIGA", "Ligue 1 McDonald's": "LIGUE1", "Ligue 2 BKT": "LIGUE2", "Eredivisie": "ERED", "Liga Portugal": "LPOR", "ROSHN Saudi League": "SAUDI", "Major League Soccer": "MLS",
+  "Liga Profesional de Fútbol": "ARG", "Trendyol Süper Lig": "SÜPER", "1A Pro League": "PRO", "Scottish Premiership": "SPFL", "Icons": "ICON", "Google Pixel Frauen-Bundesliga": "FBL", "Barclays Women’s Super League": "WSL", "Liga F Moeve": "LIGA F",
+  "Arkema Première Ligue": "D1F", "National Women's Soccer League": "NWSL", "Liga BBVA MX": "LIGA MX", "CONMEBOL Libertadores": "LIBERT", "CONMEBOL Sudamericana": "SUDAM", "K League 1": "K1", "Allsvenskan": "ALLSV", "Eliteserien": "ELITE",
+  "PKO Bank Polski Ekstraklasa": "EKSTR", "SUPERLIGA": "SUPERL", "3F Superliga": "3F SL", "Brack Super League": "SWISS", "Österreichische Fußball-Bundesliga": "AUT BL", "Indian Super League": "ISL", "Isuzu UTE A League": "A-LG", "Hellas Liga": "HELLAS", "Česká Liga": "CZE", "Ukrayina Liha": "UKR" };
+const ISO2 = {"Germany": "DE", "Spain": "ES", "France": "FR", "Argentina": "AR", "United States": "US", "Italy": "IT", "Netherlands": "NL", "Brazil": "BR", "Sweden": "SE", "Norway": "NO", "Denmark": "DK", "Portugal": "PT", "Korea Republic": "KR", "Belgium": "BE", "Republic of Ireland": "IE", "Poland": "PL", "Saudi Arabia": "SA", "Mexico": "MX", "Switzerland": "CH", "Austria": "AT", "Colombia": "CO", "China PR": "CN", "Romania": "RO", "Australia": "AU", "Türkiye": "TR", "Uruguay": "UY", "India": "IN", "Paraguay": "PY", "Nigeria": "NG", "Morocco": "MA", "Croatia": "HR", "Senegal": "SN", "Japan": "JP", "Ivory Coast": "CI", "Chile": "CL", "Ecuador": "EC", "Ghana": "GH", "Canada": "CA", "Venezuela": "VE", "Serbia": "RS", "Czech Republic": "CZ", "Greece": "GR", "Ukraine": "UA", "Finland": "FI", "Cameroon": "CM", "Peru": "PE", "Iceland": "IS", "Mali": "ML", "Algeria": "DZ", "Hungary": "HU", "Bosnia Herzegovina": "BA", "Kosovo": "XK", "DR Congo": "CD", "Bolivia": "BO", "Albania": "AL", "Jamaica": "JM", "Slovenia": "SI", "Slovakia": "SK", "New Zealand": "NZ", "Guinea": "GN", "Gambia": "GM", "Tunisia": "TN", "Georgia": "GE", "Cape Verde Islands": "CV", "Cyprus": "CY", "Burkina Faso": "BF", "Montenegro": "ME", "Suriname": "SR", "Haiti": "HT", "Guinea Bissau": "GW", "Israel": "IL", "Bulgaria": "BG", "Angola": "AO", "South Africa": "ZA", "Panama": "PA", "Netherlands Antilles": "CW", "Costa Rica": "CR", "FYR Macedonia": "MK", "Congo": "CG", "Iraq": "IQ", "Russia": "RU", "Egypt": "EG", "Luxemburg": "LU", "Thailand": "TH", "Indonesia": "ID", "Togo": "TG", "Azerbaijan": "AZ", "Kenya": "KE", "Zambia": "ZM", "Gabon": "GA", "Trinidad & Tobago": "TT", "Comoros": "KM", "Sierra Leone": "SL", "Moldova": "MD", "Armenia": "AM", "Dominican Republic": "DO", "Mauritania": "MR", "Zimbabwe": "ZW", "United Arab Emirates": "AE", "Honduras": "HN", "Syria": "SY", "Estonia": "EE", "Benin": "BJ", "Madagascar": "MG", "Grenada": "GD", "Malawi": "MW", "Lithuania": "LT", "Malta": "MT", "Hong Kong": "HK", "Guyana": "GY", "Iran": "IR", "Equatorial Guinea": "GQ", "Latvia": "LV", "Uganda": "UG", "CAR": "CF", "Philippines": "PH", "Faroe Islands": "FO", "Uzbekistan": "UZ", "Jordan": "JO", "St Kitts Nevis": "KN", "Belarus": "BY", "Mozambique": "MZ", "Tanzania": "TZ", "St Lucia": "LC", "Guatemala": "GT", "Burundi": "BI", "Eritrea": "ER", "Rwanda": "RW", "Montserrat": "MS", "Liberia": "LR", "Libya": "LY", "El Salvador": "SV", "Palestinian Authority": "PS", "Puerto Rico": "PR", "Liechtenstein": "LI", "Antigua & Barbuda": "AG", "Niger": "NE", "Andorra": "AD", "Yemen": "YE", "New Caledonia": "NC", "Pakistan": "PK", "Chad": "TD", "Chinese Taipei": "TW", "Bangladesh": "BD", "Kazakhstan": "KZ", "Lebanon": "LB", "Vanuatu": "VU", "Qatar": "QA", "Cuba": "CU", "Bermuda": "BM", "Barbados": "BB", "Sri Lanka": "LK", "Namibia": "NA", "Somalia": "SO", "Mauritius": "MU", "São Tomé & Príncipe": "ST", "Korea DPR": "KP", "Afghanistan": "AF", "Oman": "OM", "Gibraltar": "GI", "Vietnam": "VN", "North Macedonia": "MK", "Bahrain": "BH", "Kuwait": "KW", "Ethiopia": "ET", "Sudan": "SD", "Singapore": "SG", "Malaysia": "MY", "Nicaragua": "NI", "Curaçao": "CW", "Belize": "BZ", "Botswana": "BW", "Lesotho": "LS", "Eswatini": "SZ", "Kyrgyzstan": "KG", "Tajikistan": "TJ", "Turkmenistan": "TM", "Mongolia": "MN", "Nepal": "NP", "San Marino": "SM", "Aruba": "AW", "Cayman Islands": "KY", "Fiji": "FJ", "Samoa": "WS", "Tahiti": "PF", "Guam": "GU", "Seychelles": "SC", "Djibouti": "DJ", "South Sudan": "SS"};
+// flag emoji for a nation (England, Scotland and Wales have their own flags; Northern Ireland has no emoji, so its code)
+const SUBFLAG = { England: "gbeng", Scotland: "gbsct", Wales: "gbwls" };
+const flagOf = id => { const n = nName(id), sub = SUBFLAG[n];
+  if (sub) return "\u{1F3F4}" + [...sub].map(ch => String.fromCodePoint(0xE0000 + ch.charCodeAt(0))).join("") + "\u{E007F}";
+  const c = ISO2[n]; return c ? String.fromCodePoint(...[...c].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65)) : ""; };
+const club3 = id => { const w = cName(id).replace(/\b(FC|CF|AFC|SC|AC|SV|CD|SL|RC|UD|SD|SS|US|AS|FK|SK|IF|BK|CA|CR|SE|EC|1\.|C\.|F\.C\.)\b/g, " ").split(/[\s.-]+/).filter(x => x.length > 1);
+  return (w.length >= 2 && w[0].length <= 4 ? w[0][0] + w[1].slice(0, 2) : (w[0] || "?").slice(0, 3)).toUpperCase(); };
+// shorter everyday names for long league and club names (Puzzles)
+const LGN = { "Chinese Football Association Super League": "Chinese Super League", "SSE Airtricity Men's Premier Division": "League of Ireland", "Österreichische Fußball-Bundesliga": "Austrian Bundesliga",
+  "National Women's Soccer League": "NWSL", "Google Pixel Frauen-Bundesliga": "Frauen-Bundesliga", "Barclays Women’s Super League": "Women's Super League", "PKO Bank Polski Ekstraklasa": "Ekstraklasa",
+  "Liga Profesional de Fútbol": "Argentine League", "United Emirates League": "UAE League", "CONMEBOL Sudamericana": "Sudamericana", "CONMEBOL Libertadores": "Libertadores", "Arkema Première Ligue": "Première Ligue",
+  "ROSHN Saudi League": "Saudi Pro League", "Isuzu UTE A League": "A-League", "Ligue 1 McDonald's": "Ligue 1", "Ligue 2 BKT": "Ligue 2", "Brack Super League": "Swiss Super League", "LALIGA HYPERMOTION": "LaLiga 2",
+  "LALIGA EA SPORTS": "LaLiga", "Trendyol Süper Lig": "Süper Lig", "EFL Championship": "Championship", "EFL League One": "League One", "EFL League Two": "League Two", "Serie A Enilive": "Serie A", "Serie BKT": "Serie B",
+  "Liga BBVA MX": "Liga MX", "Liga F Moeve": "Liga F", "Major League Soccer": "MLS", "3F Superliga": "Danish Superliga", "SUPERLIGA": "Romanian Superliga", "1A Pro League": "Belgian Pro League", "Liga Portugal Feminino": "Liga Portugal (W)" };
+const lShort = id => { const n = lName(id); return LGN[n] || n; };
+const cShort = id => cName(id).replace(/^(FC|AFC|CF|SC|AC|SV|1\. FC) /, "").replace(/ (FC|CF|AFC|SC|C\.F\.)$/, "").trim();
+const nat3 = id => { const n = nName(id); return NAT3[n] || n.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase(); };
+const lg3 = id => { const n = lName(id); return LG3[n] || n.split(/\s+/).map(w => w[0]).join("").slice(0, 4).toUpperCase(); };
+const LINKC = ["#ff8a1f", "#3ba7ff", "#3ddc97", "#c77dff", "#ffd36b", "#ff5c8a", "#5ce1e6", "#a3e635"];
+// counts (in-position cards only, Icons count for their nation; Heroes / Icons have no club) and colours for groups of 2+
+function pzLinks(slots, team) {
+  const on = team.map((c, i) => c && pzFits(c, slots[i]) ? c : null).filter(Boolean), G = { n: new Map(), l: new Map(), c: new Map() };
+  let icons = 0;
+  for (const c of on) {
+    G.n.set(c.nationId, (G.n.get(c.nationId) || 0) + natW(c));
+    if (SBC_ICON.has(c.color)) icons++; else G.l.set(c.leagueId, (G.l.get(c.leagueId) || 0) + lgW(c));
+    if (!SBC_AUTO.has(c.color)) G.c.set(c.clubId, (G.c.get(c.clubId) || 0) + clW(c));
+  }
+  if (icons) for (const [k, v] of G.l) G.l.set(k, v + icons);       // each Icon links every league
+  const col = {}; for (const k of "nlc") { let j = 0; col[k] = new Map([...G[k]].sort((a, b) => b[1] - a[1]).map(([id, n]) => [id, n >= 2 ? LINKC[(j++ + "nlc".indexOf(k) * 3) % LINKC.length] : ""])); }
+  return { G, col, icons };
+}
+const lvlOf = (n, T) => T.filter(t => n >= t).length;
+// tap a placed card: everything about it, and where its chem comes from
+function pzInfo(i) {
+  const pz = PZ.pz, slots = pzSlots(pz), c = PZ.team[i], LK = pzLinks(slots, PZ.team), ch = pzChem(slots, PZ.team)[i];
+  const lk = pz.locked.some(l => l.i === i), fits = pzFits(c, slots[i]), auto = SBC_AUTO.has(c.color);
+  const nN = LK.G.n.get(c.nationId) || 0, nL = SBC_ICON.has(c.color) ? 0 : LK.G.l.get(c.leagueId) || 0, nC = auto ? 0 : LK.G.c.get(c.clubId) || 0;
+  const row = (ico, k, name, n, T, note) => { const g = lvlOf(n, T), nx = T.find(t => t > n);
+    return `<div class="pir"><span class="k">${k}</span><b>${ico}${esc(name)}</b><span class="v">${note || `${n} in squad · <em>+${g}</em>${nx ? ` <small>(${nx} for +${g + 1})</small>` : ""}`}</span></div>`; };
+  const pos = [c.position, ...String(c.altPositions || "").split(",").filter(Boolean)];
+  const ov = document.createElement("div"); ov.id = "pzInfo";
+  ov.innerHTML = `<div class="pibox" style="--tint:${tintOf(c)}">
+    <div class="pihead"><span class="r">${c.rating}</span><div><b>${esc(cap(c.name))}</b><small>${esc(TYPE(c.color))} · ${pos.map(p => p === slots[i] ? `<u>${esc(p)}</u>` : esc(p)).join(" / ")}</small></div>${lk ? `<span class="lkb">🔒 Locked</span>` : ""}</div>
+    <div class="pichem"><span>Chem</span><b>${ch}<small>/3</small></b>${!fits ? `<em class="bad">Out of position: plays ${esc(slots[i])}, needs ${esc(pos.join(" / "))}</em>` : auto ? `<em>${SBC_ICON.has(c.color) ? "Icons" : "Heroes"} always get full chem</em>` : ""}</div>
+    ${row(flagOf(c.nationId) + " ", "Nation", nName(c.nationId), nN, NEXT.n, auto && SBC_ICON.has(c.color) ? `counts 2 · ${nN} in squad` : "")}
+    ${SBC_ICON.has(c.color) ? row("", "League", "Every league", 0, NEXT.l, "adds 1 to every league in the squad") : row("", "League", lShort(c.leagueId), nL, NEXT.l, "")}
+    ${auto ? row("", "Club", SBC_ICON.has(c.color) ? "Icon" : "Hero", 0, NEXT.c, "no club") : row("", "Club", cShort(c.clubId), nC, NEXT.c, "")}
+    ${pzBonusHit(c, pz.bonus) && !lk ? `<p class="pibon">★ Counts for the bonus: +${pz.bonus.each}</p>` : ""}
+    <div class="piact">${lk ? "" : `<button class="ghost" id="piRm">Remove</button><button class="btn" id="piSw">Swap</button>`}<button class="ghost" id="piX">Close</button></div></div>`;
+  document.body.appendChild(ov);
+  const close = () => ov.remove();
+  ov.onclick = e => { if (e.target === ov) close(); };
+  $("piX").onclick = close;
+  if (!lk) { $("piRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { close(); pzPick(i); }; }
+}
+const NEXT = { n: [2, 5, 8], l: [3, 5, 8], c: [2, 4, 7] };
+function pzDraw() {
+  const box = $("gameBox"); if (!box) return;
+  if (!PZ.data) { box.innerHTML = `<p class="muted">Loading puzzles…</p>`; pzLoad().then(pzDraw).catch(e => box.innerHTML = `<p class="muted">Couldn't load the puzzles: ${esc(e.message)}</p>`); return; }
+  pzMe(); ({ home: pzHome, set: pzSetView, play: pzPlay, lb: pzBoard })[PZ.view]();
+}
+function pzHome() {
+  const tiers = Object.keys(PZ_TIERS), all = PZ.data.sets, total = all.reduce((a, s) => a + setPts(s), 0), r = PZ.me && PZ.me.ranks && PZ.me.ranks.all;
+  $("gameBox").innerHTML = `<div class="pzintro"><h2 class="pzlogo">Puzzles</h2><p class="small muted">Finish each squad around the locked cards and reach the chem target. Bonus points for cards from the puzzle's league, nation or club, for using no Icons or Heroes, and for a cheap squad (rated under 85). The bonus never links with the locked cards, so chasing it costs chem. Open any set.</p>
+    <div class="pzme"><div><span>Your points</span><b>${fmtN(total)}</b></div><div><span>Perfect</span><b class="${pzPerfects(all.flatMap(s => s.puzzles)) ? "pzgold" : ""}">${pzPerfects(all.flatMap(s => s.puzzles))}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><button class="ghost" data-pzlb="all">Leaderboard</button></div>
+    <p class="small muted" style="margin:8px 0 0">${!PZ_API ? "The shared leaderboard is coming soon. Your points are saved on this device." : pzName() ? `Playing as <b>${esc(pzName())}</b> · <a href="#" id="pzRename">change name</a> · <a href="#" id="pzOut">sign out</a>` : `<a href="#" id="pzNew">Pick a name</a> to join the leaderboard, or <a href="#" id="pzIn">sign in</a> to bring your scores from another device.`}</p></div>
+    ${tiers.map(t => { const sets = all.filter(s => s.tier === t); return sets.length ? `<h3 class="pztier t-${t}">${esc(PZ_TIERS[t].name)}<small>${esc(PZ_TIERS[t].note)}</small></h3>
+      <div class="pzsets">${sets.map(s => { const pc = Math.round(100 * setSolved(s) / s.puzzles.length);
+        return `<button class="pzset t-${s.tier}" data-pzset="${esc(s.id)}"><span class="ring" style="--p:${pc}"><em>${setSolved(s)}<small>/${s.puzzles.length}</small></em></span><span class="tx"><b>${esc(s.name)}</b><small>${esc(PZ_TIERS[s.tier].name)} · ${s.puzzles[0].target}–${s.puzzles[s.puzzles.length - 1].target} chem</small><span class="pts">${fmtN(setPts(s))} pts</span></span></button>`; }).join("")}</div>` : ""; }).join("")}`;
+  pzWire();
+}
+function pzSetView() {
+  const s = PZ.set, b = pzBest(), r = PZ.me && PZ.me.ranks && PZ.me.ranks[s.id];
+  $("gameBox").innerHTML = `<div class="pzbar t-${s.tier}"><button class="ghost" data-pzgo="home">‹ Sets</button><b>${esc(s.name)}<small>${esc(PZ_TIERS[s.tier].name)}</small></b><button class="ghost" data-pzlb="${esc(s.id)}">Leaderboard</button></div>
+    <div class="pzme"><div><span>Points</span><b>${fmtN(setPts(s))}</b></div><div><span>Solved</span><b>${setSolved(s)}/${s.puzzles.length}</b></div><div><span>Perfect</span><b class="${pzPerfects(s.puzzles) ? "pzgold" : ""}">${pzPerfects(s.puzzles)}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div></div>
+    <div class="pzgrid t-${s.tier}">${s.puzzles.map(p => { const g = pzPerfect(p.id, b[p.id] || 0); return `<button class="pztile${b[p.id] ? " done" : ""}${g ? " gold" : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${g ? "★ " + fmtN(b[p.id]) : b[p.id] ? "✓ " + fmtN(b[p.id]) : p.target + " chem"}</small></button>`; }).join("")}</div>
+    <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
+  pzWire();
+}
+function pzPlay() {
+  const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
+  // one line per nation / league / club in the squad: how many you have, the chem it gives each of them, and how many more for the next step
+  const linkRow = (k, label, nm, ico) => { const L = [...LK.G[k]].sort((a, b) => b[1] - a[1]).slice(0, 6); return L.length ? `<div class="pzlk"><h4>${label}</h4>${L.map(([id, n]) => {
+      const T = NEXT[k], got = T.filter(t => n >= t).length, nx = T.find(t => t > n);
+      return `<div class="lr" style="--g:${LK.col[k].get(id) || "rgba(255,255,255,.25)"}"><b>${ico ? ico(id) + " " : ""}${esc(nm(id))}</b><span class="dots">${Array.from({ length: Math.min(nx || n, 8) }, (_, j) => `<i class="${j < n ? "on" : ""}"></i>`).join("")}</span><small>${got ? `<em>+${got}</em>` : "+0"}${nx ? ` · ${nx - n} more for +${got + 1}` : " · max"}</small></div>`; }).join("")}</div>` : ""; };
+  const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i));
+  const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
+  const placed = PZ.team.filter(Boolean), rNow = placed.length ? teamRatingOf(placed.map(c => c.rating)) : 0, bud = pz.budget ? pzBudget(pz, rNow) : 0;
+  const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud, pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
+  const set = PZ.data.sets.find(s => s.puzzles.includes(pz)), nx = set.puzzles[set.puzzles.indexOf(pz) + 1];
+  $("gameBox").innerHTML = `<div class="pzbar t-${set.tier}"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}<small>${esc(pz.formation)}</small></b><button class="ghost" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(pz.id)}">Ranks</button></div>
+    <div class="pzhud"><div class="pzchem"><b class="${sc.total >= pz.target ? "ok" : ""}">${sc.total}</b><span>/ ${pz.target} chem</span><div class="bar"><i style="width:${pct}%"></i><em style="left:${tp}%"></em></div></div>
+      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="${pzPerfect(pz.id, best) ? "pzgold" : ""}">${fmtN(best)}</span>` : ""}${pzTop(pz.id) ? ` · perfect ${fmtN(pzTop(pz.id))}` : ""}</small></div></div>
+    <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span><span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
+    <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
+      return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
+        <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
+        : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
+    <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
+      <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
+      ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lShort)}${linkRow("c", "Clubs", cShort)}</details>
+    <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
+    <div id="pzMsg"></div>`;
+  pzWire();
+  $("pzClear").onclick = () => { PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  $("pzGo").onclick = () => pzSubmit(sc);
+  document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (PZ.team[i]) pzInfo(i); else pzPick(i); });
+}
+// card picker for one spot: search, and quick filters for the links already in the squad
+// card picker, filters like the game's: position, nation, league, club, card type, rating (range or exact), sort by rating.
+// Every matching card can be reached (the list keeps loading as you scroll). Position "Any" shows cards for other
+// spots too: they can go in, but get 0 chem there (like the game).
+const PZ_POS = ["GK", "LB", "CB", "RB", "CDM", "CM", "CAM", "LM", "RM", "LW", "RW", "ST"];
+function pzPick(i) {
+  const pz = PZ.pz, sl = pzSlots(pz)[i], have = new Set(PZ.team.filter((c, j) => c && j !== i).map(playerKey));
+  const all = CARDS.filter(c => c.P && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
+  const tk = c => SBC_AUTO.has(c.color) ? "icon" : typeKey(c), tl = t => t === "icon" ? "Icons & Heroes" : typeLabel(t);
+  let F = { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "", sort: lsStr("pzSort") || "up" }, q = "", shown = 0, list = [], top = null;
+  // quick picks: the nations / leagues / clubs already in the squad, and the bonus
+  const quick = new Map();
+  PZ.team.forEach((c, j) => { if (!c || j === i) return; quick.set("nat" + c.nationId, ["nat", c.nationId, flagOf(c.nationId) + " " + nName(c.nationId)]);
+    if (!SBC_ICON.has(c.color)) quick.set("lg" + c.leagueId, ["lg", c.leagueId, lShort(c.leagueId)]); if (!SBC_AUTO.has(c.color)) quick.set("cl" + c.clubId, ["cl", c.clubId, cShort(c.clubId)]); });
+  const bk = { nation: "nat", league: "lg", club: "cl" }[pz.bonus.on]; if (bk) quick.set("bonus", [bk, pz.bonus.id, "★ " + bonusName(pz.bonus)]);
+  const sheet = document.createElement("div"); sheet.id = "pzSheet";
+  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Search a player" enterkeyhint="done" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
+    <div class="pzfl" id="pzFl"></div><div class="pzf">${[...quick.values()].map(([k, id, n], j) => `<button data-qk="${j}">${esc(n)}</button>`).join("")}</div>
+    <div class="pzcount" id="pzN"></div><div class="pzlist" id="pzL"></div></div>`;
+  document.body.appendChild(sheet);
+  const vv = window.visualViewport, root = document.documentElement, oldOv = root.style.overflow;
+  const fit = () => { if (!vv) return; sheet.style.top = vv.offsetTop + "px"; sheet.style.height = vv.height + "px"; };
+  fit(); if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); } root.style.overflow = "hidden";
+  const close = () => { sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } };
+  const put = c => { PZ.team[i] = c; pzSave(); close(); pzPlay(); };
+  const QL = [...quick.values()];
+  // each filter, with the others applied (so the lists only offer what's there, like the game)
+  const pass = (c, skip) => (skip === "pos" || F.pos === "any" || c.P.has(F.pos)) && (skip === "nat" || !F.nat || c.nationId === +F.nat)
+    && (skip === "lg" || !F.lg || (c.leagueId === +F.lg && !SBC_ICON.has(c.color))) && (skip === "cl" || !F.cl || c.clubId === +F.cl)
+    && (skip === "type" || !F.type || tk(c) === F.type) && (skip === "r" || ((!F.lo || c.rating >= +F.lo) && (!F.hi || c.rating <= +F.hi)));
+  const nq = () => norm(q).trim();
+  const opts = (skip, key, label, sortBy) => { const m = new Map(); for (const c of all) if (pass(c, skip)) { const k = key(c); if (k != null && !m.has(k)) m.set(k, label(k)); } return [...m].sort(sortBy || ((a, b) => String(a[1]).localeCompare(String(b[1])))); };
+  const sel = (id, name, cur, L, any) => `<label class="pzsel${cur ? " on" : ""}"><span>${name}</span><select id="${id}"><option value="">${any}</option>${L.map(([k, n]) => `<option value="${esc(String(k))}"${String(k) === String(cur) ? " selected" : ""}>${esc(n)}</option>`).join("")}</select></label>`;
+  const RATINGS = Array.from({ length: 60 }, (_, k) => 99 - k);
+  const drawFilters = () => {
+    const TORDER = ["gold", "silver", "bronze"], keepX = $("pzFl").scrollLeft;
+    $("pzFl").innerHTML = `<label class="pzsel on"><span>Position</span><select id="pzFpos">${PZ_POS.map(p => `<option${p === F.pos ? " selected" : ""}>${p}</option>`).join("")}<option value="any"${F.pos === "any" ? " selected" : ""}>Any</option></select></label>`
+      + sel("pzFnat", "Nation", F.nat, opts("nat", c => c.nationId, k => nName(k)), "Any")
+      + sel("pzFlg", "League", F.lg, opts("lg", c => SBC_ICON.has(c.color) ? null : c.leagueId, k => lName(k)), "Any")
+      + sel("pzFcl", "Club", F.cl, opts("cl", c => SBC_AUTO.has(c.color) ? null : c.clubId, k => cName(k)), "Any")
+      + sel("pzFty", "Card Type", F.type, opts("type", tk, tl, (a, b) => ((TORDER.indexOf(a[0]) + 1 || 9) - (TORDER.indexOf(b[0]) + 1 || 9)) || a[1].localeCompare(b[1])), "Any")
+      + `<label class="pzsel${F.lo || F.hi ? " on" : ""}"><span>Rating</span><span class="rr"><select id="pzFlo"><option value="">Min</option>${RATINGS.slice().reverse().map(r => `<option${+F.lo === r ? " selected" : ""}>${r}</option>`).join("")}</select><select id="pzFhi"><option value="">Max</option>${RATINGS.map(r => `<option${+F.hi === r ? " selected" : ""}>${r}</option>`).join("")}</select></span></label>`
+      + `<button class="pzsort" id="pzSort">Rating ${F.sort === "up" ? "↑ Low first" : "↓ High first"}</button>`
+      + (F.nat || F.lg || F.cl || F.type || F.lo || F.hi || F.pos !== sl ? `<button class="pzsort" id="pzReset">Reset</button>` : "");
+    const on = (id, k) => { $(id).onchange = e => { F[k] = e.target.value; drawAll(); }; };
+    on("pzFpos", "pos"); on("pzFnat", "nat"); on("pzFlg", "lg"); on("pzFcl", "cl"); on("pzFty", "type");
+    $("pzFlo").onchange = e => { F.lo = e.target.value; if (F.hi && +F.lo > +F.hi) F.hi = F.lo; drawAll(); };
+    $("pzFhi").onchange = e => { F.hi = e.target.value; if (F.lo && +F.hi < +F.lo) F.lo = F.hi; drawAll(); };
+    $("pzSort").onclick = () => { F.sort = F.sort === "up" ? "down" : "up"; try { localStorage.setItem("pzSort", F.sort); } catch (e) {} drawAll(); };
+    if ($("pzReset")) $("pzReset").onclick = () => { Object.assign(F, { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "" }); drawAll(); };
+    sheet.querySelectorAll("[data-qk]").forEach(b => { const [k, id] = QL[+b.dataset.qk]; b.classList.toggle("on", String(F[k]) === String(id)); });
+    $("pzFl").scrollLeft = keepX;     // stay where you were in the row after picking
+  };
+  const row = c => { const off = !c.P.has(sl);
+    return `<button data-c="${esc(c.id)}" class="${off ? "off" : ""}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))} · ${esc(c.position)}${c.altPositions ? "/" + esc(String(c.altPositions).replace(/,/g, "/")) : ""}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${off ? `<i class="oop">0 chem at ${esc(sl)}</i>` : ""}${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`; };
+  const more = () => { const L = $("pzL"), n = Math.min(list.length, shown + 80); L.insertAdjacentHTML("beforeend", list.slice(shown, n).map(row).join("")); shown = n; };
+  const drawList = () => {
+    const w = nq().split(/\s+/).filter(Boolean);
+    list = all.filter(c => pass(c) && (nq().length < 2 || w.every(x => c._n.includes(x))));
+    const d = F.sort === "up" ? 1 : -1; list.sort((a, b) => d * (a.rating - b.rating) || a.name.localeCompare(b.name));
+    top = list[0] || null; shown = 0; $("pzL").innerHTML = list.length ? "" : `<p class="small muted" style="padding:12px">No cards for that. Try other filters.</p>`; $("pzL").scrollTop = 0; more();
+    $("pzN").textContent = `${list.length.toLocaleString()} card${list.length === 1 ? "" : "s"}`;
+  };
+  const drawAll = () => { drawFilters(); drawList(); };
+  $("pzL").onscroll = () => { const L = $("pzL"); if (shown < list.length && L.scrollTop + L.clientHeight > L.scrollHeight - 600) more(); };
+  $("pzL").onclick = e => { const b = e.target.closest("[data-c]"); if (b) put(BYID.get(b.dataset.c)); };
+  sheet.onclick = e => { if (e.target === sheet) close(); };
+  $("pzX").onclick = close;
+  if ($("pzRm")) $("pzRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); };
+  $("pzQ").oninput = e => { q = e.target.value; drawList(); };
+  $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); put(top); } };
+  sheet.querySelectorAll("[data-qk]").forEach(b => b.onclick = () => { const [k, id] = QL[+b.dataset.qk]; F[k] = String(F[k]) === String(id) ? "" : String(id); drawAll(); });
+  drawAll();
+}
+async function pzSubmit(sc) {
+  const pz = PZ.pz, b = pzBest(), msg = $("pzMsg");
+  const prev = b[pz.id] || 0; if (sc.pts > prev) { b[pz.id] = sc.pts; pzLSset("pzBest", b); }
+  let note = sc.pts > prev ? (prev ? `New best! Up from ${fmtN(prev)}.` : "Solved!") : `Your best is still ${fmtN(prev)}.`;
+  const top = pzTop(pz.id), gold = !!top && sc.pts >= top, record = gold && sc.pts > top;
+  if (record) { PZ.rec = PZ.rec || {}; PZ.rec[pz.id] = sc.pts; }
+  msg.innerHTML = `<div class="pzdone${gold ? " gold" : ""}">${gold ? `<i class="pzstar">${record ? "★ New Top Score" : "★ Perfect"}</i>` : ""}<b class="${gold ? "pzgold" : ""}">${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}${sc.budget ? ` + ${fmtN(sc.budget)} budget (rated ${sc.rating})` : ""}</span><span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
+  msg.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!PZ_API) return;
+  if (!pzAcct()) { $("pzRank").innerHTML = `Saved on this device. <a href="#" id="pzJoin">Pick a name</a> to put it on the leaderboard.`; $("pzJoin").onclick = e => { e.preventDefault(); pzAccount(() => pzSubmit(sc)); }; return; }
+  try {
+    const r = await pzApi("/submit", { puzzle: pz.id, team: PZ.team.map(c => c.id) });
+    if (r.error) { $("pzRank").textContent = "Leaderboard: " + r.error; return; }
+    PZ.me = null;
+    const set = PZ.data.sets.find(s => s.puzzles.includes(pz));
+    $("pzRank").innerHTML = `On the leaderboard: <b>#${r.puzzle ? r.puzzle.rank : "?"}</b> on this puzzle, <b>#${r.set ? r.set.rank : "?"}</b> in ${esc(set.name)}, <b>#${r.all ? r.all.rank : "?"}</b> overall. <a href="#" class="plink" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(PZ.pz.id)}">See ranks</a>`; pzWire();
+  } catch (e) { $("pzRank").textContent = "Couldn't reach the leaderboard. Your points are saved on this phone."; }
+}
+// leaderboards: All, each set, and each puzzle in a set. Equal points share a rank
+async function pzBoard() {
+  const sets = PZ.data.sets, S = sets.find(s => s.id === PZ.lbSet) || null, P = S && S.puzzles.find(p => p.id === PZ.lbPz) || null, best = pzBest();
+  const back = PZ.lbFrom === "play" && PZ.pz ? "play" : PZ.lbFrom === "set" && PZ.set ? "set" : "home";
+  const head = P ? `<div class="pzlbh t-${S.tier}"><b>${esc(S.name)} · Puzzle ${P.n}</b><small>${esc(P.formation)} · ${P.target} chem · ${fmtN(P.pts)} base</small></div>`
+    : S ? `<div class="pzlbh t-${S.tier}"><b>${esc(S.name)}</b><small>${esc(PZ_TIERS[S.tier].name)} · all ${S.puzzles.length} puzzles</small></div>`
+    : `<div class="pzlbh"><b>Everyone</b><small>All ${sets.reduce((a, s) => a + s.puzzles.length, 0)} puzzles</small></div>`;
+  $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="${back}">‹ Back</button><b>Leaderboard</b><span></span></div>
+    <div class="pzpills"><button data-pzlb="all" class="${S ? "" : "on"}">All</button>${sets.map(s => `<button data-pzlb="${esc(s.id)}" class="t-${s.tier}${S === s ? " on" : ""}">${esc(s.name)}</button>`).join("")}</div>
+    ${S ? `<div class="pzpills pznum t-${S.tier}"><button data-pzlb="${esc(S.id)}" class="${P ? "" : "on"}">Set</button>${S.puzzles.map(p => `<button data-pzlb="${esc(S.id)}" data-pzlbp="${esc(p.id)}" class="${P === p ? "on" : ""}${best[p.id] ? " done" : ""}">${p.n}</button>`).join("")}</div>` : ""}
+    ${head}<div id="pzYou"></div><div id="pzRows"><p class="muted small">${PZ_API ? "Loading…" : "The shared leaderboard is coming soon. Your own points are on the Puzzles page."}</p></div>`;
+  pzWire();
+  // keep the picked set / puzzle in view in its row
+  $("gameBox").querySelectorAll(".pzpills").forEach(row => { const o = row.querySelector(".on"); if (o) row.scrollLeft = o.offsetLeft - (row.clientWidth - o.offsetWidth) / 2; });
+  const mine = P ? best[P.id] || 0 : S ? setPts(S) : sets.reduce((a, s) => a + setPts(s), 0);
+  const you = r => `<div class="pzme"><div><span>${P ? "Your best" : "Your points"}</span><b>${mine ? fmtN(r && r.pts || mine) : "–"}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div>${P ? `<button class="ghost" data-pz="${esc(P.id)}">Play</button>` : ""}</div>`;
+  $("pzYou").innerHTML = you(null); pzWire();
+  if (!PZ_API) return;
+  try {
+    const r = await pzApi(`/lb?set=${encodeURIComponent(S ? S.id : "all")}${P ? "&puzzle=" + encodeURIComponent(P.id) : ""}`), me = pzName();
+    if (PZ.view !== "lb" || PZ.lbSet !== (S ? S.id : "all") || (PZ.lbPz || "") !== (P ? P.id : "")) return;   // moved on while loading
+    $("pzYou").innerHTML = you(r.you); pzWire();
+    let rk = 0;
+    $("pzRows").innerHTML = r.rows && r.rows.length ? `<ol class="pzlb">${r.rows.map((x, k) => { if (!k || x.pts !== r.rows[k - 1].pts) rk = k + 1;
+      return `<li class="${x.name === me ? "me" : ""}${rk <= 3 ? " top" + rk : ""}${P && pzPerfect(P.id, x.pts) ? " gold" : ""}"><span class="rk">${rk}</span><b>${esc(x.name)}</b><small>${P ? `${x.chem} chem · ${x.rating} rated` : `${x.solved} solved`}</small><span class="pt">${fmtN(x.pts)}</span></li>`; }).join("")}</ol>`
+      : `<p class="muted small">No scores yet. Be the first!</p>`;
+  } catch (e) { $("pzRows").innerHTML = `<p class="muted small">Couldn't load the leaderboard.</p>`; }
+}
+function pzWire() {
+  const box = $("gameBox");
+  box.querySelectorAll("[data-pzset]").forEach(b => b.onclick = () => { PZ.set = PZ.data.sets.find(s => s.id === b.dataset.pzset); PZ.view = "set"; pzDraw(); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pz]").forEach(b => b.onclick = () => { for (const s of PZ.data.sets) { const p = s.puzzles.find(p => p.id === b.dataset.pz); if (p) { PZ.set = s; PZ.pz = p; } }
+    PZ.team = pzTeamOf(PZ.pz); PZ.view = "play"; pzDraw(); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pzgo]").forEach(b => b.onclick = () => { PZ.view = b.dataset.pzgo; pzDraw(); });
+  box.querySelectorAll("[data-pzlb]").forEach(b => b.onclick = () => { if (PZ.view !== "lb") PZ.lbFrom = PZ.view;
+    PZ.lbSet = b.dataset.pzlb; PZ.lbPz = b.dataset.pzlbp || ""; PZ.view = "lb"; pzDraw(); });
+  const on = (id, f) => { const el = $(id); if (el) el.onclick = e => { e.preventDefault(); f(); }; };
+  on("pzNew", () => pzAccount(null, "new")); on("pzIn", () => pzAccount(null, "in"));
+  on("pzOut", () => { if (!confirm("Sign out on this device? Your scores stay on your account, ready when you sign in again.")) return; try { ["pzAcct", "pzBest", "pzTeam"].forEach(k => localStorage.removeItem(k)); } catch (e) {} PZ.me = null; pzDraw(); });
+  on("pzRename", async () => { const n = prompt("New name (2 to 16 letters or numbers):", pzName()); if (!n || n.trim().length < 2) return;
+    const r = await pzApi("/name", { name: n.trim() }).catch(() => ({ error: "Couldn't reach the leaderboard" }));
+    if (r.error) return alert(r.error); const a = pzAcct(); a.name = r.name; pzLSset("pzAcct", a); pzDraw(); });
+}
+// "#" links are buttons: never let them navigate (the preview's <base> would send them to the live site)
+document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href="#"]'); if (a) e.preventDefault(); }, true);
+function gamesDraw() { if (!CARDS.length) { $("gameBox").innerHTML = `<p class="muted">Loading cards…</p>`; return; } pzDraw(); }
+document.querySelector('#tabs button[data-t="games"]').addEventListener("click", () => gamesDraw());
