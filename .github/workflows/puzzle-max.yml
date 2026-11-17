@@ -1,0 +1,73 @@
+name: Puzzle top scores
+
+# Works out the top possible score of every puzzle (the gold "Perfect" score) into docs/puzzles_max.json.
+# One machine per set; a puzzle whose top score is proven keeps it, others keep the best squad found so far.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/pz_max.py"
+      - "scripts/pz_max.js"
+      - ".github/workflows/puzzle-max.yml"
+      - "docs/puzzles.json"
+  workflow_dispatch:
+    inputs:
+      seconds:
+        description: "Seconds per puzzle"
+        default: "600"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: puzzle-max
+  cancel-in-progress: true
+
+jobs:
+  sets:
+    runs-on: ubuntu-26.04
+    outputs:
+      list: ${{ steps.l.outputs.list }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: l
+        run: echo "list=$(python3 -c "import json;print(json.dumps([s['id'] for s in json.load(open('docs/puzzles.json'))['sets']]))")" >> $GITHUB_OUTPUT
+
+  solve:
+    needs: sets
+    runs-on: ubuntu-26.04
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        set: ${{ fromJson(needs.sets.outputs.list) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: pip install ortools==9.15.6755
+      - run: |
+          node scripts/pz_max.js elig elig.json
+          python3 scripts/pz_max.py "${{ matrix.set }}" "${{ github.event.inputs.seconds || '600' }}" elig.json "max_${{ matrix.set }}.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: max-${{ matrix.set }}
+          path: max_${{ matrix.set }}.json
+
+  publish:
+    needs: solve
+    if: always()
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/download-artifact@v4
+        with: { path: found, pattern: max-*, merge-multiple: true }
+      - run: |
+          node scripts/pz_max.js merge docs/puzzles_max.json found/*.json
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/puzzles_max.json
+          git diff --cached --quiet || (git commit -m "Puzzle top scores" && git pull --rebase && git push)
