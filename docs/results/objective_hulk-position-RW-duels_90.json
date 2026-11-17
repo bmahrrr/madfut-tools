@@ -1,15 +1,16 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
-  "id227102",
-  "id50603094"
+  "id50603094",
+  "evo_Diomande_89",
+  "id227102"
  ],
- "strength": 100.7,
+ "strength": 101.4,
  "group_cards": 3,
  "reddit": [],
  "team": {
   "formation": "4-2-1-3",
-  "chem": 31,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -59,79 +60,52 @@
    },
    {
     "slot": "CB",
-    "id": "id013",
-    "name": "David Luiz",
-    "rating": 90,
-    "color": "evo",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     75,
-     83,
-     91
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     86,
-     94
-    ],
-    "tiebreak": 255
-   },
-   {
-    "slot": "CB",
-    "id": "id266690",
-    "name": "Lúcio",
-    "rating": 89,
-    "color": "icon",
-    "position": "CB",
-    "nationId": 54,
+    "id": "id67322964",
+    "name": "Gullit",
+    "rating": 86,
+    "color": "debut_icon",
+    "position": "CAM",
+    "nationId": 34,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     75,
-     74,
-     89
+     84,
+     81,
+     79
     ],
     "chem": 3,
     "eff": [
-     78,
-     77,
-     92
+     87,
+     84,
+     82
     ],
-    "tiebreak": 244
+    "tiebreak": 250
+   },
+   {
+    "slot": "CB",
+    "id": "id238435",
+    "name": "Matthäus",
+    "rating": 90,
+    "color": "icon",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     85,
+     84,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     87,
+     91
+    ],
+    "tiebreak": 263
    },
    {
     "slot": "RB",
-    "id": "evo_Clauss_88",
-    "name": "Clauss",
-    "rating": 88,
-    "color": "evo",
-    "position": "RB",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 72,
-    "card": [
-     87,
-     90,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     93,
-     90
-    ],
-    "tiebreak": 270,
-    "evos": [
-     "Defender Control Upgrade",
-     "Les Bleus Defender"
-    ]
-   },
-   {
-    "slot": "CDM",
     "id": "ltm_espart90",
     "name": "Xavi Espart",
     "rating": 90,
@@ -155,29 +129,98 @@
    },
    {
     "slot": "CDM",
-    "id": "id50568937",
-    "name": "Patri Guijarro",
+    "id": "evo_Can_89",
+    "name": "Can",
     "rating": 89,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 241,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
-     87,
-     86,
-     85
+     80,
+     89,
+     90
     ],
     "chem": 3,
     "eff": [
-     90,
-     91,
-     90
+     83,
+     92,
+     93
     ],
-    "tiebreak": 264
+    "tiebreak": 265
+   },
+   {
+    "slot": "CDM",
+    "id": "id226895",
+    "name": "Formiga",
+    "rating": 90,
+    "color": "icon",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     83,
+     86,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     89,
+     91
+    ],
+    "tiebreak": 263
    },
    {
     "slot": "CAM",
+    "id": "id024",
+    "name": "Reijnders",
+    "rating": 89,
+    "color": "world_potm_nominee",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 350,
+    "clubId": 112391,
+    "card": [
+     86,
+     90,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     93,
+     90
+    ],
+    "tiebreak": 269
+   },
+   {
+    "slot": "LW",
+    "id": "evo_Diomande_89",
+    "name": "Diomande",
+    "rating": 89,
+    "color": "evo",
+    "position": "RW",
+    "nationId": 108,
+    "leagueId": 19,
+    "clubId": 112172,
+    "card": [
+     90,
+     89,
+     54
+    ],
+    "chem": 2,
+    "eff": [
+     92,
+     91,
+     56
+    ],
+    "tiebreak": 236
+   },
+   {
+    "slot": "ST",
     "id": "id50603094",
     "name": "Vicky López",
     "rating": 90,
@@ -198,52 +241,6 @@
      59
     ],
     "tiebreak": 235
-   },
-   {
-    "slot": "LW",
-    "id": "evo_Diomande_89",
-    "name": "Diomande",
-    "rating": 89,
-    "color": "evo",
-    "position": "RW",
-    "nationId": 108,
-    "leagueId": 19,
-    "clubId": 112172,
-    "card": [
-     90,
-     89,
-     54
-    ],
-    "chem": 1,
-    "eff": [
-     91,
-     90,
-     55
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "ST",
-    "id": "id025",
-    "name": "Thauvin",
-    "rating": 90,
-    "color": "world_potm_nominee",
-    "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
-    "card": [
-     89,
-     91,
-     62
-    ],
-    "chem": 3,
-    "eff": [
-     92,
-     94,
-     65
-    ],
-    "tiebreak": 248
    },
    {
     "slot": "RW",
@@ -304,18 +301,18 @@
  },
  "base_ids": [
   "id5479",
-  "id50583793",
+  "id190044",
+  "id030",
   "ltm_comuzzo90",
   "id013",
-  "evo_Clauss_88",
+  "id029",
+  "id024",
   "id7763",
-  "id50573315",
-  "evo_Can_89",
-  "id025",
-  "id50573494",
-  "id243075"
+  "id100896715",
+  "id67322964",
+  "id50573494"
  ],
- "built": "2026-11-16 02:52 UTC",
+ "built": "2026-11-17 06:09 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-16 02:52 UTC"
+ "changed": "2026-11-17 06:09 UTC"
 }

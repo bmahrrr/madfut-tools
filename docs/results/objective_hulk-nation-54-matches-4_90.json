@@ -1,17 +1,17 @@
 {
  "g": 4,
  "obj_ids": [
-  "id013",
   "id226895",
+  "id013",
   "id100896715",
-  "id191190"
+  "id50521010"
  ],
- "strength": 100.9,
+ "strength": 101.7,
  "group_cards": 531,
  "reddit": [],
  "team": {
-  "formation": "4-1-2-1-2 (2)",
-  "chem": 31,
+  "formation": "4-1-4-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -61,6 +61,29 @@
    },
    {
     "slot": "CB",
+    "id": "id030",
+    "name": "Konsa",
+    "rating": 90,
+    "color": "world_potm_nominee",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1,
+    "card": [
+     72,
+     81,
+     91
+    ],
+    "chem": 3,
+    "eff": [
+     75,
+     84,
+     94
+    ],
+    "tiebreak": 250
+   },
+   {
+    "slot": "CB",
     "id": "id013",
     "name": "David Luiz",
     "rating": 90,
@@ -81,29 +104,6 @@
      94
     ],
     "tiebreak": 255
-   },
-   {
-    "slot": "CB",
-    "id": "ltm_comuzzo90",
-    "name": "Comuzzo",
-    "rating": 90,
-    "color": "ltm",
-    "position": "CB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 54,
-    "card": [
-     68,
-     78,
-     91
-    ],
-    "chem": 1,
-    "eff": [
-     69,
-     79,
-     92
-    ],
-    "tiebreak": 237
    },
    {
     "slot": "RB",
@@ -134,29 +134,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id50568937",
-    "name": "Patri Guijarro",
-    "rating": 89,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
-     87,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     91,
-     90
-    ],
-    "tiebreak": 264
-   },
-   {
-    "slot": "CM",
     "id": "id226895",
     "name": "Formiga",
     "rating": 90,
@@ -179,48 +156,94 @@
     "tiebreak": 263
    },
    {
-    "slot": "CM",
-    "id": "id50573315",
-    "name": "Aitana Bonmatí",
+    "slot": "LM",
+    "id": "ltm_ngumoha90",
+    "name": "Ngumoha",
     "rating": 90,
-    "color": "uwcl_rttk",
+    "color": "ltm",
+    "position": "LM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     89,
+     88,
+     56
+    ],
+    "chem": 3,
+    "eff": [
+     92,
+     91,
+     59
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "CM",
+    "id": "id227324",
+    "name": "Abily",
+    "rating": 90,
+    "color": "icon",
     "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 241,
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
      88,
-     87,
-     77
+     89,
+     78
     ],
     "chem": 3,
     "eff": [
      91,
      92,
-     82
+     81
     ],
-    "tiebreak": 258
+    "tiebreak": 261
    },
    {
-    "slot": "CAM",
-    "id": "id191190",
-    "name": "Rivellino",
-    "rating": 90,
-    "color": "icon",
-    "position": "CAM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "slot": "CM",
+    "id": "id50568937",
+    "name": "Patri Guijarro",
+    "rating": 89,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
     "card": [
-     89,
-     90,
-     50
+     87,
+     86,
+     85
     ],
     "chem": 3,
     "eff": [
-     92,
-     93,
-     53
+     90,
+     91,
+     90
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "RM",
+    "id": "id50521010",
+    "name": "Hulk",
+    "rating": 90,
+    "color": "hall_of_fut_upgraded",
+    "position": "ST",
+    "nationId": 54,
+    "leagueId": 308,
+    "clubId": 132794,
+    "card": [
+     88,
+     86,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     91,
+     89,
+     58
     ],
     "tiebreak": 235
    },
@@ -246,29 +269,6 @@
      62
     ],
     "tiebreak": 242
-   },
-   {
-    "slot": "ST",
-    "id": "id025",
-    "name": "Thauvin",
-    "rating": 90,
-    "color": "world_potm_nominee",
-    "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
-    "card": [
-     89,
-     91,
-     62
-    ],
-    "chem": 3,
-    "eff": [
-     92,
-     94,
-     65
-    ],
-    "tiebreak": 248
    }
   ]
  },
@@ -307,18 +307,18 @@
  },
  "base_ids": [
   "id5479",
-  "id50583793",
+  "id190044",
+  "id030",
   "ltm_comuzzo90",
   "id013",
-  "evo_Clauss_88",
+  "id029",
+  "id024",
   "id7763",
-  "id50573315",
-  "evo_Can_89",
-  "id025",
-  "id50573494",
-  "id243075"
+  "id100896715",
+  "id67322964",
+  "id50573494"
  ],
- "built": "2026-11-16 02:52 UTC",
+ "built": "2026-11-17 06:09 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-16 02:52 UTC"
+ "changed": "2026-11-17 06:09 UTC"
 }
