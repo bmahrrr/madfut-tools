@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117d";
+const APP_V = "20261117e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -738,9 +738,12 @@ const mcFunnel = () => funnel("How My Club teams are built", MC_STEPS);
 const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
+  { day: "2026-11-17", items: [
+    "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert. Replaces Higher or Lower and Guess the Player.",
+    "<b>Missing a card:</b> your version can now switch formation if a different shape is better without that card."
+  ] },
   { day: "2026-11-16", items: [
     { t: "<b>Play vs AI:</b> new mode in Match. You make every move and the AI plays theirs, in one of three styles. Human and Varied mix up their openings." },
-    { t: "<b>Games:</b> new tab with Higher or Lower and a daily Guess the Player." },
     { t: "<b>SBC:</b> solved squads now show on a pitch with each player's chem." },
     { t: "<b>New look:</b> pick My Club or Sim and a series to see that team laid out on a pitch. Sim switches the site to blue, and phones get a tab bar at the bottom." },
     { p: 1, t: "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos." },
@@ -954,6 +957,19 @@ const TINTS = { icon: "#efe3c2", debut_icon: "#efe3c2", hero: "#a66bff", hallowe
 const tintOf = p => { const k = p.evos && p.evos.length ? "evo" : String(p.color).replace(/^rare_/, "").replace(/_gold$/, "") === "totw" ? "totw" : String(p.color).replace(/^rare_/, "");
   if (TINTS[k]) return TINTS[k]; if (typeof TCOL !== "undefined" && TCOL[p.color]) return TCOL[p.color][0]; let h = 0; for (const ch of k) h = (h * 31 + ch.charCodeAt(0)) % 360; return `hsl(${h} 80% 62%)`; };
 const typeOf = p => p.evos && p.evos.length ? "Evo" : TYPE(p.color);
+function pitchXY(slots) {                     // where each spot of a formation sits on the mini pitch, in %
+  const bands = {}; slots.forEach((sl, i) => (bands[PBAND(sl)] = bands[PBAND(sl)] || []).push(i));
+  const xy = [], order = ["f", "am", "m", "dm", "d", "g"].filter(b => bands[b]), ys = {};
+  order.forEach((b, i) => ys[b] = order.length < 2 ? 50 : 7 + (88 - 7) * i / (order.length - 1));
+  const lift = s => ({ LW: 3, RW: 3, LM: -3, RM: -3, LB: -3, RB: -3 })[s] || 0;
+  for (const idx of Object.values(bands)) {
+    const o = idx.slice().sort((a, b) => PSIDE(slots[a]) - PSIDE(slots[b]) || a - b), n = o.length;
+    const span = n >= 5 ? [10, 90] : n === 4 ? [13, 87] : n === 3 ? [20, 80] : n === 2 ? [28, 72] : [50, 50];
+    o.forEach((i, k) => xy[i] = [n === 1 ? 50 : span[0] + (span[1] - span[0]) * k / (n - 1), ys[PBAND(slots[i])] + lift(slots[i])]);
+  }
+  return xy;
+}
+const PITCH_SVG = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g><rect x="3" y="2" width="94" height="96" rx="1"/><line x1="3" y1="50" x2="97" y2="50"/><ellipse cx="50" cy="50" rx="13" ry="6.5"/><rect x="28" y="84" width="44" height="14"/><rect x="28" y="2" width="44" height="14"/></g></svg>`;
 function pitchHTML(ps, mode, cap) {
   const bands = {}; ps.forEach((p, i) => (bands[PBAND(p.slot)] = bands[PBAND(p.slot)] || []).push(i));
   const xy = [], order = ["f", "am", "m", "dm", "d", "g"].filter(b => bands[b]), ys = {};
@@ -1317,7 +1333,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1343,7 +1359,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2157,7 +2173,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117d");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2728,76 +2744,146 @@ async function renderSetup() {
 }
 init();
 
-// ---------- Games: Higher or Lower, Guess the Player ----------
-const GM = { mode: "hl" };
-const gPool = () => GM.pool || (GM.pool = (() => { const seen = new Set();
-  return CARDS.filter(c => c.rating >= 80 && !/evo|ltm|sbc_premium/.test(c.color)).sort((a, b) => b.rating - a.rating)
-    .filter(c => { const k = c.name + "|" + c.nationId; if (seen.has(k)) return false; seen.add(k); return true; }); })());
-const gRand = (L, rnd = Math.random) => L[Math.floor(rnd() * L.length)];
-const gBest = (k, v) => { let b = +lsStr(k) || 0; if (v != null && v > b) { b = v; try { localStorage.setItem(k, b); } catch (e) {} } return b; };
-const gStat = (c, k) => [c.attack, c.control, c.defense][k];
-const STATN = ["Attack", "Control", "Defence"];
-function gCard(c, val, cls = "") {
-  const tint = (typeof TCOL !== "undefined" && TCOL[c.color]) ? TCOL[c.color][0] : tintOf(c);
-  return `<div class="gcard ${cls}" style="--tint:${tint}"><span class="r">${c.rating}</span><span class="ps">${esc(c.position)} · ${esc(TYPE(c.color))}</span><span class="nm">${esc(cap(c.name))}</span><span class="meta2">${esc(nName(c.nationId))}<br>${esc(cName(c.clubId))}</span>${val != null ? `<span class="val${val === "?" ? " q" : ""}">${val}</span>` : ""}</div>`;
+// ---------- Puzzles: finish the squad around the locked cards ----------
+// puzzles.json: sets at 4 difficulties. Scored by puzzle-core.js (the leaderboard server runs the same code, so a
+// score there is always a real answer). Your bests are kept on this phone too, so it works without the server.
+const PZ_API = "";     // the leaderboard server, once it's set up (e.g. https://madfut-puzzles.<name>.workers.dev)
+const PZ = { data: null, forms: null, view: "home", set: null, pz: null, team: [], me: null, lbSet: "all" };
+const pzLS = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const pzLSset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const pzBest = () => pzLS("pzBest", {});
+const pzPid = () => { let p = lsStr("pzPid"); if (!p) { p = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)).toLowerCase(); try { localStorage.setItem("pzPid", p); } catch (e) {} } return p; };
+const pzName = () => lsStr("pzName");
+async function pzLoad() {
+  if (!PZ.data) [PZ.data, PZ.forms] = await Promise.all([getJSON("puzzles.json"), getJSON("formations.json")]);
 }
-// Higher or Lower: is the next card's stat higher or lower? A tie counts either way
-function hlNew(keep) {
-  const P = gPool(), k = Math.floor(Math.random() * 3);
-  let a = keep || gRand(P), b; do b = gRand(P); while (b.name === a.name);
-  GM.hl = { a, b, k, streak: keep ? GM.hl.streak : 0, done: false };
+function pzMe() {
+  if (!PZ_API || PZ.me || PZ.meBusy) return; PZ.meBusy = true;
+  fetch(`${PZ_API}/me?pid=${pzPid()}`).then(r => r.json()).then(m => { PZ.me = m; PZ.meBusy = false;
+    const b = pzBest(); let ch = false; for (const [k, v] of Object.entries(m.best || {})) if (!(b[k] >= v)) { b[k] = v; ch = true; }
+    if (ch) pzLSset("pzBest", b); if (PZ.view === "home" || PZ.view === "set") pzDraw(); }).catch(() => { PZ.meBusy = false; });
 }
-function hlDraw(res) {
-  const H = GM.hl, box = $("gameBox");
-  const va = gStat(H.a, H.k), vb = gStat(H.b, H.k);
-  box.innerHTML = `<div class="gtop"><span>Streak <b>${H.streak}</b></span><span>Best <b>${gBest("hlBest")}</b></span></div>
-    <p class="gstat">Does <b>${esc(cap(H.b.name))}</b> have more or less <b>${STATN[H.k]}</b> than ${esc(cap(H.a.name))}?</p>
-    <div class="gduel">${gCard(H.a, va)}<span class="gvs">VS</span>${gCard(H.b, res ? vb : "?", res ? (res === "ok" ? "ok" : "bad") : "")}</div>
-    ${res ? (res === "ok" ? `<div class="gbtns"><button class="hi" style="grid-column:span 2" id="hlNext">Next</button></div>`
-      : `<div class="gwin"><b>Streak over: ${H.streak}</b><span class="small muted">${esc(cap(H.b.name))} has ${vb} ${STATN[H.k].toLowerCase()}, ${esc(cap(H.a.name))} has ${va}.</span></div><div class="gbtns"><button class="hi" style="grid-column:span 2" id="hlAgain">Play again</button></div>`)
-      : `<div class="gbtns"><button class="hi" data-hl="1">▲ More than ${va}</button><button class="lo" data-hl="-1">▼ Less than ${va}</button></div>`}
-    <p class="small muted" style="margin:12px 0 0">Base card stats, no boosts or chem. Same value counts as right.</p>`;
-  box.querySelectorAll("[data-hl]").forEach(b => b.onclick = () => {
-    const up = b.dataset.hl === "1", ok = up ? vb >= va : vb <= va;
-    if (ok) { H.streak++; gBest("hlBest", H.streak); } hlDraw(ok ? "ok" : "bad");
-  });
-  if ($("hlNext")) $("hlNext").onclick = () => { hlNew(H.b); hlDraw(); };
-  if ($("hlAgain")) $("hlAgain").onclick = () => { hlNew(); hlDraw(); };
+const pzSlots = pz => PZ.forms[pz.formation];
+const pzTeamOf = pz => { const saved = pzLS("pzTeam", {})[pz.id] || [], t = pzSlots(pz).map((s, i) => BYID.get(saved[i]) || null);
+  pz.locked.forEach(l => { t[l.i] = BYID.get(l.id) || null; }); return t; };
+const pzSave = () => { const all = pzLS("pzTeam", {}); all[PZ.pz.id] = PZ.team.map(c => c ? c.id : null); pzLSset("pzTeam", all); };
+const setPts = set => { const b = pzBest(); return set.puzzles.reduce((a, p) => a + (b[p.id] || 0), 0); };
+const setSolved = set => { const b = pzBest(); return set.puzzles.filter(p => b[p.id]).length; };
+const fmtN = n => Number(n || 0).toLocaleString();
+const bonusText = pz => `+${pz.bonus.each} each ${esc(pz.bonus.label)} card`;
+
+function pzDraw() {
+  const box = $("gameBox"); if (!box) return;
+  if (!PZ.data) { box.innerHTML = `<p class="muted">Loading puzzles…</p>`; pzLoad().then(pzDraw).catch(e => box.innerHTML = `<p class="muted">Couldn't load the puzzles: ${esc(e.message)}</p>`); return; }
+  pzMe(); ({ home: pzHome, set: pzSetView, play: pzPlay, lb: pzBoard })[PZ.view]();
 }
-// Guess the Player: a new clue after each wrong guess. The daily player is the same for everyone
-const GP_CLUES = [["Position", c => c.position], ["Rating", c => c.rating], ["League", c => lName(c.leagueId)], ["Nation", c => nName(c.nationId)],
-  ["Club", c => cName(c.clubId)], ["Stats", c => `A ${c.attack} · C ${c.control} · D ${c.defense}`]];
-function gpNew(daily) {
-  const P = gPool().filter(c => c.rating >= 84), day = Math.floor((Date.now() + 10 * 3600e3) / 864e5);
-  let seed = daily ? day * 9301 + 49297 : Math.random() * 1e9; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
-  const t = gRand(P, rnd); GM.gp = { t, daily, day, tries: [], won: false, lost: false };
-  if (daily) { const st = lsStr("gpDay"); if (st) { try { const o = JSON.parse(st); if (o.day === day) Object.assign(GM.gp, { tries: o.tries, won: o.won, lost: o.lost }); } catch (e) {} } }
+function pzHome() {
+  const tiers = Object.keys(PZ_TIERS), all = PZ.data.sets, total = all.reduce((a, s) => a + setPts(s), 0), r = PZ.me && PZ.me.ranks && PZ.me.ranks.all;
+  $("gameBox").innerHTML = `<div class="pzintro"><h2>Puzzles</h2><p class="small muted">Finish each squad around the locked cards and reach the chem target. Bonus points for cards from the puzzle's league, nation or club, and for using no Icons or Heroes. Open any set.</p>
+    <div class="pzme"><div><span>Your points</span><b>${fmtN(total)}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><button class="ghost" data-pzlb="all">Leaderboard</button></div>
+    <p class="small muted" style="margin:6px 0 0">Playing as <b>${esc(pzName() || "no name yet")}</b> · <a href="#" id="pzRename">${pzName() ? "change" : "set a name"}</a></p></div>
+    ${tiers.map(t => { const sets = all.filter(s => s.tier === t); return sets.length ? `<h3 class="pztier">${esc(PZ_TIERS[t].name)}<small>${esc(PZ_TIERS[t].note)}</small></h3>
+      <div class="pzsets">${sets.map(s => `<button class="pzset" data-pzset="${esc(s.id)}"><b>${esc(s.name)}</b><span>${setSolved(s)}/${s.puzzles.length} solved</span><span class="pts">${fmtN(setPts(s))} pts</span><i style="width:${Math.round(100 * setSolved(s) / s.puzzles.length)}%"></i></button>`).join("")}</div>` : ""; }).join("")}`;
+  pzWire();
 }
-function gpSave() { const G = GM.gp; if (G.daily) try { localStorage.setItem("gpDay", JSON.stringify({ day: G.day, tries: G.tries, won: G.won, lost: G.lost })); } catch (e) {} }
-function gpDraw() {
-  const G = GM.gp, box = $("gameBox"), shown = Math.min(GP_CLUES.length, G.tries.length + 1), over = G.won || G.lost;
-  box.innerHTML = `<div class="gtop"><span>${G.daily ? "Daily player" : "Practice"}</span><span>Clues <b>${over ? GP_CLUES.length : shown}/${GP_CLUES.length}</b></span></div>
-    <ul class="gclues">${GP_CLUES.map(([n, f], k) => `<li class="${k < shown || over ? "" : "locked"}"><span>${n}</span><b>${k < shown || over ? esc(String(f(G.t))) : "?"}</b></li>`).join("")}</ul>
-    ${over ? `<div class="gwin"><b>${G.won ? `Got it in ${G.tries.length + 1}!` : "Out of guesses"}</b></div>${gCard(G.t)}<div class="gbtns"><button class="hi" id="gpMore" style="grid-column:span 2">Play a practice round</button></div>`
-      : `<div class="gguess"><input type="text" id="gpQ" placeholder="Guess the player…" autocomplete="off"><div class="gsugg" id="gpS" hidden></div></div>`}
-    ${G.tries.length ? `<div class="gtries">${G.tries.map(n => `<span>✕ ${esc(n)}</span>`).join("")}</div>` : ""}
-    <p class="small muted" style="margin:12px 0 0">${G.daily ? "A new player every day at midnight (Brisbane time). " : ""}6 guesses, one more clue after each miss.</p>`;
-  if ($("gpMore")) $("gpMore").onclick = () => { gpNew(false); gpDraw(); };
-  const q = $("gpQ"); if (!q) return;
-  q.oninput = () => {
-    const v = norm(q.value.trim()), S = $("gpS"); if (v.length < 2) { S.hidden = true; return; }
-    const seen = new Set(), L = CARDS.filter(c => c._n.includes(v)).filter(c => !seen.has(c.name) && seen.add(c.name)).slice(0, 6);
-    S.hidden = !L.length; S.innerHTML = L.map(c => `<button data-g="${esc(c.name)}">${esc(cap(c.name))}</button>`).join("");
-    S.querySelectorAll("[data-g]").forEach(b => b.onclick = () => {
-      if (norm(b.dataset.g) === norm(G.t.name)) G.won = true; else { G.tries.push(cap(b.dataset.g)); if (G.tries.length >= GP_CLUES.length) G.lost = true; }
-      gpSave(); gpDraw();
-    });
+function pzSetView() {
+  const s = PZ.set, b = pzBest(), r = PZ.me && PZ.me.ranks && PZ.me.ranks[s.id];
+  $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="home">‹ Sets</button><b>${esc(s.name)}</b><button class="ghost" data-pzlb="${esc(s.id)}">Leaderboard</button></div>
+    <div class="pzme"><div><span>Points</span><b>${fmtN(setPts(s))}</b></div><div><span>Solved</span><b>${setSolved(s)}/${s.puzzles.length}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div></div>
+    <div class="pzgrid">${s.puzzles.map(p => `<button class="pztile${b[p.id] ? " done" : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${b[p.id] ? fmtN(b[p.id]) + " pts" : p.target + " chem"}</small></button>`).join("")}</div>
+    <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
+  pzWire();
+}
+function pzPlay() {
+  const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i));
+  const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i));
+  const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
+  const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon), pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
+  const set = PZ.data.sets.find(s => s.puzzles.includes(pz)), nx = set.puzzles[set.puzzles.indexOf(pz) + 1];
+  $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}</b><span class="small muted">${esc(pz.formation)}</span></div>
+    <div class="pzhud"><div class="pzchem"><b class="${sc.total >= pz.target ? "ok" : ""}">${sc.total}</b><span>/ ${pz.target} chem</span><div class="bar"><i style="width:${pct}%"></i><em style="left:${tp}%"></em></div></div>
+      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best ${fmtN(best)}` : ""}</small></div></div>
+    <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span><span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span></div>
+    <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
+      return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
+        : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
+    <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
+    <div id="pzMsg"></div>`;
+  pzWire();
+  $("pzClear").onclick = () => { PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  $("pzGo").onclick = () => pzSubmit(sc);
+  document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (!locked.has(i)) pzPick(i); });
+}
+// card picker for one spot: search, and quick filters for the links already in the squad
+function pzPick(i) {
+  const pz = PZ.pz, sl = pzSlots(pz)[i], have = new Set(PZ.team.filter((c, j) => c && j !== i).map(playerKey));
+  const seen = (m, k, v) => m.set(k, v); const links = new Map();
+  PZ.team.forEach((c, j) => { if (!c || j === i) return; seen(links, "n" + c.nationId, ["nation", c.nationId, nName(c.nationId)]); if (!SBC_ICON.has(c.color)) seen(links, "l" + c.leagueId, ["league", c.leagueId, lName(c.leagueId)]); if (!SBC_AUTO.has(c.color)) seen(links, "c" + c.clubId, ["club", c.clubId, cName(c.clubId)]); });
+  seen(links, "b", [pz.bonus.on, pz.bonus.id, "★ " + pz.bonus.label]);
+  const pool = CARDS.filter(c => c.P && c.P.has(sl) && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
+  let f = null, q = "";
+  const sheet = document.createElement("div"); sheet.id = "pzSheet";
+  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Search a player…" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
+    <div class="pzf">${[...links.values()].map(([on, id, n], k) => `<button data-f="${k}">${esc(n)}</button>`).join("")}<button data-f="icon">Icons & Heroes</button></div><div class="pzlist" id="pzL"></div></div>`;
+  document.body.appendChild(sheet);
+  const L = [...links.values()], close = () => sheet.remove();
+  const draw = () => {
+    const nq = norm(q); let r = pool;
+    if (nq.length >= 2) r = r.filter(c => c._n.includes(nq));
+    if (f === "icon") r = r.filter(c => SBC_AUTO.has(c.color));
+    else if (f != null) { const [on, id] = L[f]; r = r.filter(c => on === "nation" ? c.nationId === id : on === "league" ? c.leagueId === id && !SBC_ICON.has(c.color) : c.clubId === id); }
+    r = r.slice().sort((a, b) => b.rating - a.rating).slice(0, 60);
+    $("pzL").innerHTML = r.length ? r.map(c => `<button data-c="${esc(c.id)}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(SBC_AUTO.has(c.color) ? "" : cName(c.clubId))}</small><small>${esc(lName(c.leagueId))}</small></span>${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`).join("")
+      : `<p class="small muted" style="padding:12px">No cards for that. Try another search.</p>`;
+    $("pzL").querySelectorAll("[data-c]").forEach(b => b.onclick = () => { PZ.team[i] = BYID.get(b.dataset.c); pzSave(); close(); pzPlay(); });
   };
+  sheet.onclick = e => { if (e.target === sheet) close(); };
+  $("pzX").onclick = close;
+  if ($("pzRm")) $("pzRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); };
+  $("pzQ").oninput = e => { q = e.target.value; draw(); };
+  sheet.querySelectorAll("[data-f]").forEach(b => b.onclick = () => { const v = b.dataset.f === "icon" ? "icon" : +b.dataset.f; f = f === v ? null : v;
+    sheet.querySelectorAll("[data-f]").forEach(x => x.classList.toggle("on", (x.dataset.f === "icon" ? "icon" : +x.dataset.f) === f)); draw(); });
+  draw();
 }
-function gamesDraw() {
-  if (!CARDS.length) { $("gameBox").innerHTML = `<p class="muted">Loading cards…</p>`; return; }
-  if (GM.mode === "hl") { if (!GM.hl) hlNew(); hlDraw(); } else { if (!GM.gp) gpNew(true); gpDraw(); }
+async function pzSubmit(sc) {
+  const pz = PZ.pz, b = pzBest(), msg = $("pzMsg");
+  const prev = b[pz.id] || 0; if (sc.pts > prev) { b[pz.id] = sc.pts; pzLSset("pzBest", b); }
+  let note = sc.pts > prev ? (prev ? `New best! Up from ${fmtN(prev)}.` : "Solved!") : `Your best is still ${fmtN(prev)}.`;
+  msg.innerHTML = `<div class="pzdone"><b>${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(pz.bonus.label)})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}</span><span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
+  msg.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!PZ_API) return;
+  if (!pzName()) { const n = prompt("Your name for the leaderboard (2 to 16 letters):"); if (!n) { $("pzRank").textContent = "Not on the leaderboard: no name set."; return; } try { localStorage.setItem("pzName", n.trim().slice(0, 16)); } catch (e) {} }
+  try {
+    const r = await fetch(`${PZ_API}/submit`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pid: pzPid(), name: pzName(), puzzle: pz.id, team: PZ.team.map(c => c.id) }) }).then(r => r.json());
+    if (r.error) { $("pzRank").textContent = "Leaderboard: " + r.error; return; }
+    PZ.me = null;
+    const set = PZ.data.sets.find(s => s.puzzles.includes(pz));
+    $("pzRank").innerHTML = `On the leaderboard: <b>#${r.set ? r.set.rank : "?"}</b> in ${esc(set.name)}, <b>#${r.all ? r.all.rank : "?"}</b> overall.`;
+  } catch (e) { $("pzRank").textContent = "Couldn't reach the leaderboard. Your points are saved on this phone."; }
 }
-document.querySelectorAll(".gseg [data-gm]").forEach(b => b.onclick = () => {
-  GM.mode = b.dataset.gm; document.querySelectorAll(".gseg [data-gm]").forEach(x => x.classList.toggle("on", x === b)); gamesDraw(); });
+async function pzBoard() {
+  const set = PZ.lbSet, sets = PZ.data.sets, nm = set === "all" ? "Everyone" : (sets.find(s => s.id === set) || {}).name || set;
+  $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="${PZ.set ? "set" : "home"}">‹ Back</button><b>Leaderboard</b><span></span></div>
+    <div class="spills pzlbsel"><button data-pzlb="all" class="${set === "all" ? "on" : ""}">All</button>${sets.map(s => `<button data-pzlb="${esc(s.id)}" class="${set === s.id ? "on" : ""}">${esc(s.name)}</button>`).join("")}</div>
+    <h3>${esc(nm)}</h3><div id="pzRows"><p class="muted small">${PZ_API ? "Loading…" : "The shared leaderboard is coming soon. Your own points are on the Puzzles page."}</p></div>`;
+  pzWire();
+  if (!PZ_API) return;
+  try {
+    const r = await fetch(`${PZ_API}/lb?set=${encodeURIComponent(set)}`).then(r => r.json()), me = pzName();
+    $("pzRows").innerHTML = r.rows && r.rows.length ? `<ol class="pzlb">${r.rows.map((x, k) => `<li class="${x.name === me ? "me" : ""}"><span class="rk">${k + 1}</span><b>${esc(x.name)}</b><small>${x.solved} solved</small><span class="pt">${fmtN(x.pts)}</span></li>`).join("")}</ol>` : `<p class="muted small">No scores yet. Be the first!</p>`;
+  } catch (e) { $("pzRows").innerHTML = `<p class="muted small">Couldn't load the leaderboard.</p>`; }
+}
+function pzWire() {
+  const box = $("gameBox");
+  box.querySelectorAll("[data-pzset]").forEach(b => b.onclick = () => { PZ.set = PZ.data.sets.find(s => s.id === b.dataset.pzset); PZ.view = "set"; pzDraw(); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pz]").forEach(b => b.onclick = () => { for (const s of PZ.data.sets) { const p = s.puzzles.find(p => p.id === b.dataset.pz); if (p) { PZ.set = s; PZ.pz = p; } }
+    PZ.team = pzTeamOf(PZ.pz); PZ.view = "play"; pzDraw(); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pzgo]").forEach(b => b.onclick = () => { PZ.view = b.dataset.pzgo; pzDraw(); });
+  box.querySelectorAll("[data-pzlb]").forEach(b => b.onclick = () => { PZ.lbSet = b.dataset.pzlb; PZ.view = "lb"; pzDraw(); });
+  const rn = $("pzRename"); if (rn) rn.onclick = async e => { e.preventDefault(); const n = prompt("Your name for the leaderboard (2 to 16 letters):", pzName()); if (!n || n.trim().length < 2) return;
+    try { localStorage.setItem("pzName", n.trim().slice(0, 16)); } catch (e) {}
+    if (PZ_API) fetch(`${PZ_API}/name`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pid: pzPid(), name: pzName() }) }).catch(() => {});
+    pzDraw(); };
+}
+function gamesDraw() { if (!CARDS.length) { $("gameBox").innerHTML = `<p class="muted">Loading cards…</p>`; return; } pzDraw(); }
 document.querySelector('#tabs button[data-t="games"]').addEventListener("click", () => gamesDraw());

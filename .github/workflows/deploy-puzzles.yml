@@ -1,0 +1,43 @@
+name: Deploy puzzles server
+# The Puzzles leaderboard (Cloudflare Worker + D1). Needs two repo secrets: CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID.
+on:
+  push:
+    branches: [main]
+    paths: ["worker/**", "docs/puzzle-core.js", ".github/workflows/deploy-puzzles.yml"]
+  workflow_dispatch: {}
+concurrency: { group: deploy-puzzles, cancel-in-progress: false }
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Secrets set?
+        id: have
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then echo "Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repo secrets first." >> $GITHUB_STEP_SUMMARY; echo "ok=0" >> $GITHUB_OUTPUT; else echo "ok=1" >> $GITHUB_OUTPUT; fi
+      - uses: actions/setup-node@v4
+        if: steps.have.outputs.ok == '1'
+        with: { node-version: 20 }
+      - name: Build
+        if: steps.have.outputs.ok == '1'
+        run: |
+          npm i -g wrangler@3 >/dev/null
+          mkdir -p worker/dist
+          (cat docs/sbc-solver.js; echo; cat docs/puzzle-core.js; echo; cat worker/src/main.js) > worker/dist/worker.js
+      - name: Database
+        if: steps.have.outputs.ok == '1'
+        working-directory: worker
+        run: |
+          id() { wrangler d1 list --json | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const x=JSON.parse(s).find(d=>d.name==="madfut-puzzles");process.stdout.write(x?x.uuid:"")})'; }
+          ID=$(id); if [ -z "$ID" ]; then wrangler d1 create madfut-puzzles; ID=$(id); fi
+          printf 'name = "madfut-puzzles"\nmain = "dist/worker.js"\ncompatibility_date = "2024-11-01"\nworkers_dev = true\n\n[[d1_databases]]\nbinding = "DB"\ndatabase_name = "madfut-puzzles"\ndatabase_id = "%s"\n' "$ID" > wrangler.toml
+          wrangler d1 execute madfut-puzzles --remote --file=schema.sql
+      - name: Deploy
+        if: steps.have.outputs.ok == '1'
+        working-directory: worker
+        run: |
+          wrangler deploy | tee deploy.log
+          grep -o 'https://[^ ]*workers.dev' deploy.log | head -1 | sed 's/^/Server: /' >> $GITHUB_STEP_SUMMARY
