@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117u";
+const APP_V = "20261117v";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -115,7 +115,11 @@ function welcome(force) {
   let seen = false; try { seen = localStorage.getItem("welcomeSeen") === "1"; } catch (e) {}
   if ((seen && !force) || $("welcome")) return;
   const o = document.createElement("div"); o.id = "welcome";
-  const tile = (t, ic, title, txt) => `<button class="wt" data-wt="${t}"><i>${ic}</i><span><b>${title}</b><small>${txt}</small></span><em>›</em></button>`;
+  const IC = {
+    teams: `<path d="M20.4 3.5 16 2a4 4 0 0 1-8 0L3.6 3.5a2 2 0 0 0-1.3 2.2l.6 3.5a1 1 0 0 0 1 .8H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.2a1 1 0 0 0 1-.8l.6-3.5a2 2 0 0 0-1.3-2.2z"/>`,
+    sbc: `<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>`,
+    games: `<path d="M19.4 7.9c0 .3.1.6.3.9l1.6 1.5a2.4 2.4 0 0 1 0 3.4l-1.6 1.6a1 1 0 0 1-.8.3c-.5-.1-.8-.5-1-.9a2.5 2.5 0 1 0-3.2 3.2c.4.2.9.5.9 1a1 1 0 0 1-.3.8l-1.6 1.6a2.4 2.4 0 0 1-3.4 0l-1.6-1.6a1 1 0 0 0-.8-.3c-.5.1-.9.5-1 1a2.5 2.5 0 1 1-3.3-3.3c.5-.2.9-.5 1-1a1 1 0 0 0-.3-.8L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.5-1.5c.3-.3.6-.4 1-.3.5.1.8.5 1 1a2.5 2.5 0 1 0 3.3-3.3c-.5-.2-.9-.5-1-1 0-.4.1-.7.3-1l1.5-1.5a2.4 2.4 0 0 1 3.4 0l1.6 1.6c.2.2.5.3.8.3.5-.1.9-.5 1-1a2.5 2.5 0 1 1 3.3 3.3c-.5.2-.9.5-1 1z"/>` };
+  const tile = (t, ic, title, txt) => `<button class="wt" data-wt="${t}"><i><svg viewBox="0 0 24 24">${IC[t]}</svg></i><span><b>${title}</b><small>${txt}</small></span><em>›</em></button>`;
   o.innerHTML = `<div class="wbox"><button class="wx" aria-label="Close">✕</button><h3>Welcome to the ToolKit</h3><p class="ws">Everything you need for Fatal and SBCs, updated every day.</p>
     ${tile("teams", "T", "Best Teams", `This week's strongest Fatal My Club and Sim teams for every series. Tap "Don't have" on a card for your own version.`)}
     ${tile("sbc", "SBC", "SBC Solver", "Paste the requirements and get the cheapest squad.")}
@@ -754,7 +758,7 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
   { day: "2026-11-17", items: [
-    "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert. Replaces Higher or Lower and Guess the Player.",
+    "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert.",
     "<b>Missing a card:</b> your version can now switch formation if a different shape is better without that card."
   ] },
   { day: "2026-11-16", items: [
@@ -1348,7 +1352,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117u"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117v"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1374,7 +1378,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117u"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117v"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2189,7 +2193,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117u");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117v");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
