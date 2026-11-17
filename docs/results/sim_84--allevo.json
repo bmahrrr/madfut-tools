@@ -48,31 +48,6 @@
      "slot": "GK"
     },
     {
-     "id": "evx_id246565_15",
-     "name": "Diakité",
-     "rating": 84,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 13,
-     "clubId": 1943,
-     "card": [
-      68,
-      73,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      75,
-      87
-     ],
-     "evos": [
-      "Les Bleus Defender"
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id267371",
      "name": "Nielsen",
      "rating": 78,
@@ -117,24 +92,49 @@
      "slot": "CB"
     },
     {
-     "id": "id50557810",
-     "name": "Buendía",
+     "id": "evx_id246565_15",
+     "name": "Diakité",
      "rating": 84,
-     "color": "ucl_rttk",
-     "position": "CAM",
-     "nationId": 52,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
      "leagueId": 13,
-     "clubId": 2,
+     "clubId": 1943,
      "card": [
-      85,
-      84,
-      70
+      68,
+      73,
+      85
      ],
      "chem": 3,
      "eff": [
-      87,
+      70,
+      75,
+      87
+     ],
+     "evos": [
+      "Les Bleus Defender"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
       86,
-      72
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
      ],
      "slot": "LM"
     },
@@ -211,48 +211,26 @@
      "slot": "RM"
     },
     {
-     "id": "id50414682",
-     "name": "Rader",
+     "id": "id50557810",
+     "name": "Buendía",
      "rating": 84,
-     "color": "future_stars",
+     "color": "ucl_rttk",
      "position": "CAM",
-     "nationId": 95,
-     "leagueId": 2221,
-     "clubId": 698,
+     "nationId": 52,
+     "leagueId": 13,
+     "clubId": 2,
      "card": [
+      85,
       84,
-      86,
-      36
+      70
      ],
      "chem": 3,
      "eff": [
+      87,
       86,
-      88,
-      38
+      72
      ],
      "slot": "CAM"
-    },
-    {
-     "id": "id50536618",
-     "name": "Thauvin",
-     "rating": 84,
-     "color": "totw_gold",
-     "position": "RW",
-     "nationId": 18,
-     "leagueId": 16,
-     "clubId": 64,
-     "card": [
-      84,
-      84,
-      52
-     ],
-     "chem": 2,
-     "eff": [
-      85,
-      85,
-      53
-     ],
-     "slot": "ST"
     },
     {
      "id": "evx_id238422_10",
@@ -278,15 +256,37 @@
       "Physical Striker Upgrade"
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id50536618",
+     "name": "Thauvin",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "RW",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      84,
+      84,
+      52
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      85,
+      53
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6067,
+    "ctrl_win": 0.608,
     "control": 87.4,
     "attack": 84.99,
     "defence": 83.75,
-    "net": 0.2017,
+    "net": 0.1819,
     "vs_reddit": null,
     "control_cards": [
      88,
@@ -309,8 +309,8 @@
      81,
      81
     ],
-    "p_att": 0.6555,
-    "p_def": 0.388,
+    "p_att": 0.6324,
+    "p_def": 0.3879,
     "chem": 30,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -323,7 +323,7 @@
     "def_total": 200.5,
     "round_robin": {
      "wins": 5.0,
-     "margin": 1.5414
+     "margin": 1.3512
     }
    }
   },
@@ -352,28 +352,6 @@
       77
      ],
      "slot": "GK"
-    },
-    {
-     "id": "id50564136",
-     "name": "Romero",
-     "rating": 84,
-     "color": "totw_gold",
-     "position": "CB",
-     "nationId": 52,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      63,
-      66,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      65,
-      68,
-      87
-     ],
-     "slot": "CB"
     },
     {
      "id": "evx_id267371_8",
@@ -423,6 +401,28 @@
      "slot": "CB"
     },
     {
+     "id": "id50564136",
+     "name": "Romero",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      63,
+      66,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      68,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "id50414682",
      "name": "Rader",
      "rating": 84,
@@ -443,6 +443,28 @@
       38
      ],
      "slot": "LM"
+    },
+    {
+     "id": "id50529429",
+     "name": "Isco",
+     "rating": 84,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      82,
+      85,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      87,
+      61
+     ],
+     "slot": "CM"
     },
     {
      "id": "evx_id183895_1_12",
@@ -467,28 +489,6 @@
      "evos": [
       "Silver Maestro",
       "Albiceleste Upgrade"
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id50529429",
-     "name": "Isco",
-     "rating": 84,
-     "color": "totw_gold",
-     "position": "CAM",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 449,
-     "card": [
-      82,
-      85,
-      59
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      87,
-      61
      ],
      "slot": "CM"
     },
@@ -537,28 +537,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id230142",
-     "name": "Oyarzabal",
-     "rating": 84,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 457,
-     "card": [
-      84,
-      81,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      86,
-      83,
-      50
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "evx_id238422_10",
      "name": "Gabi Nunes",
      "rating": 83,
@@ -582,15 +560,37 @@
       "Physical Striker Upgrade"
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id230142",
+     "name": "Oyarzabal",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 457,
+     "card": [
+      84,
+      81,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      83,
+      50
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5867,
+    "ctrl_win": 0.576,
     "control": 87.4,
     "attack": 85.82,
     "defence": 84.0,
-    "net": 0.2945,
+    "net": 0.2729,
     "vs_reddit": null,
     "control_cards": [
      88,
@@ -614,8 +614,8 @@
      85,
      77
     ],
-    "p_att": 0.7565,
-    "p_def": 0.5147,
+    "p_att": 0.7281,
+    "p_def": 0.5175,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -623,8 +623,7 @@
     "attack_short": 0,
     "ctrl_total": 229.4,
     "att_total": 223.3,
-    "def_total": 197.25,
-    "swaps_checked": 54670
+    "def_total": 197.25
    }
   },
   {
@@ -654,24 +653,24 @@
      "slot": "GK"
     },
     {
-     "id": "id279709",
-     "name": "Lucas Beraldo",
-     "rating": 79,
-     "color": "rare_gold",
-     "position": "CDM",
-     "nationId": 54,
-     "leagueId": 16,
-     "clubId": 73,
+     "id": "id268486",
+     "name": "Clark",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 42,
+     "leagueId": 2216,
+     "clubId": 9,
      "card": [
-      60,
-      71,
-      79
+      52,
+      56,
+      69
      ],
      "chem": 2,
      "eff": [
-      62,
-      73,
-      81
+      53,
+      57,
+      70
      ],
      "slot": "CB"
     },
@@ -698,24 +697,24 @@
      "slot": "CB"
     },
     {
-     "id": "id268486",
-     "name": "Clark",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 42,
-     "leagueId": 2216,
-     "clubId": 9,
+     "id": "id279709",
+     "name": "Lucas Beraldo",
+     "rating": 79,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 54,
+     "leagueId": 16,
+     "clubId": 73,
      "card": [
-      52,
-      56,
-      69
+      60,
+      71,
+      79
      ],
      "chem": 2,
      "eff": [
-      53,
-      57,
-      70
+      62,
+      73,
+      81
      ],
      "slot": "CB"
     },
@@ -858,10 +857,10 @@
      "slot": "ST"
     },
     {
-     "id": "id50596673",
+     "id": "id265025",
      "name": "Cerci",
      "rating": 84,
-     "color": "otw",
+     "color": "rare_gold",
      "position": "ST",
      "nationId": 21,
      "leagueId": 2216,
@@ -882,11 +881,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6253,
+    "ctrl_win": 0.632,
     "control": 87.4,
     "attack": 84.4,
     "defence": 79.4,
-    "net": 0.0574,
+    "net": 0.0374,
     "vs_reddit": null,
     "control_cards": [
      88,
@@ -912,8 +911,8 @@
      80,
      70
     ],
-    "p_att": 0.6011,
-    "p_def": 0.0823,
+    "p_att": 0.5801,
+    "p_def": 0.081,
     "chem": 30,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -935,15 +934,13 @@
   "exclude": [],
   "include": "evos_all"
  },
- "built": "2026-11-15 05:13 UTC",
- "week": "2026-11-16",
- "changed": "2026-11-15 05:13 UTC",
  "evos_seen": [
   "Albiceleste Upgrade",
   "Austrian Bundesliga Bronze",
   "Austrian Bundesliga Silver",
   "Defender Control Upgrade",
   "German Defender",
+  "K League 1 Bronze",
   "K League 1 Silver",
   "Les Bleus Defender",
   "Midfielder Attack Upgrade",
@@ -955,5 +952,8 @@
   "Scottish Premiership Silver",
   "Silver Goalie #1",
   "Silver Maestro"
- ]
+ ],
+ "built": "2026-11-17 02:59 UTC",
+ "week": "2026-11-16",
+ "changed": "2026-11-15 05:13 UTC"
 }
