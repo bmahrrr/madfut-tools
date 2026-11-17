@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261117t">
+<meta name="app-version" content="20261117u">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -620,6 +620,18 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 .pibon{margin:8px 0 0;font-size:12.5px;color:#ffd36b}
 .piact{display:flex;gap:8px;margin-top:12px}.piact button{flex:1}
 .pzacc input{width:100%}
+#welcome{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;animation:wIn .25s ease}
+@keyframes wIn{from{opacity:0}}@keyframes wUp{from{transform:translateY(40px)}}
+#welcome .wbox{position:relative;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:20px 16px calc(22px + env(safe-area-inset-bottom));background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 12%,transparent),color-mix(in srgb,var(--fire) 5%,transparent) 60%),var(--panel);border:1px solid color-mix(in srgb,var(--fire) 28%,transparent);border-bottom:0;animation:wUp .3s ease}
+#welcome h3{display:inline-block;margin:0 40px 4px 0;font:800 26px/1 var(--display);text-transform:uppercase;letter-spacing:.4px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+#welcome .ws{color:var(--muted);font-size:13px;margin:0 0 12px}
+#welcome .wx{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line2);background:none;color:var(--muted);font-size:15px;cursor:pointer}
+#welcome .wt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:11px 12px;margin-top:8px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--line);color:var(--text);cursor:pointer}
+#welcome .wt:active{background:rgba(255,255,255,.07)}
+#welcome .wt i{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font:800 15px/1 var(--display);font-style:normal;color:#1b0d05;background:var(--grad)}
+#welcome .wt b{display:block;font:700 15px/1.2 var(--body)}#welcome .wt small{display:block;color:var(--muted);font-size:12.5px;line-height:1.35;margin-top:2px}
+#welcome .wt em{margin-left:auto;font-style:normal;color:var(--gold);font-weight:700;font-size:18px}
+#welcome .wgo{display:block;width:100%;margin-top:14px;padding:13px;border:0;border-radius:14px;font:800 18px/1 var(--display);text-transform:uppercase;letter-spacing:.5px;color:#1b0d05;background:var(--grad);cursor:pointer}
 #pzSheet{bottom:auto;height:100%;background:rgba(0,0,0,.55)}
 #pzSheet .sheet{top:0;bottom:0;max-height:none;border-radius:0;border-top:0;padding:calc(10px + env(safe-area-inset-top)) 12px 0}
 #pzSheet .pzsh input{font-size:16px;padding:11px 12px;border-radius:12px}#pzSheet .pzsh b{min-width:44px;text-align:center}
@@ -811,11 +823,12 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-mt="beat"><b>Beat a Team</b><small>Find a team that beats theirs</small></button>
   <button data-mt="games"><b>Puzzles</b><small>Finish the squad, climb the leaderboard</small></button>
   <button data-mt="setup"><b>Season Setup</b><small>Series, boosts and builds</small></button>
+  <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="beta/engine.js?v=20261117t"></script>
-<script src="beta/sbc-solver.js?v=20261117t"></script>
-<script src="beta/puzzle-core.js?v=20261117t"></script>
-<script src="beta/app.js?v=20261117t"></script>
+<script src="beta/engine.js?v=20261117u"></script>
+<script src="beta/sbc-solver.js?v=20261117u"></script>
+<script src="beta/puzzle-core.js?v=20261117u"></script>
+<script src="beta/app.js?v=20261117u"></script>
 </body>
 </html>

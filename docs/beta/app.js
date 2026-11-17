@@ -68,7 +68,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
   bar.onclick = e => { const b = e.target.closest("[data-tb]"); if (!b) return;
     if (b.dataset.tb === "more") { const sh = $("moreSheet"); sh.hidden = !sh.hidden; return; }
     document.querySelector(`#tabs button[data-t="${b.dataset.tb}"]`).click(); };
-  $("moreSheet").onclick = e => { const b = e.target.closest("[data-mt]"); if (b) document.querySelector(`#tabs button[data-t="${b.dataset.mt}"]`).click(); else if (e.target.id === "moreSheet") $("moreSheet").hidden = true; };
+  $("moreSheet").onclick = e => { if (e.target.closest("[data-welcome]")) { $("moreSheet").hidden = true; return welcome(true); } const b = e.target.closest("[data-mt]"); if (b) document.querySelector(`#tabs button[data-t="${b.dataset.mt}"]`).click(); else if (e.target.id === "moreSheet") $("moreSheet").hidden = true; };
   if (!IS_OWNER) document.querySelectorAll('#moreSheet [data-mt="setup"]').forEach(b => b.hidden = true);
 })();
 
@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117t";
+const APP_V = "20261117u";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -110,6 +110,21 @@ function installTip() {
   $("installNo").onclick = () => { try { localStorage.setItem("installTipOff", "1"); } catch (e) {} box.remove(); };
   if (INSTALL_EV) $("installGo").onclick = async () => { INSTALL_EV.prompt(); await INSTALL_EV.userChoice; INSTALL_EV = null; box.remove(); };
 }
+// first visit: a short welcome sheet pointing to the three main places (open it again any time from More)
+function welcome(force) {
+  let seen = false; try { seen = localStorage.getItem("welcomeSeen") === "1"; } catch (e) {}
+  if ((seen && !force) || $("welcome")) return;
+  const o = document.createElement("div"); o.id = "welcome";
+  const tile = (t, ic, title, txt) => `<button class="wt" data-wt="${t}"><i>${ic}</i><span><b>${title}</b><small>${txt}</small></span><em>›</em></button>`;
+  o.innerHTML = `<div class="wbox"><button class="wx" aria-label="Close">✕</button><h3>Welcome to the ToolKit</h3><p class="ws">Everything you need for Fatal and SBCs, updated every day.</p>
+    ${tile("teams", "T", "Best Teams", `This week's strongest Fatal My Club and Sim teams for every series. Tap "Don't have" on a card for your own version.`)}
+    ${tile("sbc", "SBC", "SBC Solver", "Paste the requirements and get the cheapest squad.")}
+    ${tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.")}
+    <button class="wgo">Show Me the Teams</button></div>`;
+  document.body.appendChild(o);
+  const close = t => { try { localStorage.setItem("welcomeSeen", "1"); } catch (e) {} o.remove(); if (t) document.querySelector(`#tabs button[data-t="${t}"]`).click(); };
+  o.onclick = e => { const b = e.target.closest("[data-wt]"); if (b) return close(b.dataset.wt); if (e.target.closest(".wgo")) return close("teams"); if (e.target.closest(".wx") || e.target === o) close(); };
+}
 async function init() {
   if (await selfUpdate()) return;
   $("appV").textContent = "Version " + APP_V;
@@ -126,7 +141,7 @@ async function init() {
   try { await evoAll(); if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`; } catch (e) {}   // every evolved card of the year: searchable everywhere, needed for All Evos teams
   try { INDEX = await getJSON("results/index.json"); if (INDEX.all && PREVIEW) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
-  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
+  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip(); welcome();
 }
 
 // ---------- shared card UI ----------
@@ -1333,7 +1348,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117t"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117u"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1359,7 +1374,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117t"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117u"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2174,7 +2189,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117t");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117u");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
