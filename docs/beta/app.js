@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117c";
+const APP_V = "20261117d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -266,9 +266,9 @@ const sameSet = (a, b) => (a || []).length === (b || []).length && (a || []).eve
 const localOf = k => lsGet("local")[k] || null;
 function localSet(k, v) { const a = lsGet("local"); if (v) a[k] = v; else delete a[k]; lsSet("local", a); }
 const SW_ICONS = new Set(["icon", "debut_icon"]);
-function swapCtx(k, d, missing) {               // shared by the instant fill and the smart search
+function swapCtx(k, d, missing, slotsIn) {      // shared by the instant fill and the smart search (slotsIn: another formation)
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, gone = new Set(missing);
-  const slots = t.players.map(p => p.slot), pool = d._pool ? CARDS.concat(d._pool) : CARDS;
+  const slots = slotsIn || t.players.map(p => p.slot), pool = d._pool ? CARDS.concat(d._pool) : CARDS;
   const ok = c => c && !gone.has(c.id) && c.rating <= (s.cap || 99) && !(c._extra && c.owned === false);
   const score = tm => {                          // quick judge of a full team: chem first, then in-game stats
     const E = effective(tm, s), ch = E.reduce((a, e) => a + e.chem, 0);
@@ -367,12 +367,12 @@ async function simSwapBest(k, d, missing, onP) {
   }
   return { team: win.tm.map(x => x.id), slots, sim: true, tested: seen.size, key: win.key, R: win.R };
 }
-function versionData(k, d, team, slots, missing) {
+function versionData(k, d, team, slots, missing, formation) {
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, E = effective(team, s);
   const players = team.map((c, i) => ({ slot: slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
     card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t, evos: c.evos }));
   const chem = E.reduce((a, e) => a + e.chem, 0), avg = v => v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 100) / 100 : 0;
-  if (!sim) return Object.assign({}, d, { team: Object.assign({}, t, { players, chem, plan: null, results: null, source: null }), not_owned_ids: missing });
+  if (!sim) return Object.assign({}, d, { team: Object.assign({}, t, { players, chem, formation: formation || t.formation, plan: null, results: null, source: null }), not_owned_ids: missing });
   const R = players.map((p, i) => ({ slot: p.slot, pos: team[i].position, a: p.eff[0], c: p.eff[1], d: p.eff[2] })), W = attackWeights(R);
   const metrics = Object.assign({}, t.metrics, { chem, control: avg(R.filter(r => CTRL.has(r.slot)).map(r => r.c)), defence: avg(R.filter(r => DEF.has(r.slot)).map(r => r.d)),
     attack: Math.round(R.reduce((a, r, i) => a + W[i] * r.a, 0) * 100) / 100 });
@@ -381,7 +381,7 @@ function versionData(k, d, team, slots, missing) {
 function swapTeam(k, d, missing) {
   const L = localOf(k);
   if (L && L.team && sameSet(L.ids, missing)) {   // the smart search's team
-    const team = L.team.map(id => BYID.get(id)); if (team.every(Boolean)) return versionData(k, d, team, L.slots, missing);
+    const team = L.team.map(id => BYID.get(id)); if (team.every(Boolean)) return versionData(k, d, team, L.slots, missing, L.formation);
   }
   const f = instantFill(k, d, missing); return f && versionData(k, d, f.team, f.slots, missing);
 }
@@ -401,15 +401,28 @@ async function smartSwap(k, d, missing, onP) {
   const fullT = (d._full ? d._full.ids : t.players.map(p => p.id)).map(i => BYID.get(i));
   if (fullT.every(Boolean)) opps.push(fullT);         // last: the full team (with the card you don't have), a tiebreak only
   const OE = opps.map(o => effective(o, s)), nFull = fullT.every(Boolean) ? 1 : 0, nRed = (wser.opponents || []).length ? 1 : 0;
-  const seen = new Set(), cands = [], add = tm => { const key = tm.map(x => x.id).join(); if (!seen.has(key)) { seen.add(key); cands.push([C.score(tm), tm]); } };
+  // candidates: [quick score, team, context (formation), formation name]
+  const seen = new Set(), cands = [], add = (tm, Cx = C, f = t.formation) => { const key = f + ":" + tm.map(x => x.id).join(); if (!seen.has(key)) { seen.add(key); cands.push([Cx.score(tm), tm, Cx, f]); } };
   add(base);
   for (const i of gaps) for (const [, x] of C.options(base, i, 8)) { const tm = base.slice(); tm[i] = x; add(tm); }
   const firsts = cands.slice(0, 3).map(c => c[1]);
   for (const b of firsts) for (let j = 0; j < 11; j++) if (!gaps.includes(j))
     for (const [, x] of C.options(b, j, 3)) { if (x.id === b[j].id) continue; const tm = b.slice(); tm[j] = x; add(tm); }
-  const list = [cands[0], ...cands.slice(1).sort((a, b) => b[0] - a[0])].slice(0, 48).map(c => c[1]);
+  // other formations: the strong teams the builder saved for this series (any formation), with your missing cards
+  // refilled. Losing a card can make a different shape the better team, so the best few of these are tested too
+  const CX = new Map(), ctxFor = sl => CX.get(sl.join()) || CX.set(sl.join(), swapCtx(k, d, missing, sl)).get(sl.join()), alts = [];
+  for (const [n, ot] of Object.entries(OT)) {
+    if (n === "mirror" || !ot.players || ot.players.length !== 11) continue;
+    const sl = ot.players.map(p => p.slot), Cx = ctxFor(sl), tm = ot.players.map(p => { const c = BYID.get(p.id); return Cx.ok(c) ? c : null; });
+    tm.forEach((c, i) => { if (!c) { const o = Cx.options(tm, i, 1)[0]; tm[i] = o ? o[1] : null; } });
+    if (tm.every(Boolean)) alts.push([Cx.score(tm), tm, Cx, ot.formation || ""]);
+  }
+  const perF = {}; alts.sort((a, b) => b[0] - a[0]).filter(a => (perF[a[3]] = (perF[a[3]] || 0) + 1) <= 2).slice(0, 10).forEach(a => add(a[1], a[2], a[3]));
+  const same = cands.filter(c => c[3] === t.formation), other = cands.filter(c => c[3] !== t.formation);
+  const list = [same[0], ...other, ...same.slice(1).sort((a, b) => b[0] - a[0])].slice(0, 56);
   let best = null, n = 0, solves = 0; const t0 = Date.now(), LIMIT = d._limit || 75000, W = Math.min(4, navigator.hardwareConcurrency || 2);
-  const judge = async tm => {
+  const better = g => g && (!best || g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))));
+  const judge = async ([sc, tm, Cx, f]) => {
     const A = effective(tm, s); let worst = 3, sum = 0, red = null;
     for (let o = 0; o < OE.length; o++) {
       const r = await poolAsk(solves++, { type: "o2", A, B: OE[o] });
@@ -418,28 +431,28 @@ async function smartSwap(k, d, missing, onP) {
       if (o === 0 && nRed) red = r;
       if (best && worst < best.worst) return null;              // can't beat the best so far
     }
-    return { worst, sum, red, score: C.score(tm), tm };
+    return { worst, sum, red, score: sc, tm, Cx, f };
   };
   for (let i = 0; i < list.length && Date.now() - t0 < LIMIT; i += W) {
     const got = await Promise.all(list.slice(i, i + W).map(judge));
-    for (const g of got) if (g && (!best || g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) best = g;
+    for (const g of got) if (better(g)) best = g;
     n = Math.min(list.length, i + W); if (onP) onP(n, list.length);
   }
-  // then climb with the time left: from the best team, the strongest few cards in every slot, again from any better
-  // team, until nothing improves (some better teams are two or three single changes away, e.g. 78 without Meyer)
+  // then climb with the time left: from the best team (in its formation), the strongest few cards in every slot,
+  // again from any better team, until nothing improves (some better teams are two or three single changes away)
   for (let grew = true; best && grew && Date.now() - t0 < LIMIT;) {
-    grew = false; const from = best.tm, next = [];
-    for (let j = 0; j < 11; j++) for (const [, x] of C.options(from, j, 4)) {
-      if (x.id === from[j].id) continue; const tm = from.slice(); tm[j] = x; const key = tm.map(y => y.id).join();
-      if (!seen.has(key)) { seen.add(key); next.push([C.score(tm), tm]); }
+    grew = false; const from = best.tm, Cb = best.Cx, fb = best.f, next = [];
+    for (let j = 0; j < 11; j++) for (const [, x] of Cb.options(from, j, 4)) {
+      if (x.id === from[j].id) continue; const tm = from.slice(); tm[j] = x; const key = fb + ":" + tm.map(y => y.id).join();
+      if (!seen.has(key)) { seen.add(key); next.push([Cb.score(tm), tm, Cb, fb]); }
     }
     next.sort((a, b) => b[0] - a[0]);
     for (let i = 0; i < next.length && Date.now() - t0 < LIMIT && !grew; i += W) {
-      const got = await Promise.all(next.slice(i, i + W).map(c => judge(c[1]))); n += got.length; if (onP) onP(n, 0);
-      for (const g of got) if (g && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
+      const got = await Promise.all(next.slice(i, i + W).map(judge)); n += got.length; if (onP) onP(n, 0);
+      for (const g of got) if (g && best && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
     }
   }
-  return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, sum: best.sum, score: best.score, tested: n, opps: OE.length };
+  return best && { team: best.tm.map(x => x.id), slots: best.Cx.slots, formation: best.f, worst: best.worst, red: best.red, sum: best.sum, score: best.score, tested: n, opps: OE.length };
 }
 const SIMSW = new Set();     // Sim versions being searched right now
 async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
@@ -1304,7 +1317,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1330,7 +1343,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2144,7 +2157,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117c");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
