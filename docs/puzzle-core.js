@@ -48,6 +48,7 @@ function pzScore(pz, slots, team) {
     if (!locked.has(i) && pzNoSBC(c)) { res.why = `${c.name} can't be used here`; return res; }
   }
   if (total < pz.target) { res.why = `Needs ${pz.target} chem`; return res; }
+  if (pz.lockChem) for (const i of locked.keys()) if (chem[i] < pz.lockChem) { res.why = pz.lockChem >= 3 ? "Locked cards need full chem" : `Locked cards need ${pz.lockChem} chem`; return res; }
   const free = team.filter((c, i) => !locked.has(i));
   res.hits = free.filter(c => pzBonusHit(c, pz.bonus)).length;
   res.bonus = pz.bonus ? res.hits * pz.bonus.each : 0;

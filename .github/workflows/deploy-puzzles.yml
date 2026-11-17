@@ -48,6 +48,7 @@ jobs:
           [ -n "$ID" ] || fail "no database id"
           printf 'name = "madfut-puzzles"\nmain = "dist/worker.js"\ncompatibility_date = "2024-11-01"\nworkers_dev = true\n\n[[d1_databases]]\nbinding = "DB"\ndatabase_name = "madfut-puzzles"\ndatabase_id = "%s"\n' "$ID" > wrangler.toml
           wrangler d1 execute madfut-puzzles --remote --file=schema.sql >log.txt 2>&1 || fail "schema"
+          wrangler d1 execute madfut-puzzles --remote --file=fix.sql >log.txt 2>&1 || fail "data fixes"
           echo "::notice title=database::ready $ID"
       - name: Deploy
         if: steps.have.outputs.ok == '1'
