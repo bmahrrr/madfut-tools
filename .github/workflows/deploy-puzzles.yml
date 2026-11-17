@@ -57,3 +57,10 @@ jobs:
           URL=$(grep -o 'https://[^ ]*workers.dev' log.txt | head -1)
           echo "Server: $URL" >> $GITHUB_STEP_SUMMARY
           echo "::notice title=server::$URL"
+      - name: Check it answers
+        if: steps.have.outputs.ok == '1'
+        run: |
+          U=https://madfut-puzzles.bmahrrr1.workers.dev; sleep 5
+          LB=$(curl -s -m 20 "$U/lb?set=all"); ME=$(curl -s -m 20 "$U/me"); LG=$(curl -s -m 20 -X POST -H 'Content-Type: application/json' -d '{"name":"zz-check-nobody","pin":"0000"}' "$U/login")
+          echo "::notice title=lb::$LB"; echo "::notice title=me::$ME"; echo "::notice title=login::$LG"
+          echo "$LB" | grep -q '"rows"' || { echo "::error title=check::leaderboard didn't answer"; exit 1; }
