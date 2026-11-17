@@ -25,27 +25,27 @@
  "teams": [
   {
    "formation": "3-4-1-2",
-   "chem": 32,
+   "chem": 33,
    "players": [
     {
-     "id": "id67329765",
-     "name": "David Raya",
-     "rating": 89,
-     "color": "totw_gold",
+     "id": "id258680",
+     "name": "van Domselaar",
+     "rating": 83,
+     "color": "rare_gold",
      "position": "GK",
-     "nationId": 45,
-     "leagueId": 13,
+     "nationId": 34,
+     "leagueId": 2216,
      "clubId": 1,
      "card": [
-      46,
-      48,
-      90
+      36,
+      27,
+      84
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      48,
-      50,
-      92
+      39,
+      30,
+      87
      ],
      "slot": "GK"
     },
@@ -72,24 +72,24 @@
      "slot": "CB"
     },
     {
-     "id": "id83891820",
-     "name": "Stam",
-     "rating": 88,
-     "color": "halloween_hero",
-     "position": "CDM",
-     "nationId": 34,
-     "leagueId": 13,
+     "id": "id261593",
+     "name": "Kohler",
+     "rating": 89,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
      "clubId": 114605,
      "card": [
-      68,
-      72,
-      88
+      62,
+      63,
+      90
      ],
      "chem": 3,
      "eff": [
-      71,
-      75,
-      91
+      65,
+      66,
+      93
      ],
      "slot": "CB"
     },
@@ -279,11 +279,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.56,
+    "ctrl_win": 0.5987,
     "control": 93.0,
     "attack": 92.17,
-    "defence": 92.25,
-    "net": 0.1976,
+    "defence": 91.5,
+    "net": 0.2806,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -304,22 +304,22 @@
     "defence_cards": [
      93,
      93,
-     92,
-     91
+     93,
+     87
     ],
-    "p_att": 0.6041,
-    "p_def": 0.4427,
-    "chem": 32,
+    "p_att": 0.6314,
+    "p_def": 0.5352,
+    "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 266.8,
     "att_total": 243.36,
-    "def_total": 223.5,
+    "def_total": 211.75,
     "round_robin": {
-     "wins": 20.5,
-     "margin": 2.426
+     "wins": 17.0,
+     "margin": 2.9259
     }
    }
   },
@@ -350,28 +350,6 @@
      "slot": "GK"
     },
     {
-     "id": "ltm_comuzzo89",
-     "name": "Comuzzo",
-     "rating": 89,
-     "color": "ltm",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 54,
-     "card": [
-      67,
-      76,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      79,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id83891820",
      "name": "Stam",
      "rating": 88,
@@ -394,23 +372,45 @@
      "slot": "CB"
     },
     {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
+     "id": "ltm_comuzzo89",
+     "name": "Comuzzo",
+     "rating": 89,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      67,
+      76,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      79,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
      "color": "icon",
      "position": "CB",
      "nationId": 27,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      64,
       62,
+      64,
       90
      ],
      "chem": 3,
      "eff": [
-      67,
       65,
+      67,
       93
      ],
      "slot": "CB"
@@ -441,28 +441,6 @@
      "slot": "LM"
     },
     {
-     "id": "id50592947",
-     "name": "Scott",
-     "rating": 86,
-     "color": "future_stars",
-     "position": "CM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1943,
-     "card": [
-      85,
-      88,
-      81
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      93,
-      84
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id024",
      "name": "Reijnders",
      "rating": 89,
@@ -481,6 +459,28 @@
       89,
       93,
       90
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      93,
+      84
      ],
      "slot": "CM"
     },
@@ -579,11 +579,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.56,
+    "ctrl_win": 0.5667,
     "control": 93.0,
     "attack": 92.17,
     "defence": 92.25,
-    "net": 0.1976,
+    "net": 0.2063,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -607,8 +607,8 @@
      92,
      91
     ],
-    "p_att": 0.6041,
-    "p_def": 0.4427,
+    "p_att": 0.6177,
+    "p_def": 0.4423,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -616,11 +616,15 @@
     "attack_short": 0,
     "ctrl_total": 266.8,
     "att_total": 243.36,
-    "def_total": 223.5
+    "def_total": 223.5,
+    "round_robin": {
+     "wins": 21.0,
+     "margin": 2.4811
+    }
    }
   },
   {
-   "formation": "3-4-1-2",
+   "formation": "3-1-4-2",
    "chem": 33,
    "players": [
     {
@@ -646,24 +650,24 @@
      "slot": "GK"
     },
     {
-     "id": "id83891820",
-     "name": "Stam",
-     "rating": 88,
-     "color": "halloween_hero",
-     "position": "CDM",
-     "nationId": 34,
-     "leagueId": 13,
-     "clubId": 114605,
+     "id": "id1615",
+     "name": "Thuram",
+     "rating": 89,
+     "color": "icon",
+     "position": "RB",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      68,
-      72,
-      88
+      74,
+      75,
+      89
      ],
      "chem": 3,
      "eff": [
-      71,
-      75,
-      91
+      77,
+      78,
+      92
      ],
      "slot": "CB"
     },
@@ -690,26 +694,48 @@
      "slot": "CB"
     },
     {
-     "id": "id1615",
-     "name": "Thuram",
-     "rating": 89,
-     "color": "icon",
-     "position": "RB",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "id": "id83891820",
+     "name": "Stam",
+     "rating": 88,
+     "color": "halloween_hero",
+     "position": "CDM",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 114605,
      "card": [
-      74,
-      75,
-      89
+      68,
+      72,
+      88
      ],
      "chem": 3,
      "eff": [
-      77,
-      78,
-      92
+      71,
+      75,
+      91
      ],
      "slot": "CB"
+    },
+    {
+     "id": "id024",
+     "name": "Reijnders",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 350,
+     "clubId": 112391,
+     "card": [
+      86,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      93,
+      90
+     ],
+     "slot": "CDM"
     },
     {
      "id": "evo_Oxlade-Chamberlain_87",
@@ -805,28 +831,6 @@
       "Les Bleus Defender"
      ],
      "slot": "RM"
-    },
-    {
-     "id": "id024",
-     "name": "Reijnders",
-     "rating": 89,
-     "color": "world_potm_nominee",
-     "position": "CM",
-     "nationId": 34,
-     "leagueId": 350,
-     "clubId": 112391,
-     "card": [
-      86,
-      90,
-      87
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      93,
-      90
-     ],
-     "slot": "CAM"
     },
     {
      "id": "id51",
@@ -875,11 +879,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.56,
+    "ctrl_win": 0.5667,
     "control": 93.0,
-    "attack": 91.97,
-    "defence": 92.0,
-    "net": 0.1986,
+    "attack": 92.17,
+    "defence": 91.6,
+    "net": 0.2089,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -901,23 +905,24 @@
      93,
      92,
      92,
-     91
+     91,
+     90
     ],
-    "p_att": 0.6423,
-    "p_def": 0.3746,
+    "p_att": 0.6896,
+    "p_def": 0.3162,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 266.8,
-    "att_total": 248.55,
-    "def_total": 224.75
+    "att_total": 246.9,
+    "def_total": 234.2
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-15 23:35 UTC",
+ "built": "2026-11-17 02:26 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-15 03:44 UTC"
+ "changed": "2026-11-17 02:26 UTC"
 }
