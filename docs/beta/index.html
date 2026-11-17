@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261117w">
+<meta name="app-version" content="20261117x">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -408,8 +408,9 @@ body.simmode .pc{background:rgba(10,14,22,.93)}
   #tabbar svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   #tabbar button.on{color:var(--fire)}
   main{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
-  #moreSheet{position:fixed;inset:0;z-index:29;background:rgba(0,0,0,.45)}
-  #moreSheet .sheet{position:absolute;left:10px;right:10px;bottom:calc(74px + env(safe-area-inset-bottom));padding:8px;border-radius:18px;background:rgba(24,17,13,.97);border:1px solid var(--line2);box-shadow:0 -10px 40px rgba(0,0,0,.5)}
+  #moreSheet{position:fixed;inset:0;z-index:29;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;animation:mIn .18s ease}
+  #moreSheet .sheet{position:relative;width:100%;max-width:380px;max-height:calc(100dvh - 32px);overflow:auto;padding:8px;border-radius:20px;background:rgba(24,17,13,.98);border:1px solid var(--line2);box-shadow:0 20px 60px rgba(0,0,0,.6);animation:mPop .2s ease}
+  @keyframes mIn{from{opacity:0}}@keyframes mPop{from{transform:scale(.94);opacity:0}}
   body.simmode #moreSheet .sheet{background:rgba(12,16,26,.97)}
   #moreSheet button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--text);padding:12px 12px;border-radius:12px;cursor:pointer}
   #moreSheet button:active{background:rgba(255,255,255,.05)}
@@ -827,9 +828,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="beta/engine.js?v=20261117w"></script>
-<script src="beta/sbc-solver.js?v=20261117w"></script>
-<script src="beta/puzzle-core.js?v=20261117w"></script>
-<script src="beta/app.js?v=20261117w"></script>
+<script src="beta/engine.js?v=20261117x"></script>
+<script src="beta/sbc-solver.js?v=20261117x"></script>
+<script src="beta/puzzle-core.js?v=20261117x"></script>
+<script src="beta/app.js?v=20261117x"></script>
 </body>
 </html>
