@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261117x">
+<meta name="app-version" content="20261117y">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -621,6 +621,19 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 .pibon{margin:8px 0 0;font-size:12.5px;color:#ffd36b}
 .piact{display:flex;gap:8px;margin-top:12px}.piact button{flex:1}
 .pzacc input{width:100%}
+/* the gold "Perfect" score: the top possible score of a puzzle */
+@keyframes pzShine{from{background-position:200% 0}to{background-position:-200% 0}}
+#gameBox .pzgold{background:linear-gradient(105deg,#c7962c 0%,#ffe08a 35%,#fffbe8 50%,#ffe08a 65%,#c7962c 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 2.6s linear infinite}
+#gameBox .pzdone.gold{position:relative;overflow:hidden;border-color:rgba(255,212,106,.7);background:linear-gradient(160deg,rgba(255,212,106,.14),rgba(255,212,106,.04));box-shadow:0 0 28px rgba(255,200,80,.18)}
+#gameBox .pzdone.gold::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,240,190,.22) 50%,transparent 70%);background-size:250% 100%;animation:pzShine 2.6s linear infinite;pointer-events:none}
+#gameBox .pzstar{font:800 13px/1 var(--display);letter-spacing:1px;text-transform:uppercase;font-style:normal;color:#ffd76a}
+#gameBox .pztile.gold{position:relative;overflow:hidden;border-color:rgba(255,212,106,.75)!important;background:linear-gradient(160deg,rgba(255,212,106,.2),rgba(255,212,106,.05))!important}
+#gameBox .pztile.gold small{color:#ffd76a!important}
+#gameBox .pztile.gold::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,240,190,.25) 50%,transparent 65%);background-size:250% 100%;animation:pzShine 3s linear infinite;pointer-events:none}
+#gameBox .pzlb li.gold .pt{background:linear-gradient(105deg,#c7962c,#ffe08a 40%,#fffbe8 50%,#ffe08a 60%,#c7962c);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 2.6s linear infinite}
+#gameBox .pzlb li.gold .pt::before{content:"★ ";color:#ffd76a}
+@media (prefers-reduced-motion:reduce){#gameBox .pzgold,#gameBox .pzdone.gold::after,#gameBox .pztile.gold::after,#gameBox .pzlb li.gold .pt{animation:none}}
+
 #welcome{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;animation:wIn .25s ease}
 @keyframes wIn{from{opacity:0}}@keyframes wUp{from{transform:translateY(40px)}}
 #welcome .wbox{position:relative;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:20px 16px calc(22px + env(safe-area-inset-bottom));background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 12%,transparent),color-mix(in srgb,var(--fire) 5%,transparent) 60%),var(--panel);border:1px solid color-mix(in srgb,var(--fire) 28%,transparent);border-bottom:0;animation:wUp .3s ease}
@@ -828,9 +841,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="beta/engine.js?v=20261117x"></script>
-<script src="beta/sbc-solver.js?v=20261117x"></script>
-<script src="beta/puzzle-core.js?v=20261117x"></script>
-<script src="beta/app.js?v=20261117x"></script>
+<script src="beta/engine.js?v=20261117y"></script>
+<script src="beta/sbc-solver.js?v=20261117y"></script>
+<script src="beta/puzzle-core.js?v=20261117y"></script>
+<script src="beta/app.js?v=20261117y"></script>
 </body>
 </html>

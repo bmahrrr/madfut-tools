@@ -7,6 +7,7 @@
 //   POST /submit {puzzle, team}  (Bearer)       -> checks it, keeps your best
 //   POST /name {name}  (Bearer)                 -> change your name
 //   GET  /lb?set=<set id or "all">              -> top 50: name, points, puzzles solved (+ your rank if signed in)
+//   GET  /records                               -> { records: { puzzle id: top points anyone has } }
 //   GET  /lb?puzzle=<puzzle id>                 -> top 50 for one puzzle: name, points, chem, squad rating
 // Live at https://madfut-puzzles.bmahrrr1.workers.dev
 const SITE_DEFAULT = "https://bmahrrr.github.io/madfut-tools/";
@@ -73,6 +74,10 @@ export default {
     if (req.method === "OPTIONS") return new Response(null, { headers: CORS });
     const url = new URL(req.url), P = url.pathname;
     try {
+      if (req.method === "GET" && P === "/records") {   // the top score anyone has on each puzzle (beats a known top score = new top score)
+        const r = (await env.DB.prepare("SELECT puzzle, MAX(pts) AS pts FROM scores GROUP BY puzzle").all()).results;
+        return json({ records: Object.fromEntries(r.map(x => [x.puzzle, x.pts])) });
+      }
       if (req.method === "GET" && P === "/lb") {
         const set = url.searchParams.get("set") || "all", puzzle = url.searchParams.get("puzzle") || "", me = await who(env, req);
         return json({ set, puzzle, rows: await board(env, set, puzzle), you: me ? await rankIn(env, me.pid, set, puzzle) : null });
