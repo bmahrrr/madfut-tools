@@ -1,6 +1,7 @@
 // Puzzles: shared by the site and the leaderboard server (which adds it after sbc-solver.js), so a squad is scored
 // the same way in both places. A puzzle: a formation, some locked cards in set spots, a chem target, points for
-// finishing it and bonus points (each card from a league / nation / club, and a bonus for using no Icons or Heroes).
+// finishing it and bonus points (each card from a league / nation / club, a bonus for using no Icons or Heroes, and
+// budget points for a squad rating under par).
 "use strict";
 
 const PZ_TIERS = {
@@ -22,6 +23,9 @@ function pzChem(slots, team) {
   return out;
 }
 
+// budget points: for every point the squad rating is under the puzzle's par (like doing an SBC cheaply)
+const pzBudget = (pz, rating) => pz.budget && rating ? Math.max(0, pz.budget.par - rating) * pz.budget.each : 0;
+
 // does card c count for the puzzle's bonus?
 function pzBonusHit(c, b) {
   if (!b || !c) return false;
@@ -31,7 +35,8 @@ function pzBonusHit(c, b) {
 // team: cards (or null) in the puzzle's formation order. -> { ok, why, chem: per spot, total, pts, base, bonus, noIcon }
 function pzScore(pz, slots, team) {
   const chem = pzChem(slots, team), total = chem.reduce((a, b) => a + b, 0);
-  const res = { ok: false, why: "", chem, total, base: pz.pts, bonus: 0, hits: 0, noIcon: 0, pts: 0 };
+  const full = team.every(Boolean), rating = full ? teamRatingOf(team.map(c => c.rating)) : 0;
+  const res = { ok: false, why: "", chem, total, rating, base: pz.pts, bonus: 0, hits: 0, noIcon: 0, budget: 0, pts: 0 };
   const locked = new Map(pz.locked.map(l => [l.i, l.id]));
   if (team.length !== slots.length || team.some(c => !c)) { res.why = "Fill every spot"; return res; }
   for (const [i, id] of locked) if (team[i].id !== id) { res.why = "A locked card was moved"; return res; }
@@ -47,6 +52,7 @@ function pzScore(pz, slots, team) {
   res.hits = free.filter(c => pzBonusHit(c, pz.bonus)).length;
   res.bonus = pz.bonus ? res.hits * pz.bonus.each : 0;
   res.noIcon = free.some(c => SBC_AUTO.has(c.color)) ? 0 : (pz.noIcon || 0);
-  res.ok = true; res.pts = pz.pts + res.bonus + res.noIcon;
+  res.budget = pzBudget(pz, rating);
+  res.ok = true; res.pts = pz.pts + res.bonus + res.noIcon + res.budget;
   return res;
 }
