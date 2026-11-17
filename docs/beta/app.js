@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117i";
+const APP_V = "20261117j";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1333,7 +1333,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117i"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117j"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1359,7 +1359,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117j"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2173,7 +2173,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117i");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117j");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2770,7 +2770,8 @@ const pzSave = () => { const all = pzLS("pzTeam", {}); all[PZ.pz.id] = PZ.team.m
 const setPts = set => { const b = pzBest(); return set.puzzles.reduce((a, p) => a + (b[p.id] || 0), 0); };
 const setSolved = set => { const b = pzBest(); return set.puzzles.filter(p => b[p.id]).length; };
 const fmtN = n => Number(n || 0).toLocaleString();
-const bonusText = pz => `+${pz.bonus.each} each ${esc(pz.bonus.label)} card`;
+const bonusName = b => b.on === "league" ? lShort(b.id) : b.on === "club" ? cShort(b.id) : b.on === "nation" ? `${flagOf(b.id)} ${nName(b.id)}` : b.label;
+const bonusText = pz => `+${pz.bonus.each} each ${esc(bonusName(pz.bonus))} card`;
 
 // short codes for the pitch: nation (FIFA style), league, and a colour per link group
 const NAT3 = { England: "ENG", Germany: "GER", Spain: "ESP", France: "FRA", Argentina: "ARG", "United States": "USA", Italy: "ITA", Netherlands: "NED", Brazil: "BRA", Sweden: "SWE", Norway: "NOR", Denmark: "DEN", Portugal: "POR", "Korea Republic": "KOR", Belgium: "BEL", "Republic of Ireland": "IRL", Poland: "POL", "Saudi Arabia": "KSA", Mexico: "MEX", Switzerland: "SUI", Austria: "AUT", Colombia: "COL", "China PR": "CHN", Scotland: "SCO", Romania: "ROU", Australia: "AUS", "Türkiye": "TUR", Uruguay: "URU", India: "IND", Paraguay: "PAR", Nigeria: "NGA", Wales: "WAL", Morocco: "MAR", Croatia: "CRO", Senegal: "SEN", Japan: "JPN", "Ivory Coast": "CIV", Chile: "CHI", Ecuador: "ECU", Ghana: "GHA", Canada: "CAN", Venezuela: "VEN", Serbia: "SRB", "Czech Republic": "CZE", Greece: "GRE", Ukraine: "UKR", Finland: "FIN", "Northern Ireland": "NIR", Cameroon: "CMR", Peru: "PER", Iceland: "ISL", Mali: "MLI", Algeria: "ALG", Hungary: "HUN", "Bosnia Herzegovina": "BIH", Kosovo: "KVX", "DR Congo": "COD", Bolivia: "BOL", Albania: "ALB", Jamaica: "JAM", Slovenia: "SVN", Slovakia: "SVK", "New Zealand": "NZL", Guinea: "GUI", Gambia: "GAM", Tunisia: "TUN", Georgia: "GEO", "Cape Verde Islands": "CPV", Cyprus: "CYP", "Burkina Faso": "BFA", Egypt: "EGY", Israel: "ISR", Russia: "RUS", Montenegro: "MNE", "North Macedonia": "MKD", Bulgaria: "BUL", Iran: "IRN", "Costa Rica": "CRC", Honduras: "HON", Panama: "PAN" };
@@ -2787,6 +2788,15 @@ const flagOf = id => { const n = nName(id), sub = SUBFLAG[n];
   const c = ISO2[n]; return c ? String.fromCodePoint(...[...c].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65)) : ""; };
 const club3 = id => { const w = cName(id).replace(/\b(FC|CF|AFC|SC|AC|SV|CD|SL|RC|UD|SD|SS|US|AS|FK|SK|IF|BK|CA|CR|SE|EC|1\.|C\.|F\.C\.)\b/g, " ").split(/[\s.-]+/).filter(x => x.length > 1);
   return (w.length >= 2 && w[0].length <= 4 ? w[0][0] + w[1].slice(0, 2) : (w[0] || "?").slice(0, 3)).toUpperCase(); };
+// shorter everyday names for long league and club names (Puzzles)
+const LGN = { "Chinese Football Association Super League": "Chinese Super League", "SSE Airtricity Men's Premier Division": "League of Ireland", "Österreichische Fußball-Bundesliga": "Austrian Bundesliga",
+  "National Women's Soccer League": "NWSL", "Google Pixel Frauen-Bundesliga": "Frauen-Bundesliga", "Barclays Women’s Super League": "Women's Super League", "PKO Bank Polski Ekstraklasa": "Ekstraklasa",
+  "Liga Profesional de Fútbol": "Argentine League", "United Emirates League": "UAE League", "CONMEBOL Sudamericana": "Sudamericana", "CONMEBOL Libertadores": "Libertadores", "Arkema Première Ligue": "Première Ligue",
+  "ROSHN Saudi League": "Saudi Pro League", "Isuzu UTE A League": "A-League", "Ligue 1 McDonald's": "Ligue 1", "Ligue 2 BKT": "Ligue 2", "Brack Super League": "Swiss Super League", "LALIGA HYPERMOTION": "LaLiga 2",
+  "LALIGA EA SPORTS": "LaLiga", "Trendyol Süper Lig": "Süper Lig", "EFL Championship": "Championship", "EFL League One": "League One", "EFL League Two": "League Two", "Serie A Enilive": "Serie A", "Serie BKT": "Serie B",
+  "Liga BBVA MX": "Liga MX", "Liga F Moeve": "Liga F", "Major League Soccer": "MLS", "3F Superliga": "Danish Superliga", "SUPERLIGA": "Romanian Superliga", "1A Pro League": "Belgian Pro League", "Liga Portugal Feminino": "Liga Portugal (W)" };
+const lShort = id => { const n = lName(id); return LGN[n] || n; };
+const cShort = id => cName(id).replace(/^(FC|AFC|CF|SC|AC|SV|1\. FC) /, "").replace(/ (FC|CF|AFC|SC|C\.F\.)$/, "").trim();
 const nat3 = id => { const n = nName(id); return NAT3[n] || n.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase(); };
 const lg3 = id => { const n = lName(id); return LG3[n] || n.split(/\s+/).map(w => w[0]).join("").slice(0, 4).toUpperCase(); };
 const LINKC = ["#ff8a1f", "#3ba7ff", "#3ddc97", "#c77dff", "#ffd36b", "#ff5c8a", "#5ce1e6", "#a3e635"];
@@ -2841,11 +2851,11 @@ function pzPlay() {
     <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span><span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span></div>
     <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
       return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
-        <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lName(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cName(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
+        <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
         : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
     <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
       <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
-      ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lName)}${linkRow("c", "Clubs", cName)}</details>
+      ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lShort)}${linkRow("c", "Clubs", cShort)}</details>
     <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
     <div id="pzMsg"></div>`;
   pzWire();
@@ -2857,8 +2867,8 @@ function pzPlay() {
 function pzPick(i) {
   const pz = PZ.pz, sl = pzSlots(pz)[i], have = new Set(PZ.team.filter((c, j) => c && j !== i).map(playerKey));
   const seen = (m, k, v) => m.set(k, v); const links = new Map();
-  PZ.team.forEach((c, j) => { if (!c || j === i) return; seen(links, "n" + c.nationId, ["nation", c.nationId, nName(c.nationId)]); if (!SBC_ICON.has(c.color)) seen(links, "l" + c.leagueId, ["league", c.leagueId, lName(c.leagueId)]); if (!SBC_AUTO.has(c.color)) seen(links, "c" + c.clubId, ["club", c.clubId, cName(c.clubId)]); });
-  seen(links, "b", [pz.bonus.on, pz.bonus.id, "★ " + pz.bonus.label]);
+  PZ.team.forEach((c, j) => { if (!c || j === i) return; seen(links, "n" + c.nationId, ["nation", c.nationId, flagOf(c.nationId) + " " + nName(c.nationId)]); if (!SBC_ICON.has(c.color)) seen(links, "l" + c.leagueId, ["league", c.leagueId, lShort(c.leagueId)]); if (!SBC_AUTO.has(c.color)) seen(links, "c" + c.clubId, ["club", c.clubId, cShort(c.clubId)]); });
+  seen(links, "b", [pz.bonus.on, pz.bonus.id, "★ " + bonusName(pz.bonus)]);
   const pool = CARDS.filter(c => c.P && c.P.has(sl) && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
   let f = null, q = "";
   const sheet = document.createElement("div"); sheet.id = "pzSheet";
@@ -2872,7 +2882,7 @@ function pzPick(i) {
     if (f === "icon") r = r.filter(c => SBC_AUTO.has(c.color));
     else if (f != null) { const [on, id] = L[f]; r = r.filter(c => on === "nation" ? c.nationId === id : on === "league" ? c.leagueId === id && !SBC_ICON.has(c.color) : c.clubId === id); }
     r = r.slice().sort((a, b) => b.rating - a.rating).slice(0, 60);
-    $("pzL").innerHTML = r.length ? r.map(c => `<button data-c="${esc(c.id)}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${esc(TYPE(c.color))} · ${esc(nName(c.nationId))} · ${esc(SBC_AUTO.has(c.color) ? "" : cName(c.clubId))}</small><small>${esc(lName(c.leagueId))}</small></span>${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`).join("")
+    $("pzL").innerHTML = r.length ? r.map(c => `<button data-c="${esc(c.id)}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`).join("")
       : `<p class="small muted" style="padding:12px">No cards for that. Try another search.</p>`;
     $("pzL").querySelectorAll("[data-c]").forEach(b => b.onclick = () => { PZ.team[i] = BYID.get(b.dataset.c); pzSave(); close(); pzPlay(); });
   };
@@ -2888,7 +2898,7 @@ async function pzSubmit(sc) {
   const pz = PZ.pz, b = pzBest(), msg = $("pzMsg");
   const prev = b[pz.id] || 0; if (sc.pts > prev) { b[pz.id] = sc.pts; pzLSset("pzBest", b); }
   let note = sc.pts > prev ? (prev ? `New best! Up from ${fmtN(prev)}.` : "Solved!") : `Your best is still ${fmtN(prev)}.`;
-  msg.innerHTML = `<div class="pzdone"><b>${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(pz.bonus.label)})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}</span><span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
+  msg.innerHTML = `<div class="pzdone"><b>${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}</span><span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
   msg.scrollIntoView({ behavior: "smooth", block: "center" });
   if (!PZ_API) return;
   if (!pzName()) { const n = prompt("Your name for the leaderboard (2 to 16 letters):"); if (!n) { $("pzRank").textContent = "Not on the leaderboard: no name set."; return; } try { localStorage.setItem("pzName", n.trim().slice(0, 16)); } catch (e) {} }
