@@ -28,7 +28,7 @@ jobs:
           echo "ok=1" >> $GITHUB_OUTPUT
       - uses: actions/setup-node@v4
         if: steps.have.outputs.ok == '1'
-        with: { node-version: 20 }
+        with: { node-version: 22 }
       - name: Build
         if: steps.have.outputs.ok == '1'
         run: |
