@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117d";
+const APP_V = "20261117e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1304,7 +1304,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1330,7 +1330,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2145,7 +2145,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117d");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2179,8 +2179,8 @@ async function runSBC(timeLimit, reqOverride) {
     out.innerHTML = `<p class="bad">Something went wrong: ${esc(e.message)}</p>`;
   } finally { clearInterval(tick); SB.busy = false; $("sbcGo").disabled = false; }
 }
-function sbcChecks(req, sq) {
-  const ch = sbcChem(sq), rt = teamRatingOf(sq.map(x => x.rating)), list = [];
+function sbcChecks(req, sq, slots) {
+  const ch = sbcChemAt(slots, sq), rt = teamRatingOf(sq.map(x => x.rating)), list = [];
   const cnt = (f) => new Set(sq.map(f)).size;
   const most = (f) => Math.max(...[...sq.reduce((m, x) => m.set(f(x), (m.get(f(x)) || 0) + 1), new Map()).values()]);
   const add = (label, ok) => list.push({ label, ok });
@@ -2233,12 +2233,13 @@ function drawSBCResult(working = false) {
       + sbcHints(req || {}).map(h => `<p class="small" style="margin:6px 0">💡 ${esc(h)}</p>`).join("") + skipHtml;
   } else {
     const sq = r.players.map(p => BYID.get(p.id));
-    const checks = sbcChecks(req, sq), allOk = checks.every(c => c.ok);
+    const oopSl = r.oop ? r.players.map(p => p.slot) : null, checks = sbcChecks(req, sq, oopSl), allOk = checks.every(c => c.ok);
     const head = working ? `<p><b>Squad found.</b> <span class="muted small" id="sbcWorking">Checking for a cheaper one…</span></p>`
       : r.proven ? `<p class="ok"><b>✓ Cheapest squad</b></p>`
       : `<p><b>Good squad</b> <span class="muted small">There may be a slightly cheaper one.</span> <button class="ghost" id="sbcLonger" style="padding:4px 9px;font-size:12px">Search longer</button></p>`;
-    const pch = sbcChem(sq), pps = r.players.map((p, k) => Object.assign({}, p, { chem: pch[k] }));
-    out.innerHTML = `<div class="sbchead"><div><span>Formation</span><b>${esc(r.formation)}</b></div><div><span>Rating</span><b>${r.rating}</b></div><div><span>Chem</span><b>${r.chem}</b></div></div>${head}${pitchHTML(pps, "sbc")}
+    const pch = sbcChemAt(oopSl, sq), pps = r.players.map((p, k) => Object.assign({}, p, { chem: pch[k] }));
+    const oopP = r.players.filter(p => p.oop), oopNote = oopP.length ? `<p class="small" style="margin:4px 0 8px">⚠️ <b>${oopP.map(p => esc(p.name)).join(", ")}</b> ${oopP.length > 1 ? "are" : "is"} out of position (0 chem). It can't be done with everyone in position, and the chem target leaves room for ${oopP.length > 1 ? "them" : "it"}.</p>` : "";
+    out.innerHTML = `<div class="sbchead"><div><span>Formation</span><b>${esc(r.formation)}</b></div><div><span>Rating</span><b>${r.rating}</b></div><div><span>Chem</span><b>${r.chem}</b></div></div>${head}${oopNote}${pitchHTML(pps, "sbc")}
       <table class="sq"><tr><th>Pos</th><th>Player</th><th></th></tr>${r.players.map(p =>
         `<tr><td>${esc(p.slot)}</td><td class="wrap"><b>${esc(p.name)}</b> ${p.rating}<br><span class="muted small">${esc(TYPE(p.color))} · ${esc(cName(p.clubId))} · ${esc(nName(p.nationId))} · ${esc(lName(p.leagueId))}</span></td><td><button class="nohave" data-nohave="${esc(p.id)}">Don't<br>have</button></td></tr>`).join("")}</table>
       ${skipHtml}
