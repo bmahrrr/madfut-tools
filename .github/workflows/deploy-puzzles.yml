@@ -24,20 +24,28 @@ jobs:
       - name: Build
         if: steps.have.outputs.ok == '1'
         run: |
-          npm i -g wrangler@3 >/dev/null
+          npm i -g wrangler@4 >/dev/null 2>&1
           mkdir -p worker/dist
           (cat docs/sbc-solver.js; echo; cat docs/puzzle-core.js; echo; cat worker/src/main.js) > worker/dist/worker.js
       - name: Database
         if: steps.have.outputs.ok == '1'
         working-directory: worker
         run: |
-          id() { wrangler d1 list --json | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const x=JSON.parse(s).find(d=>d.name==="madfut-puzzles");process.stdout.write(x?x.uuid:"")})'; }
-          ID=$(id); if [ -z "$ID" ]; then wrangler d1 create madfut-puzzles; ID=$(id); fi
+          # any failure is shown as an error note on the run (readable without signing in)
+          fail() { echo "::error title=$1::$(tail -c 900 log.txt | tr '\n' ' ')"; exit 1; }
+          export WRANGLER_SEND_METRICS=false CI=true
+          id() { wrangler d1 list --json 2>log.txt | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const i=s.indexOf("[");const x=i<0?null:JSON.parse(s.slice(i)).find(d=>d.name==="madfut-puzzles");process.stdout.write(x?x.uuid:"")})'; }
+          ID=$(id) || fail "d1 list"
+          if [ -z "$ID" ]; then wrangler d1 create madfut-puzzles >log.txt 2>&1 || fail "d1 create"; ID=$(id) || fail "d1 list"; fi
+          [ -n "$ID" ] || fail "no database id"
           printf 'name = "madfut-puzzles"\nmain = "dist/worker.js"\ncompatibility_date = "2024-11-01"\nworkers_dev = true\n\n[[d1_databases]]\nbinding = "DB"\ndatabase_name = "madfut-puzzles"\ndatabase_id = "%s"\n' "$ID" > wrangler.toml
-          wrangler d1 execute madfut-puzzles --remote --file=schema.sql
+          wrangler d1 execute madfut-puzzles --remote --file=schema.sql >log.txt 2>&1 || fail "schema"
+          echo "::notice title=database::ready $ID"
       - name: Deploy
         if: steps.have.outputs.ok == '1'
         working-directory: worker
         run: |
-          wrangler deploy | tee deploy.log
-          grep -o 'https://[^ ]*workers.dev' deploy.log | head -1 | sed 's/^/Server: /' >> $GITHUB_STEP_SUMMARY
+          wrangler deploy >log.txt 2>&1 || { echo "::error title=deploy::$(tail -c 900 log.txt | tr '\n' ' ')"; exit 1; }
+          URL=$(grep -o 'https://[^ ]*workers.dev' log.txt | head -1)
+          echo "Server: $URL" >> $GITHUB_STEP_SUMMARY
+          echo "::notice title=server::$URL"
