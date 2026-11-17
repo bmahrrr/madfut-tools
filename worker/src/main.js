@@ -8,6 +8,7 @@
 //   POST /name {name}  (Bearer)                 -> change your name
 //   GET  /lb?set=<set id or "all">              -> top 50: name, points, puzzles solved (+ your rank if signed in)
 //   GET  /lb?puzzle=<puzzle id>                 -> top 50 for one puzzle: name, points, chem, squad rating
+// Live at https://madfut-puzzles.bmahrrr1.workers.dev
 const SITE_DEFAULT = "https://bmahrrr.github.io/madfut-tools/";
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET,POST,OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Authorization" };
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: Object.assign({ "Content-Type": "application/json" }, CORS) });
