@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117v";
+const APP_V = "20261117w";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1258,20 +1258,22 @@ function drawMC() {
   for (const side of ["A", "B", "T"]) {
     const inp = $("q" + side), ul = $("r" + side); if (!inp) continue;
     inp.oninput = () => {
-      const cap = serOf(side).cap || 0, res = search(inp.value, 10, cap);
-      ul.hidden = !res.length;
-      ul.innerHTML = res.map(c => `<li data-id="${esc(c.id)}" class="${cap && c.rating > cap ? "over" : ""}">${cardLine(c)}${cap && c.rating > cap ? ` <span class="small bad">over cap</span>` : ""}</li>`).join("");
+      // a series only takes cards within its cap ("No Series" takes any card)
+      const cap = serOf(side).cap || 0, res = search(inp.value, 40, cap).filter(c => !cap || c.rating <= cap).slice(0, 10);
+      ul.hidden = !inp.value.trim();
+      ul.innerHTML = res.length ? res.map(c => `<li data-id="${esc(c.id)}">${cardLine(c)}</li>`).join("") : `<li class="muted small">No card within the ${cap} cap</li>`;
     };
-    ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; addToTeam(side, BYID.get(li.dataset.id)); const q = $("q" + side); if (q) q.focus(); };
+    ul.onclick = e => { const li = e.target.closest("li[data-id]"); if (!li) return; addToTeam(side, BYID.get(li.dataset.id)); const q = $("q" + side); if (q) q.focus(); };
   }
 }
 function versions(c, side = "A") {   // every card of the same player name, within the cap first, highest rated first
   const cap = serOf(side).cap || 0;
-  return CARDS.filter(x => x._n === c._n).sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
+  return CARDS.filter(x => x._n === c._n && (!cap || x.rating <= cap || x.id === c.id)).sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
 }
 function addToTeam(side, c) {
   if (!c || state[side].length >= 11) return;
   if (state[side].some(x => x.id === c.id)) { alert(`${c.name} is already in this team.`); return; }
+  const cap = serOf(side).cap || 0; if (cap && c.rating > cap) { alert(`${c.name} ${c.rating} is over the ${cap} cap.`); return; }
   state[side].push(c); if (side !== "T") $("solveOut").innerHTML = ""; drawMC();
 }
 async function loadTeam(side, k) {
@@ -1299,7 +1301,8 @@ function resolveNames(text, cap, taken = []) {
     if (!L.length) { L = CARDS.filter(c => c._n.includes(full)); hint = ""; }
     if (hint) { const H = L.filter(c => [cName(c.clubId), nName(c.nationId), lName(c.leagueId)].some(t => norm(t).includes(hint))); if (H.length) L = H; }
     if (r) L = L.filter(c => c.rating === r);
-    L.sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
+    if (cap) L = L.filter(c => c.rating <= cap);   // nothing over the series cap
+    L.sort((a, b) => b.rating - a.rating);
     const pick = L.find(c => !taken.some(x => x.id === c.id) && !out.some(x => x.id === c.id));
     if (pick) out.push(pick); else miss.push(tok);
   }
@@ -1316,6 +1319,8 @@ function pasteNames(side) {
 const LEVEL_TEXT = l => ["Lose by 2+", "Lose by 1", "Draw", "Win by 1", "Win by 2+"][l];
 async function solveMC() {
   if (state.A.length !== 11 || state.B.length !== 11) { $("solveOut").innerHTML = `<span class="bad">Both teams need 11 players (${state.A.length} and ${state.B.length} so far).</span>`; return; }
+  { const cap = mcSeries().cap || 0, over = cap ? [...state.A, ...state.B].filter(c => c.rating > cap) : [];   // e.g. the series was changed after adding them
+    if (over.length) { $("solveOut").innerHTML = `<span class="bad">Over the ${cap} cap: ${esc(over.map(c => c.name + " " + c.rating).join(", "))}. Swap them out first.</span>`; return; } }
   $("solveOut").innerHTML = `<span class="muted">Working it out with perfect play from both sides… a few seconds</span>`;
   const s = mcSeries(); const A = effective(state.A, s), B = effective(state.B, s);
   const r = await ask({ type: "solve", A, B });
@@ -1352,7 +1357,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117v"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117w"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1378,7 +1383,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117v"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117w"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2193,7 +2198,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117v");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117w");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
