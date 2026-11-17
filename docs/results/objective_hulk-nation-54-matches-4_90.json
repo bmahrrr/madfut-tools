@@ -1,40 +1,40 @@
 {
  "g": 4,
  "obj_ids": [
-  "id226895",
+  "id238430",
   "id013",
-  "id100896715",
-  "id50521010"
+  "id191190",
+  "id266690"
  ],
- "strength": 101.7,
+ "strength": 102.1,
  "group_cards": 531,
  "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
+  "formation": "4-2-3-1 (2)",
   "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id5479",
-    "name": "Casillas",
-    "rating": 90,
-    "color": "icon",
+    "id": "id191694",
+    "name": "Campos",
+    "rating": 87,
+    "color": "hero",
     "position": "GK",
-    "nationId": 45,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 114605,
     "card": [
-     48,
-     47,
-     91
+     77,
+     68,
+     88
     ],
     "chem": 3,
     "eff": [
-     51,
-     50,
-     94
+     80,
+     71,
+     91
     ],
-    "tiebreak": 192
+    "tiebreak": 239
    },
    {
     "slot": "LB",
@@ -61,26 +61,26 @@
    },
    {
     "slot": "CB",
-    "id": "id030",
-    "name": "Konsa",
-    "rating": 90,
-    "color": "world_potm_nominee",
+    "id": "id266690",
+    "name": "Lúcio",
+    "rating": 89,
+    "color": "icon",
     "position": "CB",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1,
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     72,
-     81,
-     91
+     75,
+     74,
+     89
     ],
     "chem": 3,
     "eff": [
-     75,
-     84,
-     94
+     78,
+     77,
+     92
     ],
-    "tiebreak": 250
+    "tiebreak": 244
    },
    {
     "slot": "CB",
@@ -107,6 +107,121 @@
    },
    {
     "slot": "RB",
+    "id": "ltm_espart90",
+    "name": "Xavi Espart",
+    "rating": 90,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     81,
+     88,
+     89
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     91,
+     92
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "CDM",
+    "id": "id50573315",
+    "name": "Aitana Bonmatí",
+    "rating": 90,
+    "color": "uwcl_rttk",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
+    "card": [
+     88,
+     87,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     91,
+     92,
+     82
+    ],
+    "tiebreak": 258
+   },
+   {
+    "slot": "CDM",
+    "id": "id50568937",
+    "name": "Patri Guijarro",
+    "rating": 89,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 241,
+    "card": [
+     87,
+     86,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     91,
+     90
+    ],
+    "tiebreak": 264
+   },
+   {
+    "slot": "LM",
+    "id": "id238430",
+    "name": "Roberto Carlos",
+    "rating": 90,
+    "color": "icon",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     83,
+     81,
+     89
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     84,
+     92
+    ],
+    "tiebreak": 259
+   },
+   {
+    "slot": "CAM",
+    "id": "id191190",
+    "name": "Rivellino",
+    "rating": 90,
+    "color": "icon",
+    "position": "CAM",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     89,
+     90,
+     50
+    ],
+    "chem": 3,
+    "eff": [
+     92,
+     93,
+     53
+    ],
+    "tiebreak": 235
+   },
+   {
+    "slot": "RM",
     "id": "evo_Clauss_88",
     "name": "Clauss",
     "rating": 88,
@@ -133,142 +248,27 @@
     ]
    },
    {
-    "slot": "CDM",
-    "id": "id226895",
-    "name": "Formiga",
-    "rating": 90,
-    "color": "icon",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     83,
-     86,
-     88
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     89,
-     91
-    ],
-    "tiebreak": 263
-   },
-   {
-    "slot": "LM",
-    "id": "ltm_ngumoha90",
-    "name": "Ngumoha",
-    "rating": 90,
-    "color": "ltm",
-    "position": "LM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     89,
-     88,
-     56
-    ],
-    "chem": 3,
-    "eff": [
-     92,
-     91,
-     59
-    ],
-    "tiebreak": 239
-   },
-   {
-    "slot": "CM",
-    "id": "id227324",
-    "name": "Abily",
-    "rating": 90,
-    "color": "icon",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     88,
-     89,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     91,
-     92,
-     81
-    ],
-    "tiebreak": 261
-   },
-   {
-    "slot": "CM",
-    "id": "id50568937",
-    "name": "Patri Guijarro",
-    "rating": 89,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 241,
-    "card": [
-     87,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     91,
-     90
-    ],
-    "tiebreak": 264
-   },
-   {
-    "slot": "RM",
-    "id": "id50521010",
-    "name": "Hulk",
-    "rating": 90,
-    "color": "hall_of_fut_upgraded",
-    "position": "ST",
-    "nationId": 54,
-    "leagueId": 308,
-    "clubId": 132794,
-    "card": [
-     88,
-     86,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     91,
-     89,
-     58
-    ],
-    "tiebreak": 235
-   },
-   {
     "slot": "ST",
-    "id": "id100896715",
-    "name": "Raphinha",
+    "id": "id025",
+    "name": "Thauvin",
     "rating": 90,
-    "color": "halloween",
+    "color": "world_potm_nominee",
     "position": "CAM",
-    "nationId": 54,
-    "leagueId": 53,
-    "clubId": 241,
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 64,
     "card": [
      89,
-     88,
-     59
-    ],
-    "chem": 3,
-    "eff": [
-     92,
      91,
      62
     ],
-    "tiebreak": 242
+    "chem": 3,
+    "eff": [
+     92,
+     94,
+     65
+    ],
+    "tiebreak": 248
    }
   ]
  },
@@ -318,7 +318,7 @@
   "id67322964",
   "id50573494"
  ],
- "built": "2026-11-17 06:09 UTC",
+ "built": "2026-11-17 06:10 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-17 06:09 UTC"
+ "changed": "2026-11-17 06:10 UTC"
 }
