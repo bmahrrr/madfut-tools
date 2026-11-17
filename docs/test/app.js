@@ -3005,13 +3005,13 @@ function pzPick(i) {
       + sel("pzFcl", "Club", F.cl, opts("cl", c => SBC_AUTO.has(c.color) ? null : c.clubId, k => cName(k)), "Any")
       + sel("pzFty", "Card Type", F.type, opts("type", tk, tl, (a, b) => ((TORDER.indexOf(a[0]) + 1 || 9) - (TORDER.indexOf(b[0]) + 1 || 9)) || a[1].localeCompare(b[1])), "Any")
       + `<label class="pzsel${F.lo || F.hi ? " on" : ""}"><span>Rating</span><span class="rr"><select id="pzFlo"><option value="">Min</option>${RATINGS.slice().reverse().map(r => `<option${+F.lo === r ? " selected" : ""}>${r}</option>`).join("")}</select><select id="pzFhi"><option value="">Max</option>${RATINGS.map(r => `<option${+F.hi === r ? " selected" : ""}>${r}</option>`).join("")}</select></span></label>`
-      + `<button class="pzsort" id="pzSort">Rating ${F.sort === "up" ? "↑ Low first" : "↓ High first"}</button>`
-      + (F.nat || F.lg || F.cl || F.type || F.lo || F.hi || F.pos !== sl ? `<button class="pzsort" id="pzReset">Reset</button>` : "");
+      + `<div class="pzseg" role="group" aria-label="Sort by rating"><span>Sort</span><div><button data-sort="up" class="${F.sort === "up" ? "on" : ""}">Low ↑</button><button data-sort="down" class="${F.sort === "down" ? "on" : ""}">High ↓</button></div></div>`
+      + (F.nat || F.lg || F.cl || F.type || F.lo || F.hi || F.pos !== sl ? `<button class="pzreset" id="pzReset">Reset</button>` : "");
     const on = (id, k) => { $(id).onchange = e => { F[k] = e.target.value; drawAll(); }; };
     on("pzFpos", "pos"); on("pzFnat", "nat"); on("pzFlg", "lg"); on("pzFcl", "cl"); on("pzFty", "type");
     $("pzFlo").onchange = e => { F.lo = e.target.value; if (F.hi && +F.lo > +F.hi) F.hi = F.lo; drawAll(); };
     $("pzFhi").onchange = e => { F.hi = e.target.value; if (F.lo && +F.hi < +F.lo) F.lo = F.hi; drawAll(); };
-    $("pzSort").onclick = () => { F.sort = F.sort === "up" ? "down" : "up"; try { localStorage.setItem("pzSort", F.sort); } catch (e) {} drawAll(); };
+    $("pzFl").querySelectorAll("[data-sort]").forEach(b => b.onclick = () => { F.sort = b.dataset.sort; try { localStorage.setItem("pzSort", F.sort); } catch (e) {} drawAll(); });
     if ($("pzReset")) $("pzReset").onclick = () => { Object.assign(F, { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "" }); drawAll(); };
     $("pzFl").scrollLeft = keepX;     // stay where you were in the row after picking
   };
