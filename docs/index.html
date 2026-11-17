@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools</title>
-<meta name="app-version" content="20261117f">
+<meta name="app-version" content="20261118b">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -407,8 +407,9 @@ body.simmode .pc{background:rgba(10,14,22,.93)}
   #tabbar svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   #tabbar button.on{color:var(--fire)}
   main{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
-  #moreSheet{position:fixed;inset:0;z-index:29;background:rgba(0,0,0,.45)}
-  #moreSheet .sheet{position:absolute;left:10px;right:10px;bottom:calc(74px + env(safe-area-inset-bottom));padding:8px;border-radius:18px;background:rgba(24,17,13,.97);border:1px solid var(--line2);box-shadow:0 -10px 40px rgba(0,0,0,.5)}
+  #moreSheet{position:fixed;inset:0;z-index:29;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;animation:mIn .18s ease}
+  #moreSheet .sheet{position:relative;width:100%;max-width:380px;max-height:calc(100dvh - 32px);overflow:auto;padding:8px;border-radius:20px;background:rgba(24,17,13,.98);border:1px solid var(--line2);box-shadow:0 20px 60px rgba(0,0,0,.6);animation:mPop .2s ease}
+  @keyframes mIn{from{opacity:0}}@keyframes mPop{from{transform:scale(.94);opacity:0}}
   body.simmode #moreSheet .sheet{background:rgba(12,16,26,.97)}
   #moreSheet button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--text);padding:12px 12px;border-radius:12px;cursor:pointer}
   #moreSheet button:active{background:rgba(255,255,255,.05)}
@@ -416,6 +417,55 @@ body.simmode .pc{background:rgba(10,14,22,.93)}
   #moreSheet small{color:var(--muted);font-size:12px}
 }
 #moreSheet[hidden]{display:none}
+/* Puzzles */
+.pzintro h2{margin:0 0 4px}
+.pzme{display:flex;gap:6px;align-items:stretch;margin:10px 0 0}
+.pzme>div{flex:1;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line2);padding:8px 10px}
+.pzme span{display:block;font:700 11px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.pzme b{display:block;font:800 24px/1.1 var(--display);margin-top:3px}
+.pzme button{flex:none;border-radius:12px}
+.pztier{display:flex;align-items:baseline;gap:10px;margin:18px 2px 8px}.pztier small{font:500 12px var(--body);color:var(--muted);text-transform:none;letter-spacing:0}
+.pzsets{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.pzset{position:relative;overflow:hidden;text-align:left;display:flex;flex-direction:column;gap:3px;background:rgba(255,255,255,.04);border:1px solid var(--line2);color:var(--text);border-radius:14px;padding:12px;cursor:pointer}
+.pzset b{font:800 20px/1 var(--display);letter-spacing:.5px;text-transform:uppercase}.pzset span{font-size:12px;color:var(--muted)}.pzset .pts{color:var(--fire);font-weight:700}
+.pzset i{position:absolute;left:0;bottom:0;height:3px;background:var(--fire)}
+.pzbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 10px}.pzbar b{font:800 22px/1 var(--display);text-transform:uppercase;letter-spacing:.5px}
+.pzbar button{padding:7px 12px;border-radius:999px}
+.pzgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}
+.pztile{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.03);color:var(--text);cursor:pointer}
+.pztile b{font:800 22px/1 var(--display)}.pztile small{font-size:10px;color:var(--muted)}
+.pztile.done{border-color:rgba(61,220,151,.5);background:rgba(61,220,151,.08)}.pztile.done small{color:var(--win)}
+.pzhud{display:grid;grid-template-columns:1.2fr 1fr;gap:8px;margin:0 0 8px}
+.pzchem,.pzpts{border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line2);padding:10px 12px}
+.pzchem b{font:800 34px/1 var(--display)}.pzchem b.ok{color:var(--win)}.pzchem span{color:var(--muted);font-size:13px;margin-left:4px}
+.pzchem .bar{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,.08);margin-top:8px}
+.pzchem .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:linear-gradient(90deg,#2fb8ff,#3ddcff)}
+.pzchem .bar em{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text);opacity:.7}
+.pzpts span{display:block;font:700 11px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}.pzpts b{display:block;font:800 26px/1.1 var(--display);margin-top:4px;color:var(--fire)}.pzpts small{font-size:11px;color:var(--muted)}
+.pzbon{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}.pzbon span{font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--muted)}
+.pzbon span.on{border-color:rgba(255,200,80,.6);color:#ffd36b;background:rgba(255,200,80,.08)}
+.pzpitch .pc{cursor:pointer;color:var(--text);font-family:inherit}
+.pzpitch .pc.empty{border:1px dashed var(--line2);background:rgba(255,255,255,.03);min-height:62px;justify-content:center}
+.pzpitch .pc.empty b{font:800 22px/1 var(--display);color:var(--muted)}
+.pzpitch .pc.lock{border-color:rgba(255,255,255,.25)}.pzpitch .pc .lk{position:absolute;right:-6px;top:-8px;font-size:12px;font-style:normal}
+.pzpitch .pc .bon{position:absolute;left:-5px;top:-8px;font-size:13px;font-style:normal;color:#ffd36b}
+.pzact{display:flex;gap:8px;margin:4px 0 8px}.pzact .btn{flex:1}.pzact button[disabled]{opacity:.5;cursor:default}
+.pzdone{display:flex;flex-direction:column;gap:3px;padding:12px 14px;border-radius:14px;border:1px solid rgba(61,220,151,.4);background:rgba(61,220,151,.07);font-size:13px}.pzdone b{font:800 28px/1 var(--display);color:var(--win)}
+#pzSheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.5)}
+#pzSheet .sheet{position:absolute;left:0;right:0;bottom:0;max-height:78vh;display:flex;flex-direction:column;border-radius:18px 18px 0 0;background:#1a1310;border-top:1px solid var(--line2);padding:10px 10px calc(10px + env(safe-area-inset-bottom))}
+body.simmode #pzSheet .sheet{background:#0e1420}
+.pzsh{flex:none;display:flex;gap:6px;align-items:center}.pzsh b{font:800 20px/1 var(--display);padding:0 4px}.pzsh input{flex:1;min-width:0}.pzsh button{padding:8px 10px;border-radius:10px}
+.pzf{flex:none;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0}.pzf::-webkit-scrollbar{display:none}
+.pzf button{flex:none;font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--line2);background:none;color:var(--text);cursor:pointer}.pzf button.on{border-color:var(--fire);color:var(--fire)}
+.pzlist{overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pzlist button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:var(--text);padding:9px 4px;cursor:pointer}
+.pzlist button b{font:800 20px/1 var(--display);width:32px;text-align:center}.pzlist button span{flex:1;min-width:0;display:flex;flex-direction:column}
+.pzlist button em{font-style:normal;font-weight:600}.pzlist button small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pzlist button i{font-style:normal;color:#ffd36b}
+.pzlbsel{margin:0 0 6px}
+.pzlb{list-style:none;padding:0;margin:0}.pzlb li{display:flex;align-items:center;gap:10px;padding:10px 6px;border-bottom:1px solid var(--line)}
+.pzlb .rk{width:26px;font:800 18px/1 var(--display);color:var(--muted);text-align:center}.pzlb li:nth-child(1) .rk{color:#ffd36b}.pzlb li:nth-child(2) .rk{color:#d6dde3}.pzlb li:nth-child(3) .rk{color:#e0a46b}
+.pzlb b{flex:1}.pzlb small{color:var(--muted);font-size:11.5px}.pzlb .pt{font:800 18px/1 var(--display);color:var(--fire)}.pzlb li.me{background:rgba(255,138,31,.08);border-radius:10px}
+
 /* Games */
 .seg.gseg{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:14px;padding:3px;margin:0 0 14px}
 .seg.gseg button{flex:1;background:none;border:0;color:var(--muted);font:700 15px/1 var(--display);letter-spacing:.8px;text-transform:uppercase;padding:10px 0 9px;border-radius:11px;cursor:pointer}
@@ -519,6 +569,99 @@ body.simmode .tpanel{background:rgba(13,19,31,.8)}
 .verdict::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--win);flex:none;transform:translateY(-1px)}
 .verdict span{display:inline;font:400 12px/1.3 var(--body)}
 
+/* Puzzles v2: tier colours, rings, links on the pitch */
+.t-easy{--tc:#3ddc97}.t-medium{--tc:#3ba7ff}.t-hard{--tc:#ff8a1f}.t-expert{--tc:#ff4d6a}
+#gameBox .pzlogo{font:800 italic 44px/1 var(--display);letter-spacing:1px;background:linear-gradient(90deg,#b6ff5c,#3ddc97 45%,#3ba7ff);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(61,220,151,.35));margin:0 0 6px}
+#gameBox .pztier{color:var(--tc)}.pztier::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--tc);box-shadow:0 0 10px var(--tc);align-self:center}
+#gameBox .pzsets{grid-template-columns:1fr;gap:8px}
+#gameBox .pzset{flex-direction:row;align-items:center;gap:14px;padding:12px 14px;border-color:color-mix(in srgb,var(--tc) 35%,transparent);background:linear-gradient(100deg,color-mix(in srgb,var(--tc) 14%,transparent),rgba(255,255,255,.02) 70%)}
+#gameBox .pzset .ring{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--tc) calc(var(--p)*1%),rgba(255,255,255,.08) 0)}
+#gameBox .pzset .ring em{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#17110e;font:800 17px/1 var(--display);font-style:normal}
+body.simmode #gameBox .pzset .ring em{background:#0d131e}
+#gameBox .pzset .ring small{font-size:10px;color:var(--muted)}
+#gameBox .pzset .tx{display:flex;flex-direction:column;gap:3px;min-width:0}
+#gameBox .pzset .tx b{font-size:22px}.pzset .tx small{font-size:12px;color:var(--muted)}.pzset .pts{color:var(--tc)!important}
+#gameBox .pzbar b{display:flex;flex-direction:column;align-items:center;line-height:1}.pzbar b small{font:700 11px/1.4 var(--display);letter-spacing:1.2px;color:var(--tc,var(--muted))}
+#gameBox .pzgrid .pztile{border-color:color-mix(in srgb,var(--tc) 25%,transparent)}
+#gameBox .pzgrid .pztile.done{border-color:var(--tc);background:color-mix(in srgb,var(--tc) 14%,transparent)}.pzgrid .pztile.done small{color:var(--tc)}
+#gameBox .pzpitch{height:520px}
+.pc .plink{display:flex;align-items:center;gap:2px;margin-top:3px;max-width:100%}
+.pc .plink i{font:700 8px/1.5 var(--body);font-style:normal;padding:0 3px;border-radius:3px;white-space:nowrap;overflow:hidden;max-width:30px;color:#fff;background:var(--g,rgba(255,255,255,.12))}
+#gameBox .pzpitch .pc{width:68px;padding:5px 2px}
+.pc .plink{justify-content:center}
+.pc .plink i:not(.fl){font-size:7.5px;padding:0 2px;max-width:28px}
+.pc .plink i.fl{font-size:11px;line-height:1.2;padding:0 2px;background:none;border-bottom:2px solid var(--g,transparent);border-radius:0}
+.pc .plink i:not([style*="#"]){color:var(--muted)}
+.pc .plink i.ic{background:linear-gradient(90deg,#efe3c2,#c9b27a);color:#1a1204}
+.pc .plink b{width:8px;height:8px;border-radius:50%;flex:none;background:var(--g,rgba(255,255,255,.15))}
+.pc .plink b:not([style*="#"]){background:rgba(255,255,255,.15)}
+.pzlinks{margin:0 0 10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line2)}
+.pzlinks summary{cursor:pointer;font:700 15px/1.3 var(--display);letter-spacing:.6px;text-transform:uppercase}.pzlinks summary small{font:400 12px var(--body);text-transform:none;letter-spacing:0;color:var(--muted);margin-left:6px}
+.pzlk h4{margin:10px 0 4px;font:700 11px/1 var(--display);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.pzlk .lr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"n d" "s s";gap:2px 8px;padding:6px 8px;border-left:3px solid var(--g);margin:0 0 4px;border-radius:6px;background:rgba(255,255,255,.025)}
+.pzlk .lr b{grid-area:n;font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pzlk .dots{grid-area:d;display:flex;gap:3px;align-items:center}.pzlk .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.12)}.pzlk .dots i.on{background:var(--g)}
+.pzlk .lr small{grid-area:s;font-size:11.5px;color:var(--muted)}.pzlk .lr small em{font-style:normal;color:#3ddcff;font-weight:700}
+
+
+/* Puzzles: card details popup */
+#pzInfo{position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px}
+#pzInfo .pibox{width:100%;max-width:380px;border-radius:18px;background:#1b1411;border:1px solid var(--line2);border-top:4px solid var(--tint);padding:14px 14px 12px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+body.simmode #pzInfo .pibox{background:#0e1420}
+.pihead{display:flex;align-items:center;gap:12px;margin:0 0 10px}.pihead .r{font:800 40px/1 var(--display)}
+.pihead div{flex:1;min-width:0}.pihead b{display:block;font:800 22px/1.1 var(--display);text-transform:uppercase;letter-spacing:.4px}.pihead small{color:var(--muted);font-size:12.5px}.pihead u{color:var(--text);text-decoration:none;border-bottom:2px solid var(--fire)}
+.pihead .lkb{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);white-space:nowrap}
+.pichem{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;padding:8px 10px;border-radius:12px;background:rgba(61,220,255,.07);border:1px solid rgba(61,220,255,.25);margin:0 0 8px}
+.pichem span{font:700 11px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}.pichem b{font:800 26px/1 var(--display);color:#3ddcff}.pichem b small{font-size:14px;color:var(--muted)}
+.pichem em{font-style:normal;font-size:12px;color:var(--muted);flex-basis:100%}.pichem em.bad{color:var(--loss)}
+.pir{display:grid;grid-template-columns:58px 1fr;grid-template-areas:"k n" "k v";gap:1px 8px;padding:8px 2px;border-bottom:1px solid var(--line)}
+.pir .k{grid-area:k;font:700 11px/1.6 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.pir b{grid-area:n;font-weight:600;font-size:14px}.pir .v{grid-area:v;font-size:12px;color:var(--muted)}.pir .v em{font-style:normal;color:#3ddcff;font-weight:700}
+.pibon{margin:8px 0 0;font-size:12.5px;color:#ffd36b}
+.piact{display:flex;gap:8px;margin-top:12px}.piact button{flex:1}
+.pzacc input{width:100%}
+/* the gold "Perfect" score: the top possible score of a puzzle */
+@keyframes pzShine{from{background-position:200% 0}to{background-position:-200% 0}}
+#gameBox .pzgold{background:linear-gradient(105deg,#c7962c 0%,#ffe08a 35%,#fffbe8 50%,#ffe08a 65%,#c7962c 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 2.6s linear infinite}
+#gameBox .pzdone.gold{position:relative;overflow:hidden;border-color:rgba(255,212,106,.7);background:linear-gradient(160deg,rgba(255,212,106,.14),rgba(255,212,106,.04));box-shadow:0 0 28px rgba(255,200,80,.18)}
+#gameBox .pzdone.gold::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,240,190,.22) 50%,transparent 70%);background-size:250% 100%;animation:pzShine 2.6s linear infinite;pointer-events:none}
+#gameBox .pzstar{font:800 13px/1 var(--display);letter-spacing:1px;text-transform:uppercase;font-style:normal;color:#ffd76a}
+#gameBox .pztile.gold{position:relative;overflow:hidden;border-color:rgba(255,212,106,.75)!important;background:linear-gradient(160deg,rgba(255,212,106,.2),rgba(255,212,106,.05))!important}
+#gameBox .pztile.gold small{color:#ffd76a!important}
+#gameBox .pztile.gold::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,240,190,.25) 50%,transparent 65%);background-size:250% 100%;animation:pzShine 3s linear infinite;pointer-events:none}
+#gameBox .pzlb li.gold .pt{background:linear-gradient(105deg,#c7962c,#ffe08a 40%,#fffbe8 50%,#ffe08a 60%,#c7962c);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 2.6s linear infinite}
+#gameBox .pzlb li.gold .pt::before{content:"★ ";color:#ffd76a}
+@media (prefers-reduced-motion:reduce){#gameBox .pzgold,#gameBox .pzdone.gold::after,#gameBox .pztile.gold::after,#gameBox .pzlb li.gold .pt{animation:none}}
+
+#welcome{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;animation:wIn .25s ease}
+@keyframes wIn{from{opacity:0}}@keyframes wUp{from{transform:translateY(40px)}}
+#welcome .wbox{position:relative;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:20px 16px calc(22px + env(safe-area-inset-bottom));background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 12%,transparent),color-mix(in srgb,var(--fire) 5%,transparent) 60%),var(--panel);border:1px solid color-mix(in srgb,var(--fire) 28%,transparent);border-bottom:0;animation:wUp .3s ease}
+#welcome h3{display:inline-block;margin:0 40px 4px 0;font:800 26px/1 var(--display);text-transform:uppercase;letter-spacing:.4px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+#welcome .ws{color:var(--muted);font-size:13px;margin:0 0 12px}
+#welcome .wx{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line2);background:none;color:var(--muted);font-size:15px;cursor:pointer}
+#welcome .wt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:11px 12px;margin-top:8px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--line);color:var(--text);cursor:pointer}
+#welcome .wt:active{background:rgba(255,255,255,.07)}
+#welcome .wt i svg{width:22px;height:22px;fill:none;stroke:#1b0d05;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}#welcome .wt i svg .f{fill:#1b0d05;stroke:none}
+#welcome .wt i{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font:800 15px/1 var(--display);font-style:normal;color:#1b0d05;background:var(--grad)}
+#welcome .wt b{display:block;font:700 15px/1.2 var(--body)}#welcome .wt small{display:block;color:var(--muted);font-size:12.5px;line-height:1.35;margin-top:2px}
+#welcome .wt em{margin-left:auto;font-style:normal;color:var(--gold);font-weight:700;font-size:18px}
+#welcome .wgo{display:block;width:100%;margin-top:14px;padding:13px;border:0;border-radius:14px;font:800 18px/1 var(--display);text-transform:uppercase;letter-spacing:.5px;color:#1b0d05;background:var(--grad);cursor:pointer}
+#pzSheet{bottom:auto;height:100%;background:rgba(0,0,0,.55)}
+#pzSheet .sheet{top:0;bottom:0;max-height:none;border-radius:0;border-top:0;padding:calc(10px + env(safe-area-inset-top)) 12px 0}
+#pzSheet .pzsh input{font-size:16px;padding:11px 12px;border-radius:12px}#pzSheet .pzsh b{min-width:44px;text-align:center}
+#pzSheet .pzlist{flex:1;min-height:0;padding-bottom:env(safe-area-inset-bottom)}#pzSheet .pzlist button{padding:8px 4px}
+@media (min-width:700px){#pzSheet .sheet{top:6vh;bottom:6vh;left:50%;right:auto;width:560px;transform:translateX(-50%);border-radius:18px;border:1px solid var(--line2);padding:12px}}
+#gameBox .pzpills{position:relative;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:0 0 2px;margin:0 0 8px}#gameBox .pzpills::-webkit-scrollbar{display:none}
+#gameBox .pzpills button{flex:none;background:none;border:1px solid var(--line2);color:var(--muted);font:700 15px/1 var(--display);padding:8px 12px 7px;border-radius:999px;cursor:pointer;white-space:nowrap}
+#gameBox .pzpills button[class*="t-"]{border-color:color-mix(in srgb,var(--tc) 35%,transparent)}
+#gameBox .pzpills button.on{border-color:var(--tc,var(--fire));color:var(--tc,var(--fire));background:color-mix(in srgb,var(--tc,var(--fire)) 14%,transparent)}
+#gameBox .pznum button{min-width:40px;height:38px;padding:0 0 2px;text-align:center}#gameBox .pznum button:first-child{padding:0 12px 2px}
+#gameBox .pznum button{position:relative}#gameBox .pznum button.done{color:var(--text)}#gameBox .pznum button.done::after{content:"";position:absolute;left:50%;bottom:3px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--tc)}
+#gameBox .pzlbh b{font:inherit;display:block}#gameBox .pzlbh{display:block;margin:14px 0 0;font:800 22px/1.1 var(--display);text-transform:uppercase;letter-spacing:.4px;color:var(--tc,var(--text))}#gameBox .pzlbh small{display:block;margin-top:5px;font-family:var(--body);text-transform:none;font-weight:500;font-size:12.5px;line-height:1.3;letter-spacing:0;color:var(--muted)}
+#gameBox #pzYou .pzme{margin:10px 0 8px}#gameBox #pzYou .pzme button{padding:0 16px;border-radius:12px}
+#gameBox .pzlb li{padding:11px 8px}#gameBox .pzlb .rk{color:var(--muted)}#gameBox .pzlb li.top1 .rk{color:#ffd36b}#gameBox .pzlb li.top2 .rk{color:#d6dde3}#gameBox .pzlb li.top3 .rk{color:#e0a46b}
+#gameBox .pzlb li b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#gameBox .pzlb li small{white-space:nowrap}
+.pzacc .mseg{margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -534,6 +677,7 @@ body.simmode .tpanel{background:rgba(13,19,31,.8)}
     <button data-t="beat">Beat a team</button>
     <button data-t="sbc">SBC</button>
     <button data-t="cards">Cards</button>
+    <button data-t="games">Puzzles</button>
     <button data-t="setup">Season setup</button>
   </nav>
 </div>
@@ -672,6 +816,11 @@ body.simmode .tpanel{background:rgba(13,19,31,.8)}
     <div class="card"><p class="small muted" id="cCount" style="margin:0 0 6px"></p><div id="cList"></div><div class="row" style="margin-top:8px"><button class="ghost" id="cMore">Show more</button></div></div>
   </section>
 
+  <section id="games">
+    <div class="card">
+      <div id="gameBox"></div>
+    </div>
+  </section>
 
   <section id="setup"><div id="setupBody"></div></section>
 </main>
@@ -686,11 +835,14 @@ body.simmode .tpanel{background:rgba(13,19,31,.8)}
   <button data-mt="mc"><b>Head to Head</b><small>Your team vs theirs, every move</small></button>
   <button data-mt="sim"><b>Sim Odds</b><small>Win chances for a Sim match</small></button>
   <button data-mt="beat"><b>Beat a Team</b><small>Find a team that beats theirs</small></button>
+  <button data-mt="games"><b>Puzzles</b><small>Finish the squad, climb the leaderboard</small></button>
   <button data-mt="setup"><b>Season Setup</b><small>Series, boosts and builds</small></button>
+  <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="engine.js?v=20261117f"></script>
-<script src="sbc-solver.js?v=20261117f"></script>
-<script src="app.js?v=20261117f"></script>
+<script src="engine.js?v=20261118b"></script>
+<script src="sbc-solver.js?v=20261118b"></script>
+<script src="puzzle-core.js?v=20261118b"></script>
+<script src="app.js?v=20261118b"></script>
 </body>
 </html>

@@ -56,7 +56,7 @@ document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
   tabbarSync(b.dataset.t); scrollTo(0, 0);
 });
 // ---------- look: bottom tab bar on phones, Sim blue ----------
-const MORE_TABS = ["mc", "sim", "beat", "setup"];
+const MORE_TABS = ["mc", "sim", "beat", "games", "setup"];
 function tabbarSync(t) {
   document.querySelectorAll("#tabbar [data-tb]").forEach(x => x.classList.toggle("on", x.dataset.tb === t || (x.dataset.tb === "more" && MORE_TABS.includes(t))));
   const sh = $("moreSheet"); if (sh) sh.hidden = true;
@@ -68,7 +68,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
   bar.onclick = e => { const b = e.target.closest("[data-tb]"); if (!b) return;
     if (b.dataset.tb === "more") { const sh = $("moreSheet"); sh.hidden = !sh.hidden; return; }
     document.querySelector(`#tabs button[data-t="${b.dataset.tb}"]`).click(); };
-  $("moreSheet").onclick = e => { const b = e.target.closest("[data-mt]"); if (b) document.querySelector(`#tabs button[data-t="${b.dataset.mt}"]`).click(); else if (e.target.id === "moreSheet") $("moreSheet").hidden = true; };
+  $("moreSheet").onclick = e => { if (e.target.closest("[data-welcome]")) { $("moreSheet").hidden = true; return welcome(true); } const b = e.target.closest("[data-mt]"); if (b) document.querySelector(`#tabs button[data-t="${b.dataset.mt}"]`).click(); else if (e.target.id === "moreSheet") $("moreSheet").hidden = true; };
   if (!IS_OWNER) document.querySelectorAll('#moreSheet [data-mt="setup"]').forEach(b => b.hidden = true);
 })();
 
@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117f";
+const APP_V = "20261118b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -110,6 +110,25 @@ function installTip() {
   $("installNo").onclick = () => { try { localStorage.setItem("installTipOff", "1"); } catch (e) {} box.remove(); };
   if (INSTALL_EV) $("installGo").onclick = async () => { INSTALL_EV.prompt(); await INSTALL_EV.userChoice; INSTALL_EV = null; box.remove(); };
 }
+// first visit: a short welcome sheet pointing to the three main places (open it again any time from More)
+function welcome(force) {
+  let seen = false; try { seen = localStorage.getItem("welcomeSeen") === "1"; } catch (e) {}
+  if ((seen && !force) || $("welcome")) return;
+  const o = document.createElement("div"); o.id = "welcome";
+  const IC = {
+    teams: `<path d="M20.4 3.5 16 2a4 4 0 0 1-8 0L3.6 3.5a2 2 0 0 0-1.3 2.2l.6 3.5a1 1 0 0 0 1 .8H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.2a1 1 0 0 0 1-.8l.6-3.5a2 2 0 0 0-1.3-2.2z"/>`,
+    sbc: `<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>`,
+    games: `<path d="M19.4 7.9c0 .3.1.6.3.9l1.6 1.5a2.4 2.4 0 0 1 0 3.4l-1.6 1.6a1 1 0 0 1-.8.3c-.5-.1-.8-.5-1-.9a2.5 2.5 0 1 0-3.2 3.2c.4.2.9.5.9 1a1 1 0 0 1-.3.8l-1.6 1.6a2.4 2.4 0 0 1-3.4 0l-1.6-1.6a1 1 0 0 0-.8-.3c-.5.1-.9.5-1 1a2.5 2.5 0 1 1-3.3-3.3c.5-.2.9-.5 1-1a1 1 0 0 0-.3-.8L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.5-1.5c.3-.3.6-.4 1-.3.5.1.8.5 1 1a2.5 2.5 0 1 0 3.3-3.3c-.5-.2-.9-.5-1-1 0-.4.1-.7.3-1l1.5-1.5a2.4 2.4 0 0 1 3.4 0l1.6 1.6c.2.2.5.3.8.3.5-.1.9-.5 1-1a2.5 2.5 0 1 1 3.3 3.3c-.5.2-.9.5-1 1z"/>` };
+  const tile = (t, ic, title, txt) => `<button class="wt" data-wt="${t}"><i><svg viewBox="0 0 24 24">${IC[t]}</svg></i><span><b>${title}</b><small>${txt}</small></span><em>›</em></button>`;
+  o.innerHTML = `<div class="wbox"><button class="wx" aria-label="Close">✕</button><h3>Welcome to the ToolKit</h3><p class="ws">Everything you need for Fatal and SBCs, updated every day.</p>
+    ${tile("teams", "T", "Best Teams", `This week's strongest Fatal My Club and Sim teams for every series. Tap "Don't have" on a card for your own version.`)}
+    ${tile("sbc", "SBC", "SBC Solver", "Paste the requirements and get the cheapest squad.")}
+    ${PREVIEW ? tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.") : ""}
+    <button class="wgo">Show Me the Teams</button></div>`;
+  document.body.appendChild(o);
+  const close = t => { try { localStorage.setItem("welcomeSeen", "1"); } catch (e) {} o.remove(); if (t) document.querySelector(`#tabs button[data-t="${t}"]`).click(); };
+  o.onclick = e => { const b = e.target.closest("[data-wt]"); if (b) return close(b.dataset.wt); if (e.target.closest(".wgo")) return close("teams"); if (e.target.closest(".wx") || e.target === o) close(); };
+}
 async function init() {
   if (await selfUpdate()) return;
   $("appV").textContent = "Version " + APP_V;
@@ -126,7 +145,8 @@ async function init() {
   try { await evoAll(); if (DATA_UPDATED) $("dataInfo").textContent = `${siteTotal().toLocaleString()} cards · Updated ${DATA_UPDATED}`; } catch (e) {}   // every evolved card of the year: searchable everywhere, needed for All Evos teams
   try { INDEX = await getJSON("results/index.json"); if (INDEX.all && PREVIEW) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
-  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip();
+  renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip(); welcome();
+  if (!PREVIEW) document.querySelectorAll('#tabs [data-t="games"], #moreSheet [data-mt="games"]').forEach(b => b.remove());   // Puzzles: preview only for now
 }
 
 // ---------- shared card UI ----------
@@ -266,9 +286,9 @@ const sameSet = (a, b) => (a || []).length === (b || []).length && (a || []).eve
 const localOf = k => lsGet("local")[k] || null;
 function localSet(k, v) { const a = lsGet("local"); if (v) a[k] = v; else delete a[k]; lsSet("local", a); }
 const SW_ICONS = new Set(["icon", "debut_icon"]);
-function swapCtx(k, d, missing) {               // shared by the instant fill and the smart search
+function swapCtx(k, d, missing, slotsIn) {      // shared by the instant fill and the smart search (slotsIn: another formation)
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, gone = new Set(missing);
-  const slots = t.players.map(p => p.slot), pool = d._pool ? CARDS.concat(d._pool) : CARDS;
+  const slots = slotsIn || t.players.map(p => p.slot), pool = d._pool ? CARDS.concat(d._pool) : CARDS;
   const ok = c => c && !gone.has(c.id) && c.rating <= (s.cap || 99) && !(c._extra && c.owned === false);
   const score = tm => {                          // quick judge of a full team: chem first, then in-game stats
     const E = effective(tm, s), ch = E.reduce((a, e) => a + e.chem, 0);
@@ -367,12 +387,12 @@ async function simSwapBest(k, d, missing, onP) {
   }
   return { team: win.tm.map(x => x.id), slots, sim: true, tested: seen.size, key: win.key, R: win.R };
 }
-function versionData(k, d, team, slots, missing) {
+function versionData(k, d, team, slots, missing, formation) {
   const sim = k.startsWith("sim"), s = d.series, t = sim ? d.teams[0] : d.team, E = effective(team, s);
   const players = team.map((c, i) => ({ slot: slots[i], id: c.id, name: c.name, rating: c.rating, color: c.color, nationId: c.nationId, leagueId: c.leagueId,
     card: [c.attack, c.control, c.defense], eff: [E[i].a, E[i].c, E[i].d], chem: E[i].chem, tiebreak: E[i].t, evos: c.evos }));
   const chem = E.reduce((a, e) => a + e.chem, 0), avg = v => v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 100) / 100 : 0;
-  if (!sim) return Object.assign({}, d, { team: Object.assign({}, t, { players, chem, plan: null, results: null, source: null }), not_owned_ids: missing });
+  if (!sim) return Object.assign({}, d, { team: Object.assign({}, t, { players, chem, formation: formation || t.formation, plan: null, results: null, source: null }), not_owned_ids: missing });
   const R = players.map((p, i) => ({ slot: p.slot, pos: team[i].position, a: p.eff[0], c: p.eff[1], d: p.eff[2] })), W = attackWeights(R);
   const metrics = Object.assign({}, t.metrics, { chem, control: avg(R.filter(r => CTRL.has(r.slot)).map(r => r.c)), defence: avg(R.filter(r => DEF.has(r.slot)).map(r => r.d)),
     attack: Math.round(R.reduce((a, r, i) => a + W[i] * r.a, 0) * 100) / 100 });
@@ -381,7 +401,7 @@ function versionData(k, d, team, slots, missing) {
 function swapTeam(k, d, missing) {
   const L = localOf(k);
   if (L && L.team && sameSet(L.ids, missing)) {   // the smart search's team
-    const team = L.team.map(id => BYID.get(id)); if (team.every(Boolean)) return versionData(k, d, team, L.slots, missing);
+    const team = L.team.map(id => BYID.get(id)); if (team.every(Boolean)) return versionData(k, d, team, L.slots, missing, L.formation);
   }
   const f = instantFill(k, d, missing); return f && versionData(k, d, f.team, f.slots, missing);
 }
@@ -401,15 +421,28 @@ async function smartSwap(k, d, missing, onP) {
   const fullT = (d._full ? d._full.ids : t.players.map(p => p.id)).map(i => BYID.get(i));
   if (fullT.every(Boolean)) opps.push(fullT);         // last: the full team (with the card you don't have), a tiebreak only
   const OE = opps.map(o => effective(o, s)), nFull = fullT.every(Boolean) ? 1 : 0, nRed = (wser.opponents || []).length ? 1 : 0;
-  const seen = new Set(), cands = [], add = tm => { const key = tm.map(x => x.id).join(); if (!seen.has(key)) { seen.add(key); cands.push([C.score(tm), tm]); } };
+  // candidates: [quick score, team, context (formation), formation name]
+  const seen = new Set(), cands = [], add = (tm, Cx = C, f = t.formation) => { const key = f + ":" + tm.map(x => x.id).join(); if (!seen.has(key)) { seen.add(key); cands.push([Cx.score(tm), tm, Cx, f]); } };
   add(base);
   for (const i of gaps) for (const [, x] of C.options(base, i, 8)) { const tm = base.slice(); tm[i] = x; add(tm); }
   const firsts = cands.slice(0, 3).map(c => c[1]);
   for (const b of firsts) for (let j = 0; j < 11; j++) if (!gaps.includes(j))
     for (const [, x] of C.options(b, j, 3)) { if (x.id === b[j].id) continue; const tm = b.slice(); tm[j] = x; add(tm); }
-  const list = [cands[0], ...cands.slice(1).sort((a, b) => b[0] - a[0])].slice(0, 48).map(c => c[1]);
+  // other formations: the strong teams the builder saved for this series (any formation), with your missing cards
+  // refilled. Losing a card can make a different shape the better team, so the best few of these are tested too
+  const CX = new Map(), ctxFor = sl => CX.get(sl.join()) || CX.set(sl.join(), swapCtx(k, d, missing, sl)).get(sl.join()), alts = [];
+  for (const [n, ot] of Object.entries(OT)) {
+    if (n === "mirror" || !ot.players || ot.players.length !== 11) continue;
+    const sl = ot.players.map(p => p.slot), Cx = ctxFor(sl), tm = ot.players.map(p => { const c = BYID.get(p.id); return Cx.ok(c) ? c : null; });
+    tm.forEach((c, i) => { if (!c) { const o = Cx.options(tm, i, 1)[0]; tm[i] = o ? o[1] : null; } });
+    if (tm.every(Boolean)) alts.push([Cx.score(tm), tm, Cx, ot.formation || ""]);
+  }
+  const perF = {}; alts.sort((a, b) => b[0] - a[0]).filter(a => (perF[a[3]] = (perF[a[3]] || 0) + 1) <= 2).slice(0, 10).forEach(a => add(a[1], a[2], a[3]));
+  const same = cands.filter(c => c[3] === t.formation), other = cands.filter(c => c[3] !== t.formation);
+  const list = [same[0], ...other, ...same.slice(1).sort((a, b) => b[0] - a[0])].slice(0, 56);
   let best = null, n = 0, solves = 0; const t0 = Date.now(), LIMIT = d._limit || 75000, W = Math.min(4, navigator.hardwareConcurrency || 2);
-  const judge = async tm => {
+  const better = g => g && (!best || g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))));
+  const judge = async ([sc, tm, Cx, f]) => {
     const A = effective(tm, s); let worst = 3, sum = 0, red = null;
     for (let o = 0; o < OE.length; o++) {
       const r = await poolAsk(solves++, { type: "o2", A, B: OE[o] });
@@ -418,28 +451,28 @@ async function smartSwap(k, d, missing, onP) {
       if (o === 0 && nRed) red = r;
       if (best && worst < best.worst) return null;              // can't beat the best so far
     }
-    return { worst, sum, red, score: C.score(tm), tm };
+    return { worst, sum, red, score: sc, tm, Cx, f };
   };
   for (let i = 0; i < list.length && Date.now() - t0 < LIMIT; i += W) {
     const got = await Promise.all(list.slice(i, i + W).map(judge));
-    for (const g of got) if (g && (!best || g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) best = g;
+    for (const g of got) if (better(g)) best = g;
     n = Math.min(list.length, i + W); if (onP) onP(n, list.length);
   }
-  // then climb with the time left: from the best team, the strongest few cards in every slot, again from any better
-  // team, until nothing improves (some better teams are two or three single changes away, e.g. 78 without Meyer)
+  // then climb with the time left: from the best team (in its formation), the strongest few cards in every slot,
+  // again from any better team, until nothing improves (some better teams are two or three single changes away)
   for (let grew = true; best && grew && Date.now() - t0 < LIMIT;) {
-    grew = false; const from = best.tm, next = [];
-    for (let j = 0; j < 11; j++) for (const [, x] of C.options(from, j, 4)) {
-      if (x.id === from[j].id) continue; const tm = from.slice(); tm[j] = x; const key = tm.map(y => y.id).join();
-      if (!seen.has(key)) { seen.add(key); next.push([C.score(tm), tm]); }
+    grew = false; const from = best.tm, Cb = best.Cx, fb = best.f, next = [];
+    for (let j = 0; j < 11; j++) for (const [, x] of Cb.options(from, j, 4)) {
+      if (x.id === from[j].id) continue; const tm = from.slice(); tm[j] = x; const key = fb + ":" + tm.map(y => y.id).join();
+      if (!seen.has(key)) { seen.add(key); next.push([Cb.score(tm), tm, Cb, fb]); }
     }
     next.sort((a, b) => b[0] - a[0]);
     for (let i = 0; i < next.length && Date.now() - t0 < LIMIT && !grew; i += W) {
-      const got = await Promise.all(next.slice(i, i + W).map(c => judge(c[1]))); n += got.length; if (onP) onP(n, 0);
-      for (const g of got) if (g && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
+      const got = await Promise.all(next.slice(i, i + W).map(judge)); n += got.length; if (onP) onP(n, 0);
+      for (const g of got) if (g && best && (g.worst > best.worst || (g.worst === best.worst && (g.sum > best.sum || (g.sum === best.sum && g.score > best.score))))) { best = g; grew = true; }
     }
   }
-  return best && { team: best.tm.map(x => x.id), slots: C.slots, worst: best.worst, red: best.red, sum: best.sum, score: best.score, tested: n, opps: OE.length };
+  return best && { team: best.tm.map(x => x.id), slots: best.Cx.slots, formation: best.f, worst: best.worst, red: best.red, sum: best.sum, score: best.score, tested: n, opps: OE.length };
 }
 const SIMSW = new Set();     // Sim versions being searched right now
 async function versionOf(k, f, d) {          // -> { d: the version to show, bar: html above the players }
@@ -725,6 +758,15 @@ const mcFunnel = () => funnel("How My Club teams are built", MC_STEPS);
 const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
+  { day: "2026-11-17", items: [
+    { p: 1, t: "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert." },
+    "<b>Missing a card:</b> your version can now switch formation if a different shape is better without that card.",
+    "<b>Pitch highlights:</b> a card's top two stats are only both lit when they're within 3 of each other.",
+    "<b>Head to Head:</b> teams only take cards within the series cap.",
+    "<b>SBC:</b> when a squad only works with a card out of position, the solver now finds it, with that card on 0 chem.",
+    "<b>SBC:</b> club, nation and league search lists name matches first.",
+    "<b>Welcome guide:</b> a quick tour on your first visit, and any time from More."
+  ] },
   { day: "2026-11-16", items: [
     { t: "<b>Play vs AI:</b> new mode in Match. You make every move and the AI plays theirs, in one of three styles. Human and Varied mix up their openings." },
     { t: "<b>SBC:</b> solved squads now show on a pitch with each player's chem." },
@@ -940,6 +982,19 @@ const TINTS = { icon: "#efe3c2", debut_icon: "#efe3c2", hero: "#a66bff", hallowe
 const tintOf = p => { const k = p.evos && p.evos.length ? "evo" : String(p.color).replace(/^rare_/, "").replace(/_gold$/, "") === "totw" ? "totw" : String(p.color).replace(/^rare_/, "");
   if (TINTS[k]) return TINTS[k]; if (typeof TCOL !== "undefined" && TCOL[p.color]) return TCOL[p.color][0]; let h = 0; for (const ch of k) h = (h * 31 + ch.charCodeAt(0)) % 360; return `hsl(${h} 80% 62%)`; };
 const typeOf = p => p.evos && p.evos.length ? "Evo" : TYPE(p.color);
+function pitchXY(slots) {                     // where each spot of a formation sits on the mini pitch, in %
+  const bands = {}; slots.forEach((sl, i) => (bands[PBAND(sl)] = bands[PBAND(sl)] || []).push(i));
+  const xy = [], order = ["f", "am", "m", "dm", "d", "g"].filter(b => bands[b]), ys = {};
+  order.forEach((b, i) => ys[b] = order.length < 2 ? 50 : 7 + (88 - 7) * i / (order.length - 1));
+  const lift = s => ({ LW: 3, RW: 3, LM: -3, RM: -3, LB: -3, RB: -3 })[s] || 0;
+  for (const idx of Object.values(bands)) {
+    const o = idx.slice().sort((a, b) => PSIDE(slots[a]) - PSIDE(slots[b]) || a - b), n = o.length;
+    const span = n >= 5 ? [10, 90] : n === 4 ? [13, 87] : n === 3 ? [20, 80] : n === 2 ? [28, 72] : [50, 50];
+    o.forEach((i, k) => xy[i] = [n === 1 ? 50 : span[0] + (span[1] - span[0]) * k / (n - 1), ys[PBAND(slots[i])] + lift(slots[i])]);
+  }
+  return xy;
+}
+const PITCH_SVG = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g><rect x="3" y="2" width="94" height="96" rx="1"/><line x1="3" y1="50" x2="97" y2="50"/><ellipse cx="50" cy="50" rx="13" ry="6.5"/><rect x="28" y="84" width="44" height="14"/><rect x="28" y="2" width="44" height="14"/></g></svg>`;
 function pitchHTML(ps, mode, cap) {
   const bands = {}; ps.forEach((p, i) => (bands[PBAND(p.slot)] = bands[PBAND(p.slot)] || []).push(i));
   const xy = [], order = ["f", "am", "m", "dm", "d", "g"].filter(b => bands[b]), ys = {};
@@ -950,10 +1005,10 @@ function pitchHTML(ps, mode, cap) {
     const span = n >= 5 ? [10, 90] : n === 4 ? [13, 87] : n === 3 ? [20, 80] : n === 2 ? [28, 72] : [50, 50];
     o.forEach((i, k) => xy[i] = [n === 1 ? 50 : span[0] + (span[1] - span[0]) * k / (n - 1), ys[PBAND(ps[i].slot)] + lift(ps[i].slot)]);
   }
-  // lit stats: My Club = within 4 of the card's rating (like the game); Sim = the stat that slot uses
-  const lit = p => { if (mode === "sbc") return []; if (mode !== "sim") return (p.card || p.eff).map(v => v >= p.rating - 4);
+  // lit stats: My Club = its best stat, plus any other within 3 of it; Sim = the stat that slot uses (a second one only within 3 of it)
+  const lit = p => { if (mode === "sbc") return []; if (mode !== "sim") { const v = p.eff, top = Math.max(...v); return v.map(x => top - x <= 3); }   // by the numbers shown (boosts and chem in)
     if (p.slot === "ST") return [1, 0, 0]; if (p.slot === "GK" || p.slot === "CB") return [0, 0, 1];
-    return [(["LB", "RB", "CDM"].includes(p.slot) ? 0 : p.eff[0] >= cap - 1), 1, 0]; };
+    return [(["LB", "RB", "CDM"].includes(p.slot) ? 0 : p.eff[0] >= cap - 1 && Math.abs(p.eff[0] - p.eff[1]) <= 3), 1, 0]; };
   const seen = new Map(); ps.forEach(p => seen.set(typeOf(p), tintOf(p)));
   return `<div class="pitch"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g><rect x="3" y="2" width="94" height="96" rx="1"/><line x1="3" y1="50" x2="97" y2="50"/><ellipse cx="50" cy="50" rx="13" ry="6.5"/><rect x="28" y="84" width="44" height="14"/><rect x="28" y="2" width="44" height="14"/></g></svg>${ps.map((p, i) => { const L = lit(p);
     return `<div class="pc" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(p)}"><b class="r">${p.rating}</b><span class="ps">${esc(p.slot)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(p.name))}${mode === "sbc"
@@ -1209,20 +1264,22 @@ function drawMC() {
   for (const side of ["A", "B", "T"]) {
     const inp = $("q" + side), ul = $("r" + side); if (!inp) continue;
     inp.oninput = () => {
-      const cap = serOf(side).cap || 0, res = search(inp.value, 10, cap);
-      ul.hidden = !res.length;
-      ul.innerHTML = res.map(c => `<li data-id="${esc(c.id)}" class="${cap && c.rating > cap ? "over" : ""}">${cardLine(c)}${cap && c.rating > cap ? ` <span class="small bad">over cap</span>` : ""}</li>`).join("");
+      // a series only takes cards within its cap ("No Series" takes any card)
+      const cap = serOf(side).cap || 0, res = search(inp.value, 40, cap).filter(c => !cap || c.rating <= cap).slice(0, 10);
+      ul.hidden = !inp.value.trim();
+      ul.innerHTML = res.length ? res.map(c => `<li data-id="${esc(c.id)}">${cardLine(c)}</li>`).join("") : `<li class="muted small">No card within the ${cap} cap</li>`;
     };
-    ul.onclick = e => { const li = e.target.closest("li"); if (!li) return; addToTeam(side, BYID.get(li.dataset.id)); const q = $("q" + side); if (q) q.focus(); };
+    ul.onclick = e => { const li = e.target.closest("li[data-id]"); if (!li) return; addToTeam(side, BYID.get(li.dataset.id)); const q = $("q" + side); if (q) q.focus(); };
   }
 }
 function versions(c, side = "A") {   // every card of the same player name, within the cap first, highest rated first
   const cap = serOf(side).cap || 0;
-  return CARDS.filter(x => x._n === c._n).sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
+  return CARDS.filter(x => x._n === c._n && (!cap || x.rating <= cap || x.id === c.id)).sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
 }
 function addToTeam(side, c) {
   if (!c || state[side].length >= 11) return;
   if (state[side].some(x => x.id === c.id)) { alert(`${c.name} is already in this team.`); return; }
+  const cap = serOf(side).cap || 0; if (cap && c.rating > cap) { alert(`${c.name} ${c.rating} is over the ${cap} cap.`); return; }
   state[side].push(c); if (side !== "T") $("solveOut").innerHTML = ""; drawMC();
 }
 async function loadTeam(side, k) {
@@ -1250,7 +1307,8 @@ function resolveNames(text, cap, taken = []) {
     if (!L.length) { L = CARDS.filter(c => c._n.includes(full)); hint = ""; }
     if (hint) { const H = L.filter(c => [cName(c.clubId), nName(c.nationId), lName(c.leagueId)].some(t => norm(t).includes(hint))); if (H.length) L = H; }
     if (r) L = L.filter(c => c.rating === r);
-    L.sort((a, b) => ((cap && a.rating > cap) - (cap && b.rating > cap)) || b.rating - a.rating);
+    if (cap) L = L.filter(c => c.rating <= cap);   // nothing over the series cap
+    L.sort((a, b) => b.rating - a.rating);
     const pick = L.find(c => !taken.some(x => x.id === c.id) && !out.some(x => x.id === c.id));
     if (pick) out.push(pick); else miss.push(tok);
   }
@@ -1267,6 +1325,8 @@ function pasteNames(side) {
 const LEVEL_TEXT = l => ["Lose by 2+", "Lose by 1", "Draw", "Win by 1", "Win by 2+"][l];
 async function solveMC() {
   if (state.A.length !== 11 || state.B.length !== 11) { $("solveOut").innerHTML = `<span class="bad">Both teams need 11 players (${state.A.length} and ${state.B.length} so far).</span>`; return; }
+  { const cap = mcSeries().cap || 0, over = cap ? [...state.A, ...state.B].filter(c => c.rating > cap) : [];   // e.g. the series was changed after adding them
+    if (over.length) { $("solveOut").innerHTML = `<span class="bad">Over the ${cap} cap: ${esc(over.map(c => c.name + " " + c.rating).join(", "))}. Swap them out first.</span>`; return; } }
   $("solveOut").innerHTML = `<span class="muted">Working it out with perfect play from both sides… a few seconds</span>`;
   const s = mcSeries(); const A = effective(state.A, s), B = effective(state.B, s);
   const r = await ask({ type: "solve", A, B });
@@ -1303,7 +1363,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1329,7 +1389,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2144,7 +2204,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117f");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2716,3 +2776,305 @@ async function renderSetup() {
 }
 init();
 
+// ---------- Puzzles: finish the squad around the locked cards ----------
+// puzzles.json: sets at 4 difficulties. Scored by puzzle-core.js (the leaderboard server runs the same code, so a
+// score there is always a real answer). Your bests are kept on this phone too, so it works without the server.
+const PZ_API = "https://madfut-puzzles.bmahrrr1.workers.dev";     // the leaderboard server, once it's set up (e.g. https://madfut-puzzles.<name>.workers.dev)
+const PZ = { data: null, forms: null, view: "home", set: null, pz: null, team: [], me: null, lbSet: "all", lbPz: "", lbFrom: "home" };
+const pzLS = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const pzLSset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const pzBest = () => pzLS("pzBest", {});
+// your leaderboard account: a unique name + PIN, so scores follow you to any device. Saved here once signed in
+const pzAcct = () => pzLS("pzAcct", null);
+const pzName = () => (pzAcct() || {}).name || "";
+async function pzApi(path, body) {
+  const a = pzAcct(), h = { "Content-Type": "application/json" }; if (a && a.token) h.Authorization = "Bearer " + a.token;
+  const r = await fetch(PZ_API + path, body ? { method: "POST", headers: h, body: JSON.stringify(body) } : { headers: h });
+  const j = await r.json().catch(() => ({ error: "Couldn't reach the leaderboard" }));
+  if (r.status === 401 && a && (path === "/me" || path === "/submit" || path === "/name")) { try { localStorage.removeItem("pzAcct"); } catch (e) {} }
+  return j;
+}
+// after signing in: bring the account's bests and squads here, and send up any better scores made on this phone first
+async function pzSync(m) {
+  const b = pzBest(), T = pzLS("pzTeam", {}); let ch = false;
+  for (const [k, v] of Object.entries(m.best || {})) if (!(b[k] >= v)) { b[k] = v; if (m.teams && m.teams[k]) T[k] = m.teams[k]; ch = true; }
+  if (ch) { pzLSset("pzBest", b); pzLSset("pzTeam", T); }
+  for (const [k, v] of Object.entries(b)) if (!((m.best || {})[k] >= v) && T[k]) {
+    const pz = PZ.data.sets.flatMap(s => s.puzzles).find(p => p.id === k); if (!pz) continue;
+    const team = pzSlots(pz).map((x, i) => BYID.get(T[k][i]) || null), sc = pzScore(pz, pzSlots(pz), team);
+    if (sc.ok && sc.pts >= v) await pzApi("/submit", { puzzle: k, team: team.map(c => c.id) }).catch(() => {});
+  }
+}
+// sign in / pick a name: one small form, two modes
+function pzAccount(then, mode = "new") {
+  const ov = document.createElement("div"); ov.id = "pzInfo";
+  const draw = (err = "") => { ov.innerHTML = `<div class="pibox pzacc"><div class="seg mseg"><button data-am="new" class="${mode === "new" ? "on" : ""}">New name</button><button data-am="in" class="${mode === "in" ? "on" : ""}">Sign in</button></div>
+    <p class="small muted" style="margin:0 0 10px">${mode === "new" ? "Pick a name for the leaderboard and a 4 to 6 digit PIN. Use them to sign in on any other phone or computer and your scores come with you." : "Enter your name and PIN to bring your scores to this device."}</p>
+    <input type="text" id="paN" placeholder="Name" maxlength="16" autocomplete="username" value="${esc(ov.dataset.n || "")}">
+    <input type="password" id="paP" placeholder="PIN (4 to 6 digits)" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="${mode === "new" ? "new-password" : "current-password"}" style="margin-top:8px">
+    ${err ? `<p class="small" style="color:var(--loss);margin:8px 0 0">${esc(err)}</p>` : ""}
+    <div class="piact"><button class="ghost" id="paX">Cancel</button><button class="btn" id="paGo">${mode === "new" ? "Create" : "Sign in"}</button></div></div>`;
+    ov.querySelectorAll("[data-am]").forEach(b => b.onclick = () => { ov.dataset.n = $("paN").value; mode = b.dataset.am; draw(); });
+    $("paX").onclick = () => ov.remove();
+    $("paGo").onclick = async () => {
+      const name = $("paN").value.trim(), pin = $("paP").value.trim(); ov.dataset.n = name;
+      if (name.length < 2) return draw("Pick a name of 2 to 16 letters or numbers");
+      if (!/^\d{4,6}$/.test(pin)) return draw("Your PIN needs 4 to 6 digits");
+      $("paGo").disabled = true;
+      const r = await pzApi(mode === "new" ? "/register" : "/login", { name, pin }).catch(() => ({ error: "Couldn't reach the leaderboard" }));
+      if (r.error) return draw(r.error);
+      pzLSset("pzAcct", { pid: r.pid, name: r.name, token: r.token });
+      const m = await pzApi("/me").catch(() => null); if (m && !m.error) await pzSync(m);
+      PZ.me = null; ov.remove(); if (then) then(); else pzDraw();
+    };
+  };
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov); draw();
+}
+async function pzLoad() {
+  if (!PZ.data) [PZ.data, PZ.forms, PZ.max] = await Promise.all([getJSON("puzzles.json"), getJSON("formations.json"), getJSON("puzzles_max.json").then(m => m.puzzles || {}).catch(() => ({}))]);
+  // the top score anyone has (a squad that beats the worked-out top score becomes the new top score)
+  if (PZ_API && !PZ.recAt) { PZ.recAt = 1; fetch(PZ_API + "/records").then(r => r.json()).then(r => { PZ.rec = r.records || {}; if (PZ.view !== "play") pzDraw(); }).catch(() => {}); }
+}
+// the gold "Perfect" score: the top possible score of a puzzle (0 = not known yet)
+const pzTop = id => Math.max((PZ.max && PZ.max[id] && PZ.max[id].max) || 0, (PZ.rec && PZ.rec[id]) || 0);
+const pzPerfect = (id, pts) => { const t = pzTop(id); return !!t && pts >= t; };
+const pzPerfects = L => { const b = pzBest(); return L.filter(p => pzPerfect(p.id, b[p.id] || 0)).length; };
+function pzMe() {
+  if (!PZ_API || !pzAcct() || PZ.me || PZ.meBusy) return; PZ.meBusy = true;
+  pzApi("/me").then(async m => { PZ.meBusy = false; if (m.error) return; PZ.me = m; await pzSync(m);
+    if (PZ.view === "home" || PZ.view === "set") pzDraw(); }).catch(() => { PZ.meBusy = false; });
+}
+const pzSlots = pz => PZ.forms[pz.formation];
+const pzTeamOf = pz => { const saved = pzLS("pzTeam", {})[pz.id] || [], t = pzSlots(pz).map((s, i) => BYID.get(saved[i]) || null);
+  pz.locked.forEach(l => { t[l.i] = BYID.get(l.id) || null; }); return t; };
+const pzSave = () => { const all = pzLS("pzTeam", {}); all[PZ.pz.id] = PZ.team.map(c => c ? c.id : null); pzLSset("pzTeam", all); };
+const setPts = set => { const b = pzBest(); return set.puzzles.reduce((a, p) => a + (b[p.id] || 0), 0); };
+const setSolved = set => { const b = pzBest(); return set.puzzles.filter(p => b[p.id]).length; };
+const fmtN = n => Number(n || 0).toLocaleString();
+const bonusName = b => b.on === "league" ? lShort(b.id) : b.on === "club" ? cShort(b.id) : b.on === "nation" ? `${flagOf(b.id)} ${nName(b.id)}` : b.label;
+const bonusText = pz => `+${pz.bonus.each} each ${esc(bonusName(pz.bonus))} card`;
+
+// short codes for the pitch: nation (FIFA style), league, and a colour per link group
+const NAT3 = { England: "ENG", Germany: "GER", Spain: "ESP", France: "FRA", Argentina: "ARG", "United States": "USA", Italy: "ITA", Netherlands: "NED", Brazil: "BRA", Sweden: "SWE", Norway: "NOR", Denmark: "DEN", Portugal: "POR", "Korea Republic": "KOR", Belgium: "BEL", "Republic of Ireland": "IRL", Poland: "POL", "Saudi Arabia": "KSA", Mexico: "MEX", Switzerland: "SUI", Austria: "AUT", Colombia: "COL", "China PR": "CHN", Scotland: "SCO", Romania: "ROU", Australia: "AUS", "Türkiye": "TUR", Uruguay: "URU", India: "IND", Paraguay: "PAR", Nigeria: "NGA", Wales: "WAL", Morocco: "MAR", Croatia: "CRO", Senegal: "SEN", Japan: "JPN", "Ivory Coast": "CIV", Chile: "CHI", Ecuador: "ECU", Ghana: "GHA", Canada: "CAN", Venezuela: "VEN", Serbia: "SRB", "Czech Republic": "CZE", Greece: "GRE", Ukraine: "UKR", Finland: "FIN", "Northern Ireland": "NIR", Cameroon: "CMR", Peru: "PER", Iceland: "ISL", Mali: "MLI", Algeria: "ALG", Hungary: "HUN", "Bosnia Herzegovina": "BIH", Kosovo: "KVX", "DR Congo": "COD", Bolivia: "BOL", Albania: "ALB", Jamaica: "JAM", Slovenia: "SVN", Slovakia: "SVK", "New Zealand": "NZL", Guinea: "GUI", Gambia: "GAM", Tunisia: "TUN", Georgia: "GEO", "Cape Verde Islands": "CPV", Cyprus: "CYP", "Burkina Faso": "BFA", Egypt: "EGY", Israel: "ISR", Russia: "RUS", Montenegro: "MNE", "North Macedonia": "MKD", Bulgaria: "BUL", Iran: "IRN", "Costa Rica": "CRC", Honduras: "HON", Panama: "PAN" };
+const LG3 = { "Premier League": "EPL", "EFL Championship": "CHAMP", "EFL League One": "EFL1", "EFL League Two": "EFL2", "LALIGA EA SPORTS": "LIGA", "LALIGA HYPERMOTION": "LIGA2", "Serie A Enilive": "SER A", "Serie BKT": "SER B",
+  "Bundesliga": "BUND", "Bundesliga 2": "BUND2", "3. Liga": "3LIGA", "Ligue 1 McDonald's": "LIGUE1", "Ligue 2 BKT": "LIGUE2", "Eredivisie": "ERED", "Liga Portugal": "LPOR", "ROSHN Saudi League": "SAUDI", "Major League Soccer": "MLS",
+  "Liga Profesional de Fútbol": "ARG", "Trendyol Süper Lig": "SÜPER", "1A Pro League": "PRO", "Scottish Premiership": "SPFL", "Icons": "ICON", "Google Pixel Frauen-Bundesliga": "FBL", "Barclays Women’s Super League": "WSL", "Liga F Moeve": "LIGA F",
+  "Arkema Première Ligue": "D1F", "National Women's Soccer League": "NWSL", "Liga BBVA MX": "LIGA MX", "CONMEBOL Libertadores": "LIBERT", "CONMEBOL Sudamericana": "SUDAM", "K League 1": "K1", "Allsvenskan": "ALLSV", "Eliteserien": "ELITE",
+  "PKO Bank Polski Ekstraklasa": "EKSTR", "SUPERLIGA": "SUPERL", "3F Superliga": "3F SL", "Brack Super League": "SWISS", "Österreichische Fußball-Bundesliga": "AUT BL", "Indian Super League": "ISL", "Isuzu UTE A League": "A-LG", "Hellas Liga": "HELLAS", "Česká Liga": "CZE", "Ukrayina Liha": "UKR" };
+const ISO2 = {"Germany": "DE", "Spain": "ES", "France": "FR", "Argentina": "AR", "United States": "US", "Italy": "IT", "Netherlands": "NL", "Brazil": "BR", "Sweden": "SE", "Norway": "NO", "Denmark": "DK", "Portugal": "PT", "Korea Republic": "KR", "Belgium": "BE", "Republic of Ireland": "IE", "Poland": "PL", "Saudi Arabia": "SA", "Mexico": "MX", "Switzerland": "CH", "Austria": "AT", "Colombia": "CO", "China PR": "CN", "Romania": "RO", "Australia": "AU", "Türkiye": "TR", "Uruguay": "UY", "India": "IN", "Paraguay": "PY", "Nigeria": "NG", "Morocco": "MA", "Croatia": "HR", "Senegal": "SN", "Japan": "JP", "Ivory Coast": "CI", "Chile": "CL", "Ecuador": "EC", "Ghana": "GH", "Canada": "CA", "Venezuela": "VE", "Serbia": "RS", "Czech Republic": "CZ", "Greece": "GR", "Ukraine": "UA", "Finland": "FI", "Cameroon": "CM", "Peru": "PE", "Iceland": "IS", "Mali": "ML", "Algeria": "DZ", "Hungary": "HU", "Bosnia Herzegovina": "BA", "Kosovo": "XK", "DR Congo": "CD", "Bolivia": "BO", "Albania": "AL", "Jamaica": "JM", "Slovenia": "SI", "Slovakia": "SK", "New Zealand": "NZ", "Guinea": "GN", "Gambia": "GM", "Tunisia": "TN", "Georgia": "GE", "Cape Verde Islands": "CV", "Cyprus": "CY", "Burkina Faso": "BF", "Montenegro": "ME", "Suriname": "SR", "Haiti": "HT", "Guinea Bissau": "GW", "Israel": "IL", "Bulgaria": "BG", "Angola": "AO", "South Africa": "ZA", "Panama": "PA", "Netherlands Antilles": "CW", "Costa Rica": "CR", "FYR Macedonia": "MK", "Congo": "CG", "Iraq": "IQ", "Russia": "RU", "Egypt": "EG", "Luxemburg": "LU", "Thailand": "TH", "Indonesia": "ID", "Togo": "TG", "Azerbaijan": "AZ", "Kenya": "KE", "Zambia": "ZM", "Gabon": "GA", "Trinidad & Tobago": "TT", "Comoros": "KM", "Sierra Leone": "SL", "Moldova": "MD", "Armenia": "AM", "Dominican Republic": "DO", "Mauritania": "MR", "Zimbabwe": "ZW", "United Arab Emirates": "AE", "Honduras": "HN", "Syria": "SY", "Estonia": "EE", "Benin": "BJ", "Madagascar": "MG", "Grenada": "GD", "Malawi": "MW", "Lithuania": "LT", "Malta": "MT", "Hong Kong": "HK", "Guyana": "GY", "Iran": "IR", "Equatorial Guinea": "GQ", "Latvia": "LV", "Uganda": "UG", "CAR": "CF", "Philippines": "PH", "Faroe Islands": "FO", "Uzbekistan": "UZ", "Jordan": "JO", "St Kitts Nevis": "KN", "Belarus": "BY", "Mozambique": "MZ", "Tanzania": "TZ", "St Lucia": "LC", "Guatemala": "GT", "Burundi": "BI", "Eritrea": "ER", "Rwanda": "RW", "Montserrat": "MS", "Liberia": "LR", "Libya": "LY", "El Salvador": "SV", "Palestinian Authority": "PS", "Puerto Rico": "PR", "Liechtenstein": "LI", "Antigua & Barbuda": "AG", "Niger": "NE", "Andorra": "AD", "Yemen": "YE", "New Caledonia": "NC", "Pakistan": "PK", "Chad": "TD", "Chinese Taipei": "TW", "Bangladesh": "BD", "Kazakhstan": "KZ", "Lebanon": "LB", "Vanuatu": "VU", "Qatar": "QA", "Cuba": "CU", "Bermuda": "BM", "Barbados": "BB", "Sri Lanka": "LK", "Namibia": "NA", "Somalia": "SO", "Mauritius": "MU", "São Tomé & Príncipe": "ST", "Korea DPR": "KP", "Afghanistan": "AF", "Oman": "OM", "Gibraltar": "GI", "Vietnam": "VN", "North Macedonia": "MK", "Bahrain": "BH", "Kuwait": "KW", "Ethiopia": "ET", "Sudan": "SD", "Singapore": "SG", "Malaysia": "MY", "Nicaragua": "NI", "Curaçao": "CW", "Belize": "BZ", "Botswana": "BW", "Lesotho": "LS", "Eswatini": "SZ", "Kyrgyzstan": "KG", "Tajikistan": "TJ", "Turkmenistan": "TM", "Mongolia": "MN", "Nepal": "NP", "San Marino": "SM", "Aruba": "AW", "Cayman Islands": "KY", "Fiji": "FJ", "Samoa": "WS", "Tahiti": "PF", "Guam": "GU", "Seychelles": "SC", "Djibouti": "DJ", "South Sudan": "SS"};
+// flag emoji for a nation (England, Scotland and Wales have their own flags; Northern Ireland has no emoji, so its code)
+const SUBFLAG = { England: "gbeng", Scotland: "gbsct", Wales: "gbwls" };
+const flagOf = id => { const n = nName(id), sub = SUBFLAG[n];
+  if (sub) return "\u{1F3F4}" + [...sub].map(ch => String.fromCodePoint(0xE0000 + ch.charCodeAt(0))).join("") + "\u{E007F}";
+  const c = ISO2[n]; return c ? String.fromCodePoint(...[...c].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65)) : ""; };
+const club3 = id => { const w = cName(id).replace(/\b(FC|CF|AFC|SC|AC|SV|CD|SL|RC|UD|SD|SS|US|AS|FK|SK|IF|BK|CA|CR|SE|EC|1\.|C\.|F\.C\.)\b/g, " ").split(/[\s.-]+/).filter(x => x.length > 1);
+  return (w.length >= 2 && w[0].length <= 4 ? w[0][0] + w[1].slice(0, 2) : (w[0] || "?").slice(0, 3)).toUpperCase(); };
+// shorter everyday names for long league and club names (Puzzles)
+const LGN = { "Chinese Football Association Super League": "Chinese Super League", "SSE Airtricity Men's Premier Division": "League of Ireland", "Österreichische Fußball-Bundesliga": "Austrian Bundesliga",
+  "National Women's Soccer League": "NWSL", "Google Pixel Frauen-Bundesliga": "Frauen-Bundesliga", "Barclays Women’s Super League": "Women's Super League", "PKO Bank Polski Ekstraklasa": "Ekstraklasa",
+  "Liga Profesional de Fútbol": "Argentine League", "United Emirates League": "UAE League", "CONMEBOL Sudamericana": "Sudamericana", "CONMEBOL Libertadores": "Libertadores", "Arkema Première Ligue": "Première Ligue",
+  "ROSHN Saudi League": "Saudi Pro League", "Isuzu UTE A League": "A-League", "Ligue 1 McDonald's": "Ligue 1", "Ligue 2 BKT": "Ligue 2", "Brack Super League": "Swiss Super League", "LALIGA HYPERMOTION": "LaLiga 2",
+  "LALIGA EA SPORTS": "LaLiga", "Trendyol Süper Lig": "Süper Lig", "EFL Championship": "Championship", "EFL League One": "League One", "EFL League Two": "League Two", "Serie A Enilive": "Serie A", "Serie BKT": "Serie B",
+  "Liga BBVA MX": "Liga MX", "Liga F Moeve": "Liga F", "Major League Soccer": "MLS", "3F Superliga": "Danish Superliga", "SUPERLIGA": "Romanian Superliga", "1A Pro League": "Belgian Pro League", "Liga Portugal Feminino": "Liga Portugal (W)" };
+const lShort = id => { const n = lName(id); return LGN[n] || n; };
+const cShort = id => cName(id).replace(/^(FC|AFC|CF|SC|AC|SV|1\. FC) /, "").replace(/ (FC|CF|AFC|SC|C\.F\.)$/, "").trim();
+const nat3 = id => { const n = nName(id); return NAT3[n] || n.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase(); };
+const lg3 = id => { const n = lName(id); return LG3[n] || n.split(/\s+/).map(w => w[0]).join("").slice(0, 4).toUpperCase(); };
+const LINKC = ["#ff8a1f", "#3ba7ff", "#3ddc97", "#c77dff", "#ffd36b", "#ff5c8a", "#5ce1e6", "#a3e635"];
+// counts (in-position cards only, Icons count for their nation; Heroes / Icons have no club) and colours for groups of 2+
+function pzLinks(slots, team) {
+  const on = team.map((c, i) => c && pzFits(c, slots[i]) ? c : null).filter(Boolean), G = { n: new Map(), l: new Map(), c: new Map() };
+  let icons = 0;
+  for (const c of on) {
+    G.n.set(c.nationId, (G.n.get(c.nationId) || 0) + natW(c));
+    if (SBC_ICON.has(c.color)) icons++; else G.l.set(c.leagueId, (G.l.get(c.leagueId) || 0) + lgW(c));
+    if (!SBC_AUTO.has(c.color)) G.c.set(c.clubId, (G.c.get(c.clubId) || 0) + clW(c));
+  }
+  if (icons) for (const [k, v] of G.l) G.l.set(k, v + icons);       // each Icon links every league
+  const col = {}; for (const k of "nlc") { let j = 0; col[k] = new Map([...G[k]].sort((a, b) => b[1] - a[1]).map(([id, n]) => [id, n >= 2 ? LINKC[(j++ + "nlc".indexOf(k) * 3) % LINKC.length] : ""])); }
+  return { G, col, icons };
+}
+const lvlOf = (n, T) => T.filter(t => n >= t).length;
+// tap a placed card: everything about it, and where its chem comes from
+function pzInfo(i) {
+  const pz = PZ.pz, slots = pzSlots(pz), c = PZ.team[i], LK = pzLinks(slots, PZ.team), ch = pzChem(slots, PZ.team)[i];
+  const lk = pz.locked.some(l => l.i === i), fits = pzFits(c, slots[i]), auto = SBC_AUTO.has(c.color);
+  const nN = LK.G.n.get(c.nationId) || 0, nL = SBC_ICON.has(c.color) ? 0 : LK.G.l.get(c.leagueId) || 0, nC = auto ? 0 : LK.G.c.get(c.clubId) || 0;
+  const row = (ico, k, name, n, T, note) => { const g = lvlOf(n, T), nx = T.find(t => t > n);
+    return `<div class="pir"><span class="k">${k}</span><b>${ico}${esc(name)}</b><span class="v">${note || `${n} in squad · <em>+${g}</em>${nx ? ` <small>(${nx} for +${g + 1})</small>` : ""}`}</span></div>`; };
+  const pos = [c.position, ...String(c.altPositions || "").split(",").filter(Boolean)];
+  const ov = document.createElement("div"); ov.id = "pzInfo";
+  ov.innerHTML = `<div class="pibox" style="--tint:${tintOf(c)}">
+    <div class="pihead"><span class="r">${c.rating}</span><div><b>${esc(cap(c.name))}</b><small>${esc(TYPE(c.color))} · ${pos.map(p => p === slots[i] ? `<u>${esc(p)}</u>` : esc(p)).join(" / ")}</small></div>${lk ? `<span class="lkb">🔒 Locked</span>` : ""}</div>
+    <div class="pichem"><span>Chem</span><b>${ch}<small>/3</small></b>${!fits ? `<em class="bad">Out of position: plays ${esc(slots[i])}, needs ${esc(pos.join(" / "))}</em>` : auto ? `<em>${SBC_ICON.has(c.color) ? "Icons" : "Heroes"} always get full chem</em>` : ""}</div>
+    ${row(flagOf(c.nationId) + " ", "Nation", nName(c.nationId), nN, NEXT.n, auto && SBC_ICON.has(c.color) ? `counts 2 · ${nN} in squad` : "")}
+    ${SBC_ICON.has(c.color) ? row("", "League", "Every league", 0, NEXT.l, "adds 1 to every league in the squad") : row("", "League", lShort(c.leagueId), nL, NEXT.l, "")}
+    ${auto ? row("", "Club", SBC_ICON.has(c.color) ? "Icon" : "Hero", 0, NEXT.c, "no club") : row("", "Club", cShort(c.clubId), nC, NEXT.c, "")}
+    ${pzBonusHit(c, pz.bonus) && !lk ? `<p class="pibon">★ Counts for the bonus: +${pz.bonus.each}</p>` : ""}
+    <div class="piact">${lk ? "" : `<button class="ghost" id="piRm">Remove</button><button class="btn" id="piSw">Swap</button>`}<button class="ghost" id="piX">Close</button></div></div>`;
+  document.body.appendChild(ov);
+  const close = () => ov.remove();
+  ov.onclick = e => { if (e.target === ov) close(); };
+  $("piX").onclick = close;
+  if (!lk) { $("piRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { close(); pzPick(i); }; }
+}
+const NEXT = { n: [2, 5, 8], l: [3, 5, 8], c: [2, 4, 7] };
+function pzDraw() {
+  const box = $("gameBox"); if (!box) return;
+  if (!PZ.data) { box.innerHTML = `<p class="muted">Loading puzzles…</p>`; pzLoad().then(pzDraw).catch(e => box.innerHTML = `<p class="muted">Couldn't load the puzzles: ${esc(e.message)}</p>`); return; }
+  pzMe(); ({ home: pzHome, set: pzSetView, play: pzPlay, lb: pzBoard })[PZ.view]();
+}
+function pzHome() {
+  const tiers = Object.keys(PZ_TIERS), all = PZ.data.sets, total = all.reduce((a, s) => a + setPts(s), 0), r = PZ.me && PZ.me.ranks && PZ.me.ranks.all;
+  $("gameBox").innerHTML = `<div class="pzintro"><h2 class="pzlogo">Puzzles</h2><p class="small muted">Finish each squad around the locked cards and reach the chem target. Bonus points for cards from the puzzle's league, nation or club, for using no Icons or Heroes, and for a cheap squad (rated under 85). The bonus never links with the locked cards, so chasing it costs chem. Open any set.</p>
+    <div class="pzme"><div><span>Your points</span><b>${fmtN(total)}</b></div><div><span>Perfect</span><b class="${pzPerfects(all.flatMap(s => s.puzzles)) ? "pzgold" : ""}">${pzPerfects(all.flatMap(s => s.puzzles))}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><button class="ghost" data-pzlb="all">Leaderboard</button></div>
+    <p class="small muted" style="margin:8px 0 0">${!PZ_API ? "The shared leaderboard is coming soon. Your points are saved on this device." : pzName() ? `Playing as <b>${esc(pzName())}</b> · <a href="#" id="pzRename">change name</a> · <a href="#" id="pzOut">sign out</a>` : `<a href="#" id="pzNew">Pick a name</a> to join the leaderboard, or <a href="#" id="pzIn">sign in</a> to bring your scores from another device.`}</p></div>
+    ${tiers.map(t => { const sets = all.filter(s => s.tier === t); return sets.length ? `<h3 class="pztier t-${t}">${esc(PZ_TIERS[t].name)}<small>${esc(PZ_TIERS[t].note)}</small></h3>
+      <div class="pzsets">${sets.map(s => { const pc = Math.round(100 * setSolved(s) / s.puzzles.length);
+        return `<button class="pzset t-${s.tier}" data-pzset="${esc(s.id)}"><span class="ring" style="--p:${pc}"><em>${setSolved(s)}<small>/${s.puzzles.length}</small></em></span><span class="tx"><b>${esc(s.name)}</b><small>${esc(PZ_TIERS[s.tier].name)} · ${s.puzzles[0].target}–${s.puzzles[s.puzzles.length - 1].target} chem</small><span class="pts">${fmtN(setPts(s))} pts</span></span></button>`; }).join("")}</div>` : ""; }).join("")}`;
+  pzWire();
+}
+function pzSetView() {
+  const s = PZ.set, b = pzBest(), r = PZ.me && PZ.me.ranks && PZ.me.ranks[s.id];
+  $("gameBox").innerHTML = `<div class="pzbar t-${s.tier}"><button class="ghost" data-pzgo="home">‹ Sets</button><b>${esc(s.name)}<small>${esc(PZ_TIERS[s.tier].name)}</small></b><button class="ghost" data-pzlb="${esc(s.id)}">Leaderboard</button></div>
+    <div class="pzme"><div><span>Points</span><b>${fmtN(setPts(s))}</b></div><div><span>Solved</span><b>${setSolved(s)}/${s.puzzles.length}</b></div><div><span>Perfect</span><b class="${pzPerfects(s.puzzles) ? "pzgold" : ""}">${pzPerfects(s.puzzles)}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div></div>
+    <div class="pzgrid t-${s.tier}">${s.puzzles.map(p => { const g = pzPerfect(p.id, b[p.id] || 0); return `<button class="pztile${b[p.id] ? " done" : ""}${g ? " gold" : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${g ? "★ " + fmtN(b[p.id]) : b[p.id] ? "✓ " + fmtN(b[p.id]) : p.target + " chem"}</small></button>`; }).join("")}</div>
+    <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
+  pzWire();
+}
+function pzPlay() {
+  const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
+  // one line per nation / league / club in the squad: how many you have, the chem it gives each of them, and how many more for the next step
+  const linkRow = (k, label, nm, ico) => { const L = [...LK.G[k]].sort((a, b) => b[1] - a[1]).slice(0, 6); return L.length ? `<div class="pzlk"><h4>${label}</h4>${L.map(([id, n]) => {
+      const T = NEXT[k], got = T.filter(t => n >= t).length, nx = T.find(t => t > n);
+      return `<div class="lr" style="--g:${LK.col[k].get(id) || "rgba(255,255,255,.25)"}"><b>${ico ? ico(id) + " " : ""}${esc(nm(id))}</b><span class="dots">${Array.from({ length: Math.min(nx || n, 8) }, (_, j) => `<i class="${j < n ? "on" : ""}"></i>`).join("")}</span><small>${got ? `<em>+${got}</em>` : "+0"}${nx ? ` · ${nx - n} more for +${got + 1}` : " · max"}</small></div>`; }).join("")}</div>` : ""; };
+  const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i));
+  const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
+  const placed = PZ.team.filter(Boolean), rNow = placed.length ? teamRatingOf(placed.map(c => c.rating)) : 0, bud = pz.budget ? pzBudget(pz, rNow) : 0;
+  const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud, pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
+  const set = PZ.data.sets.find(s => s.puzzles.includes(pz)), nx = set.puzzles[set.puzzles.indexOf(pz) + 1];
+  $("gameBox").innerHTML = `<div class="pzbar t-${set.tier}"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}<small>${esc(pz.formation)}</small></b><button class="ghost" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(pz.id)}">Ranks</button></div>
+    <div class="pzhud"><div class="pzchem"><b class="${sc.total >= pz.target ? "ok" : ""}">${sc.total}</b><span>/ ${pz.target} chem</span><div class="bar"><i style="width:${pct}%"></i><em style="left:${tp}%"></em></div></div>
+      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="${pzPerfect(pz.id, best) ? "pzgold" : ""}">${fmtN(best)}</span>` : ""}${pzTop(pz.id) ? ` · perfect ${fmtN(pzTop(pz.id))}` : ""}</small></div></div>
+    <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span><span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
+    <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
+      return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
+        <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
+        : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
+    <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
+      <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
+      ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lShort)}${linkRow("c", "Clubs", cShort)}</details>
+    <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
+    <div id="pzMsg"></div>`;
+  pzWire();
+  $("pzClear").onclick = () => { PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  $("pzGo").onclick = () => pzSubmit(sc);
+  document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (PZ.team[i]) pzInfo(i); else pzPick(i); });
+}
+// card picker for one spot: search, and quick filters for the links already in the squad
+function pzPick(i) {
+  const pz = PZ.pz, sl = pzSlots(pz)[i], have = new Set(PZ.team.filter((c, j) => c && j !== i).map(playerKey));
+  const seen = (m, k, v) => m.set(k, v); const links = new Map();
+  PZ.team.forEach((c, j) => { if (!c || j === i) return; seen(links, "n" + c.nationId, ["nation", c.nationId, flagOf(c.nationId) + " " + nName(c.nationId)]); if (!SBC_ICON.has(c.color)) seen(links, "l" + c.leagueId, ["league", c.leagueId, lShort(c.leagueId)]); if (!SBC_AUTO.has(c.color)) seen(links, "c" + c.clubId, ["club", c.clubId, cShort(c.clubId)]); });
+  seen(links, "b", [pz.bonus.on, pz.bonus.id, "★ " + bonusName(pz.bonus)]);
+  const pool = CARDS.filter(c => c.P && c.P.has(sl) && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
+  let f = null, q = "";
+  const sheet = document.createElement("div"); sheet.id = "pzSheet";
+  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Player, club, league or nation" enterkeyhint="done" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
+    <div class="pzf">${[...links.values()].map(([on, id, n], k) => `<button data-f="${k}">${esc(n)}</button>`).join("")}<button data-f="icon">Icons & Heroes</button></div><div class="pzlist" id="pzL"></div></div>`;
+  document.body.appendChild(sheet);
+  // full screen from the top on phones, fitted above the keyboard, page behind it frozen
+  const vv = window.visualViewport, root = document.documentElement, oldOv = root.style.overflow;
+  const fit = () => { if (!vv) return; sheet.style.top = vv.offsetTop + "px"; sheet.style.height = vv.height + "px"; };
+  fit(); if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); } root.style.overflow = "hidden";
+  const L = [...links.values()], close = () => { sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } };
+  // search matches the name, club, league or nation (every word has to match somewhere)
+  const hay = c => c._h || (c._h = norm([c.name, cName(c.clubId), cShort(c.clubId), lName(c.leagueId), lShort(c.leagueId), nName(c.nationId)].join(" ")));
+  let top = null;
+  const draw = () => {
+    const nq = norm(q).trim(), words = nq.split(/\s+/).filter(Boolean); let r = pool;
+    if (nq.length >= 2) r = r.filter(c => words.every(w => hay(c).includes(w)));
+    if (f === "icon") r = r.filter(c => SBC_AUTO.has(c.color));
+    else if (f != null) { const [on, id] = L[f]; r = r.filter(c => on === "nation" ? c.nationId === id : on === "league" ? c.leagueId === id && !SBC_ICON.has(c.color) : c.clubId === id); }
+    const nameHit = c => nq.length >= 2 && words.some(w => c._n.includes(w)) ? 0 : 1;
+    r = r.slice().sort((a, b) => nameHit(a) - nameHit(b) || b.rating - a.rating).slice(0, 60); top = r[0] || null;
+    $("pzL").innerHTML = r.length ? r.map(c => `<button data-c="${esc(c.id)}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`).join("")
+      : `<p class="small muted" style="padding:12px">No cards for that. Try another search.</p>`;
+    $("pzL").querySelectorAll("[data-c]").forEach(b => b.onclick = () => { PZ.team[i] = BYID.get(b.dataset.c); pzSave(); close(); pzPlay(); });
+  };
+  sheet.onclick = e => { if (e.target === sheet) close(); };
+  $("pzX").onclick = close;
+  if ($("pzRm")) $("pzRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); };
+  $("pzQ").oninput = e => { q = e.target.value; draw(); $("pzL").scrollTop = 0; };
+  $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); PZ.team[i] = top; pzSave(); close(); pzPlay(); } };
+  sheet.querySelectorAll("[data-f]").forEach(b => b.onclick = () => { const v = b.dataset.f === "icon" ? "icon" : +b.dataset.f; f = f === v ? null : v;
+    sheet.querySelectorAll("[data-f]").forEach(x => x.classList.toggle("on", (x.dataset.f === "icon" ? "icon" : +x.dataset.f) === f)); draw(); });
+  draw();
+  $("pzQ").focus();
+}
+async function pzSubmit(sc) {
+  const pz = PZ.pz, b = pzBest(), msg = $("pzMsg");
+  const prev = b[pz.id] || 0; if (sc.pts > prev) { b[pz.id] = sc.pts; pzLSset("pzBest", b); }
+  let note = sc.pts > prev ? (prev ? `New best! Up from ${fmtN(prev)}.` : "Solved!") : `Your best is still ${fmtN(prev)}.`;
+  const top = pzTop(pz.id), gold = !!top && sc.pts >= top, record = gold && sc.pts > top;
+  if (record) { PZ.rec = PZ.rec || {}; PZ.rec[pz.id] = sc.pts; }
+  msg.innerHTML = `<div class="pzdone${gold ? " gold" : ""}">${gold ? `<i class="pzstar">${record ? "★ New Top Score" : "★ Perfect"}</i>` : ""}<b class="${gold ? "pzgold" : ""}">${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}${sc.budget ? ` + ${fmtN(sc.budget)} budget (rated ${sc.rating})` : ""}</span><span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
+  msg.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!PZ_API) return;
+  if (!pzAcct()) { $("pzRank").innerHTML = `Saved on this device. <a href="#" id="pzJoin">Pick a name</a> to put it on the leaderboard.`; $("pzJoin").onclick = e => { e.preventDefault(); pzAccount(() => pzSubmit(sc)); }; return; }
+  try {
+    const r = await pzApi("/submit", { puzzle: pz.id, team: PZ.team.map(c => c.id) });
+    if (r.error) { $("pzRank").textContent = "Leaderboard: " + r.error; return; }
+    PZ.me = null;
+    const set = PZ.data.sets.find(s => s.puzzles.includes(pz));
+    $("pzRank").innerHTML = `On the leaderboard: <b>#${r.puzzle ? r.puzzle.rank : "?"}</b> on this puzzle, <b>#${r.set ? r.set.rank : "?"}</b> in ${esc(set.name)}, <b>#${r.all ? r.all.rank : "?"}</b> overall. <a href="#" class="plink" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(PZ.pz.id)}">See ranks</a>`; pzWire();
+  } catch (e) { $("pzRank").textContent = "Couldn't reach the leaderboard. Your points are saved on this phone."; }
+}
+// leaderboards: All, each set, and each puzzle in a set. Equal points share a rank
+async function pzBoard() {
+  const sets = PZ.data.sets, S = sets.find(s => s.id === PZ.lbSet) || null, P = S && S.puzzles.find(p => p.id === PZ.lbPz) || null, best = pzBest();
+  const back = PZ.lbFrom === "play" && PZ.pz ? "play" : PZ.lbFrom === "set" && PZ.set ? "set" : "home";
+  const head = P ? `<div class="pzlbh t-${S.tier}"><b>${esc(S.name)} · Puzzle ${P.n}</b><small>${esc(P.formation)} · ${P.target} chem · ${fmtN(P.pts)} base</small></div>`
+    : S ? `<div class="pzlbh t-${S.tier}"><b>${esc(S.name)}</b><small>${esc(PZ_TIERS[S.tier].name)} · all ${S.puzzles.length} puzzles</small></div>`
+    : `<div class="pzlbh"><b>Everyone</b><small>All ${sets.reduce((a, s) => a + s.puzzles.length, 0)} puzzles</small></div>`;
+  $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="${back}">‹ Back</button><b>Leaderboard</b><span></span></div>
+    <div class="pzpills"><button data-pzlb="all" class="${S ? "" : "on"}">All</button>${sets.map(s => `<button data-pzlb="${esc(s.id)}" class="t-${s.tier}${S === s ? " on" : ""}">${esc(s.name)}</button>`).join("")}</div>
+    ${S ? `<div class="pzpills pznum t-${S.tier}"><button data-pzlb="${esc(S.id)}" class="${P ? "" : "on"}">Set</button>${S.puzzles.map(p => `<button data-pzlb="${esc(S.id)}" data-pzlbp="${esc(p.id)}" class="${P === p ? "on" : ""}${best[p.id] ? " done" : ""}">${p.n}</button>`).join("")}</div>` : ""}
+    ${head}<div id="pzYou"></div><div id="pzRows"><p class="muted small">${PZ_API ? "Loading…" : "The shared leaderboard is coming soon. Your own points are on the Puzzles page."}</p></div>`;
+  pzWire();
+  // keep the picked set / puzzle in view in its row
+  $("gameBox").querySelectorAll(".pzpills").forEach(row => { const o = row.querySelector(".on"); if (o) row.scrollLeft = o.offsetLeft - (row.clientWidth - o.offsetWidth) / 2; });
+  const mine = P ? best[P.id] || 0 : S ? setPts(S) : sets.reduce((a, s) => a + setPts(s), 0);
+  const you = r => `<div class="pzme"><div><span>${P ? "Your best" : "Your points"}</span><b>${mine ? fmtN(r && r.pts || mine) : "–"}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div>${P ? `<button class="ghost" data-pz="${esc(P.id)}">Play</button>` : ""}</div>`;
+  $("pzYou").innerHTML = you(null); pzWire();
+  if (!PZ_API) return;
+  try {
+    const r = await pzApi(`/lb?set=${encodeURIComponent(S ? S.id : "all")}${P ? "&puzzle=" + encodeURIComponent(P.id) : ""}`), me = pzName();
+    if (PZ.view !== "lb" || PZ.lbSet !== (S ? S.id : "all") || (PZ.lbPz || "") !== (P ? P.id : "")) return;   // moved on while loading
+    $("pzYou").innerHTML = you(r.you); pzWire();
+    let rk = 0;
+    $("pzRows").innerHTML = r.rows && r.rows.length ? `<ol class="pzlb">${r.rows.map((x, k) => { if (!k || x.pts !== r.rows[k - 1].pts) rk = k + 1;
+      return `<li class="${x.name === me ? "me" : ""}${rk <= 3 ? " top" + rk : ""}${P && pzPerfect(P.id, x.pts) ? " gold" : ""}"><span class="rk">${rk}</span><b>${esc(x.name)}</b><small>${P ? `${x.chem} chem · ${x.rating} rated` : `${x.solved} solved`}</small><span class="pt">${fmtN(x.pts)}</span></li>`; }).join("")}</ol>`
+      : `<p class="muted small">No scores yet. Be the first!</p>`;
+  } catch (e) { $("pzRows").innerHTML = `<p class="muted small">Couldn't load the leaderboard.</p>`; }
+}
+function pzWire() {
+  const box = $("gameBox");
+  box.querySelectorAll("[data-pzset]").forEach(b => b.onclick = () => { PZ.set = PZ.data.sets.find(s => s.id === b.dataset.pzset); PZ.view = "set"; pzDraw(); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pz]").forEach(b => b.onclick = () => { for (const s of PZ.data.sets) { const p = s.puzzles.find(p => p.id === b.dataset.pz); if (p) { PZ.set = s; PZ.pz = p; } }
+    PZ.team = pzTeamOf(PZ.pz); PZ.view = "play"; pzDraw(); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pzgo]").forEach(b => b.onclick = () => { PZ.view = b.dataset.pzgo; pzDraw(); });
+  box.querySelectorAll("[data-pzlb]").forEach(b => b.onclick = () => { if (PZ.view !== "lb") PZ.lbFrom = PZ.view;
+    PZ.lbSet = b.dataset.pzlb; PZ.lbPz = b.dataset.pzlbp || ""; PZ.view = "lb"; pzDraw(); });
+  const on = (id, f) => { const el = $(id); if (el) el.onclick = e => { e.preventDefault(); f(); }; };
+  on("pzNew", () => pzAccount(null, "new")); on("pzIn", () => pzAccount(null, "in"));
+  on("pzOut", () => { if (!confirm("Sign out on this device? Your scores stay on your account, ready when you sign in again.")) return; try { ["pzAcct", "pzBest", "pzTeam"].forEach(k => localStorage.removeItem(k)); } catch (e) {} PZ.me = null; pzDraw(); });
+  on("pzRename", async () => { const n = prompt("New name (2 to 16 letters or numbers):", pzName()); if (!n || n.trim().length < 2) return;
+    const r = await pzApi("/name", { name: n.trim() }).catch(() => ({ error: "Couldn't reach the leaderboard" }));
+    if (r.error) return alert(r.error); const a = pzAcct(); a.name = r.name; pzLSset("pzAcct", a); pzDraw(); });
+}
+// "#" links are buttons: never let them navigate (the preview's <base> would send them to the live site)
+document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href="#"]'); if (a) e.preventDefault(); }, true);
+function gamesDraw() { if (!CARDS.length) { $("gameBox").innerHTML = `<p class="muted">Loading cards…</p>`; return; } pzDraw(); }
+document.querySelector('#tabs button[data-t="games"]').addEventListener("click", () => gamesDraw());
