@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117q";
+const APP_V = "20261117r";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1333,7 +1333,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117q"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117r"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1359,7 +1359,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117q"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117r"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2173,7 +2173,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117q");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117r");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2943,16 +2943,24 @@ function pzPick(i) {
   const pool = CARDS.filter(c => c.P && c.P.has(sl) && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
   let f = null, q = "";
   const sheet = document.createElement("div"); sheet.id = "pzSheet";
-  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Search a player…" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
+  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Player, club, league or nation" enterkeyhint="done" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
     <div class="pzf">${[...links.values()].map(([on, id, n], k) => `<button data-f="${k}">${esc(n)}</button>`).join("")}<button data-f="icon">Icons & Heroes</button></div><div class="pzlist" id="pzL"></div></div>`;
   document.body.appendChild(sheet);
-  const L = [...links.values()], close = () => sheet.remove();
+  // full screen from the top on phones, fitted above the keyboard, page behind it frozen
+  const vv = window.visualViewport, root = document.documentElement, oldOv = root.style.overflow;
+  const fit = () => { if (!vv) return; sheet.style.top = vv.offsetTop + "px"; sheet.style.height = vv.height + "px"; };
+  fit(); if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); } root.style.overflow = "hidden";
+  const L = [...links.values()], close = () => { sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } };
+  // search matches the name, club, league or nation (every word has to match somewhere)
+  const hay = c => c._h || (c._h = norm([c.name, cName(c.clubId), cShort(c.clubId), lName(c.leagueId), lShort(c.leagueId), nName(c.nationId)].join(" ")));
+  let top = null;
   const draw = () => {
-    const nq = norm(q); let r = pool;
-    if (nq.length >= 2) r = r.filter(c => c._n.includes(nq));
+    const nq = norm(q).trim(), words = nq.split(/\s+/).filter(Boolean); let r = pool;
+    if (nq.length >= 2) r = r.filter(c => words.every(w => hay(c).includes(w)));
     if (f === "icon") r = r.filter(c => SBC_AUTO.has(c.color));
     else if (f != null) { const [on, id] = L[f]; r = r.filter(c => on === "nation" ? c.nationId === id : on === "league" ? c.leagueId === id && !SBC_ICON.has(c.color) : c.clubId === id); }
-    r = r.slice().sort((a, b) => b.rating - a.rating).slice(0, 60);
+    const nameHit = c => nq.length >= 2 && words.some(w => c._n.includes(w)) ? 0 : 1;
+    r = r.slice().sort((a, b) => nameHit(a) - nameHit(b) || b.rating - a.rating).slice(0, 60); top = r[0] || null;
     $("pzL").innerHTML = r.length ? r.map(c => `<button data-c="${esc(c.id)}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`).join("")
       : `<p class="small muted" style="padding:12px">No cards for that. Try another search.</p>`;
     $("pzL").querySelectorAll("[data-c]").forEach(b => b.onclick = () => { PZ.team[i] = BYID.get(b.dataset.c); pzSave(); close(); pzPlay(); });
@@ -2960,10 +2968,12 @@ function pzPick(i) {
   sheet.onclick = e => { if (e.target === sheet) close(); };
   $("pzX").onclick = close;
   if ($("pzRm")) $("pzRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); };
-  $("pzQ").oninput = e => { q = e.target.value; draw(); };
+  $("pzQ").oninput = e => { q = e.target.value; draw(); $("pzL").scrollTop = 0; };
+  $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); PZ.team[i] = top; pzSave(); close(); pzPlay(); } };
   sheet.querySelectorAll("[data-f]").forEach(b => b.onclick = () => { const v = b.dataset.f === "icon" ? "icon" : +b.dataset.f; f = f === v ? null : v;
     sheet.querySelectorAll("[data-f]").forEach(x => x.classList.toggle("on", (x.dataset.f === "icon" ? "icon" : +x.dataset.f) === f)); draw(); });
   draw();
+  $("pzQ").focus();
 }
 async function pzSubmit(sc) {
   const pz = PZ.pz, b = pzBest(), msg = $("pzMsg");
