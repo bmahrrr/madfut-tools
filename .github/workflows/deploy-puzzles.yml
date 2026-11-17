@@ -17,7 +17,15 @@ jobs:
       - name: Secrets set?
         id: have
         run: |
-          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then echo "Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repo secrets first." >> $GITHUB_STEP_SUMMARY; echo "ok=0" >> $GITHUB_OUTPUT; else echo "ok=1" >> $GITHUB_OUTPUT; fi
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then echo "Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repo secrets first." >> $GITHUB_STEP_SUMMARY; echo "ok=0" >> $GITHUB_OUTPUT; exit 0; fi
+          # trim stray spaces / line breaks from pasting, and say plainly (without showing it) if a secret still looks wrong
+          trim() { printf %s "$1" | tr -d '\r' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tr -d '\n'; }
+          T=$(trim "$CLOUDFLARE_API_TOKEN"); A=$(trim "$CLOUDFLARE_ACCOUNT_ID")
+          case "$T" in *[[:space:]]*|*Bearer*|*curl*) echo "::error title=token::CLOUDFLARE_API_TOKEN has more than the token in it (length ${#T}). Paste only the token."; exit 1;; esac
+          echo "$A" | grep -Eq '^[0-9a-f]{32}$' || { echo "::error title=account::CLOUDFLARE_ACCOUNT_ID should be 32 letters and numbers (got ${#A})."; exit 1; }
+          echo "::add-mask::$T"; echo "CLOUDFLARE_API_TOKEN=$T" >> $GITHUB_ENV; echo "CLOUDFLARE_ACCOUNT_ID=$A" >> $GITHUB_ENV
+          echo "::notice title=token::looks fine (length ${#T})"
+          echo "ok=1" >> $GITHUB_OUTPUT
       - uses: actions/setup-node@v4
         if: steps.have.outputs.ok == '1'
         with: { node-version: 20 }
