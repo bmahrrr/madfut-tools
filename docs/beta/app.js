@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117l";
+const APP_V = "20261117m";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1333,7 +1333,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117l"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117m"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1359,7 +1359,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117l"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117m"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2173,7 +2173,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117l");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117m");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2803,13 +2803,39 @@ const LINKC = ["#ff8a1f", "#3ba7ff", "#3ddc97", "#c77dff", "#ffd36b", "#ff5c8a",
 // counts (in-position cards only, Icons count for their nation; Heroes / Icons have no club) and colours for groups of 2+
 function pzLinks(slots, team) {
   const on = team.map((c, i) => c && pzFits(c, slots[i]) ? c : null).filter(Boolean), G = { n: new Map(), l: new Map(), c: new Map() };
+  let icons = 0;
   for (const c of on) {
-    G.n.set(c.nationId, (G.n.get(c.nationId) || 0) + (SC2(c, "nation") ? 2 : 1));
-    if (!SBC_ICON.has(c.color)) G.l.set(c.leagueId, (G.l.get(c.leagueId) || 0) + (SC2(c, "league") || SBC_HERO.has(c.color) ? 2 : 1));
-    if (!SBC_AUTO.has(c.color)) G.c.set(c.clubId, (G.c.get(c.clubId) || 0) + (SC2(c, "club") ? 2 : 1));
+    G.n.set(c.nationId, (G.n.get(c.nationId) || 0) + natW(c));
+    if (SBC_ICON.has(c.color)) icons++; else G.l.set(c.leagueId, (G.l.get(c.leagueId) || 0) + lgW(c));
+    if (!SBC_AUTO.has(c.color)) G.c.set(c.clubId, (G.c.get(c.clubId) || 0) + clW(c));
   }
+  if (icons) for (const [k, v] of G.l) G.l.set(k, v + icons);       // each Icon links every league
   const col = {}; for (const k of "nlc") { let j = 0; col[k] = new Map([...G[k]].sort((a, b) => b[1] - a[1]).map(([id, n]) => [id, n >= 2 ? LINKC[(j++ + "nlc".indexOf(k) * 3) % LINKC.length] : ""])); }
-  return { G, col };
+  return { G, col, icons };
+}
+const lvlOf = (n, T) => T.filter(t => n >= t).length;
+// tap a placed card: everything about it, and where its chem comes from
+function pzInfo(i) {
+  const pz = PZ.pz, slots = pzSlots(pz), c = PZ.team[i], LK = pzLinks(slots, PZ.team), ch = pzChem(slots, PZ.team)[i];
+  const lk = pz.locked.some(l => l.i === i), fits = pzFits(c, slots[i]), auto = SBC_AUTO.has(c.color);
+  const nN = LK.G.n.get(c.nationId) || 0, nL = SBC_ICON.has(c.color) ? 0 : LK.G.l.get(c.leagueId) || 0, nC = auto ? 0 : LK.G.c.get(c.clubId) || 0;
+  const row = (ico, k, name, n, T, note) => { const g = lvlOf(n, T), nx = T.find(t => t > n);
+    return `<div class="pir"><span class="k">${k}</span><b>${ico}${esc(name)}</b><span class="v">${note || `${n} in squad · <em>+${g}</em>${nx ? ` <small>(${nx} for +${g + 1})</small>` : ""}`}</span></div>`; };
+  const pos = [c.position, ...String(c.altPositions || "").split(",").filter(Boolean)];
+  const ov = document.createElement("div"); ov.id = "pzInfo";
+  ov.innerHTML = `<div class="pibox" style="--tint:${tintOf(c)}">
+    <div class="pihead"><span class="r">${c.rating}</span><div><b>${esc(cap(c.name))}</b><small>${esc(TYPE(c.color))} · ${pos.map(p => p === slots[i] ? `<u>${esc(p)}</u>` : esc(p)).join(" / ")}</small></div>${lk ? `<span class="lkb">🔒 Locked</span>` : ""}</div>
+    <div class="pichem"><span>Chem</span><b>${ch}<small>/3</small></b>${!fits ? `<em class="bad">Out of position: plays ${esc(slots[i])}, needs ${esc(pos.join(" / "))}</em>` : auto ? `<em>${SBC_ICON.has(c.color) ? "Icons" : "Heroes"} always get full chem</em>` : ""}</div>
+    ${row(flagOf(c.nationId) + " ", "Nation", nName(c.nationId), nN, NEXT.n, auto && SBC_ICON.has(c.color) ? `counts 2 · ${nN} in squad` : "")}
+    ${SBC_ICON.has(c.color) ? row("", "League", "Every league", 0, NEXT.l, "adds 1 to every league in the squad") : row("", "League", lShort(c.leagueId), nL, NEXT.l, "")}
+    ${auto ? row("", "Club", SBC_ICON.has(c.color) ? "Icon" : "Hero", 0, NEXT.c, "no club") : row("", "Club", cShort(c.clubId), nC, NEXT.c, "")}
+    ${pzBonusHit(c, pz.bonus) && !lk ? `<p class="pibon">★ Counts for the bonus: +${pz.bonus.each}</p>` : ""}
+    <div class="piact">${lk ? "" : `<button class="ghost" id="piRm">Remove</button><button class="btn" id="piSw">Swap</button>`}<button class="ghost" id="piX">Close</button></div></div>`;
+  document.body.appendChild(ov);
+  const close = () => ov.remove();
+  ov.onclick = e => { if (e.target === ov) close(); };
+  $("piX").onclick = close;
+  if (!lk) { $("piRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { close(); pzPick(i); }; }
 }
 const NEXT = { n: [2, 5, 8], l: [3, 5, 8], c: [2, 4, 7] };
 function pzDraw() {
@@ -2861,7 +2887,7 @@ function pzPlay() {
   pzWire();
   $("pzClear").onclick = () => { PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
   $("pzGo").onclick = () => pzSubmit(sc);
-  document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (!locked.has(i)) pzPick(i); });
+  document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (PZ.team[i]) pzInfo(i); else pzPick(i); });
 }
 // card picker for one spot: search, and quick filters for the links already in the squad
 function pzPick(i) {
