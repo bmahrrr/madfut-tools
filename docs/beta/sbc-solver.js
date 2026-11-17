@@ -70,6 +70,15 @@ function sbcChem(team) {
     Math.min(3, lvl(nat.get(x.nationId) || 0, THRESH.n) + lvl((lg.get(x.leagueId) || 0) + icons, THRESH.l) + lvl(club.get(x.clubId) || 0, THRESH.k)));
 }
 
+// chem when some cards may be out of position: those get 0 and add nothing to anyone else (like the game)
+function sbcChemAt(slots, team) {
+  if (!slots) return sbcChem(team);
+  const idx = []; team.forEach((c, i) => { if (c && c.P.has(slots[i])) idx.push(i); });
+  const ch = sbcChem(idx.map(i => team[i])), out = team.map(() => 0);
+  idx.forEach((i, k) => { out[i] = ch[k]; });
+  return out;
+}
+
 // ---------- candidate selection ----------
 function sbcPool(req, cards) {
   const ex = new Set((req.exclude || []).map(String)), inc = new Set((req.include || []).map(String));
@@ -127,9 +136,12 @@ function buildLP(req, cands, slots, rsum) {
   const X = [];                       // {i, k, name}
   const xsOf = cands.map(() => []);
   slots.forEach((s, k) => cands.forEach((c, i) => { if (c.P.has(s)) { const v = { i, k, name: "x" + X.length }; X.push(v); xsOf[i].push(v.name); } }));
-  for (let k = 0; k < slots.length; k++) if (!X.some(v => v.k === k)) return null;
-  const used = cands.map((c, i) => i).filter(i => xsOf[i].length);
-  const Y = i => xsOf[i];             // list of var names whose sum = 1 if card i is picked
+  // out of position (req._oop of them at most): any card in any spot, 0 chem, adds nothing to anyone else's chem
+  const OOP = req._oop || 0, W = OOP ? cands.map((c, i) => ({ i, name: "w" + i })) : [];
+  if (!OOP) for (let k = 0; k < slots.length; k++) if (!X.some(v => v.k === k)) return null;
+  const used = cands.map((c, i) => i).filter(i => xsOf[i].length || OOP);
+  const Y = i => xsOf[i];             // in position: list of var names whose sum = 1 if card i is picked there
+  const YA = i => OOP ? [...xsOf[i], W[i].name] : xsOf[i];   // picked anywhere
   const rows = []; let rc = 0;
   const lin = (terms) => terms.map(([co, v], j) => (j && co >= 0 ? "+ " : "") + (co < 0 ? "- " : "") + (Math.abs(co) === 1 ? "" : Math.abs(co) + " ") + v).join(" ");
   let infeasible = false;
@@ -137,11 +149,17 @@ function buildLP(req, cands, slots, rsum) {
     if (!terms.length) { if ((op === ">=" && rhs > 0) || (op === "=" && rhs !== 0) || (op === "<=" && rhs < 0)) infeasible = true; return; }
     rows.push(`r${rc++}: ${wrap(lin(terms))} ${op} ${rhs}`);
   };
-  const ysum = (ids, w = () => 1) => ids.flatMap(i => Y(i).map(v => [w(cands[i]), v]));
-  const ints = X.map(v => v.name), conts = [];
+  const ysum = (ids, w = () => 1) => ids.flatMap(i => YA(i).map(v => [w(cands[i]), v]));
+  const ints = X.map(v => v.name).concat(W.map(v => v.name)), conts = [];
   const bounds = [];
 
-  slots.forEach((s, k) => row(X.filter(v => v.k === k).map(v => [1, v.name]), "=", 1));
+  if (!OOP) slots.forEach((s, k) => row(X.filter(v => v.k === k).map(v => [1, v.name]), "=", 1));
+  else {                              // each spot: one card in position, or a free spot taken by an out-of-position card
+    slots.forEach((s, k) => { ints.push("s" + k); row([...X.filter(v => v.k === k).map(v => [1, v.name]), [1, "s" + k]], "=", 1); });
+    row([...slots.map((s, k) => [1, "s" + k]), ...W.map(v => [-1, v.name])], "=", 0);
+    row(W.map(v => [1, v.name]), "<=", OOP);
+    W.forEach(v => { const t = xsOf[v.i]; if (t.length) row([[1, v.name], ...t.map(x => [1, x])], "<=", 1); });
+  }
   const byP = new Map();
   used.forEach(i => { const p = playerKey(cands[i]); if (!byP.has(p)) byP.set(p, []); byP.get(p).push(i); });
   for (const ids of byP.values()) { const t = ysum(ids); if (t.length > 1) row(t, "<=", 1); }
@@ -237,7 +255,7 @@ function buildLP(req, cands, slots, rsum) {
     // One switch lam_L picks the L that matches the squad's average.
     const T = req.min_rating, BIG = 2000;
     conts.push("tot"); bounds.push("0 <= tot <= 1100");
-    row([[1, "tot"], ...X.map(v => [-cands[v.i].rating, v.name])], "=", 0);
+    row([[1, "tot"], ...X.map(v => [-cands[v.i].rating, v.name]), ...W.map(v => [-cands[v.i].rating, v.name])], "=", 0);
     const lams = [];
     const Lr = req._L != null ? [req._L, req._L] : [T - 8, T + 3];
     for (let L = Lr[0]; L <= Lr[1]; L++) {
@@ -250,17 +268,21 @@ function buildLP(req, cands, slots, rsum) {
         // 11*p_k >= tot - 11L + 11*d_k - 11 - BIG*(1 - lam)
         row([[11, pk], [-1, "tot"], ...X.filter(v => v.k === k && cands[v.i].rating > L).map(v => [-11, v.name]), [-BIG, lam]], ">=", -11 * L - 11 - BIG);
       });
+      if (OOP) {                      // the out-of-position card (at most 1 with a squad rating) gets its own p
+        const pw = `pw${L}`; ps.push(pw); conts.push(pw);
+        row([[11, pw], [-1, "tot"], ...W.filter(v => cands[v.i].rating > L).map(v => [-11, v.name]), [-BIG, lam]], ">=", -11 * L - 11 - BIG);
+      }
       // tot + f_L - sum p_k >= 11T - BIG*(1 - lam)   (no rounding slack, so it holds whichever way the game rounds)
-      row([[1, "tot"], ...X.filter(v => cands[v.i].rating > L).map(v => [cands[v.i].rating - L, v.name]), ...ps.map(pk => [-1, pk]), [-BIG, lam]], ">=", 11 * T - BIG);
+      row([[1, "tot"], ...X.filter(v => cands[v.i].rating > L).map(v => [cands[v.i].rating - L, v.name]), ...W.filter(v => cands[v.i].rating > L).map(v => [cands[v.i].rating - L, v.name]), ...ps.map(pk => [-1, pk]), [-BIG, lam]], ">=", 11 * T - BIG);
     }
     row(lams.map(l => [1, l]), "=", 1);
   }
-  if (rsum) row(X.map(v => [cands[v.i].rating, v.name]), ">=", rsum);
+  if (rsum) row([...X.map(v => [cands[v.i].rating, v.name]), ...W.map(v => [cands[v.i].rating, v.name])], ">=", rsum);
   if (infeasible) return null;
-  const obj = X.map(v => [sbcCost(cands[v.i], pr), v.name]);
+  const obj = [...X.map(v => [sbcCost(cands[v.i], pr), v.name]), ...W.map(v => [sbcCost(cands[v.i], pr), v.name])];
   const lp = ["Minimize", " obj: " + wrap(lin(obj)), "Subject To", ...rows.map(r => " " + r),
     "Bounds", ...bounds.map(b => " " + b), "Binary", ...chunk(ints), "End"].join("\n");
-  return { lp, X, cands };
+  return { lp, X, W, cands };
 }
 function wrap(s) { const parts = s.split(" "); const out = []; for (let i = 0; i < parts.length; i += 24) out.push(parts.slice(i, i + 24).join(" ")); return out.join("\n  "); }
 function chunk(names) { const out = []; for (let i = 0; i < names.length; i += 20) out.push(" " + names.slice(i, i + 20).join(" ")); return out; }
@@ -1118,11 +1140,11 @@ function linkSBC(req, pool, slots, ms = 3000) {
 }
 
 // Independent check that a squad meets every requirement (used to verify every answer).
-function validSBC(req, sq) {
+function validSBC(req, sq, slots) {      // slots: given when a card may be out of position (its chem is then 0)
   if (sq.length !== 11 || sq.some(x => !x)) return false;
   if (new Set(sq.map(playerKey)).size !== 11) return false;
   const ex = new Set((req.exclude || []).map(String)); if (sq.some(x => ex.has(x.id))) return false;
-  const ch = sbcChem(sq), chem = ch.reduce((a, b) => a + b, 0);
+  const ch = sbcChemAt(slots, sq), chem = ch.reduce((a, b) => a + b, 0);
   if (req.min_rating) { const tot = sq.reduce((a, x) => a + x.rating, 0), avg = tot / 11, e = sq.reduce((a, x) => a + Math.max(0, x.rating - avg), 0); if (tot + e < 11 * req.min_rating - 1e-9) return false; }
   if (req.min_chem && chem < req.min_chem) return false;
   if (req.min_player_chem && ch.some(h => h < req.min_player_chem)) return false;
@@ -1145,12 +1167,12 @@ function validSBC(req, sq) {
 
 // ---------- solve ----------
 function sbcResult(best, proven, FORMS, ncand) {
-  const ch = sbcChem(best.sq);
+  const sl = FORMS[best.form], ch = best.oop ? sbcChemAt(sl, best.sq) : sbcChem(best.sq);
   return {
     formation: best.form, proven, cost: best.cost,
     rating: teamRatingOf(best.sq.map(x => x.rating)), chem: ch.reduce((a, b) => a + b, 0),
-    players: best.sq.map((x, k) => ({ id: x.id, name: x.name, rating: x.rating, color: x.color, position: x.position, slot: FORMS[best.form][k], nationId: x.nationId, leagueId: x.leagueId, clubId: x.clubId, chem: ch[k] })),
-    candidates: ncand,
+    players: best.sq.map((x, k) => ({ id: x.id, name: x.name, rating: x.rating, color: x.color, position: x.position, slot: sl[k], nationId: x.nationId, leagueId: x.leagueId, clubId: x.clubId, chem: ch[k], oop: !!best.oop && !x.P.has(sl[k]) })),
+    candidates: ncand, oop: !!best.oop,
   };
 }
 // Greedy cheapening: each round makes the single swap (one slot, any card that fits it) that saves the most while the
@@ -1272,6 +1294,29 @@ function solveSBC(highs, req, cards, FORMS, progress = () => {}, timeLimit = 40,
       const f = safeLink(req, pool, FORMS[form], per, fi + 1, highs);
       if (f) { best = { cost: f.cost, form, sq: f.sq }; found.push({ form, sq: f.sq }); proven = false; }
     });
+  }
+  // still nothing, and the chem target leaves room for a card on 0 chem (30 of 33 = 1, 27 = 2): try with that many
+  // cards allowed out of position, which some SBCs need (e.g. the only French card in a club-only SBC is its keeper)
+  const room = req.min_chem && !req.min_player_chem ? Math.floor((33 - req.min_chem) / 3) : 0;
+  if (!best && room > 0) {
+    const N = Math.min(room, req.min_rating ? 1 : 2), t1 = Date.now();
+    forms.forEach((form, fi) => {
+      if (best) return;
+      const slots = FORMS[form];
+      progress(`Trying a card out of position ${form}${forms.length > 1 ? ` (${fi + 1}/${forms.length})` : ""}…`);
+      const oc = sbcCandidates(req, pool, forms, FORMS, { per: 30, rule: 40, tr: 25, groups: 4, depth: 6, types: 4 });
+      const m = buildLP(Object.assign({}, req, { _oop: N }), oc, slots, 0); if (!m) return;
+      const left = Math.max(5, timeLimit * 0.75 - (Date.now() - t1) / 1000);
+      let res; try { res = highs.solve(m.lp, Object.assign({ time_limit: forms.length > 1 ? Math.max(3, left / forms.length) : left, mip_rel_gap: 0, presolve: "on", output_flag: false }, extraOpts)); } catch (e) { return; }
+      if (!res.Columns || !(res.Status === "Optimal" || res.Status === "Time limit reached")) return;
+      const sq = new Array(11).fill(null), off = [];
+      for (const v of m.X) { const col = res.Columns[v.name]; if (col && col.Primal > 0.5) sq[v.k] = m.cands[v.i]; }
+      for (const v of m.W) { const col = res.Columns[v.name]; if (col && col.Primal > 0.5) off.push(m.cands[v.i]); }
+      off.forEach(c => { const k = sq.indexOf(null); if (k >= 0) sq[k] = c; });
+      if (sq.includes(null) || !validSBC(req, sq, slots)) return;
+      best = { cost: sq.reduce((a, x) => a + sbcCost(x, req.priority), 0), form, sq, oop: true }; proven = false;
+    });
+    if (best) return sbcResult(best, proven, FORMS, cands.length);
   }
   if (!best) return { none: true, timedOut, candidates: cands.length };
   // last step: swap cards for cheaper ones one at a time while every requirement still holds (drops a squad rating
