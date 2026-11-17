@@ -76,7 +76,7 @@ function simLook(on) { document.body.classList.toggle("simmode", !!on); const m 
 const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261117h";
+const APP_V = "20261117i";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1333,7 +1333,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117h"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261117i"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1359,7 +1359,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117h"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261117i"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2173,7 +2173,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117h");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261117i");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2774,11 +2774,19 @@ const bonusText = pz => `+${pz.bonus.each} each ${esc(pz.bonus.label)} card`;
 
 // short codes for the pitch: nation (FIFA style), league, and a colour per link group
 const NAT3 = { England: "ENG", Germany: "GER", Spain: "ESP", France: "FRA", Argentina: "ARG", "United States": "USA", Italy: "ITA", Netherlands: "NED", Brazil: "BRA", Sweden: "SWE", Norway: "NOR", Denmark: "DEN", Portugal: "POR", "Korea Republic": "KOR", Belgium: "BEL", "Republic of Ireland": "IRL", Poland: "POL", "Saudi Arabia": "KSA", Mexico: "MEX", Switzerland: "SUI", Austria: "AUT", Colombia: "COL", "China PR": "CHN", Scotland: "SCO", Romania: "ROU", Australia: "AUS", "Türkiye": "TUR", Uruguay: "URU", India: "IND", Paraguay: "PAR", Nigeria: "NGA", Wales: "WAL", Morocco: "MAR", Croatia: "CRO", Senegal: "SEN", Japan: "JPN", "Ivory Coast": "CIV", Chile: "CHI", Ecuador: "ECU", Ghana: "GHA", Canada: "CAN", Venezuela: "VEN", Serbia: "SRB", "Czech Republic": "CZE", Greece: "GRE", Ukraine: "UKR", Finland: "FIN", "Northern Ireland": "NIR", Cameroon: "CMR", Peru: "PER", Iceland: "ISL", Mali: "MLI", Algeria: "ALG", Hungary: "HUN", "Bosnia Herzegovina": "BIH", Kosovo: "KVX", "DR Congo": "COD", Bolivia: "BOL", Albania: "ALB", Jamaica: "JAM", Slovenia: "SVN", Slovakia: "SVK", "New Zealand": "NZL", Guinea: "GUI", Gambia: "GAM", Tunisia: "TUN", Georgia: "GEO", "Cape Verde Islands": "CPV", Cyprus: "CYP", "Burkina Faso": "BFA", Egypt: "EGY", Israel: "ISR", Russia: "RUS", Montenegro: "MNE", "North Macedonia": "MKD", Bulgaria: "BUL", Iran: "IRN", "Costa Rica": "CRC", Honduras: "HON", Panama: "PAN" };
-const LG3 = { "Premier League": "EPL", "EFL Championship": "CHAMP", "EFL League One": "EFL1", "EFL League Two": "EFL2", "LALIGA EA SPORTS": "LIGA", "LALIGA HYPERMOTION": "LIGA2", "Serie A Enilive": "SERIE A", "Serie BKT": "SERIE B",
+const LG3 = { "Premier League": "EPL", "EFL Championship": "CHAMP", "EFL League One": "EFL1", "EFL League Two": "EFL2", "LALIGA EA SPORTS": "LIGA", "LALIGA HYPERMOTION": "LIGA2", "Serie A Enilive": "SER A", "Serie BKT": "SER B",
   "Bundesliga": "BUND", "Bundesliga 2": "BUND2", "3. Liga": "3LIGA", "Ligue 1 McDonald's": "LIGUE1", "Ligue 2 BKT": "LIGUE2", "Eredivisie": "ERED", "Liga Portugal": "LPOR", "ROSHN Saudi League": "SAUDI", "Major League Soccer": "MLS",
   "Liga Profesional de Fútbol": "ARG", "Trendyol Süper Lig": "SÜPER", "1A Pro League": "PRO", "Scottish Premiership": "SPFL", "Icons": "ICON", "Google Pixel Frauen-Bundesliga": "FBL", "Barclays Women’s Super League": "WSL", "Liga F Moeve": "LIGA F",
   "Arkema Première Ligue": "D1F", "National Women's Soccer League": "NWSL", "Liga BBVA MX": "LIGA MX", "CONMEBOL Libertadores": "LIBERT", "CONMEBOL Sudamericana": "SUDAM", "K League 1": "K1", "Allsvenskan": "ALLSV", "Eliteserien": "ELITE",
   "PKO Bank Polski Ekstraklasa": "EKSTR", "SUPERLIGA": "SUPERL", "3F Superliga": "3F SL", "Brack Super League": "SWISS", "Österreichische Fußball-Bundesliga": "AUT BL", "Indian Super League": "ISL", "Isuzu UTE A League": "A-LG", "Hellas Liga": "HELLAS", "Česká Liga": "CZE", "Ukrayina Liha": "UKR" };
+const ISO2 = {"Germany": "DE", "Spain": "ES", "France": "FR", "Argentina": "AR", "United States": "US", "Italy": "IT", "Netherlands": "NL", "Brazil": "BR", "Sweden": "SE", "Norway": "NO", "Denmark": "DK", "Portugal": "PT", "Korea Republic": "KR", "Belgium": "BE", "Republic of Ireland": "IE", "Poland": "PL", "Saudi Arabia": "SA", "Mexico": "MX", "Switzerland": "CH", "Austria": "AT", "Colombia": "CO", "China PR": "CN", "Romania": "RO", "Australia": "AU", "Türkiye": "TR", "Uruguay": "UY", "India": "IN", "Paraguay": "PY", "Nigeria": "NG", "Morocco": "MA", "Croatia": "HR", "Senegal": "SN", "Japan": "JP", "Ivory Coast": "CI", "Chile": "CL", "Ecuador": "EC", "Ghana": "GH", "Canada": "CA", "Venezuela": "VE", "Serbia": "RS", "Czech Republic": "CZ", "Greece": "GR", "Ukraine": "UA", "Finland": "FI", "Cameroon": "CM", "Peru": "PE", "Iceland": "IS", "Mali": "ML", "Algeria": "DZ", "Hungary": "HU", "Bosnia Herzegovina": "BA", "Kosovo": "XK", "DR Congo": "CD", "Bolivia": "BO", "Albania": "AL", "Jamaica": "JM", "Slovenia": "SI", "Slovakia": "SK", "New Zealand": "NZ", "Guinea": "GN", "Gambia": "GM", "Tunisia": "TN", "Georgia": "GE", "Cape Verde Islands": "CV", "Cyprus": "CY", "Burkina Faso": "BF", "Montenegro": "ME", "Suriname": "SR", "Haiti": "HT", "Guinea Bissau": "GW", "Israel": "IL", "Bulgaria": "BG", "Angola": "AO", "South Africa": "ZA", "Panama": "PA", "Netherlands Antilles": "CW", "Costa Rica": "CR", "FYR Macedonia": "MK", "Congo": "CG", "Iraq": "IQ", "Russia": "RU", "Egypt": "EG", "Luxemburg": "LU", "Thailand": "TH", "Indonesia": "ID", "Togo": "TG", "Azerbaijan": "AZ", "Kenya": "KE", "Zambia": "ZM", "Gabon": "GA", "Trinidad & Tobago": "TT", "Comoros": "KM", "Sierra Leone": "SL", "Moldova": "MD", "Armenia": "AM", "Dominican Republic": "DO", "Mauritania": "MR", "Zimbabwe": "ZW", "United Arab Emirates": "AE", "Honduras": "HN", "Syria": "SY", "Estonia": "EE", "Benin": "BJ", "Madagascar": "MG", "Grenada": "GD", "Malawi": "MW", "Lithuania": "LT", "Malta": "MT", "Hong Kong": "HK", "Guyana": "GY", "Iran": "IR", "Equatorial Guinea": "GQ", "Latvia": "LV", "Uganda": "UG", "CAR": "CF", "Philippines": "PH", "Faroe Islands": "FO", "Uzbekistan": "UZ", "Jordan": "JO", "St Kitts Nevis": "KN", "Belarus": "BY", "Mozambique": "MZ", "Tanzania": "TZ", "St Lucia": "LC", "Guatemala": "GT", "Burundi": "BI", "Eritrea": "ER", "Rwanda": "RW", "Montserrat": "MS", "Liberia": "LR", "Libya": "LY", "El Salvador": "SV", "Palestinian Authority": "PS", "Puerto Rico": "PR", "Liechtenstein": "LI", "Antigua & Barbuda": "AG", "Niger": "NE", "Andorra": "AD", "Yemen": "YE", "New Caledonia": "NC", "Pakistan": "PK", "Chad": "TD", "Chinese Taipei": "TW", "Bangladesh": "BD", "Kazakhstan": "KZ", "Lebanon": "LB", "Vanuatu": "VU", "Qatar": "QA", "Cuba": "CU", "Bermuda": "BM", "Barbados": "BB", "Sri Lanka": "LK", "Namibia": "NA", "Somalia": "SO", "Mauritius": "MU", "São Tomé & Príncipe": "ST", "Korea DPR": "KP", "Afghanistan": "AF", "Oman": "OM", "Gibraltar": "GI", "Vietnam": "VN", "North Macedonia": "MK", "Bahrain": "BH", "Kuwait": "KW", "Ethiopia": "ET", "Sudan": "SD", "Singapore": "SG", "Malaysia": "MY", "Nicaragua": "NI", "Curaçao": "CW", "Belize": "BZ", "Botswana": "BW", "Lesotho": "LS", "Eswatini": "SZ", "Kyrgyzstan": "KG", "Tajikistan": "TJ", "Turkmenistan": "TM", "Mongolia": "MN", "Nepal": "NP", "San Marino": "SM", "Aruba": "AW", "Cayman Islands": "KY", "Fiji": "FJ", "Samoa": "WS", "Tahiti": "PF", "Guam": "GU", "Seychelles": "SC", "Djibouti": "DJ", "South Sudan": "SS"};
+// flag emoji for a nation (England, Scotland and Wales have their own flags; Northern Ireland has no emoji, so its code)
+const SUBFLAG = { England: "gbeng", Scotland: "gbsct", Wales: "gbwls" };
+const flagOf = id => { const n = nName(id), sub = SUBFLAG[n];
+  if (sub) return "\u{1F3F4}" + [...sub].map(ch => String.fromCodePoint(0xE0000 + ch.charCodeAt(0))).join("") + "\u{E007F}";
+  const c = ISO2[n]; return c ? String.fromCodePoint(...[...c].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65)) : ""; };
+const club3 = id => { const w = cName(id).replace(/\b(FC|CF|AFC|SC|AC|SV|CD|SL|RC|UD|SD|SS|US|AS|FK|SK|IF|BK|CA|CR|SE|EC|1\.|C\.|F\.C\.)\b/g, " ").split(/[\s.-]+/).filter(x => x.length > 1);
+  return (w.length >= 2 && w[0].length <= 4 ? w[0][0] + w[1].slice(0, 2) : (w[0] || "?").slice(0, 3)).toUpperCase(); };
 const nat3 = id => { const n = nName(id); return NAT3[n] || n.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase(); };
 const lg3 = id => { const n = lName(id); return LG3[n] || n.split(/\s+/).map(w => w[0]).join("").slice(0, 4).toUpperCase(); };
 const LINKC = ["#ff8a1f", "#3ba7ff", "#3ddc97", "#c77dff", "#ffd36b", "#ff5c8a", "#5ce1e6", "#a3e635"];
@@ -2819,8 +2827,10 @@ function pzSetView() {
 }
 function pzPlay() {
   const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
-  const linkRow = (k, label, nm) => { const L = [...LK.G[k]].sort((a, b) => b[1] - a[1]); return L.length ? `<div class="pzlk"><span>${label}</span><div>${L.map(([id, n]) => { const nx = NEXT[k].find(t => t > n);
-    return `<em style="--g:${LK.col[k].get(id) || "rgba(255,255,255,.18)"}"><b>${esc(nm(id))}</b>${n}${nx ? `<small>/${nx}</small>` : `<small> max</small>`}</em>`; }).join("")}</div></div>` : ""; };
+  // one line per nation / league / club in the squad: how many you have, the chem it gives each of them, and how many more for the next step
+  const linkRow = (k, label, nm, ico) => { const L = [...LK.G[k]].sort((a, b) => b[1] - a[1]).slice(0, 6); return L.length ? `<div class="pzlk"><h4>${label}</h4>${L.map(([id, n]) => {
+      const T = NEXT[k], got = T.filter(t => n >= t).length, nx = T.find(t => t > n);
+      return `<div class="lr" style="--g:${LK.col[k].get(id) || "rgba(255,255,255,.25)"}"><b>${ico ? ico(id) + " " : ""}${esc(nm(id))}</b><span class="dots">${Array.from({ length: Math.min(nx || n, 8) }, (_, j) => `<i class="${j < n ? "on" : ""}"></i>`).join("")}</span><small>${got ? `<em>+${got}</em>` : "+0"}${nx ? ` · ${nx - n} more for +${got + 1}` : " · max"}</small></div>`; }).join("")}</div>` : ""; };
   const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i));
   const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
   const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon), pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
@@ -2831,9 +2841,11 @@ function pzPlay() {
     <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span><span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span></div>
     <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
       return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
-        <span class="plink"><i style="--g:${LK.col.n.get(c.nationId) || ""}">${esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<b style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cName(c.clubId))}"></b>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
+        <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lName(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cName(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
         : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
-    <div class="pzlinks">${linkRow("n", "Nations", nName)}${linkRow("l", "Leagues", lName)}${linkRow("c", "Clubs", cName)}<p class="small muted" style="margin:6px 0 0">Number = cards linked so far, /next = how many for the next chem step.</p></div>
+    <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
+      <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
+      ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lName)}${linkRow("c", "Clubs", cName)}</details>
     <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
     <div id="pzMsg"></div>`;
   pzWire();
