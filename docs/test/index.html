@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Test)</title>
-<meta name="app-version" content="20261118j">
+<meta name="app-version" content="20261118l">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -622,6 +622,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 .piact{display:flex;gap:8px;margin-top:12px}.piact button{flex:1}
 .pzacc input{width:100%}
 /* the gold "Perfect" score: the top possible score of a puzzle */
+#gameBox .pzpctw{display:flex;align-items:center;gap:10px;margin:2px 0}
+#gameBox .pzpct{flex:1;max-width:220px;height:7px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+#gameBox .pzpct i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--fire),#ffd76a)}
 @keyframes pzShine{from{background-position:200% 0}to{background-position:-200% 0}}
 #gameBox .pzgold{background:linear-gradient(105deg,#c7962c 0%,#ffe08a 35%,#fffbe8 50%,#ffe08a 65%,#c7962c 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 2.6s linear infinite}
 #gameBox .pzdone.gold{position:relative;overflow:hidden;border-color:rgba(255,212,106,.7);background:linear-gradient(160deg,rgba(255,212,106,.14),rgba(255,212,106,.04));box-shadow:0 0 28px rgba(255,200,80,.18)}
@@ -860,9 +863,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="test/engine.js?v=20261118j"></script>
-<script src="test/sbc-solver.js?v=20261118j"></script>
-<script src="test/puzzle-core.js?v=20261118j"></script>
-<script src="test/app.js?v=20261118j"></script>
+<script src="test/engine.js?v=20261118l"></script>
+<script src="test/sbc-solver.js?v=20261118l"></script>
+<script src="test/puzzle-core.js?v=20261118l"></script>
+<script src="test/app.js?v=20261118l"></script>
 </body>
 </html>
