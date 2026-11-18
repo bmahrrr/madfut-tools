@@ -58,6 +58,11 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_run" ] && [ "$(TZ=Australia/Brisbane date +%u)" = "7" ]; then
             ONLY=""; echo "reset day: no nightly build"
           fi
+          # a nightly build can be paused for chosen days (Brisbane dates in config/pause_nightly.txt, one per line),
+          # e.g. so a long job elsewhere gets the machines
+          if [ "${{ github.event_name }}" = "workflow_run" ] && grep -qx "$(TZ=Australia/Brisbane date +%F)" config/pause_nightly.txt 2>/dev/null; then
+            ONLY=""; echo "nightly build paused today"
+          fi
           # a save in Season Setup: a new season builds everything; later edits (e.g. a Reddit team added) only rebuild
           # the series that changed. A change to the cards (extras.json) rebuilds everything.
           if [ "${{ github.event_name }}" = "push" ] && ! git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep -q "config/extras.json"; then
