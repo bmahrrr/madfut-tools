@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Test)</title>
-<meta name="app-version" content="20261118n">
+<meta name="app-version" content="20261118o">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -645,11 +645,12 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 #gameBox .pzlb li.b-perfect .pt{background:linear-gradient(105deg,#ff8fd8,#8ff0ff 25%,#fff3a8 50%,#c6a2ff 75%,#ff8fd8);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 3s linear infinite}
 #gameBox .pzlb li.b-perfect .pt::before{content:"★ ";color:#e2ccff}
 #gameBox .pzdone.b-bronze .pzpct i{background:linear-gradient(90deg,var(--bz1),var(--bz2))}#gameBox .pzdone.b-silver .pzpct i{background:linear-gradient(90deg,var(--sv1),var(--sv2))}#gameBox .pzdone.b-gold .pzpct i{background:linear-gradient(90deg,var(--gd1),var(--gd2))}#gameBox .pzdone.b-plain .pzpct i{background:var(--muted)}
-#gameBox .pzmeds{display:flex;gap:8px;margin:-2px 0 12px;flex-wrap:wrap}
+#gameBox .pzmeds{display:flex;gap:8px;margin:12px 0 16px;flex-wrap:wrap}
 #gameBox .pzmed{display:inline-flex;align-items:center;gap:6px;font:700 13px/1 var(--body);padding:5px 10px 5px 6px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
-#gameBox .pzmed i{width:14px;height:14px;border-radius:50%}
-#gameBox .pzmed.b-bronze i{background:linear-gradient(135deg,var(--bz2),var(--bz1))}#gameBox .pzmed.b-silver i{background:linear-gradient(135deg,var(--sv2),var(--sv1))}#gameBox .pzmed.b-gold i{background:linear-gradient(135deg,var(--gd2),var(--gd1))}
-#gameBox .pzmed.b-perfect i{background:linear-gradient(135deg,#ff8fd8,#8ff0ff,#fff3a8,#c6a2ff)}
+#gameBox .pzmed i,#gameBox .lbmed i{width:14px;height:14px;border-radius:50%}
+#gameBox .lbmeds{display:inline-flex;gap:5px;margin-left:8px;vertical-align:1px}#gameBox .lbmed{display:inline-flex;align-items:center;gap:3px;font:700 11.5px/1 var(--body);color:var(--muted)}#gameBox .lbmed i{width:10px;height:10px}
+#gameBox .lbmed.b-bronze i,#gameBox .pzmed.b-bronze i{background:linear-gradient(135deg,var(--bz2),var(--bz1))}#gameBox .lbmed.b-silver i,#gameBox .pzmed.b-silver i{background:linear-gradient(135deg,var(--sv2),var(--sv1))}#gameBox .lbmed.b-gold i,#gameBox .pzmed.b-gold i{background:linear-gradient(135deg,var(--gd2),var(--gd1))}
+#gameBox .lbmed.b-perfect i,#gameBox .pzmed.b-perfect i{background:linear-gradient(135deg,#ff8fd8,#8ff0ff,#fff3a8,#c6a2ff)}
 @media (prefers-reduced-motion:reduce){#gameBox .pzb-perfect,#gameBox .pzdone.b-perfect::after,#gameBox .pztile.b-perfect::after,#gameBox .pzlb li.b-perfect .pt{animation:none}}
 #gameBox .pzpctw{display:flex;align-items:center;gap:10px;margin:2px 0}
 #gameBox .pzpct{flex:1;max-width:220px;height:7px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
@@ -892,9 +893,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="test/engine.js?v=20261118n"></script>
-<script src="test/sbc-solver.js?v=20261118n"></script>
-<script src="test/puzzle-core.js?v=20261118n"></script>
-<script src="test/app.js?v=20261118n"></script>
+<script src="test/engine.js?v=20261118o"></script>
+<script src="test/sbc-solver.js?v=20261118o"></script>
+<script src="test/puzzle-core.js?v=20261118o"></script>
+<script src="test/app.js?v=20261118o"></script>
 </body>
 </html>

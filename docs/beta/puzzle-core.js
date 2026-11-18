@@ -57,3 +57,7 @@ function pzScore(pz, slots, team) {
   res.ok = true; res.pts = pz.pts + res.bonus + res.noIcon + res.budget;
   return res;
 }
+
+// score colours: how close a score is to the puzzle's top score. Perfect is the top score itself
+const PZ_BANDS = [["perfect", 1, "Perfect"], ["gold", .96, "Gold"], ["silver", .9, "Silver"], ["bronze", .8, "Bronze"]];
+const pzBandOf = (top, pts) => { if (!top || !pts) return ""; const b = PZ_BANDS.find(([, f]) => pts / top >= f); return b ? b[0] : "plain"; };

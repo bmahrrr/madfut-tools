@@ -20,12 +20,13 @@ async function data(env) {
   const SITE = (env && env.SITE) || SITE_DEFAULT;
   if (DATA && Date.now() - DATA_AT < 10 * 60e3) return DATA;
   const get = f => fetch(SITE + f + "?v=" + Math.floor(Date.now() / 600e3), { cf: { cacheTtl: 300 } }).then(r => { if (!r.ok) throw new Error(f + " " + r.status); return r.json(); });
-  const [cj, pj, fj] = await Promise.all([get("cards.json"), get("puzzles.json"), get("formations.json")]);
+  const [cj, pj, fj, mj] = await Promise.all([get("cards.json"), get("puzzles.json"), get("formations.json"), get("puzzles_max.json").catch(() => ({ puzzles: {} }))]);
   const BYID = new Map();
   for (const r of cj.cards) { const c = {}; cj.fields.forEach((f, i) => c[f] = r[i]); BYID.set(c.id, c); }
   const PZ = new Map();
   for (const s of pj.sets) for (const p of s.puzzles) PZ.set(p.id, { pz: p, set: s.id });
-  DATA = { BYID, PZ, FORMS: fj }; DATA_AT = Date.now();
+  const TOP = new Map(Object.entries(mj.puzzles || {}).map(([id, r]) => [id, r.max]));
+  DATA = { BYID, PZ, FORMS: fj, TOP }; DATA_AT = Date.now();
   return DATA;
 }
 const cleanName = n => String(n || "").replace(/[^\p{L}\p{N} _.-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 16);
@@ -53,9 +54,21 @@ async function board(env, set, puzzle) {
   const q = puzzle
     ? env.DB.prepare("SELECT p.name, s.pts, s.chem, s.rating FROM scores s JOIN players p ON p.pid = s.pid WHERE s.puzzle = ?1 ORDER BY s.pts DESC, s.at ASC LIMIT 50").bind(puzzle)
     : set === "all"
-    ? env.DB.prepare("SELECT p.name, SUM(s.pts) AS pts, COUNT(*) AS solved FROM scores s JOIN players p ON p.pid = s.pid GROUP BY s.pid ORDER BY pts DESC, MAX(s.at) ASC LIMIT 50")
-    : env.DB.prepare("SELECT p.name, SUM(s.pts) AS pts, COUNT(*) AS solved FROM scores s JOIN players p ON p.pid = s.pid WHERE s.set_id = ?1 GROUP BY s.pid ORDER BY pts DESC, MAX(s.at) ASC LIMIT 50").bind(set);
-  return (await q.all()).results;
+    ? env.DB.prepare("SELECT s.pid, p.name, SUM(s.pts) AS pts, COUNT(*) AS solved FROM scores s JOIN players p ON p.pid = s.pid GROUP BY s.pid ORDER BY pts DESC, MAX(s.at) ASC LIMIT 50")
+    : env.DB.prepare("SELECT s.pid, p.name, SUM(s.pts) AS pts, COUNT(*) AS solved FROM scores s JOIN players p ON p.pid = s.pid WHERE s.set_id = ?1 GROUP BY s.pid ORDER BY pts DESC, MAX(s.at) ASC LIMIT 50").bind(set);
+  const rows = (await q.all()).results;
+  if (puzzle || !rows.length) return rows;
+  // medals: how many puzzles each player has at Perfect / Gold / Silver / Bronze (against the top score, or a higher one someone has)
+  try {
+    const { TOP } = await data(env), rec = new Map((await env.DB.prepare("SELECT puzzle, MAX(pts) AS pts FROM scores GROUP BY puzzle").all()).results.map(r => [r.puzzle, r.pts]));
+    const ids = rows.map(r => r.pid), ph = ids.map((_, i) => "?" + (i + 1)).join(",");
+    const all = (await env.DB.prepare(`SELECT pid, puzzle, pts FROM scores WHERE pid IN (${ph})${set === "all" ? "" : ` AND set_id = ?${ids.length + 1}`}`).bind(...ids, ...(set === "all" ? [] : [set])).all()).results;
+    const med = new Map(ids.map(id => [id, {}]));
+    for (const r of all) { const b = pzBandOf(Math.max(TOP.get(r.puzzle) || 0, rec.get(r.puzzle) || 0), r.pts); if (b && b !== "plain") { const m = med.get(r.pid); m[b] = (m[b] || 0) + 1; } }
+    rows.forEach(r => { r.medals = med.get(r.pid); });
+  } catch (e) {}
+  rows.forEach(r => { delete r.pid; });
+  return rows;
 }
 // your place on a board: rank = 1 + players with more points
 async function rankIn(env, pid, set, puzzle) {
