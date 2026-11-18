@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261118w">
+<meta name="app-version" content="20261118y">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -733,6 +733,15 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 /* Windows has no flag emoji, so a small flag font is loaded there (see the script below) */
 html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial Narrow",system-ui,sans-serif;--body:"Twemoji Country Flags","Saira",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 #moreSheet .credit{display:block;padding:8px 12px 4px;font-size:11px;color:var(--muted);text-align:center}
+/* moving a placed card to another spot */
+#gameBox .pzmove{display:flex;align-items:center;gap:10px;margin:10px 0 6px;padding:10px 12px;border-radius:12px;border:1px dashed color-mix(in srgb,var(--fire) 60%,transparent);background:color-mix(in srgb,var(--fire) 8%,transparent);font-size:13px}
+#gameBox .pzmove button{margin-left:auto;flex:none;padding:6px 12px}
+.pzpitch.moving .pc.mvno{opacity:.35;pointer-events:none}
+.pzpitch.moving .pc.mvsrc{outline:2px solid var(--fire);outline-offset:3px;animation:pzPulse 1.2s ease-in-out infinite}
+.pzpitch.moving .pc.mvok{outline:2px dashed var(--win);outline-offset:3px}
+.pzpitch.moving .pc.mvoop{outline:2px dashed color-mix(in srgb,var(--loss) 70%,transparent);outline-offset:3px}
+.pzpitch.moving .pc.mvoop::after{content:"0 chem";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);padding:3px 6px;border-radius:99px;font:700 9.5px/1 var(--body);color:#ffb3a8;background:#3a1a16;border:1px solid color-mix(in srgb,var(--loss) 60%,transparent);white-space:nowrap;z-index:2}
+@keyframes pzPulse{50%{outline-color:transparent}}
 </style>
 <script>
 // Flags: phones and Macs draw flag emoji, Windows shows two letters instead ("FR"). There, load a flag-only font.
@@ -930,9 +939,9 @@ html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial N
   <small class="credit">Flag images on Windows: Twemoji, CC-BY 4.0</small>
 </div></div>
 
-<script src="beta/engine.js?v=20261118w"></script>
-<script src="beta/sbc-solver.js?v=20261118w"></script>
-<script src="beta/puzzle-core.js?v=20261118w"></script>
-<script src="beta/app.js?v=20261118w"></script>
+<script src="beta/engine.js?v=20261118y"></script>
+<script src="beta/sbc-solver.js?v=20261118y"></script>
+<script src="beta/puzzle-core.js?v=20261118y"></script>
+<script src="beta/app.js?v=20261118y"></script>
 </body>
 </html>
