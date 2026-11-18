@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118p";
+const APP_V = "20261118s";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1364,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118p"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118s"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1390,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118p"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118s"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2205,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118p");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118s");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2971,13 +2971,44 @@ function pzSetView() {
     <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
   pzWire();
 }
+// empty spot hints: how many bonus cards can play there (chem aside), and the most chem any card could add there.
+// Cards are grouped by what gives chem (nation, league, club, special chem), so each group is only tried once.
+function pzSlotHints(pz, slots, team) {
+  const sig = pz.id + "|" + team.map(c => c ? c.id : "").join(",");
+  if (PZ.hintSig === sig) return PZ.hints;
+  const have = new Set(team.filter(Boolean).map(playerKey)), now = pzChem(slots, team).reduce((a, b) => a + b, 0), out = {};
+  if (!PZ.hintPool || PZ.hintPool.id !== pz.id) PZ.hintPool = { id: pz.id };
+  slots.forEach((sl, i) => {
+    if (team[i]) return;
+    // per spot, once per puzzle: the bonus cards that can play there, and one card for each set of chem links
+    let H = PZ.hintPool[sl];
+    if (!H) {
+      const bonus = [], groups = new Map();
+      for (const c of CARDS) {
+        if (!c.P || !c.P.has(sl) || c._evx || pzNoSBC(c)) continue;
+        if (pzBonusHit(c, pz.bonus)) bonus.push(c);
+        if (SBC_AUTO.has(c.color)) continue;   // the chem hint leaves out Icons / Heroes (they cost the no-Icon bonus)
+        const k = c.nationId + "|" + c.leagueId + "|" + c.clubId + "|" + (c.specialChem || "");
+        const g = groups.get(k); if (!g) groups.set(k, [c]); else if (g.length < 2) g.push(c);   // 2 each, in case one is already in the squad
+      }
+      H = PZ.hintPool[sl] = { bonus, groups: [...groups.values()] };
+    }
+    let best = 0;
+    for (const g of H.groups) {
+      const c = g.find(x => !have.has(playerKey(x))); if (!c) continue;
+      const t = team.slice(); t[i] = c; const d = pzChem(slots, t).reduce((a, b) => a + b, 0) - now; if (d > best) best = d;
+    }
+    out[i] = { fit: H.bonus.filter(c => !have.has(playerKey(c))).length, best };
+  });
+  PZ.hintSig = sig; PZ.hints = out; return out;
+}
 function pzPlay() {
   const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
   // one line per nation / league / club in the squad: how many you have, the chem it gives each of them, and how many more for the next step
   const linkRow = (k, label, nm, ico) => { const L = [...LK.G[k]].sort((a, b) => b[1] - a[1]).slice(0, 6); return L.length ? `<div class="pzlk"><h4>${label}</h4>${L.map(([id, n]) => {
       const T = NEXT[k], got = T.filter(t => n >= t).length, nx = T.find(t => t > n);
       return `<div class="lr" style="--g:${LK.col[k].get(id) || "rgba(255,255,255,.25)"}"><b>${ico ? ico(id) + " " : ""}${esc(nm(id))}</b><span class="dots">${Array.from({ length: Math.min(nx || n, 8) }, (_, j) => `<i class="${j < n ? "on" : ""}"></i>`).join("")}</span><small>${got ? `<em>+${got}</em>` : "+0"}${nx ? ` · ${nx - n} more for +${got + 1}` : " · max"}</small></div>`; }).join("")}</div>` : ""; };
-  const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i));
+  const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i)), HN = pzSlotHints(pz, slots, PZ.team);
   const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
   const placed = PZ.team.filter(Boolean), rNow = placed.length ? teamRatingOf(placed.map(c => c.rating)) : 0, bud = pz.budget ? pzBudget(pz, rNow) : 0;
   const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud, pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
@@ -2989,7 +3020,7 @@ function pzPlay() {
     <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
       return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
         <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
-        : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
+        : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span>${HN[i] ? `<span class="hint"><em>★ ${HN[i].fit} fit</em><small>best +${HN[i].best} chem</small></span>` : ""}</button>`; }).join("")}</div>
     <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
       <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
       ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lShort)}${linkRow("c", "Clubs", cShort)}</details>

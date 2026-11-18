@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261118p">
+<meta name="app-version" content="20261118s">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -716,6 +716,11 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 #gameBox .pzlb li{padding:11px 8px}#gameBox .pzlb .rk{color:var(--muted)}#gameBox .pzlb li.top1 .rk{color:#ffd36b}#gameBox .pzlb li.top2 .rk{color:#d6dde3}#gameBox .pzlb li.top3 .rk{color:#e0a46b}
 #gameBox .pzlb li b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#gameBox .pzlb li small{white-space:nowrap}
 .pzacc .mseg{margin-bottom:10px}
+
+/* empty spots: bonus cards that fit and the best chem gain; points meter */
+.pzpitch .pc.empty .hint{display:flex;flex-direction:column;align-items:center;margin-top:4px;line-height:1.15}.pzpitch .pc.empty .hint em{font:700 10.5px/1.15 var(--body);font-style:normal;color:#ffd76a}.pzpitch .pc.empty .hint small{font:500 9.5px/1.2 var(--body);color:var(--muted)}
+#gameBox .pzmeter{margin:8px 0 2px}#gameBox .pzmeter .bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.06)}#gameBox .pzmeter .bar i{display:block;height:100%}
+#gameBox .pzmeter .lg{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:6px;font-size:11.5px;color:var(--muted)}#gameBox .pzmeter .lg b{color:var(--text);font-weight:700}#gameBox .pzmeter .lg span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:var(--c)}
 </style>
 </head>
 <body>
@@ -894,9 +899,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="beta/engine.js?v=20261118p"></script>
-<script src="beta/sbc-solver.js?v=20261118p"></script>
-<script src="beta/puzzle-core.js?v=20261118p"></script>
-<script src="beta/app.js?v=20261118p"></script>
+<script src="beta/engine.js?v=20261118s"></script>
+<script src="beta/sbc-solver.js?v=20261118s"></script>
+<script src="beta/puzzle-core.js?v=20261118s"></script>
+<script src="beta/app.js?v=20261118s"></script>
 </body>
 </html>
