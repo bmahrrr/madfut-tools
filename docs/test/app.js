@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118l";
+const APP_V = "20261118m";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1358,7 +1358,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118l"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118m"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1384,7 +1384,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118l"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118m"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2199,7 +2199,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118l");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118m");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2841,6 +2841,12 @@ const pzPerfect = (id, pts) => { const t = pzTop(id); return !!t && pts >= t; };
 // how close a score is to Perfect, without giving the number away (it shows once you reach it)
 const pzPct = (id, pts) => { const t = pzTop(id); return t && pts ? Math.min(99, Math.floor(pts / t * 100)) : 0; };
 const pzBar = (id, pts) => { const p = pzPct(id, pts); return p ? `<span class="pzpct"><i style="width:${p}%"></i></span><span class="small">${p}% of Perfect</span>` : ""; };
+// score colours: how close a score is to the puzzle's top score. Perfect is the top score itself
+const PZ_BANDS = [["perfect", 1, "Perfect"], ["gold", .96, "Gold"], ["silver", .9, "Silver"], ["bronze", .8, "Bronze"]];
+const pzBand = (id, pts) => { const t = pzTop(id); if (!t || !pts) return ""; const r = pts / t; const b = PZ_BANDS.find(([, f]) => r >= f); return b ? b[0] : "plain"; };
+const pzBandName = k => (PZ_BANDS.find(b => b[0] === k) || [, , ""])[2];
+const pzBands = L => { const b = pzBest(), n = {}; L.forEach(p => { const k = pzBand(p.id, b[p.id] || 0); if (k) n[k] = (n[k] || 0) + 1; }); return n; };
+const pzMedals = L => { const n = pzBands(L); return PZ_BANDS.filter(([k]) => n[k]).map(([k, , nm]) => `<span class="pzmed b-${k}" title="${nm}"><i></i>${n[k]}</span>`).join(""); };
 const pzPerfects = L => { const b = pzBest(); return L.filter(p => pzPerfect(p.id, b[p.id] || 0)).length; };
 function pzMe() {
   if (!PZ_API || !pzAcct() || PZ.me || PZ.meBusy) return; PZ.meBusy = true;
@@ -2930,7 +2936,7 @@ function pzDraw() {
 function pzHome() {
   const tiers = Object.keys(PZ_TIERS), all = PZ.data.sets, total = all.reduce((a, s) => a + setPts(s), 0), r = PZ.me && PZ.me.ranks && PZ.me.ranks.all;
   $("gameBox").innerHTML = `<div class="pzintro"><h2 class="pzlogo">Puzzles</h2><p class="small muted">Finish each squad around the locked cards and reach the chem target. Bonus points for cards from the puzzle's league, nation or club, for using no Icons or Heroes, and for a cheap squad (rated under 85). The bonus never links with the locked cards, so chasing it costs chem. Open any set.</p>
-    <div class="pzme"><div><span>Your points</span><b>${fmtN(total)}</b></div><div><span>Perfect</span><b class="${pzPerfects(all.flatMap(s => s.puzzles)) ? "pzgold" : ""}">${pzPerfects(all.flatMap(s => s.puzzles))}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><button class="ghost" data-pzlb="all">Leaderboard</button></div>
+    <div class="pzme"><div><span>Your points</span><b>${fmtN(total)}</b></div><div><span>Perfect</span><b class="${pzPerfects(all.flatMap(s => s.puzzles)) ? "pzb-perfect" : ""}">${pzPerfects(all.flatMap(s => s.puzzles))}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><button class="ghost" data-pzlb="all">Leaderboard</button></div>
     <p class="small muted" style="margin:8px 0 0">${!PZ_API ? "The shared leaderboard is coming soon. Your points are saved on this device." : pzName() ? `Playing as <b>${esc(pzName())}</b> · <a href="#" id="pzRename">change name</a> · <a href="#" id="pzOut">sign out</a>` : `<a href="#" id="pzNew">Pick a name</a> to join the leaderboard, or <a href="#" id="pzIn">sign in</a> to bring your scores from another device.`}</p></div>
     ${tiers.map(t => { const sets = all.filter(s => s.tier === t); return sets.length ? `<h3 class="pztier t-${t}">${esc(PZ_TIERS[t].name)}<small>${esc(PZ_TIERS[t].note)}</small></h3>
       <div class="pzsets">${sets.map(s => { const pc = Math.round(100 * setSolved(s) / s.puzzles.length);
@@ -2940,8 +2946,9 @@ function pzHome() {
 function pzSetView() {
   const s = PZ.set, b = pzBest(), r = PZ.me && PZ.me.ranks && PZ.me.ranks[s.id];
   $("gameBox").innerHTML = `<div class="pzbar t-${s.tier}"><button class="ghost" data-pzgo="home">‹ Sets</button><b>${esc(s.name)}<small>${esc(PZ_TIERS[s.tier].name)}</small></b><button class="ghost" data-pzlb="${esc(s.id)}">Leaderboard</button></div>
-    <div class="pzme"><div><span>Points</span><b>${fmtN(setPts(s))}</b></div><div><span>Solved</span><b>${setSolved(s)}/${s.puzzles.length}</b></div><div><span>Perfect</span><b class="${pzPerfects(s.puzzles) ? "pzgold" : ""}">${pzPerfects(s.puzzles)}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div></div>
-    <div class="pzgrid t-${s.tier}">${s.puzzles.map(p => { const g = pzPerfect(p.id, b[p.id] || 0); return `<button class="pztile${b[p.id] ? " done" : ""}${g ? " gold" : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${g ? "★ " + fmtN(b[p.id]) : b[p.id] ? "✓ " + fmtN(b[p.id]) : p.target + " chem"}</small></button>`; }).join("")}</div>
+    <div class="pzme"><div><span>Points</span><b>${fmtN(setPts(s))}</b></div><div><span>Solved</span><b>${setSolved(s)}/${s.puzzles.length}</b></div><div><span>Perfect</span><b class="${pzPerfects(s.puzzles) ? "pzb-perfect" : ""}">${pzPerfects(s.puzzles)}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div></div>
+    ${pzMedals(s.puzzles) ? `<div class="pzmeds">${pzMedals(s.puzzles)}</div>` : ""}
+    <div class="pzgrid t-${s.tier}">${s.puzzles.map(p => { const k = pzBand(p.id, b[p.id] || 0); return `<button class="pztile${b[p.id] ? " done" : ""}${k ? " b-" + k : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${k === "perfect" ? "★ " + fmtN(b[p.id]) : b[p.id] ? "✓ " + fmtN(b[p.id]) : p.target + " chem"}</small></button>`; }).join("")}</div>
     <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
   pzWire();
 }
@@ -2958,7 +2965,7 @@ function pzPlay() {
   const set = PZ.data.sets.find(s => s.puzzles.includes(pz)), nx = set.puzzles[set.puzzles.indexOf(pz) + 1];
   $("gameBox").innerHTML = `<div class="pzbar t-${set.tier}"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}<small>${esc(pz.formation)}</small></b><button class="ghost" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(pz.id)}">Ranks</button></div>
     <div class="pzhud"><div class="pzchem"><b class="${sc.total >= pz.target ? "ok" : ""}">${sc.total}</b><span>/ ${pz.target} chem</span><div class="bar"><i style="width:${pct}%"></i><em style="left:${tp}%"></em></div></div>
-      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="${pzPerfect(pz.id, best) ? "pzgold" : ""}">${fmtN(best)}</span>` : ""}${best && pzTop(pz.id) && !pzPerfect(pz.id, best) ? ` · ${pzPct(pz.id, best)}% of Perfect` : ""}</small></div></div>
+      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="pzb-${pzBand(pz.id, best)}">${fmtN(best)}</span>` : ""}${best && pzTop(pz.id) && !pzPerfect(pz.id, best) ? ` · ${pzPct(pz.id, best)}% of Perfect` : ""}</small></div></div>
     <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span>${pz.lockChem ? `<span class="${sc.ok ? "on" : ""}">🔒 Locked cards need ${pz.lockChem >= 3 ? "full" : pz.lockChem} chem</span>` : ""}<span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
     <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
       return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
@@ -3050,7 +3057,8 @@ async function pzSubmit(sc) {
   let note = sc.pts > prev ? (prev ? `New best! Up from ${fmtN(prev)}.` : "Solved!") : `Your best is still ${fmtN(prev)}.`;
   const top = pzTop(pz.id), gold = !!top && sc.pts >= top, record = gold && sc.pts > top;
   if (record) { PZ.rec = PZ.rec || {}; PZ.rec[pz.id] = sc.pts; }
-  msg.innerHTML = `<div class="pzdone${gold ? " gold" : ""}">${gold ? `<i class="pzstar">${record ? "★ New Top Score" : "★ Perfect"}</i>` : ""}<b class="${gold ? "pzgold" : ""}">${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}${sc.budget ? ` + ${fmtN(sc.budget)} budget (rated ${sc.rating})` : ""}</span>${!gold && top ? `<span class="pzpctw">${pzBar(pz.id, sc.pts)}</span>` : ""}<span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
+  const band = pzBand(pz.id, sc.pts);
+  msg.innerHTML = `<div class="pzdone${band ? " b-" + band : ""}">${gold ? `<i class="pzstar">${record ? "★ New Top Score" : "★ Perfect"}</i>` : band && band !== "plain" ? `<i class="pzstar">${pzBandName(band)}</i>` : ""}<b class="pzb-${band}">${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}${sc.budget ? ` + ${fmtN(sc.budget)} budget (rated ${sc.rating})` : ""}</span>${!gold && top ? `<span class="pzpctw">${pzBar(pz.id, sc.pts)}</span>` : ""}<span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
   msg.scrollIntoView({ behavior: "smooth", block: "center" });
   if (!PZ_API) return;
   if (!pzAcct()) { $("pzRank").innerHTML = `Saved on this device. <a href="#" id="pzJoin">Pick a name</a> to put it on the leaderboard.`; $("pzJoin").onclick = e => { e.preventDefault(); pzAccount(() => pzSubmit(sc)); }; return; }
@@ -3086,7 +3094,7 @@ async function pzBoard() {
     $("pzYou").innerHTML = you(r.you); pzWire();
     let rk = 0;
     $("pzRows").innerHTML = r.rows && r.rows.length ? `<ol class="pzlb">${r.rows.map((x, k) => { if (!k || x.pts !== r.rows[k - 1].pts) rk = k + 1;
-      return `<li class="${x.name === me ? "me" : ""}${rk <= 3 ? " top" + rk : ""}${P && pzPerfect(P.id, x.pts) ? " gold" : ""}"><span class="rk">${rk}</span><b>${esc(x.name)}</b><small>${P ? `${x.chem} chem · ${x.rating} rated` : `${x.solved} solved`}</small><span class="pt">${fmtN(x.pts)}</span></li>`; }).join("")}</ol>`
+      return `<li class="${x.name === me ? "me" : ""}${rk <= 3 ? " top" + rk : ""}${P && pzBand(P.id, x.pts) ? " b-" + pzBand(P.id, x.pts) : ""}"><span class="rk">${rk}</span><b>${esc(x.name)}</b><small>${P ? `${x.chem} chem · ${x.rating} rated` : `${x.solved} solved`}</small><span class="pt">${fmtN(x.pts)}</span></li>`; }).join("")}</ol>`
       : `<p class="muted small">No scores yet. Be the first!</p>`;
   } catch (e) { $("pzRows").innerHTML = `<p class="muted small">Couldn't load the leaderboard.</p>`; }
 }
