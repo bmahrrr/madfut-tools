@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118y";
+const APP_V = "20261118z";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1364,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118y"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118z"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1390,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118y"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118z"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2205,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118y");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118z");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2945,7 +2945,7 @@ function pzInfo(i) {
   ov.onclick = e => { if (e.target === ov) close(); };
   $("piX").onclick = close;
   if (!lk) { $("piMv").onclick = () => { close(); PZ.moving = i; pzPlay(); };
-    $("piRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { PZ.popKeep = true; close(); pzPick(i); }; }
+    $("piRm").onclick = () => { pzRemember(); PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { PZ.popKeep = true; close(); pzPick(i); }; }
 }
 const NEXT = { n: [2, 5, 8], l: [3, 5, 8], c: [2, 4, 7] };
 function pzDraw() {
@@ -2972,6 +2972,41 @@ function pzSetView() {
     <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
   pzWire();
 }
+// empty spot hints: how many bonus cards can play there (chem aside), and the most chem any card could add there.
+// Cards are grouped by what gives chem (nation, league, club, special chem), so each group is only tried once.
+function pzSlotHints(pz, slots, team) {
+  const sig = pz.id + "|" + team.map(c => c ? c.id : "").join(",");
+  if (PZ.hintSig === sig) return PZ.hints;
+  const have = new Set(team.filter(Boolean).map(playerKey)), now = pzChem(slots, team).reduce((a, b) => a + b, 0), out = {};
+  if (!PZ.hintPool || PZ.hintPool.id !== pz.id) PZ.hintPool = { id: pz.id };
+  slots.forEach((sl, i) => {
+    if (team[i]) return;
+    // per spot, once per puzzle: the bonus cards that can play there, and one card for each set of chem links
+    let H = PZ.hintPool[sl];
+    if (!H) {
+      const bonus = [], groups = new Map();
+      for (const c of CARDS) {
+        if (!c.P || !c.P.has(sl) || c._evx || pzNoSBC(c)) continue;
+        if (pzBonusHit(c, pz.bonus)) bonus.push(c);
+        if (SBC_AUTO.has(c.color)) continue;   // the chem hint leaves out Icons / Heroes (they cost the no-Icon bonus)
+        const k = c.nationId + "|" + c.leagueId + "|" + c.clubId + "|" + (c.specialChem || "");
+        const g = groups.get(k); if (!g) groups.set(k, [c]); else if (g.length < 2) g.push(c);   // 2 each, in case one is already in the squad
+      }
+      H = PZ.hintPool[sl] = { bonus, groups: [...groups.values()] };
+    }
+    let best = 0;
+    for (const g of H.groups) {
+      const c = g.find(x => !have.has(playerKey(x))); if (!c) continue;
+      const t = team.slice(); t[i] = c; const d = pzChem(slots, t).reduce((a, b) => a + b, 0) - now; if (d > best) best = d;
+    }
+    out[i] = { fit: H.bonus.filter(c => !have.has(playerKey(c))).length, best };
+  });
+  PZ.hintSig = sig; PZ.hints = out; return out;
+}
+// undo: each change to a squad is remembered (per puzzle), so the last one can be put back
+function pzRemember() { const L = PZ.undo || (PZ.undo = []); L.push({ pz: PZ.pz.id, team: PZ.team.map(c => c ? c.id : null) }); if (L.length > 40) L.shift(); }
+const pzCanUndo = () => (PZ.undo || []).some(u => u.pz === PZ.pz.id);
+function pzUndo() { const L = PZ.undo || []; for (let k = L.length - 1; k >= 0; k--) if (L[k].pz === PZ.pz.id) { const u = L.splice(k, 1)[0]; PZ.team = u.team.map(id => id ? BYID.get(id) || null : null); pzSave(); pzPlay(); return; } }
 // empty spot hints: how many bonus cards can play there (chem aside), and the most chem any card could add there.
 // Cards are grouped by what gives chem (nation, league, club, special chem), so each group is only tried once.
 function pzSlotHints(pz, slots, team) {
@@ -3032,17 +3067,18 @@ function pzPlay() {
     <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
       <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
       ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lShort)}${linkRow("c", "Clubs", cShort)}</details>
-    <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
+    <div class="pzact"><button class="ghost" id="pzClear">Clear</button>${pzCanUndo() ? `<button class="ghost" id="pzUndo" title="Undo the last change">↶ Undo</button>` : ""}<button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
     <div id="pzMsg"></div>`;
   pzWire();
   // points meter: slide from the last widths to the new ones
   { const segs = [...document.querySelectorAll("#pzMeter .seg")]; requestAnimationFrame(() => segs.forEach(e => { e.style.width = e.dataset.w + "%"; })); PZ.meterW = segs.map(e => +e.dataset.w); }
-  $("pzClear").onclick = () => { PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  $("pzClear").onclick = () => { pzRemember(); PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  if ($("pzUndo")) $("pzUndo").onclick = pzUndo;
   $("pzGo").onclick = () => pzSubmit(sc);
   document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot;
     if (PZ.moving != null) {                      // move mode: put the card here (swapping with whoever is here)
       const from = PZ.moving; PZ.moving = null;
-      if (i !== from && !locked.has(i)) { const t = PZ.team[i]; PZ.team[i] = PZ.team[from]; PZ.team[from] = t; pzSave(); }
+      if (i !== from && !locked.has(i)) { pzRemember(); const t = PZ.team[i]; PZ.team[i] = PZ.team[from]; PZ.team[from] = t; pzSave(); }
       return pzPlay();
     }
     if (PZ.team[i]) pzInfo(i); else pzPick(i); });
@@ -3070,7 +3106,7 @@ function pzPick(i) {
   fit(); if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); } root.style.overflow = "hidden";
   const close = () => { if (!sheet.isConnected) return; sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } pzPopDone(); };
   pzPopup(close);
-  const put = c => { PZ.team[i] = c; pzSave(); close(); pzPlay(); };
+  const put = c => { if (PZ.team[i] !== c) pzRemember(); PZ.team[i] = c; pzSave(); close(); pzPlay(); };
   // each filter, with the others applied (so the lists only offer what's there, like the game)
   const pass = (c, skip) => (skip === "pos" || F.pos === "any" || c.P.has(F.pos)) && (skip === "nat" || !F.nat || c.nationId === +F.nat)
     && (skip === "lg" || !F.lg || (c.leagueId === +F.lg && !SBC_ICON.has(c.color))) && (skip === "cl" || !F.cl || c.clubId === +F.cl)
@@ -3112,7 +3148,7 @@ function pzPick(i) {
   $("pzL").onclick = e => { const b = e.target.closest("[data-c]"); if (b) put(BYID.get(b.dataset.c)); };
   sheet.onclick = e => { if (e.target === sheet) close(); };
   $("pzX").onclick = close;
-  if ($("pzRm")) $("pzRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); };
+  if ($("pzRm")) $("pzRm").onclick = () => { pzRemember(); PZ.team[i] = null; pzSave(); close(); pzPlay(); };
   $("pzQ").oninput = e => { q = e.target.value; drawList(); };
   $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); put(top); } };
   drawAll();
