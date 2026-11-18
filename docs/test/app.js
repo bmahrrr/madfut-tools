@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261119c";
+const APP_V = "20261119d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1364,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261119c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261119d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1390,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261119c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261119d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2205,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261119c");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261119d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2217,10 +2217,21 @@ function sbcSolve(req, timeLimit, onProgress, onPartial) {
     sbcWorker.postMessage({ id, req, timeLimit });
   });
 }
+// a Puzzles squad: 2 or more locked cards of one puzzle asked for (by Include or a player rule). The solver won't do those
+async function pzGuard(req) {
+  const keys = new Set(req.include.map(id => BYID.get(id)).filter(Boolean).map(playerKey));
+  for (const r of req.rules) if (r.on === "player" && r.op !== "<=" && r.n > 0) keys.add(r.id);
+  if (keys.size < 2) return false;
+  let P = PZ.data;
+  if (!P) try { P = await getJSON(PZ_DATA + "puzzles.json"); } catch (e) { return false; }
+  return P.sets.some(s => s.puzzles.some(p => p.locked.filter(l => { const c = BYID.get(l.id); return c && keys.has(playerKey(c)); }).length >= 2));
+}
+
 async function runSBC(timeLimit, reqOverride) {
   if (SB.busy) return;
   const req = reqOverride || readReq();
   if (!req.formation) return;
+  if (await pzGuard(req)) { const o = $("sbcOut"); o.hidden = false; o.innerHTML = `<p class="bad">That's a Puzzles squad, solve it yourself 😉</p>`; return; }
   SB.busy = true; $("sbcGo").disabled = true;
   const out = $("sbcOut"); out.hidden = false;
   const t0 = Date.now(); let msg = "Loading solver…", hasPartial = false;
