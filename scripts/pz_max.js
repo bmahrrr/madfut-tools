@@ -12,6 +12,11 @@ const cards = d.cards.map(r => { const c = {}; d.fields.forEach((f, i) => c[f] =
 const [mode, out, ...ins] = process.argv.slice(2);
 if (mode === "elig" || mode === "eligall") {
   fs.writeFileSync(out, JSON.stringify(cards.filter(c => !pzNoSBC(c) && (mode === "eligall" || !SBC_AUTO.has(c.color))).map(c => c.id)));
+} else if (mode === "score") {
+  // node scripts/pz_max.js score <puzzle id> <card ids...>   the site's score for a squad (0 if it doesn't pass)
+  const P = JSON.parse(fs.readFileSync(process.env.PZ_FILE || D + "puzzles.json", "utf8")), by = new Map(cards.map(c => [c.id, c]));
+  const pz = P.sets.flatMap(s => s.puzzles).find(p => p.id === out), sc = pzScore(pz, FORMS[pz.formation], ins.map(i => by.get(i) || null));
+  console.log(sc.ok ? sc.pts : 0);
 } else if (mode === "merge") {
   const P = JSON.parse(fs.readFileSync(process.env.PZ_FILE || D + "puzzles.json", "utf8")), by = new Map(cards.map(c => [c.id, c]));
   const all = new Map(P.sets.flatMap(s => s.puzzles).map(p => [p.id, p]));
@@ -27,7 +32,7 @@ if (mode === "elig" || mode === "eligall") {
       const sc = pzScore(pz, slots, ids.map(i => by.get(i)));
       if (!sc.ok) { console.log(id, "squad failed the site's check:", sc.why); continue; }
       const old = res[id];
-      if (!old || sc.pts > old.max || (sc.pts === old.max && r.proven && !old.proven)) res[id] = { max: sc.pts, proven: !!r.proven, team: ids, ...(r.chem ? { chem: true } : {}), ...(r.icons && r.proven ? { icons: true } : {}), ...(old && old.tries ? { tries: old.tries } : {}) };
+      if (!old || sc.pts > old.max || (sc.pts === old.max && r.proven && !old.proven)) res[id] = { max: sc.pts, proven: !!r.proven, team: ids, ...(r.chem ? { chem: true } : {}), ...(r.icons && r.proven ? { icons: true } : {}), ...(old && old.tries ? { tries: old.tries } : {}), ...(old && old.tries2 ? { tries2: old.tries2 } : {}) };
       else if (sc.pts === old.max && r.proven) { old.proven = true; if (r.chem) old.chem = true; if (r.icons) old.icons = true; }
     }
   }

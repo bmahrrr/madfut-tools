@@ -1,8 +1,9 @@
 name: Puzzle top scores (Icons check)
 
 # Proves every puzzle's top score with every card allowed, Icons and Heroes too, so nothing at all beats it (or finds
-# the better squad). Works through the puzzles not proven this way yet, up to 34 at a time, and starts itself again
-# until none are left: first up to 2 hours a puzzle, then up to 5.5 hours for any not proven in that time.
+# the better squad), in two steps (scripts/pz_max.py prove2): the top with no Icons or Heroes, then that no squad with
+# one beats it. Works through the puzzles not proven this way yet, up to 34 at a time, and starts itself again until
+# none are left: first up to 2.5 hours a puzzle, then up to 5.5 hours for any not proven in that time.
 on:
   push:
     branches: [main]
@@ -48,7 +49,7 @@ jobs:
       - run: pip install ortools==9.15.6755
       - run: |
           node scripts/pz_max.js eligall elig.json
-          python3 scripts/pz_max.py prove "${{ matrix.id }}" "$(( ${{ needs.list.outputs.minutes }} * 60 ))" elig.json "icons_${{ matrix.id }}.json"
+          python3 scripts/pz_max.py prove2 "${{ matrix.id }}" "$(( ${{ needs.list.outputs.minutes }} * 60 ))" elig.json "icons_${{ matrix.id }}.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
