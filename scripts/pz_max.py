@@ -15,6 +15,17 @@ fld = {"n": "nationId", "l": "leagueId", "c": "clubId"}
 pos = lambda c: {c["position"], *[p for p in str(c["altPositions"] or "").split(",") if p]}
 sc = lambda c, k: (k + "2") in str(c.get("specialChem") or "").split(",")
 key = lambda c: c.get("baseId") or c["name"]
+# Icons and Heroes (only in a pool that includes them, for the Icons check): always 3 chem in position, no club links;
+# an Icon adds 2 to its nation and 1 to every league, a Hero 1 to its nation and 2 to its league (HoF Upgraded: 1)
+AUTO = {"icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"}; ICON = {"icon", "debut_icon"}; HERO = {"hero", "hall_of_fut"}
+kind = lambda c: "I" if c["color"] in ICON else "A" if c["color"] in AUTO else ""
+
+
+def wt(c, k):
+    col = c["color"]
+    if k == "n": return 2 if col in ICON or sc(c, "nation") else 1
+    if k == "l": return 0 if col in ICON else 2 if col in HERO or sc(c, "league") else 1
+    return 0 if col in AUTO else 2 if sc(c, "club") else 1
 
 
 class Data:
@@ -40,7 +51,7 @@ def solve(DA, pz, restrict, hint, secs, workers=None):
         if i in locked: continue
         g = collections.defaultdict(list)
         for c in DA.pool:
-            if s in pos(c): g[(c["nationId"], c["leagueId"], c["clubId"], sc(c, "nation"), sc(c, "league"), sc(c, "club"))].append(c)
+            if s in pos(c): g[(c["nationId"], c["leagueId"], c["clubId"], sc(c, "nation"), sc(c, "league"), sc(c, "club"), c["color"] if c["color"] in AUTO else "")].append(c)
         L = [c for v in g.values() for c in sorted(v, key=lambda c: c["rating"])[:2]]   # same links: the lowest 2 are enough
         if restrict: L = [c for c in L if hit(c) or c["nationId"] in LN or c["leagueId"] in LL or c["clubId"] in LC]
         n = len(L)
@@ -61,16 +72,17 @@ def solve(DA, pz, restrict, hint, secs, workers=None):
     for vs in bykey.values():
         vv = [v for v in vs if not isinstance(v, int)]; fixed = sum(1 for v in vs if isinstance(v, int))
         if vv: m.Add(sum(vv) <= 1 - fixed)
-    w = lambda c, k: 2 if sc(c, {"n": "nation", "l": "league", "c": "club"}[k]) else 1
+    icons = sum(x[i, j] for (i, j) in x if j not in oop[i] and kind(cand[i][j]) == "I")   # Icons in position
     ind = {}
     for k in "nlc":
         terms = collections.defaultdict(list); const = collections.Counter()
         for (i, j), v in x.items():
             if j in oop[i]: continue                              # out of position: adds nothing
-            c = cand[i][j]; terms[c[fld[k]]].append((w(c, k), v))
-        for c in locked.values(): const[c[fld[k]]] += w(c, k)
+            c = cand[i][j]
+            if wt(c, k): terms[c[fld[k]]].append((wt(c, k), v))
+        for c in locked.values(): const[c[fld[k]]] += wt(c, k)
         for gid in set(terms) | set(const):
-            cnt = sum(a * v for a, v in terms[gid]) + const[gid]
+            cnt = sum(a * v for a, v in terms[gid]) + const[gid] + (icons if k == "l" else 0)
             for lv, th in enumerate(T[k]):
                 b = m.NewBoolVar(""); ind[k, gid, lv] = b; m.Add(cnt >= th).OnlyEnforceIf(b)
     lv = lambda c: sum(ind[k, c[fld[k]], q] for k in "nlc" for q in range(3) if (k, c[fld[k]], q) in ind)
@@ -81,7 +93,7 @@ def solve(DA, pz, restrict, hint, secs, workers=None):
             m.Add(ci <= lv(locked[i]))
             if pz.get("lockChem"): m.Add(lv(locked[i]) >= pz["lockChem"])   # locked cards need this much chem
         else:
-            for j, c in enumerate(cand[i]): m.Add(ci <= (0 if j in oop[i] else lv(c))).OnlyEnforceIf(x[i, j])
+            for j, c in enumerate(cand[i]): m.Add(ci <= (0 if j in oop[i] else 3 if c["color"] in AUTO else lv(c))).OnlyEnforceIf(x[i, j])
         chem.append(ci)
     m.Add(sum(chem) >= pz["target"])
     rat = [sum(c["rating"] * x[i, j] for j, c in enumerate(cand[i])) if i not in locked else locked[i]["rating"] for i in range(len(slots))]
@@ -92,7 +104,10 @@ def solve(DA, pz, restrict, hint, secs, workers=None):
     m.Add(121 * R + 115 >= 11 * tot + sum(y))            # squad rating, a little generous: rescored exactly afterwards
     hits = sum(x[i, j] for (i, j) in x if hit(cand[i][j]))
     each = pz["budget"]["each"] if pz.get("budget") else 0
-    m.Maximize(B["each"] * hits + (each * (pz["budget"]["par"] - R) if each else 0) + pz.get("chemEach", 0) * sum(chem))   # chemEach: points per chem over the target
+    anyA = m.NewBoolVar("")                                   # an Icon or Hero anywhere loses the no-Icons bonus
+    for (i, j), v in x.items():
+        if cand[i][j]["color"] in AUTO: m.Add(anyA >= v)
+    m.Maximize(B["each"] * hits - pz.get("noIcon", 0) * anyA + (each * (pz["budget"]["par"] - R) if each else 0) + pz.get("chemEach", 0) * sum(chem))   # chemEach: points per chem over the target
     if hint:
         for (i, j), v in x.items(): m.AddHint(v, 1 if cand[i][j]["id"] == hint[i] else 0)
     s = cp_model.CpSolver(); s.parameters.max_time_in_seconds = secs; s.parameters.num_workers = workers or os.cpu_count() or 2
@@ -116,7 +131,8 @@ if __name__ == "__main__" and sys.argv[1] == "prove":
     pz = next(p for s in DA.P["sets"] for p in s["puzzles"] if p["id"] == PID)
     known = json.load(open(D + "puzzles_max.json"))["puzzles"].get(PID, {})
     t0 = time.time(); team, st = solve(DA, pz, False, known.get("team"), SECS)
-    json.dump({PID: {"teams": [t for t in (team, known.get("team")) if t], "proven": st == "OPTIMAL", "chem": True}}, open(OUT, "w"))
+    json.dump({PID: {"teams": [t for t in (team, known.get("team")) if t], "proven": st == "OPTIMAL", "chem": True,
+                **({"icons": True} if any(c["color"] in AUTO for c in DA.pool) else {})}}, open(OUT, "w"))
     print(PID, st, f"{time.time() - t0:.0f}s", flush=True)
 elif __name__ == "__main__":
     SET, SECS, ELIG, OUT = sys.argv[1], float(sys.argv[2]), sys.argv[3], sys.argv[4]

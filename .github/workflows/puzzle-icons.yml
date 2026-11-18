@@ -1,0 +1,82 @@
+name: Puzzle top scores (Icons check)
+
+# The proofs leave out Icons and Heroes. This proves the top score again with them allowed, so nothing at all beats it,
+# or finds the better squad. Puzzles to check: config/prove_icons.txt (ids or the start of ids, one a line).
+on:
+  push:
+    branches: [main]
+    paths: ["config/prove_icons.txt"]
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "Minutes per puzzle"
+        default: "120"
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: puzzle-icons
+  cancel-in-progress: false   # a newer list waits for the one running
+
+jobs:
+  list:
+    runs-on: ubuntu-26.04
+    outputs:
+      ids: ${{ steps.l.outputs.ids }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: l
+        run: echo "ids=$(python3 -c "import json;P=json.load(open('docs/puzzles.json'));W=[l.split('#')[0].strip() for l in open('config/prove_icons.txt')];W=[w for w in W if w];print(json.dumps([p['id'] for s in P['sets'] for p in s['puzzles'] if any(p['id'].startswith(w) for w in W)]))")" >> $GITHUB_OUTPUT
+
+  prove:
+    needs: list
+    runs-on: ubuntu-26.04
+    timeout-minutes: 140
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        id: ${{ fromJson(needs.list.outputs.ids) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: pip install ortools==9.15.6755
+      - run: |
+          node scripts/pz_max.js eligall elig.json
+          python3 scripts/pz_max.py prove "${{ matrix.id }}" "$(( ${{ github.event.inputs.minutes || '120' }} * 60 ))" elig.json "icons_${{ matrix.id }}.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: icons-${{ matrix.id }}
+          path: icons_${{ matrix.id }}.json
+          if-no-files-found: ignore
+
+  publish:
+    needs: prove
+    if: always()
+    runs-on: ubuntu-26.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/download-artifact@v4
+        with: { path: found, pattern: icons-*, merge-multiple: true }
+      - run: |
+          # a proof run saving at the same moment would clash: wait for it first
+          for i in $(seq 1 90); do [ -z "$(gh run list -R ${{ github.repository }} --workflow puzzle-prove.yml --status in_progress --json databaseId -q '.[].databaseId')" ] && break; sleep 60; done
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          for t in 1 2 3; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            node scripts/pz_max.js merge docs/puzzles_max.json found/*.json
+            git add docs/puzzles_max.json
+            git diff --cached --quiet && break
+            git commit -qm "Puzzle top scores (Icons check)" && git push -q && break
+            sleep 20
+          done
