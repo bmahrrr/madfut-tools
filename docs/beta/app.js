@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118g";
+const APP_V = "20261118k";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1364,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118g"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118k"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1390,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118g"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118k"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2205,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118g");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118k");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2816,7 +2816,7 @@ function pzAccount(then, mode = "new") {
     ${err ? `<p class="small" style="color:var(--loss);margin:8px 0 0">${esc(err)}</p>` : ""}
     <div class="piact"><button class="ghost" id="paX">Cancel</button><button class="btn" id="paGo">${mode === "new" ? "Create" : "Sign in"}</button></div></div>`;
     ov.querySelectorAll("[data-am]").forEach(b => b.onclick = () => { ov.dataset.n = $("paN").value; mode = b.dataset.am; draw(); });
-    $("paX").onclick = () => ov.remove();
+    $("paX").onclick = () => close();
     $("paGo").onclick = async () => {
       const name = $("paN").value.trim(), pin = $("paP").value.trim(); ov.dataset.n = name;
       if (name.length < 2) return draw("Pick a name of 2 to 16 letters or numbers");
@@ -2826,11 +2826,12 @@ function pzAccount(then, mode = "new") {
       if (r.error) return draw(r.error);
       pzLSset("pzAcct", { pid: r.pid, name: r.name, token: r.token });
       const m = await pzApi("/me").catch(() => null); if (m && !m.error) await pzSync(m);
-      PZ.me = null; ov.remove(); if (then) then(); else pzDraw();
+      PZ.me = null; close(); if (then) then(); else pzDraw();
     };
   };
-  ov.onclick = e => { if (e.target === ov) ov.remove(); };
-  document.body.appendChild(ov); draw();
+  const close = () => { if (!ov.isConnected) return; ov.remove(); pzPopDone(); };
+  ov.onclick = e => { if (e.target === ov) close(); };
+  document.body.appendChild(ov); draw(); pzPopup(close);
 }
 async function pzLoad() {
   if (!PZ.data) [PZ.data, PZ.forms, PZ.max] = await Promise.all([getJSON("puzzles.json"), getJSON("formations.json"), getJSON("puzzles_max.json").then(m => m.puzzles || {}).catch(() => ({}))]);
@@ -2926,10 +2927,10 @@ function pzInfo(i) {
     ${pzBonusHit(c, pz.bonus) && !lk ? `<p class="pibon">★ Counts for the bonus: +${pz.bonus.each}</p>` : ""}
     <div class="piact">${lk ? "" : `<button class="ghost" id="piRm">Remove</button><button class="btn" id="piSw">Swap</button>`}<button class="ghost" id="piX">Close</button></div></div>`;
   document.body.appendChild(ov);
-  const close = () => ov.remove();
+  const close = () => { if (!ov.isConnected) return; ov.remove(); pzPopDone(); }; pzPopup(close);
   ov.onclick = e => { if (e.target === ov) close(); };
   $("piX").onclick = close;
-  if (!lk) { $("piRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { close(); pzPick(i); }; }
+  if (!lk) { $("piRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { PZ.popKeep = true; close(); pzPick(i); }; }
 }
 const NEXT = { n: [2, 5, 8], l: [3, 5, 8], c: [2, 4, 7] };
 function pzDraw() {
@@ -2993,6 +2994,9 @@ function pzPick(i) {
   const all = CARDS.filter(c => c.P && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
   const tk = c => SBC_AUTO.has(c.color) ? "icon" : typeKey(c), tl = t => t === "icon" ? "Icons & Heroes" : typeLabel(t);
   let F = { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "", sort: lsStr("pzSort") || "up" }, q = "", shown = 0, list = [], top = null;
+  // like the game: filters stay when you move to another spot in the same puzzle (the position follows the spot)
+  if (PZ.pickF && PZ.pickF.id === pz.id) Object.assign(F, PZ.pickF.f);
+  const keepF = () => { PZ.pickF = { id: pz.id, f: { nat: F.nat, lg: F.lg, cl: F.cl, type: F.type, lo: F.lo, hi: F.hi } }; };
   const sheet = document.createElement("div"); sheet.id = "pzSheet";
   sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Search a player" enterkeyhint="done" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
     <div class="pzfl" id="pzFl"></div>
@@ -3001,7 +3005,8 @@ function pzPick(i) {
   const vv = window.visualViewport, root = document.documentElement, oldOv = root.style.overflow;
   const fit = () => { if (!vv) return; sheet.style.top = vv.offsetTop + "px"; sheet.style.height = vv.height + "px"; };
   fit(); if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); } root.style.overflow = "hidden";
-  const close = () => { sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } };
+  const close = () => { if (!sheet.isConnected) return; sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } pzPopDone(); };
+  pzPopup(close);
   const put = c => { PZ.team[i] = c; pzSave(); close(); pzPlay(); };
   // each filter, with the others applied (so the lists only offer what's there, like the game)
   const pass = (c, skip) => (skip === "pos" || F.pos === "any" || c.P.has(F.pos)) && (skip === "nat" || !F.nat || c.nationId === +F.nat)
@@ -3039,7 +3044,7 @@ function pzPick(i) {
     top = list[0] || null; shown = 0; $("pzL").innerHTML = list.length ? "" : `<p class="small muted" style="padding:12px">No cards for that. Try other filters.</p>`; $("pzL").scrollTop = 0; more();
     $("pzN").textContent = `${list.length.toLocaleString()} card${list.length === 1 ? "" : "s"}`;
   };
-  const drawAll = () => { drawFilters(); drawList(); };
+  const drawAll = () => { keepF(); drawFilters(); drawList(); };
   $("pzL").onscroll = () => { const L = $("pzL"); if (shown < list.length && L.scrollTop + L.clientHeight > L.scrollHeight - 600) more(); };
   $("pzL").onclick = e => { const b = e.target.closest("[data-c]"); if (b) put(BYID.get(b.dataset.c)); };
   sheet.onclick = e => { if (e.target === sheet) close(); };
@@ -3095,14 +3100,56 @@ async function pzBoard() {
       : `<p class="muted small">No scores yet. Be the first!</p>`;
   } catch (e) { $("pzRows").innerHTML = `<p class="muted small">Couldn't load the leaderboard.</p>`; }
 }
+// ---------- Puzzles: the phone's back button steps back like the on-screen buttons (puzzle -> set -> Puzzles), and
+// closes a card picker or popup first, instead of leaving the site ----------
+const pzOnTab = () => { const g = $("games"); return !!g && g.classList.contains("on"); };
+const pzState = (prev, extra) => Object.assign({ pzv: PZ.view, prev, set: PZ.set && PZ.set.id, pz: PZ.pz && PZ.pz.id, lbSet: PZ.lbSet, lbPz: PZ.lbPz, lbFrom: PZ.lbFrom }, extra || {});
+PZ.depth = 0;
+// go to a view: a deeper one adds a step to the phone's history, a move sideways (next puzzle) replaces it
+function pzGo(view, sideways) {
+  const from = PZ.view; PZ.view = view;
+  try {
+    if (sideways || from === view) history.replaceState(pzState(history.state && history.state.prev), "");
+    else { history.pushState(pzState(from), ""); PZ.depth++; }
+  } catch (e) {}
+  pzDraw();
+}
+// on-screen back: the same as the phone's back when it's the step before, otherwise straight there
+function pzBack(view) {
+  if (PZ.depth > 0 && history.state && history.state.prev === view) { history.back(); return; }
+  PZ.view = view; try { history.replaceState(view === "home" ? null : pzState("home"), ""); } catch (e) {} pzDraw();
+}
+// a popup (card picker, card details, sign in) closes on back too
+function pzPopup(close) {
+  if (PZ.popKeep) { PZ.popKeep = false; PZ.closePopup = close; return; }      // one popup straight into another (Swap): same step
+  PZ.closePopup = close; try { history.pushState(Object.assign({}, history.state, { popup: 1 }), ""); PZ.depth++; } catch (e) {} }
+function pzPopDone() { if (!PZ.closePopup) return; PZ.closePopup = null; if (PZ.popKeep) return; if (history.state && history.state.popup) history.back(); }
+addEventListener("popstate", e => {
+  if (PZ.unwind) { PZ.unwind = false; return; }
+  PZ.depth = Math.max(0, PZ.depth - 1);
+  if (PZ.closePopup) { const f = PZ.closePopup; PZ.closePopup = null; f(); return; }
+  if (!PZ.data) return;
+  const st = e.state || {}, view = st.pzv || "home";
+  if (st.set) PZ.set = PZ.data.sets.find(x => x.id === st.set) || PZ.set;
+  if (st.pz && (!PZ.pz || PZ.pz.id !== st.pz)) { for (const x of PZ.data.sets) { const q = x.puzzles.find(q => q.id === st.pz); if (q) { PZ.set = x; PZ.pz = q; } } PZ.team = pzTeamOf(PZ.pz); }
+  if (st.lbSet) Object.assign(PZ, { lbSet: st.lbSet, lbPz: st.lbPz || "", lbFrom: st.lbFrom || "home" });
+  if (view === PZ.view && !(view === "lb")) return;
+  PZ.view = view; if (pzOnTab()) { pzDraw(); scrollTo(0, 0); }
+});
+// leaving the Puzzles tab takes its steps out of the history (so back doesn't seem to do nothing on another tab);
+// coming back puts one step in, so back returns to the Puzzles home
+document.querySelectorAll("#tabs button").forEach(b => b.addEventListener("click", () => {
+  if (b.dataset.t !== "games" && PZ.depth > 0) { PZ.unwind = true; const n = PZ.depth; PZ.depth = 0; PZ.closePopup = null; try { history.go(-n); } catch (e) {} }
+  if (b.dataset.t === "games" && PZ.view !== "home" && PZ.depth === 0) { try { history.pushState(pzState("home"), ""); PZ.depth = 1; } catch (e) {} }
+}));
 function pzWire() {
   const box = $("gameBox");
-  box.querySelectorAll("[data-pzset]").forEach(b => b.onclick = () => { PZ.set = PZ.data.sets.find(s => s.id === b.dataset.pzset); PZ.view = "set"; pzDraw(); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pzset]").forEach(b => b.onclick = () => { PZ.set = PZ.data.sets.find(s => s.id === b.dataset.pzset); pzGo("set"); scrollTo(0, 0); });
   box.querySelectorAll("[data-pz]").forEach(b => b.onclick = () => { for (const s of PZ.data.sets) { const p = s.puzzles.find(p => p.id === b.dataset.pz); if (p) { PZ.set = s; PZ.pz = p; } }
-    PZ.team = pzTeamOf(PZ.pz); PZ.view = "play"; pzDraw(); scrollTo(0, 0); });
-  box.querySelectorAll("[data-pzgo]").forEach(b => b.onclick = () => { PZ.view = b.dataset.pzgo; pzDraw(); });
+    PZ.team = pzTeamOf(PZ.pz); pzGo("play"); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pzgo]").forEach(b => b.onclick = () => pzBack(b.dataset.pzgo));
   box.querySelectorAll("[data-pzlb]").forEach(b => b.onclick = () => { if (PZ.view !== "lb") PZ.lbFrom = PZ.view;
-    PZ.lbSet = b.dataset.pzlb; PZ.lbPz = b.dataset.pzlbp || ""; PZ.view = "lb"; pzDraw(); });
+    PZ.lbSet = b.dataset.pzlb; PZ.lbPz = b.dataset.pzlbp || ""; pzGo("lb", PZ.view === "lb"); });
   const on = (id, f) => { const el = $(id); if (el) el.onclick = e => { e.preventDefault(); f(); }; };
   on("pzNew", () => pzAccount(null, "new")); on("pzIn", () => pzAccount(null, "in"));
   on("pzOut", () => { if (!confirm("Sign out on this device? Your scores stay on your account, ready when you sign in again.")) return; try { ["pzAcct", "pzBest", "pzTeam"].forEach(k => localStorage.removeItem(k)); } catch (e) {} PZ.me = null; pzDraw(); });
