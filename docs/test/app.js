@@ -3081,7 +3081,7 @@ async function pzBoard() {
     : `<div class="pzlbh"><b>Everyone</b><small>All ${sets.reduce((a, s) => a + s.puzzles.length, 0)} puzzles</small></div>`;
   $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="${back}">‹ Back</button><b>Leaderboard</b><span></span></div>
     <div class="pzpills"><button data-pzlb="all" class="${S ? "" : "on"}">All</button>${sets.map(s => `<button data-pzlb="${esc(s.id)}" class="t-${s.tier}${S === s ? " on" : ""}">${esc(s.name)}</button>`).join("")}</div>
-    ${S ? `<div class="pzpills pznum t-${S.tier}"><button data-pzlb="${esc(S.id)}" class="${P ? "" : "on"}">Set</button>${S.puzzles.map(p => `<button data-pzlb="${esc(S.id)}" data-pzlbp="${esc(p.id)}" class="${P === p ? "on" : ""}${best[p.id] ? " done" : ""}">${p.n}</button>`).join("")}</div>` : ""}
+    ${S ? `<div class="pzpills pznum t-${S.tier}"><button data-pzlb="${esc(S.id)}" class="${P ? "" : "on"}">Set</button>${S.puzzles.map(p => `<button data-pzlb="${esc(S.id)}" data-pzlbp="${esc(p.id)}" class="${P === p ? "on" : ""}${best[p.id] ? " done" : ""}${best[p.id] ? " b-" + pzBand(p.id, best[p.id]) : ""}">${p.n}</button>`).join("")}</div>` : ""}
     ${head}<div id="pzYou"></div><div id="pzRows"><p class="muted small">${PZ_LB ? "Loading…" : "The shared leaderboard is coming soon. Your own points are on the Puzzles page."}</p></div>`;
   pzWire();
   // keep the picked set / puzzle in view in its row
