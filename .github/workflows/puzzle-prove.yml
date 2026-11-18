@@ -10,14 +10,14 @@ on:
     inputs:
       minutes:
         description: "Minutes per puzzle"
-        default: "300"
+        default: "240"
 
 permissions:
   contents: write
 
 concurrency:
   group: puzzle-prove
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   list:
@@ -32,10 +32,10 @@ jobs:
   prove:
     needs: list
     runs-on: ubuntu-26.04
-    timeout-minutes: 330
+    timeout-minutes: 260
     strategy:
       fail-fast: false
-      max-parallel: 40
+      max-parallel: 32      # leaves machines free (the account runs 40 at once) so site updates and the server deploy don't queue
       matrix:
         id: ${{ fromJson(needs.list.outputs.ids) }}
     steps:
@@ -45,7 +45,7 @@ jobs:
       - run: pip install ortools==9.15.6755
       - run: |
           node scripts/pz_max.js elig elig.json
-          python3 scripts/pz_max.py prove "${{ matrix.id }}" "$(( ${{ github.event.inputs.minutes || '300' }} * 60 ))" elig.json "prove_${{ matrix.id }}.json"
+          python3 scripts/pz_max.py prove "${{ matrix.id }}" "$(( ${{ github.event.inputs.minutes || '240' }} * 60 ))" elig.json "prove_${{ matrix.id }}.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
