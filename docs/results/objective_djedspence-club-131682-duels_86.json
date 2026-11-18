@@ -3,35 +3,35 @@
  "obj_ids": [
   "id67316992"
  ],
- "strength": 103.0,
+ "strength": 101.9,
  "group_cards": 1,
  "reddit": [],
  "team": {
   "formation": "4-2-3-1",
-  "chem": 33,
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id50586451",
-    "name": "Lammens",
-    "rating": 86,
-    "color": "ucl_rttk",
+    "id": "id204935",
+    "name": "Pickford",
+    "rating": 85,
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 7,
+    "nationId": 14,
     "leagueId": 13,
-    "clubId": 11,
+    "clubId": 7,
     "card": [
-     40,
-     37,
-     88
+     45,
+     45,
+     85
     ],
     "chem": 3,
     "eff": [
-     42,
-     39,
+     48,
+     47,
      90
     ],
-    "tiebreak": 171
+    "tiebreak": 181
    },
    {
     "slot": "LB",
@@ -58,29 +58,6 @@
    },
    {
     "slot": "CB",
-    "id": "id50752",
-    "name": "King",
-    "rating": 86,
-    "color": "hero",
-    "position": "CB",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 114605,
-    "card": [
-     67,
-     70,
-     87
-    ],
-    "chem": 3,
-    "eff": [
-     70,
-     72,
-     92
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "CB",
     "id": "id50559326",
     "name": "Konsa",
     "rating": 86,
@@ -101,6 +78,29 @@
      91
     ],
     "tiebreak": 239
+   },
+   {
+    "slot": "CB",
+    "id": "id50752",
+    "name": "King",
+    "rating": 86,
+    "color": "hero",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 114605,
+    "card": [
+     67,
+     70,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     72,
+     92
+    ],
+    "tiebreak": 230
    },
    {
     "slot": "RB",
@@ -127,26 +127,26 @@
    },
    {
     "slot": "CDM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
+    "id": "id67316992",
+    "name": "Çalhanoğlu",
+    "rating": 86,
+    "color": "halloween",
     "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
+    "nationId": 48,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
      86,
-     87,
-     69
+     86,
+     80
     ],
     "chem": 3,
     "eff": [
      89,
      89,
-     74
+     83
     ],
-    "tiebreak": 248
+    "tiebreak": 258
    },
    {
     "slot": "CDM",
@@ -173,52 +173,6 @@
    },
    {
     "slot": "CAM",
-    "id": "id50570392",
-    "name": "McKennie",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "CM",
-    "nationId": 95,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     82,
-     83,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     85,
-     86,
-     86
-    ],
-    "tiebreak": 254
-   },
-   {
-    "slot": "CAM",
-    "id": "id67316992",
-    "name": "Çalhanoğlu",
-    "rating": 86,
-    "color": "halloween",
-    "position": "CAM",
-    "nationId": 48,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     86,
-     86,
-     80
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     89,
-     83
-    ],
-    "tiebreak": 258
-   },
-   {
-    "slot": "CAM",
     "id": "id50524633",
     "name": "De Bruyne",
     "rating": 86,
@@ -241,6 +195,52 @@
     "tiebreak": 245
    },
    {
+    "slot": "CAM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
+    "card": [
+     86,
+     87,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     89,
+     74
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CAM",
+    "id": "id50558884",
+    "name": "Zambo Anguissa",
+    "rating": 86,
+    "color": "ucl_rttk",
+    "position": "CM",
+    "nationId": 103,
+    "leagueId": 31,
+    "clubId": 48,
+    "card": [
+     84,
+     81,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     84,
+     86
+    ],
+    "tiebreak": 254
+   },
+   {
     "slot": "ST",
     "id": "id50407181",
     "name": "Alajbegović",
@@ -255,13 +255,13 @@
      85,
      58
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     89,
      88,
-     61
+     87,
+     60
     ],
-    "tiebreak": 235
+    "tiebreak": 232
    }
   ]
  },
@@ -296,19 +296,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id50586451",
+  "id204935",
   "id5467",
-  "id50559326",
-  "id50564404",
   "id50752",
+  "id50564404",
+  "id50559326",
   "id50575305",
-  "id50524633",
-  "id216435",
+  "id50402434",
+  "id50508651",
   "id50592947",
   "id50487969",
-  "id239261"
+  "id50407181"
  ],
- "built": "2026-11-16 02:52 UTC",
+ "built": "2026-11-18 04:58 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-15 13:13 UTC"
+ "changed": "2026-11-18 04:58 UTC"
 }
