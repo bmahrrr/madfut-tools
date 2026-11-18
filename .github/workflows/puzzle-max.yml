@@ -6,10 +6,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "scripts/pz_max.py"
-      - "scripts/pz_max.js"
-      - ".github/workflows/puzzle-max.yml"
-      - "docs/puzzles.json"
+      - "docs/puzzles.json"     # new or changed puzzles (a run can also be started by hand)
   workflow_dispatch:
     inputs:
       seconds:

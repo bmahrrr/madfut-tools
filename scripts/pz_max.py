@@ -108,7 +108,17 @@ def top(DA, pz, secs):
     return {"teams": [t for t in (a, b) if t], "proven": sb == "OPTIMAL"}, sa, sb
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and sys.argv[1] == "prove":
+    # one puzzle, a long full search started from its best known squad: proves it's the top score, or finds a better one
+    #   python scripts/pz_max.py prove <puzzle id> <seconds> <eligible ids json> <out json>
+    PID, SECS, ELIG, OUT = sys.argv[2], float(sys.argv[3]), sys.argv[4], sys.argv[5]
+    DA = Data(ELIG)
+    pz = next(p for s in DA.P["sets"] for p in s["puzzles"] if p["id"] == PID)
+    known = json.load(open(D + "puzzles_max.json"))["puzzles"].get(PID, {})
+    t0 = time.time(); team, st = solve(DA, pz, False, known.get("team"), SECS)
+    json.dump({PID: {"teams": [t for t in (team, known.get("team")) if t], "proven": st == "OPTIMAL"}}, open(OUT, "w"))
+    print(PID, st, f"{time.time() - t0:.0f}s", flush=True)
+elif __name__ == "__main__":
     SET, SECS, ELIG, OUT = sys.argv[1], float(sys.argv[2]), sys.argv[3], sys.argv[4]
     DA = Data(ELIG, sys.argv[5] if len(sys.argv) > 5 else None)
     out = {}
