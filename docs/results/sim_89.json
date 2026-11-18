@@ -279,11 +279,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5987,
+    "ctrl_win": null,
     "control": 93.0,
     "attack": 92.17,
     "defence": 91.5,
-    "net": 0.2806,
+    "net": null,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -307,8 +307,8 @@
      93,
      87
     ],
-    "p_att": 0.6314,
-    "p_def": 0.5352,
+    "p_att": null,
+    "p_def": null,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -316,12 +316,9 @@
     "attack_short": 0,
     "ctrl_total": 266.8,
     "att_total": 243.36,
-    "def_total": 211.75,
-    "round_robin": {
-     "wins": 17.0,
-     "margin": 2.9259
-    }
-   }
+    "def_total": 211.75
+   },
+   "source": "Previous Best"
   },
   {
    "formation": "3-4-1-2",
@@ -583,7 +580,7 @@
     "control": 93.0,
     "attack": 92.17,
     "defence": 92.25,
-    "net": 0.2063,
+    "net": 0.1868,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -607,7 +604,7 @@
      92,
      91
     ],
-    "p_att": 0.6177,
+    "p_att": 0.5877,
     "p_def": 0.4423,
     "chem": 32,
     "ctrl_not_full": 0,
@@ -618,58 +615,36 @@
     "att_total": 243.36,
     "def_total": 223.5,
     "round_robin": {
-     "wins": 21.0,
-     "margin": 2.4811
+     "wins": 18.5,
+     "margin": 2.4666
     }
    }
   },
   {
-   "formation": "3-1-4-2",
-   "chem": 33,
+   "formation": "3-4-1-2",
+   "chem": 32,
    "players": [
     {
-     "id": "id230621",
-     "name": "Donnarumma",
+     "id": "id67329765",
+     "name": "David Raya",
      "rating": 89,
-     "color": "rare_gold",
+     "color": "totw_gold",
      "position": "GK",
-     "nationId": 27,
+     "nationId": 45,
      "leagueId": 13,
-     "clubId": 10,
+     "clubId": 1,
      "card": [
-      39,
-      36,
-      89
+      46,
+      48,
+      90
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      42,
-      39,
+      48,
+      50,
       92
      ],
      "slot": "GK"
-    },
-    {
-     "id": "id1615",
-     "name": "Thuram",
-     "rating": 89,
-     "color": "icon",
-     "position": "RB",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      74,
-      75,
-      89
-     ],
-     "chem": 3,
-     "eff": [
-      77,
-      78,
-      92
-     ],
-     "slot": "CB"
     },
     {
      "id": "ltm_comuzzo89",
@@ -689,6 +664,28 @@
      "eff": [
       70,
       79,
+      93
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      65,
       93
      ],
      "slot": "CB"
@@ -716,28 +713,6 @@
      "slot": "CB"
     },
     {
-     "id": "id024",
-     "name": "Reijnders",
-     "rating": 89,
-     "color": "world_potm_nominee",
-     "position": "CM",
-     "nationId": 34,
-     "leagueId": 350,
-     "clubId": 112391,
-     "card": [
-      86,
-      90,
-      87
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      93,
-      90
-     ],
-     "slot": "CDM"
-    },
-    {
      "id": "evo_Oxlade-Chamberlain_87",
      "name": "Oxlade-Chamberlain",
      "rating": 87,
@@ -763,6 +738,28 @@
      "slot": "LM"
     },
     {
+     "id": "id024",
+     "name": "Reijnders",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 350,
+     "clubId": 112391,
+     "card": [
+      86,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      93,
+      90
+     ],
+     "slot": "CM"
+    },
+    {
      "id": "id50592947",
      "name": "Scott",
      "rating": 86,
@@ -781,28 +778,6 @@
       89,
       93,
       84
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id246",
-     "name": "Scholes",
-     "rating": 89,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      87,
-      88,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      93,
-      70
      ],
      "slot": "CM"
     },
@@ -833,24 +808,46 @@
      "slot": "RM"
     },
     {
-     "id": "id51",
-     "name": "Shearer",
+     "id": "id246",
+     "name": "Scholes",
      "rating": 89,
      "color": "icon",
-     "position": "ST",
+     "position": "CM",
      "nationId": 14,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      89,
-      77,
-      56
+      87,
+      88,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      93,
+      70
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id167134",
+     "name": "Papin",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      75,
+      49
      ],
      "chem": 3,
      "eff": [
       93,
-      82,
-      59
+      78,
+      52
      ],
      "slot": "ST"
     },
@@ -882,8 +879,8 @@
     "ctrl_win": 0.5667,
     "control": 93.0,
     "attack": 92.17,
-    "defence": 91.6,
-    "net": 0.2089,
+    "defence": 92.25,
+    "net": 0.1868,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -903,26 +900,25 @@
     ],
     "defence_cards": [
      93,
+     93,
      92,
-     92,
-     91,
-     90
+     91
     ],
-    "p_att": 0.6896,
-    "p_def": 0.3162,
-    "chem": 33,
+    "p_att": 0.5877,
+    "p_def": 0.4423,
+    "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 266.8,
-    "att_total": 246.9,
-    "def_total": 234.2
+    "att_total": 243.36,
+    "def_total": 223.5
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-17 02:26 UTC",
+ "built": "2026-11-18 01:39 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-17 02:26 UTC"
 }
