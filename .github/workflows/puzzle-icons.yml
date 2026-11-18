@@ -26,6 +26,7 @@ jobs:
       timeout: ${{ steps.l.outputs.timeout }}
     steps:
       - uses: actions/checkout@v4
+        with: { ref: main }     # the latest top scores, not the ones when this run was started
       - id: l
         run: python3 scripts/pz_icons_next.py >> $GITHUB_OUTPUT
 
@@ -41,6 +42,7 @@ jobs:
         id: ${{ fromJson(needs.list.outputs.ids) }}
     steps:
       - uses: actions/checkout@v4
+        with: { ref: main }
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: pip install ortools==9.15.6755
