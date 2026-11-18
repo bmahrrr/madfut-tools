@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261118k">
+<meta name="app-version" content="20261118p">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -622,6 +622,40 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 .piact{display:flex;gap:8px;margin-top:12px}.piact button{flex:1}
 .pzacc input{width:100%}
 /* the gold "Perfect" score: the top possible score of a puzzle */
+
+/* score colours: Bronze, Silver, Gold, then Perfect (the top score) */
+#gameBox{--bz1:#a8642f;--bz2:#f0b27a;--sv1:#8e9aa8;--sv2:#f2f6fb;--gd1:#c7962c;--gd2:#ffe08a}
+#gameBox .pzb-bronze{background:linear-gradient(105deg,var(--bz1),var(--bz2) 50%,var(--bz1));-webkit-background-clip:text;background-clip:text;color:transparent}
+#gameBox .pzb-silver{background:linear-gradient(105deg,var(--sv1),var(--sv2) 50%,var(--sv1));-webkit-background-clip:text;background-clip:text;color:transparent}
+#gameBox .pzb-gold{background:linear-gradient(105deg,var(--gd1),var(--gd2) 50%,var(--gd1));-webkit-background-clip:text;background-clip:text;color:transparent}
+#gameBox .pzb-perfect{background:linear-gradient(105deg,#ff8fd8,#8ff0ff 25%,#fff3a8 50%,#c6a2ff 75%,#ff8fd8);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 3s linear infinite}
+#gameBox .pzdone.b-bronze{border-color:color-mix(in srgb,var(--bz2) 55%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--bz2) 10%,transparent),transparent)}
+#gameBox .pzdone.b-silver{border-color:color-mix(in srgb,var(--sv2) 50%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--sv2) 9%,transparent),transparent)}
+#gameBox .pzdone.b-gold{border-color:color-mix(in srgb,var(--gd2) 65%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--gd2) 12%,transparent),transparent)}
+#gameBox .pzdone.b-perfect{position:relative;overflow:hidden;border-color:transparent;background:linear-gradient(#1a1513,#1a1513) padding-box,linear-gradient(105deg,#ff8fd8,#8ff0ff,#fff3a8,#c6a2ff,#ff8fd8) border-box;box-shadow:0 0 30px rgba(198,162,255,.22)}
+#gameBox .pzdone.b-perfect::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.14) 50%,transparent 70%);background-size:250% 100%;animation:pzShine 2.6s linear infinite;pointer-events:none}
+#gameBox .pzdone.b-bronze .pzstar{color:var(--bz2)}#gameBox .pzdone.b-silver .pzstar{color:var(--sv2)}#gameBox .pzdone.b-gold .pzstar{color:var(--gd2)}#gameBox .pzdone.b-perfect .pzstar{color:#e2ccff}
+#gameBox .pztile.b-bronze{border-color:color-mix(in srgb,var(--bz2) 60%,transparent)!important}#gameBox .pztile.b-bronze small{color:var(--bz2)!important}
+#gameBox .pztile.b-silver{border-color:color-mix(in srgb,var(--sv2) 55%,transparent)!important}#gameBox .pztile.b-silver small{color:var(--sv2)!important}
+#gameBox .pztile.b-gold{border-color:color-mix(in srgb,var(--gd2) 75%,transparent)!important;background:linear-gradient(160deg,color-mix(in srgb,var(--gd2) 16%,transparent),transparent)!important}#gameBox .pztile.b-gold small{color:var(--gd2)!important}
+#gameBox .pztile.b-perfect{position:relative;overflow:hidden;border-color:transparent!important;background:linear-gradient(#1d1715,#1d1715) padding-box,linear-gradient(105deg,#ff8fd8,#8ff0ff,#fff3a8,#c6a2ff,#ff8fd8) border-box!important}
+#gameBox .pztile.b-perfect small{color:#e2ccff!important}
+#gameBox .pztile.b-perfect::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.2) 50%,transparent 65%);background-size:250% 100%;animation:pzShine 3s linear infinite;pointer-events:none}
+#gameBox .pzlb li.b-bronze .pt{color:var(--bz2)}#gameBox .pzlb li.b-silver .pt{color:var(--sv2)}#gameBox .pzlb li.b-gold .pt{color:var(--gd2)}
+#gameBox .pzlb li.b-perfect .pt{background:linear-gradient(105deg,#ff8fd8,#8ff0ff 25%,#fff3a8 50%,#c6a2ff 75%,#ff8fd8);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 3s linear infinite}
+#gameBox .pzlb li.b-perfect .pt::before{content:"★ ";color:#e2ccff}
+#gameBox .pzdone.b-bronze .pzpct i{background:linear-gradient(90deg,var(--bz1),var(--bz2))}#gameBox .pzdone.b-silver .pzpct i{background:linear-gradient(90deg,var(--sv1),var(--sv2))}#gameBox .pzdone.b-gold .pzpct i{background:linear-gradient(90deg,var(--gd1),var(--gd2))}#gameBox .pzdone.b-plain .pzpct i{background:var(--muted)}
+#gameBox .pznum button.b-bronze::after{background:var(--bz2)!important}#gameBox .pznum button.b-silver::after{background:var(--sv2)!important}#gameBox .pznum button.b-gold::after{background:var(--gd2)!important}#gameBox .pznum button.b-perfect::after{background:linear-gradient(135deg,#ff8fd8,#8ff0ff,#fff3a8,#c6a2ff)!important;width:6px!important;height:6px!important;margin-left:-3px!important}
+#gameBox .pzmeds{display:flex;gap:8px;margin:12px 0 16px;flex-wrap:wrap}
+#gameBox .pzmed{display:inline-flex;align-items:center;gap:6px;font:700 13px/1 var(--body);padding:5px 10px 5px 6px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+#gameBox .pzmed i,#gameBox .lbmed i{width:14px;height:14px;border-radius:50%}
+#gameBox .lbmeds{display:inline-flex;gap:5px;margin-left:8px;vertical-align:1px}#gameBox .lbmed{display:inline-flex;align-items:center;gap:3px;font:700 11.5px/1 var(--body);color:var(--muted)}#gameBox .lbmed i{width:10px;height:10px}
+#gameBox .lbmed.b-bronze i,#gameBox .pzmed.b-bronze i{background:linear-gradient(135deg,var(--bz2),var(--bz1))}#gameBox .lbmed.b-silver i,#gameBox .pzmed.b-silver i{background:linear-gradient(135deg,var(--sv2),var(--sv1))}#gameBox .lbmed.b-gold i,#gameBox .pzmed.b-gold i{background:linear-gradient(135deg,var(--gd2),var(--gd1))}
+#gameBox .lbmed.b-perfect i,#gameBox .pzmed.b-perfect i{background:linear-gradient(135deg,#ff8fd8,#8ff0ff,#fff3a8,#c6a2ff)}
+@media (prefers-reduced-motion:reduce){#gameBox .pzb-perfect,#gameBox .pzdone.b-perfect::after,#gameBox .pztile.b-perfect::after,#gameBox .pzlb li.b-perfect .pt{animation:none}}
+#gameBox .pzpctw{display:flex;align-items:center;gap:10px;margin:2px 0}
+#gameBox .pzpct{flex:1;max-width:220px;height:7px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+#gameBox .pzpct i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--fire),#ffd76a)}
 @keyframes pzShine{from{background-position:200% 0}to{background-position:-200% 0}}
 #gameBox .pzgold{background:linear-gradient(105deg,#c7962c 0%,#ffe08a 35%,#fffbe8 50%,#ffe08a 65%,#c7962c 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pzShine 2.6s linear infinite}
 #gameBox .pzdone.gold{position:relative;overflow:hidden;border-color:rgba(255,212,106,.7);background:linear-gradient(160deg,rgba(255,212,106,.14),rgba(255,212,106,.04));box-shadow:0 0 28px rgba(255,200,80,.18)}
@@ -651,6 +685,8 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 #pzSheet .sheet{top:0;bottom:0;max-height:none;border-radius:0;border-top:0;padding:calc(10px + env(safe-area-inset-top)) 12px 0}
 #pzSheet .pzsh input{font-size:16px;padding:11px 12px;border-radius:12px}#pzSheet .pzsh b{min-width:44px;text-align:center}
 #pzSheet .pzlist{flex:1;min-height:0;padding-bottom:env(safe-area-inset-bottom)}#pzSheet .pzlist button{padding:8px 4px}
+
+
 /* card picker filters (like the game's) */
 #pzSheet .pzfl{flex:none;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 4px;-webkit-mask-image:linear-gradient(90deg,#000 90%,transparent);mask-image:linear-gradient(90deg,#000 90%,transparent)}#pzSheet .pzfl::-webkit-scrollbar{display:none}
 #pzSheet .pzsel,#pzSheet .pzseg{flex:none;position:relative;display:flex;flex-direction:column;justify-content:center;gap:3px;height:48px;padding:0 28px 0 11px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line2);min-width:88px;max-width:170px;box-sizing:border-box}
@@ -858,9 +894,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="beta/engine.js?v=20261118k"></script>
-<script src="beta/sbc-solver.js?v=20261118k"></script>
-<script src="beta/puzzle-core.js?v=20261118k"></script>
-<script src="beta/app.js?v=20261118k"></script>
+<script src="beta/engine.js?v=20261118p"></script>
+<script src="beta/sbc-solver.js?v=20261118p"></script>
+<script src="beta/puzzle-core.js?v=20261118p"></script>
+<script src="beta/app.js?v=20261118p"></script>
 </body>
 </html>

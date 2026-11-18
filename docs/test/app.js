@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118o";
+const APP_V = "20261118p";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -124,7 +124,7 @@ function welcome(force) {
   o.innerHTML = `<div class="wbox"><button class="wx" aria-label="Close">✕</button><h3>Welcome to the ToolKit</h3><p class="ws">Everything you need for Fatal and SBCs, updated every day.</p>
     ${tile("teams", "T", "Best Teams", `This week's strongest Fatal My Club and Sim teams for every series. Tap "Don't have" on a card for your own version.`)}
     ${tile("sbc", "SBC", "SBC Solver", "Paste the requirements and get the cheapest squad.")}
-    ${tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.")}
+    ${PREVIEW ? tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.") : ""}
     <button class="wgo">Show Me the Teams</button></div>`;
   document.body.appendChild(o);
   const close = t => { try { localStorage.setItem("welcomeSeen", "1"); } catch (e) {} o.remove(); if (t) document.querySelector(`#tabs button[data-t="${t}"]`).click(); };
@@ -147,6 +147,7 @@ async function init() {
   try { INDEX = await getJSON("results/index.json"); if (INDEX.all && EVOS) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip(); welcome();
+  if (!PREVIEW) document.querySelectorAll('#tabs [data-t="games"], #moreSheet [data-mt="games"]').forEach(b => b.remove());   // Puzzles: preview only for now
 }
 
 // ---------- shared card UI ----------
@@ -759,11 +760,16 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
   { day: "2026-11-17", items: [
-    "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert.",
+    { p: 1, t: "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert." },
     "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos.",
     "<b>Evo names:</b> shown on every card that uses one, with both names for a chain.",
     "<b>My Evos:</b> pick the Evos you've done, and each series builds a team around them on your phone.",
-    "<b>Missing a card:</b> your version can now switch formation if a different shape is better without that card."
+    "<b>Missing a card:</b> your version can now switch formation if a different shape is better without that card.",
+    "<b>Pitch highlights:</b> a card's top two stats are only both lit when they're within 3 of each other.",
+    "<b>Head to Head:</b> teams only take cards within the series cap.",
+    "<b>SBC:</b> when a squad only works with a card out of position, the solver now finds it, with that card on 0 chem.",
+    "<b>SBC:</b> club, nation and league search lists name matches first.",
+    "<b>Welcome guide:</b> a quick tour on your first visit, and any time from More."
   ] },
   { day: "2026-11-16", items: [
     { t: "<b>Play vs AI:</b> new mode in Match. You make every move and the AI plays theirs, in one of three styles. Human and Varied mix up their openings." },
@@ -1358,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118o"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118p"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1384,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118o"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118p"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2199,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118o");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118p");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2835,7 +2841,18 @@ function pzAccount(then, mode = "new") {
 async function pzLoad() {
   if (!PZ.data) [PZ.data, PZ.forms, PZ.max] = await Promise.all([getJSON(PZ_DATA + "puzzles.json"), getJSON("formations.json"), Promise.all(["", PZ_DATA].filter((x, k) => !k || x).map(d => getJSON(d + "puzzles_max.json").then(m => m.puzzles || {}).catch(() => ({})))).then(L => Object.assign({}, ...L))]);   // the test copy's own top scores on top of the live ones
   // the top score anyone has (a squad that beats the worked-out top score becomes the new top score)
+  if (CARDS.length) pzClean();
   if (PZ_LB && !PZ.recAt) { PZ.recAt = 1; fetch(PZ_LB + "/records").then(r => r.json()).then(r => { PZ.rec = r.records || {}; if (PZ.view !== "play") pzDraw(); }).catch(() => {}); }
+}
+// a saved best only stands while its saved squad still scores it (a puzzle that was remade drops its old best)
+function pzClean() {
+  if (PZ.cleaned || !PZ.data) return; PZ.cleaned = true;
+  const b = pzBest(), T = pzLS("pzTeam", {}), all = new Map(PZ.data.sets.flatMap(s => s.puzzles).map(p => [p.id, p])); let ch = false;
+  for (const [id, pts] of Object.entries(b)) {
+    const pz = all.get(id), team = pz && (T[id] || []).map(x => BYID.get(x) || null), sc = team && team.length ? pzScore(pz, pzSlots(pz), team) : null;
+    if (!pz || (sc && (!sc.ok || sc.pts < pts))) { delete b[id]; if (pz && sc && !sc.ok) delete T[id]; ch = true; }
+  }
+  if (ch) { pzLSset("pzBest", b); pzLSset("pzTeam", T); }
 }
 // the gold "Perfect" score: the top possible score of a puzzle (0 = not known yet)
 const pzTop = id => Math.max((PZ.max && PZ.max[id] && PZ.max[id].max) || 0, (PZ.rec && PZ.rec[id]) || 0);
@@ -2983,7 +3000,6 @@ function pzPlay() {
   $("pzGo").onclick = () => pzSubmit(sc);
   document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (PZ.team[i]) pzInfo(i); else pzPick(i); });
 }
-// card picker for one spot: search, and quick filters for the links already in the squad
 // card picker, filters like the game's: position, nation, league, club, card type, rating (range or exact), sort by rating.
 // Every matching card can be reached (the list keeps loading as you scroll). Position "Any" shows cards for other
 // spots too: they can go in, but get 0 chem there (like the game).
