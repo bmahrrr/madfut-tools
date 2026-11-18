@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Test)</title>
-<meta name="app-version" content="20261118t">
+<meta name="app-version" content="20261118v">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -736,7 +736,28 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 /* bonus card badge on the pitch */
 .pzpitch .pc .bst{position:absolute;left:-7px;top:-9px;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:linear-gradient(135deg,#ffe58f,#f2a33a);box-shadow:0 1px 4px rgba(0,0,0,.55),0 0 0 1.5px rgba(20,12,6,.9)}
 .pzpitch .pc svg.st{position:static;inset:auto;display:block;width:11px;height:11px;fill:#4a2606}.pzpitch .pc.empty .hint em svg.st{width:10px;height:10px;fill:#ffd76a}
+/* Windows has no flag emoji, so a small flag font is loaded there (see the script below) */
+html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial Narrow",system-ui,sans-serif;--body:"Twemoji Country Flags","Saira",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#moreSheet .credit{display:block;padding:8px 12px 4px;font-size:11px;color:var(--muted);text-align:center}
 </style>
+<script>
+// Flags: phones and Macs draw flag emoji, Windows shows two letters instead ("FR"). There, load a flag-only font.
+// Detection from country-flag-emoji-polyfill (MIT); the flag font is from Twemoji (CC-BY 4.0).
+(function () {
+  try {
+    const fam = '"Twemoji Mozilla","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji","EmojiOne Color","Android Emoji",sans-serif';
+    const c = document.createElement("canvas"); c.width = c.height = 1; const x = c.getContext("2d", { willReadFrequently: true });
+    x.textBaseline = "top"; x.font = "100px " + fam; x.scale(.01, .01);
+    const px = (t, col) => { x.clearRect(0, 0, 100, 100); x.fillStyle = col; x.fillText(t, 0, 0); return x.getImageData(0, 0, 1, 1).data.join(","); };
+    const colour = t => { const w = px(t, "#fff"), b = px(t, "#000"); return w === b && !b.startsWith("0,0,0,"); };
+    if (colour("\u{1F60A}") && !colour("\u{1F1E8}\u{1F1ED}")) {
+      const st = document.createElement("style");
+      st.textContent = '@font-face{font-family:"Twemoji Country Flags";unicode-range:U+1F1E6-1F1FF,U+1F3F4,U+E0062-E0063,U+E0065,U+E0067,U+E006C,U+E006E,U+E0073-E0074,U+E0077,U+E007F;src:url("fonts/TwemojiCountryFlags.woff2") format("woff2");font-display:swap}';
+      document.head.appendChild(st); document.documentElement.classList.add("flagfont");
+    }
+  } catch (e) {}
+})();
+</script>
 </head>
 <body>
 <header>
@@ -912,11 +933,12 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-mt="games"><b>Puzzles</b><small>Finish the squad, climb the leaderboard</small></button>
   <button data-mt="setup"><b>Season Setup</b><small>Series, boosts and builds</small></button>
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
+  <small class="credit">Flag images on Windows: Twemoji, CC-BY 4.0</small>
 </div></div>
 
-<script src="test/engine.js?v=20261118t"></script>
-<script src="test/sbc-solver.js?v=20261118t"></script>
-<script src="test/puzzle-core.js?v=20261118t"></script>
-<script src="test/app.js?v=20261118t"></script>
+<script src="test/engine.js?v=20261118v"></script>
+<script src="test/sbc-solver.js?v=20261118v"></script>
+<script src="test/puzzle-core.js?v=20261118v"></script>
+<script src="test/app.js?v=20261118v"></script>
 </body>
 </html>
