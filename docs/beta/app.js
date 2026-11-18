@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261119a";
+const APP_V = "20261119b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1364,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261119a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261119b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1390,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261119a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261119b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2205,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261119a");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261119b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -3051,14 +3051,15 @@ function pzPlay() {
   const mvCls = i => MV == null ? "" : i === MV ? " mvsrc" : locked.has(i) ? " mvno" : mvc.P.has(slots[i]) ? " mvok" : " mvoop";
   const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
   const placed = PZ.team.filter(Boolean), rNow = placed.length ? teamRatingOf(placed.map(c => c.rating)) : 0, bud = pz.budget ? pzBudget(pz, rNow) : 0;
-  const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud, pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
+  const cx = pz.chemEach ? Math.max(0, sc.total - pz.target) * pz.chemEach : 0;   // points for chem over the target
+  const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud + cx, pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
   const set = PZ.data.sets.find(s => s.puzzles.includes(pz)), nx = set.puzzles[set.puzzles.indexOf(pz) + 1];
   $("gameBox").innerHTML = `<div class="pzbar t-${set.tier}"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}<small>${esc(pz.formation)}</small></b><button class="ghost" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(pz.id)}">Ranks</button></div>
     <div class="pzhud"><div class="pzchem"><b class="${sc.total >= pz.target ? "ok" : ""}">${sc.total}</b><span>/ ${pz.target} chem</span><div class="bar"><i style="width:${pct}%"></i><em style="left:${tp}%"></em></div></div>
       <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="pzb-${pzBand(pz.id, best)}">${fmtN(best)}</span>` : ""}${best && pzTop(pz.id) && !pzPerfect(pz.id, best) ? ` · ${pzPct(pz.id, best)}% of Perfect` : ""}</small></div></div>
-    ${(() => { const P = [["Base", pz.pts, "#8a8f98"], ["Bonus", hits * pz.bonus.each, "#ffcf5a"], ["No Icons", icons ? 0 : pz.noIcon, "#3ddc97"], ["Budget", bud, "#3ddcff"]], T = P.reduce((a, x) => a + x[1], 0) || 1;
+    ${(() => { const P = [["Base", pz.pts, "#8a8f98"], ["Bonus", hits * pz.bonus.each, "#ffcf5a"], ["No Icons", icons ? 0 : pz.noIcon, "#3ddc97"], ["Budget", bud, "#3ddcff"], ...(pz.chemEach ? [["Chem", cx, "#b98cff"]] : [])], T = P.reduce((a, x) => a + x[1], 0) || 1;
       return `<div class="pzmeter" id="pzMeter">${P.map(([n, v, c], k) => `<div class="seg${v / T < .16 ? " tight" : ""}${v / T < .07 ? " tiny" : ""}${v ? "" : " zero"}" data-w="${v / T * 100}" style="--c:${c};width:${(PZ.meterW || [])[k] != null ? PZ.meterW[k] : v / T * 100}%"><i></i><span><small>${n}</small><b>${fmtN(v)}</b></span></div>`).join("")}</div>`; })()}
-    <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span>${pz.lockChem ? `<span class="${sc.ok ? "on" : ""}">🔒 Locked cards need ${pz.lockChem >= 3 ? "full" : pz.lockChem} chem</span>` : ""}<span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
+    <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span>${pz.lockChem ? `<span class="${sc.ok ? "on" : ""}">🔒 Locked cards need ${pz.lockChem >= 3 ? "full" : pz.lockChem} chem</span>` : ""}${pz.chemEach ? `<span class="${cx ? "on" : ""}">+${pz.chemEach} per chem over ${pz.target}${cx ? ` (+${cx})` : ""}</span>` : ""}<span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
     ${MV != null ? `<div class="pzmove"><span>Tap a spot to move <b>${esc(PZ.team[MV].name)}</b>. Swaps if the spot is taken.</span><button class="ghost" id="pzMvX">Cancel</button></div>` : ""}
     <div class="pitch pzpitch${MV != null ? " moving" : ""}">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
       return c ? `<button class="pc${lk ? " lock" : ""}${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : pzBonusHit(c, pz.bonus) ? `<i class="bst" title="Bonus card"><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
@@ -3163,7 +3164,7 @@ async function pzSubmit(sc) {
   const top = pzTop(pz.id), gold = !!top && sc.pts >= top, record = gold && sc.pts > top;
   if (record) { PZ.rec = PZ.rec || {}; PZ.rec[pz.id] = sc.pts; }
   const band = pzBand(pz.id, sc.pts);
-  msg.innerHTML = `<div class="pzdone${band ? " b-" + band : ""}">${gold ? `<i class="pzstar">${record ? "★ New Top Score" : "★ Perfect"}</i>` : band && band !== "plain" ? `<i class="pzstar">${pzBandName(band)}</i>` : ""}<b class="pzb-${band}">${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}${sc.budget ? ` + ${fmtN(sc.budget)} budget (rated ${sc.rating})` : ""}</span>${!gold && top ? `<span class="pzpctw">${pzBar(pz.id, sc.pts)}</span>` : ""}<span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
+  msg.innerHTML = `<div class="pzdone${band ? " b-" + band : ""}">${gold ? `<i class="pzstar">${record ? "★ New Top Score" : "★ Perfect"}</i>` : band && band !== "plain" ? `<i class="pzstar">${pzBandName(band)}</i>` : ""}<b class="pzb-${band}">${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}${sc.budget ? ` + ${fmtN(sc.budget)} budget (rated ${sc.rating})` : ""}${sc.chemPts ? ` + ${fmtN(sc.chemPts)} chem (${sc.extra} over)` : ""}</span>${!gold && top ? `<span class="pzpctw">${pzBar(pz.id, sc.pts)}</span>` : ""}<span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
   msg.scrollIntoView({ behavior: "smooth", block: "center" });
   if (!PZ_API) return;
   if (!pzAcct()) { $("pzRank").innerHTML = `Saved on this device. <a href="#" id="pzJoin">Pick a name</a> to put it on the leaderboard.`; $("pzJoin").onclick = e => { e.preventDefault(); pzAccount(() => pzSubmit(sc)); }; return; }

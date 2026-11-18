@@ -105,7 +105,7 @@ def solve(DA, pz, restrict, hint, secs, workers=None):
 def top(DA, pz, secs):
     a, sa = solve(DA, pz, True, None, secs / 2)
     b, sb = solve(DA, pz, False, a, secs / 2)
-    return {"teams": [t for t in (a, b) if t], "proven": sb == "OPTIMAL"}, sa, sb
+    return {"teams": [t for t in (a, b) if t], "proven": sb == "OPTIMAL", "chem": True}, sa, sb   # chem: counted chem points
 
 
 if __name__ == "__main__" and sys.argv[1] == "prove":
@@ -116,7 +116,7 @@ if __name__ == "__main__" and sys.argv[1] == "prove":
     pz = next(p for s in DA.P["sets"] for p in s["puzzles"] if p["id"] == PID)
     known = json.load(open(D + "puzzles_max.json"))["puzzles"].get(PID, {})
     t0 = time.time(); team, st = solve(DA, pz, False, known.get("team"), SECS)
-    json.dump({PID: {"teams": [t for t in (team, known.get("team")) if t], "proven": st == "OPTIMAL"}}, open(OUT, "w"))
+    json.dump({PID: {"teams": [t for t in (team, known.get("team")) if t], "proven": st == "OPTIMAL", "chem": True}}, open(OUT, "w"))
     print(PID, st, f"{time.time() - t0:.0f}s", flush=True)
 elif __name__ == "__main__":
     SET, SECS, ELIG, OUT = sys.argv[1], float(sys.argv[2]), sys.argv[3], sys.argv[4]

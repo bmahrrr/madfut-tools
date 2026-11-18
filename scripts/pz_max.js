@@ -18,14 +18,16 @@ if (mode === "elig") {
   // a kept top score only stands if its squad still passes (the puzzle or the cards may have changed)
   for (const [id, r] of Object.entries(res)) { const pz = all.get(id), sc = pz && r.team && pzScore(pz, FORMS[pz.formation], r.team.map(i => by.get(i)).map(c => c || null));
     if (!sc || !sc.ok) delete res[id]; else r.max = sc.pts; }
+  for (const [id, r] of Object.entries(res)) if (all.get(id).chemEach && !r.chem) r.proven = false;   // proven before chem points counted
   for (const f of ins) for (const [id, r] of Object.entries(JSON.parse(fs.readFileSync(f, "utf8")))) {
     const pz = all.get(id), slots = FORMS[pz.formation];
+    if (pz.chemEach && !r.chem) r.proven = false;
     for (const ids of r.teams) {
       const sc = pzScore(pz, slots, ids.map(i => by.get(i)));
       if (!sc.ok) { console.log(id, "squad failed the site's check:", sc.why); continue; }
       const old = res[id];
-      if (!old || sc.pts > old.max || (sc.pts === old.max && r.proven && !old.proven)) res[id] = { max: sc.pts, proven: !!r.proven, team: ids };
-      else if (sc.pts === old.max && r.proven) old.proven = true;
+      if (!old || sc.pts > old.max || (sc.pts === old.max && r.proven && !old.proven)) res[id] = { max: sc.pts, proven: !!r.proven, team: ids, ...(r.chem ? { chem: true } : {}) };
+      else if (sc.pts === old.max && r.proven) { old.proven = true; if (r.chem) old.chem = true; }
     }
   }
   fs.writeFileSync(out, JSON.stringify({ made: new Date().toISOString(), puzzles: res }));

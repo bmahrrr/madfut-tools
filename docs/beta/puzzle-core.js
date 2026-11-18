@@ -36,7 +36,7 @@ function pzBonusHit(c, b) {
 function pzScore(pz, slots, team) {
   const chem = pzChem(slots, team), total = chem.reduce((a, b) => a + b, 0);
   const full = team.every(Boolean), rating = full ? teamRatingOf(team.map(c => c.rating)) : 0;
-  const res = { ok: false, why: "", chem, total, rating, base: pz.pts, bonus: 0, hits: 0, noIcon: 0, budget: 0, pts: 0 };
+  const res = { ok: false, why: "", chem, total, rating, base: pz.pts, bonus: 0, hits: 0, noIcon: 0, budget: 0, extra: 0, chemPts: 0, pts: 0 };
   const locked = new Map(pz.locked.map(l => [l.i, l.id]));
   if (team.length !== slots.length || team.some(c => !c)) { res.why = "Fill every spot"; return res; }
   for (const [i, id] of locked) if (team[i].id !== id) { res.why = "A locked card was moved"; return res; }
@@ -54,7 +54,8 @@ function pzScore(pz, slots, team) {
   res.bonus = pz.bonus ? res.hits * pz.bonus.each : 0;
   res.noIcon = free.some(c => SBC_AUTO.has(c.color)) ? 0 : (pz.noIcon || 0);
   res.budget = pzBudget(pz, rating);
-  res.ok = true; res.pts = pz.pts + res.bonus + res.noIcon + res.budget;
+  res.extra = total - pz.target; res.chemPts = pz.chemEach ? res.extra * pz.chemEach : 0;   // points for each chem over the target
+  res.ok = true; res.pts = pz.pts + res.bonus + res.noIcon + res.budget + res.chemPts;
   return res;
 }
 
