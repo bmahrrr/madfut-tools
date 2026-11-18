@@ -5,12 +5,12 @@ name: Puzzle top scores (prove)
 on:
   push:
     branches: [main]
-    paths: [".github/workflows/puzzle-prove.yml"]
+    paths: [".github/workflows/puzzle-prove.yml", "config/prove.txt"]   # a new run cancels the one running
   workflow_dispatch:
     inputs:
       minutes:
         description: "Minutes per puzzle"
-        default: "240"
+        default: "120"
 
 permissions:
   contents: write
@@ -27,7 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: l
-        run: echo "ids=$(python3 -c "import json;m=json.load(open('docs/puzzles_max.json'))['puzzles'];P=json.load(open('docs/puzzles.json'));print(json.dumps([p['id'] for s in P['sets'] for p in s['puzzles'] if not m.get(p['id'],{}).get('proven')]))")" >> $GITHUB_OUTPUT
+        # config/prove.txt: the puzzles to prove this time (ids or the start of ids, one a line); unproven ones only
+        run: echo "ids=$(python3 -c "import json;m=json.load(open('docs/puzzles_max.json'))['puzzles'];P=json.load(open('docs/puzzles.json'));W=[l.split('#')[0].strip() for l in open('config/prove.txt')];W=[w for w in W if w];print(json.dumps([p['id'] for s in P['sets'] for p in s['puzzles'] if not m.get(p['id'],{}).get('proven') and any(p['id'].startswith(w) for w in W)]))")" >> $GITHUB_OUTPUT
 
   prove:
     needs: list
@@ -45,7 +46,7 @@ jobs:
       - run: pip install ortools==9.15.6755
       - run: |
           node scripts/pz_max.js elig elig.json
-          python3 scripts/pz_max.py prove "${{ matrix.id }}" "$(( ${{ github.event.inputs.minutes || '240' }} * 60 ))" elig.json "prove_${{ matrix.id }}.json"
+          python3 scripts/pz_max.py prove "${{ matrix.id }}" "$(( ${{ github.event.inputs.minutes || '120' }} * 60 ))" elig.json "prove_${{ matrix.id }}.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
