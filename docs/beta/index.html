@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261118s">
+<meta name="app-version" content="20261118u">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -718,9 +718,18 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 .pzacc .mseg{margin-bottom:10px}
 
 /* empty spots: bonus cards that fit and the best chem gain; points meter */
-.pzpitch .pc.empty .hint{display:flex;flex-direction:column;align-items:center;margin-top:4px;line-height:1.15}.pzpitch .pc.empty .hint em{font:700 10.5px/1.15 var(--body);font-style:normal;color:#ffd76a}.pzpitch .pc.empty .hint small{font:500 9.5px/1.2 var(--body);color:var(--muted)}
-#gameBox .pzmeter{margin:8px 0 2px}#gameBox .pzmeter .bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.06)}#gameBox .pzmeter .bar i{display:block;height:100%}
-#gameBox .pzmeter .lg{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:6px;font-size:11.5px;color:var(--muted)}#gameBox .pzmeter .lg b{color:var(--text);font-weight:700}#gameBox .pzmeter .lg span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:var(--c)}
+.pzpitch .pc.empty .hint{display:flex;flex-direction:column;align-items:center;margin-top:4px;line-height:1.15}.pzpitch .pc.empty .hint em{display:inline-flex;align-items:center;gap:3px;font:700 10.5px/1.15 var(--body);font-style:normal;color:#ffd76a}.pzpitch .pc.empty .hint em .st{width:10px;height:10px;fill:#ffd76a}.pzpitch .pc.empty .hint small{font:500 9.5px/1.2 var(--body);color:var(--muted)}
+
+/* points meter: each part's name and points sit under its colour and move with it */
+#gameBox .pzmeter{display:flex;gap:2px;margin:10px 0 4px}
+#gameBox .pzmeter .seg{min-width:0;transition:width .45s cubic-bezier(.3,.7,.2,1)}#gameBox .pzmeter .seg.zero{display:none}
+#gameBox .pzmeter .seg i{display:block;height:10px;background:var(--c)}#gameBox .pzmeter .seg:first-child i{border-radius:99px 0 0 99px}#gameBox .pzmeter .seg:last-of-type i{border-radius:0 99px 99px 0}
+#gameBox .pzmeter .seg span{display:flex;flex-direction:column;align-items:center;margin-top:5px;white-space:nowrap;overflow:hidden}
+#gameBox .pzmeter .seg small{font-size:10.5px;color:var(--muted);line-height:1.2}#gameBox .pzmeter .seg b{font:700 12px/1.2 var(--body);color:var(--c)}
+#gameBox .pzmeter .seg span{overflow:visible}#gameBox .pzmeter .seg.tight small{font-size:9.5px}#gameBox .pzmeter .seg.tiny small{display:none}
+/* bonus card badge on the pitch */
+.pzpitch .pc .bst{position:absolute;left:-7px;top:-9px;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:linear-gradient(135deg,#ffe58f,#f2a33a);box-shadow:0 1px 4px rgba(0,0,0,.55),0 0 0 1.5px rgba(20,12,6,.9)}
+.pzpitch .pc svg.st{position:static;inset:auto;display:block;width:11px;height:11px;fill:#4a2606}.pzpitch .pc.empty .hint em svg.st{width:10px;height:10px;fill:#ffd76a}
 </style>
 </head>
 <body>
@@ -899,9 +908,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="beta/engine.js?v=20261118s"></script>
-<script src="beta/sbc-solver.js?v=20261118s"></script>
-<script src="beta/puzzle-core.js?v=20261118s"></script>
-<script src="beta/app.js?v=20261118s"></script>
+<script src="beta/engine.js?v=20261118u"></script>
+<script src="beta/sbc-solver.js?v=20261118u"></script>
+<script src="beta/puzzle-core.js?v=20261118u"></script>
+<script src="beta/app.js?v=20261118u"></script>
 </body>
 </html>
