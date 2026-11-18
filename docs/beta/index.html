@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Preview)</title>
-<meta name="app-version" content="20261118z">
+<meta name="app-version" content="20261119a">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -742,6 +742,12 @@ html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial N
 .pzpitch.moving .pc.mvoop{outline:2px dashed color-mix(in srgb,var(--loss) 70%,transparent);outline-offset:3px}
 .pzpitch.moving .pc.mvoop::after{content:"0 chem";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);padding:3px 6px;border-radius:99px;font:700 9.5px/1 var(--body);color:#ffb3a8;background:#3a1a16;border:1px solid color-mix(in srgb,var(--loss) 60%,transparent);white-space:nowrap;z-index:2}
 @keyframes pzPulse{50%{outline-color:transparent}}
+/* chem preview in the card picker */
+#pzSheet .pzlist .cpv{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:44px;margin-left:4px;padding:5px 6px;border-radius:10px;background:rgba(255,255,255,.04)}
+#pzSheet .pzlist .cpv b{width:auto;font:800 15px/1 var(--display);color:var(--muted)}
+#pzSheet .pzlist .cpv.up{background:color-mix(in srgb,var(--win) 14%,transparent)}#pzSheet .pzlist .cpv.up b{color:var(--win)}
+#pzSheet .pzlist .cpv.down{background:color-mix(in srgb,var(--loss) 12%,transparent)}#pzSheet .pzlist .cpv.down b{color:var(--loss)}
+#pzSheet .pzlist .cpv .dm{display:flex;flex-direction:row;gap:3px}#pzSheet .pzlist .cpv .dm i{width:6px;height:6px;transform:rotate(45deg);background:rgba(255,255,255,.15);border-radius:1.5px}#pzSheet .pzlist .cpv .dm i.on{background:#3ddcff;box-shadow:0 0 5px rgba(61,220,255,.5)}
 </style>
 <script>
 // Flags: phones and Macs draw flag emoji, Windows shows two letters instead ("FR"). There, load a flag-only font.
@@ -939,9 +945,9 @@ html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial N
   <small class="credit">Flag images on Windows: Twemoji, CC-BY 4.0</small>
 </div></div>
 
-<script src="beta/engine.js?v=20261118z"></script>
-<script src="beta/sbc-solver.js?v=20261118z"></script>
-<script src="beta/puzzle-core.js?v=20261118z"></script>
-<script src="beta/app.js?v=20261118z"></script>
+<script src="beta/engine.js?v=20261119a"></script>
+<script src="beta/sbc-solver.js?v=20261119a"></script>
+<script src="beta/puzzle-core.js?v=20261119a"></script>
+<script src="beta/app.js?v=20261119a"></script>
 </body>
 </html>
