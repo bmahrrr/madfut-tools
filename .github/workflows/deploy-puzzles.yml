@@ -3,7 +3,7 @@ name: Deploy puzzles server
 on:
   push:
     branches: [main]
-    paths: ["worker/**", "docs/puzzle-core.js", ".github/workflows/deploy-puzzles.yml"]
+    paths: ["worker/**", "docs/puzzle-core.js", "docs/sbc-solver.js", ".github/workflows/deploy-puzzles.yml"]
   workflow_dispatch: {}
 concurrency: { group: deploy-puzzles, cancel-in-progress: false }
 jobs:

@@ -16,15 +16,15 @@ pos = lambda c: {c["position"], *[p for p in str(c["altPositions"] or "").split(
 sc = lambda c, k: (k + "2") in str(c.get("specialChem") or "").split(",")
 key = lambda c: c.get("baseId") or c["name"]
 # Icons and Heroes (only in a pool that includes them, for the Icons check): always 3 chem in position, no club links;
-# an Icon adds 2 to its nation and 1 to every league, a Hero 1 to its nation and 2 to its league (HoF Upgraded: 1)
+# an Icon adds 1 to its nation and 1 to every league, a Hero 1 to its nation and 1 to its league (checked in game)
 AUTO = {"icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"}; ICON = {"icon", "debut_icon"}; HERO = {"hero", "hall_of_fut"}
 kind = lambda c: "I" if c["color"] in ICON else "A" if c["color"] in AUTO else ""
 
 
 def wt(c, k):
     col = c["color"]
-    if k == "n": return 2 if col in ICON or sc(c, "nation") else 1
-    if k == "l": return 0 if col in ICON else 2 if col in HERO or sc(c, "league") else 1
+    if k == "n": return 2 if sc(c, "nation") else 1
+    if k == "l": return 0 if col in ICON else 2 if sc(c, "league") else 1
     return 0 if col in AUTO else 2 if sc(c, "club") else 1
 
 

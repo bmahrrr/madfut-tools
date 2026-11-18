@@ -4,7 +4,7 @@
 // (normal special packs give far more 83- specials than 84+).
 "use strict";
 
-const SBC_AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"]);   // HoF Upgraded: +1 league (not +2)
+const SBC_AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"]);
 const SBC_ICON = new Set(["icon", "debut_icon"]);
 const SBC_HERO = new Set(["hero", "hall_of_fut"]);
 // Card types the game doesn't allow in SBCs.
@@ -50,12 +50,12 @@ function teamRatingOf(rs) {        // EA / FUTBIN squad rating
   return Math.floor(Math.round(tot + ex + 1e-9) / rs.length);
 }
 
-// SBC chemistry. Icons: +2 to their nation, +1 to every league. Heroes: +1 nation, +2 league.
+// SBC chemistry. Icons: +1 to their nation, +1 to every league. Heroes: +1 nation, +1 to their league (checked in game).
 // Squad Foundations: +2 to their league. Icons and heroes are always on full chem.
 // Special chem from the card data: "league2" (Squad Foundations), "club2,nation2" (World POTM) count +2 there
 const SC2 = (c, k) => String(c.specialChem || "").split(",").includes(k + "2");
-const natW = c => (SBC_ICON.has(c.color) || SC2(c, "nation") ? 2 : 1);
-const lgW = c => (SBC_HERO.has(c.color) || SC2(c, "league") ? 2 : 1);
+const natW = c => (SC2(c, "nation") ? 2 : 1);
+const lgW = c => (SC2(c, "league") ? 2 : 1);
 const clW = c => (SC2(c, "club") ? 2 : 1);
 function sbcChem(team) {
   const nat = new Map(), lg = new Map(), club = new Map(); let icons = 0;
