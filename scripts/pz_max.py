@@ -92,7 +92,7 @@ def solve(DA, pz, restrict, hint, secs, workers=None):
     m.Add(121 * R + 115 >= 11 * tot + sum(y))            # squad rating, a little generous: rescored exactly afterwards
     hits = sum(x[i, j] for (i, j) in x if hit(cand[i][j]))
     each = pz["budget"]["each"] if pz.get("budget") else 0
-    m.Maximize(B["each"] * hits + (each * (pz["budget"]["par"] - R) if each else 0))
+    m.Maximize(B["each"] * hits + (each * (pz["budget"]["par"] - R) if each else 0) + pz.get("chemEach", 0) * sum(chem))   # chemEach: points per chem over the target
     if hint:
         for (i, j), v in x.items(): m.AddHint(v, 1 if cand[i][j]["id"] == hint[i] else 0)
     s = cp_model.CpSolver(); s.parameters.max_time_in_seconds = secs; s.parameters.num_workers = workers or os.cpu_count() or 2
