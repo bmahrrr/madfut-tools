@@ -1,42 +1,42 @@
 name: Puzzle top scores (Icons check)
 
-# The proofs leave out Icons and Heroes. This proves the top score again with them allowed, so nothing at all beats it,
-# or finds the better squad. Puzzles to check: config/prove_icons.txt (ids or the start of ids, one a line).
+# Proves every puzzle's top score with every card allowed, Icons and Heroes too, so nothing at all beats it (or finds
+# the better squad). Works through the puzzles not proven this way yet, up to 34 at a time, and starts itself again
+# until none are left: first up to 2 hours a puzzle, then up to 5.5 hours for any not proven in that time.
 on:
   push:
     branches: [main]
-    paths: ["config/prove_icons.txt"]
+    paths: [".github/workflows/puzzle-icons.yml"]
   workflow_dispatch:
-    inputs:
-      minutes:
-        description: "Minutes per puzzle"
-        default: "120"
 
 permissions:
   contents: write
-  actions: read
+  actions: write
 
 concurrency:
   group: puzzle-icons
-  cancel-in-progress: false   # a newer list waits for the one running
+  cancel-in-progress: false   # the next block waits for the one running
 
 jobs:
   list:
     runs-on: ubuntu-26.04
     outputs:
       ids: ${{ steps.l.outputs.ids }}
+      minutes: ${{ steps.l.outputs.minutes }}
+      timeout: ${{ steps.l.outputs.timeout }}
     steps:
       - uses: actions/checkout@v4
       - id: l
-        run: echo "ids=$(python3 -c "import json;P=json.load(open('docs/puzzles.json'));W=[l.split('#')[0].strip() for l in open('config/prove_icons.txt')];W=[w for w in W if w];print(json.dumps([p['id'] for s in P['sets'] for p in s['puzzles'] if any(p['id'].startswith(w) for w in W)]))")" >> $GITHUB_OUTPUT
+        run: python3 scripts/pz_icons_next.py >> $GITHUB_OUTPUT
 
   prove:
     needs: list
+    if: needs.list.outputs.ids != '[]'
     runs-on: ubuntu-26.04
-    timeout-minutes: 140
+    timeout-minutes: ${{ fromJSON(needs.list.outputs.timeout) }}
     strategy:
       fail-fast: false
-      max-parallel: 20
+      max-parallel: 34      # leaves machines free (the account runs 40 at once) so site updates don't queue
       matrix:
         id: ${{ fromJson(needs.list.outputs.ids) }}
     steps:
@@ -46,7 +46,7 @@ jobs:
       - run: pip install ortools==9.15.6755
       - run: |
           node scripts/pz_max.js eligall elig.json
-          python3 scripts/pz_max.py prove "${{ matrix.id }}" "$(( ${{ github.event.inputs.minutes || '120' }} * 60 ))" elig.json "icons_${{ matrix.id }}.json"
+          python3 scripts/pz_max.py prove "${{ matrix.id }}" "$(( ${{ needs.list.outputs.minutes }} * 60 ))" elig.json "icons_${{ matrix.id }}.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -55,11 +55,12 @@ jobs:
           if-no-files-found: ignore
 
   publish:
-    needs: prove
-    if: always()
+    needs: [list, prove]
+    if: always() && needs.list.outputs.ids != '[]'
     runs-on: ubuntu-26.04
     env:
       GH_TOKEN: ${{ github.token }}
+      BLOCK: ${{ needs.list.outputs.ids }}
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
@@ -68,15 +69,20 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { path: found, pattern: icons-*, merge-multiple: true }
       - run: |
-          # a proof run saving at the same moment would clash: wait for it first
+          mkdir -p found
+          # another top scores run saving at the same moment would clash: wait for it first
           for i in $(seq 1 90); do [ -z "$(gh run list -R ${{ github.repository }} --workflow puzzle-prove.yml --status in_progress --json databaseId -q '.[].databaseId')" ] && break; sleep 60; done
           git config user.name "madfut-tools bot"
           git config user.email "actions@users.noreply.github.com"
           for t in 1 2 3; do
             git fetch -q origin main && git reset -q --hard origin/main
             node scripts/pz_max.js merge docs/puzzles_max.json found/*.json
+            python3 scripts/pz_icons_next.py tried "$BLOCK"   # count a try for each puzzle of this block not proven yet
             git add docs/puzzles_max.json
             git diff --cached --quiet && break
             git commit -qm "Puzzle top scores (Icons check)" && git push -q && break
             sleep 20
           done
+      - name: Next block
+        run: |
+          if [ "$(python3 scripts/pz_icons_next.py | grep '^ids=' | cut -d= -f2)" != "[]" ]; then gh workflow run puzzle-icons.yml -R ${{ github.repository }} --ref main; fi

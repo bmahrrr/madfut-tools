@@ -27,7 +27,7 @@ if (mode === "elig" || mode === "eligall") {
       const sc = pzScore(pz, slots, ids.map(i => by.get(i)));
       if (!sc.ok) { console.log(id, "squad failed the site's check:", sc.why); continue; }
       const old = res[id];
-      if (!old || sc.pts > old.max || (sc.pts === old.max && r.proven && !old.proven)) res[id] = { max: sc.pts, proven: !!r.proven, team: ids, ...(r.chem ? { chem: true } : {}), ...(r.icons && r.proven ? { icons: true } : {}) };
+      if (!old || sc.pts > old.max || (sc.pts === old.max && r.proven && !old.proven)) res[id] = { max: sc.pts, proven: !!r.proven, team: ids, ...(r.chem ? { chem: true } : {}), ...(r.icons && r.proven ? { icons: true } : {}), ...(old && old.tries ? { tries: old.tries } : {}) };
       else if (sc.pts === old.max && r.proven) { old.proven = true; if (r.chem) old.chem = true; if (r.icons) old.icons = true; }
     }
   }
