@@ -77,7 +77,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261118p";
+const APP_V = "20261118q";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1364,7 +1364,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118p"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261118q"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1390,7 +1390,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118p"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261118q"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2205,7 +2205,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118p");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261118q");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2944,7 +2944,7 @@ function pzInfo(i) {
   const close = () => { if (!ov.isConnected) return; ov.remove(); pzPopDone(); }; pzPopup(close);
   ov.onclick = e => { if (e.target === ov) close(); };
   $("piX").onclick = close;
-  if (!lk) { $("piRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { PZ.popKeep = true; close(); pzPick(i); }; }
+  if (!lk) { $("piRm").onclick = () => { pzRemember(); PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { PZ.popKeep = true; close(); pzPick(i); }; }
 }
 const NEXT = { n: [2, 5, 8], l: [3, 5, 8], c: [2, 4, 7] };
 function pzDraw() {
@@ -2971,6 +2971,10 @@ function pzSetView() {
     <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
   pzWire();
 }
+// undo: each change to a squad is remembered (per puzzle), so the last one can be put back
+function pzRemember() { const L = PZ.undo || (PZ.undo = []); L.push({ pz: PZ.pz.id, team: PZ.team.map(c => c ? c.id : null) }); if (L.length > 40) L.shift(); }
+const pzCanUndo = () => (PZ.undo || []).some(u => u.pz === PZ.pz.id);
+function pzUndo() { const L = PZ.undo || []; for (let k = L.length - 1; k >= 0; k--) if (L[k].pz === PZ.pz.id) { const u = L.splice(k, 1)[0]; PZ.team = u.team.map(id => id ? BYID.get(id) || null : null); pzSave(); pzPlay(); return; } }
 function pzPlay() {
   const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
   // one line per nation / league / club in the squad: how many you have, the chem it gives each of them, and how many more for the next step
@@ -2987,16 +2991,17 @@ function pzPlay() {
       <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="pzb-${pzBand(pz.id, best)}">${fmtN(best)}</span>` : ""}${best && pzTop(pz.id) && !pzPerfect(pz.id, best) ? ` · ${pzPct(pz.id, best)}% of Perfect` : ""}</small></div></div>
     <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span>${pz.lockChem ? `<span class="${sc.ok ? "on" : ""}">🔒 Locked cards need ${pz.lockChem >= 3 ? "full" : pz.lockChem} chem</span>` : ""}<span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
     <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
-      return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
+      return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : pzBonusHit(c, pz.bonus) ? `<i class="bst" title="Bonus card">★</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
         <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
         : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
     <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
       <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
       ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lShort)}${linkRow("c", "Clubs", cShort)}</details>
-    <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
+    <div class="pzact"><button class="ghost" id="pzClear">Clear</button>${pzCanUndo() ? `<button class="ghost" id="pzUndo" title="Undo the last change">↶ Undo</button>` : ""}<button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
     <div id="pzMsg"></div>`;
   pzWire();
-  $("pzClear").onclick = () => { PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  $("pzClear").onclick = () => { pzRemember(); PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  if ($("pzUndo")) $("pzUndo").onclick = pzUndo;
   $("pzGo").onclick = () => pzSubmit(sc);
   document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (PZ.team[i]) pzInfo(i); else pzPick(i); });
 }
@@ -3022,7 +3027,7 @@ function pzPick(i) {
   fit(); if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); } root.style.overflow = "hidden";
   const close = () => { if (!sheet.isConnected) return; sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } pzPopDone(); };
   pzPopup(close);
-  const put = c => { PZ.team[i] = c; pzSave(); close(); pzPlay(); };
+  const put = c => { if (PZ.team[i] !== c) pzRemember(); PZ.team[i] = c; pzSave(); close(); pzPlay(); };
   // each filter, with the others applied (so the lists only offer what's there, like the game)
   const pass = (c, skip) => (skip === "pos" || F.pos === "any" || c.P.has(F.pos)) && (skip === "nat" || !F.nat || c.nationId === +F.nat)
     && (skip === "lg" || !F.lg || (c.leagueId === +F.lg && !SBC_ICON.has(c.color))) && (skip === "cl" || !F.cl || c.clubId === +F.cl)
@@ -3049,8 +3054,11 @@ function pzPick(i) {
     if ($("pzReset")) $("pzReset").onclick = () => { Object.assign(F, { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "" }); drawAll(); };
     $("pzFl").scrollLeft = keepX;     // stay where you were in the row after picking
   };
-  const row = c => { const off = !c.P.has(sl);
-    return `<button data-c="${esc(c.id)}" class="${off ? "off" : ""}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))} · ${esc(c.position)}${c.altPositions ? "/" + esc(String(c.altPositions).replace(/,/g, "/")) : ""}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${off ? `<i class="oop">0 chem at ${esc(sl)}</i>` : ""}${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`; };
+  // chem preview: what the squad's chem would be with this card here (and this card's own chem in the spot)
+  const slotsP = pzSlots(pz), chemNow = pzChem(slotsP, PZ.team).reduce((a, b) => a + b, 0);
+  const preview = c => { const t = PZ.team.slice(); t[i] = c; const ch = pzChem(slotsP, t); return { own: ch[i], d: ch.reduce((a, b) => a + b, 0) - chemNow }; };
+  const row = c => { const off = !c.P.has(sl), pv = preview(c);
+    return `<button data-c="${esc(c.id)}" class="${off ? "off" : ""}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))} · ${esc(c.position)}${c.altPositions ? "/" + esc(String(c.altPositions).replace(/,/g, "/")) : ""}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${off ? `<i class="oop">0 chem at ${esc(sl)}</i>` : ""}${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}<span class="cpv${pv.d > 0 ? " up" : pv.d < 0 ? " down" : ""}"><b>${pv.d > 0 ? "+" + pv.d : pv.d < 0 ? "−" + -pv.d : "±0"}</b><span class="dm">${[0, 1, 2].map(k => `<i class="${k < pv.own ? "on" : ""}"></i>`).join("")}</span></span></button>`; };
   const more = () => { const L = $("pzL"), n = Math.min(list.length, shown + 80); L.insertAdjacentHTML("beforeend", list.slice(shown, n).map(row).join("")); shown = n; };
   const drawList = () => {
     const w = nq().split(/\s+/).filter(Boolean);
@@ -3064,7 +3072,7 @@ function pzPick(i) {
   $("pzL").onclick = e => { const b = e.target.closest("[data-c]"); if (b) put(BYID.get(b.dataset.c)); };
   sheet.onclick = e => { if (e.target === sheet) close(); };
   $("pzX").onclick = close;
-  if ($("pzRm")) $("pzRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); };
+  if ($("pzRm")) $("pzRm").onclick = () => { pzRemember(); PZ.team[i] = null; pzSave(); close(); pzPlay(); };
   $("pzQ").oninput = e => { q = e.target.value; drawList(); };
   $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); put(top); } };
   drawAll();

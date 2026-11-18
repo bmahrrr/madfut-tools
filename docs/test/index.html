@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Test)</title>
-<meta name="app-version" content="20261118p">
+<meta name="app-version" content="20261118q">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -653,6 +653,13 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 #gameBox .lbmed.b-bronze i,#gameBox .pzmed.b-bronze i{background:linear-gradient(135deg,var(--bz2),var(--bz1))}#gameBox .lbmed.b-silver i,#gameBox .pzmed.b-silver i{background:linear-gradient(135deg,var(--sv2),var(--sv1))}#gameBox .lbmed.b-gold i,#gameBox .pzmed.b-gold i{background:linear-gradient(135deg,var(--gd2),var(--gd1))}
 #gameBox .lbmed.b-perfect i,#gameBox .pzmed.b-perfect i{background:linear-gradient(135deg,#ff8fd8,#8ff0ff,#fff3a8,#c6a2ff)}
 @media (prefers-reduced-motion:reduce){#gameBox .pzb-perfect,#gameBox .pzdone.b-perfect::after,#gameBox .pztile.b-perfect::after,#gameBox .pzlb li.b-perfect .pt{animation:none}}
+/* bonus star on pitch cards, chem preview in the picker, undo */
+.pzpitch .pc .bst{position:absolute;left:-6px;top:-8px;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font:700 11px/1 var(--body);font-style:normal;color:#1b0d05;background:linear-gradient(135deg,#ffe08a,#f2a33a);box-shadow:0 1px 4px rgba(0,0,0,.5)}
+#pzSheet .pzlist .cpv{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:44px;margin-left:4px;padding:5px 6px;border-radius:10px;background:rgba(255,255,255,.04)}
+#pzSheet .pzlist .cpv b{width:auto;font:800 15px/1 var(--display);color:var(--muted)}
+#pzSheet .pzlist .cpv.up{background:color-mix(in srgb,var(--win) 14%,transparent)}#pzSheet .pzlist .cpv.up b{color:var(--win)}
+#pzSheet .pzlist .cpv.down{background:color-mix(in srgb,var(--loss) 12%,transparent)}#pzSheet .pzlist .cpv.down b{color:var(--loss)}
+#pzSheet .pzlist .cpv .dm{display:flex;flex-direction:row;gap:3px}#pzSheet .pzlist .cpv .dm i{width:6px;height:6px;transform:rotate(45deg);background:rgba(255,255,255,.15);border-radius:1.5px}#pzSheet .pzlist .cpv .dm i.on{background:#3ddcff;box-shadow:0 0 5px rgba(61,220,255,.5)}
 #gameBox .pzpctw{display:flex;align-items:center;gap:10px;margin:2px 0}
 #gameBox .pzpct{flex:1;max-width:220px;height:7px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
 #gameBox .pzpct i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--fire),#ffd76a)}
@@ -894,9 +901,9 @@ body.simmode #pzInfo .pibox{background:#0e1420}
   <button data-welcome><b>Welcome Guide</b><small>Where to start</small></button>
 </div></div>
 
-<script src="test/engine.js?v=20261118p"></script>
-<script src="test/sbc-solver.js?v=20261118p"></script>
-<script src="test/puzzle-core.js?v=20261118p"></script>
-<script src="test/app.js?v=20261118p"></script>
+<script src="test/engine.js?v=20261118q"></script>
+<script src="test/sbc-solver.js?v=20261118q"></script>
+<script src="test/puzzle-core.js?v=20261118q"></script>
+<script src="test/app.js?v=20261118q"></script>
 </body>
 </html>
