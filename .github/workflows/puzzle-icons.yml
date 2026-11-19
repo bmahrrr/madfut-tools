@@ -49,7 +49,7 @@ jobs:
       - run: pip install ortools==9.15.6755
       - run: |
           node scripts/pz_max.js eligall elig.json
-          python3 scripts/pz_max.py prove2 "${{ matrix.id }}" "$(( ${{ needs.list.outputs.minutes }} * 60 ))" elig.json "icons_${{ matrix.id }}.json"
+          PZ_LOG=1 python3 -u scripts/pz_max.py prove2 "${{ matrix.id }}" "$(( ${{ needs.list.outputs.minutes }} * 60 ))" elig.json "icons_${{ matrix.id }}.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

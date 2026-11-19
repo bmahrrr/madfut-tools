@@ -125,7 +125,15 @@ def solve(DA, pz, restrict, hint, secs, workers=None, need_auto=False, beat=None
     if hint:
         for (i, j), v in x.items(): m.AddHint(v, 1 if cand[i][j]["id"] == hint[i] else 0)
     s = cp_model.CpSolver(); s.parameters.max_time_in_seconds = secs; s.parameters.num_workers = workers or os.cpu_count() or 2
+    if os.environ.get("PZ_LOG"):   # live search log: each better squad found (#n) and each drop in the ceiling (#Bound)
+        s.parameters.log_search_progress = True; s.parameters.log_to_stdout = True
+        import threading
+        done = threading.Event(); t0 = time.time()
+        def beat():
+            while not done.wait(60): print(f"... still searching, {(time.time() - t0) / 60:.0f} min", flush=True)
+        threading.Thread(target=beat, daemon=True).start()
     st = s.Solve(m)
+    if os.environ.get("PZ_LOG"): done.set()
     if need_auto and not autos: return None, "INFEASIBLE"
     if st not in (cp_model.OPTIMAL, cp_model.FEASIBLE): return None, s.StatusName(st)
     team = [locked[i]["id"] if i in locked else [cand[i][j] for j in range(len(cand[i])) if s.Value(x[i, j])][0]["id"] for i in range(len(slots))]
@@ -152,7 +160,9 @@ if __name__ == "__main__" and sys.argv[1] == "prove2":
                                          capture_output=True, text=True).stdout.strip() or 0)   # the site's own scoring
     t0 = time.time(); teams = [known["team"]] if known.get("team") else []
     plain = bool(known.get("proven"))
+    print(PID, "best known:", known.get("max"), "proven without Icons:" if known.get("proven") else "", flush=True)
     if not plain:
+        print("STEP 1: the top with no Icons or Heroes", flush=True)
         t, st = solve(DAp, pz, False, known.get("team"), SECS * .75)
         if t: teams.append(t)
         plain = st == "OPTIMAL"
@@ -163,13 +173,16 @@ if __name__ == "__main__" and sys.argv[1] == "prove2":
         beat = P - pz["pts"] - pz.get("noIcon", 0) + pz.get("chemEach", 0) * pz["target"] + 1
         # first quick bounds: no chem rules at all, then stand-ins better than any Icon or Hero. If even those can't beat
         # it, no squad with an Icon or Hero can
+        print("STEP 2a: any squad with an Icon or Hero, no chem rules", flush=True)
         t, st = solve(DA, pz, False, None, min(300, SECS / 8), need_auto=True, beat=beat, nochem=True)
         print(PID, "with Icons or Heroes, no chem rules, beating", P, ":", st, f"{time.time() - t0:.0f}s", flush=True)
         if st != "INFEASIBLE":
+            print("STEP 2b: stand-ins better than any Icon or Hero", flush=True)
             t, st = solve(DAp, pz, False, None, max(60, (SECS - (time.time() - t0)) / 2), need_auto=True, beat=beat,
                           wild=[c for c in DA.pool if c["color"] in AUTO])
             print(PID, "with stand-ins for Icons and Heroes, beating", P, ":", st, f"{time.time() - t0:.0f}s", flush=True)
         if st != "INFEASIBLE":
+            print("STEP 2c: every real Icon and Hero", flush=True)
             left = max(60, SECS - (time.time() - t0))
             t, st = solve(DA, pz, False, None, left, need_auto=True, beat=beat)
             if t: teams.append(t); beaten = score(t) > P        # a squad with an Icon or Hero that beats it
