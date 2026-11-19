@@ -39,11 +39,13 @@ class Data:
         self.pool = [c for c in self.cards if c["id"] in ok]
 
 
-def solve(DA, pz, restrict, hint, secs, workers=None, need_auto=False, beat=None, nochem=False, wild=None):
+def solve(DA, pz, restrict, hint, secs, workers=None, need_auto=False, beat=None, nochem=False, wild=None, rlim=None, hits_eq=None):
     # need_auto: only squads with an Icon or Hero; beat: only squads scoring above this (in solver points, see below)
     # nochem: leave out every chem rule and count full chem points (a quick upper bound: nothing scores more than it)
     # wild: Icons and Heroes as one stand-in per spot that's better than any of them (lowest rating of those that fit,
     #   full chem, +1 to EVERY nation and league): a small model whose top is above any real squad with them
+    # rlim (lo, hi): only squads rated lo to hi; hits_eq: only squads with exactly this many bonus cards (one slice of a
+    #   split search: a squad's real rating is always a value the solver can take, so the slices together cover every squad)
     slots = DA.forms[pz["formation"]]
     locked = {l["i"]: DA.byid[l["id"]] for l in pz["locked"]}
     B = pz["bonus"]
@@ -118,6 +120,8 @@ def solve(DA, pz, restrict, hint, secs, workers=None, need_auto=False, beat=None
     autos = [v for (i, j), v in x.items() if cand[i][j]["color"] in AUTO or cand[i][j].get("_wild")]
     for v in autos: m.Add(anyA >= v)
     if need_auto: m.Add(sum(autos) >= 1)
+    if rlim: m.Add(R >= rlim[0]); m.Add(R <= rlim[1])
+    if hits_eq is not None: m.Add(hits == hits_eq)
     # solver points: the score minus the base and no-Icons bonus, plus chemEach x target; never below the real score (the rating is generous)
     obj = B["each"] * hits - pz.get("noIcon", 0) * anyA + (each * (pz["budget"]["par"] - R) if each else 0) + pz.get("chemEach", 0) * sum(chem)   # chemEach: points per chem over the target
     if beat is not None: m.Add(obj >= beat)
@@ -189,6 +193,38 @@ if __name__ == "__main__" and sys.argv[1] == "prove2":
             print(PID, "with Icons or Heroes, beating", P, ":", st, f"{time.time() - t0:.0f}s", flush=True)
         icons = st == "INFEASIBLE"
     json.dump({PID: {"teams": teams, "proven": plain and not beaten, "chem": True, **({"icons": True} if icons else {})}}, open(OUT, "w"))
+elif __name__ == "__main__" and sys.argv[1] == "slice":
+    # one slice of a puzzle split across many machines: proves no squad in the slice beats the top score, or finds one
+    #   python scripts/pz_max.py slice <puzzle id> <slice: R60-62 or R63H2> <seconds> <eligible ids json, Icons included> <out json>
+    #   slice R<lo>-<hi> (or R<n>): squads rated lo to hi; H<k>: and exactly k bonus cards
+    import subprocess, copy, re
+    PID, SPEC, SECS, ELIG, OUT = sys.argv[2], sys.argv[3], float(sys.argv[4]), sys.argv[5], sys.argv[6]
+    g = re.fullmatch(r"R(\d+)(?:-(\d+))?(?:H(\d+))?", SPEC); lo = int(g[1]); hi = int(g[2] or g[1]); k = int(g[3]) if g[3] else None
+    DA = Data(ELIG); DAp = copy.copy(DA); DAp.pool = [c for c in DA.pool if c["color"] not in AUTO]
+    pz = next(p for s in DA.P["sets"] for p in s["puzzles"] if p["id"] == PID)
+    known = json.load(open(D + "puzzles_max.json"))["puzzles"][PID]; P = known["max"]
+    score = lambda t: int(subprocess.run(["node", os.path.join(os.path.dirname(os.path.abspath(__file__)), "pz_max.js"), "score", PID, *t],
+                                         capture_output=True, text=True).stdout.strip() or 0)
+    beat = P - pz["pts"] - pz.get("noIcon", 0) + pz.get("chemEach", 0) * pz["target"] + 1
+    t0 = time.time(); teams, status = [], "open"
+    left = lambda f: max(60, (SECS - (time.time() - t0)) * f)
+    print(PID, "slice", SPEC, "top to beat:", P, flush=True)
+    print("STEP 1: squads with no Icons or Heroes", flush=True)
+    t, st = solve(DAp, pz, False, None, left(.6), beat=beat, rlim=(lo, hi), hits_eq=k)
+    print("  ->", st, f"{time.time() - t0:.0f}s", flush=True)
+    if t and score(t) > P: teams.append(t); status = "better"
+    elif st == "INFEASIBLE":
+        print("STEP 2: stand-ins better than any Icon or Hero", flush=True)
+        t, st = solve(DAp, pz, False, None, left(.5), need_auto=True, beat=beat, rlim=(lo, hi), hits_eq=k, wild=[c for c in DA.pool if c["color"] in AUTO])
+        print("  ->", st, f"{time.time() - t0:.0f}s", flush=True)
+        if st != "INFEASIBLE":
+            print("STEP 3: every real Icon and Hero", flush=True)
+            t, st = solve(DA, pz, False, None, left(1), need_auto=True, beat=beat, rlim=(lo, hi), hits_eq=k)
+            print("  ->", st, f"{time.time() - t0:.0f}s", flush=True)
+            if t and score(t) > P: teams.append(t); status = "better"
+        if st == "INFEASIBLE": status = "proven"
+    print(PID, SPEC, status.upper(), flush=True)
+    json.dump({"pid": PID, "spec": SPEC, "status": status, "teams": teams}, open(OUT, "w"))
 elif __name__ == "__main__" and sys.argv[1] == "prove":
     # one puzzle, a long full search started from its best known squad: proves it's the top score, or finds a better one
     #   python scripts/pz_max.py prove <puzzle id> <seconds> <eligible ids json> <out json>
