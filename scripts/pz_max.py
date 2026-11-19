@@ -39,7 +39,7 @@ class Data:
         self.pool = [c for c in self.cards if c["id"] in ok]
 
 
-def solve(DA, pz, restrict, hint, secs, workers=None, need_auto=False, beat=None, nochem=False, wild=None, rlim=None, hits_eq=None):
+def solve(DA, pz, restrict, hint, secs, workers=None, need_auto=False, beat=None, nochem=False, wild=None, rlim=None, hits_eq=None, chem_eq=None):
     # need_auto: only squads with an Icon or Hero; beat: only squads scoring above this (in solver points, see below)
     # nochem: leave out every chem rule and count full chem points (a quick upper bound: nothing scores more than it)
     # wild: Icons and Heroes as one stand-in per spot that's better than any of them (lowest rating of those that fit,
@@ -108,6 +108,7 @@ def solve(DA, pz, restrict, hint, secs, workers=None, need_auto=False, beat=None
             for j, c in enumerate(cand[i]): m.Add(ci <= (0 if j in oop[i] else 3 if c["color"] in AUTO or c.get("_wild") else lv(c))).OnlyEnforceIf(x[i, j])
         chem.append(ci)
     if not nochem: m.Add(sum(chem) >= pz["target"])
+    if chem_eq is not None: m.Add(sum(chem) == chem_eq)   # one slice of a split search: squads with exactly this chem
     rat = [sum(c["rating"] * x[i, j] for j, c in enumerate(cand[i])) if i not in locked else locked[i]["rating"] for i in range(len(slots))]
     tot = sum(rat); y = []
     for r in rat:
@@ -120,7 +121,11 @@ def solve(DA, pz, restrict, hint, secs, workers=None, need_auto=False, beat=None
     autos = [v for (i, j), v in x.items() if cand[i][j]["color"] in AUTO or cand[i][j].get("_wild")]
     for v in autos: m.Add(anyA >= v)
     if need_auto: m.Add(sum(autos) >= 1)
-    if rlim: m.Add(R >= rlim[0]); m.Add(R <= rlim[1])
+    if rlim:
+        m.Add(R >= rlim[0]); m.Add(R <= rlim[1])
+        # exact squad rating in a slice (the site's floor(round(total + excess) / 11)), so no squad can sit in a slice
+        # below its real rating and look better than it is: Q = round(S / 11) with S = 11 x total + sum(y), R >= floor(Q / 11)
+        Q = m.NewIntVar(0, 11 * 99, ""); m.Add(11 * Q >= 11 * tot + sum(y) - 5); m.Add(Q <= 11 * R + 10)
     if hits_eq is not None: m.Add(hits == hits_eq)
     # solver points: the score minus the base and no-Icons bonus, plus chemEach x target; never below the real score (the rating is generous)
     obj = B["each"] * hits - pz.get("noIcon", 0) * anyA + (each * (pz["budget"]["par"] - R) if each else 0) + pz.get("chemEach", 0) * sum(chem)   # chemEach: points per chem over the target
@@ -196,10 +201,11 @@ if __name__ == "__main__" and sys.argv[1] == "prove2":
 elif __name__ == "__main__" and sys.argv[1] == "slice":
     # one slice of a puzzle split across many machines: proves no squad in the slice beats the top score, or finds one
     #   python scripts/pz_max.py slice <puzzle id> <slice: R60-62 or R63H2> <seconds> <eligible ids json, Icons included> <out json>
-    #   slice R<lo>-<hi> (or R<n>): squads rated lo to hi; H<k>: and exactly k bonus cards
+    #   slice R<lo>-<hi> (or R<n>): squads rated lo to hi; H<k>: and exactly k bonus cards; C<c>: and exactly c chem
     import subprocess, copy, re
     PID, SPEC, SECS, ELIG, OUT = sys.argv[2], sys.argv[3], float(sys.argv[4]), sys.argv[5], sys.argv[6]
-    g = re.fullmatch(r"R(\d+)(?:-(\d+))?(?:H(\d+))?", SPEC); lo = int(g[1]); hi = int(g[2] or g[1]); k = int(g[3]) if g[3] else None
+    g = re.fullmatch(r"R(\d+)(?:-(\d+))?(?:H(\d+))?(?:C(\d+))?", SPEC); lo = int(g[1]); hi = int(g[2] or g[1])
+    k = int(g[3]) if g[3] else None; ch = int(g[4]) if g[4] else None
     DA = Data(ELIG); DAp = copy.copy(DA); DAp.pool = [c for c in DA.pool if c["color"] not in AUTO]
     pz = next(p for s in DA.P["sets"] for p in s["puzzles"] if p["id"] == PID)
     known = json.load(open(D + "puzzles_max.json"))["puzzles"][PID]; P = known["max"]
@@ -210,16 +216,16 @@ elif __name__ == "__main__" and sys.argv[1] == "slice":
     left = lambda f: max(60, (SECS - (time.time() - t0)) * f)
     print(PID, "slice", SPEC, "top to beat:", P, flush=True)
     print("STEP 1: squads with no Icons or Heroes", flush=True)
-    t, st = solve(DAp, pz, False, None, left(.6), beat=beat, rlim=(lo, hi), hits_eq=k)
+    t, st = solve(DAp, pz, False, None, left(.85), beat=beat, rlim=(lo, hi), hits_eq=k, chem_eq=ch)   # most of the time: steps 2-3 are usually quick
     print("  ->", st, f"{time.time() - t0:.0f}s", flush=True)
     if t and score(t) > P: teams.append(t); status = "better"
     elif st == "INFEASIBLE":
         print("STEP 2: stand-ins better than any Icon or Hero", flush=True)
-        t, st = solve(DAp, pz, False, None, left(.5), need_auto=True, beat=beat, rlim=(lo, hi), hits_eq=k, wild=[c for c in DA.pool if c["color"] in AUTO])
+        t, st = solve(DAp, pz, False, None, left(.5), need_auto=True, beat=beat, rlim=(lo, hi), hits_eq=k, chem_eq=ch, wild=[c for c in DA.pool if c["color"] in AUTO])
         print("  ->", st, f"{time.time() - t0:.0f}s", flush=True)
         if st != "INFEASIBLE":
             print("STEP 3: every real Icon and Hero", flush=True)
-            t, st = solve(DA, pz, False, None, left(1), need_auto=True, beat=beat, rlim=(lo, hi), hits_eq=k)
+            t, st = solve(DA, pz, False, None, left(1), need_auto=True, beat=beat, rlim=(lo, hi), hits_eq=k, chem_eq=ch)
             print("  ->", st, f"{time.time() - t0:.0f}s", flush=True)
             if t and score(t) > P: teams.append(t); status = "better"
         if st == "INFEASIBLE": status = "proven"

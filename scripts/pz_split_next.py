@@ -1,5 +1,5 @@
 # Split search for the hardest puzzles (.github/workflows/puzzle-split.yml): one puzzle at a time, cut into slices by
-# squad rating, one machine each. A slice that doesn't finish is cut again by number of bonus cards. When every slice
+# squad rating, one machine each. A slice that doesn't finish is cut again by number of bonus cards, then by chem. When every slice
 # shows nothing beats the top score, the puzzle is proven (Icons and Heroes included).
 #   python scripts/pz_split_next.py                       prints pid=, specs=, minutes=, timeout= for the next run
 #   python scripts/pz_split_next.py done <pid> <specs json> <result files...>   records a finished run (squads pulled in)
@@ -39,7 +39,8 @@ if len(sys.argv) > 1 and sys.argv[1] == "done":
             nfree = len(FORMS[PZ[pid]["formation"]]) - len(PZ[pid]["locked"])
             again = []
             for s in left:
-                if "H" in s: e["gaveup"] = True    # cut as far as it goes and still too hard: keep the best squad found
+                if "C" in s: e["gaveup"] = True    # cut as far as it goes and still too hard: keep the best squad found
+                elif "H" in s: again += [f"{s}C{c}" for c in range(PZ[pid]["target"], 34)]
                 else: again += [f"{s}H{k}" for k in range(nfree + 1)]
             if e.get("gaveup"): e.pop("open", None)
             else: e["open"] = again
@@ -49,5 +50,5 @@ else:
     todo = [p for p in PZ if not done(m.get(p, {})) and not m.get(p, {}).get("gaveup") and m.get(p, {}).get("team")]
     if not todo: print("pid="); print("specs=[]"); print("minutes=0"); print("timeout=1"); sys.exit()
     pid = todo[0]; specs = m[pid].get("open") or first_slices(pid)
-    deep = any("H" in s for s in specs)
+    deep = any("H" in s for s in specs)        # second and third cuts get up to 4 hours a slice
     print(f"pid={pid}"); print("specs=" + json.dumps(specs)); print(f"minutes={240 if deep else 120}"); print(f"timeout={260 if deep else 140}")
