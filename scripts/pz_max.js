@@ -16,7 +16,7 @@ if (mode === "elig" || mode === "eligall") {
   // node scripts/pz_max.js score <puzzle id> <card ids...>   the site's score for a squad (0 if it doesn't pass)
   const P = JSON.parse(fs.readFileSync(process.env.PZ_FILE || D + "puzzles.json", "utf8")), by = new Map(cards.map(c => [c.id, c]));
   const pz = P.sets.flatMap(s => s.puzzles).find(p => p.id === out), sc = pzScore(pz, FORMS[pz.formation], ins.map(i => by.get(i) || null));
-  console.log(sc.ok ? sc.pts : 0);
+  console.log(sc.ok ? (process.env.PZ_RATING ? sc.rating : sc.pts) : 0);   // PZ_RATING=1: the squad rating instead
 } else if (mode === "merge") {
   const P = JSON.parse(fs.readFileSync(process.env.PZ_FILE || D + "puzzles.json", "utf8")), by = new Map(cards.map(c => [c.id, c]));
   const all = new Map(P.sets.flatMap(s => s.puzzles).map(p => [p.id, p]));

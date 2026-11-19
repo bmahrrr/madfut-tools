@@ -1,0 +1,109 @@
+name: Puzzle top scores (split search)
+
+# For puzzles the other runs couldn't prove: one puzzle at a time, every machine on it. The search is cut into slices
+# by squad rating (and, for a slice too hard on its own, by number of bonus cards), one machine each. When every slice
+# shows nothing beats the top score, Icons and Heroes included, the puzzle is proven. Starts itself again until done.
+# Start it by saving config/split.txt (or by hand).
+on:
+  push:
+    branches: [main]
+    paths: ["config/split.txt"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: puzzle-split
+  cancel-in-progress: false
+
+jobs:
+  list:
+    runs-on: ubuntu-26.04
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    outputs:
+      pid: ${{ steps.l.outputs.pid }}
+      specs: ${{ steps.l.outputs.specs }}
+      minutes: ${{ steps.l.outputs.minutes }}
+      timeout: ${{ steps.l.outputs.timeout }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - id: l
+        run: |
+          bash scripts/pz_tops.sh pull
+          python3 scripts/pz_split_next.py >> $GITHUB_OUTPUT
+
+  slice:
+    needs: list
+    if: needs.list.outputs.pid != ''
+    runs-on: ubuntu-26.04
+    timeout-minutes: ${{ fromJSON(needs.list.outputs.timeout) }}
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    strategy:
+      fail-fast: false
+      max-parallel: 34
+      matrix:
+        spec: ${{ fromJson(needs.list.outputs.specs) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: pip install ortools==9.15.6755
+      - run: |
+          bash scripts/pz_tops.sh pull
+          node scripts/pz_max.js eligall elig.json
+          PZ_LOG=1 python3 -u scripts/pz_max.py slice "${{ needs.list.outputs.pid }}" "${{ matrix.spec }}" "$(( ${{ needs.list.outputs.minutes }} * 60 ))" elig.json "slice_${{ matrix.spec }}.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: slice-${{ matrix.spec }}
+          path: slice_${{ matrix.spec }}.json
+          if-no-files-found: ignore
+
+  publish:
+    needs: [list, slice]
+    if: always() && needs.list.outputs.pid != ''
+    runs-on: ubuntu-26.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PID: ${{ needs.list.outputs.pid }}
+      SPECS: ${{ needs.list.outputs.specs }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/download-artifact@v4
+        with: { path: found, pattern: slice-*, merge-multiple: true }
+      - run: |
+          mkdir -p found
+          git config user.name "madfut-tools bot"
+          git config user.email "actions@users.noreply.github.com"
+          for t in 1 2 3; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            bash scripts/pz_tops.sh pull
+            # any better squad a slice found becomes the new top (checked by the site's own scoring)
+            python3 -c "import json,glob,os;R=[json.load(open(f)) for f in glob.glob('found/*.json')];json.dump({os.environ['PID']:{'teams':[t for r in R for t in r['teams']],'proven':False,'chem':True}},open('better.json','w'))"
+            node scripts/pz_max.js merge docs/puzzles_max.json better.json
+            python3 scripts/pz_split_next.py done "$PID" "$SPECS" found/*.json
+            bash scripts/pz_tops.sh push
+            git add docs/puzzles_max.json
+            git diff --cached --quiet && break
+            git commit -qm "Puzzle top scores (split search)" && git push -q && break
+            sleep 20
+          done
+      - name: Next
+        run: |
+          bash scripts/pz_tops.sh pull
+          if [ -n "$(python3 scripts/pz_split_next.py | grep '^pid=' | cut -d= -f2)" ]; then gh workflow run puzzle-split.yml -R ${{ github.repository }} --ref main; fi
