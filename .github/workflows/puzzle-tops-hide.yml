@@ -1,0 +1,36 @@
+name: Puzzle top scores (hide squads)
+
+# Moves the squads behind the puzzle top scores off the public site into the leaderboard database. Runs once when this
+# file is saved (and can be started by hand); the top-score runs keep them there after that (scripts/pz_tops.sh).
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/puzzle-tops-hide.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: puzzle-tops-hide   # started only when no top-score run is going
+  cancel-in-progress: false
+
+jobs:
+  hide:
+    runs-on: ubuntu-26.04
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: |
+          if python3 -c "import json,sys;sys.exit(0 if any('team' in p for p in json.load(open('docs/puzzles_max.json'))['puzzles'].values()) else 1)"; then
+            bash scripts/pz_tops.sh push
+            bash scripts/pz_tops.sh pull && bash scripts/pz_tops.sh push     # check they all read back before saving
+            git config user.name "madfut-tools bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add docs/puzzles_max.json && git commit -qm "Puzzle top scores: squads kept off the site" && git push
+          fi
