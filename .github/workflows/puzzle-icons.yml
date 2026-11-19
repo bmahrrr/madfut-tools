@@ -36,6 +36,9 @@ jobs:
     if: needs.list.outputs.ids != '[]'
     runs-on: ubuntu-26.04
     timeout-minutes: ${{ fromJSON(needs.list.outputs.timeout) }}
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     strategy:
       fail-fast: false
       max-parallel: 34      # leaves machines free (the account runs 40 at once) so site updates don't queue
@@ -48,6 +51,7 @@ jobs:
         with: { node-version: 22 }
       - run: pip install ortools==9.15.6755
       - run: |
+          bash scripts/pz_tops.sh pull     # the squads behind the top scores (kept off the site)
           node scripts/pz_max.js eligall elig.json
           PZ_LOG=1 python3 -u scripts/pz_max.py prove2 "${{ matrix.id }}" "$(( ${{ needs.list.outputs.minutes }} * 60 ))" elig.json "icons_${{ matrix.id }}.json"
       - uses: actions/upload-artifact@v4
@@ -64,6 +68,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       BLOCK: ${{ needs.list.outputs.ids }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v4
         with: { ref: main }
@@ -79,8 +85,10 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           for t in 1 2 3; do
             git fetch -q origin main && git reset -q --hard origin/main
+            bash scripts/pz_tops.sh pull
             node scripts/pz_max.js merge docs/puzzles_max.json found/*.json
             python3 scripts/pz_icons_next.py tried "$BLOCK"   # count a try for each puzzle of this block not proven yet
+            bash scripts/pz_tops.sh push                      # squads to the database, scores only on the site
             git add docs/puzzles_max.json
             git diff --cached --quiet && break
             git commit -qm "Puzzle top scores (Icons check)" && git push -q && break

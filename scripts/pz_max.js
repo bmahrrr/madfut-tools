@@ -22,7 +22,8 @@ if (mode === "elig" || mode === "eligall") {
   const all = new Map(P.sets.flatMap(s => s.puzzles).map(p => [p.id, p]));
   let res = {}; try { res = JSON.parse(fs.readFileSync(out, "utf8")).puzzles || {}; } catch (e) {}
   // a kept top score only stands if its squad still passes (the puzzle or the cards may have changed)
-  for (const [id, r] of Object.entries(res)) { const pz = all.get(id), sc = pz && r.team && pzScore(pz, FORMS[pz.formation], r.team.map(i => by.get(i)).map(c => c || null));
+  for (const [id, r] of Object.entries(res)) { if (all.has(id) && !r.team) continue;   // squads not pulled in (scripts/pz_tops.sh): keep as is
+    const pz = all.get(id), sc = pz && r.team && pzScore(pz, FORMS[pz.formation], r.team.map(i => by.get(i)).map(c => c || null));
     if (!sc || !sc.ok) delete res[id]; else r.max = sc.pts; }
   for (const [id, r] of Object.entries(res)) if (all.get(id).chemEach && !r.chem) r.proven = false;   // proven before chem points counted
   for (const f of ins) for (const [id, r] of Object.entries(JSON.parse(fs.readFileSync(f, "utf8")))) {
