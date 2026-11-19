@@ -53,8 +53,18 @@ if (!IS_OWNER) { document.querySelectorAll('#tabs button[data-t="setup"]').forEa
 document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
   document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x === b));
   document.querySelectorAll("main section").forEach(s => s.classList.toggle("on", s.id === b.dataset.t));
-  tabbarSync(b.dataset.t); scrollTo(0, 0);
+  tabbarSync(b.dataset.t); scrollTo(0, 0); hit(b.dataset.t);
 });
+// visit counter: anonymous (a random id per browser and the tab that's open, nothing else); the owner's devices aren't counted
+const VID = (() => { try { let v = localStorage.getItem("vid"); if (!v) localStorage.setItem("vid", v = Math.random().toString(36).slice(2, 12) + Date.now().toString(36)); return v; } catch (e) { return Math.random().toString(36).slice(2, 14); } })();
+let HIT_TAB = (document.querySelector("#tabs button.on") || {}).dataset?.t || "teams";
+function hit(t, beat) {
+  if (t) HIT_TAB = t;
+  if (IS_OWNER) return;
+  try { fetch("https://madfut-puzzles.bmahrrr1.workers.dev/hit", { method: "POST", keepalive: true, body: JSON.stringify({ v: VID, p: HIT_TAB, s: (window.APPDIR || "").replace("/", "") || "live", b: beat ? 1 : 0 }) }).catch(() => {}); } catch (e) {}
+}
+hit(); setInterval(() => { if (document.visibilityState === "visible") hit(null, 1); }, 60e3);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") hit(null, 1); });
 // ---------- look: bottom tab bar on phones, Sim blue ----------
 const MORE_TABS = ["mc", "sim", "beat", "games", "setup"];
 function tabbarSync(t) {
@@ -77,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261119c";
+const APP_V = "20261119e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1364,7 +1374,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261119c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261119e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1390,7 +1400,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261119c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261119e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2205,7 +2215,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261119c");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261119e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Visitors</title>
+<style>
+:root { --bg: #0d0c0b; --card: #1a1715; --line: #2e2925; --text: #f3ede6; --muted: #a39a90; --acc: #ff8a1f; --live: #3ddc97; --beta: #3ddcff; --test: #b98cff; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, Segoe UI, sans-serif; }
+main { max-width: 640px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 20px; margin: 4px 0 14px; }
+h2 { font-size: 14px; color: var(--muted); font-weight: 600; margin: 0 0 10px; text-transform: none; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 0 0 12px; }
+.row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.big { font-size: 34px; font-weight: 700; line-height: 1.1; }
+.big small { font-size: 13px; color: var(--muted); font-weight: 400; display: block; }
+.on { color: var(--live); }
+.bars { display: flex; align-items: flex-end; gap: 3px; height: 120px; }
+.bars div { flex: 1; display: flex; flex-direction: column-reverse; min-width: 0; }
+.bars i { display: block; border-radius: 2px 2px 0 0; }
+.ax { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-top: 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+td { padding: 5px 0; border-top: 1px solid var(--line); }
+td + td { text-align: right; width: 70px; }
+.key { display: flex; gap: 12px; font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+.key span::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; background: var(--c); }
+.muted { color: var(--muted); font-size: 13px; }
+input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: #000; color: var(--text); font-size: 15px; }
+button { margin-top: 8px; padding: 9px 14px; border-radius: 8px; border: 0; background: var(--acc); color: #000; font-weight: 700; font-size: 15px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Visitors</h1>
+  <div id="out"><p class="muted">Loading…</p></div>
+</main>
+<script>
+// Private visitor stats for the site. Open once with #k=<key> on a device; it's remembered there.
+const API = "https://madfut-puzzles.bmahrrr1.workers.dev/stats?key=";
+const SITES = { live: "var(--live)", beta: "var(--beta)", test: "var(--test)" };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let KEY = "";
+try { const m = location.hash.match(/k=([^&]+)/); if (m) { localStorage.setItem("statsKey", decodeURIComponent(m[1])); history.replaceState(null, "", location.pathname); } KEY = localStorage.getItem("statsKey") || ""; } catch (e) {}
+const out = document.getElementById("out");
+function ask(msg) {
+  out.innerHTML = `<div class="card"><p class="muted">${msg}</p><input id="k" placeholder="Stats key"><button id="go">Open</button></div>`;
+  document.getElementById("go").onclick = () => { KEY = document.getElementById("k").value.trim(); try { localStorage.setItem("statsKey", KEY); } catch (e) {} load(); };
+}
+const ymd = d => d.toISOString().slice(0, 10);
+async function load() {
+  if (!KEY) return ask("Enter your stats key.");
+  let d;
+  try { const r = await fetch(API + encodeURIComponent(KEY)); d = await r.json(); if (!r.ok) return ask(esc(d.error || "Wrong key")); }
+  catch (e) { out.innerHTML = `<p class="muted">Couldn't reach the server. Retrying…</p>`; return; }
+  const sum = (L, f = () => true) => L.filter(f).reduce((a, x) => a + x.n, 0);
+  const onNow = sum(d.online), today = sum(d.days, x => x.day === d.today), fresh = sum(d.fresh, x => x.day === d.today);
+  const views = d.pages.reduce((a, x) => a + x.today, 0);
+  // last 30 days, by site
+  const days = [], base = new Date(d.today + "T00:00:00Z");
+  for (let i = 29; i >= 0; i--) days.push(ymd(new Date(base - i * 864e5)));
+  const per = days.map(day => Object.fromEntries(Object.keys(SITES).map(s => [s, sum(d.days, x => x.day === day && x.site === s)])));
+  const top = Math.max(1, ...per.map(p => p.live + p.beta + p.test));
+  const week = sum(d.days, x => x.day >= days[23]);
+  // tabs: last 7 days and today
+  const tabs = {}; for (const x of d.pages) { const t = tabs[x.page] || (tabs[x.page] = { n: 0, today: 0 }); t.n += x.n; t.today += x.today; }
+  const onTabs = {}; for (const x of d.online) onTabs[x.page] = (onTabs[x.page] || 0) + x.n;
+  out.innerHTML = `
+    <div class="row">
+      <div class="card"><div class="big on">${onNow}<small>On the site now</small></div></div>
+      <div class="card"><div class="big">${today}<small>Visitors today${fresh ? `, ${fresh} new` : ""}</small></div></div>
+      <div class="card"><div class="big">${week}<small>Visits, last 7 days</small></div></div>
+      <div class="card"><div class="big">${d.total}<small>Different visitors, all time</small></div></div>
+    </div>
+    ${onNow ? `<div class="card"><h2>On now, by tab</h2><table>${Object.entries(onTabs).sort((a, b) => b[1] - a[1]).map(([p, n]) => `<tr><td>${esc(p)}</td><td>${n}</td></tr>`).join("")}</table></div>` : ""}
+    <div class="card"><h2>Visitors per day, last 30 days</h2>
+      <div class="key">${Object.entries(SITES).map(([s, c]) => `<span style="--c:${c}">${s[0].toUpperCase() + s.slice(1)}</span>`).join("")}</div>
+      <div class="bars">${per.map((p, i) => `<div title="${days[i]}: ${p.live + p.beta + p.test}">${Object.entries(SITES).map(([s, c]) => p[s] ? `<i style="height:${p[s] / top * 120}px;background:${c}"></i>` : "").join("")}</div>`).join("")}</div>
+      <div class="ax"><span>${days[0].slice(5)}</span><span>Today</span></div></div>
+    <div class="card"><h2>Tabs opened (today, last 7 days)</h2><table>
+      ${Object.entries(tabs).sort((a, b) => b[1].n - a[1].n).map(([p, t]) => `<tr><td>${esc(p)}</td><td>${t.today}</td><td>${t.n}</td></tr>`).join("") || `<tr><td class="muted">Nothing yet</td></tr>`}
+    </table><p class="muted">${views} tab opens today. Your own devices aren't counted.</p></div>
+    <p class="muted">Updates every 30 seconds.</p>`;
+}
+load(); setInterval(() => { if (KEY && document.visibilityState === "visible") load(); }, 30e3);
+</script>
+</body>
+</html>

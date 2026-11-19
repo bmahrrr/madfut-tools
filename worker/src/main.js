@@ -9,6 +9,8 @@
 //   GET  /lb?set=<set id or "all">              -> top 50: name, points, puzzles solved (+ your rank if signed in)
 //   GET  /records                               -> { records: { puzzle id: top points anyone has } }
 //   GET  /lb?puzzle=<puzzle id>                 -> top 50 for one puzzle: name, points, chem, squad rating
+//   POST /hit {v, p, s, b}                      -> visit counter: a random id per browser, the tab open, which site, b = still here
+//   GET  /stats?key=<stats key>                 -> visitors (owner only: the key's hash is below, the key itself isn't stored)
 // Live at https://madfut-puzzles.bmahrrr1.workers.dev
 const SITE_DEFAULT = "https://bmahrrr.github.io/madfut-tools/";
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET,POST,OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Authorization" };
@@ -16,6 +18,8 @@ const json = (o, status = 200) => new Response(JSON.stringify(o), { status, head
 const now = () => new Date().toISOString();
 
 let DATA = null, DATA_AT = 0;
+const STATS_HASH = "d63681a7fd7e9d56731b3b7075212b9c14e9a987cf5c6ebd6a47880908e78667";
+const dayOf = t => new Date(t + 10 * 3600e3).toISOString().slice(0, 10);   // the owner's day (Brisbane)
 async function data(env) {
   const SITE = (env && env.SITE) || SITE_DEFAULT;
   if (DATA && Date.now() - DATA_AT < 10 * 60e3) return DATA;
@@ -90,6 +94,31 @@ export default {
       if (req.method === "GET" && P === "/records") {   // the top score anyone has on each puzzle (beats a known top score = new top score)
         const r = (await env.DB.prepare("SELECT puzzle, MAX(pts) AS pts FROM scores GROUP BY puzzle").all()).results;
         return json({ records: Object.fromEntries(r.map(x => [x.puzzle, x.pts])) });
+      }
+      if (req.method === "POST" && P === "/hit") {   // anonymous: no names, no addresses, just a random id per browser
+        let b = {}; try { b = JSON.parse(await req.text()); } catch (e) {}
+        const v = String(b.v || "").replace(/[^a-z0-9]/gi, "").slice(0, 24), p = String(b.p || "").replace(/[^a-z0-9_-]/gi, "").slice(0, 20) || "other";
+        const s = ["live", "beta", "test"].includes(b.s) ? b.s : "live", t = Date.now(), day = dayOf(t);
+        if (v.length < 6) return json({ ok: false }, 400);
+        const st = [env.DB.prepare("INSERT INTO online (vid, at, page, site) VALUES (?1, ?2, ?3, ?4) ON CONFLICT(vid) DO UPDATE SET at = ?2, page = ?3, site = ?4").bind(v, t, p, s)];
+        if (!b.b) st.push(env.DB.prepare("INSERT OR IGNORE INTO seen (vid, day) VALUES (?1, ?2)").bind(v, day),
+          env.DB.prepare("INSERT OR IGNORE INTO visits (day, vid, site) VALUES (?1, ?2, ?3)").bind(day, v, s),
+          env.DB.prepare("INSERT INTO views (day, page, site, n) VALUES (?1, ?2, ?3, 1) ON CONFLICT(day, page, site) DO UPDATE SET n = n + 1").bind(day, p, s));
+        if (Math.random() < .02) st.push(env.DB.prepare("DELETE FROM online WHERE at < ?1").bind(t - 86400e3));
+        await env.DB.batch(st);
+        return json({ ok: true });
+      }
+      if (req.method === "GET" && P === "/stats") {
+        if (await sha(url.searchParams.get("key") || "") !== STATS_HASH) return json({ error: "Wrong key" }, 403);
+        const t = Date.now(), q = (sql, ...a) => env.DB.prepare(sql).bind(...a).all().then(r => r.results), from = dayOf(t - 29 * 86400e3);
+        return json({
+          today: dayOf(t),
+          online: await q("SELECT page, site, COUNT(*) AS n FROM online WHERE at > ?1 GROUP BY page, site", t - 150e3),
+          days: await q("SELECT day, site, COUNT(*) AS n FROM visits WHERE day >= ?1 GROUP BY day, site ORDER BY day", from),
+          fresh: await q("SELECT day, COUNT(*) AS n FROM seen WHERE day >= ?1 GROUP BY day", from),
+          pages: await q("SELECT page, site, SUM(n) AS n, SUM(CASE WHEN day = ?2 THEN n ELSE 0 END) AS today FROM views WHERE day >= ?1 GROUP BY page, site", dayOf(t - 6 * 86400e3), dayOf(t)),
+          total: (await env.DB.prepare("SELECT COUNT(*) AS n FROM seen").first()).n,
+        });
       }
       if (req.method === "GET" && P === "/lb") {
         const set = url.searchParams.get("set") || "all", puzzle = url.searchParams.get("puzzle") || "", me = await who(env, req);
