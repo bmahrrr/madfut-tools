@@ -273,11 +273,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6213,
+    "ctrl_win": 0.6307,
     "control": 75.4,
     "attack": 72.78,
     "defence": 69.0,
-    "net": 0.1296,
+    "net": 0.2007,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -301,8 +301,8 @@
      67,
      65
     ],
-    "p_att": 0.6762,
-    "p_def": 0.0873,
+    "p_att": 0.7477,
+    "p_def": 0.0901,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -313,8 +313,8 @@
     "def_total": 165.75,
     "swaps_checked": 36238,
     "round_robin": {
-     "wins": 4.5,
-     "margin": 1.4908
+     "wins": 5.5,
+     "margin": 1.5811
     }
    }
   },
@@ -343,28 +343,6 @@
       72
      ],
      "slot": "GK"
-    },
-    {
-     "id": "id197831",
-     "name": "Davidson",
-     "rating": 66,
-     "color": "rare_silver",
-     "position": "LB",
-     "nationId": 195,
-     "leagueId": 351,
-     "clubId": 111397,
-     "card": [
-      58,
-      62,
-      65
-     ],
-     "chem": 3,
-     "eff": [
-      60,
-      64,
-      67
-     ],
-     "slot": "CB"
     },
     {
      "id": "id214343",
@@ -407,6 +385,28 @@
       63,
       66,
       59
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id197831",
+     "name": "Davidson",
+     "rating": 66,
+     "color": "rare_silver",
+     "position": "LB",
+     "nationId": 195,
+     "leagueId": 351,
+     "clubId": 111397,
+     "card": [
+      58,
+      62,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      60,
+      64,
+      67
      ],
      "slot": "CB"
     },
@@ -570,11 +570,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6213,
+    "ctrl_win": 0.6307,
     "control": 75.4,
     "attack": 72.78,
     "defence": 67.5,
-    "net": 0.1296,
+    "net": 0.2007,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -598,8 +598,8 @@
      67,
      59
     ],
-    "p_att": 0.6762,
-    "p_def": 0.0873,
+    "p_att": 0.7477,
+    "p_def": 0.0901,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -659,28 +659,6 @@
      "slot": "CB"
     },
     {
-     "id": "id235514",
-     "name": "Al Rubaie",
-     "rating": 65,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 183,
-     "leagueId": 350,
-     "clubId": 113224,
-     "card": [
-      42,
-      44,
-      64
-     ],
-     "chem": 2,
-     "eff": [
-      43,
-      45,
-      65
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id211363",
      "name": "Lockyer",
      "rating": 63,
@@ -699,6 +677,28 @@
       48,
       55,
       64
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id235514",
+     "name": "Al Rubaie",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 183,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      42,
+      44,
+      64
+     ],
+     "chem": 2,
+     "eff": [
+      43,
+      45,
+      65
      ],
      "slot": "CB"
     },
@@ -725,31 +725,6 @@
      "slot": "LM"
     },
     {
-     "id": "evo_Jerdea_70",
-     "name": "Jerdea",
-     "rating": 70,
-     "color": "evo",
-     "position": "CAM",
-     "nationId": 39,
-     "leagueId": 330,
-     "clubId": 110078,
-     "card": [
-      70,
-      73,
-      46
-     ],
-     "chem": 3,
-     "eff": [
-      72,
-      75,
-      48
-     ],
-     "evos": [
-      "Romanian Superliga Bronze"
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id178088",
      "name": "Juan Mata",
      "rating": 71,
@@ -768,6 +743,28 @@
       70,
       76,
       35
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id239335",
+     "name": "Óscar",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 45,
+     "leagueId": 350,
+     "clubId": 113224,
+     "card": [
+      73,
+      74,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      76,
+      58
      ],
      "slot": "CM"
     },
@@ -794,24 +791,27 @@
      "slot": "RM"
     },
     {
-     "id": "id239335",
-     "name": "Óscar",
-     "rating": 71,
-     "color": "rare_silver",
-     "position": "LM",
-     "nationId": 45,
-     "leagueId": 350,
-     "clubId": 113224,
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
      "card": [
+      70,
       73,
-      74,
-      56
+      46
      ],
      "chem": 3,
      "eff": [
+      72,
       75,
-      76,
-      58
+      48
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
      ],
      "slot": "CAM"
     },
@@ -862,11 +862,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6213,
+    "ctrl_win": 0.6307,
     "control": 75.4,
-    "attack": 72.78,
+    "attack": 72.4,
     "defence": 68.25,
-    "net": 0.1245,
+    "net": 0.1655,
     "vs_reddit": null,
     "control_cards": [
      76,
@@ -876,7 +876,6 @@
      75
     ],
     "attack_cards": [
-     75,
      74,
      74,
      72,
@@ -890,21 +889,21 @@
      65,
      64
     ],
-    "p_att": 0.6685,
-    "p_def": 0.087,
+    "p_att": 0.6954,
+    "p_def": 0.0898,
     "chem": 29,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 202.4,
-    "att_total": 193.62,
+    "att_total": 191.76,
     "def_total": 159.75
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-18 01:39 UTC",
+ "built": "2026-11-20 01:52 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-14 16:37 UTC"
 }
