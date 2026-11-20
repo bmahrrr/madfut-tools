@@ -1,17 +1,18 @@
 {
- "g": 5,
+ "g": 6,
  "obj_ids": [
   "id224987",
-  "id229237",
   "id203574",
-  "id50590296",
-  "id50575350"
+  "id229237",
+  "id50608975",
+  "id50575350",
+  "id50590296"
  ],
- "strength": 102.8,
- "group_cards": 5,
+ "strength": 103.0,
+ "group_cards": 6,
  "reddit": [],
  "team": {
-  "formation": "4-2-3-1 (2)",
+  "formation": "4-1-2-1-2",
   "chem": 33,
   "players": [
    {
@@ -62,29 +63,6 @@
    },
    {
     "slot": "CB",
-    "id": "id203574",
-    "name": "Stones",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 14,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     67,
-     73,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     69,
-     77,
-     84
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "CB",
     "id": "id229237",
     "name": "Akanji",
     "rating": 83,
@@ -105,6 +83,29 @@
      85
     ],
     "tiebreak": 224
+   },
+   {
+    "slot": "CB",
+    "id": "id203574",
+    "name": "Stones",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     67,
+     73,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     69,
+     77,
+     84
+    ],
+    "tiebreak": 228
    },
    {
     "slot": "RB",
@@ -153,29 +154,6 @@
     "tiebreak": 225
    },
    {
-    "slot": "CDM",
-    "id": "id197781",
-    "name": "Isco",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     80,
-     84,
-     58
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     88,
-     60
-    ],
-    "tiebreak": 228
-   },
-   {
     "slot": "LM",
     "id": "id67377753",
     "name": "Álvaro Carreras",
@@ -197,29 +175,6 @@
      84
     ],
     "tiebreak": 247
-   },
-   {
-    "slot": "CAM",
-    "id": "id50572598",
-    "name": "Pedro Gonçalves",
-    "rating": 83,
-    "color": "otw",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
-    "card": [
-     82,
-     82,
-     63
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     86,
-     65
-    ],
-    "tiebreak": 233
    },
    {
     "slot": "RM",
@@ -245,27 +200,73 @@
     "tiebreak": 250
    },
    {
-    "slot": "ST",
-    "id": "id244675",
-    "name": "Sancet",
-    "rating": 82,
+    "slot": "CAM",
+    "id": "id197781",
+    "name": "Isco",
+    "rating": 83,
     "color": "rare_gold",
     "position": "CAM",
     "nationId": 45,
     "leagueId": 53,
-    "clubId": 448,
+    "clubId": 449,
     "card": [
-     81,
-     81,
-     71
+     80,
+     84,
+     58
     ],
     "chem": 3,
     "eff": [
-     83,
-     85,
-     73
+     82,
+     88,
+     60
     ],
-    "tiebreak": 239
+    "tiebreak": 228
+   },
+   {
+    "slot": "ST",
+    "id": "id50583500",
+    "name": "Adeyemi",
+    "rating": 83,
+    "color": "otw",
+    "position": "RM",
+    "nationId": 21,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     84,
+     78,
+     45
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     82,
+     47
+    ],
+    "tiebreak": 213
+   },
+   {
+    "slot": "ST",
+    "id": "id50608975",
+    "name": "Esposito",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "ST",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     83,
+     76,
+     47
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     80,
+     49
+    ],
+    "tiebreak": 212
    }
   ]
  },
@@ -303,18 +304,18 @@
  },
  "base_ids": [
   "id264865",
-  "id205452",
-  "id227346",
   "id50596532",
+  "id227346",
+  "id205452",
   "id197781",
   "id262457",
-  "id257279",
-  "id264309",
   "id50575428",
+  "id264309",
   "id50583500",
-  "id267531"
+  "id267531",
+  "id67352494"
  ],
- "built": "2026-11-14 22:12 UTC",
+ "built": "2026-11-20 05:23 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-14 22:12 UTC"
+ "changed": "2026-11-20 05:23 UTC"
 }

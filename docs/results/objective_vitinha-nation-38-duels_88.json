@@ -1,10 +1,10 @@
 {
  "g": 2,
  "obj_ids": [
-  "elite_Leão_88",
-  "id3622"
+  "id3622",
+  "elite_Leão_88"
  ],
- "strength": 100.6,
+ "strength": 100.7,
  "group_cards": 2,
  "reddit": [],
  "team": {
@@ -36,26 +36,49 @@
    },
    {
     "slot": "LB",
-    "id": "id50565310",
-    "name": "Karchaoui",
+    "id": "id034",
+    "name": "Digne",
     "rating": 88,
-    "color": "uwcl_rttk",
-    "position": "RM",
+    "color": "evo",
+    "position": "LB",
     "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 73,
+    "leagueId": 13,
+    "clubId": 2,
     "card": [
+     84,
      86,
-     88,
-     79
+     89
     ],
     "chem": 3,
     "eff": [
+     86,
      88,
-     90,
-     81
+     91
     ],
-    "tiebreak": 259
+    "tiebreak": 265
+   },
+   {
+    "slot": "CB",
+    "id": "id138956",
+    "name": "Chiellini",
+    "rating": 88,
+    "color": "icon",
+    "position": "CB",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     64,
+     62,
+     90
+    ],
+    "chem": 3,
+    "eff": [
+     69,
+     64,
+     93
+    ],
+    "tiebreak": 222
    },
    {
     "slot": "CB",
@@ -79,29 +102,6 @@
      90
     ],
     "tiebreak": 233
-   },
-   {
-    "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
-    "card": [
-     76,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     88,
-     87
-    ],
-    "tiebreak": 253
    },
    {
     "slot": "RB",
@@ -204,49 +204,26 @@
    },
    {
     "slot": "CAM",
-    "id": "id23174",
-    "name": "Riquelme",
-    "rating": 88,
-    "color": "icon",
-    "position": "CAM",
-    "nationId": 52,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     86,
-     89,
-     39
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     91,
-     41
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "ST",
-    "id": "id71557",
-    "name": "Bale",
-    "rating": 88,
-    "color": "icon",
-    "position": "RW",
-    "nationId": 50,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     88,
-     85,
-     66
-    ],
-    "chem": 3,
-    "eff": [
-     90,
      87,
-     68
+     88,
+     78
     ],
-    "tiebreak": 245
+    "chem": 3,
+    "eff": [
+     89,
+     90,
+     80
+    ],
+    "tiebreak": 259
    },
    {
     "slot": "ST",
@@ -270,6 +247,29 @@
      66
     ],
     "tiebreak": 246
+   },
+   {
+    "slot": "ST",
+    "id": "id71557",
+    "name": "Bale",
+    "rating": 88,
+    "color": "icon",
+    "position": "RW",
+    "nationId": 50,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     88,
+     85,
+     66
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     87,
+     68
+    ],
+    "tiebreak": 245
    }
   ]
  },
@@ -305,18 +305,18 @@
  },
  "base_ids": [
   "id48940",
-  "id50595413",
-  "id138956",
+  "id034",
   "ltm_comuzzo88",
+  "id138956",
   "evo_Clauss_88",
   "evo_Groß_88",
-  "id120274",
-  "id50565310",
+  "id50595413",
+  "id82092",
   "id23174",
-  "id262112",
-  "id50518275"
+  "id50518275",
+  "id120274"
  ],
- "built": "2026-11-15 13:13 UTC",
+ "built": "2026-11-20 05:24 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-15 13:13 UTC"
+ "changed": "2026-11-20 05:24 UTC"
 }

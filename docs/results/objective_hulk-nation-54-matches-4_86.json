@@ -2,16 +2,16 @@
  "g": 4,
  "obj_ids": [
   "id184943",
-  "id67375554",
   "id179944",
+  "id247851",
   "id189362"
  ],
- "strength": 100.7,
+ "strength": 101.0,
  "group_cards": 497,
  "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 32,
+  "formation": "4-2-3-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -35,6 +35,29 @@
      90
     ],
     "tiebreak": 181
+   },
+   {
+    "slot": "LB",
+    "id": "id275092",
+    "name": "Bompastor",
+    "rating": 86,
+    "color": "hero",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 114605,
+    "card": [
+     83,
+     84,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     86,
+     86
+    ],
+    "tiebreak": 257
    },
    {
     "slot": "CB",
@@ -61,121 +84,75 @@
    },
    {
     "slot": "CB",
-    "id": "id50564404",
-    "name": "Tomori",
-    "rating": 86,
-    "color": "europa_rttk",
-    "position": "CB",
-    "nationId": 14,
-    "leagueId": 31,
-    "clubId": 131681,
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
-     66,
-     70,
+     76,
+     86,
      85
     ],
     "chem": 3,
     "eff": [
-     70,
-     73,
-     91
-    ],
-    "tiebreak": 227
-   },
-   {
-    "slot": "CB",
-    "id": "id67375554",
-    "name": "Lúcio",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     71,
-     71,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     73,
-     73,
-     86
-    ],
-    "tiebreak": 232
-   },
-   {
-    "slot": "LM",
-    "id": "id50407181",
-    "name": "Alajbegović",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "LW",
-    "nationId": 8,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     86,
-     85,
-     58
-    ],
-    "chem": 3,
-    "eff": [
-     89,
+     78,
      88,
-     61
+     87
     ],
-    "tiebreak": 235
+    "tiebreak": 253
    },
    {
-    "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
-    "card": [
-     85,
-     88,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     90,
-     86
-    ],
-    "tiebreak": 260
-   },
-   {
-    "slot": "CM",
-    "id": "id67316992",
-    "name": "Çalhanoğlu",
+    "slot": "RB",
+    "id": "id50575305",
+    "name": "Garner",
     "rating": 86,
     "color": "halloween",
-    "position": "CAM",
-    "nationId": 48,
-    "leagueId": 31,
-    "clubId": 131682,
+    "position": "RB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 7,
     "card": [
-     86,
-     86,
-     80
+     79,
+     83,
+     85
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     88,
-     88,
-     82
+     82,
+     85,
+     90
     ],
-    "tiebreak": 255
+    "tiebreak": 253
    },
    {
-    "slot": "RM",
+    "slot": "CDM",
+    "id": "id247851",
+    "name": "Bruno Guimarães",
+    "rating": 86,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 1,
+    "card": [
+     79,
+     84,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     86,
+     81
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CDM",
     "id": "id184943",
     "name": "Ramires",
     "rating": 86,
@@ -222,26 +199,49 @@
    },
    {
     "slot": "CAM",
-    "id": "id50570392",
-    "name": "McKennie",
+    "id": "id50608342",
+    "name": "Manzambi",
     "rating": 85,
-    "color": "destined_for_glory",
+    "color": "future_stars",
     "position": "CM",
-    "nationId": 95,
-    "leagueId": 31,
-    "clubId": 45,
+    "nationId": 47,
+    "leagueId": 13,
+    "clubId": 2,
     "card": [
-     82,
-     83,
-     83
+     86,
+     85,
+     76
     ],
     "chem": 3,
     "eff": [
+     88,
+     87,
+     78
+    ],
+    "tiebreak": 253
+   },
+   {
+    "slot": "CAM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
      85,
-     86,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     90,
      86
     ],
-    "tiebreak": 254
+    "tiebreak": 260
    },
    {
     "slot": "ST",
@@ -301,18 +301,18 @@
  },
  "base_ids": [
   "id204935",
-  "id5467",
-  "id50752",
-  "id50564404",
+  "id275092",
   "id50559326",
-  "id50575305",
-  "id50402434",
-  "id50508651",
+  "id50564404",
+  "id50752",
+  "id5467",
   "id50592947",
-  "id50487969",
-  "id50407181"
+  "id15723",
+  "id50402434",
+  "id330",
+  "id50487969"
  ],
- "built": "2026-11-18 04:58 UTC",
+ "built": "2026-11-20 05:25 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-18 04:58 UTC"
+ "changed": "2026-11-20 05:25 UTC"
 }

@@ -6,11 +6,11 @@
   "id230658",
   "id50562314"
  ],
- "strength": 100.2,
+ "strength": 100.1,
  "group_cards": 441,
  "reddit": [],
  "team": {
-  "formation": "4-1-4-1",
+  "formation": "4-1-2-1-2 (2)",
   "chem": 32,
   "players": [
    {
@@ -38,49 +38,49 @@
    },
    {
     "slot": "LB",
-    "id": "id220651",
-    "name": "Angeliño",
-    "rating": 78,
+    "id": "id224334",
+    "name": "Acuña",
+    "rating": 76,
     "color": "rare_gold",
     "position": "LB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 242,
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     76,
-     79,
-     77
+     75,
+     77,
+     75
     ],
     "chem": 3,
     "eff": [
-     78,
+     77,
      81,
-     79
+     78
     ],
-    "tiebreak": 238
+    "tiebreak": 233
    },
    {
     "slot": "CB",
-    "id": "id50574483",
-    "name": "Balerdi",
+    "id": "id192638",
+    "name": "Marcos Alonso",
     "rating": 79,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 52,
-    "leagueId": 31,
-    "clubId": 52,
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 450,
     "card": [
-     63,
-     67,
+     73,
+     77,
      79
     ],
     "chem": 3,
     "eff": [
-     65,
-     71,
-     82
+     75,
+     79,
+     81
     ],
-    "tiebreak": 215
+    "tiebreak": 235
    },
    {
     "slot": "CB",
@@ -130,52 +130,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id230658",
-    "name": "Arthur",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     74,
-     79,
-     71
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     81,
-     73
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "LM",
-    "id": "id224334",
-    "name": "Acuña",
-    "rating": 76,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 1876,
-    "card": [
-     75,
-     77,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     81,
-     78
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "CM",
     "id": "id236499",
     "name": "Douglas Luiz",
     "rating": 78,
@@ -221,7 +175,30 @@
     "tiebreak": 238
    },
    {
-    "slot": "RM",
+    "slot": "CM",
+    "id": "id230658",
+    "name": "Arthur",
+    "rating": 76,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     74,
+     79,
+     71
+    ],
+    "chem": 3,
+    "eff": [
+     76,
+     81,
+     73
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "CAM",
     "id": "id245371",
     "name": "Almada",
     "rating": 78,
@@ -265,6 +242,29 @@
      46
     ],
     "tiebreak": 207
+   },
+   {
+    "slot": "ST",
+    "id": "id235467",
+    "name": "Moreno",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 110395,
+    "card": [
+     79,
+     77,
+     54
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     81,
+     57
+    ],
+    "tiebreak": 216
    }
   ]
  },
@@ -301,18 +301,18 @@
  },
  "base_ids": [
   "id227186",
+  "id236804",
   "id192638",
   "id50574483",
-  "id236804",
   "id237221",
   "id263370",
-  "id220651",
+  "id241811",
   "id245371",
   "id235467",
-  "id214997",
-  "id254551"
+  "id254551",
+  "id214997"
  ],
- "built": "2026-11-18 04:58 UTC",
+ "built": "2026-11-20 05:23 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-18 04:58 UTC"
+ "changed": "2026-11-20 05:23 UTC"
 }
