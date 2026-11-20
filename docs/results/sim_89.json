@@ -347,24 +347,24 @@
      "slot": "GK"
     },
     {
-     "id": "id83891820",
-     "name": "Stam",
-     "rating": 88,
-     "color": "halloween_hero",
-     "position": "CDM",
-     "nationId": 34,
-     "leagueId": 13,
-     "clubId": 114605,
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      68,
-      72,
-      88
+      62,
+      64,
+      90
      ],
      "chem": 3,
      "eff": [
-      71,
-      75,
-      91
+      65,
+      67,
+      93
      ],
      "slot": "CB"
     },
@@ -391,24 +391,24 @@
      "slot": "CB"
     },
     {
-     "id": "id1183",
-     "name": "Cannavaro",
-     "rating": 89,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "id": "id83891820",
+     "name": "Stam",
+     "rating": 88,
+     "color": "halloween_hero",
+     "position": "CDM",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 114605,
      "card": [
-      62,
-      64,
-      90
+      68,
+      72,
+      88
      ],
      "chem": 3,
      "eff": [
-      65,
-      67,
-      93
+      71,
+      75,
+      91
      ],
      "slot": "CB"
     },
@@ -530,28 +530,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id227263",
-     "name": "Smith",
-     "rating": 89,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      84,
-      51
-     ],
-     "chem": 3,
-     "eff": [
-      93,
-      89,
-      54
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id167134",
      "name": "Papin",
      "rating": 89,
@@ -572,15 +550,37 @@
       52
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id227263",
+     "name": "Smith",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      89,
+      54
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5667,
+    "ctrl_win": 0.5493,
     "control": 93.0,
     "attack": 92.17,
     "defence": 92.25,
-    "net": 0.1868,
+    "net": 0.1141,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -604,8 +604,8 @@
      92,
      91
     ],
-    "p_att": 0.5877,
-    "p_def": 0.4423,
+    "p_att": 0.5296,
+    "p_def": 0.4065,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -616,7 +616,7 @@
     "def_total": 223.5,
     "round_robin": {
      "wins": 18.5,
-     "margin": 2.4666
+     "margin": 1.8757
     }
    }
   },
@@ -669,28 +669,6 @@
      "slot": "CB"
     },
     {
-     "id": "id138956",
-     "name": "Chiellini",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      64,
-      62,
-      90
-     ],
-     "chem": 3,
-     "eff": [
-      67,
-      65,
-      93
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id83891820",
      "name": "Stam",
      "rating": 88,
@@ -709,6 +687,28 @@
       71,
       75,
       91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      67,
+      93
      ],
      "slot": "CB"
     },
@@ -738,28 +738,6 @@
      "slot": "LM"
     },
     {
-     "id": "id024",
-     "name": "Reijnders",
-     "rating": 89,
-     "color": "world_potm_nominee",
-     "position": "CM",
-     "nationId": 34,
-     "leagueId": 350,
-     "clubId": 112391,
-     "card": [
-      86,
-      90,
-      87
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      93,
-      90
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id50592947",
      "name": "Scott",
      "rating": 86,
@@ -778,6 +756,28 @@
       89,
       93,
       84
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id024",
+     "name": "Reijnders",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 350,
+     "clubId": 112391,
+     "card": [
+      86,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      93,
+      90
      ],
      "slot": "CM"
     },
@@ -876,11 +876,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5667,
+    "ctrl_win": 0.5747,
     "control": 93.0,
     "attack": 92.17,
     "defence": 92.25,
-    "net": 0.1868,
+    "net": 0.1945,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -904,8 +904,8 @@
      92,
      91
     ],
-    "p_att": 0.5877,
-    "p_def": 0.4423,
+    "p_att": 0.5854,
+    "p_def": 0.4356,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -913,12 +913,16 @@
     "attack_short": 0,
     "ctrl_total": 266.8,
     "att_total": 243.36,
-    "def_total": 223.5
+    "def_total": 223.5,
+    "round_robin": {
+     "wins": 19.5,
+     "margin": 2.4771
+    }
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-18 01:39 UTC",
+ "built": "2026-11-20 01:52 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-17 02:26 UTC"
 }
