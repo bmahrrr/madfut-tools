@@ -270,11 +270,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6173,
+    "ctrl_win": 0.6093,
     "control": 81.4,
     "attack": 79.82,
     "defence": 79.0,
-    "net": 0.183,
+    "net": 0.1904,
     "vs_reddit": null,
     "control_cards": [
      82,
@@ -297,8 +297,8 @@
      79,
      77
     ],
-    "p_att": 0.648,
-    "p_def": 0.3194,
+    "p_att": 0.6579,
+    "p_def": 0.3222,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -309,7 +309,7 @@
     "def_total": 191.25,
     "round_robin": {
      "wins": 35.0,
-     "margin": 4.2863
+     "margin": 4.3902
     }
    }
   },
@@ -340,24 +340,24 @@
      "slot": "GK"
     },
     {
-     "id": "ltm_comuzzo78",
-     "name": "Comuzzo",
+     "id": "id212242",
+     "name": "Andrich",
      "rating": 78,
-     "color": "ltm",
+     "color": "rare_gold",
      "position": "CB",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 54,
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
      "card": [
-      56,
-      62,
-      79
+      70,
+      71,
+      78
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      58,
-      64,
-      81
+      71,
+      72,
+      79
      ],
      "slot": "CB"
     },
@@ -384,24 +384,24 @@
      "slot": "CB"
     },
     {
-     "id": "id212242",
-     "name": "Andrich",
+     "id": "ltm_comuzzo78",
+     "name": "Comuzzo",
      "rating": 78,
-     "color": "rare_gold",
+     "color": "ltm",
      "position": "CB",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 32,
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
      "card": [
-      70,
-      71,
-      78
-     ],
-     "chem": 2,
-     "eff": [
-      71,
-      72,
+      56,
+      62,
       79
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      64,
+      81
      ],
      "slot": "CB"
     },
@@ -516,28 +516,6 @@
      "slot": "RM"
     },
     {
-     "id": "id253002",
-     "name": "Raspadori",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 115845,
-     "card": [
-      79,
-      76,
-      34
-     ],
-     "chem": 3,
-     "eff": [
-      81,
-      78,
-      36
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id275328",
      "name": "Uzun",
      "rating": 78,
@@ -558,15 +536,37 @@
       43
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id253002",
+     "name": "Raspadori",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 115845,
+     "card": [
+      79,
+      76,
+      34
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      78,
+      36
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6173,
+    "ctrl_win": 0.6093,
     "control": 81.4,
     "attack": 79.88,
     "defence": 78.6,
-    "net": 0.1868,
+    "net": 0.1934,
     "vs_reddit": null,
     "control_cards": [
      82,
@@ -590,8 +590,8 @@
      77,
      77
     ],
-    "p_att": 0.6671,
-    "p_def": 0.2949,
+    "p_att": 0.6763,
+    "p_def": 0.2967,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -603,94 +603,50 @@
    }
   },
   {
-   "formation": "5-2-1-2",
-   "chem": 31,
+   "formation": "3-4-1-2",
+   "chem": 33,
    "players": [
     {
-     "id": "id243647",
-     "name": "Bayındır",
-     "rating": 75,
+     "id": "id224041",
+     "name": "Schwäbe",
+     "rating": 78,
      "color": "rare_gold",
      "position": "GK",
-     "nationId": 48,
-     "leagueId": 53,
-     "clubId": 450,
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 31,
      "card": [
-      30,
-      31,
-      76
+      39,
+      40,
+      79
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      31,
-      32,
-      77
+      41,
+      42,
+      81
      ],
      "slot": "GK"
     },
     {
-     "id": "id241811",
-     "name": "Sergio Gómez",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "LB",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 457,
-     "card": [
-      77,
-      79,
-      76
-     ],
-     "chem": 3,
-     "eff": [
-      79,
-      81,
-      78
-     ],
-     "slot": "LB"
-    },
-    {
-     "id": "id277225",
-     "name": "Jon Martín",
-     "rating": 78,
+     "id": "id237595",
+     "name": "Friedl",
+     "rating": 77,
      "color": "rare_gold",
      "position": "CB",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 457,
-     "card": [
-      56,
-      61,
-      77
-     ],
-     "chem": 3,
-     "eff": [
-      58,
-      63,
-      79
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id212242",
-     "name": "Andrich",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 21,
+     "nationId": 4,
      "leagueId": 19,
-     "clubId": 32,
+     "clubId": 38,
      "card": [
-      70,
-      71,
+      60,
+      65,
       78
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      71,
-      72,
-      79
+      62,
+      67,
+      80
      ],
      "slot": "CB"
     },
@@ -717,26 +673,48 @@
      "slot": "CB"
     },
     {
-     "id": "id259075",
-     "name": "Yan Couto",
-     "rating": 77,
+     "id": "id212242",
+     "name": "Andrich",
+     "rating": 78,
      "color": "rare_gold",
-     "position": "RB",
-     "nationId": 54,
-     "leagueId": 31,
-     "clubId": 1745,
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
      "card": [
-      75,
-      80,
-      75
+      70,
+      71,
+      78
      ],
      "chem": 3,
      "eff": [
-      77,
-      82,
-      77
+      72,
+      73,
+      80
      ],
-     "slot": "RB"
+     "slot": "CB"
+    },
+    {
+     "id": "id239701",
+     "name": "Schmid",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 31,
+     "clubId": 111657,
+     "card": [
+      77,
+      79,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      79,
+      81,
+      55
+     ],
+     "slot": "LM"
     },
     {
      "id": "id240679",
@@ -783,6 +761,28 @@
      "slot": "CM"
     },
     {
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "RB",
+     "nationId": 54,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      75,
+      80,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      82,
+      77
+     ],
+     "slot": "RM"
+    },
+    {
      "id": "id192318",
      "name": "Götze",
      "rating": 77,
@@ -805,6 +805,28 @@
      "slot": "CAM"
     },
     {
+     "id": "id71178",
+     "name": "El Mala",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 31,
+     "card": [
+      80,
+      73,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      82,
+      75,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id253002",
      "name": "Raspadori",
      "rating": 78,
@@ -825,37 +847,15 @@
       36
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id275328",
-     "name": "Uzun",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 48,
-     "leagueId": 19,
-     "clubId": 1824,
-     "card": [
-      79,
-      75,
-      41
-     ],
-     "chem": 3,
-     "eff": [
-      81,
-      77,
-      43
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6173,
+    "ctrl_win": 0.564,
     "control": 81.4,
-    "attack": 79.9,
-    "defence": 78.5,
-    "net": 0.181,
+    "attack": 80.12,
+    "defence": 80.5,
+    "net": 0.2891,
     "vs_reddit": null,
     "control_cards": [
      82,
@@ -865,37 +865,34 @@
      81
     ],
     "attack_cards": [
-     81,
+     82,
      81,
      79,
-     78,
      78,
      77,
      77
     ],
     "defence_cards": [
      81,
-     79,
-     79,
-     78,
-     77,
-     77
+     81,
+     80,
+     80
     ],
-    "p_att": 0.6574,
-    "p_def": 0.2963,
-    "chem": 31,
+    "p_att": 0.6899,
+    "p_def": 0.5447,
+    "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 231.8,
-    "att_total": 207.73,
-    "def_total": 206.5
+    "ctrl_total": 227.2,
+    "att_total": 208.61,
+    "def_total": 200.25
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-20 01:52 UTC",
+ "built": "2026-11-20 18:16 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-14 16:37 UTC"
 }
