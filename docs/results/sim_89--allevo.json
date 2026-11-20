@@ -282,11 +282,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.668,
+    "ctrl_win": 0.672,
     "control": 93.0,
     "attack": 92.4,
     "defence": 88.5,
-    "net": 0.2818,
+    "net": 0.2839,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -310,8 +310,8 @@
      87,
      81
     ],
-    "p_att": 0.67,
-    "p_def": 0.3758,
+    "p_att": 0.6761,
+    "p_def": 0.3688,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -319,9 +319,12 @@
     "attack_short": 0,
     "ctrl_total": 269.0,
     "att_total": 244.64,
-    "def_total": 213.5
-   },
-   "source": "Previous Best"
+    "def_total": 213.5,
+    "round_robin": {
+     "wins": 26.5,
+     "margin": 4.5757
+    }
+   }
   },
   {
    "formation": "3-4-1-2",
@@ -348,6 +351,28 @@
       81
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      74,
+      87
+     ],
+     "slot": "CB"
     },
     {
      "id": "id1183",
@@ -390,28 +415,6 @@
       70,
       79,
       93
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id67375554",
-     "name": "Lúcio",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      71,
-      71,
-      84
-     ],
-     "chem": 3,
-     "eff": [
-      74,
-      74,
-      87
      ],
      "slot": "CB"
     },
@@ -536,28 +539,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id227263",
-     "name": "Smith",
-     "rating": 89,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      84,
-      51
-     ],
-     "chem": 3,
-     "eff": [
-      93,
-      89,
-      54
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id167134",
      "name": "Papin",
      "rating": 89,
@@ -578,15 +559,37 @@
       52
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id227263",
+     "name": "Smith",
+     "rating": 89,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      51
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      89,
+      54
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.668,
+    "ctrl_win": 0.672,
     "control": 93.0,
     "attack": 92.4,
     "defence": 88.5,
-    "net": 0.2818,
+    "net": 0.2839,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -610,8 +613,8 @@
      87,
      81
     ],
-    "p_att": 0.67,
-    "p_def": 0.3758,
+    "p_att": 0.6761,
+    "p_def": 0.3688,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -619,11 +622,7 @@
     "attack_short": 0,
     "ctrl_total": 269.0,
     "att_total": 244.64,
-    "def_total": 213.5,
-    "round_robin": {
-     "wins": 26.0,
-     "margin": 4.4209
-    }
+    "def_total": 213.5
    }
   },
   {
@@ -885,11 +884,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.668,
+    "ctrl_win": 0.672,
     "control": 93.0,
     "attack": 92.33,
     "defence": 88.8,
-    "net": 0.2611,
+    "net": 0.2628,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -914,8 +913,8 @@
      87,
      81
     ],
-    "p_att": 0.6653,
-    "p_def": 0.3178,
+    "p_att": 0.6696,
+    "p_def": 0.3136,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -938,6 +937,7 @@
   "Albiceleste Upgrade",
   "Austrian Bundesliga Bronze",
   "Austrian Bundesliga Silver",
+  "Bronze Master-Shooter",
   "Defender Control Upgrade",
   "German Defender",
   "K League 1 Bronze",
@@ -953,7 +953,7 @@
   "Silver Goalie #1",
   "Silver Maestro"
  ],
- "built": "2026-11-17 02:31 UTC",
+ "built": "2026-11-20 22:37 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-16 02:58 UTC"
 }
