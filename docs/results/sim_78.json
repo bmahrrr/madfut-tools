@@ -270,11 +270,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6093,
+    "ctrl_win": 0.5933,
     "control": 81.4,
     "attack": 79.82,
     "defence": 79.0,
-    "net": 0.1904,
+    "net": 0.1598,
     "vs_reddit": null,
     "control_cards": [
      82,
@@ -297,8 +297,8 @@
      79,
      77
     ],
-    "p_att": 0.6579,
-    "p_def": 0.3222,
+    "p_att": 0.6287,
+    "p_def": 0.3334,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -309,7 +309,7 @@
     "def_total": 191.25,
     "round_robin": {
      "wins": 35.0,
-     "margin": 4.3902
+     "margin": 4.1688
     }
    }
   },
@@ -340,28 +340,6 @@
      "slot": "GK"
     },
     {
-     "id": "id212242",
-     "name": "Andrich",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 32,
-     "card": [
-      70,
-      71,
-      78
-     ],
-     "chem": 2,
-     "eff": [
-      71,
-      72,
-      79
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id277225",
      "name": "Jon Martín",
      "rating": 78,
@@ -379,6 +357,28 @@
      "eff": [
       58,
       63,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id212242",
+     "name": "Andrich",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      70,
+      71,
+      78
+     ],
+     "chem": 2,
+     "eff": [
+      71,
+      72,
       79
      ],
      "slot": "CB"
@@ -562,11 +562,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6093,
+    "ctrl_win": 0.5933,
     "control": 81.4,
     "attack": 79.88,
     "defence": 78.6,
-    "net": 0.1934,
+    "net": 0.1616,
     "vs_reddit": null,
     "control_cards": [
      82,
@@ -590,8 +590,8 @@
      77,
      77
     ],
-    "p_att": 0.6763,
-    "p_def": 0.2967,
+    "p_att": 0.6476,
+    "p_def": 0.3053,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -603,50 +603,94 @@
    }
   },
   {
-   "formation": "3-4-1-2",
-   "chem": 33,
+   "formation": "5-2-1-2",
+   "chem": 31,
    "players": [
     {
-     "id": "id224041",
-     "name": "Schwäbe",
-     "rating": 78,
+     "id": "id243647",
+     "name": "Bayındır",
+     "rating": 75,
      "color": "rare_gold",
      "position": "GK",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 31,
+     "nationId": 48,
+     "leagueId": 53,
+     "clubId": 450,
      "card": [
-      39,
-      40,
-      79
+      30,
+      31,
+      76
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      41,
-      42,
-      81
+      31,
+      32,
+      77
      ],
      "slot": "GK"
     },
     {
-     "id": "id237595",
-     "name": "Friedl",
-     "rating": 77,
+     "id": "id241811",
+     "name": "Sergio Gómez",
+     "rating": 78,
      "color": "rare_gold",
-     "position": "CB",
-     "nationId": 4,
-     "leagueId": 19,
-     "clubId": 38,
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 457,
      "card": [
-      60,
-      65,
-      78
+      77,
+      79,
+      76
      ],
      "chem": 3,
      "eff": [
-      62,
-      67,
-      80
+      79,
+      81,
+      78
+     ],
+     "slot": "LB"
+    },
+    {
+     "id": "id277225",
+     "name": "Jon Martín",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 457,
+     "card": [
+      56,
+      61,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      58,
+      63,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id212242",
+     "name": "Andrich",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      70,
+      71,
+      78
+     ],
+     "chem": 2,
+     "eff": [
+      71,
+      72,
+      79
      ],
      "slot": "CB"
     },
@@ -673,48 +717,26 @@
      "slot": "CB"
     },
     {
-     "id": "id212242",
-     "name": "Andrich",
-     "rating": 78,
+     "id": "id259075",
+     "name": "Yan Couto",
+     "rating": 77,
      "color": "rare_gold",
-     "position": "CB",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 32,
-     "card": [
-      70,
-      71,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      72,
-      73,
-      80
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id239701",
-     "name": "Schmid",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CAM",
-     "nationId": 4,
+     "position": "RB",
+     "nationId": 54,
      "leagueId": 31,
-     "clubId": 111657,
+     "clubId": 1745,
      "card": [
-      77,
-      79,
-      53
+      75,
+      80,
+      75
      ],
      "chem": 3,
      "eff": [
-      79,
-      81,
-      55
+      77,
+      82,
+      77
      ],
-     "slot": "LM"
+     "slot": "RB"
     },
     {
      "id": "id240679",
@@ -761,28 +783,6 @@
      "slot": "CM"
     },
     {
-     "id": "id259075",
-     "name": "Yan Couto",
-     "rating": 77,
-     "color": "rare_gold",
-     "position": "RB",
-     "nationId": 54,
-     "leagueId": 31,
-     "clubId": 1745,
-     "card": [
-      75,
-      80,
-      75
-     ],
-     "chem": 3,
-     "eff": [
-      77,
-      82,
-      77
-     ],
-     "slot": "RM"
-    },
-    {
      "id": "id192318",
      "name": "Götze",
      "rating": 77,
@@ -805,28 +805,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id71178",
-     "name": "El Mala",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "LM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 31,
-     "card": [
-      80,
-      73,
-      45
-     ],
-     "chem": 3,
-     "eff": [
-      82,
-      75,
-      47
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id253002",
      "name": "Raspadori",
      "rating": 78,
@@ -847,15 +825,37 @@
       36
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id275328",
+     "name": "Uzun",
+     "rating": 78,
+     "color": "rare_gold",
+     "position": "CAM",
+     "nationId": 48,
+     "leagueId": 19,
+     "clubId": 1824,
+     "card": [
+      79,
+      75,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      81,
+      77,
+      43
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.564,
+    "ctrl_win": 0.5933,
     "control": 81.4,
-    "attack": 80.12,
-    "defence": 80.5,
-    "net": 0.2891,
+    "attack": 79.9,
+    "defence": 78.5,
+    "net": 0.1572,
     "vs_reddit": null,
     "control_cards": [
      82,
@@ -865,34 +865,37 @@
      81
     ],
     "attack_cards": [
-     82,
+     81,
      81,
      79,
+     78,
      78,
      77,
      77
     ],
     "defence_cards": [
      81,
-     81,
-     80,
-     80
+     79,
+     79,
+     78,
+     77,
+     77
     ],
-    "p_att": 0.6899,
-    "p_def": 0.5447,
-    "chem": 33,
+    "p_att": 0.6408,
+    "p_def": 0.3049,
+    "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 227.2,
-    "att_total": 208.61,
-    "def_total": 200.25
+    "ctrl_total": 231.8,
+    "att_total": 207.73,
+    "def_total": 206.5
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-20 18:16 UTC",
+ "built": "2026-11-20 22:31 UTC",
  "week": "2026-11-16",
  "changed": "2026-11-14 16:37 UTC"
 }
