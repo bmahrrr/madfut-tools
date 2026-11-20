@@ -10,7 +10,7 @@ const SBC_HERO = new Set(["hero", "hall_of_fut"]);
 // Card types the game doesn't allow in SBCs.
 const NO_SBC = new Set(["evo", "elite_evo", "sbc_premium", "ltm", "world_potm", "epl_potm", "laliga_potm", "seriea_potm", "bundesliga_potm", "ligue1_potm", "ligue_1_potm", "liga_f_potm"]);
 // Single cards the game won't take in SBCs.
-const NO_SBC_ID = new Set(["id50575350"]);   // Spence 83 Ones to Watch
+const NO_SBC_ID = new Set(["id50575350", "id67261943"]);   // Spence 83 Ones to Watch, Agüero 86 Debut Icon
 const COMMON_FORMS = ["4-3-3", "4-4-2", "4-2-3-1", "3-5-2", "4-1-2-1-2", "3-4-3", "4-4-1-1", "5-3-2", "4-3-2-1", "3-4-1-2"];
 const THRESH = { n: [2, 5, 8], l: [3, 5, 8], k: [2, 4, 7] };
 
