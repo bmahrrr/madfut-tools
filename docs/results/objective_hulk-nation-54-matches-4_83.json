@@ -1,17 +1,18 @@
 {
- "g": 4,
+ "g": 5,
  "obj_ids": [
   "id210257",
-  "id50590296",
+  "id266866",
+  "id80170",
   "id255475",
-  "id266866"
+  "id50590296"
  ],
- "strength": 102.3,
+ "strength": 100.8,
  "group_cards": 478,
  "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 27,
+  "formation": "4-1-2-1-2",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
@@ -28,59 +29,36 @@
      50,
      83
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
-     47,
-     50,
-     83
+     48,
+     51,
+     84
     ],
-    "tiebreak": 180
+    "tiebreak": 183
    },
    {
-    "slot": "CB",
-    "id": "id67377753",
-    "name": "Álvaro Carreras",
+    "slot": "LB",
+    "id": "id210514",
+    "name": "João Cancelo",
     "rating": 83,
-    "color": "totw_gold",
+    "color": "rare_gold",
     "position": "LB",
-    "nationId": 45,
+    "nationId": 38,
     "leagueId": 53,
-    "clubId": 243,
+    "clubId": 241,
     "card": [
-     79,
      80,
-     82
+     83,
+     81
     ],
     "chem": 3,
     "eff": [
-     81,
      82,
-     84
+     85,
+     83
     ],
-    "tiebreak": 247
-   },
-   {
-    "slot": "CB",
-    "id": "id50596532",
-    "name": "Dudek",
-    "rating": 83,
-    "color": "totw_gold",
-    "position": "CB",
-    "nationId": 37,
-    "leagueId": 2218,
-    "clubId": 73,
-    "card": [
-     64,
-     68,
-     85
-    ],
-    "chem": 1,
-    "eff": [
-     64,
-     68,
-     85
-    ],
-    "tiebreak": 217
+    "tiebreak": 250
    },
    {
     "slot": "CB",
@@ -106,53 +84,30 @@
     "tiebreak": 247
    },
    {
-    "slot": "LM",
-    "id": "id210514",
-    "name": "João Cancelo",
+    "slot": "CB",
+    "id": "id67377753",
+    "name": "Álvaro Carreras",
     "rating": 83,
-    "color": "rare_gold",
+    "color": "totw_gold",
     "position": "LB",
-    "nationId": 38,
+    "nationId": 45,
     "leagueId": 53,
-    "clubId": 241,
+    "clubId": 243,
     "card": [
+     79,
      80,
-     83,
-     81
+     82
     ],
     "chem": 3,
     "eff": [
+     81,
      82,
-     85,
-     83
+     84
     ],
-    "tiebreak": 250
+    "tiebreak": 247
    },
    {
-    "slot": "CM",
-    "id": "id266866",
-    "name": "Éderson",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 115845,
-    "card": [
-     77,
-     78,
-     80
-    ],
-    "chem": 2,
-    "eff": [
-     78,
-     79,
-     81
-    ],
-    "tiebreak": 238
-   },
-   {
-    "slot": "CM",
+    "slot": "RB",
     "id": "ltm_espart83",
     "name": "Xavi Espart",
     "rating": 83,
@@ -173,6 +128,52 @@
      84
     ],
     "tiebreak": 244
+   },
+   {
+    "slot": "CDM",
+    "id": "id266866",
+    "name": "Éderson",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 115845,
+    "card": [
+     77,
+     78,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     80,
+     82
+    ],
+    "tiebreak": 241
+   },
+   {
+    "slot": "LM",
+    "id": "id80170",
+    "name": "Wesley",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 52,
+    "card": [
+     76,
+     77,
+     79
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     79,
+     81
+    ],
+    "tiebreak": 238
    },
    {
     "slot": "RM",
@@ -221,29 +222,6 @@
     "tiebreak": 225
    },
    {
-    "slot": "CAM",
-    "id": "id210406",
-    "name": "Zieliński",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 37,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     80,
-     81,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     83,
-     70
-    ],
-    "tiebreak": 235
-   },
-   {
     "slot": "ST",
     "id": "id261855",
     "name": "Kika Nazareth",
@@ -258,13 +236,36 @@
      82,
      63
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
+     85,
      84,
-     83,
-     64
+     65
     ],
-    "tiebreak": 231
+    "tiebreak": 234
+   },
+   {
+    "slot": "ST",
+    "id": "id50583500",
+    "name": "Adeyemi",
+    "rating": 83,
+    "color": "otw",
+    "position": "RM",
+    "nationId": 21,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     84,
+     78,
+     45
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     80,
+     47
+    ],
+    "tiebreak": 213
    }
   ]
  },
@@ -302,19 +303,19 @@
   ]
  },
  "base_ids": [
-  "id264865",
-  "id50596532",
-  "id227346",
+  "id214979",
   "id205452",
-  "id197781",
-  "id262457",
-  "id50575428",
+  "id227346",
+  "id50596532",
   "id264309",
+  "id262457",
+  "id197781",
+  "id50575428",
+  "id210514",
   "id50583500",
-  "id267531",
-  "id67352494"
+  "id267531"
  ],
- "built": "2026-11-20 05:23 UTC",
+ "built": "2026-11-20 21:57 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-20 05:23 UTC"
+ "changed": "2026-11-20 21:57 UTC"
 }

@@ -1,40 +1,38 @@
 {
- "g": 4,
+ "g": 2,
  "obj_ids": [
   "id50575428",
-  "id272163",
-  "id192629",
-  "id255475"
+  "id204970"
  ],
- "strength": 101.1,
- "group_cards": 12,
+ "strength": 100.9,
+ "group_cards": 6,
  "reddit": [],
  "team": {
-  "formation": "4-5-1",
-  "chem": 27,
+  "formation": "4-1-2-1-2",
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id210257",
-    "name": "Ederson",
-    "rating": 82,
+    "id": "id240225",
+    "name": "Safonov",
+    "rating": 83,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 54,
-    "leagueId": 68,
-    "clubId": 326,
+    "nationId": 40,
+    "leagueId": 16,
+    "clubId": 73,
     "card": [
-     47,
-     50,
-     83
+     38,
+     38,
+     84
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     47,
-     50,
-     83
+     40,
+     40,
+     86
     ],
-    "tiebreak": 180
+    "tiebreak": 166
    },
    {
     "slot": "LB",
@@ -51,36 +49,13 @@
      83,
      81
     ],
-    "chem": 2,
-    "eff": [
-     81,
-     84,
-     82
-    ],
-    "tiebreak": 247
-   },
-   {
-    "slot": "CB",
-    "id": "id67377753",
-    "name": "Álvaro Carreras",
-    "rating": 83,
-    "color": "totw_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 243,
-    "card": [
-     79,
-     80,
-     82
-    ],
     "chem": 3,
     "eff": [
-     81,
      82,
-     84
+     85,
+     83
     ],
-    "tiebreak": 247
+    "tiebreak": 250
    },
    {
     "slot": "CB",
@@ -106,53 +81,99 @@
     "tiebreak": 235
    },
    {
-    "slot": "RB",
-    "id": "id264725",
-    "name": "Eva Navarro",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 243,
-    "card": [
-     81,
-     78,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     80,
-     83
-    ],
-    "tiebreak": 246
-   },
-   {
-    "slot": "LM",
-    "id": "id50603848",
-    "name": "Cecilia Marcos",
-    "rating": 80,
+    "slot": "CB",
+    "id": "id67377753",
+    "name": "Álvaro Carreras",
+    "rating": 83,
     "color": "totw_gold",
     "position": "LB",
     "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 457,
+    "leagueId": 53,
+    "clubId": 243,
     "card": [
-     82,
-     81,
-     77
+     79,
+     80,
+     82
     ],
     "chem": 3,
     "eff": [
-     84,
-     83,
-     79
+     81,
+     82,
+     84
     ],
-    "tiebreak": 246
+    "tiebreak": 247
    },
    {
-    "slot": "CM",
+    "slot": "RB",
+    "id": "id270673",
+    "name": "Zaïre-Emery",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     78,
+     81,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     81,
+     84,
+     81
+    ],
+    "tiebreak": 243
+   },
+   {
+    "slot": "CDM",
+    "id": "ltm_espart83",
+    "name": "Xavi Espart",
+    "rating": 83,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     75,
+     81,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     83,
+     84
+    ],
+    "tiebreak": 244
+   },
+   {
+    "slot": "LM",
+    "id": "id50401665",
+    "name": "Yassine",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "RW",
+    "nationId": 129,
+    "leagueId": 16,
+    "clubId": 76,
+    "card": [
+     82,
+     83,
+     53
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     84,
+     54
+    ],
+    "tiebreak": 221
+   },
+   {
+    "slot": "RM",
     "id": "id50575428",
     "name": "Lee Kang In",
     "rating": 83,
@@ -176,72 +197,26 @@
    },
    {
     "slot": "CAM",
-    "id": "id265905",
-    "name": "Becho",
-    "rating": 83,
+    "id": "id219683",
+    "name": "Tolisso",
+    "rating": 82,
     "color": "rare_gold",
-    "position": "RW",
+    "position": "CM",
     "nationId": 18,
-    "leagueId": 2218,
+    "leagueId": 16,
     "clubId": 66,
     "card": [
+     78,
+     78,
+     80
+    ],
+    "chem": 3,
+    "eff": [
      81,
-     76,
-     48
+     81,
+     83
     ],
-    "chem": 0,
-    "eff": [
-     79,
-     74,
-     46
-    ],
-    "tiebreak": 196
-   },
-   {
-    "slot": "CAM",
-    "id": "id192629",
-    "name": "Iago Aspas",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 450,
-    "card": [
-     82,
-     80,
-     41
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     82,
-     43
-    ],
-    "tiebreak": 209
-   },
-   {
-    "slot": "RM",
-    "id": "id255475",
-    "name": "Antony",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 53,
-    "clubId": 449,
-    "card": [
-     82,
-     80,
-     50
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     82,
-     52
-    ],
-    "tiebreak": 218
+    "tiebreak": 242
    },
    {
     "slot": "ST",
@@ -258,13 +233,36 @@
      81,
      64
     ],
+    "chem": 1,
+    "eff": [
+     83,
+     81,
+     64
+    ],
+    "tiebreak": 228
+   },
+   {
+    "slot": "ST",
+    "id": "id204970",
+    "name": "Thauvin",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 64,
+    "card": [
+     81,
+     82,
+     49
+    ],
     "chem": 3,
     "eff": [
+     84,
      85,
-     83,
-     66
+     52
     ],
-    "tiebreak": 234
+    "tiebreak": 218
    }
   ]
  },
@@ -301,19 +299,19 @@
   ]
  },
  "base_ids": [
-  "id264865",
-  "id50596532",
-  "id227346",
+  "id214979",
   "id205452",
-  "id197781",
-  "id262457",
-  "id50575428",
+  "id227346",
+  "id50596532",
   "id264309",
+  "id262457",
+  "id197781",
+  "id50575428",
+  "id210514",
   "id50583500",
-  "id267531",
-  "id67352494"
+  "id267531"
  ],
- "built": "2026-11-20 05:23 UTC",
+ "built": "2026-11-20 21:57 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-20 05:23 UTC"
+ "changed": "2026-11-20 21:57 UTC"
 }

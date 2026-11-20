@@ -1,21 +1,15 @@
 {
- "g": 9,
+ "g": 3,
  "obj_ids": [
   "id210385",
-  "id253124",
-  "id242444",
-  "id50573369",
-  "id50572598",
-  "id50561039",
-  "id261855",
   "id210514",
-  "evo_Bruno Costa_81"
+  "id261855"
  ],
- "strength": 101.7,
- "group_cards": 11,
+ "strength": 101.2,
+ "group_cards": 5,
  "reddit": [],
  "team": {
-  "formation": "4-1-2-1-2 (2)",
+  "formation": "4-3-2-1",
   "chem": 29,
   "players": [
    {
@@ -33,13 +27,13 @@
      28,
      82
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     34,
-     30,
-     84
+     33,
+     29,
+     83
     ],
-    "tiebreak": 148
+    "tiebreak": 145
    },
    {
     "slot": "LB",
@@ -66,75 +60,75 @@
    },
    {
     "slot": "CB",
-    "id": "id50590556",
-    "name": "van Hecke",
+    "id": "id247103",
+    "name": "Hancko",
     "rating": 83,
-    "color": "totw_gold",
+    "color": "rare_gold",
     "position": "CB",
-    "nationId": 34,
-    "leagueId": 13,
-    "clubId": 18,
+    "nationId": 43,
+    "leagueId": 53,
+    "clubId": 240,
     "card": [
-     68,
-     76,
-     83
+     73,
+     74,
+     82
     ],
-    "chem": 1,
+    "chem": 2,
     "eff": [
-     68,
-     76,
+     74,
+     75,
      83
     ],
-    "tiebreak": 227
+    "tiebreak": 232
    },
    {
     "slot": "CB",
-    "id": "id67384056",
-    "name": "Vušković",
+    "id": "id67377753",
+    "name": "Álvaro Carreras",
     "rating": 83,
     "color": "totw_gold",
-    "position": "CB",
-    "nationId": 10,
-    "leagueId": 13,
-    "clubId": 1808,
+    "position": "LB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 243,
     "card": [
-     69,
-     67,
-     84
-    ],
-    "chem": 1,
-    "eff": [
-     69,
-     67,
-     84
-    ],
-    "tiebreak": 220
-   },
-   {
-    "slot": "RB",
-    "id": "id253124",
-    "name": "Matheus Nunes",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 38,
-    "leagueId": 13,
-    "clubId": 10,
-    "card": [
-     77,
-     78,
+     79,
+     80,
      82
     ],
     "chem": 3,
     "eff": [
-     79,
-     80,
+     81,
+     82,
      84
     ],
-    "tiebreak": 243
+    "tiebreak": 247
    },
    {
-    "slot": "CDM",
+    "slot": "RB",
+    "id": "id264725",
+    "name": "Eva Navarro",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 2222,
+    "clubId": 243,
+    "card": [
+     81,
+     78,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     80,
+     83
+    ],
+    "tiebreak": 246
+   },
+   {
+    "slot": "CM",
     "id": "evo_Bruno Costa_81",
     "name": "Bruno Costa",
     "rating": 81,
@@ -148,42 +142,111 @@
      83,
      73
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     85,
-     85,
-     75
+     84,
+     84,
+     74
     ],
-    "tiebreak": 245,
+    "tiebreak": 242,
     "evos": [
      "Romanian Superliga Silver"
     ]
    },
    {
     "slot": "CM",
-    "id": "id50561039",
-    "name": "Palhinha",
-    "rating": 82,
+    "id": "id253124",
+    "name": "Matheus Nunes",
+    "rating": 83,
     "color": "rare_gold",
-    "position": "CDM",
+    "position": "RB",
     "nationId": 38,
-    "leagueId": 308,
-    "clubId": 234,
+    "leagueId": 13,
+    "clubId": 10,
     "card": [
-     69,
+     77,
+     78,
+     82
+    ],
+    "chem": 2,
+    "eff": [
+     78,
+     79,
+     83
+    ],
+    "tiebreak": 240
+   },
+   {
+    "slot": "CM",
+    "id": "ltm_espart83",
+    "name": "Xavi Espart",
+    "rating": 83,
+    "color": "ltm",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
      75,
+     81,
      82
     ],
     "chem": 3,
     "eff": [
-     71,
      77,
+     83,
      84
     ],
-    "tiebreak": 232
+    "tiebreak": 244
    },
    {
-    "slot": "CM",
+    "slot": "CAM",
+    "id": "id50598581",
+    "name": "Caruso",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 27,
+    "leagueId": 2222,
+    "clubId": 243,
+    "card": [
+     82,
+     83,
+     70
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     85,
+     72
+    ],
+    "tiebreak": 241
+   },
+   {
+    "slot": "CAM",
+    "id": "id264309",
+    "name": "Güler",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "RM",
+    "nationId": 48,
+    "leagueId": 53,
+    "clubId": 243,
+    "card": [
+     82,
+     84,
+     53
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     86,
+     55
+    ],
+    "tiebreak": 225
+   },
+   {
+    "slot": "ST",
     "id": "id261855",
     "name": "Kika Nazareth",
     "rating": 83,
@@ -204,75 +267,6 @@
      65
     ],
     "tiebreak": 234
-   },
-   {
-    "slot": "CAM",
-    "id": "id50572598",
-    "name": "Pedro Gonçalves",
-    "rating": 83,
-    "color": "otw",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
-    "card": [
-     82,
-     82,
-     63
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     84,
-     65
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "ST",
-    "id": "id50573369",
-    "name": "Rafael Leão",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "LW",
-    "nationId": 38,
-    "leagueId": 68,
-    "clubId": 325,
-    "card": [
-     82,
-     80,
-     37
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     82,
-     39
-    ],
-    "tiebreak": 205
-   },
-   {
-    "slot": "ST",
-    "id": "id242444",
-    "name": "João Félix",
-    "rating": 83,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 350,
-    "clubId": 112139,
-    "card": [
-     82,
-     80,
-     50
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     82,
-     52
-    ],
-    "tiebreak": 218
    }
   ]
  },
@@ -309,19 +303,19 @@
   ]
  },
  "base_ids": [
-  "id264865",
-  "id50596532",
-  "id227346",
+  "id214979",
   "id205452",
-  "id197781",
-  "id262457",
-  "id50575428",
+  "id227346",
+  "id50596532",
   "id264309",
+  "id262457",
+  "id197781",
+  "id50575428",
+  "id210514",
   "id50583500",
-  "id267531",
-  "id67352494"
+  "id267531"
  ],
- "built": "2026-11-20 05:25 UTC",
+ "built": "2026-11-20 21:57 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-20 05:25 UTC"
+ "changed": "2026-11-20 21:57 UTC"
 }
