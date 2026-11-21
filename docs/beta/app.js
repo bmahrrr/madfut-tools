@@ -39,7 +39,7 @@ new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) i
   .observe(document.documentElement, { childList: true, subtree: true });
 document.addEventListener("DOMContentLoaded", () => titleAll(document.body));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
-const TYPE = c => cap({rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",hall_of_fut_upgraded:"HoF Upgraded",showdown_plus:"Showdown Plus",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",ligue1_potm:"Ligue 1 POTM",ligue_1_potm:"Ligue 1 POTM",liga_f_potm:"Liga F POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo",halloween:"Ultimate Scream",halloween_hero:"Ultimate Scream Hero",ucl_rttk:"UCL RTTK",uwcl_rttk:"UWCL RTTK",ecl_rttk:"ECL RTTK",europa_rttk:"UEL RTTK",world_potm:"World POTM",world_potm_nominee:"World POTM Nominee",star_performer:"Star Performer",heritage:"Heritage",showdown:"Showdown"}[c] || String(c).replace(/_/g, " "));
+const TYPE = c => cap({icons:"All Icons",heroes:"All Heroes",rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",hall_of_fut_upgraded:"HoF Upgraded",showdown_plus:"Showdown Plus",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",ligue1_potm:"Ligue 1 POTM",ligue_1_potm:"Ligue 1 POTM",liga_f_potm:"Liga F POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo",halloween:"Ultimate Scream",halloween_hero:"Ultimate Scream Hero",ucl_rttk:"UCL RTTK",uwcl_rttk:"UWCL RTTK",ecl_rttk:"ECL RTTK",europa_rttk:"UEL RTTK",world_potm:"World POTM",world_potm_nominee:"World POTM Nominee",star_performer:"Star Performer",heritage:"Heritage",showdown:"Showdown"}[c] || String(c).replace(/_/g, " "));
 
 let CARDS = [], BYID = new Map(), WEEK = null, INDEX = null;
 const state = { A: [], B: [], T: [], simB: [], simA: null, simAC: [] };
@@ -2686,7 +2686,7 @@ function renderWeekForm() {
       const drawPick = () => {
         const kind = $("wKind").value;
         if (kind === "color") {
-          const types = [...new Set(CARDS.filter(c => !c._extra).map(c => String(c.color).replace("rare_", "")))].sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
+          const types = ["icons", "heroes"].concat([...new Set(CARDS.filter(c => !c._extra).map(c => String(c.color).replace("rare_", "")))].sort((a, b) => TYPE(a).localeCompare(TYPE(b))));   // groups first: "icons" covers every Icon card
           $("wPick").innerHTML = `<select id="wType">${types.map(t => `<option value="${esc(t)}">${esc(TYPE(t))}</option>`).join("")}</select>`;
           picked = () => $("wType").value; return;
         }
