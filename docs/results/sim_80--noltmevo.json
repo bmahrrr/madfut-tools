@@ -1,0 +1,944 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "80",
+  "cap": 80,
+  "boosts": [
+   {
+    "on": "nation",
+    "id": 45,
+    "att": 2,
+    "ctl": 0,
+    "def": 1
+   },
+   {
+    "on": "league",
+    "id": 19,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-1-4-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id212197",
+     "name": "Heuer Fernandes",
+     "rating": 79,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 38,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      33,
+      35,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      38,
+      83
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id244749",
+     "name": "Aguerd",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 219,
+     "card": [
+      63,
+      66,
+      80
+     ],
+     "chem": 2,
+     "eff": [
+      64,
+      67,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id272082",
+     "name": "Villafañe",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      49,
+      58,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      60,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id257090",
+     "name": "Doukouré",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      59,
+      64,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      66,
+      78
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50588597",
+     "name": "Grønbæk",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 13,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      80,
+      81,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50401665",
+     "name": "Yassine",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      82,
+      83,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      55
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id225309",
+     "name": "Amiri",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      80,
+      81,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      64
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id246287",
+     "name": "Ángela Sosa",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      79,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      66
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id67381476",
+     "name": "Gruda",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 112172,
+     "card": [
+      81,
+      81,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      84,
+      43
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50603590",
+     "name": "Ane Azkona",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 448,
+     "card": [
+      82,
+      77,
+      56
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      78,
+      58
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50564059",
+     "name": "Nkunku",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 19,
+     "clubId": 112172,
+     "card": [
+      81,
+      79,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      82,
+      46
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5625,
+    "control": 84.2,
+    "attack": 84.23,
+    "defence": 79.0,
+    "net": 0.293,
+    "vs_reddit": null,
+    "control_cards": [
+     85,
+     84,
+     84,
+     84,
+     84
+    ],
+    "attack_cards": [
+     85,
+     84,
+     84,
+     84,
+     83,
+     83,
+     83
+    ],
+    "defence_cards": [
+     83,
+     81,
+     79,
+     78,
+     74
+    ],
+    "p_att": 0.9692,
+    "p_def": 0.0061,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 228.0,
+    "att_total": 218.9,
+    "def_total": 201.4,
+    "swaps_checked": 95746,
+    "round_robin": {
+     "wins": 15.5,
+     "margin": 3.4792
+    }
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id212197",
+     "name": "Heuer Fernandes",
+     "rating": 79,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 38,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      33,
+      35,
+      80
+     ],
+     "chem": 3,
+     "eff": [
+      36,
+      38,
+      83
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id244749",
+     "name": "Aguerd",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 219,
+     "card": [
+      63,
+      66,
+      80
+     ],
+     "chem": 2,
+     "eff": [
+      64,
+      67,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id272082",
+     "name": "Villafañe",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      49,
+      58,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      60,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id276377",
+     "name": "Høgsberg",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 13,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      55,
+      62,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      64,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50588597",
+     "name": "Grønbæk",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 13,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      80,
+      81,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50401665",
+     "name": "Yassine",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      82,
+      83,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      55
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id246287",
+     "name": "Ángela Sosa",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      79,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      66
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id225309",
+     "name": "Amiri",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      80,
+      81,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      64
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id67381476",
+     "name": "Gruda",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 112172,
+     "card": [
+      81,
+      81,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      84,
+      43
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50412102",
+     "name": "Mohya",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      81,
+      79,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      82,
+      49
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50603590",
+     "name": "Ane Azkona",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 448,
+     "card": [
+      82,
+      77,
+      56
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      78,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5625,
+    "control": 84.2,
+    "attack": 84.23,
+    "defence": 78.4,
+    "net": 0.293,
+    "vs_reddit": null,
+    "control_cards": [
+     85,
+     84,
+     84,
+     84,
+     84
+    ],
+    "attack_cards": [
+     85,
+     84,
+     84,
+     84,
+     83,
+     83,
+     83
+    ],
+    "defence_cards": [
+     83,
+     81,
+     79,
+     75,
+     74
+    ],
+    "p_att": 0.9692,
+    "p_def": 0.0061,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 228.0,
+    "att_total": 219.88,
+    "def_total": 199.6
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 30,
+   "players": [
+    {
+     "id": "id50547170",
+     "name": "Schlager",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "GK",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 38,
+     "card": [
+      34,
+      26,
+      81
+     ],
+     "chem": 2,
+     "eff": [
+      36,
+      28,
+      83
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id272081",
+     "name": "Ana González",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      68,
+      70,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      72,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id244749",
+     "name": "Aguerd",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 219,
+     "card": [
+      63,
+      66,
+      80
+     ],
+     "chem": 2,
+     "eff": [
+      64,
+      67,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id276377",
+     "name": "Høgsberg",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 13,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      55,
+      62,
+      73
+     ],
+     "chem": 3,
+     "eff": [
+      57,
+      64,
+      75
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50588597",
+     "name": "Grønbæk",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 13,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      80,
+      81,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50401665",
+     "name": "Yassine",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      82,
+      83,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      55
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id225309",
+     "name": "Amiri",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 169,
+     "card": [
+      80,
+      81,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      64
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id246287",
+     "name": "Ángela Sosa",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      79,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      66
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id67381476",
+     "name": "Gruda",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 112172,
+     "card": [
+      81,
+      81,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      84,
+      43
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50603590",
+     "name": "Ane Azkona",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 448,
+     "card": [
+      82,
+      77,
+      56
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      78,
+      58
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50412102",
+     "name": "Mohya",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      81,
+      79,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      82,
+      49
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5625,
+    "control": 84.2,
+    "attack": 84.23,
+    "defence": 77.6,
+    "net": 0.293,
+    "vs_reddit": null,
+    "control_cards": [
+     85,
+     84,
+     84,
+     84,
+     84
+    ],
+    "attack_cards": [
+     85,
+     84,
+     84,
+     84,
+     83,
+     83,
+     83
+    ],
+    "defence_cards": [
+     83,
+     81,
+     75,
+     75,
+     74
+    ],
+    "p_att": 0.9692,
+    "p_def": 0.0061,
+    "chem": 30,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 228.0,
+    "att_total": 219.88,
+    "def_total": 203.0
+   }
+  }
+ ],
+ "not_owned": [
+  "Acuña Evo",
+  "Bruno Costa Evo",
+  "Can Evo",
+  "Chandler Evo",
+  "Clauss Evo",
+  "Comuzzo (every level)",
+  "David Luiz Evo",
+  "Digne Evo",
+  "Diomande Evo",
+  "Gerso Evo",
+  "Groß Evo",
+  "Jerdea Evo",
+  "Kanté Evo",
+  "Karetsas (every level)",
+  "Lim Dug Keun Evo",
+  "Lucas Vázquez Evo",
+  "Markovic Evo",
+  "Ngumoha (every level)",
+  "Olschowsky Evo",
+  "Oxlade-Chamberlain Evo",
+  "Rafael Leão Evo",
+  "Rogers Evo",
+  "Sarkaria Evo",
+  "Tiffoney Evo",
+  "Wedemeyer Evo",
+  "Xavi Espart (every level)"
+ ],
+ "variant": {
+  "id": "noltmevo",
+  "label": "No LTMs or Evos",
+  "exclude": [
+   {
+    "color": "ltm"
+   },
+   {
+    "color": "evo"
+   }
+  ],
+  "include": null
+ },
+ "built": "2026-11-21 20:13 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 20:13 UTC"
+}
