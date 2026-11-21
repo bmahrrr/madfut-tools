@@ -1,0 +1,949 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "90",
+  "cap": 90,
+  "boosts": [
+   {
+    "on": "color",
+    "id": "icons",
+    "att": 1,
+    "ctl": 1,
+    "def": 0
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "leagues",
+    "min": 8,
+    "att": 0,
+    "ctl": 0,
+    "def": 2
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id028",
+     "name": "Verbruggen",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "GK",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      49,
+      50,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      52,
+      94
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      66,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id261593",
+     "name": "Kohler",
+     "rating": 89,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      62,
+      63,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      65,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id029",
+     "name": "Grimaldo",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      88,
+      91,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      88
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      92,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id024",
+     "name": "Reijnders",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 350,
+     "clubId": 112391,
+     "card": [
+      86,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      92,
+      91
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id025",
+     "name": "Thauvin",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      89,
+      91,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      93,
+      66
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id191190",
+     "name": "Rivellino",
+     "rating": 90,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      90,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      92,
+      54
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50526413",
+     "name": "Griezmann",
+     "rating": 85,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      85,
+      86,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      68
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50594179",
+     "name": "Claudia Pina",
+     "rating": 89,
+     "color": "liga_f_potm",
+     "position": "LW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      88,
+      85,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      87,
+      54
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.544,
+    "control": 92.4,
+    "attack": 89.22,
+    "defence": 94.0,
+    "net": 0.02,
+    "vs_reddit": null,
+    "control_cards": [
+     93,
+     93,
+     92,
+     92,
+     92
+    ],
+    "attack_cards": [
+     91,
+     91,
+     90,
+     90,
+     88,
+     87,
+     87
+    ],
+    "defence_cards": [
+     94,
+     94,
+     94,
+     94
+    ],
+    "p_att": 0.0351,
+    "p_def": 1.0,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": true,
+    "weak_attackers": [
+     "Griezmann"
+    ],
+    "attack_short": 0.617,
+    "ctrl_total": 255.8,
+    "att_total": 243.27,
+    "def_total": 217.0,
+    "swaps_checked": 50193,
+    "round_robin": {
+     "wins": 0.5,
+     "margin": 0.1773
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id028",
+     "name": "Verbruggen",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "GK",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      49,
+      50,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      52,
+      94
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      66,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id261593",
+     "name": "Kohler",
+     "rating": 89,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      62,
+      63,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      65,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id029",
+     "name": "Grimaldo",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      88,
+      91,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      88
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      92,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id024",
+     "name": "Reijnders",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 350,
+     "clubId": 112391,
+     "card": [
+      86,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      92,
+      91
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id025",
+     "name": "Thauvin",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      89,
+      91,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      93,
+      66
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id191190",
+     "name": "Rivellino",
+     "rating": 90,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      90,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      92,
+      54
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50526413",
+     "name": "Griezmann",
+     "rating": 85,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      85,
+      86,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      68
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50603094",
+     "name": "Vicky López",
+     "rating": 90,
+     "color": "future_stars",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      87,
+      88,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      90,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.544,
+    "control": 92.4,
+    "attack": 88.92,
+    "defence": 94.0,
+    "net": 0.013,
+    "vs_reddit": null,
+    "control_cards": [
+     93,
+     93,
+     92,
+     92,
+     92
+    ],
+    "attack_cards": [
+     91,
+     91,
+     90,
+     89,
+     88,
+     87,
+     87
+    ],
+    "defence_cards": [
+     94,
+     94,
+     94,
+     94
+    ],
+    "p_att": 0.0227,
+    "p_def": 1.0,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": true,
+    "weak_attackers": [
+     "Griezmann"
+    ],
+    "attack_short": 0.617,
+    "ctrl_total": 255.8,
+    "att_total": 245.12,
+    "def_total": 217.0
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id028",
+     "name": "Verbruggen",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "GK",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      49,
+      50,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      52,
+      94
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id1183",
+     "name": "Cannavaro",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      62,
+      64,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      66,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id261593",
+     "name": "Kohler",
+     "rating": 89,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 114605,
+     "card": [
+      62,
+      63,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      64,
+      65,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id029",
+     "name": "Grimaldo",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      88,
+      91,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      88
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      92,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id024",
+     "name": "Reijnders",
+     "rating": 89,
+     "color": "world_potm_nominee",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 350,
+     "clubId": 112391,
+     "card": [
+      86,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      92,
+      91
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id025",
+     "name": "Thauvin",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      89,
+      91,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      93,
+      66
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id191190",
+     "name": "Rivellino",
+     "rating": 90,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      90,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      92,
+      54
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50526413",
+     "name": "Griezmann",
+     "rating": 85,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 39,
+     "clubId": 112606,
+     "card": [
+      85,
+      86,
+      64
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      68
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50594179",
+     "name": "Claudia Pina",
+     "rating": 89,
+     "color": "liga_f_potm",
+     "position": "LW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      88,
+      85,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      87,
+      54
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.544,
+    "control": 92.4,
+    "attack": 89.22,
+    "defence": 94.0,
+    "net": 0.02,
+    "vs_reddit": null,
+    "control_cards": [
+     93,
+     93,
+     92,
+     92,
+     92
+    ],
+    "attack_cards": [
+     91,
+     91,
+     90,
+     90,
+     88,
+     87,
+     87
+    ],
+    "defence_cards": [
+     94,
+     94,
+     94,
+     94
+    ],
+    "p_att": 0.0351,
+    "p_def": 1.0,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": true,
+    "weak_attackers": [
+     "Griezmann"
+    ],
+    "attack_short": 0.617,
+    "ctrl_total": 255.8,
+    "att_total": 243.27,
+    "def_total": 217.0
+   }
+  }
+ ],
+ "not_owned": [
+  "Acuña Evo",
+  "Bruno Costa Evo",
+  "Can Evo",
+  "Chandler Evo",
+  "Clauss Evo",
+  "Comuzzo (every level)",
+  "David Luiz Evo",
+  "Digne Evo",
+  "Diomande Evo",
+  "Gerso Evo",
+  "Groß Evo",
+  "Jerdea Evo",
+  "Kanté Evo",
+  "Karetsas (every level)",
+  "Lim Dug Keun Evo",
+  "Lucas Vázquez Evo",
+  "Markovic Evo",
+  "Ngumoha (every level)",
+  "Olschowsky Evo",
+  "Oxlade-Chamberlain Evo",
+  "Rafael Leão Evo",
+  "Rogers Evo",
+  "Sarkaria Evo",
+  "Tiffoney Evo",
+  "Wedemeyer Evo",
+  "Xavi Espart (every level)"
+ ],
+ "variant": {
+  "id": "noltmevo",
+  "label": "No LTMs or Evos",
+  "exclude": [
+   {
+    "color": "ltm"
+   },
+   {
+    "color": "evo"
+   }
+  ],
+  "include": null
+ },
+ "built": "2026-11-21 20:06 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 20:06 UTC"
+}
