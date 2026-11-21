@@ -4,8 +4,8 @@
 // (normal special packs give far more 83- specials than 84+).
 "use strict";
 
-const SBC_AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"]);
-const SBC_ICON = new Set(["icon", "debut_icon"]);
+const SBC_AUTO = new Set(["icon", "debut_icon", "thunderstruck_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"]);
+const SBC_ICON = new Set(["icon", "debut_icon", "thunderstruck_icon"]);
 const SBC_HERO = new Set(["hero", "hall_of_fut"]);
 // Card types the game doesn't allow in SBCs.
 const NO_SBC = new Set(["evo", "elite_evo", "sbc_premium", "ltm", "world_potm", "epl_potm", "laliga_potm", "seriea_potm", "bundesliga_potm", "ligue1_potm", "ligue_1_potm", "liga_f_potm"]);
@@ -416,7 +416,7 @@ function hybridSBC(req, pool, slots, ms = 2500) {
   }
   // units built around a card a rule asks for (e.g. a TOTW, or a player from a named club): that card plus the cheapest
   // partner(s) from its club and nation
-  const need = rules.filter(r => r.op !== "<=" && r.n > 0 && !(r.on === "color" && ["icon", "debut_icon"].includes(String(r.id))));
+  const need = rules.filter(r => r.op !== "<=" && r.n > 0 && !(r.on === "color" && ["icon", "debut_icon", "thunderstruck_icon"].includes(String(r.id))));
   const unitOf = (L, k) => { const seen = new Set(), U = []; for (const c of L) { const pk = playerKey(c); if (seen.has(pk)) continue; seen.add(pk); U.push(c); if (U.length === k) break; } return U.length === k ? { cards: U, cost: U.reduce((a, c) => a + cost(c), 0) } : null; };
   for (const r of need) {
     const M = pool.filter(c => !SBC_AUTO.has(c.color) && ruleMatch(c, r)).sort((a, b) => cost(a) - cost(b)).slice(0, 25);

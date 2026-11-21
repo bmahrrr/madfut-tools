@@ -1,7 +1,7 @@
 // Shared game logic for the website: chemistry, boosts, effective stats and the exact My Club solver.
 "use strict";
-const AUTO = new Set(["icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"]);
-const ICON = new Set(["icon", "debut_icon"]);
+const AUTO = new Set(["icon", "debut_icon", "thunderstruck_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"]);
+const ICON = new Set(["icon", "debut_icon", "thunderstruck_icon"]);
 const CHEM_BONUS = { 0: -3, 1: 0, 2: 1, 3: 2 };
 const CTRL = new Set(["LM", "LW", "RM", "RW", "CAM", "CM", "CDM", "LB", "RB"]);
 const ATT = new Set(["ST", "CAM", "LW", "LM", "RW", "RM", "CF"]);   // Sim attackers (full-backs never attack)
