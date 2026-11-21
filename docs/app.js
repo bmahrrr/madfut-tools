@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261120b";
+const APP_V = "20261121e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -134,7 +134,7 @@ function welcome(force) {
   o.innerHTML = `<div class="wbox"><button class="wx" aria-label="Close">✕</button><h3>Welcome to the ToolKit</h3><p class="ws">Everything you need for Fatal and SBCs, updated every day.</p>
     ${tile("teams", "T", "Best Teams", `This week's strongest Fatal My Club and Sim teams for every series. Tap "Don't have" on a card for your own version.`)}
     ${tile("sbc", "SBC", "SBC Solver", "Paste the requirements and get the cheapest squad.")}
-    ${PREVIEW ? tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.") : ""}
+    ${tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.")}
     <button class="wgo">Show Me the Teams</button></div>`;
   document.body.appendChild(o);
   const close = t => { try { localStorage.setItem("welcomeSeen", "1"); } catch (e) {} o.remove(); if (t) document.querySelector(`#tabs button[data-t="${t}"]`).click(); };
@@ -157,7 +157,6 @@ async function init() {
   try { INDEX = await getJSON("results/index.json"); if (INDEX.all && EVOS) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip(); welcome();
-  if (!PREVIEW) document.querySelectorAll('#tabs [data-t="games"], #moreSheet [data-mt="games"]').forEach(b => b.remove());   // Puzzles: preview only for now
 }
 
 // ---------- shared card UI ----------
@@ -769,6 +768,13 @@ const mcFunnel = () => funnel("How My Club teams are built", MC_STEPS);
 const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
+  { day: "2026-11-21", items: [
+    "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points, a top score to chase on every puzzle and a leaderboard for each one.",
+    "<b>Achievements:</b> 29 to unlock in Puzzles, from your first solve to #1 overall.",
+    "<b>Medals:</b> Bronze, Silver, Gold and Perfect for how close you get to each puzzle's top score, plus your Top % among everyone who played it.",
+    "<b>Card picker:</b> filters like the game, a chem preview on every card, and Undo.",
+    "<b>Flags:</b> country flags now show on Windows too."
+  ] },
   { day: "2026-11-17", items: [
     { p: 1, t: "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert." },
     "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos.",
@@ -1374,7 +1380,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261120b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261121e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1400,7 +1406,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261120b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261121e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2216,7 +2222,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261120b");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261121e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2228,10 +2234,21 @@ function sbcSolve(req, timeLimit, onProgress, onPartial) {
     sbcWorker.postMessage({ id, req, timeLimit });
   });
 }
+// a Puzzles squad: 2 or more locked cards of one puzzle asked for (by Include or a player rule). The solver won't do those
+async function pzGuard(req) {
+  const keys = new Set(req.include.map(id => BYID.get(id)).filter(Boolean).map(playerKey));
+  for (const r of req.rules) if (r.on === "player" && r.op !== "<=" && r.n > 0) keys.add(r.id);
+  if (keys.size < 2) return false;
+  let P = PZ.data;
+  if (!P) try { P = await getJSON(PZ_DATA + "puzzles.json"); } catch (e) { return false; }
+  return P.sets.some(s => s.puzzles.some(p => p.locked.filter(l => { const c = BYID.get(l.id); return c && keys.has(playerKey(c)); }).length >= 2));
+}
+
 async function runSBC(timeLimit, reqOverride) {
   if (SB.busy) return;
   const req = reqOverride || readReq();
   if (!req.formation) return;
+  if (await pzGuard(req)) { const o = $("sbcOut"); o.hidden = false; o.innerHTML = `<p class="bad">That's a Puzzles squad, solve it yourself 😉</p>`; return; }
   SB.busy = true; $("sbcGo").disabled = true;
   const out = $("sbcOut"); out.hidden = false;
   const t0 = Date.now(); let msg = "Loading solver…", hasPartial = false;
@@ -2791,10 +2808,15 @@ init();
 // ---------- Puzzles: finish the squad around the locked cards ----------
 // puzzles.json: sets at 4 difficulties. Scored by puzzle-core.js (the leaderboard server runs the same code, so a
 // score there is always a real answer). Your bests are kept on this phone too, so it works without the server.
-const PZ_API = "https://madfut-puzzles.bmahrrr1.workers.dev";     // the leaderboard server, once it's set up (e.g. https://madfut-puzzles.<name>.workers.dev)
+// the test copy (/test/) has its own puzzles to try out, and keeps scores on the device (the leaderboard server scores the live puzzles)
+const PZ_DATA = APPDIR === "test/" ? "test/" : "";
+const PZ_SERVER = "https://madfut-puzzles.bmahrrr1.workers.dev";
+const PZ_API = PZ_DATA ? "" : PZ_SERVER;
+const PZ_LB = PZ_SERVER;      // leaderboards and top scores are read on the test copy too
 const PZ = { data: null, forms: null, view: "home", set: null, pz: null, team: [], me: null, lbSet: "all", lbPz: "", lbFrom: "home" };
-const pzLS = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
-const pzLSset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const pzKey = k => (PZ_DATA && k !== "pzAcct" ? "test_" : "") + k;   // the test copy keeps its own bests and squads
+const pzLS = (k, d) => { try { return JSON.parse(localStorage.getItem(pzKey(k))) || d; } catch (e) { return d; } };
+const pzLSset = (k, v) => { try { localStorage.setItem(pzKey(k), JSON.stringify(v)); } catch (e) {} };
 const pzBest = () => pzLS("pzBest", {});
 // your leaderboard account: a unique name + PIN, so scores follow you to any device. Saved here once signed in
 const pzAcct = () => pzLS("pzAcct", null);
@@ -2811,12 +2833,16 @@ async function pzSync(m) {
   const b = pzBest(), T = pzLS("pzTeam", {}); let ch = false;
   for (const [k, v] of Object.entries(m.best || {})) if (!(b[k] >= v)) { b[k] = v; if (m.teams && m.teams[k]) T[k] = m.teams[k]; ch = true; }
   if (ch) { pzLSset("pzBest", b); pzLSset("pzTeam", T); }
+  pzAchMerge(m);
   for (const [k, v] of Object.entries(b)) if (!((m.best || {})[k] >= v) && T[k]) {
     const pz = PZ.data.sets.flatMap(s => s.puzzles).find(p => p.id === k); if (!pz) continue;
     const team = pzSlots(pz).map((x, i) => BYID.get(T[k][i]) || null), sc = pzScore(pz, pzSlots(pz), team);
     if (sc.ok && sc.pts >= v) await pzApi("/submit", { puzzle: k, team: team.map(c => c.id) }).catch(() => {});
   }
 }
+// achievements kept on the account (earned by sending squads): keep the earliest date
+function pzAchMerge(m) { if (!m || !m.ach) return; const A = pzLS("pzAch", {}); let ch = false;
+  for (const [k, at] of Object.entries(m.ach)) { const d = String(at).slice(0, 10); if (!A[k] || A[k] > d) { A[k] = d; ch = true; } } if (ch) pzLSset("pzAch", A); }
 // sign in / pick a name: one small form, two modes
 function pzAccount(then, mode = "new") {
   const ov = document.createElement("div"); ov.id = "pzInfo";
@@ -2827,7 +2853,7 @@ function pzAccount(then, mode = "new") {
     ${err ? `<p class="small" style="color:var(--loss);margin:8px 0 0">${esc(err)}</p>` : ""}
     <div class="piact"><button class="ghost" id="paX">Cancel</button><button class="btn" id="paGo">${mode === "new" ? "Create" : "Sign in"}</button></div></div>`;
     ov.querySelectorAll("[data-am]").forEach(b => b.onclick = () => { ov.dataset.n = $("paN").value; mode = b.dataset.am; draw(); });
-    $("paX").onclick = () => ov.remove();
+    $("paX").onclick = () => close();
     $("paGo").onclick = async () => {
       const name = $("paN").value.trim(), pin = $("paP").value.trim(); ov.dataset.n = name;
       if (name.length < 2) return draw("Pick a name of 2 to 16 letters or numbers");
@@ -2837,20 +2863,41 @@ function pzAccount(then, mode = "new") {
       if (r.error) return draw(r.error);
       pzLSset("pzAcct", { pid: r.pid, name: r.name, token: r.token });
       const m = await pzApi("/me").catch(() => null); if (m && !m.error) await pzSync(m);
-      PZ.me = null; ov.remove(); if (then) then(); else pzDraw();
+      PZ.me = null; close(); if (then) then(); else pzDraw();
     };
   };
-  ov.onclick = e => { if (e.target === ov) ov.remove(); };
-  document.body.appendChild(ov); draw();
+  const close = () => { if (!ov.isConnected) return; ov.remove(); pzPopDone(); };
+  ov.onclick = e => { if (e.target === ov) close(); };
+  document.body.appendChild(ov); draw(); pzPopup(close);
 }
 async function pzLoad() {
-  if (!PZ.data) [PZ.data, PZ.forms, PZ.max] = await Promise.all([getJSON("puzzles.json"), getJSON("formations.json"), getJSON("puzzles_max.json").then(m => m.puzzles || {}).catch(() => ({}))]);
+  if (!PZ.data) [PZ.data, PZ.forms, PZ.max] = await Promise.all([getJSON(PZ_DATA + "puzzles.json"), getJSON("formations.json"), Promise.all(["", PZ_DATA].filter((x, k) => !k || x).map(d => getJSON(d + "puzzles_max.json").then(m => m.puzzles || {}).catch(() => ({})))).then(L => Object.assign({}, ...L))]);   // the test copy's own top scores on top of the live ones
   // the top score anyone has (a squad that beats the worked-out top score becomes the new top score)
-  if (PZ_API && !PZ.recAt) { PZ.recAt = 1; fetch(PZ_API + "/records").then(r => r.json()).then(r => { PZ.rec = r.records || {}; if (PZ.view !== "play") pzDraw(); }).catch(() => {}); }
+  if (CARDS.length) pzClean();
+  if (PZ_LB && !PZ.recAt) { PZ.recAt = 1; fetch(PZ_LB + "/records").then(r => r.json()).then(r => { PZ.rec = r.records || {}; if (PZ.view !== "play") pzDraw(); }).catch(() => {}); }
+}
+// a saved best only stands while its saved squad still scores it (a puzzle that was remade drops its old best)
+function pzClean() {
+  if (PZ.cleaned || !PZ.data) return; PZ.cleaned = true;
+  const b = pzBest(), T = pzLS("pzTeam", {}), all = new Map(PZ.data.sets.flatMap(s => s.puzzles).map(p => [p.id, p])); let ch = false;
+  for (const [id, pts] of Object.entries(b)) {
+    const pz = all.get(id), team = pz && (T[id] || []).map(x => BYID.get(x) || null), sc = team && team.length ? pzScore(pz, pzSlots(pz), team) : null;
+    if (!pz || (sc && (!sc.ok || sc.pts < pts))) { delete b[id]; if (pz && sc && !sc.ok) delete T[id]; ch = true; }
+  }
+  if (ch) { pzLSset("pzBest", b); pzLSset("pzTeam", T); }
 }
 // the gold "Perfect" score: the top possible score of a puzzle (0 = not known yet)
 const pzTop = id => Math.max((PZ.max && PZ.max[id] && PZ.max[id].max) || 0, (PZ.rec && PZ.rec[id]) || 0);
 const pzPerfect = (id, pts) => { const t = pzTop(id); return !!t && pts >= t; };
+// how close a score is to Perfect, without giving the number away (it shows once you reach it)
+const pzPct = (id, pts) => { const t = pzTop(id); return t && pts ? Math.min(99, Math.floor(pts / t * 100)) : 0; };
+const pzBar = (id, pts) => { const p = pzPct(id, pts); return p ? `<span class="pzpct"><i style="width:${p}%"></i></span><span class="small">${p}% of Perfect</span>` : ""; };
+// score colours: how close a score is to the puzzle's top score. Perfect is the top score itself
+const pzBand = (id, pts) => pzBandOf(pzTop(id), pts);     // PZ_BANDS / pzBandOf: puzzle-core.js (shared with the server)
+const pzBandName = k => (PZ_BANDS.find(b => b[0] === k) || [, , ""])[2];
+const pzBands = L => { const b = pzBest(), n = {}; L.forEach(p => { const k = pzBand(p.id, b[p.id] || 0); if (k) n[k] = (n[k] || 0) + 1; }); return n; };
+const pzMedals = L => { const n = pzBands(L); return PZ_BANDS.filter(([k]) => n[k]).map(([k, , nm]) => `<span class="pzmed b-${k}" title="${nm}"><i></i>${n[k]}</span>`).join(""); };
+const pzMedalDots = m => { const h = PZ_BANDS.filter(([k]) => m[k]).map(([k, , nm]) => `<span class="lbmed b-${k}" title="${nm}"><i></i>${m[k]}</span>`).join(""); return h ? `<span class="lbmeds">${h}</span>` : ""; };
 const pzPerfects = L => { const b = pzBest(); return L.filter(p => pzPerfect(p.id, b[p.id] || 0)).length; };
 function pzMe() {
   if (!PZ_API || !pzAcct() || PZ.me || PZ.meBusy) return; PZ.meBusy = true;
@@ -2863,6 +2910,43 @@ const pzTeamOf = pz => { const saved = pzLS("pzTeam", {})[pz.id] || [], t = pzSl
 const pzSave = () => { const all = pzLS("pzTeam", {}); all[PZ.pz.id] = PZ.team.map(c => c ? c.id : null); pzLSset("pzTeam", all); };
 const setPts = set => { const b = pzBest(); return set.puzzles.reduce((a, p) => a + (b[p.id] || 0), 0); };
 const setSolved = set => { const b = pzBest(); return set.puzzles.filter(p => b[p.id]).length; };
+// Gold progress per set: how many puzzles are at Gold or better, and a badge once the whole set is
+const pzGoldN = L => { const b = pzBest(); return L.filter(p => ["gold", "perfect"].includes(pzBand(p.id, b[p.id] || 0))).length; };
+const pzSetBadge = s => { const L = s.puzzles; return pzPerfects(L) === L.length ? "perfect" : pzGoldN(L) === L.length ? "gold" : ""; };
+const pzGoldBar = s => { const L = s.puzzles.length, p = pzPerfects(s.puzzles), g = pzGoldN(s.puzzles), k = pzSetBadge(s);
+  if (k === "perfect") return `<span class="pzgold full"><em class="pzb-perfect">★ Perfect set</em></span>`;
+  return `<span class="pzgold"><span class="pzgbar"><span class="g" style="width:${Math.round(100 * g / L)}%"></span><span class="p" style="width:${Math.round(100 * p / L)}%"></span></span><small>${p}/${L} Perfect${k === "gold" ? ` · <em class="pzb-gold">Gold set</em>` : g > p ? ` · ${g} Gold+` : ""}</small></span>`; };
+// ---------- achievements: PZ_ACH, pzAchFrom and pzAchEvent are in puzzle-core.js (shared with the server) ----------
+const pzDay = () => new Date().toISOString().slice(0, 10);
+function pzAchAdd(keys) { const A = pzLS("pzAch", {}), add = []; for (const k of keys) if (k && !A[k]) { A[k] = pzDay(); add.push(k); } if (add.length) pzLSset("pzAch", A); return add; }
+const pzAchSync = () => PZ.data ? pzAchAdd([...pzAchFrom(pzBest(), pzTop, PZ.data.sets)]) : [];
+const pzT10N = () => Math.max(Object.keys(pzLS("pzT10", {})).length, (PZ.me && PZ.me.t10) || 0);
+const pzSubsN = () => Math.max(pzLS("pzSubs", 0), (PZ.me && PZ.me.submits) || 0);
+// [have, need] for the achievements that count up
+function pzAchProg(k) {
+  const all = PZ.data.sets.flatMap(s => s.puzzles), b = pzBest(), solved = all.filter(p => b[p.id]).length, perfs = pzPerfects(all);
+  for (const [n, key] of PZ_ACH_N.solve) if (key === k) return [solved, n];
+  for (const [n, key] of PZ_ACH_N.perf) if (key === k) return [perfs, n];
+  return { solveall: [solved, all.length], perfall: [perfs, all.length], grinder: [pzSubsN(), 100], elite: [pzT10N(), 10] }[k] || null;
+}
+const pzAchName = k => (PZ_ACH.find(a => a[0] === k) || [, k])[1];
+function pzAchShow(keys) {
+  if (!keys.length) return; PZ.achNew = (PZ.achNew || []).concat(keys.filter(k => !(PZ.achNew || []).includes(k)));
+  const el = $("pzAchNew"); if (!el) return;
+  el.innerHTML = `<span class="pzachnew"><i>★</i>Achievement${PZ.achNew.length > 1 ? "s" : ""} unlocked: ${PZ.achNew.map(k => `<b>${esc(pzAchName(k))}</b>`).join(", ")} · <a href="#" data-pzach="1">See all</a></span>`; pzWire();
+}
+const PZ_LOCK = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z"/></svg>`;
+const pzAchDate = d => { const t = new Date(d); return isNaN(t) ? "" : t.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }); };
+function pzAchView() {
+  pzAchSync();
+  const A = pzLS("pzAch", {}), n = PZ_ACH.filter(([k]) => A[k]).length, groups = [...new Set(PZ_ACH.map(a => a[3]))];
+  $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="home">‹ Back</button><b>Achievements</b><span></span></div>
+    <div class="pzachtop"><b>${n}<small>/${PZ_ACH.length}</small></b><span class="pzgbar"><span class="p" style="width:${Math.round(100 * n / PZ_ACH.length)}%"></span></span><small>unlocked</small></div>
+    ${!PZ_API ? "" : pzName() ? "" : `<p class="small muted"><a href="#" id="pzNew">Pick a name</a> to unlock the leaderboard ones and keep your achievements on every device.</p>`}
+    ${groups.map(g => `<h3 class="pzachg">${esc(g)}</h3><div class="pzachs">${PZ_ACH.filter(a => a[3] === g).map(([k, name, what]) => { const on = !!A[k], pr = !on && pzAchProg(k);
+      return `<div class="pzach${on ? " on" : ""}"><i>${on ? "★" : PZ_LOCK}</i><span><b>${esc(name)}</b><small>${esc(what)}</small>${on ? `<em>Unlocked ${esc(pzAchDate(A[k]))}</em>` : pr ? `<span class="pzachp"><span class="pzgbar"><span class="p" style="width:${Math.min(100, Math.round(100 * pr[0] / pr[1]))}%"></span></span><em>${fmtN(Math.min(pr[0], pr[1]))}/${fmtN(pr[1])}</em></span>` : ""}</span></div>`; }).join("")}</div>`).join("")}`;
+  pzWire();
+}
 const fmtN = n => Number(n || 0).toLocaleString();
 const bonusName = b => b.on === "league" ? lShort(b.id) : b.on === "club" ? cShort(b.id) : b.on === "nation" ? `${flagOf(b.id)} ${nName(b.id)}` : b.label;
 const bonusText = pz => `+${pz.bonus.each} each ${esc(bonusName(pz.bonus))} card`;
@@ -2924,36 +3008,75 @@ function pzInfo(i) {
     ${SBC_ICON.has(c.color) ? row("", "League", "Every league", 0, NEXT.l, "adds 1 to every league in the squad") : row("", "League", lShort(c.leagueId), nL, NEXT.l, "")}
     ${auto ? row("", "Club", SBC_ICON.has(c.color) ? "Icon" : "Hero", 0, NEXT.c, "no club") : row("", "Club", cShort(c.clubId), nC, NEXT.c, "")}
     ${pzBonusHit(c, pz.bonus) && !lk ? `<p class="pibon">★ Counts for the bonus: +${pz.bonus.each}</p>` : ""}
-    <div class="piact">${lk ? "" : `<button class="ghost" id="piRm">Remove</button><button class="btn" id="piSw">Swap</button>`}<button class="ghost" id="piX">Close</button></div></div>`;
+    <div class="piact">${lk ? "" : `<button class="ghost" id="piRm">Remove</button><button class="ghost" id="piMv">Move</button><button class="btn" id="piSw">Swap</button>`}<button class="ghost" id="piX">Close</button></div></div>`;
   document.body.appendChild(ov);
-  const close = () => ov.remove();
+  const close = () => { if (!ov.isConnected) return; ov.remove(); pzPopDone(); }; pzPopup(close);
   ov.onclick = e => { if (e.target === ov) close(); };
   $("piX").onclick = close;
-  if (!lk) { $("piRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { close(); pzPick(i); }; }
+  if (!lk) { $("piMv").onclick = () => { close(); PZ.moving = i; pzPlay(); };
+    $("piRm").onclick = () => { pzRemember(); PZ.team[i] = null; pzSave(); close(); pzPlay(); }; $("piSw").onclick = () => { PZ.popKeep = true; close(); pzPick(i); }; }
 }
 const NEXT = { n: [2, 5, 8], l: [3, 5, 8], c: [2, 4, 7] };
 function pzDraw() {
   const box = $("gameBox"); if (!box) return;
   if (!PZ.data) { box.innerHTML = `<p class="muted">Loading puzzles…</p>`; pzLoad().then(pzDraw).catch(e => box.innerHTML = `<p class="muted">Couldn't load the puzzles: ${esc(e.message)}</p>`); return; }
-  pzMe(); ({ home: pzHome, set: pzSetView, play: pzPlay, lb: pzBoard })[PZ.view]();
+  pzMe(); ({ home: pzHome, set: pzSetView, play: pzPlay, lb: pzBoard, ach: pzAchView })[PZ.view]();
 }
 function pzHome() {
   const tiers = Object.keys(PZ_TIERS), all = PZ.data.sets, total = all.reduce((a, s) => a + setPts(s), 0), r = PZ.me && PZ.me.ranks && PZ.me.ranks.all;
   $("gameBox").innerHTML = `<div class="pzintro"><h2 class="pzlogo">Puzzles</h2><p class="small muted">Finish each squad around the locked cards and reach the chem target. Bonus points for cards from the puzzle's league, nation or club, for using no Icons or Heroes, and for a cheap squad (rated under 85). The bonus never links with the locked cards, so chasing it costs chem. Open any set.</p>
-    <div class="pzme"><div><span>Your points</span><b>${fmtN(total)}</b></div><div><span>Perfect</span><b class="${pzPerfects(all.flatMap(s => s.puzzles)) ? "pzgold" : ""}">${pzPerfects(all.flatMap(s => s.puzzles))}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><button class="ghost" data-pzlb="all">Leaderboard</button></div>
-    <p class="small muted" style="margin:8px 0 0">${!PZ_API ? "The shared leaderboard is coming soon. Your points are saved on this device." : pzName() ? `Playing as <b>${esc(pzName())}</b> · <a href="#" id="pzRename">change name</a> · <a href="#" id="pzOut">sign out</a>` : `<a href="#" id="pzNew">Pick a name</a> to join the leaderboard, or <a href="#" id="pzIn">sign in</a> to bring your scores from another device.`}</p></div>
+    <div class="pzme"><div><span>Your points</span><b>${fmtN(total)}</b></div><div><span>Perfect</span><b class="${pzPerfects(all.flatMap(s => s.puzzles)) ? "pzb-perfect" : ""}">${pzPerfects(all.flatMap(s => s.puzzles))}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><button class="ghost" data-pzlb="all">Leaderboard</button></div>
+    <p class="small muted" style="margin:8px 0 0">${!PZ_API ? "The shared leaderboard is coming soon. Your points are saved on this device." : pzName() ? `Playing as <b>${esc(pzName())}</b> · <a href="#" id="pzRename">change name</a> · <a href="#" id="pzOut">sign out</a>` : `<a href="#" id="pzNew">Pick a name</a> to join the leaderboard, or <a href="#" id="pzIn">sign in</a> to bring your scores from another device.`}</p>
+    ${(() => { pzAchSync(); const A = pzLS("pzAch", {}), n = PZ_ACH.filter(([k]) => A[k]).length; return `<button class="pzachbtn" data-pzach="1"><i>★</i><span>Achievements</span><span class="pzgbar"><span class="p" style="width:${Math.round(100 * n / PZ_ACH.length)}%"></span></span><b>${n}/${PZ_ACH.length}</b><em>›</em></button>`; })()}</div>
     ${tiers.map(t => { const sets = all.filter(s => s.tier === t); return sets.length ? `<h3 class="pztier t-${t}">${esc(PZ_TIERS[t].name)}<small>${esc(PZ_TIERS[t].note)}</small></h3>
       <div class="pzsets">${sets.map(s => { const pc = Math.round(100 * setSolved(s) / s.puzzles.length);
-        return `<button class="pzset t-${s.tier}" data-pzset="${esc(s.id)}"><span class="ring" style="--p:${pc}"><em>${setSolved(s)}<small>/${s.puzzles.length}</small></em></span><span class="tx"><b>${esc(s.name)}</b><small>${esc(PZ_TIERS[s.tier].name)} · ${s.puzzles[0].target}–${s.puzzles[s.puzzles.length - 1].target} chem</small><span class="pts">${fmtN(setPts(s))} pts</span></span></button>`; }).join("")}</div>` : ""; }).join("")}`;
+        return `<button class="pzset t-${s.tier}" data-pzset="${esc(s.id)}"><span class="ring" style="--p:${pc}"><em>${setSolved(s)}<small>/${s.puzzles.length}</small></em></span><span class="tx"><b>${esc(s.name)}</b><small>${esc(PZ_TIERS[s.tier].name)} · ${s.puzzles[0].target}–${s.puzzles[s.puzzles.length - 1].target} chem</small><span class="pts">${fmtN(setPts(s))} pts</span>${pzGoldBar(s)}</span></button>`; }).join("")}</div>` : ""; }).join("")}`;
   pzWire();
 }
 function pzSetView() {
   const s = PZ.set, b = pzBest(), r = PZ.me && PZ.me.ranks && PZ.me.ranks[s.id];
   $("gameBox").innerHTML = `<div class="pzbar t-${s.tier}"><button class="ghost" data-pzgo="home">‹ Sets</button><b>${esc(s.name)}<small>${esc(PZ_TIERS[s.tier].name)}</small></b><button class="ghost" data-pzlb="${esc(s.id)}">Leaderboard</button></div>
-    <div class="pzme"><div><span>Points</span><b>${fmtN(setPts(s))}</b></div><div><span>Solved</span><b>${setSolved(s)}/${s.puzzles.length}</b></div><div><span>Perfect</span><b class="${pzPerfects(s.puzzles) ? "pzgold" : ""}">${pzPerfects(s.puzzles)}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div></div>
-    <div class="pzgrid t-${s.tier}">${s.puzzles.map(p => { const g = pzPerfect(p.id, b[p.id] || 0); return `<button class="pztile${b[p.id] ? " done" : ""}${g ? " gold" : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${g ? "★ " + fmtN(b[p.id]) : b[p.id] ? "✓ " + fmtN(b[p.id]) : p.target + " chem"}</small></button>`; }).join("")}</div>
+    <div class="pzme"><div><span>Points</span><b>${fmtN(setPts(s))}</b></div><div><span>Solved</span><b>${setSolved(s)}/${s.puzzles.length}</b></div><div><span>Perfect</span><b class="${pzPerfects(s.puzzles) ? "pzb-perfect" : ""}">${pzPerfects(s.puzzles)}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div></div>
+    <div class="pzgoldrow">${pzGoldBar(s)}</div>
+    ${pzMedals(s.puzzles) ? `<div class="pzmeds">${pzMedals(s.puzzles)}</div>` : ""}
+    <div class="pzgrid t-${s.tier}">${s.puzzles.map(p => { const k = pzBand(p.id, b[p.id] || 0); return `<button class="pztile${b[p.id] ? " done" : ""}${k ? " b-" + k : ""}" data-pz="${esc(p.id)}"><b>${p.n}</b><small>${k === "perfect" ? "★ " + fmtN(b[p.id]) : b[p.id] ? "✓ " + fmtN(b[p.id]) : p.target + " chem"}</small></button>`; }).join("")}</div>
     <p class="small muted">Puzzles get harder through the set: a higher chem target and more awkward locked cards.</p>`;
   pzWire();
+}
+// undo: each change to a squad is remembered (per puzzle), so the last one can be put back
+function pzRemember() { const L = PZ.undo || (PZ.undo = []); L.push({ pz: PZ.pz.id, team: PZ.team.map(c => c ? c.id : null) }); if (L.length > 40) L.shift(); }
+const pzCanUndo = () => (PZ.undo || []).some(u => u.pz === PZ.pz.id);
+function pzUndo() { const U = pzLS("pzUndid", {}); if (PZ.pz && !U[PZ.pz.id]) { U[PZ.pz.id] = 1; pzLSset("pzUndid", U); } const L = PZ.undo || []; for (let k = L.length - 1; k >= 0; k--) if (L[k].pz === PZ.pz.id) { const u = L.splice(k, 1)[0]; PZ.team = u.team.map(id => id ? BYID.get(id) || null : null); pzSave(); pzPlay(); return; } }
+// empty spot hints: how many bonus cards can play there (chem aside), and the most chem any card could add there.
+// Cards are grouped by what gives chem (nation, league, club, special chem), so each group is only tried once.
+function pzSlotHints(pz, slots, team) {
+  const sig = pz.id + "|" + team.map(c => c ? c.id : "").join(",");
+  if (PZ.hintSig === sig) return PZ.hints;
+  const have = new Set(team.filter(Boolean).map(playerKey)), now = pzChem(slots, team).reduce((a, b) => a + b, 0), out = {};
+  if (!PZ.hintPool || PZ.hintPool.id !== pz.id) PZ.hintPool = { id: pz.id };
+  slots.forEach((sl, i) => {
+    if (team[i]) return;
+    // per spot, once per puzzle: the bonus cards that can play there, and one card for each set of chem links
+    let H = PZ.hintPool[sl];
+    if (!H) {
+      const bonus = [], groups = new Map();
+      for (const c of CARDS) {
+        if (!c.P || !c.P.has(sl) || c._evx || pzNoSBC(c)) continue;
+        if (pzBonusHit(c, pz.bonus)) bonus.push(c);
+        if (SBC_AUTO.has(c.color)) continue;   // the chem hint leaves out Icons / Heroes (they cost the no-Icon bonus)
+        const k = c.nationId + "|" + c.leagueId + "|" + c.clubId + "|" + (c.specialChem || "");
+        const g = groups.get(k); if (!g) groups.set(k, [c]); else if (g.length < 2) g.push(c);   // 2 each, in case one is already in the squad
+      }
+      H = PZ.hintPool[sl] = { bonus, groups: [...groups.values()] };
+    }
+    let best = 0;
+    for (const g of H.groups) {
+      const c = g.find(x => !have.has(playerKey(x))); if (!c) continue;
+      const t = team.slice(); t[i] = c; const d = pzChem(slots, t).reduce((a, b) => a + b, 0) - now; if (d > best) best = d;
+    }
+    out[i] = { fit: H.bonus.filter(c => !have.has(playerKey(c))).length, best };
+  });
+  PZ.hintSig = sig; PZ.hints = out; return out;
 }
 function pzPlay() {
   const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
@@ -2961,87 +3084,157 @@ function pzPlay() {
   const linkRow = (k, label, nm, ico) => { const L = [...LK.G[k]].sort((a, b) => b[1] - a[1]).slice(0, 6); return L.length ? `<div class="pzlk"><h4>${label}</h4>${L.map(([id, n]) => {
       const T = NEXT[k], got = T.filter(t => n >= t).length, nx = T.find(t => t > n);
       return `<div class="lr" style="--g:${LK.col[k].get(id) || "rgba(255,255,255,.25)"}"><b>${ico ? ico(id) + " " : ""}${esc(nm(id))}</b><span class="dots">${Array.from({ length: Math.min(nx || n, 8) }, (_, j) => `<i class="${j < n ? "on" : ""}"></i>`).join("")}</span><small>${got ? `<em>+${got}</em>` : "+0"}${nx ? ` · ${nx - n} more for +${got + 1}` : " · max"}</small></div>`; }).join("")}</div>` : ""; };
-  const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i));
+  const best = pzBest()[pz.id], free = PZ.team.filter((c, i) => c && !locked.has(i)), HN = pzSlotHints(pz, slots, PZ.team);
+  // moving a placed card: the spots it can go to (it plays out of position, on 0 chem, where it doesn't fit)
+  if (PZ.moving != null && (!PZ.team[PZ.moving] || locked.has(PZ.moving))) PZ.moving = null;
+  const MV = PZ.moving, mvc = MV != null ? PZ.team[MV] : null;
+  const mvCls = i => MV == null ? "" : i === MV ? " mvsrc" : locked.has(i) ? " mvno" : mvc.P.has(slots[i]) ? " mvok" : " mvoop";
   const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
   const placed = PZ.team.filter(Boolean), rNow = placed.length ? teamRatingOf(placed.map(c => c.rating)) : 0, bud = pz.budget ? pzBudget(pz, rNow) : 0;
-  const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud, pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
+  const cx = pz.chemEach ? Math.max(0, sc.total - pz.target) * pz.chemEach : 0;   // points for chem over the target
+  const live = pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud + cx, pct = Math.min(100, sc.total / 33 * 100), tp = pz.target / 33 * 100;
   const set = PZ.data.sets.find(s => s.puzzles.includes(pz)), nx = set.puzzles[set.puzzles.indexOf(pz) + 1];
   $("gameBox").innerHTML = `<div class="pzbar t-${set.tier}"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}<small>${esc(pz.formation)}</small></b><button class="ghost" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(pz.id)}">Ranks</button></div>
     <div class="pzhud"><div class="pzchem"><b class="${sc.total >= pz.target ? "ok" : ""}">${sc.total}</b><span>/ ${pz.target} chem</span><div class="bar"><i style="width:${pct}%"></i><em style="left:${tp}%"></em></div></div>
-      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="${pzPerfect(pz.id, best) ? "pzgold" : ""}">${fmtN(best)}</span>` : ""}${pzTop(pz.id) ? ` · perfect ${fmtN(pzTop(pz.id))}` : ""}</small></div></div>
-    <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span><span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
-    <div class="pitch pzpitch">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
-      return c ? `<button class="pc${lk ? " lock" : ""}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
-        <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span>${pzBonusHit(c, pz.bonus) && !lk ? `<i class="bon">★</i>` : ""}</button>`
-        : `<button class="pc empty" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span></button>`; }).join("")}</div>
+      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="pzb-${pzBand(pz.id, best)}">${fmtN(best)}</span>` : ""}${best && pzTop(pz.id) && !pzPerfect(pz.id, best) ? ` · ${pzPct(pz.id, best)}% of Perfect` : ""}</small></div></div>
+    ${(() => { const P = [["Base", pz.pts, "#8a8f98"], ["Bonus", hits * pz.bonus.each, "#ffcf5a"], ["No Icons", icons ? 0 : pz.noIcon, "#3ddc97"], ["Budget", bud, "#3ddcff"], ...(pz.chemEach ? [["Chem", cx, "#b98cff"]] : [])], T = P.reduce((a, x) => a + x[1], 0) || 1;
+      return `<div class="pzmeter" id="pzMeter">${P.map(([n, v, c], k) => `<div class="seg${v / T < .16 ? " tight" : ""}${v / T < .07 ? " tiny" : ""}${v ? "" : " zero"}" data-w="${v / T * 100}" style="--c:${c};width:${(PZ.meterW || [])[k] != null ? PZ.meterW[k] : v / T * 100}%"><i></i><span><small>${n}</small><b>${fmtN(v)}</b></span></div>`).join("")}</div>`; })()}
+    <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span>${pz.lockChem ? `<span class="${sc.ok ? "on" : ""}">🔒 Locked cards need ${pz.lockChem >= 3 ? "full" : pz.lockChem} chem</span>` : ""}${pz.chemEach ? `<span class="${cx ? "on" : ""}">+${pz.chemEach} per chem over ${pz.target}${cx ? ` (+${cx})` : ""}</span>` : ""}<span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
+    ${MV != null ? `<div class="pzmove"><span>Tap a spot to move <b>${esc(PZ.team[MV].name)}</b>. Swaps if the spot is taken.</span><button class="ghost" id="pzMvX">Cancel</button></div>` : ""}
+    <div class="pitch pzpitch${MV != null ? " moving" : ""}">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
+      return c ? `<button class="pc${lk ? " lock" : ""}${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : pzBonusHit(c, pz.bonus) ? `<i class="bst" title="Bonus card"><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
+        <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span></button>`
+        : `<button class="pc empty${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span>${HN[i] ? `<span class="hint"><em><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg> ${HN[i].fit} fit</em><small>best +${HN[i].best} chem</small></span>` : ""}</button>`; }).join("")}</div>
     <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
       <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
       ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lShort)}${linkRow("c", "Clubs", cShort)}</details>
-    <div class="pzact"><button class="ghost" id="pzClear">Clear</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
+    <div class="pzact"><button class="ghost" id="pzClear">Clear</button>${pzCanUndo() ? `<button class="ghost" id="pzUndo" title="Undo the last change">↶ Undo</button>` : ""}<button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
     <div id="pzMsg"></div>`;
   pzWire();
-  $("pzClear").onclick = () => { PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  // points meter: slide from the last widths to the new ones
+  { const segs = [...document.querySelectorAll("#pzMeter .seg")]; requestAnimationFrame(() => segs.forEach(e => { e.style.width = e.dataset.w + "%"; })); PZ.meterW = segs.map(e => +e.dataset.w); }
+  $("pzClear").onclick = () => { pzRemember(); PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
+  if ($("pzUndo")) $("pzUndo").onclick = pzUndo;
   $("pzGo").onclick = () => pzSubmit(sc);
-  document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot; if (PZ.team[i]) pzInfo(i); else pzPick(i); });
+  document.querySelectorAll(".pzpitch [data-slot]").forEach(b => b.onclick = () => { const i = +b.dataset.slot;
+    if (PZ.moving != null) {                      // move mode: put the card here (swapping with whoever is here)
+      const from = PZ.moving; PZ.moving = null;
+      if (i !== from && !locked.has(i)) { pzRemember(); const t = PZ.team[i]; PZ.team[i] = PZ.team[from]; PZ.team[from] = t; pzSave(); }
+      return pzPlay();
+    }
+    if (PZ.team[i]) pzInfo(i); else pzPick(i); });
+  if ($("pzMvX")) $("pzMvX").onclick = () => { PZ.moving = null; pzPlay(); };
 }
-// card picker for one spot: search, and quick filters for the links already in the squad
+// card picker, filters like the game's: position, nation, league, club, card type, rating (range or exact), sort by rating.
+// Every matching card can be reached (the list keeps loading as you scroll). Position "Any" shows cards for other
+// spots too: they can go in, but get 0 chem there (like the game).
+const PZ_POS = ["GK", "LB", "CB", "RB", "CDM", "CM", "CAM", "LM", "RM", "LW", "RW", "ST"];
 function pzPick(i) {
   const pz = PZ.pz, sl = pzSlots(pz)[i], have = new Set(PZ.team.filter((c, j) => c && j !== i).map(playerKey));
-  const seen = (m, k, v) => m.set(k, v); const links = new Map();
-  PZ.team.forEach((c, j) => { if (!c || j === i) return; seen(links, "n" + c.nationId, ["nation", c.nationId, flagOf(c.nationId) + " " + nName(c.nationId)]); if (!SBC_ICON.has(c.color)) seen(links, "l" + c.leagueId, ["league", c.leagueId, lShort(c.leagueId)]); if (!SBC_AUTO.has(c.color)) seen(links, "c" + c.clubId, ["club", c.clubId, cShort(c.clubId)]); });
-  seen(links, "b", [pz.bonus.on, pz.bonus.id, "★ " + bonusName(pz.bonus)]);
-  const pool = CARDS.filter(c => c.P && c.P.has(sl) && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
-  let f = null, q = "";
+  const all = CARDS.filter(c => c.P && !pzNoSBC(c) && !c._evx && !have.has(playerKey(c)));
+  const tk = c => SBC_AUTO.has(c.color) ? "icon" : typeKey(c), tl = t => t === "icon" ? "Icons & Heroes" : typeLabel(t);
+  let F = { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "", sort: lsStr("pzSort") || "up" }, q = "", shown = 0, list = [], top = null;
+  // like the game: filters stay when you move to another spot in the same puzzle (the position follows the spot)
+  if (PZ.pickF && PZ.pickF.id === pz.id) Object.assign(F, PZ.pickF.f);
+  const keepF = () => { PZ.pickF = { id: pz.id, f: { nat: F.nat, lg: F.lg, cl: F.cl, type: F.type, lo: F.lo, hi: F.hi } }; };
   const sheet = document.createElement("div"); sheet.id = "pzSheet";
-  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Player, club, league or nation" enterkeyhint="done" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
-    <div class="pzf">${[...links.values()].map(([on, id, n], k) => `<button data-f="${k}">${esc(n)}</button>`).join("")}<button data-f="icon">Icons & Heroes</button></div><div class="pzlist" id="pzL"></div></div>`;
+  sheet.innerHTML = `<div class="sheet"><div class="pzsh"><b>${esc(sl)}</b><input type="search" id="pzQ" placeholder="Search a player" enterkeyhint="done" autocomplete="off">${PZ.team[i] ? `<button class="ghost" id="pzRm">Remove</button>` : ""}<button class="ghost" id="pzX">✕</button></div>
+    <div class="pzfl" id="pzFl"></div>
+    <div class="pzcount" id="pzN"></div><div class="pzlist" id="pzL"></div></div>`;
   document.body.appendChild(sheet);
-  // full screen from the top on phones, fitted above the keyboard, page behind it frozen
   const vv = window.visualViewport, root = document.documentElement, oldOv = root.style.overflow;
   const fit = () => { if (!vv) return; sheet.style.top = vv.offsetTop + "px"; sheet.style.height = vv.height + "px"; };
   fit(); if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); } root.style.overflow = "hidden";
-  const L = [...links.values()], close = () => { sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } };
-  // search matches the name, club, league or nation (every word has to match somewhere)
-  const hay = c => c._h || (c._h = norm([c.name, cName(c.clubId), cShort(c.clubId), lName(c.leagueId), lShort(c.leagueId), nName(c.nationId)].join(" ")));
-  let top = null;
-  const draw = () => {
-    const nq = norm(q).trim(), words = nq.split(/\s+/).filter(Boolean); let r = pool;
-    if (nq.length >= 2) r = r.filter(c => words.every(w => hay(c).includes(w)));
-    if (f === "icon") r = r.filter(c => SBC_AUTO.has(c.color));
-    else if (f != null) { const [on, id] = L[f]; r = r.filter(c => on === "nation" ? c.nationId === id : on === "league" ? c.leagueId === id && !SBC_ICON.has(c.color) : c.clubId === id); }
-    const nameHit = c => nq.length >= 2 && words.some(w => c._n.includes(w)) ? 0 : 1;
-    r = r.slice().sort((a, b) => nameHit(a) - nameHit(b) || b.rating - a.rating).slice(0, 60); top = r[0] || null;
-    $("pzL").innerHTML = r.length ? r.map(c => `<button data-c="${esc(c.id)}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}</button>`).join("")
-      : `<p class="small muted" style="padding:12px">No cards for that. Try another search.</p>`;
-    $("pzL").querySelectorAll("[data-c]").forEach(b => b.onclick = () => { PZ.team[i] = BYID.get(b.dataset.c); pzSave(); close(); pzPlay(); });
+  const close = () => { if (!sheet.isConnected) return; sheet.remove(); root.style.overflow = oldOv; if (vv) { vv.removeEventListener("resize", fit); vv.removeEventListener("scroll", fit); } pzPopDone(); };
+  pzPopup(close);
+  const put = c => { if (PZ.team[i] !== c) pzRemember(); PZ.team[i] = c; pzSave(); close(); pzPlay(); };
+  // each filter, with the others applied (so the lists only offer what's there, like the game)
+  const pass = (c, skip) => (skip === "pos" || F.pos === "any" || c.P.has(F.pos)) && (skip === "nat" || !F.nat || c.nationId === +F.nat)
+    && (skip === "lg" || !F.lg || (c.leagueId === +F.lg && !SBC_ICON.has(c.color))) && (skip === "cl" || !F.cl || c.clubId === +F.cl)
+    && (skip === "type" || !F.type || tk(c) === F.type) && (skip === "r" || ((!F.lo || c.rating >= +F.lo) && (!F.hi || c.rating <= +F.hi)));
+  const nq = () => norm(q).trim();
+  const opts = (skip, key, label, sortBy) => { const m = new Map(); for (const c of all) if (pass(c, skip)) { const k = key(c); if (k != null && !m.has(k)) m.set(k, label(k)); } return [...m].sort(sortBy || ((a, b) => String(a[1]).localeCompare(String(b[1])))); };
+  const sel = (id, name, cur, L, any) => `<label class="pzsel${cur ? " on" : ""}"><span>${name}</span><select id="${id}"><option value="">${any}</option>${L.map(([k, n]) => `<option value="${esc(String(k))}"${String(k) === String(cur) ? " selected" : ""}>${esc(n)}</option>`).join("")}</select></label>`;
+  const RATINGS = Array.from({ length: 60 }, (_, k) => 99 - k);
+  const drawFilters = () => {
+    const TORDER = ["gold", "silver", "bronze"], keepX = $("pzFl").scrollLeft;
+    $("pzFl").innerHTML = `<label class="pzsel on"><span>Position</span><select id="pzFpos">${PZ_POS.map(p => `<option${p === F.pos ? " selected" : ""}>${p}</option>`).join("")}<option value="any"${F.pos === "any" ? " selected" : ""}>Any</option></select></label>`
+      + sel("pzFnat", "Nation", F.nat, opts("nat", c => c.nationId, k => nName(k)), "Any")
+      + sel("pzFlg", "League", F.lg, opts("lg", c => SBC_ICON.has(c.color) ? null : c.leagueId, k => lShort(k)), "Any")
+      + sel("pzFcl", "Club", F.cl, opts("cl", c => SBC_AUTO.has(c.color) ? null : c.clubId, k => cName(k)), "Any")
+      + sel("pzFty", "Card Type", F.type, opts("type", tk, tl, (a, b) => ((TORDER.indexOf(a[0]) + 1 || 9) - (TORDER.indexOf(b[0]) + 1 || 9)) || a[1].localeCompare(b[1])), "Any")
+      + `<label class="pzsel${F.lo || F.hi ? " on" : ""}"><span>Rating</span><span class="rr"><select id="pzFlo"><option value="">Min</option>${RATINGS.slice().reverse().map(r => `<option${+F.lo === r ? " selected" : ""}>${r}</option>`).join("")}</select><select id="pzFhi"><option value="">Max</option>${RATINGS.map(r => `<option${+F.hi === r ? " selected" : ""}>${r}</option>`).join("")}</select></span></label>`
+      + `<div class="pzseg" role="group" aria-label="Sort by rating"><span>Sort</span><div><button data-sort="up" class="${F.sort === "up" ? "on" : ""}">Low ↑</button><button data-sort="down" class="${F.sort === "down" ? "on" : ""}">High ↓</button></div></div>`
+      + (F.nat || F.lg || F.cl || F.type || F.lo || F.hi || F.pos !== sl ? `<button class="pzreset" id="pzReset">Reset</button>` : "");
+    const on = (id, k) => { $(id).onchange = e => { F[k] = e.target.value; drawAll(); }; };
+    on("pzFpos", "pos"); on("pzFnat", "nat"); on("pzFlg", "lg"); on("pzFcl", "cl"); on("pzFty", "type");
+    $("pzFlo").onchange = e => { F.lo = e.target.value; if (F.hi && +F.lo > +F.hi) F.hi = F.lo; drawAll(); };
+    $("pzFhi").onchange = e => { F.hi = e.target.value; if (F.lo && +F.hi < +F.lo) F.lo = F.hi; drawAll(); };
+    $("pzFl").querySelectorAll("[data-sort]").forEach(b => b.onclick = () => { F.sort = b.dataset.sort; try { localStorage.setItem("pzSort", F.sort); } catch (e) {} drawAll(); });
+    if ($("pzReset")) $("pzReset").onclick = () => { Object.assign(F, { pos: sl, nat: "", lg: "", cl: "", type: "", lo: "", hi: "" }); drawAll(); };
+    $("pzFl").scrollLeft = keepX;     // stay where you were in the row after picking
   };
+  // chem preview: what the squad's chem would be with this card here (and this card's own chem in the spot)
+  const slotsP = pzSlots(pz), chemNow = pzChem(slotsP, PZ.team).reduce((a, b) => a + b, 0);
+  const preview = c => { const t = PZ.team.slice(); t[i] = c; const ch = pzChem(slotsP, t); return { own: ch[i], d: ch.reduce((a, b) => a + b, 0) - chemNow }; };
+  const row = c => { const off = !c.P.has(sl), pv = preview(c);
+    return `<button data-c="${esc(c.id)}" class="${off ? "off" : ""}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))} · ${esc(c.position)}${c.altPositions ? "/" + esc(String(c.altPositions).replace(/,/g, "/")) : ""}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${off ? `<i class="oop">0 chem at ${esc(sl)}</i>` : ""}${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}<span class="cpv${pv.d > 0 ? " up" : pv.d < 0 ? " down" : ""}"><b>${pv.d > 0 ? "+" + pv.d : pv.d < 0 ? "−" + -pv.d : "±0"}</b><span class="dm">${[0, 1, 2].map(k => `<i class="${k < pv.own ? "on" : ""}"></i>`).join("")}</span></span></button>`; };
+  const more = () => { const L = $("pzL"), n = Math.min(list.length, shown + 80); L.insertAdjacentHTML("beforeend", list.slice(shown, n).map(row).join("")); shown = n; };
+  const drawList = () => {
+    const w = nq().split(/\s+/).filter(Boolean);
+    list = all.filter(c => pass(c) && (nq().length < 2 || w.every(x => c._n.includes(x))));
+    const d = F.sort === "up" ? 1 : -1; list.sort((a, b) => d * (a.rating - b.rating) || a.name.localeCompare(b.name));
+    top = list[0] || null; shown = 0; $("pzL").innerHTML = list.length ? "" : `<p class="small muted" style="padding:12px">No cards for that. Try other filters.</p>`; $("pzL").scrollTop = 0; more();
+    $("pzN").textContent = `${list.length.toLocaleString()} card${list.length === 1 ? "" : "s"}`;
+  };
+  const drawAll = () => { keepF(); drawFilters(); drawList(); };
+  $("pzL").onscroll = () => { const L = $("pzL"); if (shown < list.length && L.scrollTop + L.clientHeight > L.scrollHeight - 600) more(); };
+  $("pzL").onclick = e => { const b = e.target.closest("[data-c]"); if (b) put(BYID.get(b.dataset.c)); };
   sheet.onclick = e => { if (e.target === sheet) close(); };
   $("pzX").onclick = close;
-  if ($("pzRm")) $("pzRm").onclick = () => { PZ.team[i] = null; pzSave(); close(); pzPlay(); };
-  $("pzQ").oninput = e => { q = e.target.value; draw(); $("pzL").scrollTop = 0; };
-  $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); PZ.team[i] = top; pzSave(); close(); pzPlay(); } };
-  sheet.querySelectorAll("[data-f]").forEach(b => b.onclick = () => { const v = b.dataset.f === "icon" ? "icon" : +b.dataset.f; f = f === v ? null : v;
-    sheet.querySelectorAll("[data-f]").forEach(x => x.classList.toggle("on", (x.dataset.f === "icon" ? "icon" : +x.dataset.f) === f)); draw(); });
-  draw();
-  $("pzQ").focus();
+  if ($("pzRm")) $("pzRm").onclick = () => { pzRemember(); PZ.team[i] = null; pzSave(); close(); pzPlay(); };
+  $("pzQ").oninput = e => { q = e.target.value; drawList(); };
+  $("pzQ").onkeydown = e => { if (e.key === "Enter" && top) { e.preventDefault(); put(top); } };
+  drawAll();
 }
 async function pzSubmit(sc) {
-  const pz = PZ.pz, b = pzBest(), msg = $("pzMsg");
-  const prev = b[pz.id] || 0; if (sc.pts > prev) { b[pz.id] = sc.pts; pzLSset("pzBest", b); }
+  const pz = PZ.pz, b = pzBest(), msg = $("pzMsg"), bAt = pzLS("pzBestAt", {}), prevAt = bAt[pz.id] || 0;
+  const prev = b[pz.id] || 0; if (sc.pts > prev) { b[pz.id] = sc.pts; pzLSset("pzBest", b); bAt[pz.id] = Date.now(); pzLSset("pzBestAt", bAt); }
+  if (!PZ.sent || PZ.sent !== sc) { PZ.sent = sc; pzLSset("pzSubs", pzLS("pzSubs", 0) + 1); PZ.achNew = []; }   // the same squad sent again after signing in counts once
   let note = sc.pts > prev ? (prev ? `New best! Up from ${fmtN(prev)}.` : "Solved!") : `Your best is still ${fmtN(prev)}.`;
   const top = pzTop(pz.id), gold = !!top && sc.pts >= top, record = gold && sc.pts > top;
   if (record) { PZ.rec = PZ.rec || {}; PZ.rec[pz.id] = sc.pts; }
-  msg.innerHTML = `<div class="pzdone${gold ? " gold" : ""}">${gold ? `<i class="pzstar">${record ? "★ New Top Score" : "★ Perfect"}</i>` : ""}<b class="${gold ? "pzgold" : ""}">${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}${sc.budget ? ` + ${fmtN(sc.budget)} budget (rated ${sc.rating})` : ""}</span><span>${note}</span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
+  const band = pzBand(pz.id, sc.pts);
+  msg.innerHTML = `<div class="pzdone${band ? " b-" + band : ""}">${gold ? `<i class="pzstar">${record ? "★ New Top Score" : "★ Perfect"}</i>` : band && band !== "plain" ? `<i class="pzstar">${pzBandName(band)}</i>` : ""}<b class="pzb-${band}">${fmtN(sc.pts)} pts</b><span>${fmtN(sc.base)} for the puzzle${sc.bonus ? ` + ${fmtN(sc.bonus)} bonus (${sc.hits} ${esc(bonusName(pz.bonus))})` : ""}${sc.noIcon ? ` + ${fmtN(sc.noIcon)} no Icons or Heroes` : ""}${sc.budget ? ` + ${fmtN(sc.budget)} budget (rated ${sc.rating})` : ""}${sc.chemPts ? ` + ${fmtN(sc.chemPts)} chem (${sc.extra} over)` : ""}</span>${!gold && top ? `<span class="pzpctw">${pzBar(pz.id, sc.pts)}</span>` : ""}<span>${note}</span><span id="pzTopPct" class="pztoppct"></span><span id="pzAchNew"></span><span id="pzRank" class="small muted">${PZ_API ? "Sending to the leaderboard…" : "The leaderboard is coming soon. Your points are saved on this phone."}</span></div>`;
   msg.scrollIntoView({ behavior: "smooth", block: "center" });
+  const mine = Math.max(sc.pts, prev), tier = (PZ.data.sets.find(s => s.puzzles.includes(pz)) || {}).tier;
+  pzAchShow(pzAchAdd(pzAchEvent({ pz, tier, sc, top, prev: prev ? { pts: prev, at: prevAt } : null, now: Date.now(), undo: !!pzLS("pzUndid", {})[pz.id] }))
+    .concat(pzAchSync(), pzSubsN() >= 100 ? pzAchAdd(["grinder"]) : []));
+  if (!PZ_API || !pzAcct()) pzTopPct(pz.id, mine, false);
   if (!PZ_API) return;
   if (!pzAcct()) { $("pzRank").innerHTML = `Saved on this device. <a href="#" id="pzJoin">Pick a name</a> to put it on the leaderboard.`; $("pzJoin").onclick = e => { e.preventDefault(); pzAccount(() => pzSubmit(sc)); }; return; }
   try {
-    const r = await pzApi("/submit", { puzzle: pz.id, team: PZ.team.map(c => c.id) });
+    const r = await pzApi("/submit", { puzzle: pz.id, team: PZ.team.map(c => c.id), undo: !!pzLS("pzUndid", {})[pz.id] });
     if (r.error) { $("pzRank").textContent = "Leaderboard: " + r.error; return; }
-    PZ.me = null;
+    PZ.me = null; pzTopPct(pz.id, mine, true);
+    if (r.ach) { const before = pzLS("pzAch", {}); pzAchMerge(r); pzAchShow(Object.keys(r.ach).filter(k => !before[k])); }
     const set = PZ.data.sets.find(s => s.puzzles.includes(pz));
     $("pzRank").innerHTML = `On the leaderboard: <b>#${r.puzzle ? r.puzzle.rank : "?"}</b> on this puzzle, <b>#${r.set ? r.set.rank : "?"}</b> in ${esc(set.name)}, <b>#${r.all ? r.all.rank : "?"}</b> overall. <a href="#" class="plink" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(PZ.pz.id)}">See ranks</a>`; pzWire();
   } catch (e) { $("pzRank").textContent = "Couldn't reach the leaderboard. Your points are saved on this phone."; }
+}
+// "Top x%": where your best on this puzzle sits among everyone with a score on it (you're added if you're not on the board)
+async function pzTopPct(id, pts, counted) {
+  if (!PZ_LB || !pts) return;
+  try {
+    const r = await fetch(PZ_LB + `/pct?puzzle=${encodeURIComponent(id)}&pts=${pts}`).then(x => x.json()), el = $("pzTopPct");
+    if (!el || !PZ.pz || PZ.pz.id !== id || typeof r.n !== "number") return;
+    const n = Math.max(r.n + (counted ? 0 : 1), r.above + 1), p = pzTopPctOf(r.above, n);
+    el.innerHTML = n === 1 ? `<b>First</b> to score on this puzzle` : !r.above ? `<b>Top score</b> of ${fmtN(n)} players` : `<b>Top ${p}%</b> of ${fmtN(n)} players`;
+    const add = [];
+    if (p <= 10) { const T = pzLS("pzT10", {}); if (!T[id]) { T[id] = 1; pzLSset("pzT10", T); } if (pzT10N() >= 10) add.push("elite"); }
+    if (!counted) { if (r.above < 3) add.push("podium"); if (!r.above) add.push("top1"); }   // not on the board: where this score would rank
+    pzAchShow(pzAchAdd(add));
+  } catch (e) {}
 }
 // leaderboards: All, each set, and each puzzle in a set. Equal points share a rank
 async function pzBoard() {
@@ -3052,41 +3245,98 @@ async function pzBoard() {
     : `<div class="pzlbh"><b>Everyone</b><small>All ${sets.reduce((a, s) => a + s.puzzles.length, 0)} puzzles</small></div>`;
   $("gameBox").innerHTML = `<div class="pzbar"><button class="ghost" data-pzgo="${back}">‹ Back</button><b>Leaderboard</b><span></span></div>
     <div class="pzpills"><button data-pzlb="all" class="${S ? "" : "on"}">All</button>${sets.map(s => `<button data-pzlb="${esc(s.id)}" class="t-${s.tier}${S === s ? " on" : ""}">${esc(s.name)}</button>`).join("")}</div>
-    ${S ? `<div class="pzpills pznum t-${S.tier}"><button data-pzlb="${esc(S.id)}" class="${P ? "" : "on"}">Set</button>${S.puzzles.map(p => `<button data-pzlb="${esc(S.id)}" data-pzlbp="${esc(p.id)}" class="${P === p ? "on" : ""}${best[p.id] ? " done" : ""}">${p.n}</button>`).join("")}</div>` : ""}
-    ${head}<div id="pzYou"></div><div id="pzRows"><p class="muted small">${PZ_API ? "Loading…" : "The shared leaderboard is coming soon. Your own points are on the Puzzles page."}</p></div>`;
+    ${S ? `<div class="pzpills pznum t-${S.tier}"><button data-pzlb="${esc(S.id)}" class="${P ? "" : "on"}">Set</button>${S.puzzles.map(p => `<button data-pzlb="${esc(S.id)}" data-pzlbp="${esc(p.id)}" class="${P === p ? "on" : ""}${best[p.id] ? " done" : ""}${best[p.id] ? " b-" + pzBand(p.id, best[p.id]) : ""}">${p.n}</button>`).join("")}</div>` : ""}
+    ${head}<div id="pzYou"></div><div id="pzRows"><p class="muted small">${PZ_LB ? "Loading…" : "The shared leaderboard is coming soon. Your own points are on the Puzzles page."}</p></div>`;
   pzWire();
   // keep the picked set / puzzle in view in its row
   $("gameBox").querySelectorAll(".pzpills").forEach(row => { const o = row.querySelector(".on"); if (o) row.scrollLeft = o.offsetLeft - (row.clientWidth - o.offsetWidth) / 2; });
   const mine = P ? best[P.id] || 0 : S ? setPts(S) : sets.reduce((a, s) => a + setPts(s), 0);
   const you = r => `<div class="pzme"><div><span>${P ? "Your best" : "Your points"}</span><b>${mine ? fmtN(r && r.pts || mine) : "–"}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div>${P ? `<button class="ghost" data-pz="${esc(P.id)}">Play</button>` : ""}</div>`;
   $("pzYou").innerHTML = you(null); pzWire();
-  if (!PZ_API) return;
+  if (!PZ_LB) return;
   try {
-    const r = await pzApi(`/lb?set=${encodeURIComponent(S ? S.id : "all")}${P ? "&puzzle=" + encodeURIComponent(P.id) : ""}`), me = pzName();
+    const r = PZ_API ? await pzApi(`/lb?set=${encodeURIComponent(S ? S.id : "all")}${P ? "&puzzle=" + encodeURIComponent(P.id) : ""}`) : await fetch(PZ_LB + `/lb?set=${encodeURIComponent(S ? S.id : "all")}${P ? "&puzzle=" + encodeURIComponent(P.id) : ""}`).then(x => x.json()), me = pzName();
     if (PZ.view !== "lb" || PZ.lbSet !== (S ? S.id : "all") || (PZ.lbPz || "") !== (P ? P.id : "")) return;   // moved on while loading
     $("pzYou").innerHTML = you(r.you); pzWire();
     let rk = 0;
     $("pzRows").innerHTML = r.rows && r.rows.length ? `<ol class="pzlb">${r.rows.map((x, k) => { if (!k || x.pts !== r.rows[k - 1].pts) rk = k + 1;
-      return `<li class="${x.name === me ? "me" : ""}${rk <= 3 ? " top" + rk : ""}${P && pzPerfect(P.id, x.pts) ? " gold" : ""}"><span class="rk">${rk}</span><b>${esc(x.name)}</b><small>${P ? `${x.chem} chem · ${x.rating} rated` : `${x.solved} solved`}</small><span class="pt">${fmtN(x.pts)}</span></li>`; }).join("")}</ol>`
+      return `<li class="${x.name === me ? "me" : ""}${rk <= 3 ? " top" + rk : ""}${P && pzBand(P.id, x.pts) ? " b-" + pzBand(P.id, x.pts) : ""}"><span class="rk">${rk}</span><b>${esc(x.name)}${!P && x.medals ? pzMedalDots(x.medals) : ""}${x.ach ? `<span class="lbach" title="Achievements">★ ${x.ach}</span>` : ""}</b><small>${P ? `${x.chem} chem · ${x.rating} rated` : `${x.solved} solved`}</small><span class="pt">${fmtN(x.pts)}</span></li>`; }).join("")}</ol>`
       : `<p class="muted small">No scores yet. Be the first!</p>`;
   } catch (e) { $("pzRows").innerHTML = `<p class="muted small">Couldn't load the leaderboard.</p>`; }
 }
+// ---------- Puzzles: the phone's back button steps back like the on-screen buttons (puzzle -> set -> Puzzles), and
+// closes a card picker or popup first, instead of leaving the site ----------
+const pzOnTab = () => { const g = $("games"); return !!g && g.classList.contains("on"); };
+const pzState = (prev, extra) => Object.assign({ pzv: PZ.view, prev, set: PZ.set && PZ.set.id, pz: PZ.pz && PZ.pz.id, lbSet: PZ.lbSet, lbPz: PZ.lbPz, lbFrom: PZ.lbFrom }, extra || {});
+PZ.depth = 0;
+// go to a view: a deeper one adds a step to the phone's history, a move sideways (next puzzle) replaces it
+function pzGo(view, sideways) {
+  const from = PZ.view; PZ.view = view;
+  try {
+    if (sideways || from === view) history.replaceState(pzState(history.state && history.state.prev), "");
+    else { history.pushState(pzState(from), ""); PZ.depth++; }
+  } catch (e) {}
+  pzDraw();
+}
+// on-screen back: the same as the phone's back when it's the step before, otherwise straight there
+function pzBack(view) {
+  if (PZ.depth > 0 && history.state && history.state.prev === view) { history.back(); return; }
+  PZ.view = view; try { history.replaceState(view === "home" ? null : pzState("home"), ""); } catch (e) {} pzDraw();
+}
+// a popup (card picker, card details, sign in) closes on back too
+function pzPopup(close) {
+  if (PZ.popKeep) { PZ.popKeep = false; PZ.closePopup = close; return; }      // one popup straight into another (Swap): same step
+  PZ.closePopup = close; try { history.pushState(Object.assign({}, history.state, { popup: 1 }), ""); PZ.depth++; } catch (e) {} }
+function pzPopDone() { if (!PZ.closePopup) return; PZ.closePopup = null; if (PZ.popKeep) return; if (history.state && history.state.popup) history.back(); }
+addEventListener("popstate", e => {
+  if (PZ.unwind) { PZ.unwind = false; return; }
+  PZ.depth = Math.max(0, PZ.depth - 1);
+  if (PZ.closePopup) { const f = PZ.closePopup; PZ.closePopup = null; f(); return; }
+  if (!PZ.data) return;
+  const st = e.state || {}, view = st.pzv || "home";
+  if (st.set) PZ.set = PZ.data.sets.find(x => x.id === st.set) || PZ.set;
+  if (st.pz && (!PZ.pz || PZ.pz.id !== st.pz)) { for (const x of PZ.data.sets) { const q = x.puzzles.find(q => q.id === st.pz); if (q) { PZ.set = x; PZ.pz = q; } } PZ.team = pzTeamOf(PZ.pz); }
+  if (st.lbSet) Object.assign(PZ, { lbSet: st.lbSet, lbPz: st.lbPz || "", lbFrom: st.lbFrom || "home" });
+  if (view === PZ.view && !(view === "lb")) return;
+  PZ.view = view; if (pzOnTab()) { pzDraw(); scrollTo(0, 0); }
+});
+// leaving the Puzzles tab takes its steps out of the history (so back doesn't seem to do nothing on another tab);
+// coming back puts one step in, so back returns to the Puzzles home
+document.querySelectorAll("#tabs button").forEach(b => b.addEventListener("click", () => {
+  if (b.dataset.t !== "games" && PZ.depth > 0) { PZ.unwind = true; const n = PZ.depth; PZ.depth = 0; PZ.closePopup = null; try { history.go(-n); } catch (e) {} }
+  if (b.dataset.t === "games" && PZ.view !== "home" && PZ.depth === 0) { try { history.pushState(pzState("home"), ""); PZ.depth = 1; } catch (e) {} }
+}));
 function pzWire() {
   const box = $("gameBox");
-  box.querySelectorAll("[data-pzset]").forEach(b => b.onclick = () => { PZ.set = PZ.data.sets.find(s => s.id === b.dataset.pzset); PZ.view = "set"; pzDraw(); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pzset]").forEach(b => b.onclick = () => { PZ.set = PZ.data.sets.find(s => s.id === b.dataset.pzset); pzGo("set"); scrollTo(0, 0); });
   box.querySelectorAll("[data-pz]").forEach(b => b.onclick = () => { for (const s of PZ.data.sets) { const p = s.puzzles.find(p => p.id === b.dataset.pz); if (p) { PZ.set = s; PZ.pz = p; } }
-    PZ.team = pzTeamOf(PZ.pz); PZ.view = "play"; pzDraw(); scrollTo(0, 0); });
-  box.querySelectorAll("[data-pzgo]").forEach(b => b.onclick = () => { PZ.view = b.dataset.pzgo; pzDraw(); });
+    PZ.team = pzTeamOf(PZ.pz); pzGo("play"); scrollTo(0, 0); });
+  box.querySelectorAll("[data-pzgo]").forEach(b => b.onclick = () => pzBack(b.dataset.pzgo));
+  box.querySelectorAll("[data-pzach]").forEach(b => b.onclick = e => { e.preventDefault(); pzGo("ach"); scrollTo(0, 0); });
   box.querySelectorAll("[data-pzlb]").forEach(b => b.onclick = () => { if (PZ.view !== "lb") PZ.lbFrom = PZ.view;
-    PZ.lbSet = b.dataset.pzlb; PZ.lbPz = b.dataset.pzlbp || ""; PZ.view = "lb"; pzDraw(); });
+    PZ.lbSet = b.dataset.pzlb; PZ.lbPz = b.dataset.pzlbp || ""; pzGo("lb", PZ.view === "lb"); });
   const on = (id, f) => { const el = $(id); if (el) el.onclick = e => { e.preventDefault(); f(); }; };
   on("pzNew", () => pzAccount(null, "new")); on("pzIn", () => pzAccount(null, "in"));
-  on("pzOut", () => { if (!confirm("Sign out on this device? Your scores stay on your account, ready when you sign in again.")) return; try { ["pzAcct", "pzBest", "pzTeam"].forEach(k => localStorage.removeItem(k)); } catch (e) {} PZ.me = null; pzDraw(); });
+  on("pzOut", () => { if (!confirm("Sign out on this device? Your scores stay on your account, ready when you sign in again.")) return; try { ["pzAcct", "pzBest", "pzTeam", "pzAch", "pzSubs", "pzT10", "pzBestAt", "pzUndid"].forEach(k => localStorage.removeItem(k)); } catch (e) {} PZ.me = null; pzDraw(); });
   on("pzRename", async () => { const n = prompt("New name (2 to 16 letters or numbers):", pzName()); if (!n || n.trim().length < 2) return;
     const r = await pzApi("/name", { name: n.trim() }).catch(() => ({ error: "Couldn't reach the leaderboard" }));
     if (r.error) return alert(r.error); const a = pzAcct(); a.name = r.name; pzLSset("pzAcct", a); pzDraw(); });
 }
 // "#" links are buttons: never let them navigate (the preview's <base> would send them to the live site)
 document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href="#"]'); if (a) e.preventDefault(); }, true);
+// test copy only: open /test/#colours to fill Kick Off 1 to 5 with one score in each colour (Perfect, Gold, Silver,
+// Bronze, plain) and jump there; #colours-off clears them again
+if (PZ_DATA && /^#colours/.test(location.hash)) {
+  const off = location.hash === "#colours-off";
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+  addEventListener("load", () => setTimeout(async () => {
+    await pzLoad(); const b = pzBest(), L = PZ.data.sets[0].puzzles.slice(0, 5), pct = [1, .97, .91, .82, .6];
+    L.forEach((p, k) => { if (off) delete b[p.id]; else { const t = pzTop(p.id); if (t) b[p.id] = Math.floor(t * pct[k]); } });
+    pzLSset("pzBest", b);
+    const w = $("welcome"); if (w) w.remove();
+    document.querySelector('#tabs button[data-t="games"]').click();
+    if (!off) { PZ.set = PZ.data.sets[0]; PZ.view = "set"; pzDraw(); }
+  }, 1500));
+}
 function gamesDraw() { if (!CARDS.length) { $("gameBox").innerHTML = `<p class="muted">Loading cards…</p>`; return; } pzDraw(); }
 document.querySelector('#tabs button[data-t="games"]').addEventListener("click", () => gamesDraw());

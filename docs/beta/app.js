@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261121d";
+const APP_V = "20261121e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -134,7 +134,7 @@ function welcome(force) {
   o.innerHTML = `<div class="wbox"><button class="wx" aria-label="Close">✕</button><h3>Welcome to the ToolKit</h3><p class="ws">Everything you need for Fatal and SBCs, updated every day.</p>
     ${tile("teams", "T", "Best Teams", `This week's strongest Fatal My Club and Sim teams for every series. Tap "Don't have" on a card for your own version.`)}
     ${tile("sbc", "SBC", "SBC Solver", "Paste the requirements and get the cheapest squad.")}
-    ${PREVIEW ? tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.") : ""}
+    ${tile("games", "PZ", "Puzzles", "Finish squads around locked cards. Climb the leaderboard.")}
     <button class="wgo">Show Me the Teams</button></div>`;
   document.body.appendChild(o);
   const close = t => { try { localStorage.setItem("welcomeSeen", "1"); } catch (e) {} o.remove(); if (t) document.querySelector(`#tabs button[data-t="${t}"]`).click(); };
@@ -157,7 +157,6 @@ async function init() {
   try { INDEX = await getJSON("results/index.json"); if (INDEX.all && EVOS) INDEX.files = INDEX.all; WEEK = await getJSON("results/week.json"); teamsTab(); } catch (e) {}
   try { FORMS_CACHE = await getJSON("formations.json"); } catch (e) {}
   renderTeams(); setupMC(); setupSim(); setupSBC(); setupCards(); renderSetup(); renderObjectives(); installTip(); welcome();
-  if (!PREVIEW) document.querySelectorAll('#tabs [data-t="games"], #moreSheet [data-mt="games"]').forEach(b => b.remove());   // Puzzles: preview only for now
 }
 
 // ---------- shared card UI ----------
@@ -770,9 +769,11 @@ const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
   { day: "2026-11-21", items: [
-    { p: 1, t: "<b>Puzzles achievements:</b> 29 to unlock, from your first solve to #1 overall, with progress bars for the ones that count up." },
-    "<b>Puzzles sets:</b> each set shows how many puzzles you have at Perfect, with your Gold progress behind it.",
-    "<b>Top %:</b> after a puzzle, see where your score sits among everyone who has played it."
+    "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points, a top score to chase on every puzzle and a leaderboard for each one.",
+    "<b>Achievements:</b> 29 to unlock in Puzzles, from your first solve to #1 overall.",
+    "<b>Medals:</b> Bronze, Silver, Gold and Perfect for how close you get to each puzzle's top score, plus your Top % among everyone who played it.",
+    "<b>Card picker:</b> filters like the game, a chem preview on every card, and Undo.",
+    "<b>Flags:</b> country flags now show on Windows too."
   ] },
   { day: "2026-11-17", items: [
     { p: 1, t: "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert." },
@@ -1379,7 +1380,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261121d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261121e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1405,7 +1406,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261121d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261121e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2221,7 +2222,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261121d");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261121e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
