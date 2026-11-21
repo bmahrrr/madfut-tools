@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Test)</title>
-<meta name="app-version" content="20261121a">
+<meta name="app-version" content="20261121b">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -662,10 +662,11 @@ body.simmode #pzInfo .pibox{background:#0e1420}
 #gameBox .pzpctw{display:flex;align-items:center;gap:10px;margin:2px 0}
 #gameBox .pzgold{display:flex;align-items:center;gap:8px;margin-top:3px}
 #gameBox .pzgold small{flex:none;font:700 12px/1 var(--body);color:var(--gd2)}
-#gameBox .pzgbar{flex:1;max-width:160px;height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
-#gameBox .pzgbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gd1),var(--gd2))}
+#gameBox .pzgbar{flex:none;width:110px;height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+#gameBox .pzgbar i{position:static;display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gd1),var(--gd2))}
 #gameBox .pzgold.full .pzgbar{display:none}
-#gameBox .pzgoldrow{margin:12px 0 0}#gameBox .pzgoldrow .pzgbar{max-width:none;height:7px}#gameBox .pzgoldrow small{font-size:13px}
+#gameBox .pzgold em{font:800 13px/1 var(--display);font-style:normal;letter-spacing:.5px;text-transform:uppercase}
+#gameBox .pzgoldrow{margin:12px 0 0}#gameBox .pzgoldrow .pzgbar{flex:1;width:auto;height:7px}#gameBox .pzgoldrow small{font-size:13px}
 #gameBox .pztoppct:empty{display:none}#gameBox .pztoppct{font-size:13px}#gameBox .pztoppct b{color:var(--gd2)}
 #gameBox .pzpct{flex:1;max-width:220px;height:7px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
 #gameBox .pzpct i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--fire),#ffd76a)}
@@ -953,10 +954,10 @@ html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial N
   <small class="credit">Flag images on Windows: Twemoji, CC-BY 4.0</small>
 </div></div>
 
-<script src="test/engine.js?v=20261121a"></script>
-<script src="test/sbc-solver.js?v=20261121a"></script>
-<script src="test/puzzle-core.js?v=20261121a"></script>
-<script src="test/app.js?v=20261121a"></script>
+<script src="test/engine.js?v=20261121b"></script>
+<script src="test/sbc-solver.js?v=20261121b"></script>
+<script src="test/puzzle-core.js?v=20261121b"></script>
+<script src="test/app.js?v=20261121b"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "116c56738b8f45f5ba27853fc4d14947"}'></script>
 </body>
 </html>

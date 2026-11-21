@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261121a";
+const APP_V = "20261121b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1374,7 +1374,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261121a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261121b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1400,7 +1400,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261121a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261121b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2216,7 +2216,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261121a");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261121b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2904,7 +2904,7 @@ const setSolved = set => { const b = pzBest(); return set.puzzles.filter(p => b[
 const pzGoldN = L => { const b = pzBest(); return L.filter(p => ["gold", "perfect"].includes(pzBand(p.id, b[p.id] || 0))).length; };
 const pzSetBadge = s => { const L = s.puzzles; return pzPerfects(L) === L.length ? "perfect" : pzGoldN(L) === L.length ? "gold" : ""; };
 const pzGoldBar = s => { const n = pzGoldN(s.puzzles), L = s.puzzles.length, k = pzSetBadge(s);
-  return `<span class="pzgold${k ? " full" : ""}"><span class="pzgbar"><i style="width:${Math.round(100 * n / L)}%"></i></span><small>${k ? `<b class="pzb-${k}">★ ${k === "perfect" ? "Perfect" : "Gold"} set</b>` : `${n}/${L} Gold`}</small></span>`; };
+  return `<span class="pzgold${k ? " full" : ""}"><span class="pzgbar"><i style="width:${Math.round(100 * n / L)}%"></i></span><small>${k ? `<em class="pzb-${k}">★ ${k === "perfect" ? "Perfect" : "Gold"} set</em>` : `${n}/${L} Gold`}</small></span>`; };
 const fmtN = n => Number(n || 0).toLocaleString();
 const bonusName = b => b.on === "league" ? lShort(b.id) : b.on === "club" ? cShort(b.id) : b.on === "nation" ? `${flagOf(b.id)} ${nName(b.id)}` : b.label;
 const bonusText = pz => `+${pz.bonus.each} each ${esc(bonusName(pz.bonus))} card`;
