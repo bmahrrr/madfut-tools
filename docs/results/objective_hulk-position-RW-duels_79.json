@@ -3,11 +3,11 @@
  "obj_ids": [
   "id225201"
  ],
- "strength": 100.2,
+ "strength": 100.1,
  "group_cards": 7,
  "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
+  "formation": "4-4-1-1",
   "chem": 31,
   "players": [
    {
@@ -34,25 +34,48 @@
     "tiebreak": 156
    },
    {
-    "slot": "CB",
-    "id": "id192366",
-    "name": "Otamendi",
-    "rating": 78,
+    "slot": "LB",
+    "id": "id224334",
+    "name": "Acuña",
+    "rating": 76,
     "color": "rare_gold",
-    "position": "CB",
+    "position": "LB",
     "nationId": 52,
     "leagueId": 353,
     "clubId": 1876,
     "card": [
-     60,
-     63,
+     75,
+     77,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     81,
+     78
+    ],
+    "tiebreak": 233
+   },
+   {
+    "slot": "CB",
+    "id": "id213661",
+    "name": "Christensen",
+    "rating": 79,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 13,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     56,
+     67,
      79
     ],
     "chem": 3,
     "eff": [
-     62,
-     67,
-     82
+     58,
+     69,
+     81
     ],
     "tiebreak": 208
    },
@@ -80,27 +103,27 @@
     "tiebreak": 235
    },
    {
-    "slot": "CB",
-    "id": "id197948",
-    "name": "Lejeune",
+    "slot": "RB",
+    "id": "id237221",
+    "name": "Foyth",
     "rating": 79,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 18,
+    "nationId": 52,
     "leagueId": 53,
-    "clubId": 480,
+    "clubId": 483,
     "card": [
-     67,
-     69,
+     63,
+     71,
      79
     ],
     "chem": 3,
     "eff": [
-     69,
-     71,
-     81
+     65,
+     75,
+     82
     ],
-    "tiebreak": 221
+    "tiebreak": 219
    },
    {
     "slot": "LM",
@@ -127,6 +150,29 @@
    },
    {
     "slot": "CM",
+    "id": "id245371",
+    "name": "Almada",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
+    "card": [
+     78,
+     78,
+     53
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     82,
+     56
+    ],
+    "tiebreak": 215
+   },
+   {
+    "slot": "CM",
     "id": "id241811",
     "name": "Sergio Gómez",
     "rating": 78,
@@ -149,50 +195,27 @@
     "tiebreak": 238
    },
    {
-    "slot": "CM",
-    "id": "id234060",
-    "name": "Herrera",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 61,
-    "leagueId": 53,
-    "clubId": 457,
-    "card": [
-     76,
-     75,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     78,
-     77,
-     80
-    ],
-    "tiebreak": 235
-   },
-   {
     "slot": "RM",
-    "id": "id265860",
-    "name": "Dufour",
+    "id": "id236918",
+    "name": "Dreyer",
     "rating": 79,
     "color": "rare_gold",
     "position": "RW",
-    "nationId": 18,
-    "leagueId": 2221,
-    "clubId": 111140,
+    "nationId": 13,
+    "leagueId": 39,
+    "clubId": 131439,
     "card": [
-     78,
-     78,
-     51
+     79,
+     76,
+     44
     ],
     "chem": 1,
     "eff": [
-     78,
-     78,
-     51
+     79,
+     76,
+     44
     ],
-    "tiebreak": 207
+    "tiebreak": 199
    },
    {
     "slot": "CAM",
@@ -218,50 +241,27 @@
     "tiebreak": 228
    },
    {
-    "slot": "CAM",
-    "id": "id245371",
-    "name": "Almada",
-    "rating": 78,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 1876,
-    "card": [
-     78,
-     78,
-     53
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     82,
-     56
-    ],
-    "tiebreak": 215
-   },
-   {
     "slot": "ST",
-    "id": "id214997",
-    "name": "Correa",
+    "id": "id235467",
+    "name": "Moreno",
     "rating": 78,
     "color": "rare_gold",
     "position": "CAM",
     "nationId": 52,
     "leagueId": 353,
-    "clubId": 1876,
+    "clubId": 110395,
     "card": [
      79,
-     76,
-     53
+     77,
+     54
     ],
     "chem": 3,
     "eff": [
      81,
-     80,
-     56
+     81,
+     57
     ],
-    "tiebreak": 214
+    "tiebreak": 216
    }
   ]
  },
@@ -297,18 +297,18 @@
  },
  "base_ids": [
   "id227186",
+  "id192638",
   "id236804",
   "id50574483",
-  "id192638",
   "id237221",
   "id263370",
+  "id224334",
   "id241811",
-  "id233084",
   "id245371",
-  "id235467",
-  "id254551"
+  "id254551",
+  "id235467"
  ],
- "built": "2026-11-20 21:57 UTC",
+ "built": "2026-11-21 06:38 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-20 21:57 UTC"
+ "changed": "2026-11-21 06:38 UTC"
 }

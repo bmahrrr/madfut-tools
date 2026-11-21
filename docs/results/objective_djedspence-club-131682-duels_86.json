@@ -1,81 +1,59 @@
 {
- "g": 1,
+ "g": 2,
  "obj_ids": [
+  "id224987",
   "id67316992"
  ],
- "strength": 102.3,
- "group_cards": 1,
+ "strength": 101.8,
+ "group_cards": 2,
  "reddit": [],
  "team": {
   "formation": "4-2-3-1",
-  "chem": 33,
+  "chem": 30,
   "players": [
    {
     "slot": "GK",
-    "id": "id50586451",
-    "name": "Lammens",
-    "rating": 86,
-    "color": "ucl_rttk",
+    "id": "id224987",
+    "name": "Provedel",
+    "rating": 83,
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 7,
-    "leagueId": 13,
-    "clubId": 11,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 131682,
     "card": [
-     40,
      37,
-     88
+     37,
+     84
     ],
     "chem": 3,
     "eff": [
-     42,
-     39,
-     90
+     40,
+     40,
+     87
     ],
-    "tiebreak": 171
+    "tiebreak": 164
    },
    {
     "slot": "LB",
-    "id": "id50597775",
-    "name": "Hall",
+    "id": "id50595413",
+    "name": "Bischof",
     "rating": 86,
     "color": "future_stars",
-    "position": "LB",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 13,
-    "card": [
-     79,
-     83,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     82,
-     85,
-     90
-    ],
-    "tiebreak": 253
-   },
-   {
-    "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
+    "position": "CM",
     "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     76,
-     86,
-     85
-    ],
-    "chem": 3,
-    "eff": [
-     78,
+     87,
      88,
-     87
+     78
+    ],
+    "chem": 1,
+    "eff": [
+     87,
+     88,
+     78
     ],
     "tiebreak": 253
    },
@@ -103,6 +81,29 @@
     "tiebreak": 227
    },
    {
+    "slot": "CB",
+    "id": "id50752",
+    "name": "King",
+    "rating": 86,
+    "color": "hero",
+    "position": "CB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 114605,
+    "card": [
+     67,
+     70,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     72,
+     92
+    ],
+    "tiebreak": 230
+   },
+   {
     "slot": "RB",
     "id": "id50575305",
     "name": "Garner",
@@ -127,52 +128,29 @@
    },
    {
     "slot": "CDM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     89,
-     74
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CDM",
-    "id": "id67316992",
-    "name": "Çalhanoğlu",
+    "id": "id84095738",
+    "name": "Goretzka",
     "rating": 86,
-    "color": "halloween",
-    "position": "CAM",
-    "nationId": 48,
-    "leagueId": 31,
-    "clubId": 131682,
+    "color": "heritage",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 2,
     "card": [
-     86,
-     86,
-     80
+     84,
+     84,
+     84
     ],
     "chem": 3,
     "eff": [
-     89,
-     89,
-     83
+     86,
+     86,
+     86
     ],
     "tiebreak": 258
    },
    {
-    "slot": "CAM",
+    "slot": "CDM",
     "id": "id50574082",
     "name": "Jones",
     "rating": 86,
@@ -193,6 +171,29 @@
      87
     ],
     "tiebreak": 256
+   },
+   {
+    "slot": "CAM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
+    "card": [
+     86,
+     87,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     89,
+     74
+    ],
+    "tiebreak": 248
    },
    {
     "slot": "CAM",
@@ -219,49 +220,49 @@
    },
    {
     "slot": "CAM",
-    "id": "id50524633",
-    "name": "De Bruyne",
+    "id": "id67316992",
+    "name": "Çalhanoğlu",
     "rating": 86,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 7,
+    "color": "halloween",
+    "position": "CAM",
+    "nationId": 48,
     "leagueId": 31,
-    "clubId": 48,
+    "clubId": 131682,
     "card": [
-     85,
-     87,
-     67
+     86,
+     86,
+     80
     ],
     "chem": 3,
     "eff": [
-     88,
-     90,
-     70
+     89,
+     89,
+     83
     ],
-    "tiebreak": 245
+    "tiebreak": 258
    },
    {
     "slot": "ST",
-    "id": "id67362886",
-    "name": "Woltemade",
-    "rating": 85,
-    "color": "halloween",
-    "position": "CAM",
-    "nationId": 21,
+    "id": "id50407181",
+    "name": "Alajbegović",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "LW",
+    "nationId": 8,
     "leagueId": 31,
     "clubId": 45,
     "card": [
-     84,
+     86,
      85,
-     52
+     58
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     87,
      88,
-     55
+     87,
+     60
     ],
-    "tiebreak": 227
+    "tiebreak": 232
    }
   ]
  },
@@ -296,19 +297,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id50586451",
-  "id226268",
-  "id50752",
-  "id50564404",
+  "id50499143",
+  "id50595413",
   "id50559326",
+  "id50564404",
+  "id50752",
   "id5467",
   "id50592947",
-  "id50524633",
-  "id67316992",
-  "id180175",
-  "id50487969"
+  "id50575305",
+  "id50402434",
+  "id50487969",
+  "id67335223"
  ],
- "built": "2026-11-21 02:42 UTC",
+ "built": "2026-11-21 06:38 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-21 02:42 UTC"
+ "changed": "2026-11-21 06:38 UTC"
 }

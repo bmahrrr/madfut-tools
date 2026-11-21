@@ -1,63 +1,63 @@
 {
  "g": 4,
  "obj_ids": [
-  "id50590296",
   "id184943",
-  "id180175",
+  "id67335759",
+  "id247851",
   "id189362"
  ],
- "strength": 100.9,
+ "strength": 100.6,
  "group_cards": 498,
  "reddit": [],
  "team": {
-  "formation": "4-1-2-1-2 (2)",
+  "formation": "4-3-2-1",
   "chem": 33,
   "players": [
    {
     "slot": "GK",
-    "id": "id50586451",
-    "name": "Lammens",
+    "id": "id50499143",
+    "name": "Neuer",
     "rating": 86,
-    "color": "ucl_rttk",
+    "color": "thunderstruck",
     "position": "GK",
-    "nationId": 7,
-    "leagueId": 13,
-    "clubId": 11,
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     40,
-     37,
-     88
+     41,
+     46,
+     87
     ],
     "chem": 3,
     "eff": [
-     42,
-     39,
-     90
+     43,
+     48,
+     89
     ],
-    "tiebreak": 171
+    "tiebreak": 180
    },
    {
     "slot": "LB",
-    "id": "id226268",
-    "name": "Dimarco",
+    "id": "id50595413",
+    "name": "Bischof",
     "rating": 86,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 131682,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
-     81,
-     83,
-     84
+     87,
+     88,
+     78
     ],
     "chem": 3,
     "eff": [
-     84,
-     86,
-     87
+     89,
+     90,
+     80
     ],
-    "tiebreak": 254
+    "tiebreak": 259
    },
    {
     "slot": "CB",
@@ -84,26 +84,26 @@
    },
    {
     "slot": "CB",
-    "id": "id50590296",
-    "name": "Carlos Augusto",
-    "rating": 83,
-    "color": "showdown",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 131682,
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
     "card": [
-     79,
-     80,
-     82
+     76,
+     86,
+     85
     ],
     "chem": 3,
     "eff": [
-     82,
-     83,
-     85
+     78,
+     88,
+     87
     ],
-    "tiebreak": 247
+    "tiebreak": 253
    },
    {
     "slot": "RB",
@@ -129,27 +129,50 @@
     "tiebreak": 253
    },
    {
-    "slot": "CDM",
-    "id": "id67316992",
-    "name": "Çalhanoğlu",
+    "slot": "CM",
+    "id": "id247851",
+    "name": "Bruno Guimarães",
     "rating": 86,
-    "color": "halloween",
-    "position": "CAM",
-    "nationId": 48,
-    "leagueId": 31,
-    "clubId": 131682,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 1,
     "card": [
-     86,
-     86,
-     80
+     79,
+     84,
+     79
     ],
     "chem": 3,
     "eff": [
-     89,
-     89,
+     81,
+     86,
+     81
+    ],
+    "tiebreak": 248
+   },
+   {
+    "slot": "CM",
+    "id": "id67335759",
+    "name": "Formiga",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     79,
+     82,
      83
     ],
-    "tiebreak": 258
+    "chem": 3,
+    "eff": [
+     81,
+     84,
+     85
+    ],
+    "tiebreak": 250
    },
    {
     "slot": "CM",
@@ -175,27 +198,27 @@
     "tiebreak": 253
    },
    {
-    "slot": "CM",
-    "id": "id50524633",
-    "name": "De Bruyne",
-    "rating": 86,
-    "color": "totw_gold",
-    "position": "CM",
-    "nationId": 7,
-    "leagueId": 31,
-    "clubId": 48,
+    "slot": "CAM",
+    "id": "id50402434",
+    "name": "King",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 144,
     "card": [
-     85,
+     86,
      87,
-     67
+     69
     ],
     "chem": 3,
     "eff": [
-     88,
-     90,
-     70
+     89,
+     89,
+     74
     ],
-    "tiebreak": 245
+    "tiebreak": 248
    },
    {
     "slot": "CAM",
@@ -242,29 +265,6 @@
      53
     ],
     "tiebreak": 224
-   },
-   {
-    "slot": "ST",
-    "id": "id180175",
-    "name": "Alexandre Pato",
-    "rating": 85,
-    "color": "hall_of_fut",
-    "position": "ST",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 132794,
-    "card": [
-     85,
-     76,
-     39
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     79,
-     42
-    ],
-    "tiebreak": 206
    }
   ]
  },
@@ -300,19 +300,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id50586451",
-  "id226268",
-  "id50752",
-  "id50564404",
+  "id50499143",
+  "id50595413",
   "id50559326",
+  "id50564404",
+  "id50752",
   "id5467",
   "id50592947",
-  "id50524633",
-  "id67316992",
-  "id180175",
-  "id50487969"
+  "id50575305",
+  "id50402434",
+  "id50487969",
+  "id67335223"
  ],
- "built": "2026-11-21 02:41 UTC",
+ "built": "2026-11-21 06:38 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-21 02:41 UTC"
+ "changed": "2026-11-21 06:38 UTC"
 }
