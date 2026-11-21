@@ -771,7 +771,7 @@ const UPDATES = [
   { day: "2026-11-21", items: [
     "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points, a top score to chase on every puzzle and a leaderboard for each one.",
     "<b>Achievements:</b> 29 to unlock in Puzzles, from your first solve to #1 overall.",
-    "<b>Medals:</b> Bronze, Silver, Gold and Perfect for how close you get to each puzzle's top score, plus your Top % among everyone who played it.",
+    "<b>Medals:</b> Bronze, Silver, Gold and Perfect for how close you get to each puzzle's top score, plus your Top % on every puzzle, set and overall.",
     "<b>Card picker:</b> filters like the game, a chem preview on every card, and Undo.",
     "<b>Flags:</b> country flags now show on Windows too."
   ] },
