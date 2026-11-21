@@ -769,6 +769,11 @@ const mcFunnel = () => funnel("How My Club teams are built", MC_STEPS);
 const serOpen = id => OPEN.has(id) ? " open" : "";
 // Latest Update card on the landing page: newest entry first, only the newest is shown
 const UPDATES = [
+  { day: "2026-11-21", items: [
+    { p: 1, t: "<b>Puzzles achievements:</b> 29 to unlock, from your first solve to #1 overall, with progress bars for the ones that count up." },
+    "<b>Puzzles sets:</b> each set shows how many puzzles you have at Perfect, with your Gold progress behind it.",
+    "<b>Top %:</b> after a puzzle, see where your score sits among everyone who has played it."
+  ] },
   { day: "2026-11-17", items: [
     { p: 1, t: "<b>Puzzles:</b> new tab. Finish each squad around the locked cards to hit the chem target, with bonus points and sets from Easy to Expert." },
     "<b>Evos:</b> each series now has three versions: All Evos, Recommended Evos and No LTM & Evos.",
