@@ -1,0 +1,931 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "75",
+  "cap": 75,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 2215,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ],
+  "bonuses": [
+   {
+    "kind": "nations",
+    "min": 8,
+    "att": 0,
+    "ctl": 2,
+    "def": 0
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-1-4-2",
+   "chem": 27,
+   "players": [
+    {
+     "id": "evx_id75816_4",
+     "name": "Reverson",
+     "rating": 72,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 117,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      36,
+      35,
+      74
+     ],
+     "chem": 2,
+     "eff": [
+      37,
+      38,
+      75
+     ],
+     "evos": [
+      "Silver Goalie #1"
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id246885",
+     "name": "Capaldo",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      72,
+      70,
+      75
+     ],
+     "chem": 2,
+     "eff": [
+      73,
+      73,
+      76
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243354",
+     "name": "Sander",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      72,
+      73,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      77,
+      77
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id241171",
+     "name": "Obispo",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 85,
+     "leagueId": 10,
+     "clubId": 247,
+     "card": [
+      57,
+      63,
+      74
+     ],
+     "chem": 1,
+     "eff": [
+      57,
+      65,
+      74
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id199564",
+     "name": "Sergi Roberto",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 45,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      71,
+      77,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      81,
+      73
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id204497",
+     "name": "Stöger",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      73,
+      77,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      81,
+      63
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id242816",
+     "name": "Riqui Puig",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      75,
+      76,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      80,
+      51
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id190815",
+     "name": "Blind",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      70,
+      78,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      82,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      81,
+      74
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id184941",
+     "name": "Sánchez",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 55,
+     "leagueId": 39,
+     "clubId": 111139,
+     "card": [
+      77,
+      76,
+      49
+     ],
+     "chem": 1,
+     "eff": [
+      77,
+      78,
+      49
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id252021",
+     "name": "Dallinga",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 31,
+     "card": [
+      75,
+      67,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      71,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.683,
+    "control": 81.0,
+    "attack": 76.74,
+    "defence": 75.0,
+    "net": 0.2834,
+    "vs_reddit": null,
+    "control_cards": [
+     82,
+     81,
+     81,
+     81,
+     80
+    ],
+    "attack_cards": [
+     78,
+     77,
+     77,
+     77,
+     75,
+     73
+    ],
+    "defence_cards": [
+     77,
+     76,
+     75,
+     74,
+     73
+    ],
+    "p_att": 0.6694,
+    "p_def": 0.2098,
+    "chem": 27,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 223.6,
+    "att_total": 206.31,
+    "def_total": 204.6,
+    "round_robin": {
+     "wins": 5.0,
+     "margin": 1.4654
+    }
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 27,
+   "players": [
+    {
+     "id": "id236571",
+     "name": "Paes",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 160,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      27,
+      22,
+      72
+     ],
+     "chem": 2,
+     "eff": [
+      28,
+      25,
+      73
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id246885",
+     "name": "Capaldo",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      72,
+      70,
+      75
+     ],
+     "chem": 2,
+     "eff": [
+      73,
+      73,
+      76
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243354",
+     "name": "Sander",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      72,
+      73,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      77,
+      77
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id241171",
+     "name": "Obispo",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 85,
+     "leagueId": 10,
+     "clubId": 247,
+     "card": [
+      57,
+      63,
+      74
+     ],
+     "chem": 1,
+     "eff": [
+      57,
+      65,
+      74
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id199564",
+     "name": "Sergi Roberto",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 45,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      71,
+      77,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      81,
+      73
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id204497",
+     "name": "Stöger",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      73,
+      77,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      81,
+      63
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id242816",
+     "name": "Riqui Puig",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      75,
+      76,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      80,
+      51
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id190815",
+     "name": "Blind",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      70,
+      78,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      82,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      81,
+      74
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id184941",
+     "name": "Sánchez",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 55,
+     "leagueId": 39,
+     "clubId": 111139,
+     "card": [
+      77,
+      76,
+      49
+     ],
+     "chem": 1,
+     "eff": [
+      77,
+      78,
+      49
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id252021",
+     "name": "Dallinga",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 31,
+     "card": [
+      75,
+      67,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      71,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.683,
+    "control": 81.0,
+    "attack": 76.74,
+    "defence": 74.6,
+    "net": 0.277,
+    "vs_reddit": null,
+    "control_cards": [
+     82,
+     81,
+     81,
+     81,
+     80
+    ],
+    "attack_cards": [
+     78,
+     77,
+     77,
+     77,
+     75,
+     73
+    ],
+    "defence_cards": [
+     77,
+     76,
+     74,
+     73,
+     73
+    ],
+    "p_att": 0.6694,
+    "p_def": 0.1856,
+    "chem": 27,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 223.6,
+    "att_total": 206.31,
+    "def_total": 199.8
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 28,
+   "players": [
+    {
+     "id": "id236571",
+     "name": "Paes",
+     "rating": 71,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 160,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      27,
+      22,
+      72
+     ],
+     "chem": 2,
+     "eff": [
+      28,
+      25,
+      73
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id246885",
+     "name": "Capaldo",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      72,
+      70,
+      75
+     ],
+     "chem": 2,
+     "eff": [
+      73,
+      73,
+      76
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243354",
+     "name": "Sander",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      72,
+      73,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      77,
+      77
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id241171",
+     "name": "Obispo",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 85,
+     "leagueId": 10,
+     "clubId": 247,
+     "card": [
+      57,
+      63,
+      74
+     ],
+     "chem": 1,
+     "eff": [
+      57,
+      65,
+      74
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id199564",
+     "name": "Sergi Roberto",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CDM",
+     "nationId": 45,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      71,
+      77,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      81,
+      73
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id204497",
+     "name": "Stöger",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 4,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      73,
+      77,
+      61
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      81,
+      63
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id190815",
+     "name": "Blind",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      70,
+      78,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      82,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id242816",
+     "name": "Riqui Puig",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      75,
+      76,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      80,
+      51
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id208618",
+     "name": "Lucas Vázquez",
+     "rating": 74,
+     "color": "rare_silver",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      76,
+      77,
+      72
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      81,
+      74
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id241162",
+     "name": "Paintsil",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "LM",
+     "nationId": 117,
+     "leagueId": 39,
+     "clubId": 697,
+     "card": [
+      75,
+      68,
+      40
+     ],
+     "chem": 2,
+     "eff": [
+      76,
+      71,
+      41
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id252021",
+     "name": "Dallinga",
+     "rating": 75,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 31,
+     "card": [
+      75,
+      67,
+      41
+     ],
+     "chem": 3,
+     "eff": [
+      77,
+      71,
+      43
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.683,
+    "control": 81.0,
+    "attack": 76.42,
+    "defence": 74.6,
+    "net": 0.2418,
+    "vs_reddit": null,
+    "control_cards": [
+     82,
+     81,
+     81,
+     81,
+     80
+    ],
+    "attack_cards": [
+     78,
+     77,
+     77,
+     76,
+     75,
+     73
+    ],
+    "defence_cards": [
+     77,
+     76,
+     74,
+     73,
+     73
+    ],
+    "p_att": 0.6216,
+    "p_def": 0.1856,
+    "chem": 28,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 223.6,
+    "att_total": 201.11,
+    "def_total": 199.8
+   }
+  }
+ ],
+ "not_owned": [],
+ "variant": {
+  "id": "allevo",
+  "label": "All Evos",
+  "exclude": [],
+  "include": "evos_all"
+ },
+ "evos_seen": [
+  "Albiceleste Upgrade",
+  "Austrian Bundesliga Bronze",
+  "Austrian Bundesliga Silver",
+  "Bronze Master-Shooter",
+  "Defender Control Upgrade",
+  "German Defender",
+  "K League 1 Bronze",
+  "K League 1 Silver",
+  "Les Bleus Defender",
+  "Midfielder Attack Upgrade",
+  "Pacy Bronze",
+  "Physical Striker Upgrade",
+  "Romanian Superliga Bronze",
+  "Romanian Superliga Silver",
+  "Scottish Premiership Bronze",
+  "Scottish Premiership Silver",
+  "Silver Goalie #1",
+  "Silver Maestro"
+ ],
+ "built": "2026-11-21 20:56 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 20:56 UTC"
+}
