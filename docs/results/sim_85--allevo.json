@@ -1,0 +1,966 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "85",
+  "cap": 85,
+  "boosts": [
+   {
+    "on": "club",
+    "id": 21,
+    "att": 1,
+    "ctl": 2,
+    "def": 0
+   },
+   {
+    "on": "club",
+    "id": 22,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "evx_id228369_4",
+     "name": "Walton",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 181,
+     "card": [
+      39,
+      34,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      41,
+      36,
+      77
+     ],
+     "evos": [
+      "Silver Goalie #1"
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "evx_id224196_8",
+     "name": "Bensebaini",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 97,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      77,
+      82,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      85,
+      88
+     ],
+     "evos": [
+      "Defender Control Upgrade"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id226162_12",
+     "name": "Buendía",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 52,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      85,
+      87,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id50597436_11_6",
+     "name": "Iqbal",
+     "rating": 85,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 162,
+     "leagueId": 50,
+     "clubId": 181,
+     "card": [
+      83,
+      88,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      79
+     ],
+     "evos": [
+      "Scottish Premiership Silver",
+      "Midfielder Attack Upgrade"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_karetsas85",
+     "name": "Karetsas",
+     "rating": 85,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      85,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      53
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id134476925",
+     "name": "Jackson",
+     "rating": 85,
+     "color": "epl_potm",
+     "position": "ST",
+     "nationId": 136,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      86,
+      78,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      80,
+      54
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id67376139",
+     "name": "Nagasato",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CAM",
+     "nationId": 163,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      82,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      84,
+      47
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.4827,
+    "control": 89.0,
+    "attack": 86.85,
+    "defence": 84.5,
+    "net": 0.1889,
+    "vs_reddit": null,
+    "control_cards": [
+     90,
+     89,
+     89,
+     89,
+     88
+    ],
+    "attack_cards": [
+     88,
+     88,
+     87,
+     87,
+     86,
+     85,
+     85
+    ],
+    "defence_cards": [
+     88,
+     87,
+     86,
+     77
+    ],
+    "p_att": 0.6893,
+    "p_def": 0.3442,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 244.8,
+    "att_total": 227.96,
+    "def_total": 212.5,
+    "round_robin": {
+     "wins": 14.5,
+     "margin": 2.1534
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "evx_id228369_4",
+     "name": "Walton",
+     "rating": 73,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 14,
+     "leagueId": 50,
+     "clubId": 181,
+     "card": [
+      39,
+      34,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      41,
+      36,
+      77
+     ],
+     "evos": [
+      "Silver Goalie #1"
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "evx_id224196_8",
+     "name": "Bensebaini",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 97,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      77,
+      82,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      80,
+      85,
+      88
+     ],
+     "evos": [
+      "Defender Control Upgrade"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id226162_12",
+     "name": "Buendía",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 52,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      85,
+      87,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id50597436_11_6",
+     "name": "Iqbal",
+     "rating": 85,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 162,
+     "leagueId": 50,
+     "clubId": 181,
+     "card": [
+      83,
+      88,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      79
+     ],
+     "evos": [
+      "Scottish Premiership Silver",
+      "Midfielder Attack Upgrade"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_karetsas85",
+     "name": "Karetsas",
+     "rating": 85,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      85,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      53
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id134476925",
+     "name": "Jackson",
+     "rating": 85,
+     "color": "epl_potm",
+     "position": "ST",
+     "nationId": 136,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      86,
+      78,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      80,
+      54
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50413372",
+     "name": "Durán",
+     "rating": 85,
+     "color": "star_performer",
+     "position": "ST",
+     "nationId": 56,
+     "leagueId": 50,
+     "clubId": 78,
+     "card": [
+      85,
+      80,
+      49
+     ],
+     "chem": 2,
+     "eff": [
+      86,
+      81,
+      50
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.4827,
+    "control": 89.0,
+    "attack": 86.85,
+    "defence": 84.5,
+    "net": 0.1889,
+    "vs_reddit": null,
+    "control_cards": [
+     90,
+     89,
+     89,
+     89,
+     88
+    ],
+    "attack_cards": [
+     88,
+     88,
+     87,
+     87,
+     86,
+     85,
+     85
+    ],
+    "defence_cards": [
+     88,
+     87,
+     86,
+     77
+    ],
+    "p_att": 0.6893,
+    "p_def": 0.3442,
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 244.8,
+    "att_total": 227.96,
+    "def_total": 212.5
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id50567488",
+     "name": "Di Gregorio",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 27,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      41,
+      43,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      43,
+      45,
+      83
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id79767_13_8",
+     "name": "Iovu",
+     "rating": 82,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 33,
+     "leagueId": 50,
+     "clubId": 181,
+     "card": [
+      58,
+      64,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      60,
+      66,
+      86
+     ],
+     "evos": [
+      "Scottish Premiership Bronze",
+      "Defender Control Upgrade"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      88,
+      87
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "evx_id226162_12",
+     "name": "Buendía",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "LM",
+     "nationId": 52,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      85,
+      87,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "evos": [
+      "Albiceleste Upgrade"
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evx_id50597436_11_6",
+     "name": "Iqbal",
+     "rating": 85,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 162,
+     "leagueId": 50,
+     "clubId": 181,
+     "card": [
+      83,
+      88,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      90,
+      79
+     ],
+     "evos": [
+      "Scottish Premiership Silver",
+      "Midfielder Attack Upgrade"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id216800_7",
+     "name": "Cisotti",
+     "rating": 85,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 330,
+     "clubId": 100761,
+     "card": [
+      85,
+      87,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      76
+     ],
+     "evos": [
+      "Romanian Superliga Silver"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id67158233",
+     "name": "Fernando Torres",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      74,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      45
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id67376139",
+     "name": "Nagasato",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CAM",
+     "nationId": 163,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      82,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      84,
+      47
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5467,
+    "control": 89.0,
+    "attack": 86.35,
+    "defence": 85.8,
+    "net": 0.074,
+    "vs_reddit": null,
+    "control_cards": [
+     90,
+     89,
+     89,
+     89,
+     88
+    ],
+    "attack_cards": [
+     88,
+     87,
+     87,
+     86,
+     86,
+     85
+    ],
+    "defence_cards": [
+     87,
+     87,
+     86,
+     86,
+     83
+    ],
+    "p_att": 0.5597,
+    "p_def": 0.2539,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 251.0,
+    "att_total": 225.3,
+    "def_total": 215.8
+   }
+  }
+ ],
+ "not_owned": [],
+ "variant": {
+  "id": "allevo",
+  "label": "All Evos",
+  "exclude": [],
+  "include": "evos_all"
+ },
+ "evos_seen": [
+  "Albiceleste Upgrade",
+  "Austrian Bundesliga Bronze",
+  "Austrian Bundesliga Silver",
+  "Bronze Master-Shooter",
+  "Defender Control Upgrade",
+  "German Defender",
+  "K League 1 Bronze",
+  "K League 1 Silver",
+  "Les Bleus Defender",
+  "Midfielder Attack Upgrade",
+  "Pacy Bronze",
+  "Physical Striker Upgrade",
+  "Romanian Superliga Bronze",
+  "Romanian Superliga Silver",
+  "Scottish Premiership Bronze",
+  "Scottish Premiership Silver",
+  "Silver Goalie #1",
+  "Silver Maestro"
+ ],
+ "built": "2026-11-21 20:27 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 20:27 UTC"
+}
