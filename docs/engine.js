@@ -32,11 +32,13 @@ function chem(team) {
 }
 
 const KEYMAP = { nation: "nationId", league: "leagueId", club: "clubId", color: "color", type: "color" };
+// boost groups: "icons" = every Icon card (Icon, Debut Icon, Thunderstruck Icon...), "heroes" = every Hero card. "icon" / "hero" alone = the regular card only
+const BOOST_GROUP = { icons: c => /(^|_)icon$/.test(String(c.color)), heroes: c => /(^|_)hero$/.test(String(c.color)) };
 function boosted(c, boosts) {
   let a = c.attack, k = c.control, d = c.defense;
   for (const b of boosts || []) {
     const key = KEYMAP[b.on]; const v = c[key];
-    const match = key === "color" ? cardType(c) === String(b.id).replace("rare_", "") : v === b.id;
+    const match = key === "color" ? (BOOST_GROUP[b.id] ? BOOST_GROUP[b.id](c) : cardType(c) === String(b.id).replace("rare_", "")) : v === b.id;
     if (match) { a += b.att || 0; k += b.ctl || 0; d += b.def || 0; }
   }
   return [a, k, d];

@@ -39,7 +39,7 @@ new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) i
   .observe(document.documentElement, { childList: true, subtree: true });
 document.addEventListener("DOMContentLoaded", () => titleAll(document.body));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
-const TYPE = c => cap({rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",hall_of_fut_upgraded:"HoF Upgraded",showdown_plus:"Showdown Plus",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",ligue1_potm:"Ligue 1 POTM",ligue_1_potm:"Ligue 1 POTM",liga_f_potm:"Liga F POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo",halloween:"Ultimate Scream",halloween_hero:"Ultimate Scream Hero",ucl_rttk:"UCL RTTK",uwcl_rttk:"UWCL RTTK",ecl_rttk:"ECL RTTK",europa_rttk:"UEL RTTK",world_potm:"World POTM",world_potm_nominee:"World POTM Nominee",star_performer:"Star Performer",heritage:"Heritage",showdown:"Showdown"}[c] || String(c).replace(/_/g, " "));
+const TYPE = c => cap({icons:"All Icons",heroes:"All Heroes",rare_gold:"Gold",gold:"Gold",rare_silver:"Silver",silver:"Silver",rare_bronze:"Bronze",bronze:"Bronze",totw_gold:"TOTW",icon:"Icon",debut_icon:"Debut Icon",hero:"Hero",hall_of_fut:"Hall of FUT",hall_of_fut_upgraded:"HoF Upgraded",showdown_plus:"Showdown Plus",future_stars:"Future Stars",destined_for_glory:"Destined for Glory",squad_foundations:"Squad Foundations",evo:"Evo",ltm:"LTM",otw:"Ones to Watch",partners:"Partners",seriea_potm:"Serie A POTM",epl_potm:"EPL POTM",laliga_potm:"LaLiga POTM",bundesliga_potm:"Bundesliga POTM",ligue1_potm:"Ligue 1 POTM",ligue_1_potm:"Ligue 1 POTM",liga_f_potm:"Liga F POTM",sbc_premium:"SBC Premium",elite_evo:"Elite Evo",halloween:"Ultimate Scream",halloween_hero:"Ultimate Scream Hero",ucl_rttk:"UCL RTTK",uwcl_rttk:"UWCL RTTK",ecl_rttk:"ECL RTTK",europa_rttk:"UEL RTTK",world_potm:"World POTM",world_potm_nominee:"World POTM Nominee",star_performer:"Star Performer",heritage:"Heritage",showdown:"Showdown"}[c] || String(c).replace(/_/g, " "));
 
 let CARDS = [], BYID = new Map(), WEEK = null, INDEX = null;
 const state = { A: [], B: [], T: [], simB: [], simA: null, simAC: [] };
@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261121f";
+const APP_V = "20261122a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1380,7 +1380,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261121f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261122a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1406,7 +1406,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261121f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261122a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2222,7 +2222,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261121f");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261122a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2686,7 +2686,7 @@ function renderWeekForm() {
       const drawPick = () => {
         const kind = $("wKind").value;
         if (kind === "color") {
-          const types = [...new Set(CARDS.filter(c => !c._extra).map(c => String(c.color).replace("rare_", "")))].sort((a, b) => TYPE(a).localeCompare(TYPE(b)));
+          const types = ["icons", "heroes"].concat([...new Set(CARDS.filter(c => !c._extra).map(c => String(c.color).replace("rare_", "")))].sort((a, b) => TYPE(a).localeCompare(TYPE(b))));   // groups first: "icons" covers every Icon card
           $("wPick").innerHTML = `<select id="wType">${types.map(t => `<option value="${esc(t)}">${esc(TYPE(t))}</option>`).join("")}</select>`;
           picked = () => $("wType").value; return;
         }
