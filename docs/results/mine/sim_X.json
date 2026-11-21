@@ -1,0 +1,909 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "X",
+  "cap": 99,
+  "boosts": [
+   {
+    "on": "color",
+    "id": "thunderstruck_icon",
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   },
+   {
+    "on": "color",
+    "id": "world_potm",
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id5479",
+     "name": "Casillas",
+     "rating": 90,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      48,
+      47,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      50,
+      49,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "new_Can_92",
+     "name": "Can",
+     "rating": 92,
+     "color": "elite_evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      90,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      92,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo96",
+     "name": "Comuzzo",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      74,
+      86,
+      97
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      88,
+      99
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id238439",
+     "name": "Maldini",
+     "rating": 93,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      69,
+      74,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      76,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      96,
+      97
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Ngumoha_96",
+     "name": "Ngumoha",
+     "rating": 96,
+     "color": "ltm",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      95,
+      94,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      96,
+      65
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id027",
+     "name": "Nico Paz",
+     "rating": 94,
+     "color": "world_potm",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      94,
+      95,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      98,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id1397",
+     "name": "Zidane",
+     "rating": 94,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      93,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      95,
+      76
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "new_Karetsas_96",
+     "name": "Karetsas",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      91,
+      96,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      98,
+      81
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      93,
+      62
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id021",
+     "name": "Kane",
+     "rating": 93,
+     "color": "world_potm_nominee",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      93,
+      91,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      93,
+      64
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.4707,
+    "control": 96.6,
+    "attack": 95.0,
+    "defence": 95.4,
+    "net": 0.1117,
+    "vs_reddit": null,
+    "control_cards": [
+     98,
+     98,
+     96,
+     96,
+     95
+    ],
+    "attack_cards": [
+     97,
+     97,
+     95,
+     95,
+     93,
+     93
+    ],
+    "defence_cards": [
+     99,
+     97,
+     94,
+     94,
+     93
+    ],
+    "p_att": 0.6541,
+    "p_def": 0.4487,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 268.4,
+    "att_total": 255.9,
+    "def_total": 249.6,
+    "round_robin": {
+     "wins": 15.5,
+     "margin": 1.6058
+    }
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id1179",
+     "name": "Buffon",
+     "rating": 92,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      42,
+      36,
+      93
+     ],
+     "chem": 3,
+     "eff": [
+      44,
+      38,
+      95
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "new_Can_92",
+     "name": "Can",
+     "rating": 92,
+     "color": "elite_evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      90,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      92,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo96",
+     "name": "Comuzzo",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      74,
+      86,
+      97
+     ],
+     "chem": 3,
+     "eff": [
+      76,
+      88,
+      99
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id238384",
+     "name": "Carles Puyol",
+     "rating": 89,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      60,
+      63,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      62,
+      65,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      96,
+      97
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Ngumoha_96",
+     "name": "Ngumoha",
+     "rating": 96,
+     "color": "ltm",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      95,
+      94,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      96,
+      65
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id027",
+     "name": "Nico Paz",
+     "rating": 94,
+     "color": "world_potm",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      94,
+      95,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      98,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id1397",
+     "name": "Zidane",
+     "rating": 94,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      93,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      95,
+      76
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "new_Karetsas_96",
+     "name": "Karetsas",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      91,
+      96,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      98,
+      81
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      93,
+      62
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id021",
+     "name": "Kane",
+     "rating": 93,
+     "color": "world_potm_nominee",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      93,
+      91,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      93,
+      64
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.4707,
+    "control": 96.6,
+    "attack": 95.0,
+    "defence": 95.2,
+    "net": 0.1128,
+    "vs_reddit": null,
+    "control_cards": [
+     98,
+     98,
+     96,
+     96,
+     95
+    ],
+    "attack_cards": [
+     97,
+     97,
+     95,
+     95,
+     93,
+     93
+    ],
+    "defence_cards": [
+     99,
+     97,
+     95,
+     94,
+     91
+    ],
+    "p_att": 0.6541,
+    "p_def": 0.4513,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 268.4,
+    "att_total": 255.9,
+    "def_total": 242.0
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id5479",
+     "name": "Casillas",
+     "rating": 90,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      48,
+      47,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      50,
+      49,
+      93
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id190044",
+     "name": "Moore",
+     "rating": 90,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      73,
+      79,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      81,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo96",
+     "name": "Comuzzo",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      74,
+      86,
+      97
+     ],
+     "chem": 2,
+     "eff": [
+      75,
+      87,
+      98
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Can_92",
+     "name": "Can",
+     "rating": 92,
+     "color": "elite_evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      90,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      92,
+      94
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "new_Xavi Espart_96",
+     "name": "Xavi Espart",
+     "rating": 96,
+     "color": "ltm",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 241,
+     "card": [
+      87,
+      94,
+      95
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      96,
+      97
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "new_Ngumoha_96",
+     "name": "Ngumoha",
+     "rating": 96,
+     "color": "ltm",
+     "position": "LM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      95,
+      94,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      96,
+      65
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id1397",
+     "name": "Zidane",
+     "rating": 94,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      93,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      95,
+      76
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id027",
+     "name": "Nico Paz",
+     "rating": 94,
+     "color": "world_potm",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      94,
+      95,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      98,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "new_Karetsas_96",
+     "name": "Karetsas",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      91,
+      96,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      98,
+      81
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id237067",
+     "name": "Pelé",
+     "rating": 95,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      91,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      95,
+      93,
+      62
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id84161323",
+     "name": "Hamm",
+     "rating": 94,
+     "color": "thunderstruck_icon",
+     "position": "ST",
+     "nationId": 95,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      89,
+      60
+     ],
+     "chem": 2,
+     "eff": [
+      96,
+      92,
+      63
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.4707,
+    "control": 96.6,
+    "attack": 95.33,
+    "defence": 94.6,
+    "net": 0.1114,
+    "vs_reddit": null,
+    "control_cards": [
+     98,
+     98,
+     96,
+     96,
+     95
+    ],
+    "attack_cards": [
+     97,
+     97,
+     96,
+     95,
+     93,
+     93
+    ],
+    "defence_cards": [
+     98,
+     97,
+     94,
+     93,
+     91
+    ],
+    "p_att": 0.6711,
+    "p_def": 0.4273,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 268.4,
+    "att_total": 255.58,
+    "def_total": 250.2,
+    "swaps_checked": 51505
+   }
+  }
+ ],
+ "not_owned": [
+  "Kane 97",
+  "Konsa 94"
+ ],
+ "built": "2026-11-21 21:40 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 21:40 UTC",
+ "not_owned_ids": [
+  "id022",
+  "id031"
+ ],
+ "request_created": "2026-11-21T21:36:41.391Z"
+}
