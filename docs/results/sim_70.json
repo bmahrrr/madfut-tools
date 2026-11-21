@@ -1,0 +1,909 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "70",
+  "cap": 70,
+  "boosts": [
+   {
+    "on": "league",
+    "id": 1,
+    "att": 2,
+    "ctl": 0,
+    "def": 1
+   },
+   {
+    "on": "league",
+    "id": 4,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id239371",
+     "name": "El Maach",
+     "rating": 63,
+     "color": "rare_bronze",
+     "position": "GK",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      29,
+      24,
+      64
+     ],
+     "chem": 2,
+     "eff": [
+      30,
+      25,
+      65
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id73989",
+     "name": "Ruggero",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 32,
+     "clubId": 110908,
+     "card": [
+      49,
+      49,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      51,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id244576",
+     "name": "Illanes",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 32,
+     "clubId": 110907,
+     "card": [
+      50,
+      51,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      52,
+      53,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      53,
+      61,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      54,
+      62,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id275343",
+     "name": "Rodríguez",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101083,
+     "card": [
+      70,
+      71,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      56
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id184144",
+     "name": "Gaitán",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111707,
+     "card": [
+      69,
+      72,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      51
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id76944",
+     "name": "Bounida",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      68,
+      72,
+      35
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      74,
+      37
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id271575",
+     "name": "Pafundi",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 27,
+     "leagueId": 32,
+     "clubId": 110908,
+     "card": [
+      71,
+      72,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      74,
+      49
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id82264",
+     "name": "Freitas",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1876,
+     "card": [
+      73,
+      67,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      69,
+      42
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id253908",
+     "name": "Luna Diale",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111716,
+     "card": [
+      73,
+      68,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      70,
+      65
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5733,
+    "control": 74.0,
+    "attack": 73.72,
+    "defence": 69.75,
+    "net": 0.214,
+    "vs_reddit": null,
+    "control_cards": [
+     75,
+     74,
+     74,
+     74,
+     73
+    ],
+    "attack_cards": [
+     75,
+     75,
+     73,
+     72,
+     72,
+     71,
+     70
+    ],
+    "defence_cards": [
+     72,
+     72,
+     70,
+     65
+    ],
+    "p_att": 0.8577,
+    "p_def": 0.0598,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 193.8,
+    "att_total": 196.05,
+    "def_total": 164.25,
+    "swaps_checked": 34204,
+    "round_robin": {
+     "wins": 10.0,
+     "margin": 1.9336
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id220624",
+     "name": "Acosta",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111707,
+     "card": [
+      35,
+      23,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      37,
+      25,
+      73
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id199667",
+     "name": "Funes Mori",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101083,
+     "card": [
+      58,
+      63,
+      68
+     ],
+     "chem": 3,
+     "eff": [
+      60,
+      65,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      53,
+      61,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      54,
+      62,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id73989",
+     "name": "Ruggero",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 32,
+     "clubId": 110908,
+     "card": [
+      49,
+      49,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      51,
+      72
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id184144",
+     "name": "Gaitán",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111707,
+     "card": [
+      69,
+      72,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      51
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id275343",
+     "name": "Rodríguez",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101083,
+     "card": [
+      70,
+      71,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      56
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id76944",
+     "name": "Bounida",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      68,
+      72,
+      35
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      74,
+      37
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id271575",
+     "name": "Pafundi",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 27,
+     "leagueId": 32,
+     "clubId": 110908,
+     "card": [
+      71,
+      72,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      74,
+      49
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id79158",
+     "name": "Bernat Guiu",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 32,
+     "clubId": 113147,
+     "card": [
+      69,
+      67,
+      36
+     ],
+     "chem": 1,
+     "eff": [
+      69,
+      67,
+      36
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id275418",
+     "name": "Taha",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      71,
+      67,
+      39
+     ],
+     "chem": 2,
+     "eff": [
+      72,
+      68,
+      40
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5733,
+    "control": 74.0,
+    "attack": 70.84,
+    "defence": 71.25,
+    "net": 0.0197,
+    "vs_reddit": null,
+    "control_cards": [
+     75,
+     74,
+     74,
+     74,
+     73
+    ],
+    "attack_cards": [
+     73,
+     72,
+     72,
+     71,
+     70,
+     69
+    ],
+    "defence_cards": [
+     73,
+     72,
+     70,
+     70
+    ],
+    "p_att": 0.5339,
+    "p_def": 0.0976,
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 193.8,
+    "att_total": 181.88,
+    "def_total": 172.5
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 29,
+   "players": [
+    {
+     "id": "id276829",
+     "name": "Iacovich",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "GK",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101083,
+     "card": [
+      35,
+      31,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      37,
+      33,
+      73
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id236670",
+     "name": "Zalazar",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111707,
+     "card": [
+      49,
+      45,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      47,
+      71
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id74140",
+     "name": "Janse",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 34,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      53,
+      61,
+      69
+     ],
+     "chem": 2,
+     "eff": [
+      54,
+      62,
+      70
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id213855",
+     "name": "Flis",
+     "rating": 64,
+     "color": "rare_bronze",
+     "position": "CB",
+     "nationId": 37,
+     "leagueId": 66,
+     "clubId": 1569,
+     "card": [
+      57,
+      54,
+      63
+     ],
+     "chem": 2,
+     "eff": [
+      58,
+      55,
+      64
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id188554",
+     "name": "Dani Pacheco",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CDM",
+     "nationId": 45,
+     "leagueId": 66,
+     "clubId": 1569,
+     "card": [
+      68,
+      72,
+      66
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      74,
+      68
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id275343",
+     "name": "Rodríguez",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101083,
+     "card": [
+      70,
+      71,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      56
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id184144",
+     "name": "Gaitán",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 111707,
+     "card": [
+      69,
+      72,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      74,
+      51
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evo_Jerdea_70",
+     "name": "Jerdea",
+     "rating": 70,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 39,
+     "leagueId": 330,
+     "clubId": 110078,
+     "card": [
+      70,
+      73,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      75,
+      48
+     ],
+     "evos": [
+      "Romanian Superliga Bronze"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id76944",
+     "name": "Bounida",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 245,
+     "card": [
+      68,
+      72,
+      35
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      74,
+      37
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id275418",
+     "name": "Taha",
+     "rating": 68,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
+     "card": [
+      71,
+      67,
+      39
+     ],
+     "chem": 2,
+     "eff": [
+      72,
+      68,
+      40
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id259105",
+     "name": "Pablo Rodríguez",
+     "rating": 69,
+     "color": "rare_silver",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 66,
+     "clubId": 873,
+     "card": [
+      70,
+      67,
+      44
+     ],
+     "chem": 2,
+     "eff": [
+      71,
+      68,
+      45
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5787,
+    "control": 74.0,
+    "attack": 71.38,
+    "defence": 69.2,
+    "net": 0.0429,
+    "vs_reddit": null,
+    "control_cards": [
+     75,
+     74,
+     74,
+     74,
+     73
+    ],
+    "attack_cards": [
+     72,
+     72,
+     72,
+     71,
+     71,
+     70
+    ],
+    "defence_cards": [
+     73,
+     71,
+     70,
+     68,
+     64
+    ],
+    "p_att": 0.5905,
+    "p_def": 0.0608,
+    "chem": 29,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 197.0,
+    "att_total": 185.6,
+    "def_total": 177.4
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-11-21 20:01 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 20:01 UTC"
+}
