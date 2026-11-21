@@ -1,0 +1,944 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "85",
+  "cap": 85,
+  "boosts": [
+   {
+    "on": "club",
+    "id": 21,
+    "att": 1,
+    "ctl": 2,
+    "def": 0
+   },
+   {
+    "on": "club",
+    "id": 22,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id204935",
+     "name": "Pickford",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 7,
+     "card": [
+      45,
+      45,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      47,
+      47,
+      87
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id229476",
+     "name": "Anton",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      62,
+      67,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      70,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50412322",
+     "name": "Dro Fernández",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      58
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id67376139",
+     "name": "Nagasato",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CAM",
+     "nationId": 163,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      82,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      84,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50611460",
+     "name": "Bethune",
+     "rating": 85,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 116309,
+     "card": [
+      85,
+      84,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      86,
+      61
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5813,
+    "control": 88.4,
+    "attack": 86.69,
+    "defence": 86.75,
+    "net": 0.2024,
+    "vs_reddit": null,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     88
+    ],
+    "attack_cards": [
+     88,
+     87,
+     87,
+     87,
+     87,
+     86,
+     86
+    ],
+    "defence_cards": [
+     87,
+     87,
+     87,
+     86
+    ],
+    "p_att": 0.6333,
+    "p_def": 0.366,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 238.6,
+    "att_total": 228.24,
+    "def_total": 211.5,
+    "swaps_checked": 48914,
+    "round_robin": {
+     "wins": 6.0,
+     "margin": 1.71
+    }
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id204935",
+     "name": "Pickford",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 7,
+     "card": [
+      45,
+      45,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      47,
+      47,
+      87
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id229476",
+     "name": "Anton",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      62,
+      67,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      70,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50412322",
+     "name": "Dro Fernández",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      77
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      58
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id67376139",
+     "name": "Nagasato",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CAM",
+     "nationId": 163,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      82,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      84,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50611460",
+     "name": "Bethune",
+     "rating": 85,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 116309,
+     "card": [
+      85,
+      84,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      86,
+      61
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5813,
+    "control": 88.4,
+    "attack": 86.62,
+    "defence": 84.8,
+    "net": 0.1635,
+    "vs_reddit": null,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     88
+    ],
+    "attack_cards": [
+     88,
+     87,
+     87,
+     87,
+     87,
+     86,
+     86
+    ],
+    "defence_cards": [
+     87,
+     87,
+     87,
+     86,
+     77
+    ],
+    "p_att": 0.612,
+    "p_def": 0.2928,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 238.6,
+    "att_total": 227.07,
+    "def_total": 219.6
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id204935",
+     "name": "Pickford",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 7,
+     "card": [
+      45,
+      45,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      47,
+      47,
+      87
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id229476",
+     "name": "Anton",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      62,
+      67,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      70,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50412322",
+     "name": "Dro Fernández",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      77
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50596510",
+     "name": "Akliouche",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      58
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id67376139",
+     "name": "Nagasato",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CAM",
+     "nationId": 163,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      82,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      84,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50611460",
+     "name": "Bethune",
+     "rating": 85,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 116309,
+     "card": [
+      85,
+      84,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      86,
+      61
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5813,
+    "control": 88.4,
+    "attack": 86.69,
+    "defence": 82.67,
+    "net": 0.1609,
+    "vs_reddit": null,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     88
+    ],
+    "attack_cards": [
+     88,
+     87,
+     87,
+     87,
+     87,
+     86,
+     86
+    ],
+    "defence_cards": [
+     87,
+     87,
+     87,
+     86,
+     77,
+     72
+    ],
+    "p_att": 0.6333,
+    "p_def": 0.244,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 238.6,
+    "att_total": 228.24,
+    "def_total": 224.33
+   }
+  }
+ ],
+ "not_owned": [
+  "Acuña Evo",
+  "Bruno Costa Evo",
+  "Can Evo",
+  "Chandler Evo",
+  "Clauss Evo",
+  "Comuzzo (every level)",
+  "David Luiz Evo",
+  "Digne Evo",
+  "Diomande Evo",
+  "Gerso Evo",
+  "Groß Evo",
+  "Jerdea Evo",
+  "Kanté Evo",
+  "Karetsas (every level)",
+  "Lim Dug Keun Evo",
+  "Lucas Vázquez Evo",
+  "Markovic Evo",
+  "Ngumoha (every level)",
+  "Olschowsky Evo",
+  "Oxlade-Chamberlain Evo",
+  "Rafael Leão Evo",
+  "Rogers Evo",
+  "Sarkaria Evo",
+  "Tiffoney Evo",
+  "Wedemeyer Evo",
+  "Xavi Espart (every level)"
+ ],
+ "variant": {
+  "id": "noltmevo",
+  "label": "No LTMs or Evos",
+  "exclude": [
+   {
+    "color": "ltm"
+   },
+   {
+    "color": "evo"
+   }
+  ],
+  "include": null
+ },
+ "built": "2026-11-21 20:25 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 20:25 UTC"
+}
