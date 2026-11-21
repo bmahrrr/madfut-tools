@@ -1,0 +1,308 @@
+{
+ "_help": "Edit this file each week, then commit. The teams rebuild automatically (Sim in a few minutes, My Club in about 50 minutes). See README for the format. My Club teams are built for the best worst case (mode 'robust'), then a final check compares them with the Reddit and hand-built teams against stress tests built for each; set \"mode\": \"standard\" on a series for the older, faster build.",
+ "week": "2026-11-16",
+ "myclub": [
+  {
+   "key": "75",
+   "cap": 75,
+   "boosts": [
+    {
+     "on": "color",
+     "id": "silver",
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    },
+    {
+     "on": "league",
+     "id": 39,
+     "att": 1,
+     "ctl": 0,
+     "def": 2
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "79",
+   "cap": 79,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 308,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    },
+    {
+     "on": "nation",
+     "id": 52,
+     "att": 0,
+     "ctl": 2,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "83",
+   "cap": 83,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 18,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30,
+   "bonuses": [
+    {
+     "kind": "leagues",
+     "max": 2,
+     "att": 0,
+     "ctl": 2,
+     "def": 0
+    }
+   ]
+  },
+  {
+   "key": "86",
+   "cap": 86,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 14,
+     "att": 1,
+     "ctl": 0,
+     "def": 3
+    },
+    {
+     "on": "league",
+     "id": 31,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "88",
+   "cap": 88,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 27,
+     "att": 3,
+     "ctl": 0,
+     "def": 1
+    },
+    {
+     "on": "club",
+     "id": 10,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  },
+  {
+   "key": "90",
+   "cap": 90,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 2222,
+     "att": 0,
+     "ctl": 2,
+     "def": 2
+    }
+   ],
+   "opponents": [],
+   "minutes": 30,
+   "bonuses": [
+    {
+     "kind": "types",
+     "min": 7,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "X",
+   "cap": 99,
+   "boosts": [
+    {
+     "on": "color",
+     "id": "hall_of_fut_upgraded",
+     "att": 2,
+     "ctl": 2,
+     "def": 2
+    },
+    {
+     "on": "league",
+     "id": 53,
+     "att": 2,
+     "ctl": 1,
+     "def": 0
+    }
+   ],
+   "opponents": [],
+   "minutes": 30
+  }
+ ],
+ "sim": [
+  {
+   "key": "66",
+   "cap": 66,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 1003,
+     "att": 2,
+     "ctl": 1,
+     "def": 0
+    },
+    {
+     "on": "league",
+     "id": 1014,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "71",
+   "cap": 71,
+   "boosts": [
+    {
+     "on": "league",
+     "id": 63,
+     "att": 0,
+     "ctl": 2,
+     "def": 1
+    },
+    {
+     "on": "nation",
+     "id": 10,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "78",
+   "cap": 78,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 47,
+     "att": 2,
+     "ctl": 0,
+     "def": 1
+    },
+    {
+     "on": "league",
+     "id": 2215,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "84",
+   "cap": 84,
+   "boosts": [
+    {
+     "on": "club",
+     "id": 69,
+     "att": 1,
+     "ctl": 2,
+     "def": 0
+    },
+    {
+     "on": "club",
+     "id": 73,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "87",
+   "cap": 87,
+   "boosts": [
+    {
+     "on": "color",
+     "id": "hero",
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    },
+    {
+     "on": "club",
+     "id": 21,
+     "att": 0,
+     "ctl": 2,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "89",
+   "cap": 89,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 14,
+     "att": 1,
+     "ctl": 2,
+     "def": 0
+    }
+   ],
+   "bonuses": [
+    {
+     "kind": "types",
+     "min": 7,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    }
+   ]
+  },
+  {
+   "key": "X",
+   "cap": 99,
+   "boosts": [
+    {
+     "on": "nation",
+     "id": 54,
+     "att": 1,
+     "ctl": 1,
+     "def": 1
+    },
+    {
+     "on": "color",
+     "id": "world_potm_nominee",
+     "att": 0,
+     "ctl": 2,
+     "def": 1
+    }
+   ]
+  }
+ ]
+}

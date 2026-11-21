@@ -1,0 +1,900 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "85",
+  "cap": 85,
+  "boosts": [
+   {
+    "on": "club",
+    "id": 21,
+    "att": 1,
+    "ctl": 2,
+    "def": 0
+   },
+   {
+    "on": "club",
+    "id": 22,
+    "att": 1,
+    "ctl": 1,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-1-4-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id238212",
+     "name": "Campbell",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      38,
+      39,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      40,
+      41,
+      84
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50610428",
+     "name": "Jeltsch",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 36,
+     "card": [
+      68,
+      72,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      74,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id212419",
+     "name": "Mings",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      54,
+      64,
+      77
+     ],
+     "chem": 3,
+     "eff": [
+      56,
+      66,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      88,
+      87
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_karetsas85",
+     "name": "Karetsas",
+     "rating": 85,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      85,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      53
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id134476925",
+     "name": "Jackson",
+     "rating": 85,
+     "color": "epl_potm",
+     "position": "ST",
+     "nationId": 136,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      86,
+      78,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      80,
+      54
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id215441",
+     "name": "Guirassy",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 118,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      77,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      80,
+      53
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.52,
+    "control": 88.4,
+    "attack": 87.02,
+    "defence": 84.8,
+    "net": 0.1504,
+    "vs_reddit": null,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     88
+    ],
+    "attack_cards": [
+     88,
+     88,
+     87,
+     87,
+     86,
+     85
+    ],
+    "defence_cards": [
+     87,
+     87,
+     87,
+     84,
+     79
+    ],
+    "p_att": 0.6905,
+    "p_def": 0.3127,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 237.4,
+    "att_total": 223.2,
+    "def_total": 212.2,
+    "round_robin": {
+     "wins": 32.0,
+     "margin": 2.5481
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id16254",
+     "name": "Howard",
+     "rating": 85,
+     "color": "hero",
+     "position": "GK",
+     "nationId": 95,
+     "leagueId": 13,
+     "clubId": 114605,
+     "card": [
+      42,
+      35,
+      86
+     ],
+     "chem": 3,
+     "eff": [
+      44,
+      37,
+      88
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id67375554",
+     "name": "Lúcio",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      71,
+      71,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      73,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50585769",
+     "name": "Cresswell",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 16,
+     "clubId": 74,
+     "card": [
+      66,
+      73,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      75,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50412322",
+     "name": "Dro Fernández",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      85,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      88,
+      77
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_karetsas85",
+     "name": "Karetsas",
+     "rating": 85,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      85,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      53
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id67158233",
+     "name": "Fernando Torres",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      74,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      45
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50611460",
+     "name": "Bethune",
+     "rating": 85,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 116309,
+     "card": [
+      85,
+      84,
+      59
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      86,
+      61
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5427,
+    "control": 88.4,
+    "attack": 86.46,
+    "defence": 86.75,
+    "net": 0.0705,
+    "vs_reddit": null,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     88
+    ],
+    "attack_cards": [
+     88,
+     87,
+     87,
+     87,
+     86,
+     86,
+     85
+    ],
+    "defence_cards": [
+     88,
+     87,
+     86,
+     86
+    ],
+    "p_att": 0.5027,
+    "p_def": 0.4002,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 237.2,
+    "att_total": 224.34,
+    "def_total": 210.25
+   }
+  },
+  {
+   "formation": "3-1-4-2",
+   "chem": 32,
+   "players": [
+    {
+     "id": "id238212",
+     "name": "Campbell",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      38,
+      39,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      40,
+      41,
+      84
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id169721",
+     "name": "Richards",
+     "rating": 85,
+     "color": "hall_of_fut",
+     "position": "RB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 132794,
+     "card": [
+      72,
+      74,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      76,
+      86
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50610428",
+     "name": "Jeltsch",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 36,
+     "card": [
+      68,
+      72,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      74,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      88,
+      87
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50402434",
+     "name": "King",
+     "rating": 85,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
+     "card": [
+      86,
+      87,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      89,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "ltm_karetsas85",
+     "name": "Karetsas",
+     "rating": 85,
+     "color": "ltm",
+     "position": "CAM",
+     "nationId": 22,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      82,
+      85,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      88,
+      53
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id215441",
+     "name": "Guirassy",
+     "rating": 85,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 118,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      77,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      80,
+      53
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id134476925",
+     "name": "Jackson",
+     "rating": 85,
+     "color": "epl_potm",
+     "position": "ST",
+     "nationId": 136,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      86,
+      78,
+      52
+     ],
+     "chem": 2,
+     "eff": [
+      87,
+      79,
+      53
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.52,
+    "control": 88.4,
+    "attack": 86.69,
+    "defence": 86.2,
+    "net": 0.1248,
+    "vs_reddit": null,
+    "control_cards": [
+     89,
+     89,
+     88,
+     88,
+     88
+    ],
+    "attack_cards": [
+     88,
+     87,
+     87,
+     87,
+     86,
+     85
+    ],
+    "defence_cards": [
+     87,
+     87,
+     87,
+     86,
+     84
+    ],
+    "p_att": 0.6136,
+    "p_def": 0.3668,
+    "chem": 32,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 237.4,
+    "att_total": 222.23,
+    "def_total": 219.2
+   }
+  }
+ ],
+ "not_owned": [],
+ "built": "2026-11-21 20:01 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 20:01 UTC"
+}
