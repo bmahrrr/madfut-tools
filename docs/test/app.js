@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261121e";
+const APP_V = "20261121f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1380,7 +1380,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261121e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261121f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1406,7 +1406,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261121e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261121f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2222,7 +2222,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261121e");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261121f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -3225,11 +3225,16 @@ async function pzSubmit(sc) {
 // "Top x%": where your best on this puzzle sits among everyone with a score on it (you're added if you're not on the board)
 async function pzTopPct(id, pts, counted) {
   if (!PZ_LB || !pts) return;
+  const set = PZ.data.sets.find(s => s.puzzles.some(p => p.id === id)), all = PZ.data.sets.reduce((a, s) => a + setPts(s), 0), q = x => fetch(PZ_LB + "/pct?" + x).then(r => r.json());
   try {
-    const r = await fetch(PZ_LB + `/pct?puzzle=${encodeURIComponent(id)}&pts=${pts}`).then(x => x.json()), el = $("pzTopPct");
+    const [r, rs, ra] = await Promise.all([q(`puzzle=${encodeURIComponent(id)}&pts=${pts}`), q(`set=${encodeURIComponent(set.id)}&pts=${setPts(set)}`).catch(() => null), q(`set=all&pts=${all}`).catch(() => null)]), el = $("pzTopPct");
     if (!el || !PZ.pz || PZ.pz.id !== id || typeof r.n !== "number") return;
     const n = Math.max(r.n + (counted ? 0 : 1), r.above + 1), p = pzTopPctOf(r.above, n);
-    el.innerHTML = n === 1 ? `<b>First</b> to score on this puzzle` : !r.above ? `<b>Top score</b> of ${fmtN(n)} players` : `<b>Top ${p}%</b> of ${fmtN(n)} players`;
+    // a set or the overall board: "#1" at the top, otherwise "Top x%"
+    const where = (x, label) => { if (!x || typeof x.n !== "number") return ""; const m = Math.max(x.n + (counted ? 0 : 1), x.above + 1);
+      return m < 2 ? "" : ` · ${!x.above ? `<b>#1</b>` : `<b>Top ${pzTopPctOf(x.above, m)}%</b>`} ${label}`; };
+    el.innerHTML = (n === 1 ? `<b>First</b> to score on this puzzle` : !r.above ? `<b>Top score</b> of ${fmtN(n)} players` : `<b>Top ${p}%</b> of ${fmtN(n)} players`)
+      + where(rs, "in " + esc(set.name)) + where(ra, "overall");
     const add = [];
     if (p <= 10) { const T = pzLS("pzT10", {}); if (!T[id]) { T[id] = 1; pzLSset("pzT10", T); } if (pzT10N() >= 10) add.push("elite"); }
     if (!counted) { if (r.above < 3) add.push("podium"); if (!r.above) add.push("top1"); }   // not on the board: where this score would rank
@@ -3251,13 +3256,18 @@ async function pzBoard() {
   // keep the picked set / puzzle in view in its row
   $("gameBox").querySelectorAll(".pzpills").forEach(row => { const o = row.querySelector(".on"); if (o) row.scrollLeft = o.offsetLeft - (row.clientWidth - o.offsetWidth) / 2; });
   const mine = P ? best[P.id] || 0 : S ? setPts(S) : sets.reduce((a, s) => a + setPts(s), 0);
-  const you = r => `<div class="pzme"><div><span>${P ? "Your best" : "Your points"}</span><b>${mine ? fmtN(r && r.pts || mine) : "–"}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div>${P ? `<button class="ghost" data-pz="${esc(P.id)}">Play</button>` : ""}</div>`;
+  const you = (r, top) => `<div class="pzme"><div><span>${P ? "Your best" : "Your points"}</span><b>${mine ? fmtN(r && r.pts || mine) : "–"}</b></div><div><span>Rank</span><b>${r ? "#" + r.rank : "–"}</b></div><div><span>Top</span><b>${top ? top + "%" : "–"}</b></div>${P ? `<button class="ghost" data-pz="${esc(P.id)}">Play</button>` : ""}</div>`;
   $("pzYou").innerHTML = you(null); pzWire();
   if (!PZ_LB) return;
   try {
     const r = PZ_API ? await pzApi(`/lb?set=${encodeURIComponent(S ? S.id : "all")}${P ? "&puzzle=" + encodeURIComponent(P.id) : ""}`) : await fetch(PZ_LB + `/lb?set=${encodeURIComponent(S ? S.id : "all")}${P ? "&puzzle=" + encodeURIComponent(P.id) : ""}`).then(x => x.json()), me = pzName();
     if (PZ.view !== "lb" || PZ.lbSet !== (S ? S.id : "all") || (PZ.lbPz || "") !== (P ? P.id : "")) return;   // moved on while loading
-    $("pzYou").innerHTML = you(r.you); pzWire();
+    // Top %: from your rank when you're on the board, otherwise where your points on this device would sit
+    let top = r.you && r.n ? pzTopPctOf(r.you.rank - 1, r.n) : 0;
+    if (!r.you && mine) try { const x = await fetch(PZ_LB + `/pct?${P ? "puzzle=" + encodeURIComponent(P.id) : "set=" + encodeURIComponent(S ? S.id : "all")}&pts=${mine}`).then(y => y.json());
+      if (typeof x.n === "number") top = pzTopPctOf(x.above, Math.max(x.n + 1, x.above + 1)); } catch (e) {}
+    if (PZ.view !== "lb" || PZ.lbSet !== (S ? S.id : "all") || (PZ.lbPz || "") !== (P ? P.id : "")) return;
+    $("pzYou").innerHTML = you(r.you, top); pzWire();
     let rk = 0;
     $("pzRows").innerHTML = r.rows && r.rows.length ? `<ol class="pzlb">${r.rows.map((x, k) => { if (!k || x.pts !== r.rows[k - 1].pts) rk = k + 1;
       return `<li class="${x.name === me ? "me" : ""}${rk <= 3 ? " top" + rk : ""}${P && pzBand(P.id, x.pts) ? " b-" + pzBand(P.id, x.pts) : ""}"><span class="rk">${rk}</span><b>${esc(x.name)}${!P && x.medals ? pzMedalDots(x.medals) : ""}${x.ach ? `<span class="lbach" title="Achievements">★ ${x.ach}</span>` : ""}</b><small>${P ? `${x.chem} chem · ${x.rating} rated` : `${x.solved} solved`}</small><span class="pt">${fmtN(x.pts)}</span></li>`; }).join("")}</ol>`

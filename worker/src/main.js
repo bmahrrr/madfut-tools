@@ -10,6 +10,7 @@
 //   GET  /records                               -> { records: { puzzle id: top points anyone has } }
 //   GET  /lb?puzzle=<puzzle id>                 -> top 50 for one puzzle: name, points, chem, squad rating
 //   GET  /pct?puzzle=<puzzle id>&pts=<points>   -> { n: players with a score on it, above: how many of them scored more }
+//   GET  /pct?set=<set id or "all">&pts=<points> -> the same for a set's total or the overall total
 //   achievements: /submit and /me also return { ach: {key: when earned}, t10, submits } (see PZ_ACH in puzzle-core.js)
 //   POST /hit {v, p, s, b}                      -> visit counter: a random id per browser, the tab open, which site, b = still here
 //   GET  /stats?key=<stats key>                 -> visitors (owner only: the key's hash is below, the key itself isn't stored)
@@ -96,6 +97,13 @@ async function achOf(env, pid) {
   const rows = (await env.DB.prepare("SELECT k, at FROM ach WHERE pid = ?1").bind(pid).all()).results, st = await env.DB.prepare("SELECT submits FROM pstats WHERE pid = ?1").bind(pid).first();
   return { ach: Object.fromEntries(rows.filter(r => !r.k.startsWith("t10:")).map(r => [r.k, r.at])), t10: rows.filter(r => r.k.startsWith("t10:")).length, submits: st ? st.submits : 0 };
 }
+// players on a board (n) and how many of them have more than pts (above): one puzzle, a set's totals or the overall totals
+async function pctOf(env, set, puzzle, pts) {
+  const r = await (puzzle ? env.DB.prepare("SELECT COUNT(*) AS n, SUM(CASE WHEN pts > ?2 THEN 1 ELSE 0 END) AS above FROM scores WHERE puzzle = ?1").bind(puzzle, pts)
+    : !set || set === "all" ? env.DB.prepare("SELECT COUNT(*) AS n, SUM(CASE WHEN t > ?1 THEN 1 ELSE 0 END) AS above FROM (SELECT SUM(pts) AS t FROM scores GROUP BY pid)").bind(pts)
+    : env.DB.prepare("SELECT COUNT(*) AS n, SUM(CASE WHEN t > ?2 THEN 1 ELSE 0 END) AS above FROM (SELECT SUM(pts) AS t FROM scores WHERE set_id = ?1 GROUP BY pid)").bind(set, pts)).first();
+  return { n: (r && r.n) || 0, above: (r && r.above) || 0 };
+}
 // your place on a board: rank = 1 + players with more points
 async function rankIn(env, pid, set, puzzle) {
   const mine = await (puzzle ? env.DB.prepare("SELECT pts AS t FROM scores WHERE pid = ?1 AND puzzle = ?2").bind(pid, puzzle)
@@ -142,14 +150,14 @@ export default {
           total: (await env.DB.prepare("SELECT COUNT(*) AS n FROM seen").first()).n,
         });
       }
-      if (req.method === "GET" && P === "/pct") {   // where a score sits on one puzzle ("Top 12%")
-        const puzzle = url.searchParams.get("puzzle") || "", pts = Number(url.searchParams.get("pts")) || 0;
-        const r = await env.DB.prepare("SELECT COUNT(*) AS n, SUM(CASE WHEN pts > ?2 THEN 1 ELSE 0 END) AS above FROM scores WHERE puzzle = ?1").bind(puzzle, pts).first();
-        return json({ puzzle, n: r.n || 0, above: r.above || 0 });
+      if (req.method === "GET" && P === "/pct") {   // where a score sits on a puzzle, a set or overall ("Top 12%")
+        const puzzle = url.searchParams.get("puzzle") || "", set = url.searchParams.get("set") || "", pts = Number(url.searchParams.get("pts")) || 0;
+        const r = await pctOf(env, set, puzzle, pts);
+        return json({ puzzle, set, n: r.n, above: r.above });
       }
       if (req.method === "GET" && P === "/lb") {
         const set = url.searchParams.get("set") || "all", puzzle = url.searchParams.get("puzzle") || "", me = await who(env, req);
-        return json({ set, puzzle, rows: await board(env, set, puzzle), you: me ? await rankIn(env, me.pid, set, puzzle) : null });
+        return json({ set, puzzle, rows: await board(env, set, puzzle), you: me ? await rankIn(env, me.pid, set, puzzle) : null, n: (await pctOf(env, set, puzzle, 0)).n });
       }
       if (req.method === "POST" && P === "/register") {
         const b = await req.json(), name = cleanName(b.name);
