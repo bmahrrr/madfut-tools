@@ -9,6 +9,7 @@
 //   GET  /lb?set=<set id or "all">              -> top 50: name, points, puzzles solved (+ your rank if signed in)
 //   GET  /records                               -> { records: { puzzle id: top points anyone has } }
 //   GET  /lb?puzzle=<puzzle id>                 -> top 50 for one puzzle: name, points, chem, squad rating
+//   GET  /pct?puzzle=<puzzle id>&pts=<points>   -> { n: players with a score on it, above: how many of them scored more }
 //   POST /hit {v, p, s, b}                      -> visit counter: a random id per browser, the tab open, which site, b = still here
 //   GET  /stats?key=<stats key>                 -> visitors (owner only: the key's hash is below, the key itself isn't stored)
 // Live at https://madfut-puzzles.bmahrrr1.workers.dev
@@ -119,6 +120,11 @@ export default {
           pages: await q("SELECT page, site, SUM(n) AS n, SUM(CASE WHEN day = ?2 THEN n ELSE 0 END) AS today FROM views WHERE day >= ?1 GROUP BY page, site", dayOf(t - 6 * 86400e3), dayOf(t)),
           total: (await env.DB.prepare("SELECT COUNT(*) AS n FROM seen").first()).n,
         });
+      }
+      if (req.method === "GET" && P === "/pct") {   // where a score sits on one puzzle ("Top 12%")
+        const puzzle = url.searchParams.get("puzzle") || "", pts = Number(url.searchParams.get("pts")) || 0;
+        const r = await env.DB.prepare("SELECT COUNT(*) AS n, SUM(CASE WHEN pts > ?2 THEN 1 ELSE 0 END) AS above FROM scores WHERE puzzle = ?1").bind(puzzle, pts).first();
+        return json({ puzzle, n: r.n || 0, above: r.above || 0 });
       }
       if (req.method === "GET" && P === "/lb") {
         const set = url.searchParams.get("set") || "all", puzzle = url.searchParams.get("puzzle") || "", me = await who(env, req);
