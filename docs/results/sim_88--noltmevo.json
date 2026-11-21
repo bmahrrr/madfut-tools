@@ -1,0 +1,939 @@
+{
+ "mode": "sim",
+ "series": {
+  "key": "88",
+  "cap": 88,
+  "boosts": [
+   {
+    "on": "color",
+    "id": "thunderstruck",
+    "att": 2,
+    "ctl": 2,
+    "def": 2
+   },
+   {
+    "on": "club",
+    "id": 1,
+    "att": 0,
+    "ctl": 2,
+    "def": 1
+   }
+  ]
+ },
+ "teams": [
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id220901",
+     "name": "David Raya",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      52,
+      91
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id140601",
+     "name": "Vidić",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 51,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      61,
+      62,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      64,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243715",
+     "name": "Saliba",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      63,
+      70,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      74,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id274750",
+     "name": "Sneijder",
+     "rating": 88,
+     "color": "hero",
+     "position": "CAM",
+     "nationId": 34,
+     "leagueId": 31,
+     "clubId": 114605,
+     "card": [
+      85,
+      88,
+      56
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      90,
+      58
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50554313",
+     "name": "Ødegaard",
+     "rating": 87,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      84,
+      88,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      92,
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      90,
+      83
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50565310",
+     "name": "Karchaoui",
+     "rating": 88,
+     "color": "uwcl_rttk",
+     "position": "RM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      86,
+      88,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      90,
+      81
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id23174",
+     "name": "Riquelme",
+     "rating": 88,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      89,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      91,
+      41
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50603811",
+     "name": "Elena Julve",
+     "rating": 88,
+     "color": "thunderstruck",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 131125,
+     "card": [
+      87,
+      85,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      89,
+      71
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id262112",
+     "name": "van Persie",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      86,
+      51
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5771,
+    "control": 90.6,
+    "attack": 89.68,
+    "defence": 91.25,
+    "net": 0.1072,
+    "vs_reddit": null,
+    "control_cards": [
+     92,
+     91,
+     90,
+     90,
+     90
+    ],
+    "attack_cards": [
+     91,
+     91,
+     88,
+     88,
+     87,
+     87,
+     86
+    ],
+    "defence_cards": [
+     92,
+     91,
+     91,
+     91
+    ],
+    "p_att": 0.4514,
+    "p_def": 0.5101,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 244.0,
+    "att_total": 239.42,
+    "def_total": 215.25,
+    "round_robin": {
+     "wins": 16.5,
+     "margin": 1.0124
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id220901",
+     "name": "David Raya",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      52,
+      91
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id140601",
+     "name": "Vidić",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 51,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      61,
+      62,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      64,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243715",
+     "name": "Saliba",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      63,
+      70,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      74,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id226362",
+     "name": "Necib",
+     "rating": 87,
+     "color": "hero",
+     "position": "LM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 114605,
+     "card": [
+      86,
+      88,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      90,
+      49
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50603742",
+     "name": "Fiamma Benítez",
+     "rating": 87,
+     "color": "thunderstruck",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 240,
+     "card": [
+      86,
+      86,
+      75
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      90,
+      79
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50554313",
+     "name": "Ødegaard",
+     "rating": 87,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      84,
+      88,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      92,
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50565310",
+     "name": "Karchaoui",
+     "rating": 88,
+     "color": "uwcl_rttk",
+     "position": "RM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      86,
+      88,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      90,
+      81
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id23174",
+     "name": "Riquelme",
+     "rating": 88,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      89,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      91,
+      41
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id262112",
+     "name": "van Persie",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      86,
+      51
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50603811",
+     "name": "Elena Julve",
+     "rating": 88,
+     "color": "thunderstruck",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 131125,
+     "card": [
+      87,
+      85,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      89,
+      71
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5581,
+    "control": 90.6,
+    "attack": 89.92,
+    "defence": 91.25,
+    "net": 0.1084,
+    "vs_reddit": null,
+    "control_cards": [
+     92,
+     91,
+     90,
+     90,
+     90
+    ],
+    "attack_cards": [
+     91,
+     91,
+     90,
+     88,
+     88,
+     88
+    ],
+    "defence_cards": [
+     92,
+     91,
+     91,
+     91
+    ],
+    "p_att": 0.4533,
+    "p_def": 0.5101,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 242.2,
+    "att_total": 238.69,
+    "def_total": 215.25
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id220901",
+     "name": "David Raya",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      46,
+      48,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      48,
+      52,
+      91
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id140601",
+     "name": "Vidić",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 51,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      61,
+      62,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      63,
+      64,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id243715",
+     "name": "Saliba",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      63,
+      70,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      74,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id138956",
+     "name": "Chiellini",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      64,
+      62,
+      90
+     ],
+     "chem": 3,
+     "eff": [
+      66,
+      64,
+      92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id226362",
+     "name": "Necib",
+     "rating": 87,
+     "color": "hero",
+     "position": "LM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 114605,
+     "card": [
+      86,
+      88,
+      47
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      90,
+      49
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id50554313",
+     "name": "Ødegaard",
+     "rating": 87,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      84,
+      88,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      92,
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50592947",
+     "name": "Scott",
+     "rating": 86,
+     "color": "future_stars",
+     "position": "CM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1943,
+     "card": [
+      85,
+      88,
+      81
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      90,
+      83
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50565310",
+     "name": "Karchaoui",
+     "rating": 88,
+     "color": "uwcl_rttk",
+     "position": "RM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 73,
+     "card": [
+      86,
+      88,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      90,
+      81
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id23174",
+     "name": "Riquelme",
+     "rating": 88,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      86,
+      89,
+      39
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      91,
+      41
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50603811",
+     "name": "Elena Julve",
+     "rating": 88,
+     "color": "thunderstruck",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 131125,
+     "card": [
+      87,
+      85,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      89,
+      71
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id82092",
+     "name": "Kempes",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      80,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      82,
+      55
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5676,
+    "control": 90.6,
+    "attack": 89.8,
+    "defence": 91.25,
+    "net": 0.1072,
+    "vs_reddit": null,
+    "control_cards": [
+     92,
+     91,
+     90,
+     90,
+     90
+    ],
+    "attack_cards": [
+     91,
+     91,
+     88,
+     88,
+     88,
+     87,
+     86
+    ],
+    "defence_cards": [
+     92,
+     91,
+     91,
+     91
+    ],
+    "p_att": 0.4514,
+    "p_def": 0.5101,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 242.4,
+    "att_total": 238.49,
+    "def_total": 215.25
+   }
+  }
+ ],
+ "not_owned": [
+  "Acuña Evo",
+  "Bruno Costa Evo",
+  "Can Evo",
+  "Chandler Evo",
+  "Clauss Evo",
+  "Comuzzo (every level)",
+  "David Luiz Evo",
+  "Digne Evo",
+  "Diomande Evo",
+  "Gerso Evo",
+  "Groß Evo",
+  "Jerdea Evo",
+  "Kanté Evo",
+  "Karetsas (every level)",
+  "Lim Dug Keun Evo",
+  "Lucas Vázquez Evo",
+  "Markovic Evo",
+  "Ngumoha (every level)",
+  "Olschowsky Evo",
+  "Oxlade-Chamberlain Evo",
+  "Rafael Leão Evo",
+  "Rogers Evo",
+  "Sarkaria Evo",
+  "Tiffoney Evo",
+  "Wedemeyer Evo",
+  "Xavi Espart (every level)"
+ ],
+ "variant": {
+  "id": "noltmevo",
+  "label": "No LTMs or Evos",
+  "exclude": [
+   {
+    "color": "ltm"
+   },
+   {
+    "color": "evo"
+   }
+  ],
+  "include": null
+ },
+ "built": "2026-11-21 20:05 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-21 20:05 UTC"
+}
