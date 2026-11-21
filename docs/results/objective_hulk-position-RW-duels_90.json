@@ -1,11 +1,12 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
-  "id50603094",
-  "id227102"
+  "id50558750",
+  "evo_Diomande_89",
+  "id50603094"
  ],
- "strength": 100.9,
- "group_cards": 3,
+ "strength": 101.0,
+ "group_cards": 4,
  "reddit": [],
  "team": {
   "formation": "4-2-1-3",
@@ -59,49 +60,49 @@
    },
    {
     "slot": "CB",
-    "id": "id266690",
-    "name": "Lúcio",
-    "rating": 89,
+    "id": "id238435",
+    "name": "Matthäus",
+    "rating": 90,
     "color": "icon",
-    "position": "CB",
-    "nationId": 54,
+    "position": "CM",
+    "nationId": 21,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     75,
-     74,
-     89
+     85,
+     84,
+     88
     ],
     "chem": 3,
     "eff": [
-     78,
-     77,
-     92
+     88,
+     87,
+     91
     ],
-    "tiebreak": 244
+    "tiebreak": 263
    },
    {
     "slot": "CB",
-    "id": "id013",
-    "name": "David Luiz",
+    "id": "ltm_comuzzo90",
+    "name": "Comuzzo",
     "rating": 90,
-    "color": "evo",
+    "color": "ltm",
     "position": "CB",
-    "nationId": 54,
-    "leagueId": 16,
-    "clubId": 73,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 54,
     "card": [
-     75,
-     83,
+     68,
+     78,
      91
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     78,
-     86,
-     94
+     70,
+     80,
+     93
     ],
-    "tiebreak": 255
+    "tiebreak": 240
    },
    {
     "slot": "RB",
@@ -132,26 +133,26 @@
    },
    {
     "slot": "CDM",
-    "id": "ltm_espart90",
-    "name": "Xavi Espart",
+    "id": "id226895",
+    "name": "Formiga",
     "rating": 90,
-    "color": "ltm",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
+    "color": "icon",
+    "position": "CDM",
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     81,
-     88,
-     89
+     83,
+     86,
+     88
     ],
     "chem": 3,
     "eff": [
-     84,
-     91,
-     92
+     86,
+     89,
+     91
     ],
-    "tiebreak": 264
+    "tiebreak": 263
    },
    {
     "slot": "CDM",
@@ -178,6 +179,52 @@
    },
    {
     "slot": "CAM",
+    "id": "id227324",
+    "name": "Abily",
+    "rating": 90,
+    "color": "icon",
+    "position": "CM",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     88,
+     89,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     91,
+     92,
+     81
+    ],
+    "tiebreak": 261
+   },
+   {
+    "slot": "LW",
+    "id": "evo_Diomande_89",
+    "name": "Diomande",
+    "rating": 89,
+    "color": "evo",
+    "position": "RW",
+    "nationId": 108,
+    "leagueId": 19,
+    "clubId": 112172,
+    "card": [
+     90,
+     89,
+     54
+    ],
+    "chem": 2,
+    "eff": [
+     92,
+     91,
+     56
+    ],
+    "tiebreak": 236
+   },
+   {
+    "slot": "ST",
     "id": "id50603094",
     "name": "Vicky López",
     "rating": 90,
@@ -200,73 +247,27 @@
     "tiebreak": 235
    },
    {
-    "slot": "LW",
-    "id": "evo_Diomande_89",
-    "name": "Diomande",
-    "rating": 89,
-    "color": "evo",
-    "position": "RW",
-    "nationId": 108,
-    "leagueId": 19,
-    "clubId": 112172,
-    "card": [
-     90,
-     89,
-     54
-    ],
-    "chem": 1,
-    "eff": [
-     91,
-     90,
-     55
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "ST",
-    "id": "id025",
-    "name": "Thauvin",
-    "rating": 90,
-    "color": "world_potm_nominee",
-    "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
-    "card": [
-     89,
-     91,
-     62
-    ],
-    "chem": 3,
-    "eff": [
-     92,
-     94,
-     65
-    ],
-    "tiebreak": 248
-   },
-   {
     "slot": "RW",
-    "id": "id227102",
+    "id": "id50558750",
     "name": "Graham Hansen",
-    "rating": 89,
-    "color": "rare_gold",
+    "rating": 90,
+    "color": "thunderstruck",
     "position": "RW",
     "nationId": 36,
     "leagueId": 2222,
     "clubId": 241,
     "card": [
-     87,
      88,
-     51
+     89,
+     53
     ],
     "chem": 3,
     "eff": [
-     90,
-     93,
-     56
+     91,
+     94,
+     58
     ],
-    "tiebreak": 232
+    "tiebreak": 236
    }
   ]
  },
@@ -304,18 +305,18 @@
  },
  "base_ids": [
   "id5479",
-  "id030",
-  "ltm_comuzzo90",
   "id013",
-  "id67335759",
+  "ltm_comuzzo90",
+  "id030",
   "id029",
-  "id50600784",
-  "id7763",
-  "evo_Clauss_88",
-  "id243075",
-  "id84078052"
+  "id50592947",
+  "id226895",
+  "id50558750",
+  "id1238",
+  "id50573494",
+  "id243075"
  ],
- "built": "2026-11-18 04:58 UTC",
+ "built": "2026-11-21 02:42 UTC",
  "week": "2026-11-16",
- "changed": "2026-11-18 04:58 UTC"
+ "changed": "2026-11-21 02:42 UTC"
 }
