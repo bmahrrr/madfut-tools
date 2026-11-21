@@ -10,6 +10,7 @@
 //   GET  /records                               -> { records: { puzzle id: top points anyone has } }
 //   GET  /lb?puzzle=<puzzle id>                 -> top 50 for one puzzle: name, points, chem, squad rating
 //   GET  /pct?puzzle=<puzzle id>&pts=<points>   -> { n: players with a score on it, above: how many of them scored more }
+//   achievements: /submit and /me also return { ach: {key: when earned}, t10, submits } (see PZ_ACH in puzzle-core.js)
 //   POST /hit {v, p, s, b}                      -> visit counter: a random id per browser, the tab open, which site, b = still here
 //   GET  /stats?key=<stats key>                 -> visitors (owner only: the key's hash is below, the key itself isn't stored)
 // Live at https://madfut-puzzles.bmahrrr1.workers.dev
@@ -29,9 +30,9 @@ async function data(env) {
   const BYID = new Map();
   for (const r of cj.cards) { const c = {}; cj.fields.forEach((f, i) => c[f] = r[i]); BYID.set(c.id, c); }
   const PZ = new Map();
-  for (const s of pj.sets) for (const p of s.puzzles) PZ.set(p.id, { pz: p, set: s.id });
+  for (const s of pj.sets) for (const p of s.puzzles) PZ.set(p.id, { pz: p, set: s.id, tier: s.tier });
   const TOP = new Map(Object.entries(mj.puzzles || {}).map(([id, r]) => [id, r.max]));
-  DATA = { BYID, PZ, FORMS: fj, TOP }; DATA_AT = Date.now();
+  DATA = { BYID, PZ, FORMS: fj, TOP, SETS: pj.sets }; DATA_AT = Date.now();
   return DATA;
 }
 const cleanName = n => String(n || "").replace(/[^\p{L}\p{N} _.-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 16);
@@ -71,9 +72,29 @@ async function board(env, set, puzzle) {
     const med = new Map(ids.map(id => [id, {}]));
     for (const r of all) { const b = pzBandOf(Math.max(TOP.get(r.puzzle) || 0, rec.get(r.puzzle) || 0), r.pts); if (b && b !== "plain") { const m = med.get(r.pid); m[b] = (m[b] || 0) + 1; } }
     rows.forEach(r => { r.medals = med.get(r.pid); });
+    if (set === "all") {   // achievements: the ones from the bests, plus the ones earned by sending squads
+      const { SETS } = await data(env), top = id => Math.max(TOP.get(id) || 0, rec.get(id) || 0), bests = new Map(ids.map(id => [id, {}]));
+      for (const r of all) bests.get(r.pid)[r.puzzle] = r.pts;
+      await achTables(env);
+      const ev = new Map((await env.DB.prepare(`SELECT pid, COUNT(*) AS n FROM ach WHERE pid IN (${ph}) AND k NOT LIKE 't10:%' GROUP BY pid`).bind(...ids).all()).results.map(r => [r.pid, r.n]));
+      rows.forEach(r => { r.ach = pzAchFrom(bests.get(r.pid), top, SETS).size + (ev.get(r.pid) || 0); });
+    }
   } catch (e) {}
   rows.forEach(r => { delete r.pid; });
   return rows;
+}
+// achievements earned by sending squads (count ones come from the bests). t10:<puzzle> = was in the top 10% on it
+let ACH_OK = false;
+async function achTables(env) {
+  if (ACH_OK) return;
+  await env.DB.batch([env.DB.prepare("CREATE TABLE IF NOT EXISTS ach (pid TEXT NOT NULL, k TEXT NOT NULL, at TEXT NOT NULL, PRIMARY KEY (pid, k))"),
+    env.DB.prepare("CREATE TABLE IF NOT EXISTS pstats (pid TEXT PRIMARY KEY, submits INTEGER NOT NULL DEFAULT 0)")]);
+  ACH_OK = true;
+}
+async function achOf(env, pid) {
+  await achTables(env);
+  const rows = (await env.DB.prepare("SELECT k, at FROM ach WHERE pid = ?1").bind(pid).all()).results, st = await env.DB.prepare("SELECT submits FROM pstats WHERE pid = ?1").bind(pid).first();
+  return { ach: Object.fromEntries(rows.filter(r => !r.k.startsWith("t10:")).map(r => [r.k, r.at])), t10: rows.filter(r => r.k.startsWith("t10:")).length, submits: st ? st.submits : 0 };
 }
 // your place on a board: rank = 1 + players with more points
 async function rankIn(env, pid, set, puzzle) {
@@ -159,7 +180,7 @@ export default {
         const { results } = await env.DB.prepare("SELECT puzzle, set_id, pts, team FROM scores WHERE pid = ?1").bind(me.pid).all();
         const sets = [...new Set(results.map(r => r.set_id))], ranks = { all: await rankIn(env, me.pid, "all") };
         for (const s of sets) ranks[s] = await rankIn(env, me.pid, s);
-        return json({ name: me.name, best: Object.fromEntries(results.map(r => [r.puzzle, r.pts])), teams: Object.fromEntries(results.map(r => [r.puzzle, JSON.parse(r.team)])), ranks });
+        return json(Object.assign({ name: me.name, best: Object.fromEntries(results.map(r => [r.puzzle, r.pts])), teams: Object.fromEntries(results.map(r => [r.puzzle, JSON.parse(r.team)])), ranks }, await achOf(env, me.pid).catch(() => ({}))));
       }
       if (req.method === "POST" && P === "/name") {
         const b = await req.json(), name = cleanName(b.name);
@@ -178,11 +199,27 @@ export default {
         if (team.some(c => !c)) return json({ error: "Unknown card" }, 400);
         const sc = pzScore(hit.pz, slots, team);
         if (!sc.ok) return json({ error: sc.why, chem: sc.total }, 400);
-        const old = await env.DB.prepare("SELECT pts FROM scores WHERE pid = ?1 AND puzzle = ?2").bind(me.pid, b.puzzle).first();
+        const old = await env.DB.prepare("SELECT pts, at FROM scores WHERE pid = ?1 AND puzzle = ?2").bind(me.pid, b.puzzle).first();
         if (!old || sc.pts > old.pts)
           await env.DB.prepare("INSERT INTO scores (pid, puzzle, set_id, pts, chem, rating, team, at) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8) ON CONFLICT(pid, puzzle) DO UPDATE SET pts = ?4, chem = ?5, rating = ?6, team = ?7, at = ?8")
             .bind(me.pid, b.puzzle, hit.set, sc.pts, sc.total, sc.rating, JSON.stringify(b.team), now()).run();
-        return json({ ok: true, pts: sc.pts, best: Math.max(sc.pts, old ? old.pts : 0), chem: sc.total, puzzle: await rankIn(env, me.pid, hit.set, b.puzzle), set: await rankIn(env, me.pid, hit.set), all: await rankIn(env, me.pid, "all") });
+        const best = Math.max(sc.pts, old ? old.pts : 0), rk = { puzzle: await rankIn(env, me.pid, hit.set, b.puzzle), set: await rankIn(env, me.pid, hit.set), all: await rankIn(env, me.pid, "all") };
+        let ach = {};
+        try {   // achievements from this squad, the ranks it reached, the top 10% on this puzzle, and the squads sent so far
+          await achTables(env);
+          const t = Date.now(), at = now(), top = Math.max(D.TOP.get(b.puzzle) || 0, ((await env.DB.prepare("SELECT MAX(pts) AS m FROM scores WHERE puzzle = ?1").bind(b.puzzle).first()) || {}).m || 0);
+          const keys = pzAchEvent({ pz: hit.pz, tier: hit.tier, sc, top, prev: old ? { pts: old.pts, at: Date.parse(old.at) } : null, now: t, undo: b.undo !== false,
+            rank: { puzzle: rk.puzzle && rk.puzzle.rank, set: rk.set && rk.set.rank, all: rk.all && rk.all.rank } });
+          const pc = await env.DB.prepare("SELECT COUNT(*) AS n, SUM(CASE WHEN pts > ?2 THEN 1 ELSE 0 END) AS above FROM scores WHERE puzzle = ?1").bind(b.puzzle, best).first();
+          if (pc && pc.n && pzTopPctOf(pc.above || 0, pc.n) <= 10) keys.push("t10:" + b.puzzle);
+          const st = await env.DB.prepare("INSERT INTO pstats (pid, submits) VALUES (?1, 1) ON CONFLICT(pid) DO UPDATE SET submits = submits + 1 RETURNING submits").bind(me.pid).first();
+          if (st && st.submits >= 100) keys.push("grinder");
+          if (keys.length) await env.DB.batch(keys.map(k => env.DB.prepare("INSERT OR IGNORE INTO ach (pid, k, at) VALUES (?1, ?2, ?3)").bind(me.pid, k, at)));
+          const A = await achOf(env, me.pid);
+          if (A.t10 >= 10 && !A.ach.elite) { await env.DB.prepare("INSERT OR IGNORE INTO ach (pid, k, at) VALUES (?1, 'elite', ?2)").bind(me.pid, at).run(); A.ach.elite = at; }
+          ach = A;
+        } catch (e) {}
+        return json(Object.assign({ ok: true, pts: sc.pts, best, chem: sc.total }, rk, ach));
       }
       return json({ error: "not found" }, 404);
     } catch (e) { return json({ error: String(e.message || e) }, 500); }

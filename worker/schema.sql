@@ -12,3 +12,6 @@ CREATE TABLE IF NOT EXISTS seen (vid TEXT PRIMARY KEY, day TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS visits (day TEXT NOT NULL, vid TEXT NOT NULL, site TEXT NOT NULL, PRIMARY KEY (day, vid, site));
 CREATE TABLE IF NOT EXISTS views (day TEXT NOT NULL, page TEXT NOT NULL, site TEXT NOT NULL, n INTEGER NOT NULL, PRIMARY KEY (day, page, site));
 CREATE TABLE IF NOT EXISTS online (vid TEXT PRIMARY KEY, at INTEGER NOT NULL, page TEXT NOT NULL, site TEXT NOT NULL);
+-- achievements earned by sending squads (count achievements come from the bests), and squads sent per player
+CREATE TABLE IF NOT EXISTS ach (pid TEXT NOT NULL, k TEXT NOT NULL, at TEXT NOT NULL, PRIMARY KEY (pid, k));
+CREATE TABLE IF NOT EXISTS pstats (pid TEXT PRIMARY KEY, submits INTEGER NOT NULL DEFAULT 0);
