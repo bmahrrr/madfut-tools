@@ -51,52 +51,6 @@
    },
    {
     "slot": "CB",
-    "id": "id012",
-    "name": "David Luiz",
-    "rating": 87,
-    "color": "evo",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 1,
-    "card": [
-     74,
-     80,
-     88
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     82,
-     90
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CB",
-    "id": "id137186",
-    "name": "Barzagli",
-    "rating": 87,
-    "color": "hero",
-    "position": "CB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 114605,
-    "card": [
-     63,
-     65,
-     88
-    ],
-    "chem": 3,
-    "eff": [
-     65,
-     67,
-     90
-    ],
-    "tiebreak": 222
-   },
-   {
-    "slot": "CB",
     "id": "id227315",
     "name": "Georges",
     "rating": 87,
@@ -119,53 +73,53 @@
     "tiebreak": 224
    },
    {
-    "slot": "LM",
-    "id": "id50535199",
-    "name": "Florenzi",
-    "rating": 87,
-    "color": "hall_of_fut_upgraded",
-    "position": "RB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 132794,
-    "card": [
-     85,
-     83,
-     86
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     85,
-     88
-    ],
-    "tiebreak": 260
-   },
-   {
-    "slot": "CM",
-    "id": "id67110261",
-    "name": "Zidane",
+    "slot": "CB",
+    "id": "id67310399",
+    "name": "Varane",
     "rating": 86,
     "color": "debut_icon",
-    "position": "CAM",
+    "position": "CB",
     "nationId": 18,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     83,
-     86,
-     69
+     64,
+     67,
+     85
     ],
     "chem": 3,
     "eff": [
-     86,
-     88,
-     73
+     67,
+     69,
+     89
     ],
-    "tiebreak": 244
+    "tiebreak": 222
    },
    {
-    "slot": "CM",
+    "slot": "CB",
+    "id": "id229558",
+    "name": "Upamecano",
+    "rating": 87,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     66,
+     69,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     69,
+     71,
+     90
+    ],
+    "tiebreak": 227
+   },
+   {
+    "slot": "LM",
     "id": "id233662",
     "name": "Karchaoui",
     "rating": 87,
@@ -188,27 +142,99 @@
     "tiebreak": 255
    },
    {
-    "slot": "RM",
-    "id": "id50603069",
-    "name": "Doué",
-    "rating": 87,
-    "color": "star_performer",
-    "position": "RW",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 73,
+    "slot": "CM",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
     "card": [
+     87,
+     88,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     90,
+     80
+    ],
+    "tiebreak": 259
+   },
+   {
+    "slot": "CM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
+     85,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     90,
+     83
+    ],
+    "tiebreak": 260
+   },
+   {
+    "slot": "RM",
+    "id": "id67380671",
+    "name": "Nwaneri",
+    "rating": 85,
+    "color": "ucl_rttk",
+    "position": "CAM",
+    "nationId": 14,
+    "leagueId": 19,
+    "clubId": 22,
+    "card": [
+     84,
+     84,
+     56
+    ],
+    "chem": 3,
+    "eff": [
      86,
-     83,
-     59
+     86,
+     58
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "CAM",
+    "id": "evo_Oxlade-Chamberlain_87",
+    "name": "Oxlade-Chamberlain",
+    "rating": 87,
+    "color": "evo",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 50,
+    "clubId": 78,
+    "card": [
+     88,
+     88,
+     81
     ],
     "chem": 3,
     "eff": [
      90,
-     86,
-     64
+     90,
+     83
     ],
-    "tiebreak": 234
+    "tiebreak": 263,
+    "evos": [
+     "Scottish Premiership Silver"
+    ]
    },
    {
     "slot": "CAM",
@@ -234,55 +260,32 @@
     "tiebreak": 239
    },
    {
-    "slot": "CAM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
-    "card": [
-     85,
-     88,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     90,
-     83
-    ],
-    "tiebreak": 260
-   },
-   {
     "slot": "ST",
-    "id": "id50571891",
-    "name": "Matheus Cunha",
-    "rating": 87,
-    "color": "halloween",
+    "id": "id67336134",
+    "name": "White",
+    "rating": 86,
+    "color": "debut_icon",
     "position": "ST",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 11,
+    "nationId": 14,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     87,
-     83,
-     51
+     85,
+     75,
+     58
     ],
     "chem": 3,
     "eff": [
-     89,
-     85,
-     53
+     87,
+     77,
+     60
     ],
-    "tiebreak": 227
+    "tiebreak": 224
    }
   ],
   "results": {
    "mirror": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "balanced 1": {
@@ -394,7 +397,7 @@
     "they_lead_first": "WIN"
    },
    "counter 3": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 4": {
@@ -474,15 +477,15 @@
     "they_lead_first": "WIN"
    },
    "counter 2.2": {
-    "you_lead_first": "LOSS",
-    "they_lead_first": "WIN"
-   },
-   "counter 23": {
     "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
+   "counter 23": {
+    "you_lead_first": "WIN",
+    "they_lead_first": "WIN"
+   },
    "counter 2.3": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 24": {
@@ -522,7 +525,7 @@
     "they_lead_first": "WIN"
    },
    "counter 3.2": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 33": {
@@ -534,7 +537,7 @@
     "they_lead_first": "WIN"
    },
    "counter 3.4": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 35": {
@@ -578,7 +581,7 @@
     "they_lead_first": "WIN"
    },
    "counter 4.4": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 45": {
@@ -638,7 +641,7 @@
     "they_lead_first": "WIN"
    },
    "counter 58": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 59": {
@@ -662,7 +665,7 @@
     "they_lead_first": "WIN"
    },
    "counter 6.3": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 64": {
@@ -678,7 +681,7 @@
     "they_lead_first": "WIN"
    },
    "counter 67": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 68": {
@@ -702,7 +705,7 @@
     "they_lead_first": "WIN"
    },
    "counter 7.2": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 73": {
@@ -714,7 +717,7 @@
     "they_lead_first": "WIN"
    },
    "counter 7.4": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 75": {
@@ -814,19 +817,19 @@
     "they_lead_first": "WIN"
    },
    "counter 98": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 99": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 100": {
-    "you_lead_first": "LOSS",
+    "you_lead_first": "DRAW",
     "they_lead_first": "WIN"
    },
    "counter 101": {
-    "you_lead_first": "DRAW",
+    "you_lead_first": "WIN",
     "they_lead_first": "WIN"
    },
    "counter 102": {
@@ -838,17 +841,21 @@
     "they_lead_first": "DRAW"
    },
    "fresh test 1": {
-    "you_lead_first": "LOSS",
-    "they_lead_first": "DRAW"
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
+   },
+   "previous site team": {
+    "you_lead_first": "DRAW",
+    "they_lead_first": "WIN"
    }
   },
-  "source": "builder",
+  "source": "Reddit interim",
+  "mode": "robust",
   "shape": {
    "unbeatable": 2,
    "stat": "defence",
    "tiebreak": null
   },
-  "mode": "robust",
   "opponent_teams": {
    "mirror": {
     "formation": "3-4-2-1",
@@ -37160,93 +37167,270 @@
       "tiebreak": 224
      }
     ]
-   }
-  },
-  "plan": {
-   "guaranteed": "LOSS",
-   "safe": [
-    {
-     "slot": "GK",
-     "name": "Maignan",
-     "stat": "defence"
-    },
-    {
-     "slot": "CB",
-     "name": "Georges",
-     "stat": "defence"
-    },
-    {
-     "slot": "RM",
-     "name": "Doué",
-     "stat": "attack"
-    }
-   ],
-   "total_openers": 33,
-   "reddit": null,
-   "watch": [
-    {
-     "s": 2,
-     "v": 91,
-     "beat": [],
-     "ties": [],
-     "name": "Maignan",
-     "rank": 0,
-     "text": "Unbeatable defence 91: no card in the series wins that duel."
-    },
-    {
-     "s": 2,
-     "v": 91,
-     "beat": [],
-     "ties": [],
-     "name": "Georges",
-     "rank": 0,
-     "text": "Unbeatable defence 91: no card in the series wins that duel."
-    },
-    {
-     "s": 2,
-     "v": 90,
-     "beat": [
-      {
-       "name": "Oxlade-Chamberlain",
-       "rating": 87,
-       "v": 90,
-       "tie": true
-      }
-     ],
-     "ties": [],
-     "name": "David Luiz",
-     "rank": 1,
-     "text": "Defence 90 only loses to Oxlade-Chamberlain 87 (attack 90, wins the tie on total)."
-    },
-    {
-     "s": 1,
-     "v": 90,
-     "beat": [
-      {
-       "name": "Oxlade-Chamberlain",
-       "rating": 87,
-       "v": 90,
-       "tie": true
-      }
-     ],
-     "ties": [],
-     "name": "Scott",
-     "rank": 1,
-     "text": "Control 90 only loses to Oxlade-Chamberlain 87 (control 90, wins the tie on total)."
-    }
-   ],
-   "low_tb": {
-    "name": "Maignan",
-    "tb": 184
    },
-   "high_tb": {
-    "name": "Scott",
-    "tb": 260
+   "previous site team": {
+    "formation": "3-4-2-1",
+    "chem": 33,
+    "players": [
+     {
+      "slot": "GK",
+      "id": "id215698",
+      "name": "Maignan",
+      "rating": 87,
+      "color": "rare_gold",
+      "position": "GK",
+      "nationId": 18,
+      "leagueId": 31,
+      "clubId": 131681,
+      "card": [
+       46,
+       45,
+       87
+      ],
+      "chem": 3,
+      "eff": [
+       49,
+       47,
+       91
+      ],
+      "tiebreak": 184
+     },
+     {
+      "slot": "CB",
+      "id": "id012",
+      "name": "David Luiz",
+      "rating": 87,
+      "color": "evo",
+      "position": "CB",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 1,
+      "card": [
+       74,
+       80,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       76,
+       82,
+       90
+      ],
+      "tiebreak": 248
+     },
+     {
+      "slot": "CB",
+      "id": "id137186",
+      "name": "Barzagli",
+      "rating": 87,
+      "color": "hero",
+      "position": "CB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 114605,
+      "card": [
+       63,
+       65,
+       88
+      ],
+      "chem": 3,
+      "eff": [
+       65,
+       67,
+       90
+      ],
+      "tiebreak": 222
+     },
+     {
+      "slot": "CB",
+      "id": "id227315",
+      "name": "Georges",
+      "rating": 87,
+      "color": "hero",
+      "position": "CB",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 114605,
+      "card": [
+       65,
+       66,
+       87
+      ],
+      "chem": 3,
+      "eff": [
+       68,
+       68,
+       91
+      ],
+      "tiebreak": 224
+     },
+     {
+      "slot": "LM",
+      "id": "id50535199",
+      "name": "Florenzi",
+      "rating": 87,
+      "color": "hall_of_fut_upgraded",
+      "position": "RB",
+      "nationId": 27,
+      "leagueId": 31,
+      "clubId": 132794,
+      "card": [
+       85,
+       83,
+       86
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       85,
+       88
+      ],
+      "tiebreak": 260
+     },
+     {
+      "slot": "CM",
+      "id": "id67110261",
+      "name": "Zidane",
+      "rating": 86,
+      "color": "debut_icon",
+      "position": "CAM",
+      "nationId": 18,
+      "leagueId": 2118,
+      "clubId": 112658,
+      "card": [
+       83,
+       86,
+       69
+      ],
+      "chem": 3,
+      "eff": [
+       86,
+       88,
+       73
+      ],
+      "tiebreak": 244
+     },
+     {
+      "slot": "CM",
+      "id": "id233662",
+      "name": "Karchaoui",
+      "rating": 87,
+      "color": "rare_gold",
+      "position": "CM",
+      "nationId": 18,
+      "leagueId": 2218,
+      "clubId": 73,
+      "card": [
+       85,
+       87,
+       77
+      ],
+      "chem": 3,
+      "eff": [
+       89,
+       90,
+       82
+      ],
+      "tiebreak": 255
+     },
+     {
+      "slot": "RM",
+      "id": "id50603069",
+      "name": "Doué",
+      "rating": 87,
+      "color": "star_performer",
+      "position": "RW",
+      "nationId": 18,
+      "leagueId": 16,
+      "clubId": 73,
+      "card": [
+       86,
+       83,
+       59
+      ],
+      "chem": 3,
+      "eff": [
+       90,
+       86,
+       64
+      ],
+      "tiebreak": 234
+     },
+     {
+      "slot": "CAM",
+      "id": "id50569340",
+      "name": "Foden",
+      "rating": 87,
+      "color": "star_performer",
+      "position": "RW",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 10,
+      "card": [
+       88,
+       87,
+       58
+      ],
+      "chem": 3,
+      "eff": [
+       90,
+       89,
+       60
+      ],
+      "tiebreak": 239
+     },
+     {
+      "slot": "CAM",
+      "id": "id50592947",
+      "name": "Scott",
+      "rating": 86,
+      "color": "future_stars",
+      "position": "CM",
+      "nationId": 14,
+      "leagueId": 13,
+      "clubId": 1943,
+      "card": [
+       85,
+       88,
+       81
+      ],
+      "chem": 3,
+      "eff": [
+       87,
+       90,
+       83
+      ],
+      "tiebreak": 260
+     },
+     {
+      "slot": "ST",
+      "id": "id50571891",
+      "name": "Matheus Cunha",
+      "rating": 87,
+      "color": "halloween",
+      "position": "ST",
+      "nationId": 54,
+      "leagueId": 13,
+      "clubId": 11,
+      "card": [
+       87,
+       83,
+       51
+      ],
+      "chem": 3,
+      "eff": [
+       89,
+       85,
+       53
+      ],
+      "tiebreak": 227
+     }
+    ]
    }
   }
  },
  "not_owned": [],
- "built": "2026-11-21 23:10 UTC",
+ "built": "2026-11-22 02:40 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-21 23:10 UTC"
+ "changed": "2026-11-22 02:40 UTC"
 }
