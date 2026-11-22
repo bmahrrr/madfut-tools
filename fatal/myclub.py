@@ -494,13 +494,21 @@ def chain_seeds(pool, series=None, seconds=600, time_limit=30, log=None, carrier
     bkw = [kw for kw in bonus_build_kwargs(s) if kw.get("distinct")]
     if not bkw: return []
     t0 = time.time(); out, seen = [], set()
-    base = {c["id"]: c for c in seed_cards(pool, s)}
     cs = [x for x in pool.cards if x["rating"] >= s["cap"] - 20]        # link cards can be well under the cap
-    for key, n in (("leagueId", 5), ("clubId", 2), ("nationId", 4)):     # the strongest few of every league, club, nation
-        g = collections.defaultdict(list)
-        for x in cs: g[x[key]].append(x)
-        for L in g.values():
-            for x in sorted(L, key=lambda x: -x["T3"])[:n]: base.setdefault(x["id"], x)
+    base = {}
+    for x in pool.auto: base[x["id"]] = x                                # full-chem cards (Icons, Heroes, full-chem Evos)
+    for x in cs:
+        if x.get("specialChem") == "solo": base[x["id"]] = x
+    positions = {p for f in FORMATIONS.values() for p in f}
+    for p in positions:                                                  # a few strong fillers for every position
+        for x in sorted((x for x in cs if p in x["P"]), key=lambda x: -x["T3"])[:8]: base.setdefault(x["id"], x)
+    # link pairs: two cards sharing nation AND club (each gets nation +1 and club +1; a third card of their league
+    # makes it 3), e.g. Bruno Costa and Simao Rocha at CFR Cluj
+    g = collections.defaultdict(list)
+    for x in cs: g[(x["nationId"], x["clubId"])].append(x)
+    pairs = sorted((sorted(L, key=lambda x: -x["T3"])[:3] for L in g.values() if len(L) >= 2), key=lambda L: -(L[0]["T3"] + L[1]["T3"]))
+    for L in pairs[:120]:
+        for x in L: base.setdefault(x["id"], x)
     for kw in bkw:
         for kind, (lo, hi) in kw["distinct"].items():
             if not lo: continue
@@ -513,7 +521,7 @@ def chain_seeds(pool, series=None, seconds=600, time_limit=30, log=None, carrier
             top = sorted(span, key=lambda k: -sum(sorted(span[k].values(), reverse=True)[:8]))[:carriers]
             for car in top:
                 cards = dict(base)
-                for x in sorted((x for x in cs if x[ckey] == car), key=lambda x: -x["T3"])[:80]: cards.setdefault(x["id"], x)
+                for x in sorted((x for x in cs if x[ckey] == car), key=lambda x: -x["T3"])[:120]: cards.setdefault(x["id"], x)
                 L = [dict(c, _i=i) for i, c in enumerate(cards.values())]
                 for form in forms:
                     if time.time() - t0 > seconds: return out
