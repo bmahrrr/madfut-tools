@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261122b";
+const APP_V = "20261122c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -883,6 +883,9 @@ async function renderTeams() {
       if (t.plan) html += planHtml(t.plan);
       html += nh + playersTable(t.players, true, V ? null : "myclub:" + d.series.key);
       const wser = V ? d.series : ((WEEK && WEEK.myclub) || []).find(x => x.key === d.series.key) || d.series;
+      // the Reddit team(s) for this series, credited, with how the site's team does against them
+      (wser.opponents || []).forEach((ids, i) => { const k = "reference " + (i + 1), o = oppTeamRows(t, k, wser), rr = (t.results || {})[k]; if (!o) return;
+        html += `<details class="allres refteam"><summary class="small"><b>Reddit team${wser.opponents.length > 1 ? " " + (i + 1) : ""}</b><span class="muted">by ${mcCredit()} · ${esc(o.meta)}</span>${rr ? `<span class="gwdl">You lead ${pill(rr.you_lead_first)}</span><span class="gwdl">They lead ${pill(rr.they_lead_first)}</span>` : `<span class="muted">Rebuilding to beat it</span>`}</summary>${playersTable(o.players, true)}</details>`; });
       const RR = Object.values(t.results || {});
       if (RR.length) html += `<details class="allres"><summary class="small">All ${RR.length} results <span class="gwdl">You lead ${wdl(RR, "you_lead_first")}</span><span class="gwdl">They lead ${wdl(RR, "they_lead_first")}</span></summary><p class="small muted" style="margin:6px 0 2px">Tap an opponent to see their team. Results are you lead first, then they lead first.</p></details>`.replace('<details class="allres">', `<details class="allres" data-ar="${ALLRES.push([t, wser]) - 1}">`);
       html += `<p class="built">Built ${esc(fmtStamp(d.built))}</p></div>`;
@@ -1380,7 +1383,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261122b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261122c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1406,7 +1409,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261122b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261122c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2222,7 +2225,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261122b");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261122c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
