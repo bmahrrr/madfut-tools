@@ -12,8 +12,12 @@ Chemistry rules (as used in SBCs and both Fatal modes):
 import collections, json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AUTO = {"icon", "debut_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"}   # HoF Upgraded: full chem, +1 nation, +1 league
-ICON = {"icon", "debut_icon"}
+AUTO = {"icon", "debut_icon", "thunderstruck_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"}   # HoF Upgraded: full chem, +1 nation, +1 league
+ICON = {"icon", "debut_icon", "thunderstruck_icon"}   # Thunderstruck Icons get Icon chem (owner, from the game)
+# boost groups: "icons" = every Icon card (Icon, Debut Icon, Thunderstruck Icon...), "heroes" = every Hero card;
+# "icon" / "hero" alone = the regular card only (owner, from the game). Same as docs/engine.js
+BOOST_GROUP = {"icons": lambda c: str(c["color"]) == "icon" or str(c["color"]).endswith("_icon"),
+               "heroes": lambda c: str(c["color"]) == "hero" or str(c["color"]).endswith("_hero")}
 CHEM_BONUS = {0: -3, 1: 0, 2: 1, 3: 2}
 FORMATIONS = json.load(open(os.path.join(ROOT, "fatal", "formations.json")))
 SIM_FORMATIONS = ["3-1-4-2", "3-4-1-2", "3-5-2", "5-2-1-2", "5-3-2", "5-4-1"]
@@ -163,7 +167,8 @@ def boosted(c, boosts):
         key = KEYMAP[b["on"]]
         val = c.get(key)
         if key == "color":
-            match = card_type(c) == str(b["id"]).replace("rare_", "")     # an evolved card is an Evo card here too
+            g = BOOST_GROUP.get(str(b["id"]))
+            match = g(c) if g else card_type(c) == str(b["id"]).replace("rare_", "")     # an evolved card is an Evo card here too
         else:
             match = val == b["id"]
         if match:
