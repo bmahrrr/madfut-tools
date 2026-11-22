@@ -157,7 +157,8 @@ def mc_pick(key, owned, allc, by_id, no_names):
     finalist. Same ranking as the builder (owner's shape, Reddit result, worst case, total, stats); the published
     team stays on a tie."""
     import glob as _g, random
-    from fatal.myclub import Pool, Unbeat, set_icon_limit, fits, pscore, optimize, _key
+    from fatal.myclub import Pool, Unbeat, set_icon_limit, fits, pscore, optimize, _key, upgrade_dominated
+    from fatal.core import describe
     from fatal.par import pmap
     s = next(x for x in week()["myclub"] if x["key"] == key)
     set_icon_limit(s)
@@ -219,7 +220,12 @@ def mc_pick(key, owned, allc, by_id, no_names):
     k, lab, out = best
     print("picked:", lab)
     for f in _g.glob(os.path.join(RES, f"myclub_{key}.*.raw")): os.remove(f)
-    if lab == "Previous Best": return
+    # a card that is stronger and changes nothing else always goes in (can't lose a duel the old card won)
+    tm = [mine.get(p["id"]) for p in out["team"]["players"]]
+    up = upgrade_dominated(me, tm, log=print) if all(tm) else tm
+    if [c["id"] for c in up] != [c["id"] for c in tm]:
+        out["team"].update({x: v for x, v in describe(up, s).items() if x in ("formation", "players", "chem")})
+    elif lab == "Previous Best": return
     if prev and sorted(p["id"] for p in prev["team"]["players"]) == sorted(p["id"] for p in out["team"]["players"]):
         out["team"].update({x: prev["team"][x] for x in ("formation", "players", "chem") if x in prev["team"]})
     out["not_owned"] = no_names

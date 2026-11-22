@@ -23,7 +23,7 @@
  },
  "opponents": [],
  "team": {
-  "formation": "4-1-3-2",
+  "formation": "4-1-2-1-2",
   "chem": 32,
   "players": [
    {
@@ -74,29 +74,6 @@
    },
    {
     "slot": "CB",
-    "id": "id86134",
-    "name": "Mason",
-    "rating": 65,
-    "color": "rare_silver",
-    "position": "CB",
-    "nationId": 35,
-    "leagueId": 2216,
-    "clubId": 89,
-    "card": [
-     42,
-     47,
-     66
-    ],
-    "chem": 3,
-    "eff": [
-     44,
-     49,
-     68
-    ],
-    "tiebreak": 161
-   },
-   {
-    "slot": "CB",
     "id": "id265316",
     "name": "Hutton",
     "rating": 63,
@@ -119,50 +96,73 @@
     "tiebreak": 194
    },
    {
-    "slot": "RB",
-    "id": "id277618",
-    "name": "Adams",
+    "slot": "CB",
+    "id": "id86134",
+    "name": "Mason",
     "rating": 65,
     "color": "rare_silver",
-    "position": "RB",
-    "nationId": 133,
-    "leagueId": 330,
-    "clubId": 110751,
-    "card": [
-     68,
-     63,
-     63
-    ],
-    "chem": 2,
-    "eff": [
-     69,
-     64,
-     64
-    ],
-    "tiebreak": 197
-   },
-   {
-    "slot": "CDM",
-    "id": "id266921",
-    "name": "Humphrey",
-    "rating": 65,
-    "color": "rare_silver",
-    "position": "CM",
-    "nationId": 14,
+    "position": "CB",
+    "nationId": 35,
     "leagueId": 2216,
     "clubId": 89,
     "card": [
-     62,
+     42,
+     47,
+     66
+    ],
+    "chem": 3,
+    "eff": [
+     44,
+     49,
+     68
+    ],
+    "tiebreak": 161
+   },
+   {
+    "slot": "RB",
+    "id": "id223354",
+    "name": "Vătăjelu",
+    "rating": 64,
+    "color": "rare_bronze",
+    "position": "LB",
+    "nationId": 39,
+    "leagueId": 330,
+    "clubId": 113378,
+    "card": [
+     67,
      64,
+     63
+    ],
+    "chem": 3,
+    "eff": [
+     69,
+     66,
+     65
+    ],
+    "tiebreak": 200
+   },
+   {
+    "slot": "CDM",
+    "id": "id277965",
+    "name": "Watson",
+    "rating": 62,
+    "color": "rare_bronze",
+    "position": "CM",
+    "nationId": 42,
+    "leagueId": 2216,
+    "clubId": 11,
+    "card": [
+     62,
+     59,
      60
     ],
     "chem": 3,
     "eff": [
      64,
-     66,
+     61,
      62
     ],
-    "tiebreak": 192
+    "tiebreak": 187
    },
    {
     "slot": "LM",
@@ -188,73 +188,50 @@
     "tiebreak": 174
    },
    {
-    "slot": "CM",
-    "id": "id277965",
-    "name": "Watson",
-    "rating": 62,
-    "color": "rare_bronze",
-    "position": "CM",
-    "nationId": 42,
-    "leagueId": 2216,
-    "clubId": 11,
-    "card": [
-     62,
-     59,
-     60
-    ],
-    "chem": 3,
-    "eff": [
-     64,
-     61,
-     62
-    ],
-    "tiebreak": 187
-   },
-   {
     "slot": "RM",
-    "id": "id223354",
-    "name": "Vătăjelu",
-    "rating": 64,
-    "color": "rare_bronze",
-    "position": "LB",
-    "nationId": 39,
-    "leagueId": 330,
-    "clubId": 113378,
-    "card": [
-     67,
-     64,
-     63
-    ],
-    "chem": 3,
-    "eff": [
-     69,
-     66,
-     65
-    ],
-    "tiebreak": 200
-   },
-   {
-    "slot": "ST",
-    "id": "id251235",
-    "name": "Dumiter",
+    "id": "id277618",
+    "name": "Adams",
     "rating": 65,
     "color": "rare_silver",
-    "position": "ST",
-    "nationId": 39,
+    "position": "RB",
+    "nationId": 133,
     "leagueId": 330,
-    "clubId": 110752,
+    "clubId": 110751,
     "card": [
      68,
-     61,
-     43
+     63,
+     63
+    ],
+    "chem": 2,
+    "eff": [
+     69,
+     64,
+     64
+    ],
+    "tiebreak": 197
+   },
+   {
+    "slot": "CAM",
+    "id": "id251045",
+    "name": "Rață",
+    "rating": 65,
+    "color": "rare_silver",
+    "position": "CM",
+    "nationId": 33,
+    "leagueId": 330,
+    "clubId": 100759,
+    "card": [
+     66,
+     64,
+     61
     ],
     "chem": 3,
     "eff": [
-     70,
-     63,
-     45
+     68,
+     66,
+     63
     ],
-    "tiebreak": 178
+    "tiebreak": 197
    },
    {
     "slot": "ST",
@@ -278,6 +255,29 @@
      42
     ],
     "tiebreak": 175
+   },
+   {
+    "slot": "ST",
+    "id": "id251235",
+    "name": "Dumiter",
+    "rating": 65,
+    "color": "rare_silver",
+    "position": "ST",
+    "nationId": 39,
+    "leagueId": 330,
+    "clubId": 110752,
+    "card": [
+     68,
+     61,
+     43
+    ],
+    "chem": 3,
+    "eff": [
+     70,
+     63,
+     45
+    ],
+    "tiebreak": 178
    }
   ],
   "results": {
@@ -42492,5 +42492,5 @@
  "not_owned": [],
  "built": "2026-11-21 23:08 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-21 23:08 UTC"
+ "changed": "2026-11-22 05:50 UTC"
 }

@@ -388,6 +388,31 @@ def polish(pool, team, opps, weights, seconds, log=None, per_link=25, rng=None, 
     return ck, cur
 
 
+def upgrade_dominated(pool, team, log=None):
+    """Final clean-up: swap a card for a stronger one that changes nothing else. Every other card keeps exactly the same
+    in-game stats (chem, boosts, squad bonuses) and the new card is at least as good in attack, control, defence and
+    total. In My Club that can never lose a duel the old card won, so no testing is needed (owner: the 82 team had
+    Ricardo Horta where Pedro Goncalves, same chem and results, has +1 control and +13 defence)."""
+    cur = team[:]
+    while True:
+        E0 = pool.eff(cur); used = {x["pid"] for x in cur}; best = None
+        for i in range(11):
+            P0 = set(cur[i]["P"])
+            for c in pool.cards:
+                if c["pid"] in used or not P0 & set(c["P"]): continue
+                new = cur[:i] + [c] + cur[i + 1:]
+                if not fits(new): continue
+                E = pool.eff(new); e, e0 = E[i], E0[i]
+                if not all(e[k] >= e0[k] for k in range(4)) or tuple(e[:4]) == tuple(e0[:4]): continue
+                if any(E[j] != E0[j] for j in range(11) if j != i): continue
+                gain = (e[3] - e0[3], sum(e[:3]) - sum(e0[:3]))
+                if best is None or gain > best[0]: best = (gain, i, c)
+        if not best: return cur
+        _, i, c = best
+        if log: log(f"  upgrade: {cur[i]['name']} {cur[i]['rating']} -> {c['name']} {c['rating']} (same team otherwise, stronger card)")
+        cur = cur[:i] + [c] + cur[i + 1:]
+
+
 ROLE = {"GK": "bD", "CB": "bD", "LB": "bD", "RB": "bD", "LWB": "bD", "RWB": "bD", "CDM": "bC", "CM": "bC", "CAM": "bC",
         "LM": "bC", "RM": "bC", "ST": "bA", "CF": "bA", "LW": "bA", "RW": "bA"}
 
