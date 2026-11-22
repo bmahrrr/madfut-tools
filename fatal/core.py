@@ -12,8 +12,15 @@ Chemistry rules (as used in SBCs and both Fatal modes):
 import collections, json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AUTO = {"icon", "debut_icon", "thunderstruck_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"}   # HoF Upgraded: full chem, +1 nation, +1 league
-ICON = {"icon", "debut_icon", "thunderstruck_icon"}   # Thunderstruck Icons get Icon chem (owner, from the game)
+class _IconTypes(frozenset):
+    """Every kind of Icon (Icon, Debut Icon, Thunderstruck Icon, and any new "..._icon" type the game adds) has base
+    Icon chem (owner). `color in AUTO` / `color in ICON` also match those."""
+    def __contains__(self, c):
+        return frozenset.__contains__(self, c) or (isinstance(c, str) and c.endswith("_icon"))
+
+
+AUTO = _IconTypes({"icon", "debut_icon", "thunderstruck_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"})   # HoF Upgraded: full chem, +1 nation, +1 league
+ICON = _IconTypes({"icon", "debut_icon", "thunderstruck_icon"})
 # boost groups: "icons" = every Icon card (Icon, Debut Icon, Thunderstruck Icon...), "heroes" = every Hero card;
 # "icon" / "hero" alone = the regular card only (owner, from the game). Same as docs/engine.js
 BOOST_GROUP = {"icons": lambda c: str(c["color"]) == "icon" or str(c["color"]).endswith("_icon"),

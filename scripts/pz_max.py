@@ -17,7 +17,9 @@ sc = lambda c, k: (k + "2") in str(c.get("specialChem") or "").split(",")
 key = lambda c: c.get("baseId") or c["name"]
 # Icons and Heroes (only in a pool that includes them, for the Icons check): always 3 chem in position, no club links;
 # an Icon adds 1 to its nation and 1 to every league, a Hero 1 to its nation and 1 to its league (checked in game)
-AUTO = {"icon", "debut_icon", "thunderstruck_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"}; ICON = {"icon", "debut_icon", "thunderstruck_icon"}; HERO = {"hero", "hall_of_fut"}
+class _IconTypes(frozenset):    # every kind of Icon ("..._icon") has base Icon chem (owner)
+    def __contains__(self, c): return frozenset.__contains__(self, c) or (isinstance(c, str) and c.endswith("_icon"))
+AUTO = _IconTypes({"icon", "debut_icon", "thunderstruck_icon", "hero", "hall_of_fut", "hall_of_fut_upgraded"}); ICON = _IconTypes({"icon", "debut_icon", "thunderstruck_icon"}); HERO = {"hero", "hall_of_fut"}
 kind = lambda c: "I" if c["color"] in ICON else "A" if c["color"] in AUTO else ""
 
 
