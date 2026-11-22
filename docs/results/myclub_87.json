@@ -37427,6 +37427,145 @@
      }
     ]
    }
+  },
+  "plan": {
+   "guaranteed": "LOSS",
+   "safe": [
+    {
+     "slot": "GK",
+     "name": "Maignan",
+     "stat": "defence"
+    },
+    {
+     "slot": "CB",
+     "name": "Georges",
+     "stat": "defence"
+    },
+    {
+     "slot": "LM",
+     "name": "Karchaoui",
+     "stat": "attack"
+    },
+    {
+     "slot": "LM",
+     "name": "Karchaoui",
+     "stat": "control"
+    },
+    {
+     "slot": "CM",
+     "name": "Scott",
+     "stat": "control"
+    },
+    {
+     "slot": "CAM",
+     "name": "Oxlade-Chamberlain",
+     "stat": "control"
+    },
+    {
+     "slot": "CAM",
+     "name": "Foden",
+     "stat": "attack"
+    }
+   ],
+   "total_openers": 33,
+   "reddit": null,
+   "watch": [
+    {
+     "s": 2,
+     "v": 91,
+     "beat": [],
+     "ties": [],
+     "name": "Maignan",
+     "rank": 0,
+     "text": "Unbeatable defence 91: no card in the series wins that duel."
+    },
+    {
+     "s": 2,
+     "v": 91,
+     "beat": [],
+     "ties": [],
+     "name": "Georges",
+     "rank": 0,
+     "text": "Unbeatable defence 91: no card in the series wins that duel."
+    },
+    {
+     "s": 1,
+     "v": 90,
+     "beat": [],
+     "ties": [],
+     "name": "Oxlade-Chamberlain",
+     "rank": 0,
+     "text": "Unbeatable control 90: no card in the series wins that duel."
+    },
+    {
+     "s": 1,
+     "v": 90,
+     "beat": [
+      {
+       "name": "Oxlade-Chamberlain",
+       "rating": 87,
+       "v": 90,
+       "tie": true
+      }
+     ],
+     "ties": [],
+     "name": "Scott",
+     "rank": 1,
+     "text": "Control 90 only loses to Oxlade-Chamberlain 87 (control 90, wins the tie on total)."
+    },
+    {
+     "s": 1,
+     "v": 90,
+     "beat": [
+      {
+       "name": "Scott",
+       "rating": 86,
+       "v": 90,
+       "tie": true
+      },
+      {
+       "name": "Oxlade-Chamberlain",
+       "rating": 87,
+       "v": 90,
+       "tie": true
+      }
+     ],
+     "ties": [],
+     "name": "Bischof",
+     "rank": 2,
+     "text": "Control 90 only loses to Scott 86 (control 90, wins the tie on total) and Oxlade-Chamberlain 87 (control 90, wins the tie on total)."
+    },
+    {
+     "s": 0,
+     "v": 90,
+     "beat": [
+      {
+       "name": "Georges",
+       "rating": 87,
+       "v": 91,
+       "tie": false
+      },
+      {
+       "name": "Maignan",
+       "rating": 87,
+       "v": 91,
+       "tie": false
+      }
+     ],
+     "ties": [],
+     "name": "Oxlade-Chamberlain",
+     "rank": 2,
+     "text": "Attack 90 only loses to Georges 87 (defence 91) and Maignan 87 (defence 91)."
+    }
+   ],
+   "low_tb": {
+    "name": "Maignan",
+    "tb": 184
+   },
+   "high_tb": {
+    "name": "Oxlade-Chamberlain",
+    "tb": 263
+   }
   }
  },
  "not_owned": [],
