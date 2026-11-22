@@ -1,38 +1,39 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
   "id50575428",
-  "id189362"
+  "id189362",
+  "id50597343"
  ],
- "strength": 101.5,
+ "strength": 101.3,
  "group_cards": 3,
  "reddit": [],
  "team": {
-  "formation": "4-1-2-1-2",
-  "chem": 31,
+  "formation": "4-2-4",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id16254",
-    "name": "Howard",
+    "id": "id230872",
+    "name": "Svilar",
     "rating": 85,
-    "color": "hero",
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 95,
-    "leagueId": 13,
-    "clubId": 114605,
+    "nationId": 51,
+    "leagueId": 31,
+    "clubId": 52,
     "card": [
      42,
-     35,
+     41,
+     85
+    ],
+    "chem": 2,
+    "eff": [
+     43,
+     42,
      86
     ],
-    "chem": 3,
-    "eff": [
-     44,
-     37,
-     88
-    ],
-    "tiebreak": 169
+    "tiebreak": 171
    },
    {
     "slot": "LB",
@@ -105,98 +106,29 @@
    },
    {
     "slot": "RB",
-    "id": "id50579813",
-    "name": "Rațiu",
+    "id": "id67359754",
+    "name": "Zambrotta",
     "rating": 85,
-    "color": "destined_for_glory",
+    "color": "debut_icon",
     "position": "RB",
-    "nationId": 39,
-    "leagueId": 53,
-    "clubId": 480,
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     82,
-     81,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     85,
-     84,
-     86
-    ],
-    "tiebreak": 252
-   },
-   {
-    "slot": "CDM",
-    "id": "ltm_espart85",
-    "name": "Xavi Espart",
-    "rating": 85,
-    "color": "ltm",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 241,
-    "card": [
+     75,
      77,
-     83,
      84
     ],
     "chem": 3,
     "eff": [
-     80,
-     86,
+     77,
+     82,
      87
     ],
-    "tiebreak": 250
+    "tiebreak": 242
    },
    {
-    "slot": "LM",
-    "id": "id84150468",
-    "name": "Moleiro",
-    "rating": 85,
-    "color": "thunderstruck",
-    "position": "LM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 483,
-    "card": [
-     86,
-     84,
-     58
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     87,
-     61
-    ],
-    "tiebreak": 234
-   },
-   {
-    "slot": "RM",
-    "id": "id226161",
-    "name": "Marcos Llorente",
-    "rating": 85,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 240,
-    "card": [
-     82,
-     80,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     85,
-     83,
-     86
-    ],
-    "tiebreak": 251
-   },
-   {
-    "slot": "CAM",
+    "slot": "CM",
     "id": "id50575428",
     "name": "Lee Kang In",
     "rating": 83,
@@ -219,6 +151,52 @@
     "tiebreak": 229
    },
    {
+    "slot": "CM",
+    "id": "id226161",
+    "name": "Marcos Llorente",
+    "rating": 85,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 240,
+    "card": [
+     82,
+     80,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     83,
+     86
+    ],
+    "tiebreak": 251
+   },
+   {
+    "slot": "LW",
+    "id": "id84150468",
+    "name": "Moleiro",
+    "rating": 85,
+    "color": "thunderstruck",
+    "position": "LM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 483,
+    "card": [
+     86,
+     84,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     87,
+     61
+    ],
+    "tiebreak": 234
+   },
+   {
     "slot": "ST",
     "id": "id50597343",
     "name": "Soulé",
@@ -233,13 +211,13 @@
      85,
      54
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     84,
-     85,
-     54
+     86,
+     87,
+     56
     ],
-    "tiebreak": 223
+    "tiebreak": 229
    },
    {
     "slot": "ST",
@@ -263,6 +241,29 @@
      53
     ],
     "tiebreak": 224
+   },
+   {
+    "slot": "RW",
+    "id": "id50579813",
+    "name": "Rațiu",
+    "rating": 85,
+    "color": "destined_for_glory",
+    "position": "RB",
+    "nationId": 39,
+    "leagueId": 53,
+    "clubId": 480,
+    "card": [
+     82,
+     81,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     84,
+     86
+    ],
+    "tiebreak": 252
    }
   ]
  },
@@ -294,22 +295,23 @@
     "def": 1
    }
   ],
-  "minutes": 30
+  "minutes": 30,
+  "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "base_ids": [
   "id16254",
-  "id67229397",
-  "id50582506",
   "id50608873",
-  "id84150468",
-  "id67335759",
+  "id50582506",
+  "id67229397",
+  "id67359754",
   "id67116627",
+  "id67335759",
   "evo_Gerso_84",
+  "id84150468",
   "id50609974",
-  "id67193279",
   "id50561790"
  ],
- "built": "2026-11-22 00:21 UTC",
+ "built": "2026-11-22 09:20 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-22 00:21 UTC"
+ "changed": "2026-11-22 09:20 UTC"
 }
