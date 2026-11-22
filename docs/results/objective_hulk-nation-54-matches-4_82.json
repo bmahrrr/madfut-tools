@@ -1,64 +1,92 @@
 {
  "g": 5,
  "obj_ids": [
-  "id210257",
-  "id50604005",
-  "id80170",
+  "id222737",
+  "id270571",
   "id223334",
-  "id222737"
+  "id255475",
+  "id266866"
  ],
- "strength": 102.2,
+ "strength": 100.3,
  "group_cards": 471,
- "reddit": [],
+ "reddit": [
+  {
+   "you_lead_first": "LOSS",
+   "they_lead_first": "LOSS"
+  }
+ ],
  "team": {
-  "formation": "4-3-2-1",
-  "chem": 23,
+  "formation": "3-4-2-1",
+  "chem": 25,
   "players": [
    {
     "slot": "GK",
-    "id": "id210257",
-    "name": "Ederson",
+    "id": "id254803",
+    "name": "Lammens",
     "rating": 82,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 54,
-    "leagueId": 68,
-    "clubId": 326,
+    "nationId": 7,
+    "leagueId": 13,
+    "clubId": 11,
     "card": [
-     47,
-     50,
+     36,
+     37,
      83
     ],
     "chem": 2,
     "eff": [
-     48,
-     51,
+     37,
+     38,
      86
     ],
-    "tiebreak": 183
+    "tiebreak": 159
    },
    {
-    "slot": "LB",
-    "id": "id80170",
-    "name": "Wesley",
-    "rating": 80,
+    "slot": "CB",
+    "id": "id198176",
+    "name": "de Vrij",
+    "rating": 82,
     "color": "rare_gold",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 52,
+    "position": "CB",
+    "nationId": 34,
+    "leagueId": 63,
+    "clubId": 1884,
     "card": [
-     76,
-     77,
-     79
+     61,
+     67,
+     82
     ],
     "chem": 2,
     "eff": [
-     77,
-     78,
+     62,
+     68,
+     85
+    ],
+    "tiebreak": 213
+   },
+   {
+    "slot": "CB",
+    "id": "id233756",
+    "name": "Janssen",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 34,
+    "leagueId": 2216,
+    "clubId": 11,
+    "card": [
+     69,
+     73,
      82
     ],
-    "tiebreak": 235
+    "chem": 3,
+    "eff": [
+     71,
+     75,
+     86
+    ],
+    "tiebreak": 230
    },
    {
     "slot": "CB",
@@ -84,73 +112,50 @@
     "tiebreak": 233
    },
    {
-    "slot": "CB",
-    "id": "id203263",
-    "name": "Maguire",
-    "rating": 82,
+    "slot": "LM",
+    "id": "id245367",
+    "name": "Simons",
+    "rating": 81,
     "color": "rare_gold",
-    "position": "CB",
-    "nationId": 14,
+    "position": "CAM",
+    "nationId": 34,
     "leagueId": 13,
-    "clubId": 11,
+    "clubId": 18,
     "card": [
-     61,
-     67,
-     82
-    ],
-    "chem": 2,
-    "eff": [
-     62,
-     68,
-     85
-    ],
-    "tiebreak": 213
-   },
-   {
-    "slot": "RB",
-    "id": "id50604005",
-    "name": "Lucas Rosa",
-    "rating": 82,
-    "color": "squad_foundations",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 10,
-    "clubId": 245,
-    "card": [
-     70,
-     74,
-     81
+     80,
+     81,
+     61
     ],
     "chem": 3,
     "eff": [
-     72,
-     76,
-     85
+     82,
+     83,
+     65
     ],
-    "tiebreak": 231
+    "tiebreak": 228
    },
    {
     "slot": "CM",
-    "id": "id50575712",
-    "name": "Pelova",
+    "id": "id266866",
+    "name": "Éderson",
     "rating": 82,
-    "color": "totw_gold",
-    "position": "CDM",
-    "nationId": 34,
-    "leagueId": 2216,
-    "clubId": 18,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 54,
+    "leagueId": 31,
+    "clubId": 115845,
     "card": [
-     81,
-     81,
-     75
+     77,
+     78,
+     80
     ],
     "chem": 2,
     "eff": [
-     82,
-     82,
-     78
+     78,
+     79,
+     83
     ],
-    "tiebreak": 240
+    "tiebreak": 238
    },
    {
     "slot": "CM",
@@ -176,76 +181,73 @@
     "tiebreak": 239
    },
    {
-    "slot": "CM",
-    "id": "evo_Bruno Costa_81",
-    "name": "Bruno Costa",
+    "slot": "RM",
+    "id": "id255475",
+    "name": "Antony",
     "rating": 81,
-    "color": "evo",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 330,
-    "clubId": 114385,
-    "card": [
-     83,
-     83,
-     73
-    ],
-    "chem": 1,
-    "eff": [
-     84,
-     84,
-     76
-    ],
-    "tiebreak": 239,
-    "evos": [
-     "Romanian Superliga Silver"
-    ]
-   },
-   {
-    "slot": "CAM",
-    "id": "id213516",
-    "name": "Ricardo Horta",
-    "rating": 82,
     "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 1896,
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 53,
+    "clubId": 449,
     "card": [
-     81,
-     80,
-     49
-    ],
-    "chem": 1,
-    "eff": [
      82,
-     81,
-     52
+     80,
+     50
     ],
-    "tiebreak": 210
+    "chem": 2,
+    "eff": [
+     83,
+     81,
+     53
+    ],
+    "tiebreak": 215
    },
    {
     "slot": "CAM",
-    "id": "id220697",
-    "name": "Maddison",
+    "id": "id50407849",
+    "name": "Peddemors",
     "rating": 82,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 34,
+    "leagueId": 2215,
+    "clubId": 175,
+    "card": [
+     80,
+     81,
+     77
+    ],
+    "chem": 2,
+    "eff": [
+     81,
+     82,
+     80
+    ],
+    "tiebreak": 241
+   },
+   {
+    "slot": "CAM",
+    "id": "id270571",
+    "name": "Gabriel Sara",
+    "rating": 80,
     "color": "rare_gold",
     "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 18,
+    "nationId": 54,
+    "leagueId": 68,
+    "clubId": 325,
     "card": [
+     78,
      81,
-     84,
-     55
+     68
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     83,
-     86,
-     59
+     79,
+     82,
+     71
     ],
-    "tiebreak": 226
+    "tiebreak": 230
    },
    {
     "slot": "ST",
@@ -308,18 +310,18 @@
  },
  "base_ids": [
   "id258498",
-  "id208920",
+  "id233747",
   "id233756",
   "id198176",
-  "id72721",
-  "id233747",
+  "id213516",
   "evo_Bruno Costa_81",
-  "id50540109",
+  "id72721",
+  "id253149",
   "id50407849",
-  "evo_Jerdea_70",
+  "id253109",
   "id50555337"
  ],
- "built": "2026-11-22 02:57 UTC",
+ "built": "2026-11-22 04:49 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-22 02:57 UTC"
+ "changed": "2026-11-22 04:49 UTC"
 }
