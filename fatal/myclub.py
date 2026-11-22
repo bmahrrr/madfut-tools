@@ -483,6 +483,50 @@ def milp_seeds(pool, series=None, time_limit=15, log=None):
     return seeds
 
 
+def chain_seeds(pool, series=None, seconds=600, time_limit=30, log=None, carriers=6,
+                forms=("4-4-2", "4-3-3", "4-1-2-1-2 (2)", "4-2-3-1", "3-4-3", "4-1-4-1")):
+    """Teams that earn a "different leagues / nations / clubs" squad bonus WITHOUT giving up chem. One nation spread
+    over many leagues (or one league over many nations) carries the chem, and small clusters fill the rest, including
+    low-rated link cards and full-chem cards (the 82 Reddit team: 7 Dutch cards from 7 leagues plus Bruno Costa,
+    Simao Rocha 67 and Jerdea in the Romanian league = 33 chem AND the 9-league bonus; the builder had only found the
+    bonus by dropping to 23 chem). The usual seed cards miss these: link cards are rarely strong on their own."""
+    s = series or pool.series
+    bkw = [kw for kw in bonus_build_kwargs(s) if kw.get("distinct")]
+    if not bkw: return []
+    t0 = time.time(); out, seen = [], set()
+    base = {c["id"]: c for c in seed_cards(pool, s)}
+    cs = [x for x in pool.cards if x["rating"] >= s["cap"] - 20]        # link cards can be well under the cap
+    for key, n in (("leagueId", 5), ("clubId", 2), ("nationId", 4)):     # the strongest few of every league, club, nation
+        g = collections.defaultdict(list)
+        for x in cs: g[x[key]].append(x)
+        for L in g.values():
+            for x in sorted(L, key=lambda x: -x["T3"])[:n]: base.setdefault(x["id"], x)
+    for kw in bkw:
+        for kind, (lo, hi) in kw["distinct"].items():
+            if not lo: continue
+            ckey = "nationId" if kind in ("league", "club") else "leagueId"           # the carrier group
+            okey = {"league": "leagueId", "nation": "nationId", "club": "clubId"}[kind]
+            span = collections.defaultdict(dict)
+            for x in cs:
+                d = span[x[ckey]]; d[x[okey]] = max(d.get(x[okey], 0), x["T3"])
+            # carriers whose cards spread over the most groups, strongest first
+            top = sorted(span, key=lambda k: -sum(sorted(span[k].values(), reverse=True)[:8]))[:carriers]
+            for car in top:
+                cards = dict(base)
+                for x in sorted((x for x in cs if x[ckey] == car), key=lambda x: -x["T3"])[:80]: cards.setdefault(x["id"], x)
+                L = [dict(c, _i=i) for i, c in enumerate(cards.values())]
+                for form in forms:
+                    if time.time() - t0 > seconds: return out
+                    sq = build(L, FORMATIONS[form], lambda c, sl: c["T3"], chem_weight=lambda c, sl: 12, time_limit=time_limit,
+                               gap=0.002, group_rules=ICON_RULE, **kw)
+                    if not sq: continue
+                    k = frozenset(c["id"] for c in sq)
+                    if k in seen: continue
+                    seen.add(k); out.append(sq)
+                    if log: log(f"  seed: chain {kind}s {lo}+ via {ckey} {car} {form}, chem {team_chem(sq)}")
+    return out
+
+
 BAL_FORMS = ("4-4-2", "4-3-3", "3-4-3", "3-4-1-2", "4-2-3-1", "4-1-2-1-2", "3-5-2", "5-3-2", "4-5-1", "4-2-2-2",
              "3-4-2-1", "5-2-1-2", "4-1-4-1", "4-3-2-1")
 
@@ -702,9 +746,10 @@ def build_myclub(series, owned_cards, all_cards, opponents=(), minutes=30, round
     bal_mine = bal if same_pool else balanced_teams(me, series, seconds=min(T * 0.04, 400))
     bal_mine = [[owned_ids[c["id"]] for c in t] for t in bal_mine if all(c["id"] in owned_ids for c in t)]
     pop += milp_seeds(field, series, log=log)
+    pop += chain_seeds(field, series, seconds=min(T * 0.06, 600), log=log)
     pop += useeds
     mine = pop if same_pool else cat_seeds(me, series, seconds=min(T * 0.08, 900), log=log) + milp_seeds(me, series, log=log) + \
-        unbeat_seeds(me, series, ub, seconds=min(T * 0.08, 900), log=log)
+        chain_seeds(me, series, seconds=min(T * 0.06, 600), log=log) + unbeat_seeds(me, series, ub, seconds=min(T * 0.08, 900), log=log)
     shape = lambda E: (lambda k: (k[0], k[2] if k[0] else k[1]))(ub.key(E))   # guard: tier, then tiebreak (or count)
     if mode != "beat":
         # 2) every population team is also an opponent: a team must hold up against all of them, not just against
