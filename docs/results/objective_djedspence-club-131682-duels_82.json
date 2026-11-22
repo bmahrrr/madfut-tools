@@ -1,62 +1,84 @@
 {
- "g": 3,
+ "g": 2,
  "obj_ids": [
   "id203574",
-  "id210406",
   "id50608975"
  ],
- "strength": 100.5,
- "group_cards": 3,
+ "strength": 102.7,
+ "group_cards": 2,
  "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 30,
+  "formation": "4-3-2-1",
+  "chem": 26,
   "players": [
    {
     "slot": "GK",
-    "id": "id261848",
-    "name": "Inês Pereira",
-    "rating": 81,
-    "color": "rare_gold",
+    "id": "id50586951",
+    "name": "Caprile",
+    "rating": 82,
+    "color": "totw_gold",
     "position": "GK",
-    "nationId": 38,
-    "leagueId": 2222,
-    "clubId": 242,
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 1842,
     "card": [
-     32,
-     27,
-     82
+     38,
+     36,
+     84
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     35,
-     30,
+     39,
+     37,
      85
     ],
-    "tiebreak": 147
+    "tiebreak": 161
+   },
+   {
+    "slot": "LB",
+    "id": "id227096",
+    "name": "Boattin",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 27,
+    "leagueId": 2221,
+    "clubId": 698,
+    "card": [
+     80,
+     82,
+     81
+    ],
+    "chem": 1,
+    "eff": [
+     80,
+     82,
+     81
+    ],
+    "tiebreak": 243
    },
    {
     "slot": "CB",
-    "id": "ltm_comuzzo82",
-    "name": "Comuzzo",
+    "id": "id200888",
+    "name": "Danilo Pereira",
     "rating": 82,
-    "color": "ltm",
+    "color": "rare_gold",
     "position": "CB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 54,
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 607,
     "card": [
-     60,
-     67,
-     83
+     68,
+     68,
+     81
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     62,
      69,
-     85
+     69,
+     82
     ],
-    "tiebreak": 216
+    "tiebreak": 217
    },
    {
     "slot": "CB",
@@ -82,50 +104,50 @@
     "tiebreak": 228
    },
    {
-    "slot": "CB",
-    "id": "id261843",
-    "name": "Andreia Jacinto",
+    "slot": "RB",
+    "id": "id243657",
+    "name": "Garner",
     "rating": 82,
     "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 2222,
-    "clubId": 243,
+    "position": "CDM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 7,
     "card": [
-     77,
-     80,
-     65
+     74,
+     79,
+     80
     ],
     "chem": 3,
     "eff": [
-     80,
-     83,
-     68
+     76,
+     81,
+     82
     ],
-    "tiebreak": 228
+    "tiebreak": 239
    },
    {
-    "slot": "LM",
-    "id": "id50603848",
-    "name": "Cecilia Marcos",
-    "rating": 80,
-    "color": "totw_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 457,
+    "slot": "CM",
+    "id": "id50541306",
+    "name": "Goretzka",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 2,
     "card": [
-     82,
-     81,
-     77
+     79,
+     79,
+     80
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     83,
-     82,
-     78
+     81,
+     81,
+     82
     ],
-    "tiebreak": 243
+    "tiebreak": 244
    },
    {
     "slot": "CM",
@@ -142,108 +164,85 @@
      83,
      73
     ],
-    "chem": 2,
+    "chem": 1,
     "eff": [
-     85,
-     85,
-     75
+     84,
+     84,
+     74
     ],
-    "tiebreak": 242,
+    "tiebreak": 239,
     "evos": [
      "Romanian Superliga Silver"
     ]
    },
    {
     "slot": "CM",
-    "id": "id50561039",
-    "name": "Palhinha",
-    "rating": 82,
-    "color": "rare_gold",
+    "id": "id50522413",
+    "name": "Groß",
+    "rating": 81,
+    "color": "totw_gold",
     "position": "CDM",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 234,
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
-     69,
-     75,
-     82
-    ],
-    "chem": 2,
-    "eff": [
-     71,
-     77,
-     84
-    ],
-    "tiebreak": 229
-   },
-   {
-    "slot": "RM",
-    "id": "id264725",
-    "name": "Eva Navarro",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 243,
-    "card": [
-     81,
-     78,
-     81
+     79,
+     83,
+     75
     ],
     "chem": 3,
     "eff": [
-     83,
-     80,
-     83
+     81,
+     85,
+     77
     ],
-    "tiebreak": 246
+    "tiebreak": 243
    },
    {
     "slot": "CAM",
-    "id": "id210406",
-    "name": "Zieliński",
+    "id": "id220697",
+    "name": "Maddison",
     "rating": 82,
     "color": "rare_gold",
     "position": "CM",
-    "nationId": 37,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 18,
     "card": [
-     80,
      81,
-     68
+     84,
+     55
     ],
     "chem": 3,
     "eff": [
-     82,
      83,
-     70
+     86,
+     57
     ],
-    "tiebreak": 235
+    "tiebreak": 226
    },
    {
     "slot": "CAM",
-    "id": "id67349814",
-    "name": "Pedro Gonçalves",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "LM",
-    "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
+    "id": "id50589048",
+    "name": "Ayari",
+    "rating": 81,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 46,
+    "leagueId": 13,
+    "clubId": 1808,
     "card": [
      81,
      81,
-     62
+     75
     ],
     "chem": 3,
     "eff": [
-     84,
-     84,
-     65
+     83,
+     83,
+     77
     ],
-    "tiebreak": 230
+    "tiebreak": 243
    },
    {
     "slot": "ST",
@@ -300,22 +299,23 @@
     "ctl": 0,
     "def": 2
    }
-  ]
+  ],
+  "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "base_ids": [
-  "id261848",
-  "evo_Acuña_81",
-  "id200888",
-  "id232488",
-  "id264725",
-  "id50561039",
-  "id67349814",
+  "id258498",
+  "id208920",
+  "id233756",
+  "id198176",
+  "id72721",
+  "id233747",
   "evo_Bruno Costa_81",
-  "id275932",
-  "id247394",
-  "id50416920"
+  "id50540109",
+  "id50407849",
+  "evo_Jerdea_70",
+  "id50555337"
  ],
- "built": "2026-11-22 00:21 UTC",
+ "built": "2026-11-22 02:57 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-22 00:21 UTC"
+ "changed": "2026-11-22 02:57 UTC"
 }

@@ -3,20 +3,20 @@
  "obj_ids": [
   "id261848",
   "id200888",
-  "id261843",
-  "id50561039",
+  "id213516",
   "id67349814",
   "evo_Bruno Costa_81",
-  "id216547",
-  "id213516",
-  "id261050"
+  "id210411",
+  "id50561039",
+  "id261050",
+  "id238616"
  ],
- "strength": 100.0,
- "group_cards": 12,
+ "strength": 101.6,
+ "group_cards": 10,
  "reddit": [],
  "team": {
   "formation": "3-4-2-1",
-  "chem": 29,
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -43,49 +43,49 @@
    },
    {
     "slot": "CB",
-    "id": "id261843",
-    "name": "Andreia Jacinto",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 2222,
-    "clubId": 243,
-    "card": [
-     77,
-     80,
-     65
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     83,
-     68
-    ],
-    "tiebreak": 228
-   },
-   {
-    "slot": "CB",
-    "id": "id239301",
-    "name": "Martínez",
+    "id": "id233747",
+    "name": "Spitse",
     "rating": 82,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 52,
-    "leagueId": 13,
-    "clubId": 11,
+    "nationId": 34,
+    "leagueId": 2229,
+    "clubId": 245,
     "card": [
-     70,
-     75,
+     72,
+     76,
      82
     ],
     "chem": 1,
     "eff": [
-     70,
-     75,
+     72,
+     76,
      82
     ],
-    "tiebreak": 227
+    "tiebreak": 230
+   },
+   {
+    "slot": "CB",
+    "id": "id240679",
+    "name": "Koopmeiners",
+    "rating": 78,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 34,
+    "leagueId": 31,
+    "clubId": 45,
+    "card": [
+     75,
+     79,
+     73
+    ],
+    "chem": 3,
+    "eff": [
+     77,
+     81,
+     75
+    ],
+    "tiebreak": 233
    },
    {
     "slot": "CB",
@@ -112,29 +112,49 @@
    },
    {
     "slot": "LM",
-    "id": "evo_Acuña_81",
-    "name": "Acuña",
+    "id": "id238616",
+    "name": "Pedro Neto",
     "rating": 81,
-    "color": "evo",
-    "position": "LB",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 1876,
+    "color": "rare_gold",
+    "position": "RM",
+    "nationId": 38,
+    "leagueId": 13,
+    "clubId": 5,
     "card": [
-     80,
-     83,
-     81
+     81,
+     78,
+     43
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     80,
-     83,
-     81
+     84,
+     81,
+     46
     ],
-    "tiebreak": 244,
-    "evos": [
-     "Albiceleste Upgrade"
-    ]
+    "tiebreak": 208
+   },
+   {
+    "slot": "CM",
+    "id": "id50561039",
+    "name": "Palhinha",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 234,
+    "card": [
+     69,
+     75,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     72,
+     78,
+     85
+    ],
+    "tiebreak": 232
    },
    {
     "slot": "CM",
@@ -163,29 +183,6 @@
     ]
    },
    {
-    "slot": "CM",
-    "id": "id50561039",
-    "name": "Palhinha",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CDM",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 234,
-    "card": [
-     69,
-     75,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     72,
-     78,
-     85
-    ],
-    "tiebreak": 232
-   },
-   {
     "slot": "RM",
     "id": "id213516",
     "name": "Ricardo Horta",
@@ -210,29 +207,6 @@
    },
    {
     "slot": "CAM",
-    "id": "id216547",
-    "name": "Rafa",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "CAM",
-    "nationId": 38,
-    "leagueId": 308,
-    "clubId": 234,
-    "card": [
-     80,
-     79,
-     48
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     82,
-     51
-    ],
-    "tiebreak": 213
-   },
-   {
-    "slot": "CAM",
     "id": "id67349814",
     "name": "Pedro Gonçalves",
     "rating": 82,
@@ -253,6 +227,29 @@
      65
     ],
     "tiebreak": 230
+   },
+   {
+    "slot": "CAM",
+    "id": "id210411",
+    "name": "Otávio",
+    "rating": 80,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 112391,
+    "card": [
+     77,
+     81,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     84,
+     72
+    ],
+    "tiebreak": 233
    },
    {
     "slot": "ST",
@@ -309,22 +306,23 @@
     "ctl": 0,
     "def": 2
    }
-  ]
+  ],
+  "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "base_ids": [
-  "id261848",
-  "evo_Acuña_81",
-  "id200888",
-  "id232488",
-  "id264725",
-  "id50561039",
-  "id67349814",
+  "id258498",
+  "id208920",
+  "id233756",
+  "id198176",
+  "id72721",
+  "id233747",
   "evo_Bruno Costa_81",
-  "id275932",
-  "id247394",
-  "id50416920"
+  "id50540109",
+  "id50407849",
+  "evo_Jerdea_70",
+  "id50555337"
  ],
- "built": "2026-11-22 00:21 UTC",
+ "built": "2026-11-22 02:57 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-22 00:21 UTC"
+ "changed": "2026-11-22 02:57 UTC"
 }

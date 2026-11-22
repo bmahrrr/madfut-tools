@@ -1,62 +1,62 @@
 {
  "g": 3,
  "obj_ids": [
-  "id239818",
   "id83906855",
+  "id1025",
   "id50593503"
  ],
- "strength": 100.0,
+ "strength": 100.1,
  "group_cards": 6,
  "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 33,
+  "formation": "4-1-4-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id191694",
-    "name": "Campos",
+    "id": "id215698",
+    "name": "Maignan",
     "rating": 87,
-    "color": "hero",
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 83,
-    "leagueId": 341,
-    "clubId": 114605,
+    "nationId": 18,
+    "leagueId": 31,
+    "clubId": 131681,
     "card": [
-     77,
-     68,
-     88
+     46,
+     45,
+     87
     ],
     "chem": 3,
     "eff": [
-     79,
-     70,
-     90
+     49,
+     47,
+     91
     ],
-    "tiebreak": 239
+    "tiebreak": 184
    },
    {
-    "slot": "CB",
-    "id": "id241486",
-    "name": "Koundé",
-    "rating": 85,
+    "slot": "LB",
+    "id": "id265674",
+    "name": "Bacha",
+    "rating": 86,
     "color": "rare_gold",
-    "position": "RB",
+    "position": "LB",
     "nationId": 18,
-    "leagueId": 53,
-    "clubId": 241,
+    "leagueId": 2218,
+    "clubId": 66,
     "card": [
-     71,
-     75,
+     82,
+     83,
      84
     ],
     "chem": 3,
     "eff": [
-     74,
-     77,
+     85,
+     85,
      88
     ],
-    "tiebreak": 236
+    "tiebreak": 255
    },
    {
     "slot": "CB",
@@ -73,36 +73,82 @@
      69,
      86
     ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
-     61,
-     71,
-     88
+     60,
+     70,
+     87
     ],
-    "tiebreak": 220
+    "tiebreak": 217
    },
    {
     "slot": "CB",
-    "id": "id67310399",
-    "name": "Varane",
-    "rating": 86,
-    "color": "debut_icon",
+    "id": "id227315",
+    "name": "Georges",
+    "rating": 87,
+    "color": "hero",
     "position": "CB",
     "nationId": 18,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "leagueId": 2218,
+    "clubId": 114605,
     "card": [
-     64,
-     67,
-     85
+     65,
+     66,
+     87
     ],
     "chem": 3,
     "eff": [
-     67,
-     69,
-     89
+     68,
+     68,
+     91
     ],
-    "tiebreak": 222
+    "tiebreak": 224
+   },
+   {
+    "slot": "RB",
+    "id": "id50542162",
+    "name": "João Cancelo",
+    "rating": 84,
+    "color": "totw_gold",
+    "position": "RB",
+    "nationId": 38,
+    "leagueId": 53,
+    "clubId": 241,
+    "card": [
+     82,
+     84,
+     83
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     86,
+     85
+    ],
+    "tiebreak": 255
+   },
+   {
+    "slot": "CDM",
+    "id": "id50535199",
+    "name": "Florenzi",
+    "rating": 87,
+    "color": "hall_of_fut_upgraded",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 132794,
+    "card": [
+     85,
+     83,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     85,
+     88
+    ],
+    "tiebreak": 260
    },
    {
     "slot": "LM",
@@ -129,49 +175,49 @@
    },
    {
     "slot": "CM",
-    "id": "id50592947",
-    "name": "Scott",
+    "id": "id84105763",
+    "name": "Tolisso",
     "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
+    "color": "halloween",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 66,
     "card": [
+     86,
      85,
-     88,
-     81
+     82
     ],
     "chem": 3,
     "eff": [
+     89,
      87,
-     90,
-     83
+     86
     ],
-    "tiebreak": 260
+    "tiebreak": 259
    },
    {
     "slot": "CM",
-    "id": "id50569340",
-    "name": "Foden",
+    "id": "id1025",
+    "name": "Rui Costa",
     "rating": 87,
-    "color": "star_performer",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 10,
+    "color": "hero",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 114605,
     "card": [
-     88,
-     87,
-     58
+     84,
+     86,
+     48
     ],
     "chem": 3,
     "eff": [
-     90,
-     89,
-     60
+     86,
+     88,
+     50
     ],
-    "tiebreak": 239
+    "tiebreak": 224
    },
    {
     "slot": "RM",
@@ -195,52 +241,6 @@
      40
     ],
     "tiebreak": 217
-   },
-   {
-    "slot": "CAM",
-    "id": "id67110261",
-    "name": "Zidane",
-    "rating": 86,
-    "color": "debut_icon",
-    "position": "CAM",
-    "nationId": 18,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     83,
-     86,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     88,
-     73
-    ],
-    "tiebreak": 244
-   },
-   {
-    "slot": "CAM",
-    "id": "id84105763",
-    "name": "Tolisso",
-    "rating": 86,
-    "color": "halloween",
-    "position": "CAM",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 66,
-    "card": [
-     86,
-     85,
-     82
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     87,
-     86
-    ],
-    "tiebreak": 259
    },
    {
     "slot": "ST",
@@ -295,22 +295,23 @@
     "def": 1
    }
   ],
-  "minutes": 30
+  "minutes": 30,
+  "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "base_ids": [
   "id215698",
-  "id012",
-  "id137186",
   "id227315",
-  "id50535199",
-  "id67110261",
+  "id67310399",
+  "id229558",
   "id233662",
-  "id50603069",
-  "id50569340",
+  "id50595413",
   "id50592947",
-  "id50571891"
+  "id67380671",
+  "evo_Oxlade-Chamberlain_87",
+  "id50569340",
+  "id67336134"
  ],
- "built": "2026-11-22 00:21 UTC",
+ "built": "2026-11-22 02:57 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-22 00:21 UTC"
+ "changed": "2026-11-22 02:57 UTC"
 }
