@@ -1,22 +1,17 @@
 {
  "g": 4,
  "obj_ids": [
-  "id27",
   "id50589182",
-  "id50569340",
-  "id246669"
+  "id251570",
+  "id50603069",
+  "id50569340"
  ],
- "strength": 99.8,
- "group_cards": 4,
- "reddit": [
-  {
-   "you_lead_first": "DRAW",
-   "they_lead_first": "WIN"
-  }
- ],
+ "strength": 99.9,
+ "group_cards": 6,
+ "reddit": [],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 32,
+  "formation": "4-1-4-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -42,168 +37,145 @@
     "tiebreak": 239
    },
    {
-    "slot": "CB",
-    "id": "id012",
-    "name": "David Luiz",
+    "slot": "LB",
+    "id": "id233662",
+    "name": "Karchaoui",
     "rating": 87,
-    "color": "evo",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 1,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 73,
     "card": [
-     74,
-     80,
-     88
+     85,
+     87,
+     77
     ],
     "chem": 3,
     "eff": [
-     76,
-     82,
-     90
+     89,
+     90,
+     82
     ],
-    "tiebreak": 248
+    "tiebreak": 255
    },
    {
     "slot": "CB",
-    "id": "id16619",
-    "name": "Córdoba",
+    "id": "id227315",
+    "name": "Georges",
     "rating": 87,
     "color": "hero",
     "position": "CB",
-    "nationId": 56,
-    "leagueId": 31,
+    "nationId": 18,
+    "leagueId": 2218,
     "clubId": 114605,
     "card": [
-     70,
+     65,
      66,
-     88
+     87
     ],
     "chem": 3,
     "eff": [
-     72,
      68,
-     90
+     68,
+     91
     ],
-    "tiebreak": 230
+    "tiebreak": 224
    },
    {
     "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
+    "id": "id67310399",
+    "name": "Varane",
+    "rating": 86,
+    "color": "debut_icon",
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     76,
-     86,
+     64,
+     67,
      85
     ],
     "chem": 3,
     "eff": [
-     78,
-     88,
-     87
+     67,
+     69,
+     89
     ],
-    "tiebreak": 253
+    "tiebreak": 222
    },
    {
-    "slot": "LM",
-    "id": "id27",
-    "name": "Cole",
+    "slot": "RB",
+    "id": "id50535199",
+    "name": "Florenzi",
     "rating": 87,
-    "color": "hero",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 114605,
+    "color": "hall_of_fut_upgraded",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 132794,
     "card": [
-     86,
-     86,
-     53
+     85,
+     83,
+     86
     ],
     "chem": 3,
     "eff": [
-     89,
-     91,
-     55
-    ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CM",
-    "id": "evo_Oxlade-Chamberlain_87",
-    "name": "Oxlade-Chamberlain",
-    "rating": 87,
-    "color": "evo",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 50,
-    "clubId": 78,
-    "card": [
-     88,
-     88,
-     81
-    ],
-    "chem": 2,
-    "eff": [
-     90,
-     92,
-     82
+     87,
+     85,
+     88
     ],
     "tiebreak": 260
    },
    {
+    "slot": "CDM",
+    "id": "id50557919",
+    "name": "Fabián Ruiz",
+    "rating": 87,
+    "color": "star_performer",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     86,
+     86,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     89,
+     83
+    ],
+    "tiebreak": 258
+   },
+   {
+    "slot": "LM",
+    "id": "id50603069",
+    "name": "Doué",
+    "rating": 87,
+    "color": "star_performer",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     86,
+     83,
+     59
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     86,
+     64
+    ],
+    "tiebreak": 234
+   },
+   {
     "slot": "CM",
-    "id": "id50589182",
-    "name": "Palmer",
-    "rating": 87,
-    "color": "halloween",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
-     86,
-     86,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     91,
-     57
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "RM",
-    "id": "id246669",
-    "name": "Saka",
-    "rating": 87,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1,
-    "card": [
-     85,
-     84,
-     61
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     63
-    ],
-    "tiebreak": 236
-   },
-   {
-    "slot": "CAM",
     "id": "id50569340",
     "name": "Foden",
     "rating": 87,
@@ -219,57 +191,80 @@
     ],
     "chem": 3,
     "eff": [
-     91,
-     92,
+     90,
+     89,
      60
     ],
     "tiebreak": 239
    },
    {
-    "slot": "CAM",
-    "id": "id50592947",
-    "name": "Scott",
+    "slot": "CM",
+    "id": "id251570",
+    "name": "Cherki",
     "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 18,
+    "leagueId": 13,
+    "clubId": 10,
+    "card": [
+     84,
+     86,
+     44
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     88,
+     48
+    ],
+    "tiebreak": 220
+   },
+   {
+    "slot": "RM",
+    "id": "id50589182",
+    "name": "Palmer",
+    "rating": 87,
+    "color": "halloween",
+    "position": "RW",
     "nationId": 14,
     "leagueId": 13,
-    "clubId": 1943,
+    "clubId": 5,
     "card": [
-     85,
-     88,
-     81
+     86,
+     86,
+     55
     ],
     "chem": 3,
     "eff": [
      88,
-     93,
-     83
+     88,
+     57
     ],
-    "tiebreak": 260
+    "tiebreak": 233
    },
    {
     "slot": "ST",
-    "id": "id67322964",
-    "name": "Gullit",
-    "rating": 86,
-    "color": "debut_icon",
-    "position": "CAM",
-    "nationId": 34,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "id225193",
+    "name": "Mikel Merino",
+    "rating": 83,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 13,
+    "clubId": 1,
     "card": [
-     84,
-     81,
-     79
+     78,
+     79,
+     81
     ],
     "chem": 3,
     "eff": [
-     86,
-     83,
-     81
+     80,
+     81,
+     83
     ],
-    "tiebreak": 250
+    "tiebreak": 244
    }
   ]
  },
@@ -288,14 +283,14 @@
   "boosts": [
    {
     "on": "nation",
-    "id": 14,
+    "id": 18,
     "att": 1,
-    "ctl": 3,
-    "def": 0
+    "ctl": 0,
+    "def": 2
    },
    {
-    "on": "league",
-    "id": 53,
+    "on": "club",
+    "id": 73,
     "att": 1,
     "ctl": 1,
     "def": 1
@@ -304,19 +299,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id191694",
-  "evo_Can_85",
-  "id16619",
+  "id215698",
   "id012",
-  "ltm_ngumoha87",
-  "id50589182",
-  "id50592947",
+  "id137186",
+  "id227315",
+  "id50535199",
+  "id67110261",
+  "id233662",
+  "id50603069",
   "id50569340",
-  "evo_Oxlade-Chamberlain_87",
-  "id50402434",
-  "id67322964"
+  "id50592947",
+  "id50571891"
  ],
- "built": "2026-11-14 02:46 UTC",
- "week": "2026-11-09",
- "changed": "2026-11-14 02:46 UTC"
+ "built": "2026-11-22 00:21 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-22 00:21 UTC"
 }

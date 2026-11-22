@@ -1,6 +1,271 @@
 {
- "skip": "too weak",
- "group_cards": 1,
+ "g": 2,
+ "obj_ids": [
+  "id231478",
+  "id67316992"
+ ],
+ "strength": 100.3,
+ "group_cards": 2,
+ "reddit": [],
+ "team": {
+  "formation": "4-1-4-1",
+  "chem": 33,
+  "players": [
+   {
+    "slot": "GK",
+    "id": "id191694",
+    "name": "Campos",
+    "rating": 87,
+    "color": "hero",
+    "position": "GK",
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 114605,
+    "card": [
+     77,
+     68,
+     88
+    ],
+    "chem": 3,
+    "eff": [
+     79,
+     70,
+     90
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "LB",
+    "id": "id50595413",
+    "name": "Bischof",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     87,
+     88,
+     78
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     90,
+     80
+    ],
+    "tiebreak": 259
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     88,
+     87
+    ],
+    "tiebreak": 253
+   },
+   {
+    "slot": "CB",
+    "id": "id67310399",
+    "name": "Varane",
+    "rating": 86,
+    "color": "debut_icon",
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     64,
+     67,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     69,
+     89
+    ],
+    "tiebreak": 222
+   },
+   {
+    "slot": "RB",
+    "id": "id50535199",
+    "name": "Florenzi",
+    "rating": 87,
+    "color": "hall_of_fut_upgraded",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 132794,
+    "card": [
+     85,
+     83,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     85,
+     88
+    ],
+    "tiebreak": 260
+   },
+   {
+    "slot": "CDM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
+     85,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     90,
+     83
+    ],
+    "tiebreak": 260
+   },
+   {
+    "slot": "LM",
+    "id": "id50601349",
+    "name": "Brown",
+    "rating": 87,
+    "color": "future_stars",
+    "position": "LB",
+    "nationId": 21,
+    "leagueId": 19,
+    "clubId": 21,
+    "card": [
+     81,
+     83,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     85,
+     88
+    ],
+    "tiebreak": 256
+   },
+   {
+    "slot": "CM",
+    "id": "id67316992",
+    "name": "Çalhanoğlu",
+    "rating": 86,
+    "color": "halloween",
+    "position": "CAM",
+    "nationId": 48,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     86,
+     86,
+     80
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     88,
+     82
+    ],
+    "tiebreak": 258
+   },
+   {
+    "slot": "CM",
+    "id": "id67110261",
+    "name": "Zidane",
+    "rating": 86,
+    "color": "debut_icon",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     83,
+     86,
+     69
+    ],
+    "chem": 3,
+    "eff": [
+     86,
+     88,
+     73
+    ],
+    "tiebreak": 244
+   },
+   {
+    "slot": "RM",
+    "id": "id50569340",
+    "name": "Foden",
+    "rating": 87,
+    "color": "star_performer",
+    "position": "RW",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 10,
+    "card": [
+     88,
+     87,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     89,
+     60
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "ST",
+    "id": "id231478",
+    "name": "Martínez",
+    "rating": 87,
+    "color": "rare_gold",
+    "position": "ST",
+    "nationId": 52,
+    "leagueId": 31,
+    "clubId": 131682,
+    "card": [
+     87,
+     78,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     80,
+     57
+    ],
+    "tiebreak": 226
+   }
+  ]
+ },
  "mode": "objective",
  "objective": {
   "player": "Djed Spence",
@@ -16,14 +281,14 @@
   "boosts": [
    {
     "on": "nation",
-    "id": 14,
+    "id": 18,
     "att": 1,
-    "ctl": 3,
-    "def": 0
+    "ctl": 0,
+    "def": 2
    },
    {
-    "on": "league",
-    "id": 53,
+    "on": "club",
+    "id": 73,
     "att": 1,
     "ctl": 1,
     "def": 1
@@ -32,19 +297,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id191694",
-  "evo_Can_85",
-  "id16619",
+  "id215698",
   "id012",
-  "ltm_ngumoha87",
-  "id50589182",
-  "id50592947",
+  "id137186",
+  "id227315",
+  "id50535199",
+  "id67110261",
+  "id233662",
+  "id50603069",
   "id50569340",
-  "evo_Oxlade-Chamberlain_87",
-  "id50402434",
-  "id67322964"
+  "id50592947",
+  "id50571891"
  ],
- "built": "2026-11-14 02:46 UTC",
- "week": "2026-11-09",
- "changed": "2026-11-14 02:46 UTC"
+ "built": "2026-11-22 00:21 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-22 00:21 UTC"
 }

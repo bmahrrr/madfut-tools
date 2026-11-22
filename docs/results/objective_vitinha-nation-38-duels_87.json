@@ -1,16 +1,13 @@
 {
- "g": 1,
+ "g": 3,
  "obj_ids": [
-  "id83906855"
+  "id239818",
+  "id83906855",
+  "id50593503"
  ],
- "strength": 99.8,
- "group_cards": 2,
- "reddit": [
-  {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "WIN"
-  }
- ],
+ "strength": 100.0,
+ "group_cards": 6,
+ "reddit": [],
  "team": {
   "formation": "3-4-2-1",
   "chem": 33,
@@ -40,75 +37,144 @@
    },
    {
     "slot": "CB",
-    "id": "id012",
-    "name": "David Luiz",
-    "rating": 87,
-    "color": "evo",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 13,
-    "clubId": 1,
-    "card": [
-     74,
-     80,
-     88
-    ],
-    "chem": 3,
-    "eff": [
-     76,
-     82,
-     90
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CB",
-    "id": "id67375554",
-    "name": "Lúcio",
+    "id": "id241486",
+    "name": "Koundé",
     "rating": 85,
-    "color": "debut_icon",
-    "position": "CB",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 18,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
      71,
-     71,
+     75,
      84
     ],
     "chem": 3,
     "eff": [
-     73,
-     73,
-     86
+     74,
+     77,
+     88
     ],
-    "tiebreak": 232
+    "tiebreak": 236
    },
    {
     "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
-    "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
+    "id": "id239818",
+    "name": "Rúben Dias",
+    "rating": 87,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 38,
     "leagueId": 13,
-    "clubId": 9,
+    "clubId": 10,
     "card": [
-     76,
-     86,
+     59,
+     69,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     61,
+     71,
+     88
+    ],
+    "tiebreak": 220
+   },
+   {
+    "slot": "CB",
+    "id": "id67310399",
+    "name": "Varane",
+    "rating": 86,
+    "color": "debut_icon",
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     64,
+     67,
      85
     ],
     "chem": 3,
     "eff": [
-     78,
-     88,
-     87
+     67,
+     69,
+     89
     ],
-    "tiebreak": 253
+    "tiebreak": 222
    },
    {
     "slot": "LM",
+    "id": "id233662",
+    "name": "Karchaoui",
+    "rating": 87,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 73,
+    "card": [
+     85,
+     87,
+     77
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     90,
+     82
+    ],
+    "tiebreak": 255
+   },
+   {
+    "slot": "CM",
+    "id": "id50592947",
+    "name": "Scott",
+    "rating": 86,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1943,
+    "card": [
+     85,
+     88,
+     81
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     90,
+     83
+    ],
+    "tiebreak": 260
+   },
+   {
+    "slot": "CM",
+    "id": "id50569340",
+    "name": "Foden",
+    "rating": 87,
+    "color": "star_performer",
+    "position": "RW",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 10,
+    "card": [
+     88,
+     87,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     90,
+     89,
+     60
+    ],
+    "tiebreak": 239
+   },
+   {
+    "slot": "RM",
     "id": "id83906855",
     "name": "Quaresma",
     "rating": 87,
@@ -131,142 +197,73 @@
     "tiebreak": 217
    },
    {
-    "slot": "CM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
+    "slot": "CAM",
+    "id": "id67110261",
+    "name": "Zidane",
+    "rating": 86,
+    "color": "debut_icon",
     "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
+    "nationId": 18,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
+     83,
      86,
-     87,
      69
     ],
     "chem": 3,
     "eff": [
-     89,
-     92,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "CM",
-    "id": "id50589182",
-    "name": "Palmer",
-    "rating": 87,
-    "color": "halloween",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 5,
-    "card": [
      86,
-     86,
-     55
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     91,
-     57
-    ],
-    "tiebreak": 233
-   },
-   {
-    "slot": "RM",
-    "id": "id50569340",
-    "name": "Foden",
-    "rating": 87,
-    "color": "star_performer",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 10,
-    "card": [
      88,
-     87,
-     58
+     73
     ],
-    "chem": 3,
-    "eff": [
-     91,
-     92,
-     60
-    ],
-    "tiebreak": 239
+    "tiebreak": 244
    },
    {
     "slot": "CAM",
-    "id": "evo_Oxlade-Chamberlain_87",
-    "name": "Oxlade-Chamberlain",
-    "rating": 87,
-    "color": "evo",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 50,
-    "clubId": 78,
-    "card": [
-     88,
-     88,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     91,
-     93,
-     83
-    ],
-    "tiebreak": 263
-   },
-   {
-    "slot": "CAM",
-    "id": "id50592947",
-    "name": "Scott",
+    "id": "id84105763",
+    "name": "Tolisso",
     "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
+    "color": "halloween",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 66,
     "card": [
+     86,
      85,
-     88,
-     81
+     82
     ],
     "chem": 3,
     "eff": [
-     88,
-     93,
-     83
+     89,
+     87,
+     86
     ],
-    "tiebreak": 260
+    "tiebreak": 259
    },
    {
     "slot": "ST",
-    "id": "id67322964",
-    "name": "Gullit",
+    "id": "id50593503",
+    "name": "Kika Nazareth",
     "rating": 86,
-    "color": "debut_icon",
-    "position": "CAM",
-    "nationId": 34,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "color": "destined_for_glory",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 2222,
+    "clubId": 241,
     "card": [
-     84,
-     81,
-     79
+     86,
+     85,
+     66
     ],
     "chem": 3,
     "eff": [
-     86,
-     83,
-     81
+     88,
+     87,
+     68
     ],
-    "tiebreak": 250
+    "tiebreak": 243
    }
   ]
  },
@@ -285,14 +282,14 @@
   "boosts": [
    {
     "on": "nation",
-    "id": 14,
+    "id": 18,
     "att": 1,
-    "ctl": 3,
-    "def": 0
+    "ctl": 0,
+    "def": 2
    },
    {
-    "on": "league",
-    "id": 53,
+    "on": "club",
+    "id": 73,
     "att": 1,
     "ctl": 1,
     "def": 1
@@ -301,19 +298,19 @@
   "minutes": 30
  },
  "base_ids": [
-  "id191694",
-  "evo_Can_85",
-  "id16619",
+  "id215698",
   "id012",
-  "ltm_ngumoha87",
-  "id50589182",
-  "id50592947",
+  "id137186",
+  "id227315",
+  "id50535199",
+  "id67110261",
+  "id233662",
+  "id50603069",
   "id50569340",
-  "evo_Oxlade-Chamberlain_87",
-  "id50402434",
-  "id67322964"
+  "id50592947",
+  "id50571891"
  ],
- "built": "2026-11-14 02:46 UTC",
- "week": "2026-11-09",
- "changed": "2026-11-14 02:46 UTC"
+ "built": "2026-11-22 00:21 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-22 00:21 UTC"
 }

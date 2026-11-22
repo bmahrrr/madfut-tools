@@ -1,114 +1,110 @@
 {
- "g": 4,
+ "g": 5,
  "obj_ids": [
-  "id258648",
-  "id80170",
-  "id259075",
-  "id266866"
+  "id50411277",
+  "id278016",
+  "id222737",
+  "id255475",
+  "id50604005"
  ],
- "strength": 99.5,
+ "strength": 100.7,
  "group_cards": 471,
- "reddit": [
-  {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
-  }
- ],
+ "reddit": [],
  "team": {
-  "formation": "4-2-3-1 (2)",
-  "chem": 31,
+  "formation": "4-1-4-1",
+  "chem": 20,
   "players": [
    {
     "slot": "GK",
-    "id": "id50586951",
-    "name": "Caprile",
-    "rating": 82,
-    "color": "totw_gold",
+    "id": "id261848",
+    "name": "Inês Pereira",
+    "rating": 81,
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 1842,
+    "nationId": 38,
+    "leagueId": 2222,
+    "clubId": 242,
     "card": [
-     38,
-     36,
-     84
+     32,
+     27,
+     82
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     41,
-     39,
-     87
+     33,
+     28,
+     85
     ],
-    "tiebreak": 164
+    "tiebreak": 141
    },
    {
     "slot": "LB",
-    "id": "id80170",
-    "name": "Wesley",
-    "rating": 80,
-    "color": "rare_gold",
+    "id": "id50593513",
+    "name": "Miguel Gutiérrez",
+    "rating": 82,
+    "color": "totw_gold",
     "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 52,
+    "nationId": 45,
+    "leagueId": 19,
+    "clubId": 32,
     "card": [
-     76,
-     77,
-     79
-    ],
-    "chem": 3,
-    "eff": [
      79,
      80,
-     82
+     81
     ],
-    "tiebreak": 238
+    "chem": 2,
+    "eff": [
+     80,
+     81,
+     84
+    ],
+    "tiebreak": 243
    },
    {
     "slot": "CB",
-    "id": "id258648",
-    "name": "Carlos Augusto",
-    "rating": 80,
-    "color": "rare_gold",
-    "position": "LB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     76,
-     77,
-     79
-    ],
-    "chem": 3,
-    "eff": [
-     79,
-     80,
-     82
-    ],
-    "tiebreak": 238
-   },
-   {
-    "slot": "CB",
-    "id": "id203574",
-    "name": "Stones",
+    "id": "id278016",
+    "name": "Murillo",
     "rating": 82,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 14,
-    "leagueId": 31,
-    "clubId": 131682,
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 14,
     "card": [
-     67,
-     73,
+     66,
+     68,
      82
     ],
     "chem": 3,
     "eff": [
+     68,
      70,
-     76,
-     85
+     86
     ],
-    "tiebreak": 228
+    "tiebreak": 222
+   },
+   {
+    "slot": "CB",
+    "id": "id50411277",
+    "name": "Jair Cunha",
+    "rating": 82,
+    "color": "totw_gold",
+    "position": "CB",
+    "nationId": 54,
+    "leagueId": 13,
+    "clubId": 14,
+    "card": [
+     65,
+     69,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     67,
+     71,
+     86
+    ],
+    "tiebreak": 222
    },
    {
     "slot": "RB",
@@ -125,149 +121,158 @@
      83,
      78
     ],
-    "chem": 3,
-    "eff": [
-     84,
-     85,
-     80
-    ],
-    "tiebreak": 249
-   },
-   {
-    "slot": "CDM",
-    "id": "id266866",
-    "name": "Éderson",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 115845,
-    "card": [
-     77,
-     78,
-     80
-    ],
-    "chem": 3,
-    "eff": [
-     80,
-     81,
-     83
-    ],
-    "tiebreak": 241
-   },
-   {
-    "slot": "CDM",
-    "id": "id210406",
-    "name": "Zieliński",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 37,
-    "leagueId": 31,
-    "clubId": 131682,
-    "card": [
-     80,
-     81,
-     68
-    ],
-    "chem": 3,
+    "chem": 2,
     "eff": [
      83,
      84,
-     71
+     81
     ],
-    "tiebreak": 235
+    "tiebreak": 246,
+    "evos": [
+     "Silver Maestro"
+    ]
+   },
+   {
+    "slot": "CDM",
+    "id": "id50604005",
+    "name": "Lucas Rosa",
+    "rating": 82,
+    "color": "squad_foundations",
+    "position": "RB",
+    "nationId": 54,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     70,
+     74,
+     81
+    ],
+    "chem": 2,
+    "eff": [
+     71,
+     75,
+     84
+    ],
+    "tiebreak": 228
    },
    {
     "slot": "LM",
-    "id": "id50593513",
-    "name": "Miguel Gutiérrez",
-    "rating": 82,
-    "color": "totw_gold",
+    "id": "evo_Acuña_81",
+    "name": "Acuña",
+    "rating": 81,
+    "color": "evo",
     "position": "LB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     79,
      80,
+     83,
      81
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     81,
-     82,
+     80,
+     83,
      83
     ],
-    "tiebreak": 246
+    "tiebreak": 244,
+    "evos": [
+     "Albiceleste Upgrade"
+    ]
    },
    {
-    "slot": "CAM",
-    "id": "id67349814",
-    "name": "Pedro Gonçalves",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "LM",
+    "slot": "CM",
+    "id": "evo_Bruno Costa_81",
+    "name": "Bruno Costa",
+    "rating": 81,
+    "color": "evo",
+    "position": "CM",
     "nationId": 38,
-    "leagueId": 31,
-    "clubId": 110374,
+    "leagueId": 330,
+    "clubId": 114385,
     "card": [
-     81,
-     81,
-     62
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     84,
-     65
-    ],
-    "tiebreak": 230
-   },
-   {
-    "slot": "RM",
-    "id": "id259075",
-    "name": "Yan Couto",
-    "rating": 77,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 54,
-    "leagueId": 31,
-    "clubId": 1745,
-    "card": [
-     75,
-     80,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     78,
      83,
-     78
-    ],
-    "tiebreak": 236
-   },
-   {
-    "slot": "ST",
-    "id": "id50570548",
-    "name": "Demirović",
-    "rating": 82,
-    "color": "totw_gold",
-    "position": "ST",
-    "nationId": 8,
-    "leagueId": 19,
-    "clubId": 36,
-    "card": [
-     84,
-     77,
-     50
+     83,
+     73
     ],
     "chem": 1,
     "eff": [
      84,
-     77,
+     84,
+     76
+    ],
+    "tiebreak": 239,
+    "evos": [
+     "Romanian Superliga Silver"
+    ]
+   },
+   {
+    "slot": "CM",
+    "id": "id67354218",
+    "name": "Paradela",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "RW",
+    "nationId": 52,
+    "leagueId": 341,
+    "clubId": 1878,
+    "card": [
+     79,
+     81,
+     62
+    ],
+    "chem": 1,
+    "eff": [
+     79,
+     81,
+     64
+    ],
+    "tiebreak": 222
+   },
+   {
+    "slot": "RM",
+    "id": "id255475",
+    "name": "Antony",
+    "rating": 81,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 53,
+    "clubId": 449,
+    "card": [
+     82,
+     80,
      50
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     81,
+     53
+    ],
+    "tiebreak": 215
+   },
+   {
+    "slot": "ST",
+    "id": "id222737",
+    "name": "Malcom",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 54,
+    "leagueId": 350,
+    "clubId": 605,
+    "card": [
+     82,
+     81,
+     45
+    ],
+    "chem": 2,
+    "eff": [
+     83,
+     82,
+     48
     ],
     "tiebreak": 211
    }
@@ -288,8 +293,8 @@
   "cap": 82,
   "boosts": [
    {
-    "on": "league",
-    "id": 31,
+    "on": "nation",
+    "id": 38,
     "att": 1,
     "ctl": 1,
     "def": 1
@@ -298,28 +303,28 @@
   "minutes": 30,
   "bonuses": [
    {
-    "kind": "same_nation",
-    "max": 2,
+    "kind": "leagues",
+    "min": 9,
     "att": 0,
-    "ctl": 2,
-    "def": 0
+    "ctl": 0,
+    "def": 2
    }
   ]
  },
  "base_ids": [
-  "id50586951",
-  "id203574",
-  "ltm_comuzzo82",
-  "id239340",
-  "id50593513",
-  "id84161109",
-  "id210406",
-  "evo_Lucas Vázquez_80",
+  "id261848",
+  "evo_Acuña_81",
+  "id200888",
+  "id232488",
+  "id264725",
+  "id50561039",
   "id67349814",
-  "id261050",
-  "id50570548"
+  "evo_Bruno Costa_81",
+  "id275932",
+  "id247394",
+  "id50416920"
  ],
- "built": "2026-11-14 02:46 UTC",
- "week": "2026-11-09",
- "changed": "2026-11-14 02:46 UTC"
+ "built": "2026-11-22 00:21 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-22 00:21 UTC"
 }

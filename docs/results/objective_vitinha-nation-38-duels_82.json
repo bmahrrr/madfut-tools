@@ -1,135 +1,140 @@
 {
- "g": 2,
+ "g": 9,
  "obj_ids": [
+  "id261848",
+  "id200888",
+  "id261843",
+  "id50561039",
   "id67349814",
+  "evo_Bruno Costa_81",
+  "id216547",
+  "id213516",
   "id261050"
  ],
- "strength": 99.7,
- "group_cards": 4,
- "reddit": [
-  {
-   "you_lead_first": "LOSS",
-   "they_lead_first": "LOSS"
-  }
- ],
+ "strength": 100.0,
+ "group_cards": 12,
+ "reddit": [],
  "team": {
-  "formation": "4-3-2-1",
+  "formation": "3-4-2-1",
   "chem": 29,
   "players": [
    {
     "slot": "GK",
-    "id": "id50586951",
-    "name": "Caprile",
-    "rating": 82,
-    "color": "totw_gold",
+    "id": "id261848",
+    "name": "Inês Pereira",
+    "rating": 81,
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 1842,
+    "nationId": 38,
+    "leagueId": 2222,
+    "clubId": 242,
     "card": [
-     38,
-     36,
-     84
+     32,
+     27,
+     82
     ],
     "chem": 3,
     "eff": [
-     41,
-     39,
-     87
+     35,
+     30,
+     85
     ],
-    "tiebreak": 164
+    "tiebreak": 147
    },
    {
-    "slot": "LB",
-    "id": "id50593513",
-    "name": "Miguel Gutiérrez",
+    "slot": "CB",
+    "id": "id261843",
+    "name": "Andreia Jacinto",
     "rating": 82,
-    "color": "totw_gold",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 2222,
+    "clubId": 243,
     "card": [
-     79,
+     77,
      80,
-     81
+     65
     ],
     "chem": 3,
     "eff": [
-     81,
-     82,
-     83
+     80,
+     83,
+     68
     ],
-    "tiebreak": 246
+    "tiebreak": 228
    },
    {
     "slot": "CB",
-    "id": "ltm_comuzzo82",
-    "name": "Comuzzo",
-    "rating": 82,
-    "color": "ltm",
-    "position": "CB",
-    "nationId": 27,
-    "leagueId": 31,
-    "clubId": 54,
-    "card": [
-     60,
-     67,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     63,
-     70,
-     86
-    ],
-    "tiebreak": 216
-   },
-   {
-    "slot": "CB",
-    "id": "id247263",
-    "name": "Tapsoba",
+    "id": "id239301",
+    "name": "Martínez",
     "rating": 82,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 101,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 52,
+    "leagueId": 13,
+    "clubId": 11,
     "card": [
-     66,
-     72,
+     70,
+     75,
+     82
+    ],
+    "chem": 1,
+    "eff": [
+     70,
+     75,
+     82
+    ],
+    "tiebreak": 227
+   },
+   {
+    "slot": "CB",
+    "id": "id200888",
+    "name": "Danilo Pereira",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CB",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 607,
+    "card": [
+     68,
+     68,
      81
     ],
     "chem": 3,
     "eff": [
-     68,
-     74,
-     83
+     71,
+     71,
+     84
     ],
-    "tiebreak": 225
+    "tiebreak": 223
    },
    {
-    "slot": "RB",
-    "id": "evo_Lucas Vázquez_80",
-    "name": "Lucas Vázquez",
-    "rating": 80,
+    "slot": "LM",
+    "id": "evo_Acuña_81",
+    "name": "Acuña",
+    "rating": 81,
     "color": "evo",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "position": "LB",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     82,
+     80,
      83,
-     78
+     81
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     84,
-     85,
-     80
+     80,
+     83,
+     81
     ],
-    "tiebreak": 249
+    "tiebreak": 244,
+    "evos": [
+     "Albiceleste Upgrade"
+    ]
    },
    {
     "slot": "CM",
@@ -146,36 +151,16 @@
      83,
      73
     ],
-    "chem": 1,
-    "eff": [
-     83,
-     83,
-     73
-    ],
-    "tiebreak": 239
-   },
-   {
-    "slot": "CM",
-    "id": "id247246",
-    "name": "Thuram",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 31,
-    "clubId": 45,
-    "card": [
-     76,
-     78,
-     80
-    ],
     "chem": 3,
     "eff": [
-     79,
-     81,
-     83
+     86,
+     86,
+     76
     ],
-    "tiebreak": 240
+    "tiebreak": 245,
+    "evos": [
+     "Romanian Superliga Silver"
+    ]
    },
    {
     "slot": "CM",
@@ -192,36 +177,59 @@
      75,
      82
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     69,
-     75,
-     82
+     72,
+     78,
+     85
     ],
-    "tiebreak": 226
+    "tiebreak": 232
+   },
+   {
+    "slot": "RM",
+    "id": "id213516",
+    "name": "Ricardo Horta",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CAM",
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 1896,
+    "card": [
+     81,
+     80,
+     49
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     83,
+     52
+    ],
+    "tiebreak": 216
    },
    {
     "slot": "CAM",
-    "id": "id84161109",
-    "name": "Maza",
-    "rating": 82,
-    "color": "totw_gold",
+    "id": "id216547",
+    "name": "Rafa",
+    "rating": 80,
+    "color": "rare_gold",
     "position": "CAM",
-    "nationId": 97,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 38,
+    "leagueId": 308,
+    "clubId": 234,
     "card": [
-     81,
-     83,
-     64
+     80,
+     79,
+     48
     ],
     "chem": 3,
     "eff": [
      83,
-     85,
-     66
+     82,
+     51
     ],
-    "tiebreak": 234
+    "tiebreak": 213
    },
    {
     "slot": "CAM",
@@ -285,8 +293,8 @@
   "cap": 82,
   "boosts": [
    {
-    "on": "league",
-    "id": 31,
+    "on": "nation",
+    "id": 38,
     "att": 1,
     "ctl": 1,
     "def": 1
@@ -295,28 +303,28 @@
   "minutes": 30,
   "bonuses": [
    {
-    "kind": "same_nation",
-    "max": 2,
+    "kind": "leagues",
+    "min": 9,
     "att": 0,
-    "ctl": 2,
-    "def": 0
+    "ctl": 0,
+    "def": 2
    }
   ]
  },
  "base_ids": [
-  "id50586951",
-  "id203574",
-  "ltm_comuzzo82",
-  "id239340",
-  "id50593513",
-  "id84161109",
-  "id210406",
-  "evo_Lucas Vázquez_80",
+  "id261848",
+  "evo_Acuña_81",
+  "id200888",
+  "id232488",
+  "id264725",
+  "id50561039",
   "id67349814",
-  "id261050",
-  "id50570548"
+  "evo_Bruno Costa_81",
+  "id275932",
+  "id247394",
+  "id50416920"
  ],
- "built": "2026-11-14 02:46 UTC",
- "week": "2026-11-09",
- "changed": "2026-11-14 02:46 UTC"
+ "built": "2026-11-22 00:21 UTC",
+ "week": "2026-11-23",
+ "changed": "2026-11-22 00:21 UTC"
 }
