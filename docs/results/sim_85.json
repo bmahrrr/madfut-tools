@@ -18,7 +18,8 @@
     "ctl": 1,
     "def": 1
    }
-  ]
+  ],
+  "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "teams": [
   {
@@ -46,28 +47,6 @@
       84
      ],
      "slot": "GK"
-    },
-    {
-     "id": "id67229397",
-     "name": "Pepe",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      59,
-      61,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      61,
-      63,
-      87
-     ],
-     "slot": "CB"
     },
     {
      "id": "id50610428",
@@ -110,6 +89,28 @@
       56,
       66,
       79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
      ],
      "slot": "CB"
     },
@@ -158,28 +159,6 @@
      "slot": "LM"
     },
     {
-     "id": "id50584757",
-     "name": "Veerman",
-     "rating": 85,
-     "color": "destined_for_glory",
-     "position": "CM",
-     "nationId": 34,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      84,
-      86,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      89,
-      72
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id50402434",
      "name": "King",
      "rating": 85,
@@ -198,6 +177,28 @@
       88,
       89,
       71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
      ],
      "slot": "CM"
     },
@@ -224,28 +225,6 @@
      "slot": "RM"
     },
     {
-     "id": "id134476925",
-     "name": "Jackson",
-     "rating": 85,
-     "color": "epl_potm",
-     "position": "ST",
-     "nationId": 136,
-     "leagueId": 13,
-     "clubId": 2,
-     "card": [
-      86,
-      78,
-      52
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      80,
-      54
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id215441",
      "name": "Guirassy",
      "rating": 85,
@@ -266,6 +245,28 @@
       53
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id134476925",
+     "name": "Jackson",
+     "rating": 85,
+     "color": "epl_potm",
+     "position": "ST",
+     "nationId": 136,
+     "leagueId": 13,
+     "clubId": 2,
+     "card": [
+      86,
+      78,
+      52
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      80,
+      54
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
@@ -274,7 +275,7 @@
     "control": 88.4,
     "attack": 87.02,
     "defence": 84.8,
-    "net": 0.1504,
+    "net": 0.1198,
     "vs_reddit": null,
     "control_cards": [
      89,
@@ -298,8 +299,8 @@
      84,
      79
     ],
-    "p_att": 0.6905,
-    "p_def": 0.3127,
+    "p_att": 0.6766,
+    "p_def": 0.2562,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -309,8 +310,8 @@
     "att_total": 223.2,
     "def_total": 212.2,
     "round_robin": {
-     "wins": 32.0,
-     "margin": 2.5481
+     "wins": 31.0,
+     "margin": 2.4968
     }
    }
   },
@@ -517,28 +518,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id67158233",
-     "name": "Fernando Torres",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "ST",
-     "nationId": 45,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      84,
-      74,
-      43
-     ],
-     "chem": 3,
-     "eff": [
-      86,
-      76,
-      45
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id50611460",
      "name": "Bethune",
      "rating": 85,
@@ -559,6 +538,28 @@
       61
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id67158233",
+     "name": "Fernando Torres",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      84,
+      74,
+      43
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      76,
+      45
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
@@ -567,7 +568,7 @@
     "control": 88.4,
     "attack": 86.46,
     "defence": 86.75,
-    "net": 0.0705,
+    "net": 0.0314,
     "vs_reddit": null,
     "control_cards": [
      89,
@@ -591,8 +592,8 @@
      86,
      86
     ],
-    "p_att": 0.5027,
-    "p_def": 0.4002,
+    "p_att": 0.4991,
+    "p_def": 0.306,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -856,7 +857,7 @@
     "control": 88.4,
     "attack": 86.69,
     "defence": 86.2,
-    "net": 0.1248,
+    "net": 0.0808,
     "vs_reddit": null,
     "control_cards": [
      89,
@@ -880,8 +881,8 @@
      86,
      84
     ],
-    "p_att": 0.6136,
-    "p_def": 0.3668,
+    "p_att": 0.5897,
+    "p_def": 0.2914,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -894,7 +895,7 @@
   }
  ],
  "not_owned": [],
- "built": "2026-11-21 20:01 UTC",
+ "built": "2026-11-22 05:52 UTC",
  "week": "2026-11-23",
  "changed": "2026-11-21 20:01 UTC"
 }
