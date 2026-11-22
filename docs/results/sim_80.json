@@ -18,12 +18,12 @@
     "ctl": 1,
     "def": 1
    }
-  ]
+  ],
+  "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "teams": [
   {
    "formation": "3-5-2",
-   "chem": 31,
    "players": [
     {
      "id": "id258485",
@@ -48,24 +48,24 @@
      "slot": "GK"
     },
     {
-     "id": "id272082",
-     "name": "Villafañe",
-     "rating": 76,
+     "id": "id244749",
+     "name": "Aguerd",
+     "rating": 80,
      "color": "rare_gold",
      "position": "CB",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 116334,
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 219,
      "card": [
-      49,
-      58,
-      76
+      63,
+      66,
+      80
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      53,
-      60,
-      79
+      64,
+      67,
+      81
      ],
      "slot": "CB"
     },
@@ -92,24 +92,24 @@
      "slot": "CB"
     },
     {
-     "id": "id244749",
-     "name": "Aguerd",
-     "rating": 80,
+     "id": "id272082",
+     "name": "Villafañe",
+     "rating": 76,
      "color": "rare_gold",
      "position": "CB",
-     "nationId": 129,
-     "leagueId": 16,
-     "clubId": 219,
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
      "card": [
-      63,
-      66,
-      80
+      49,
+      58,
+      76
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      64,
-      67,
-      81
+      53,
+      60,
+      79
      ],
      "slot": "CB"
     },
@@ -227,28 +227,6 @@
      "slot": "RM"
     },
     {
-     "id": "id50603590",
-     "name": "Ane Azkona",
-     "rating": 80,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 448,
-     "card": [
-      82,
-      77,
-      56
-     ],
-     "chem": 2,
-     "eff": [
-      85,
-      78,
-      58
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id50412102",
      "name": "Mohya",
      "rating": 80,
@@ -269,15 +247,37 @@
       49
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id50603590",
+     "name": "Ane Azkona",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 448,
+     "card": [
+      82,
+      77,
+      56
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      78,
+      58
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5393,
+    "ctrl_win": null,
     "control": 84.6,
     "attack": 84.51,
     "defence": 77.0,
-    "net": 0.1929,
+    "net": null,
     "vs_reddit": null,
     "control_cards": [
      86,
@@ -302,8 +302,8 @@
      74,
      66
     ],
-    "p_att": 0.949,
-    "p_def": 0.0049,
+    "p_att": null,
+    "p_def": null,
     "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -311,15 +311,11 @@
     "attack_short": 0,
     "ctrl_total": 236.8,
     "att_total": 225.3,
-    "def_total": 209.5,
-    "round_robin": {
-     "wins": 30.5,
-     "margin": 2.6685
-    }
+    "def_total": 209.5
    }
   },
   {
-   "formation": "3-5-2",
+   "formation": "3-1-4-2",
    "chem": 31,
    "players": [
     {
@@ -343,6 +339,28 @@
       80
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id244749",
+     "name": "Aguerd",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 219,
+     "card": [
+      63,
+      66,
+      80
+     ],
+     "chem": 2,
+     "eff": [
+      64,
+      67,
+      81
+     ],
+     "slot": "CB"
     },
     {
      "id": "id236804",
@@ -389,28 +407,6 @@
      "slot": "CB"
     },
     {
-     "id": "id244749",
-     "name": "Aguerd",
-     "rating": 80,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 129,
-     "leagueId": 16,
-     "clubId": 219,
-     "card": [
-      63,
-      66,
-      80
-     ],
-     "chem": 2,
-     "eff": [
-      64,
-      67,
-      81
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id50588597",
      "name": "Grønbæk",
      "rating": 80,
@@ -429,28 +425,6 @@
       83,
       84,
       74
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id246287",
-     "name": "Ángela Sosa",
-     "rating": 80,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 116334,
-     "card": [
-      79,
-      82,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      83,
-      84,
-      66
      ],
      "slot": "CDM"
     },
@@ -477,253 +451,26 @@
      "slot": "LM"
     },
     {
-     "id": "id67381476",
-     "name": "Gruda",
+     "id": "id225309",
+     "name": "Amiri",
      "rating": 80,
-     "color": "totw_gold",
-     "position": "RM",
+     "color": "rare_gold",
+     "position": "CM",
      "nationId": 21,
      "leagueId": 19,
-     "clubId": 112172,
-     "card": [
-      81,
-      81,
-      40
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      84,
-      43
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "evo_Lucas Vázquez_80",
-     "name": "Lucas Vázquez",
-     "rating": 80,
-     "color": "evo",
-     "position": "RB",
-     "nationId": 45,
-     "leagueId": 19,
-     "clubId": 32,
-     "card": [
-      82,
-      83,
-      78
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      86,
-      82
-     ],
-     "evos": [
-      "Silver Maestro"
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id50603590",
-     "name": "Ane Azkona",
-     "rating": 80,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 448,
-     "card": [
-      82,
-      77,
-      56
-     ],
-     "chem": 2,
-     "eff": [
-      85,
-      78,
-      58
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id50564059",
-     "name": "Nkunku",
-     "rating": 80,
-     "color": "rare_gold",
-     "position": "ST",
-     "nationId": 18,
-     "leagueId": 19,
-     "clubId": 112172,
-     "card": [
-      81,
-      79,
-      43
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      82,
-      46
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "h2h": null,
-    "ctrl_win": 0.5407,
-    "control": 84.6,
-    "attack": 84.62,
-    "defence": 77.0,
-    "net": 0.2043,
-    "vs_reddit": null,
-    "control_cards": [
-     86,
-     85,
-     84,
-     84,
-     84
-    ],
-    "attack_cards": [
-     87,
-     85,
-     84,
-     84,
-     84,
-     83
-    ],
-    "defence_cards": [
-     82,
-     81,
-     80,
-     79,
-     74,
-     66
-    ],
-    "p_att": 0.9675,
-    "p_def": 0.0049,
-    "chem": 31,
-    "ctrl_not_full": 0,
-    "def_unbeatable": false,
-    "weak_attackers": [],
-    "attack_short": 0,
-    "ctrl_total": 232.8,
-    "att_total": 222.04,
-    "def_total": 209.5
-   }
-  },
-  {
-   "formation": "3-5-2",
-   "chem": 30,
-   "players": [
-    {
-     "id": "id50547170",
-     "name": "Schlager",
-     "rating": 80,
-     "color": "totw_gold",
-     "position": "GK",
-     "nationId": 4,
-     "leagueId": 19,
-     "clubId": 38,
-     "card": [
-      34,
-      26,
-      81
-     ],
-     "chem": 2,
-     "eff": [
-      36,
-      28,
-      83
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id276377",
-     "name": "Høgsberg",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 13,
-     "leagueId": 16,
-     "clubId": 76,
-     "card": [
-      55,
-      62,
-      73
-     ],
-     "chem": 3,
-     "eff": [
-      57,
-      64,
-      75
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id272081",
-     "name": "Ana González",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "CDM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 116334,
-     "card": [
-      68,
-      70,
-      72
-     ],
-     "chem": 3,
-     "eff": [
-      72,
-      72,
-      75
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id244749",
-     "name": "Aguerd",
-     "rating": 80,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 129,
-     "leagueId": 16,
-     "clubId": 219,
-     "card": [
-      63,
-      66,
-      80
-     ],
-     "chem": 2,
-     "eff": [
-      64,
-      67,
-      81
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id50588597",
-     "name": "Grønbæk",
-     "rating": 80,
-     "color": "totw_gold",
-     "position": "CAM",
-     "nationId": 13,
-     "leagueId": 19,
-     "clubId": 28,
+     "clubId": 169,
      "card": [
       80,
       81,
-      71
+      61
      ],
      "chem": 3,
      "eff": [
       83,
       84,
-      74
+      64
      ],
-     "slot": "CDM"
+     "slot": "CM"
     },
     {
      "id": "id246287",
@@ -745,51 +492,7 @@
       84,
       66
      ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id50401665",
-     "name": "Yassine",
-     "rating": 80,
-     "color": "totw_gold",
-     "position": "RW",
-     "nationId": 129,
-     "leagueId": 16,
-     "clubId": 76,
-     "card": [
-      82,
-      83,
-      53
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      85,
-      55
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id67381476",
-     "name": "Gruda",
-     "rating": 80,
-     "color": "totw_gold",
-     "position": "RM",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 112172,
-     "card": [
-      81,
-      81,
-      40
-     ],
-     "chem": 3,
-     "eff": [
-      84,
-      84,
-      43
-     ],
-     "slot": "CAM"
+     "slot": "CM"
     },
     {
      "id": "evo_Lucas Vázquez_80",
@@ -863,11 +566,308 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5407,
+    "ctrl_win": 0.5,
+    "control": 84.6,
+    "attack": 84.6,
+    "defence": 79.2,
+    "net": 0.1545,
+    "vs_reddit": null,
+    "control_cards": [
+     86,
+     85,
+     84,
+     84,
+     84
+    ],
+    "attack_cards": [
+     87,
+     85,
+     84,
+     84,
+     83,
+     83,
+     83
+    ],
+    "defence_cards": [
+     82,
+     81,
+     80,
+     79,
+     74
+    ],
+    "p_att": 0.9674,
+    "p_def": 0.004,
+    "chem": 31,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 236.8,
+    "att_total": 225.38,
+    "def_total": 204.8,
+    "round_robin": {
+     "wins": 32.0,
+     "margin": 2.5986
+    }
+   }
+  },
+  {
+   "formation": "3-5-2",
+   "chem": 31,
+   "players": [
+    {
+     "id": "id258485",
+     "name": "Jörgensen",
+     "rating": 77,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 13,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      36,
+      36,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      38,
+      38,
+      80
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id272082",
+     "name": "Villafañe",
+     "rating": 76,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      49,
+      58,
+      76
+     ],
+     "chem": 3,
+     "eff": [
+      53,
+      60,
+      79
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id236804",
+     "name": "Medina",
+     "rating": 79,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      64,
+      71,
+      79
+     ],
+     "chem": 3,
+     "eff": [
+      67,
+      74,
+      82
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id244749",
+     "name": "Aguerd",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 219,
+     "card": [
+      63,
+      66,
+      80
+     ],
+     "chem": 2,
+     "eff": [
+      64,
+      67,
+      81
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id246287",
+     "name": "Ángela Sosa",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      79,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      66
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50588597",
+     "name": "Grønbæk",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 13,
+     "leagueId": 19,
+     "clubId": 28,
+     "card": [
+      80,
+      81,
+      71
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id50401665",
+     "name": "Yassine",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "RW",
+     "nationId": 129,
+     "leagueId": 16,
+     "clubId": 76,
+     "card": [
+      82,
+      83,
+      53
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      85,
+      55
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id67381476",
+     "name": "Gruda",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "RM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 112172,
+     "card": [
+      81,
+      81,
+      40
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      84,
+      43
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "evo_Lucas Vázquez_80",
+     "name": "Lucas Vázquez",
+     "rating": 80,
+     "color": "evo",
+     "position": "RB",
+     "nationId": 45,
+     "leagueId": 19,
+     "clubId": 32,
+     "card": [
+      82,
+      83,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      86,
+      82
+     ],
+     "evos": [
+      "Silver Maestro"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50603590",
+     "name": "Ane Azkona",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 448,
+     "card": [
+      82,
+      77,
+      56
+     ],
+     "chem": 2,
+     "eff": [
+      85,
+      78,
+      58
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50412102",
+     "name": "Mohya",
+     "rating": 80,
+     "color": "totw_gold",
+     "position": "CAM",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 23,
+     "card": [
+      81,
+      79,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      84,
+      82,
+      49
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5093,
     "control": 84.6,
     "attack": 84.62,
-    "defence": 75.67,
-    "net": 0.2038,
+    "defence": 77.0,
+    "net": 0.1587,
     "vs_reddit": null,
     "control_cards": [
      86,
@@ -885,28 +885,28 @@
      83
     ],
     "defence_cards": [
-     83,
+     82,
      81,
-     75,
-     75,
+     80,
+     79,
      74,
      66
     ],
-    "p_att": 0.9675,
-    "p_def": 0.0037,
-    "chem": 30,
+    "p_att": 0.9749,
+    "p_def": 0.0033,
+    "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 232.8,
     "att_total": 222.97,
-    "def_total": 208.0
+    "def_total": 209.5
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-21 20:01 UTC",
+ "built": "2026-11-22 05:52 UTC",
  "week": "2026-11-23",
  "changed": "2026-11-21 20:01 UTC"
 }
