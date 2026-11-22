@@ -114,7 +114,8 @@ def is_special(c):
 
 
 def solo(x):
-    """Always on full chem but adds nothing to anyone else's chem (e.g. Evo Kanté)."""
+    """Full-chem Evos (e.g. Jerdea, Kanté): always on full chem, and still count for their nation, league and club like a
+    normal card (owner, from the game: a Reddit team with Jerdea shows 33 chem)."""
     return x.get("specialChem") == "solo"
 
 
@@ -132,11 +133,11 @@ def chem(team):
     """Chemistry (0-3) for each card of an 11-card team."""
     nat, club, lg = collections.Counter(), collections.Counter(), collections.Counter()
     for x in team:
-        if not solo(x): nat[x["nationId"]] += w2(x, "nation")
-        if not full_chem(x): club[x["clubId"]] += w2(x, "club")
+        nat[x["nationId"]] += w2(x, "nation")
+        if not full_chem(x) or solo(x): club[x["clubId"]] += w2(x, "club")
     icons = sum(1 for x in team if x["color"] in ICON)
     for x in team:
-        if x["color"] in ICON or solo(x):
+        if x["color"] in ICON:
             continue
         lg[x["leagueId"]] += w2(x, "league")
     out = []

@@ -58,12 +58,10 @@ def build(cards, slots, value, chem_weight=None, force_full=None, minimize=False
     icons = [i for i in used if byi[i]["color"] in ICON]
     for i in used:
         x = byi[i]
-        if solo(x):          # full chem itself, but counts towards nobody
-            continue
         cnt["n"][x["nationId"]].append((i, w2(x, "nation")))
         if x["color"] not in ICON:
             cnt["l"][x["leagueId"]].append((i, w2(x, "league")))
-        if not full_chem(x):
+        if not full_chem(x) or solo(x):      # a full-chem Evo still counts for its club
             cnt["k"][x["clubId"]].append((i, w2(x, "club")))
     Z = {}
     need_chem = chem_weight is not None or force_full is not None or min_total_chem or min_player_chem
