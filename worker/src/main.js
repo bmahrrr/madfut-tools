@@ -10,6 +10,7 @@
 //   GET  /records                               -> { records: { puzzle id: top points anyone has } }
 //   GET  /lb?puzzle=<puzzle id>                 -> top 50 for one puzzle: name, points, chem, squad rating
 //   GET  /pct?puzzle=<puzzle id>&pts=<points>   -> { n: players with a score on it, above: how many of them scored more }
+//   GET  /admin?key=<stats key>[&name=<player>]  -> owner only: every Puzzles player's stats, or one player's details
 //   GET  /pct?set=<set id or "all">&pts=<points> -> the same for a set's total or the overall total
 //   achievements: /submit and /me also return { ach: {key: when earned}, t10, submits } (see PZ_ACH in puzzle-core.js)
 //   POST /hit {v, p, s, b}                      -> visit counter: a random id per browser, the tab open, which site, b = still here
@@ -149,6 +150,30 @@ export default {
           pages: await q("SELECT page, site, SUM(n) AS n, SUM(CASE WHEN day = ?2 THEN n ELSE 0 END) AS today FROM views WHERE day >= ?1 GROUP BY page, site", dayOf(t - 6 * 86400e3), dayOf(t)),
           total: (await env.DB.prepare("SELECT COUNT(*) AS n FROM seen").first()).n,
         });
+      }
+      if (req.method === "GET" && P === "/admin") {   // owner only (stats key): every Puzzles player, or one player's details with &name=
+        if (await sha(url.searchParams.get("key") || "") !== STATS_HASH) return json({ error: "Wrong key" }, 403);
+        await achTables(env);
+        const { TOP, SETS, PZ } = await data(env), q = (sql, ...a) => env.DB.prepare(sql).bind(...a).all().then(r => r.results);
+        const rec = new Map((await q("SELECT puzzle, MAX(pts) AS pts FROM scores GROUP BY puzzle")).map(r => [r.puzzle, r.pts]));
+        const top = id => Math.max(TOP.get(id) || 0, rec.get(id) || 0);
+        const name = (url.searchParams.get("name") || "").trim().toLowerCase();
+        if (name) {
+          const pl = await env.DB.prepare("SELECT pid, name, at FROM players WHERE name_lc = ?1").bind(name).first();
+          if (!pl) return json({ error: "No player with that name" }, 404);
+          const sc = await q("SELECT puzzle, set_id, pts, chem, rating, at FROM scores WHERE pid = ?1", pl.pid);
+          const best = Object.fromEntries(sc.map(r => [r.puzzle, r.pts])), ev = await q("SELECT k, at FROM ach WHERE pid = ?1", pl.pid);
+          const st = await env.DB.prepare("SELECT submits FROM pstats WHERE pid = ?1").bind(pl.pid).first();
+          return json({ name: pl.name, joined: pl.at, submits: st ? st.submits : 0,
+            scores: sc.map(r => ({ ...r, top: top(r.puzzle), band: pzBandOf(top(r.puzzle), r.pts) })).sort((a, b) => a.puzzle < b.puzzle ? -1 : 1),
+            ach: { from_scores: [...pzAchFrom(best, top, SETS)], earned: ev.filter(r => !r.k.startsWith("t10:")), top10: ev.filter(r => r.k.startsWith("t10:")).length } });
+        }
+        const pls = await q("SELECT p.name, p.at AS joined, COUNT(s.puzzle) AS solved, COALESCE(SUM(s.pts), 0) AS pts, MAX(s.at) AS last, COALESCE(st.submits, 0) AS submits FROM players p LEFT JOIN scores s ON s.pid = p.pid LEFT JOIN pstats st ON st.pid = p.pid GROUP BY p.pid ORDER BY pts DESC, p.at ASC");
+        const all = await q("SELECT p.name, s.puzzle, s.pts FROM scores s JOIN players p ON p.pid = s.pid"), by = new Map(pls.map(r => [r.name, { medals: {}, best: {} }]));
+        for (const r of all) { const m = by.get(r.name); if (!m) continue; m.best[r.puzzle] = r.pts; const b = pzBandOf(top(r.puzzle), r.pts); if (b && b !== "plain") m.medals[b] = (m.medals[b] || 0) + 1; }
+        const ev = new Map((await q("SELECT p.name, COUNT(*) AS n FROM ach a JOIN players p ON p.pid = a.pid WHERE a.k NOT LIKE 't10:%' GROUP BY a.pid")).map(r => [r.name, r.n]));
+        return json({ puzzles: PZ.size, achievements: PZ_ACH.length, players: pls.map((r, i) => { const m = by.get(r.name);
+          return { ...r, rank: i + 1, medals: m.medals, ach: pzAchFrom(m.best, top, SETS).size + (ev.get(r.name) || 0) }; }) });
       }
       if (req.method === "GET" && P === "/pct") {   // where a score sits on a puzzle, a set or overall ("Top 12%")
         const puzzle = url.searchParams.get("puzzle") || "", set = url.searchParams.get("set") || "", pts = Number(url.searchParams.get("pts")) || 0;

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Visitors</title>
+<title>Visitors and players</title>
 <style>
 :root { --bg: #0d0c0b; --card: #1a1715; --line: #2e2925; --text: #f3ede6; --muted: #a39a90; --acc: #ff8a1f; --live: #3ddc97; --beta: #3ddcff; --test: #b98cff; }
 * { box-sizing: border-box; }
@@ -28,6 +28,13 @@ td + td { text-align: right; width: 70px; }
 .key span::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; background: var(--c); }
 .muted { color: var(--muted); font-size: 13px; }
 input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: #000; color: var(--text); font-size: 15px; }
+.pl td { vertical-align: top; } .pl td + td { width: auto; white-space: nowrap; padding-left: 10px; }
+.pl .nm { background: none; border: 0; padding: 0; margin: 0; color: var(--text); font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
+.pl .sub { display: block; color: var(--muted); font-size: 12px; }
+.det { background: #120f0d; border-radius: 10px; padding: 10px 12px; margin: 6px 0 4px; font-size: 13px; }
+.det h3 { font-size: 13px; color: var(--muted); margin: 10px 0 4px; font-weight: 600; } .det h3:first-child { margin-top: 0; }
+.det table td { padding: 4px 0; } .det table td + td { width: auto; padding-left: 10px; } .tag { display: inline-block; background: #2a241f; border-radius: 6px; padding: 2px 6px; margin: 2px 4px 2px 0; font-size: 12px; }
+.b-perfect { color: #e2ccff; } .b-gold { color: #ffd27a; } .b-silver { color: #d6dde6; } .b-bronze { color: #d99a6c; }
 button { margin-top: 8px; padding: 9px 14px; border-radius: 8px; border: 0; background: var(--acc); color: #000; font-weight: 700; font-size: 15px; }
 </style>
 </head>
@@ -35,7 +42,10 @@ button { margin-top: 8px; padding: 9px 14px; border-radius: 8px; border: 0; back
 <main>
   <h1>Visitors</h1>
   <div id="out"><p class="muted">Loading…</p></div>
+  <div id="pz"></div>
 </main>
+<script src="sbc-solver.js"></script>
+<script src="puzzle-core.js"></script>
 <script>
 // Private visitor stats for the site. Open once with #k=<key> on a device; it's remembered there.
 const API = "https://madfut-puzzles.bmahrrr1.workers.dev/stats?key=";
@@ -46,7 +56,7 @@ try { const m = location.hash.match(/k=([^&]+)/); if (m) { localStorage.setItem(
 const out = document.getElementById("out");
 function ask(msg) {
   out.innerHTML = `<div class="card"><p class="muted">${msg}</p><input id="k" placeholder="Stats key"><button id="go">Open</button></div>`;
-  document.getElementById("go").onclick = () => { KEY = document.getElementById("k").value.trim(); try { localStorage.setItem("statsKey", KEY); } catch (e) {} load(); };
+  document.getElementById("go").onclick = () => { KEY = document.getElementById("k").value.trim(); try { localStorage.setItem("statsKey", KEY); } catch (e) {} load(); loadPz(); };
 }
 const ymd = d => d.toISOString().slice(0, 10);
 async function load() {
@@ -83,7 +93,41 @@ async function load() {
     </table><p class="muted">${views} tab opens today. Your own devices aren't counted.</p></div>
     <p class="muted">Updates every 30 seconds.</p>`;
 }
-load(); setInterval(() => { if (KEY && document.visibilityState === "visible") load(); }, 30e3);
+// ---------- Puzzles players (owner only, same key) ----------
+const ADMIN = "https://madfut-puzzles.bmahrrr1.workers.dev/admin?key=";
+const MED = [["perfect", "Perfect"], ["gold", "Gold"], ["silver", "Silver"], ["bronze", "Bronze"]];
+let PZN = {}, PL = null, OPEN = "";
+const ago = d => { if (!d) return "never"; const m = (Date.now() - Date.parse(d)) / 6e4; return m < 60 ? Math.max(1, Math.round(m)) + "m ago" : m < 1440 ? Math.round(m / 60) + "h ago" : Math.round(m / 1440) + "d ago"; };
+const meds = m => MED.filter(([k]) => m && m[k]).map(([k, n]) => `<span class="b-${k}">${m[k]} ${n}</span>`).join(" · ");
+async function loadPz() {
+  if (!KEY) return;
+  try {
+    if (!Object.keys(PZN).length) { const P = await fetch("puzzles.json").then(r => r.json()); for (const st of P.sets) st.puzzles.forEach((p, i) => PZN[p.id] = `${st.name} ${i + 1}`); }
+    const r = await fetch(ADMIN + encodeURIComponent(KEY)); const d = await r.json(); if (!r.ok) return; PL = d; drawPz();
+  } catch (e) {}
+}
+function drawPz() {
+  const d = PL, box = document.getElementById("pz"); if (!d) return;
+  box.innerHTML = `<div class="card"><h2>Puzzles players (${d.players.length})</h2>
+    <table class="pl"><tr><td class="muted">Player</td><td class="muted">Points</td><td class="muted">Solved</td><td class="muted">★</td><td class="muted">Last</td></tr>
+    ${d.players.map(p => `<tr><td><button class="nm" data-n="${esc(p.name)}">${p.rank}. ${esc(p.name)}</button><span class="sub">${meds(p.medals) || "no medals yet"}</span></td>
+      <td>${p.pts.toLocaleString()}</td><td>${p.solved}/${d.puzzles}</td><td>${p.ach}</td><td>${ago(p.last)}</td></tr>
+      ${OPEN === p.name ? `<tr><td colspan="5"><div class="det" id="det">Loading…</div></td></tr>` : ""}`).join("")}</table>
+    <p class="muted">Tap a name for their scores and achievements. ★ = achievements (of ${d.achievements}).</p></div>`;
+  box.querySelectorAll(".nm").forEach(b => b.onclick = () => { OPEN = OPEN === b.dataset.n ? "" : b.dataset.n; drawPz(); if (OPEN) detail(OPEN); });
+  if (OPEN) detail(OPEN);
+}
+async function detail(name) {
+  let d; try { d = await fetch(ADMIN + encodeURIComponent(KEY) + "&name=" + encodeURIComponent(name)).then(r => r.json()); } catch (e) { return; }
+  const el = document.getElementById("det"); if (!el || OPEN !== name || d.error) return;
+  const achName = k => (PZ_ACH.find(a => a[0] === k) || [, k])[1];
+  const got = [...d.ach.from_scores.map(k => [k, ""]), ...d.ach.earned.map(r => [r.k, r.at])];
+  const sets = {}; for (const s of d.scores) (sets[s.set_id] = sets[s.set_id] || []).push(s);
+  el.innerHTML = `<h3>Player</h3>Joined ${new Date(d.joined).toLocaleDateString("en-AU")} · ${d.submits} squads sent · top 10% on ${d.ach.top10} puzzles
+    <h3>Achievements (${got.length})</h3>${got.map(([k, at]) => `<span class="tag">★ ${esc(achName(k))}${at ? " · " + new Date(at).toLocaleDateString("en-AU", { day: "numeric", month: "short" }) : ""}</span>`).join("") || "None yet"}
+    <h3>Scores</h3><table>${d.scores.map(s => `<tr><td>${esc(PZN[s.puzzle] || s.puzzle)}</td><td><span class="b-${s.band}">${s.pts} / ${s.top} · ${s.top ? Math.floor(100 * s.pts / s.top) : 0}%</span><span class="sub">${s.chem} chem · rated ${s.rating} · ${ago(s.at)}</span></td></tr>`).join("") || "<tr><td>No scores yet</td></tr>"}</table>`;
+}
+load(); loadPz(); setInterval(() => { if (KEY && document.visibilityState === "visible") load(); }, 30e3); setInterval(() => { if (KEY && document.visibilityState === "visible" && !OPEN) loadPz(); }, 300e3);
 </script>
 </body>
 </html>
