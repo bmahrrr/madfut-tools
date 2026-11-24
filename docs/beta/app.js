@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261124d";
+const APP_V = "20261124e";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1410,7 +1410,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1436,7 +1436,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2252,7 +2252,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124d");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124e");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2684,7 +2684,7 @@ function renderWeekForm() {
       <label class="small muted">Season start <input type="date" id="wWeek" value="${esc(WS.week || "")}"></label></div>
     <p class="small muted" style="margin:6px 0 0">Changes are kept on this phone until you tap <b>Save &amp; rebuild</b>.</p>
     <h3>Fatal My Club</h3>${WS.myclub.map((_, i) => seriesCardHtml("myclub", i)).join("")}<button class="ghost" data-addseries="myclub">+ Add My Club series</button>
-    <h3>Fatal Sim</h3>${WS.sim.map((_, i) => seriesCardHtml("sim", i)).join("")}<button class="ghost" data-addseries="sim">+ Add Sim series</button>
+    <div class="simzone"><h3>Fatal Sim</h3>${WS.sim.map((_, i) => seriesCardHtml("sim", i)).join("")}<button class="ghost" data-addseries="sim">+ Add Sim series</button></div>
     <div class="row" style="margin-top:16px"><button class="btn" id="wSave">Save &amp; rebuild</button><button class="ghost" id="wNew">New Season</button><button class="ghost" id="wDiscard">Discard changes</button></div>
     <p class="small" id="wSaveMsg"></p>`;
   const S = id => { const [t, i] = id.split("-"); return WS[t][+i]; };
