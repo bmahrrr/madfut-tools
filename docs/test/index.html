@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Test)</title>
-<meta name="app-version" content="20261124e">
+<meta name="app-version" content="20261124f">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -503,6 +503,16 @@ body.simmode .gsugg{background:#0e1420}
 #sbcList{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
 #sbcList .req{border:1px solid var(--line2);border-radius:999px;padding:6px 6px 6px 12px;font-size:13.5px;background:rgba(255,255,255,.03);gap:6px}
 #sbcList .req .x{background:rgba(255,255,255,.06);border:0;color:var(--muted);width:22px;height:22px;border-radius:50%;padding:0;font-size:11px;cursor:pointer}
+#sbcList{display:block}
+#sbcList .rg{border:1px solid var(--line2);border-radius:14px;background:rgba(255,255,255,.025);padding:4px 12px 8px;margin:0 0 8px}
+#sbcList .rh{display:flex;justify-content:space-between;align-items:baseline;font:700 11px/1 var(--display);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);padding:8px 0 6px}
+#sbcList .rh b{font:600 12px/1 var(--body);letter-spacing:0;text-transform:none;color:var(--accent)}
+#sbcList .rq{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:14px}
+#sbcList .rh+.rq{border-top:0}
+#sbcList .rn{flex:1;min-width:0}#sbcList .rv{font-weight:700;white-space:nowrap}
+#sbcList .rchips{display:flex;flex-wrap:wrap;gap:6px}
+#sbcList .rc{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);border-radius:999px;padding:4px 4px 4px 11px;font-size:13.5px;background:rgba(255,255,255,.03)}
+#sbcList .x{background:rgba(255,255,255,.06);border:0;color:var(--muted);width:22px;height:22px;flex:none;border-radius:50%;padding:0;font-size:11px;cursor:pointer}
 .rulebox{border-radius:14px}
 .sbchead{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:6px;margin:0 0 10px}
 .sbchead>div{border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line2);padding:8px 10px}
@@ -906,7 +916,7 @@ html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial N
     <div class="card">
       <h2>SBC Solver</h2><p class="small muted" style="margin:0 0 12px">Add the requirements, or paste them as the game shows them, and get the cheapest squad.</p>
       <div class="row"><label>Formation <select id="sbcForm"></select></label></div>
-      <h3>Requirements</h3>
+      <h3>Requirements<span id="sbcReqN"></span></h3>
       <div id="sbcList"></div>
       <div class="row" style="margin-top:6px"><button class="ghost" id="sbcAddBtn">+ Add</button><button class="ghost" id="sbcPasteBtn">Paste</button><button class="ghost" id="sbcQuick">Icons and Heroes: Max 1</button></div>
       <div id="sbcPaste" class="rulebox" hidden>
@@ -985,10 +995,10 @@ html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial N
   <small class="credit">Flag images on Windows: Twemoji, CC-BY 4.0</small>
 </div></div>
 
-<script src="test/engine.js?v=20261124e"></script>
-<script src="test/sbc-solver.js?v=20261124e"></script>
-<script src="test/puzzle-core.js?v=20261124e"></script>
-<script src="test/app.js?v=20261124e"></script>
+<script src="test/engine.js?v=20261124f"></script>
+<script src="test/sbc-solver.js?v=20261124f"></script>
+<script src="test/puzzle-core.js?v=20261124f"></script>
+<script src="test/app.js?v=20261124f"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "116c56738b8f45f5ba27853fc4d14947"}'></script>
 </body>
 </html>

@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261124e";
+const APP_V = "20261124f";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1410,7 +1410,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124e"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1436,7 +1436,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124e"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -1889,6 +1889,8 @@ function groupLabel(kind, id) {
   if (kind === "rarity") return id[0].toUpperCase() + id.slice(1);
   return groupSample(kind, id).join(", ") || `${kind} ${id}`;
 }
+const NICE = { "LALIGA EA SPORTS": "LaLiga EA Sports", "LALIGA HYPERMOTION": "LaLiga Hypermotion", "SUPERLIGA": "Superliga" };
+const niceName = n => NICE[n] || n;
 function ruleText(r) {              // the game's own wording: "Olympiacos FC: Min 1", "ICON: Max 1"
   const tail = `: <b>${OPS[r.op]} ${r.n}</b>`;
   if (r.on === "color" && String(r.id) === "iconhero") return `Icons and Heroes${tail}`;
@@ -1897,7 +1899,7 @@ function ruleText(r) {              // the game's own wording: "Olympiacos FC: M
   if (r.on === "rating") return `Rated ${esc(r.id)}+${tail}`;
   if (r.on === "color" || r.on === "rarity") return `${esc(["icon", "hero"].includes(String(r.id)) ? String(r.id).toUpperCase() : groupLabel(r.on, r.id))}${tail}`;
   const known = (r.on === "nation" && NATIONS[r.id]) || (r.on === "league" && LEAGUES[r.id]) || (r.on === "club" && CLUBS[r.id]);
-  if (known) return `${esc(known)}${tail}`;
+  if (known) return `${esc(niceName(known))}${tail}`;
   return `${esc(r.via || groupSample(r.on, r.id)[0] || r.id)}'s ${r.on}${tail} <span class="muted">(${esc(groupSample(r.on, r.id).join(", "))})</span>`;
 }
 const GAME_NUM = { min_rating: "Squad Rating", min_chem: "Chemistry", min_player_chem: "Player Chemistry", min_types: "Card Types",
@@ -2089,7 +2091,7 @@ function resolveName(text, kinds = ["nation", "league", "club"]) {
   const idx = nameIndex().filter(x => kinds.includes(x.kind)), order = x => kinds.indexOf(x.kind);
   const kx = k.split(" ").map(w => NAME_EXP[w] || w).join(" ");      // typed "Man City" also as "manchester city"
   const any = f => x => f(x.k, k) || f(x.k2, k) || (kx !== k && (f(x.k, kx) || f(x.k2, kx)));
-  const tiers = [any((t, q) => t === q), any((t, q) => t.startsWith(q + " ") || t.endsWith(" " + q)), any((t, q) => t.startsWith(q)), any((t, q) => t.includes(q)), any((t, q) => t.length > 3 && q.startsWith(t + " "))]   // last: "Central Coast Mariners" -> "Central Coast";
+  const tiers = [any((t, q) => t === q), any((t, q) => t.startsWith(q + " ") || t.endsWith(" " + q)), any((t, q) => t.startsWith(q)), any((t, q) => (" " + t).includes(" " + q)), any((t, q) => t.length > 3 && q.startsWith(t + " "))]   // last: "Central Coast Mariners" -> "Central Coast";
   for (const [i, f] of tiers.entries()) {
     let m = idx.filter(f).sort((a, b) => order(a) - order(b));
     if (!m.length) continue;
@@ -2228,8 +2230,24 @@ function setupCheck() {
 }
 function drawSBCForm() {
   if ($("chkOut")) drawCheck();
-  $("sbcList").innerHTML = SB.items.length ? SB.items.map((it, i) => `<div class="req"><span>${itemText(it)}</span><button class="x" data-del="${i}">✕</button></div>`).join("")
+  const G = { squad: [], league: [], nation: [], club: [] };
+  SB.items.forEach((it, i) => (it.t === "rule" && G[it.rule.on] && it.rule.on !== "squad" ? G[it.rule.on] : G.squad).push(i));
+  const SQO = it => it.t === "num" ? ["min_rating", "min_chem"].indexOf(it.key.replace(/^exact_/, "min_")) + 1 || 3 : it.t === "rule" ? 4 : 5;   // rating, chem, counts, card rules, must-include
+  G.squad.sort((a, b) => SQO(SB.items[a]) - SQO(SB.items[b]) || a - b);
+  const x = i => `<button class="x" data-del="${i}" aria-label="Remove">✕</button>`;
+  const row = i => { const h = itemText(SB.items[i]), m = h.match(/^(.*): <b>(.*)<\/b>(.*)$/s);
+    return `<div class="rq"><span class="rn">${m ? m[1] + m[3] : h}</span>${m ? `<b class="rv">${m[2]}</b>` : ""}${x(i)}</div>`; };
+  const grp = (k, label) => { const ix = G[k]; if (!ix.length) return "";
+    if (k === "squad") return `<div class="rg"><div class="rh">${label}</div>${ix.map(row).join("")}</div>`;
+    const v = ix.map(i => `${OPS[SB.items[i].rule.op]} ${SB.items[i].rule.n}`), same = v.every(y => y === v[0]);
+    if (!same) return `<div class="rg"><div class="rh">${label}</div>${ix.map(row).join("")}</div>`;
+    return `<div class="rg"><div class="rh">${label}<b>${v[0]}${ix.length > 1 ? " each" : ""}</b></div><div class="rchips">${ix.map(i => { const r = SB.items[i].rule;
+      const nm = (r.on === "nation" && NATIONS[r.id]) || (r.on === "league" && LEAGUES[r.id]) || (r.on === "club" && CLUBS[r.id]);
+      return `<span class="rc">${nm ? esc(niceName(nm)) : itemText(SB.items[i]).replace(/: <b>.*<\/b>/s, "")}${x(i)}</span>`; }).join("")}</div></div>`; };
+  $("sbcList").innerHTML = SB.items.length ? grp("squad", "Squad") + grp("league", "Leagues") + grp("nation", "Nations") + grp("club", "Clubs")
     : `<p class="muted small">No requirements yet.</p>`;
+  if ($("sbcReqN")) $("sbcReqN").textContent = SB.items.length ? ` (${SB.items.length})` : "";
+  $("sbcQuick").hidden = SB.items.some(it => it.t === "rule" && it.rule.on === "color" && String(it.rule.id) === "iconhero");
   document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { SB.items.splice(+b.dataset.del, 1); drawSBCForm(); saveSBC(); });
 }
 function readReq() {
@@ -2252,7 +2270,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124e");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124f");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
