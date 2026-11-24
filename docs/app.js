@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261124c";
+const APP_V = "20261124d";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1003,7 +1003,41 @@ const TINTS = { icon: "#efe3c2", debut_icon: "#efe3c2", hero: "#a66bff", hallowe
 const tintOf = p => { const k = p.evos && p.evos.length ? "evo" : String(p.color).replace(/^rare_/, "").replace(/_gold$/, "") === "totw" ? "totw" : String(p.color).replace(/^rare_/, "");
   if (TINTS[k]) return TINTS[k]; if (typeof TCOL !== "undefined" && TCOL[p.color]) return TCOL[p.color][0]; let h = 0; for (const ch of k) h = (h * 31 + ch.charCodeAt(0)) % 360; return `hsl(${h} 80% 62%)`; };
 const typeOf = p => p.evos && p.evos.length ? "Evo" : TYPE(p.color);
+const MFXY = {               // MadFut's own spot for every slot, in % of the pitch (from the game's formation screens)
+  "3-1-4-2": "GK:50,88 CB:25,68 CB:50,68 CB:75,68 CDM:50,48 LM:11,32 CM:32,35 CM:68,35 RM:89,32 ST:33,7 ST:67,7",
+  "3-4-1-2": "GK:50,88 CB:25,68 CB:50,68 CB:75,68 LM:15,35 CM:37,45 CM:63,45 RM:85,35 CAM:50,25 ST:33,7 ST:67,7",
+  "3-4-2-1": "GK:50,88 CB:25,68 CB:50,68 CB:75,68 LM:15,35 CM:37,45 CM:63,45 RM:85,35 CAM:25,15 CAM:75,15 ST:50,7",
+  "3-4-3": "GK:50,88 CB:25,68 CB:50,68 CB:75,68 LM:15,40 CM:37,45 CM:63,45 RM:85,40 LW:20,15 ST:50,7 RW:80,15",
+  "3-5-2": "GK:50,88 CB:25,68 CB:50,68 CB:75,68 CDM:37,48 CDM:63,48 LM:15,35 CAM:50,25 RM:85,35 ST:33,7 ST:67,7",
+  "4-1-2-1-2": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:50,48 LM:15,35 RM:85,35 CAM:50,25 ST:33,7 ST:67,7",
+  "4-1-2-1-2 (2)": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:50,48 CM:20,35 CM:80,35 CAM:50,25 ST:33,7 ST:67,7",
+  "4-1-3-2": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:50,48 LM:15,30 CM:50,27 RM:85,30 ST:33,7 ST:67,7",
+  "4-1-4-1": "GK:50,88 LB:11,68 CB:33,68 CB:67,68 RB:89,68 CDM:50,50 LM:11,32 CM:33,35 CM:67,35 RM:89,32 ST:50,7",
+  "4-2-1-3": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:25,46 CDM:75,46 CAM:50,32 LW:18,15 ST:50,7 RW:82,15",
+  "4-2-2-2": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:37,47 CDM:63,47 CAM:20,28 CAM:80,28 ST:33,7 ST:67,7",
+  "4-2-3-1": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:32,47 CDM:68,47 CAM:25,23 CAM:50,30 CAM:75,23 ST:50,7",
+  "4-2-3-1 (2)": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:32,47 CDM:68,47 LM:17,29 CAM:50,29 RM:83,29 ST:50,7",
+  "4-2-4": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CM:37,39 CM:63,39 LW:13,18 ST:38,7 ST:62,7 RW:87,18",
+  "4-3-1-2": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CM:22,42 CM:50,47 CM:78,42 CAM:50,25 ST:33,7 ST:67,7",
+  "4-3-2-1": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CM:22,42 CM:50,42 CM:78,42 CAM:25,15 CAM:75,15 ST:50,7",
+  "4-3-3": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CM:22,42 CM:50,42 CM:78,42 LW:18,15 ST:50,7 RW:82,15",
+  "4-3-3 (2)": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:50,49 CM:22,42 CM:78,42 LW:18,15 ST:50,7 RW:82,15",
+  "4-3-3 (3)": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CDM:25,49 CDM:75,49 CM:50,42 LW:18,15 ST:50,7 RW:82,15",
+  "4-3-3 (4)": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 CM:25,43 CM:75,43 CAM:50,32 LW:18,15 ST:50,7 RW:82,15",
+  "4-4-1-1": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 LM:15,42 CM:37,47 CM:63,47 RM:85,42 CAM:50,27 ST:50,7",
+  "4-4-2": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 LM:15,38 CM:37,43 CM:63,43 RM:85,38 ST:33,7 ST:67,7",
+  "4-4-2 (2)": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 LM:15,38 CDM:37,47 CDM:63,47 RM:85,38 ST:33,7 ST:67,7",
+  "4-5-1": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 LM:15,40 CM:50,47 CAM:37,27 CAM:63,27 RM:85,40 ST:50,7",
+  "4-5-1 (2)": "GK:50,88 LB:13,68 CB:38,68 CB:62,68 RB:87,68 LM:12,26 CM:27,45 CM:50,37 CM:73,45 RM:88,26 ST:50,7",
+  "5-2-1-2": "GK:50,88 LB:13,51 CB:28,68 CB:50,68 CB:72,68 RB:87,51 CM:33,41 CM:67,41 CAM:50,25 ST:33,7 ST:67,7",
+  "5-2-3": "GK:50,88 LB:13,51 CB:28,68 CB:50,68 CB:72,68 RB:87,51 CM:32,38 CM:68,38 LW:18,15 ST:50,7 RW:82,15",
+  "5-3-2": "GK:50,88 LB:13,51 CB:28,68 CB:50,68 CB:72,68 RB:87,51 CM:27,35 CM:50,35 CM:73,35 ST:33,7 ST:67,7",
+  "5-4-1": "GK:50,88 LB:13,51 CB:28,68 CB:50,68 CB:72,68 RB:87,51 LM:13,22 CM:32,38 CM:68,38 RM:87,22 ST:50,7"
+};
+const MFKEY = {}; for (const f in MFXY) { const sp = MFXY[f].split(" ").map(t => { const [s, xy] = t.split(":"); return [s, xy.split(",").map(Number)]; }); MFKEY[sp.map(t => t[0]).sort().join()] = sp; }
 function pitchXY(slots) {                     // where each spot of a formation sits on the mini pitch, in %
+  const mf = MFKEY[slots.slice().sort().join()];
+  if (mf) { const used = new Set(); return slots.map(s => { const k = mf.findIndex((t, j) => t[0] === s && !used.has(j)); used.add(k); return mf[k][1].slice(); }); }
   const bands = {}; slots.forEach((sl, i) => (bands[PBAND(sl)] = bands[PBAND(sl)] || []).push(i));
   const xy = [], order = ["f", "am", "m", "dm", "d", "g"].filter(b => bands[b]), ys = {};
   order.forEach((b, i) => ys[b] = order.length < 2 ? 50 : 7 + (88 - 7) * i / (order.length - 1));
@@ -1017,15 +1051,7 @@ function pitchXY(slots) {                     // where each spot of a formation 
 }
 const PITCH_SVG = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g><rect x="3" y="2" width="94" height="96" rx="1"/><line x1="3" y1="50" x2="97" y2="50"/><ellipse cx="50" cy="50" rx="13" ry="6.5"/><rect x="28" y="84" width="44" height="14"/><rect x="28" y="2" width="44" height="14"/></g></svg>`;
 function pitchHTML(ps, mode, cap) {
-  const bands = {}; ps.forEach((p, i) => (bands[PBAND(p.slot)] = bands[PBAND(p.slot)] || []).push(i));
-  const xy = [], order = ["f", "am", "m", "dm", "d", "g"].filter(b => bands[b]), ys = {};
-  order.forEach((b, i) => ys[b] = order.length < 2 ? 50 : 7 + (88 - 7) * i / (order.length - 1));
-  const lift = s => ({ LW: 3, RW: 3, LM: -3, RM: -3, LB: -3, RB: -3 })[s] || 0;
-  for (const idx of Object.values(bands)) {
-    const o = idx.slice().sort((a, b) => PSIDE(ps[a].slot) - PSIDE(ps[b].slot) || a - b), n = o.length;
-    const span = n >= 5 ? [10, 90] : n === 4 ? [13, 87] : n === 3 ? [20, 80] : n === 2 ? [28, 72] : [50, 50];
-    o.forEach((i, k) => xy[i] = [n === 1 ? 50 : span[0] + (span[1] - span[0]) * k / (n - 1), ys[PBAND(ps[i].slot)] + lift(ps[i].slot)]);
-  }
+  const xy = pitchXY(ps.map(p => p.slot));
   // lit stats: My Club = its best stat, plus any other within 3 of it; Sim = the stat that slot uses (a second one only within 3 of it)
   const lit = p => { if (mode === "sbc") return []; if (mode !== "sim") { const v = p.eff, top = Math.max(...v); return v.map(x => top - x <= 3); }   // by the numbers shown (boosts and chem in)
     if (p.slot === "ST") return [1, 0, 0]; if (p.slot === "GK" || p.slot === "CB") return [0, 0, 1];
@@ -1384,7 +1410,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124d"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1410,7 +1436,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124d"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2226,7 +2252,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124c");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124d");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -3107,7 +3133,7 @@ function pzPlay() {
       return `<div class="pzmeter" id="pzMeter">${P.map(([n, v, c], k) => `<div class="seg${v / T < .16 ? " tight" : ""}${v / T < .07 ? " tiny" : ""}${v ? "" : " zero"}" data-w="${v / T * 100}" style="--c:${c};width:${(PZ.meterW || [])[k] != null ? PZ.meterW[k] : v / T * 100}%"><i></i><span><small>${n}</small><b>${fmtN(v)}</b></span></div>`).join("")}</div>`; })()}
     <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span>${pz.lockChem ? `<span class="${sc.ok ? "on" : ""}">🔒 Locked cards need ${pz.lockChem >= 3 ? "full" : pz.lockChem} chem</span>` : ""}${pz.chemEach ? `<span class="${cx ? "on" : ""}">+${pz.chemEach} per chem over ${pz.target}${cx ? ` (+${cx})` : ""}</span>` : ""}<span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
     ${MV != null ? `<div class="pzmove"><span>Tap a spot to move <b>${esc(PZ.team[MV].name)}</b>. Swaps if the spot is taken.</span><button class="ghost" id="pzMvX">Cancel</button></div>` : ""}
-    <div class="pitch pzpitch${MV != null ? " moving" : ""}" style="height:${Math.max(520, new Set(slots.map(PBAND)).size * 104)}px">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
+    <div class="pitch pzpitch${MV != null ? " moving" : ""}" style="height:540px">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
       return c ? `<button class="pc ${pzFrame(c)}${lk ? " lock" : ""}${!lk && pzBonusHit(c, pz.bonus) ? " bon" : ""}${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : pzBonusHit(c, pz.bonus) ? `<i class="bst" title="Bonus card"><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
         <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span></button>`
         : `<button class="pc empty${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span>${HN[i] ? `<span class="hint"><em><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg> ${HN[i].fit} fit</em><small>best +${HN[i].best} chem</small></span>` : ""}</button>`; }).join("")}</div>
