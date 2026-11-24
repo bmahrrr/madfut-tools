@@ -161,7 +161,7 @@ export default {
         if (name) {
           const pl = await env.DB.prepare("SELECT pid, name, at FROM players WHERE name_lc = ?1").bind(name).first();
           if (!pl) return json({ error: "No player with that name" }, 404);
-          const sc = await q("SELECT puzzle, set_id, pts, chem, rating, at FROM scores WHERE pid = ?1", pl.pid);
+          const sc = (await q("SELECT puzzle, set_id, pts, chem, rating, team, at FROM scores WHERE pid = ?1", pl.pid)).map(r => ({ ...r, team: (() => { try { return JSON.parse(r.team); } catch (e) { return []; } })() }));
           const best = Object.fromEntries(sc.map(r => [r.puzzle, r.pts])), ev = await q("SELECT k, at FROM ach WHERE pid = ?1", pl.pid);
           const st = await env.DB.prepare("SELECT submits FROM pstats WHERE pid = ?1").bind(pl.pid).first();
           return json({ name: pl.name, joined: pl.at, submits: st ? st.submits : 0,

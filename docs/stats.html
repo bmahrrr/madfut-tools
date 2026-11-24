@@ -33,7 +33,7 @@ input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--
 .pl .sub { display: block; color: var(--muted); font-size: 12px; }
 .det { background: #120f0d; border-radius: 10px; padding: 10px 12px; margin: 6px 0 4px; font-size: 13px; }
 .det h3 { font-size: 13px; color: var(--muted); margin: 10px 0 4px; font-weight: 600; } .det h3:first-child { margin-top: 0; }
-.det table td { padding: 4px 0; } .det table td + td { width: auto; padding-left: 10px; } .tag { display: inline-block; background: #2a241f; border-radius: 6px; padding: 2px 6px; margin: 2px 4px 2px 0; font-size: 12px; }
+.det table td { padding: 4px 0; } .det tr.sq { cursor: pointer; } .det tr.sqrow td { padding: 2px 0 8px; } .det table td + td { width: auto; padding-left: 10px; } .tag { display: inline-block; background: #2a241f; border-radius: 6px; padding: 2px 6px; margin: 2px 4px 2px 0; font-size: 12px; }
 .b-perfect { color: #e2ccff; } .b-gold { color: #ffd27a; } .b-silver { color: #d6dde6; } .b-bronze { color: #d99a6c; }
 button { margin-top: 8px; padding: 9px 14px; border-radius: 8px; border: 0; background: var(--acc); color: #000; font-weight: 700; font-size: 15px; }
 </style>
@@ -96,13 +96,13 @@ async function load() {
 // ---------- Puzzles players (owner only, same key) ----------
 const ADMIN = "https://madfut-puzzles.bmahrrr1.workers.dev/admin?key=";
 const MED = [["perfect", "Perfect"], ["gold", "Gold"], ["silver", "Silver"], ["bronze", "Bronze"]];
-let PZN = {}, PL = null, OPEN = "";
+let PZN = {}, PZF = {}, PL = null, OPEN = "", CARDS = null, FORMS = null;
 const ago = d => { if (!d) return "never"; const m = (Date.now() - Date.parse(d)) / 6e4; return m < 60 ? Math.max(1, Math.round(m)) + "m ago" : m < 1440 ? Math.round(m / 60) + "h ago" : Math.round(m / 1440) + "d ago"; };
 const meds = m => MED.filter(([k]) => m && m[k]).map(([k, n]) => `<span class="b-${k}">${m[k]} ${n}</span>`).join(" · ");
 async function loadPz() {
   if (!KEY) return;
   try {
-    if (!Object.keys(PZN).length) { const P = await fetch("puzzles.json").then(r => r.json()); for (const st of P.sets) st.puzzles.forEach((p, i) => PZN[p.id] = `${st.name} ${i + 1}`); }
+    if (!Object.keys(PZN).length) { const P = await fetch("puzzles.json").then(r => r.json()); for (const st of P.sets) st.puzzles.forEach((p, i) => { PZN[p.id] = `${st.name} ${i + 1}`; PZF[p.id] = p.formation; }); }
     const r = await fetch(ADMIN + encodeURIComponent(KEY)); const d = await r.json(); if (!r.ok) return; PL = d; drawPz();
   } catch (e) {}
 }
@@ -125,7 +125,22 @@ async function detail(name) {
   const sets = {}; for (const s of d.scores) (sets[s.set_id] = sets[s.set_id] || []).push(s);
   el.innerHTML = `<h3>Player</h3>Joined ${new Date(d.joined).toLocaleDateString("en-AU")} · ${d.submits} squads sent · top 10% on ${d.ach.top10} puzzles
     <h3>Achievements (${got.length})</h3>${got.map(([k, at]) => `<span class="tag">★ ${esc(achName(k))}${at ? " · " + new Date(at).toLocaleDateString("en-AU", { day: "numeric", month: "short" }) : ""}</span>`).join("") || "None yet"}
-    <h3>Scores</h3><table>${d.scores.map(s => `<tr><td>${esc(PZN[s.puzzle] || s.puzzle)}</td><td><span class="b-${s.band}">${s.pts} / ${s.top} · ${s.top ? Math.floor(100 * s.pts / s.top) : 0}%</span><span class="sub">${s.chem} chem · rated ${s.rating} · ${ago(s.at)}</span></td></tr>`).join("") || "<tr><td>No scores yet</td></tr>"}</table>`;
+    <h3>Scores</h3><table>${d.scores.map(s => `<tr class="sq" data-p="${esc(s.puzzle)}"><td><button class="nm">${esc(PZN[s.puzzle] || s.puzzle)} ›</button></td><td><span class="b-${s.band}">${s.pts} / ${s.top} · ${s.top ? Math.floor(100 * s.pts / s.top) : 0}%</span><span class="sub">${s.chem} chem · rated ${s.rating} · ${ago(s.at)}</span></td></tr><tr class="sqrow" data-p="${esc(s.puzzle)}" hidden><td colspan="2"></td></tr>`).join("") || "<tr><td>No scores yet</td></tr>"}</table>
+    <p class="muted">Tap a puzzle to see their squad for that score.</p>`;
+  el.querySelectorAll("tr.sq").forEach(tr => tr.onclick = () => squad(el, d, tr.dataset.p));
+}
+// a player's squad for their best score on one puzzle (cards loaded the first time one is opened)
+async function squad(el, d, id) {
+  const row = el.querySelector(`tr.sqrow[data-p="${CSS.escape(id)}"]`); if (!row) return;
+  if (!row.hidden) { row.hidden = true; return; }
+  row.hidden = false; const td = row.firstElementChild; td.innerHTML = `<span class="muted">Loading squad…</span>`;
+  try {
+    if (!CARDS) { const cj = await fetch("cards.json").then(r => r.json()); CARDS = new Map(cj.cards.map(r => { const c = {}; cj.fields.forEach((f, i) => c[f] = r[i]); return [c.id, c]; })); }
+    if (!FORMS) FORMS = await fetch("formations.json").then(r => r.json());
+  } catch (e) { td.textContent = "Couldn't load the cards."; return; }
+  const s = d.scores.find(x => x.puzzle === id), slots = FORMS[PZF[id]] || [];
+  td.innerHTML = `<div class="tag" style="display:block;background:none;padding:0">${PZF[id] ? esc(PZF[id]) : ""}</div>` + (s.team || []).map((cid, i) => { const c = CARDS.get(cid);
+    return `<span class="tag">${esc(slots[i] || "")} <b>${c ? esc(c.name) : esc(cid)}</b>${c ? " " + c.rating : ""}</span>`; }).join("");
 }
 load(); loadPz(); setInterval(() => { if (KEY && document.visibilityState === "visible") load(); }, 30e3); setInterval(() => { if (KEY && document.visibilityState === "visible" && !OPEN) loadPz(); }, 300e3);
 </script>
