@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MadFut Tools (Test)</title>
-<meta name="app-version" content="20261124a">
+<meta name="app-version" content="20261124b">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#0f0b0d">
@@ -778,21 +778,14 @@ html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial N
 .pzpitch.moving .pc.mvoop::after{content:"0 chem";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);padding:3px 6px;border-radius:99px;font:700 9.5px/1 var(--body);color:#ffb3a8;background:#3a1a16;border:1px solid color-mix(in srgb,var(--loss) 60%,transparent);white-space:nowrap;z-index:2}
 @keyframes pzPulse{50%{outline-color:transparent}}
 
-/* Puzzles look: game-style card frames, bonus glow, chem link lines, points in the picker, hint */
+/* Puzzles look: game-style card frames (no top bar), bonus cards glow */
+.pzpitch .pc::before{display:none}
 .pzpitch .pc.t-gold{background:linear-gradient(165deg,#3b3014 0%,#1b150b 55%);border-color:#b8933e}
 .pzpitch .pc.t-silver{background:linear-gradient(165deg,#30343a 0%,#16181b 55%);border-color:#8d96a3}
 .pzpitch .pc.t-bronze{background:linear-gradient(165deg,#3a2618 0%,#1a120c 55%);border-color:#a9714a}
 .pzpitch .pc.t-sp{background:linear-gradient(165deg,color-mix(in srgb,var(--tint) 30%,#14100d) 0%,#14100d 60%);border-color:color-mix(in srgb,var(--tint) 75%,transparent)}
 .pzpitch .pc.bon{box-shadow:0 0 0 1.5px #ffd36b,0 0 14px rgba(255,200,80,.45),0 3px 8px rgba(0,0,0,.35)}
-.pzpitch .pzll{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.pzpitch .pzll line{stroke-width:2.5;vector-effect:non-scaling-stroke;opacity:.4;stroke-linecap:round}
-.pzpitch .pzll line.lk-c{opacity:.6;stroke-width:3}.pzpitch .pzll line.lk-n{stroke-dasharray:4 4}
-.pzpitch .pc{z-index:1}
 #gameBox .pzpts small .off{color:#ffd36b;font-weight:700}
-#pzSheet .pzlist .cpv .pd{font:700 10.5px/1 var(--body);color:var(--muted);white-space:nowrap}
-#pzSheet .pzlist .cpv .pd.up{color:#ffd36b}#pzSheet .pzlist .cpv .pd.down{color:#ff8a8a}
-#gameBox .pzhint{margin:4px 0 10px;padding:10px 12px;border-radius:12px;font-size:13.5px;line-height:1.5;background:color-mix(in srgb,#ffd36b 9%,transparent);border:1px solid color-mix(in srgb,#ffd36b 35%,transparent)}
-#gameBox .pzhint b{color:#ffd36b}#gameBox .pzhint .hw{display:inline-block;padding:1px 7px;margin:2px 0;border-radius:7px;background:rgba(255,255,255,.06)}
 </style>
 <script>
 // Flags: phones and Macs draw flag emoji, Windows shows two letters instead ("FR"). There, load a flag-only font.
@@ -990,10 +983,10 @@ html.flagfont{--display:"Twemoji Country Flags","Saira Extra Condensed","Arial N
   <small class="credit">Flag images on Windows: Twemoji, CC-BY 4.0</small>
 </div></div>
 
-<script src="test/engine.js?v=20261124a"></script>
-<script src="test/sbc-solver.js?v=20261124a"></script>
-<script src="test/puzzle-core.js?v=20261124a"></script>
-<script src="test/app.js?v=20261124a"></script>
+<script src="test/engine.js?v=20261124b"></script>
+<script src="test/sbc-solver.js?v=20261124b"></script>
+<script src="test/puzzle-core.js?v=20261124b"></script>
+<script src="test/app.js?v=20261124b"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "116c56738b8f45f5ba27853fc4d14947"}'></script>
 </body>
 </html>

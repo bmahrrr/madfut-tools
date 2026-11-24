@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261124a";
+const APP_V = "20261124b";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1384,7 +1384,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124b"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1410,7 +1410,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124b"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2226,7 +2226,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124a");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124b");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -3082,56 +3082,16 @@ function pzSlotHints(pz, slots, team) {
   });
   PZ.hintSig = sig; PZ.hints = out; return out;
 }
-// live points for a squad (what the meter shows), also used by the picker and the hint
+// live points for a squad (what the meter shows)
 function pzLiveOf(pz, slots, team) {
   const locked = new Set(pz.locked.map(l => l.i)), free = team.filter((c, i) => c && !locked.has(i)), sc = pzScore(pz, slots, team);
   const hits = free.filter(c => pzBonusHit(c, pz.bonus)).length, icons = free.some(c => SBC_AUTO.has(c.color));
   const placed = team.filter(Boolean), rNow = placed.length ? teamRatingOf(placed.map(c => c.rating)) : 0, bud = pz.budget ? pzBudget(pz, rNow) : 0;
   const cx = pz.chemEach ? Math.max(0, sc.total - pz.target) * pz.chemEach : 0;
-  return { sc, hits, icons, rNow, bud, cx, free: free.length, live: pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud + cx };
+  return { sc, live: pz.pts + hits * pz.bonus.each + (icons ? 0 : pz.noIcon) + bud + cx };
 }
 // card frame like the game's: gold, silver, bronze or the promo's colour
 const pzFrame = c => { const k = String(c.color).replace(/^rare_/, ""); return k === "gold" || k === "silver" || k === "bronze" ? "t-" + k : "t-sp"; };
-// faint lines on the pitch between cards that give each other chem: club first, then league, then nation
-function pzLinkLines(slots, team, xy, LK) {
-  const done = new Set(), out = [], fitsAt = i => team[i] && pzFits(team[i], slots[i]);
-  const groups = [["c", c => SBC_AUTO.has(c.color) ? null : c.clubId], ["l", c => SBC_ICON.has(c.color) ? null : c.leagueId], ["n", c => c.nationId]];
-  for (const [k, key] of groups) {
-    const by = new Map();
-    team.forEach((c, i) => { if (!fitsAt(i)) return; const id = key(c); if (id == null || !LK.col[k].get(id)) return; (by.get(id) || by.set(id, []).get(id)).push(i); });
-    for (const [id, L] of by) {
-      if (L.length < 2) continue;
-      // join the group in a chain, each card to its nearest card not joined yet
-      const left = L.slice(1), chain = [L[0]];
-      while (left.length) { const a = chain[chain.length - 1]; let bi = 0, bd = 1e9; left.forEach((b, j) => { const d = (xy[a][0] - xy[b][0]) ** 2 + (xy[a][1] - xy[b][1]) ** 2; if (d < bd) { bd = d; bi = j; } }); chain.push(left.splice(bi, 1)[0]); }
-      for (let j = 1; j < chain.length; j++) { const a = chain[j - 1], b = chain[j], pk = Math.min(a, b) + "-" + Math.max(a, b); if (done.has(pk)) continue; done.add(pk);
-        out.push(`<line x1="${xy[a][0]}" y1="${xy[a][1] + 3}" x2="${xy[b][0]}" y2="${xy[b][1] + 3}" stroke="${LK.col[k].get(id)}" class="lk-${k}"/>`); }
-    }
-  }
-  return out.length ? `<svg class="pzll" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${out.join("")}</svg>` : "";
-}
-// hint: ways the points left to Perfect could add up (bonus cards, chem, squad rating). Never shows a squad
-function pzHint(pz, slots) {
-  const L = pzLiveOf(pz, slots, PZ.team), top = pzTop(pz.id);
-  if (!L.sc.ok) return `Finish a squad that meets the rules first (${esc(L.sc.why || "not done yet")}), then ask for a hint.`;
-  const gap = top - L.live;
-  if (!top) return "No top score for this puzzle yet.";
-  if (gap <= 0) return "That's Perfect. Nothing left to find.";
-  const B = pz.bonus.each, C = pz.chemEach || 0, R = pz.budget ? pz.budget.each : 0, ways = [];
-  for (let dh = -L.hits; dh <= L.free - L.hits; dh++)
-    for (let dc = pz.target - L.sc.total; dc <= 33 - L.sc.total; dc++) {
-      if (!C && dc) continue;
-      const cxN = C ? Math.max(0, L.sc.total + dc - pz.target) * C : 0, rest = gap - dh * B - (cxN - L.cx) - (L.icons ? pz.noIcon : 0);
-      if (!R) { if (rest === 0) ways.push([dh, dc, 0, cxN - L.cx]); continue; }
-      if (rest % R) continue; const dr = -rest / R, rN = L.rNow + dr;
-      if (rN < 45 || rN >= pz.budget.par) continue;
-      ways.push([dh, dc, dr, cxN - L.cx]);
-    }
-  ways.sort((a, b) => (Math.abs(a[0]) + Math.abs(a[1]) + Math.abs(a[2])) - (Math.abs(b[0]) + Math.abs(b[1]) + Math.abs(b[2])));
-  const say = ([dh, dc, dr, cp]) => [dh ? `${dh > 0 ? dh + " more" : -dh + " fewer"} bonus card${Math.abs(dh) > 1 ? "s" : ""} (${dh > 0 ? "+" : "−"}${Math.abs(dh * B)})` : "",
-    dc && C ? `${dc > 0 ? dc + " more" : -dc + " less"} chem${cp ? ` (${cp > 0 ? "+" : "−"}${Math.abs(cp)})` : ""}` : "", dr ? `squad rated ${L.rNow + dr} (${dr < 0 ? "+" : "−"}${Math.abs(dr * R)})` : ""].filter(Boolean).join(", ");
-  return `<b>${gap} points</b> off Perfect.${L.icons ? ` Dropping your Icons or Heroes is worth +${pz.noIcon}.` : ""}<br>The top score could come from: ${ways.slice(0, 3).map(w => `<span class="hw">${say(w) || "the same totals"}</span>`).join(" or ") || "a different mix of bonus cards, chem and rating"}.`;
-}
 function pzPlay() {
   const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
   // one line per nation / league / club in the squad: how many you have, the chem it gives each of them, and how many more for the next step
@@ -3155,17 +3115,16 @@ function pzPlay() {
       return `<div class="pzmeter" id="pzMeter">${P.map(([n, v, c], k) => `<div class="seg${v / T < .16 ? " tight" : ""}${v / T < .07 ? " tiny" : ""}${v ? "" : " zero"}" data-w="${v / T * 100}" style="--c:${c};width:${(PZ.meterW || [])[k] != null ? PZ.meterW[k] : v / T * 100}%"><i></i><span><small>${n}</small><b>${fmtN(v)}</b></span></div>`).join("")}</div>`; })()}
     <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span>${pz.lockChem ? `<span class="${sc.ok ? "on" : ""}">🔒 Locked cards need ${pz.lockChem >= 3 ? "full" : pz.lockChem} chem</span>` : ""}${pz.chemEach ? `<span class="${cx ? "on" : ""}">+${pz.chemEach} per chem over ${pz.target}${cx ? ` (+${cx})` : ""}</span>` : ""}<span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
     ${MV != null ? `<div class="pzmove"><span>Tap a spot to move <b>${esc(PZ.team[MV].name)}</b>. Swaps if the spot is taken.</span><button class="ghost" id="pzMvX">Cancel</button></div>` : ""}
-    <div class="pitch pzpitch${MV != null ? " moving" : ""}">${PITCH_SVG}${pzLinkLines(slots, PZ.team, xy, LK)}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
+    <div class="pitch pzpitch${MV != null ? " moving" : ""}">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
       return c ? `<button class="pc ${pzFrame(c)}${lk ? " lock" : ""}${!lk && pzBonusHit(c, pz.bonus) ? " bon" : ""}${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : pzBonusHit(c, pz.bonus) ? `<i class="bst" title="Bonus card"><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
         <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span></button>`
         : `<button class="pc empty${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span>${HN[i] ? `<span class="hint"><em><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg> ${HN[i].fit} fit</em><small>best +${HN[i].best} chem</small></span>` : ""}</button>`; }).join("")}</div>
     <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
       <p class="small muted" style="margin:6px 0 4px">Each player gets chem from their nation, league and club. More players sharing one gives each of them more (max 3 chem per player).</p>
       ${linkRow("n", "Nations", nName, flagOf)}${linkRow("l", "Leagues", lShort)}${linkRow("c", "Clubs", cShort)}</details>
-    <div class="pzact"><button class="ghost" id="pzClear">Clear</button>${pzCanUndo() ? `<button class="ghost" id="pzUndo" title="Undo the last change">↶ Undo</button>` : ""}<button class="ghost" id="pzHint" title="Where the rest of the points could come from">Hint</button><button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
-    <div id="pzHintBox" class="pzhint" hidden></div><div id="pzMsg"></div>`;
+    <div class="pzact"><button class="ghost" id="pzClear">Clear</button>${pzCanUndo() ? `<button class="ghost" id="pzUndo" title="Undo the last change">↶ Undo</button>` : ""}<button class="btn" id="pzGo"${sc.ok ? "" : " disabled"}>${sc.ok ? "Submit" : esc(sc.why || "Not done yet")}</button>${nx ? `<button class="ghost" data-pz="${esc(nx.id)}">Next ›</button>` : ""}</div>
+    <div id="pzMsg"></div>`;
   pzWire();
-  $("pzHint").onclick = () => { const h = $("pzHintBox"); h.hidden = !h.hidden; if (!h.hidden) { h.innerHTML = pzHint(pz, slots); h.scrollIntoView({ behavior: "smooth", block: "nearest" }); } };
   // points meter: slide from the last widths to the new ones
   { const segs = [...document.querySelectorAll("#pzMeter .seg")]; requestAnimationFrame(() => segs.forEach(e => { e.style.width = e.dataset.w + "%"; })); PZ.meterW = segs.map(e => +e.dataset.w); }
   $("pzClear").onclick = () => { pzRemember(); PZ.team = PZ.team.map((c, i) => locked.has(i) ? c : null); pzSave(); pzPlay(); };
@@ -3219,7 +3178,7 @@ function pzPick(i) {
       + sel("pzFcl", "Club", F.cl, opts("cl", c => SBC_AUTO.has(c.color) ? null : c.clubId, k => cName(k)), "Any")
       + sel("pzFty", "Card Type", F.type, opts("type", tk, tl, (a, b) => ((TORDER.indexOf(a[0]) + 1 || 9) - (TORDER.indexOf(b[0]) + 1 || 9)) || a[1].localeCompare(b[1])), "Any")
       + `<label class="pzsel${F.lo || F.hi ? " on" : ""}"><span>Rating</span><span class="rr"><select id="pzFlo"><option value="">Min</option>${RATINGS.slice().reverse().map(r => `<option${+F.lo === r ? " selected" : ""}>${r}</option>`).join("")}</select><select id="pzFhi"><option value="">Max</option>${RATINGS.map(r => `<option${+F.hi === r ? " selected" : ""}>${r}</option>`).join("")}</select></span></label>`
-      + `<div class="pzseg" role="group" aria-label="Sort"><span>Sort</span><div><button data-sort="best" class="${F.sort === "best" ? "on" : ""}">Best</button><button data-sort="up" class="${F.sort === "up" ? "on" : ""}">Low ↑</button><button data-sort="down" class="${F.sort === "down" ? "on" : ""}">High ↓</button></div></div>`
+      + `<div class="pzseg" role="group" aria-label="Sort by rating"><span>Sort</span><div><button data-sort="up" class="${F.sort === "up" ? "on" : ""}">Low ↑</button><button data-sort="down" class="${F.sort === "down" ? "on" : ""}">High ↓</button></div></div>`
       + (F.nat || F.lg || F.cl || F.type || F.lo || F.hi || F.pos !== sl ? `<button class="pzreset" id="pzReset">Reset</button>` : "");
     const on = (id, k) => { $(id).onchange = e => { F[k] = e.target.value; drawAll(); }; };
     on("pzFpos", "pos"); on("pzFnat", "nat"); on("pzFlg", "lg"); on("pzFcl", "cl"); on("pzFty", "type");
@@ -3231,17 +3190,14 @@ function pzPick(i) {
   };
   // chem preview: what the squad's chem would be with this card here (and this card's own chem in the spot)
   const slotsP = pzSlots(pz), chemNow = pzChem(slotsP, PZ.team).reduce((a, b) => a + b, 0);
-  const liveNow = pzLiveOf(pz, slotsP, PZ.team).live, PV = new Map();
-  const preview = c => { let v = PV.get(c.id); if (v) return v; const t = PZ.team.slice(); t[i] = c; const ch = pzChem(slotsP, t);
-    v = { own: ch[i], d: ch.reduce((a, b) => a + b, 0) - chemNow, p: pzLiveOf(pz, slotsP, t).live - liveNow }; PV.set(c.id, v); return v; };
+  const preview = c => { const t = PZ.team.slice(); t[i] = c; const ch = pzChem(slotsP, t); return { own: ch[i], d: ch.reduce((a, b) => a + b, 0) - chemNow }; };
   const row = c => { const off = !c.P.has(sl), pv = preview(c);
-    return `<button data-c="${esc(c.id)}" class="${off ? "off" : ""}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))} · ${esc(c.position)}${c.altPositions ? "/" + esc(String(c.altPositions).replace(/,/g, "/")) : ""}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${off ? `<i class="oop">0 chem at ${esc(sl)}</i>` : ""}${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}<span class="cpv${pv.d > 0 ? " up" : pv.d < 0 ? " down" : ""}"><b>${pv.d > 0 ? "+" + pv.d : pv.d < 0 ? "−" + -pv.d : "±0"}</b><span class="dm">${[0, 1, 2].map(k => `<i class="${k < pv.own ? "on" : ""}"></i>`).join("")}</span><small class="pd${pv.p > 0 ? " up" : pv.p < 0 ? " down" : ""}">${pv.p > 0 ? "+" : pv.p < 0 ? "−" : "±"}${Math.abs(pv.p)} pts</small></span></button>`; };
+    return `<button data-c="${esc(c.id)}" class="${off ? "off" : ""}"><b>${c.rating}</b><span><em>${esc(c.name)}</em><small>${flagOf(c.nationId)} ${esc(nName(c.nationId))} · ${esc(TYPE(c.color))} · ${esc(c.position)}${c.altPositions ? "/" + esc(String(c.altPositions).replace(/,/g, "/")) : ""}</small><small>${esc(SBC_AUTO.has(c.color) ? lShort(c.leagueId) : cShort(c.clubId) + " · " + lShort(c.leagueId))}</small></span>${off ? `<i class="oop">0 chem at ${esc(sl)}</i>` : ""}${pzBonusHit(c, pz.bonus) ? `<i>★</i>` : ""}<span class="cpv${pv.d > 0 ? " up" : pv.d < 0 ? " down" : ""}"><b>${pv.d > 0 ? "+" + pv.d : pv.d < 0 ? "−" + -pv.d : "±0"}</b><span class="dm">${[0, 1, 2].map(k => `<i class="${k < pv.own ? "on" : ""}"></i>`).join("")}</span></span></button>`; };
   const more = () => { const L = $("pzL"), n = Math.min(list.length, shown + 80); L.insertAdjacentHTML("beforeend", list.slice(shown, n).map(row).join("")); shown = n; };
   const drawList = () => {
     const w = nq().split(/\s+/).filter(Boolean);
     list = all.filter(c => pass(c) && (nq().length < 2 || w.every(x => c._n.includes(x))));
-    if (F.sort === "best") list.sort((a, b) => preview(b).p - preview(a).p || preview(b).d - preview(a).d || a.rating - b.rating || a.name.localeCompare(b.name));   // most points first
-    else { const d = F.sort === "up" ? 1 : -1; list.sort((a, b) => d * (a.rating - b.rating) || a.name.localeCompare(b.name)); }
+    const d = F.sort === "up" ? 1 : -1; list.sort((a, b) => d * (a.rating - b.rating) || a.name.localeCompare(b.name));
     top = list[0] || null; shown = 0; $("pzL").innerHTML = list.length ? "" : `<p class="small muted" style="padding:12px">No cards for that. Try other filters.</p>`; $("pzL").scrollTop = 0; more();
     $("pzN").textContent = `${list.length.toLocaleString()} card${list.length === 1 ? "" : "s"}`;
   };
