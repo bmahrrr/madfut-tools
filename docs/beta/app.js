@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261122f";
+const APP_V = "20261124c";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -1384,7 +1384,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261122f"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261124c"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1410,7 +1410,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261122f"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261124c"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2226,7 +2226,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261122f");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261124c");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -3082,6 +3082,8 @@ function pzSlotHints(pz, slots, team) {
   });
   PZ.hintSig = sig; PZ.hints = out; return out;
 }
+// card frame like the game's: gold, silver, bronze or the promo's colour
+const pzFrame = c => { const k = String(c.color).replace(/^rare_/, ""); return k === "gold" || k === "silver" || k === "bronze" ? "t-" + k : "t-sp"; };
 function pzPlay() {
   const pz = PZ.pz, slots = pzSlots(pz), sc = pzScore(pz, slots, PZ.team), xy = pitchXY(slots), locked = new Set(pz.locked.map(l => l.i)), LK = pzLinks(slots, PZ.team);
   // one line per nation / league / club in the squad: how many you have, the chem it gives each of them, and how many more for the next step
@@ -3100,13 +3102,13 @@ function pzPlay() {
   const set = PZ.data.sets.find(s => s.puzzles.includes(pz)), nx = set.puzzles[set.puzzles.indexOf(pz) + 1];
   $("gameBox").innerHTML = `<div class="pzbar t-${set.tier}"><button class="ghost" data-pzgo="set">‹ ${esc(set.name)}</button><b>Puzzle ${pz.n}<small>${esc(pz.formation)}</small></b><button class="ghost" data-pzlb="${esc(set.id)}" data-pzlbp="${esc(pz.id)}">Ranks</button></div>
     <div class="pzhud"><div class="pzchem"><b class="${sc.total >= pz.target ? "ok" : ""}">${sc.total}</b><span>/ ${pz.target} chem</span><div class="bar"><i style="width:${pct}%"></i><em style="left:${tp}%"></em></div></div>
-      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${fmtN(pz.pts)} + bonus${best ? ` · best <span class="pzb-${pzBand(pz.id, best)}">${fmtN(best)}</span>` : ""}${best && pzTop(pz.id) && !pzPerfect(pz.id, best) ? ` · ${pzPct(pz.id, best)}% of Perfect` : ""}</small></div></div>
+      <div class="pzpts"><span>Points</span><b>${fmtN(live)}</b><small>${(() => { const tp = pzTop(pz.id), g = tp - live; return sc.ok && tp ? (g <= 0 ? `<span class="pzb-perfect">Perfect</span> · ` : `<span class="off">${fmtN(g)} off Perfect</span> · `) : ""; })()}${fmtN(pz.pts)} + bonus${best ? ` · best <span class="pzb-${pzBand(pz.id, best)}">${fmtN(best)}</span>` : ""}${best && pzTop(pz.id) && !pzPerfect(pz.id, best) ? ` · ${pzPct(pz.id, best)}% of Perfect` : ""}</small></div></div>
     ${(() => { const P = [["Base", pz.pts, "#8a8f98"], ["Bonus", hits * pz.bonus.each, "#ffcf5a"], ["No Icons", icons ? 0 : pz.noIcon, "#3ddc97"], ["Budget", bud, "#3ddcff"], ...(pz.chemEach ? [["Chem", cx, "#b98cff"]] : [])], T = P.reduce((a, x) => a + x[1], 0) || 1;
       return `<div class="pzmeter" id="pzMeter">${P.map(([n, v, c], k) => `<div class="seg${v / T < .16 ? " tight" : ""}${v / T < .07 ? " tiny" : ""}${v ? "" : " zero"}" data-w="${v / T * 100}" style="--c:${c};width:${(PZ.meterW || [])[k] != null ? PZ.meterW[k] : v / T * 100}%"><i></i><span><small>${n}</small><b>${fmtN(v)}</b></span></div>`).join("")}</div>`; })()}
     <div class="pzbon"><span class="${hits ? "on" : ""}">${bonusText(pz)}${hits ? ` · ${hits}` : ""}</span>${pz.lockChem ? `<span class="${sc.ok ? "on" : ""}">🔒 Locked cards need ${pz.lockChem >= 3 ? "full" : pz.lockChem} chem</span>` : ""}${pz.chemEach ? `<span class="${cx ? "on" : ""}">+${pz.chemEach} per chem over ${pz.target}${cx ? ` (+${cx})` : ""}</span>` : ""}<span class="${icons ? "" : "on"}">+${pz.noIcon} no Icons or Heroes</span>${pz.budget ? `<span class="${bud ? "on" : ""}">+${pz.budget.each} per rating under ${pz.budget.par}${rNow ? ` · rated ${rNow}${bud ? ` (+${bud})` : ""}` : ""}</span>` : ""}</div>
     ${MV != null ? `<div class="pzmove"><span>Tap a spot to move <b>${esc(PZ.team[MV].name)}</b>. Swaps if the spot is taken.</span><button class="ghost" id="pzMvX">Cancel</button></div>` : ""}
-    <div class="pitch pzpitch${MV != null ? " moving" : ""}">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
-      return c ? `<button class="pc${lk ? " lock" : ""}${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : pzBonusHit(c, pz.bonus) ? `<i class="bst" title="Bonus card"><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
+    <div class="pitch pzpitch${MV != null ? " moving" : ""}" style="height:${Math.max(520, new Set(slots.map(PBAND)).size * 104)}px">${PITCH_SVG}${slots.map((sl, i) => { const c = PZ.team[i], lk = locked.has(i), ch = sc.chem[i];
+      return c ? `<button class="pc ${pzFrame(c)}${lk ? " lock" : ""}${!lk && pzBonusHit(c, pz.bonus) ? " bon" : ""}${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%;--tint:${tintOf(c)}">${lk ? `<i class="lk">🔒</i>` : pzBonusHit(c, pz.bonus) ? `<i class="bst" title="Bonus card"><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></i>` : ""}<b class="r">${c.rating}</b><span class="ps">${esc(sl)}</span>${(([nm, z]) => `<span class="pn" style="font-size:${z}px">${esc(nm)}</span>`)(pnFit(c.name))}<span class="pchem">${[0, 1, 2].map(k => `<i class="${k < ch ? "on" : ""}"></i>`).join("")}</span>
         <span class="plink"><i class="fl" style="--g:${LK.col.n.get(c.nationId) || ""}" title="${esc(nName(c.nationId))}">${flagOf(c.nationId) || esc(nat3(c.nationId))}</i>${SBC_ICON.has(c.color) ? `<i class="ic">ALL</i>` : `<i style="--g:${LK.col.l.get(c.leagueId) || ""}" title="${esc(lShort(c.leagueId))}">${esc(lg3(c.leagueId))}</i>`}${SBC_AUTO.has(c.color) ? "" : `<i style="--g:${LK.col.c.get(c.clubId) || ""}" title="${esc(cShort(c.clubId))}">${esc(club3(c.clubId))}</i>`}</span></button>`
         : `<button class="pc empty${mvCls(i)}" data-slot="${i}" style="left:${xy[i][0]}%;top:${xy[i][1] + 3}%"><b>+</b><span class="ps">${esc(sl)}</span>${HN[i] ? `<span class="hint"><em><svg class="st" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg> ${HN[i].fit} fit</em><small>best +${HN[i].best} chem</small></span>` : ""}</button>`; }).join("")}</div>
     <details class="pzlinks"><summary>Chem links <small>tap to see what gives chem</small></summary>
