@@ -1,7 +1,8 @@
 {
- "g": 2,
+ "g": 3,
  "obj_ids": [
   "id203574",
+  "id210406",
   "id50608975"
  ],
  "strength": 100.7,
@@ -14,76 +15,79 @@
  ],
  "team": {
   "formation": "4-1-4-1",
-  "chem": 29,
+  "chem": 28,
   "players": [
    {
     "slot": "GK",
-    "id": "id214979",
-    "name": "Musso",
+    "id": "id233306",
+    "name": "Henderson",
     "rating": 82,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 52,
-    "leagueId": 53,
-    "clubId": 240,
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1799,
     "card": [
-     34,
-     29,
+     39,
+     36,
      83
     ],
     "chem": 3,
     "eff": [
-     36,
-     31,
+     41,
+     38,
      85
     ],
-    "tiebreak": 152
+    "tiebreak": 164
    },
    {
     "slot": "LB",
-    "id": "id50593513",
-    "name": "Miguel Gutiérrez",
-    "rating": 82,
-    "color": "totw_gold",
+    "id": "evo_Acuña_81",
+    "name": "Acuña",
+    "rating": 81,
+    "color": "evo",
     "position": "LB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     79,
      80,
+     83,
      81
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     81,
-     82,
-     83
+     80,
+     83,
+     81
     ],
-    "tiebreak": 246
+    "tiebreak": 244,
+    "evos": [
+     "Albiceleste Upgrade"
+    ]
    },
    {
     "slot": "CB",
-    "id": "id232488",
-    "name": "Romero",
+    "id": "id239301",
+    "name": "Martínez",
     "rating": 82,
     "color": "rare_gold",
     "position": "CB",
     "nationId": 52,
-    "leagueId": 53,
-    "clubId": 240,
+    "leagueId": 13,
+    "clubId": 11,
     "card": [
-     59,
-     63,
-     83
+     70,
+     75,
+     82
     ],
     "chem": 3,
     "eff": [
-     61,
-     65,
-     85
+     72,
+     77,
+     84
     ],
-    "tiebreak": 211
+    "tiebreak": 233
    },
    {
     "slot": "CB",
@@ -100,39 +104,36 @@
      73,
      82
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     68,
-     74,
-     83
+     69,
+     75,
+     84
     ],
-    "tiebreak": 225
+    "tiebreak": 228
    },
    {
     "slot": "RB",
-    "id": "evo_Lucas Vázquez_80",
-    "name": "Lucas Vázquez",
-    "rating": 80,
-    "color": "evo",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 19,
-    "clubId": 32,
+    "id": "id243657",
+    "name": "Garner",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "CDM",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 7,
     "card": [
-     82,
-     83,
-     78
+     74,
+     79,
+     80
     ],
     "chem": 3,
     "eff": [
-     84,
-     85,
-     80
+     76,
+     81,
+     82
     ],
-    "tiebreak": 249,
-    "evos": [
-     "Silver Maestro"
-    ]
+    "tiebreak": 239
    },
    {
     "slot": "CDM",
@@ -149,108 +150,108 @@
      81,
      68
     ],
-    "chem": 2,
-    "eff": [
-     81,
-     82,
-     69
-    ],
-    "tiebreak": 232
-   },
-   {
-    "slot": "LM",
-    "id": "evo_Acuña_81",
-    "name": "Acuña",
-    "rating": 81,
-    "color": "evo",
-    "position": "LB",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 1876,
-    "card": [
-     80,
-     83,
-     81
-    ],
     "chem": 3,
     "eff": [
      82,
-     85,
-     83
+     83,
+     70
     ],
-    "tiebreak": 250,
+    "tiebreak": 235
+   },
+   {
+    "slot": "LM",
+    "id": "id67349814",
+    "name": "Pedro Gonçalves",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "LM",
+    "nationId": 38,
+    "leagueId": 31,
+    "clubId": 110374,
+    "card": [
+     81,
+     81,
+     62
+    ],
+    "chem": 3,
+    "eff": [
+     84,
+     84,
+     65
+    ],
+    "tiebreak": 230
+   },
+   {
+    "slot": "CM",
+    "id": "evo_Bruno Costa_81",
+    "name": "Bruno Costa",
+    "rating": 81,
+    "color": "evo",
+    "position": "CM",
+    "nationId": 38,
+    "leagueId": 330,
+    "clubId": 114385,
+    "card": [
+     83,
+     83,
+     73
+    ],
+    "chem": 1,
+    "eff": [
+     84,
+     84,
+     74
+    ],
+    "tiebreak": 239,
     "evos": [
-     "Albiceleste Upgrade"
+     "Romanian Superliga Silver"
     ]
    },
    {
     "slot": "CM",
-    "id": "id84161109",
-    "name": "Maza",
+    "id": "id227236",
+    "name": "Zambo Anguissa",
     "rating": 82,
-    "color": "totw_gold",
-    "position": "CAM",
-    "nationId": 97,
-    "leagueId": 19,
-    "clubId": 32,
+    "color": "rare_gold",
+    "position": "CM",
+    "nationId": 103,
+    "leagueId": 31,
+    "clubId": 48,
     "card": [
-     81,
-     83,
-     64
+     79,
+     77,
+     80
     ],
     "chem": 2,
     "eff": [
-     82,
-     84,
-     65
+     80,
+     78,
+     81
     ],
-    "tiebreak": 231
-   },
-   {
-    "slot": "CM",
-    "id": "id207439",
-    "name": "Paredes",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 1877,
-    "card": [
-     75,
-     81,
-     74
-    ],
-    "chem": 3,
-    "eff": [
-     77,
-     83,
-     76
-    ],
-    "tiebreak": 236
+    "tiebreak": 239
    },
    {
     "slot": "RM",
-    "id": "id183898",
-    "name": "Di María",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 52,
-    "leagueId": 353,
-    "clubId": 110580,
+    "id": "id50575254",
+    "name": "Lewis-Potter",
+    "rating": 81,
+    "color": "squad_foundations",
+    "position": "LB",
+    "nationId": 14,
+    "leagueId": 13,
+    "clubId": 1925,
     "card": [
-     81,
-     83,
-     46
+     78,
+     78,
+     79
     ],
     "chem": 3,
     "eff": [
-     83,
-     85,
-     48
+     80,
+     80,
+     81
     ],
-    "tiebreak": 216
+    "tiebreak": 241
    },
    {
     "slot": "ST",
@@ -267,13 +268,13 @@
      76,
      47
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
-     84,
-     77,
-     48
+     85,
+     78,
+     49
     ],
-    "tiebreak": 209
+    "tiebreak": 212
    }
   ]
  },
@@ -311,19 +312,19 @@
   "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "base_ids": [
-  "id214979",
-  "evo_Acuña_81",
-  "id232488",
-  "id239340",
-  "evo_Lucas Vázquez_80",
-  "id242187",
-  "id84161109",
-  "id207439",
-  "id67341275",
-  "id50570548",
-  "id183898"
+  "id258498",
+  "id233747",
+  "id233756",
+  "id198176",
+  "id50407849",
+  "id67349814",
+  "evo_Bruno Costa_81",
+  "id233852",
+  "id251236",
+  "id233751",
+  "id50555337"
  ],
- "built": "2026-11-23 03:52 UTC",
+ "built": "2026-11-24 09:05 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-23 03:52 UTC"
+ "changed": "2026-11-24 09:05 UTC"
 }

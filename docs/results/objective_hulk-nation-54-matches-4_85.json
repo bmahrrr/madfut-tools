@@ -1,12 +1,12 @@
 {
  "g": 4,
  "obj_ids": [
+  "id273136",
   "id67375554",
-  "id50590296",
   "id67335759",
-  "id189362"
+  "id50590296"
  ],
- "strength": 100.7,
+ "strength": 100.5,
  "group_cards": 493,
  "reddit": [],
  "team": {
@@ -15,52 +15,29 @@
   "players": [
    {
     "slot": "GK",
-    "id": "id16254",
-    "name": "Howard",
+    "id": "id273136",
+    "name": "Lorena",
     "rating": 85,
-    "color": "hero",
+    "color": "rare_gold",
     "position": "GK",
-    "nationId": 95,
-    "leagueId": 13,
-    "clubId": 114605,
+    "nationId": 54,
+    "leagueId": 2221,
+    "clubId": 116309,
     "card": [
-     42,
-     35,
-     86
+     37,
+     41,
+     85
     ],
     "chem": 3,
     "eff": [
-     44,
-     37,
-     88
+     39,
+     43,
+     87
     ],
     "tiebreak": 169
    },
    {
     "slot": "LB",
-    "id": "id50555345",
-    "name": "Gosens",
-    "rating": 85,
-    "color": "destined_for_glory",
-    "position": "LB",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 34,
-    "card": [
-     83,
-     81,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     85,
-     83,
-     86
-    ],
-    "tiebreak": 254
-   },
-   {
-    "slot": "CB",
     "id": "id50590296",
     "name": "Carlos Augusto",
     "rating": 83,
@@ -81,6 +58,29 @@
      84
     ],
     "tiebreak": 247
+   },
+   {
+    "slot": "CB",
+    "id": "evo_Can_85",
+    "name": "Can",
+    "rating": 85,
+    "color": "evo",
+    "position": "CDM",
+    "nationId": 21,
+    "leagueId": 13,
+    "clubId": 9,
+    "card": [
+     76,
+     86,
+     85
+    ],
+    "chem": 3,
+    "eff": [
+     78,
+     88,
+     87
+    ],
+    "tiebreak": 253
    },
    {
     "slot": "CB",
@@ -107,49 +107,26 @@
    },
    {
     "slot": "RB",
-    "id": "id50542103",
-    "name": "Jonny",
+    "id": "id67359754",
+    "name": "Zambrotta",
     "rating": 85,
-    "color": "halloween",
-    "position": "LB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 463,
+    "color": "debut_icon",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     79,
-     83,
+     75,
+     77,
      84
     ],
     "chem": 3,
     "eff": [
+     77,
      82,
-     86,
      87
     ],
-    "tiebreak": 252
-   },
-   {
-    "slot": "CM",
-    "id": "id67335759",
-    "name": "Formiga",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     79,
-     82,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     81,
-     84,
-     85
-    ],
-    "tiebreak": 250
+    "tiebreak": 242
    },
    {
     "slot": "CM",
@@ -176,26 +153,72 @@
    },
    {
     "slot": "CM",
-    "id": "evo_Can_85",
-    "name": "Can",
+    "id": "id67335759",
+    "name": "Formiga",
     "rating": 85,
-    "color": "evo",
+    "color": "debut_icon",
     "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
+    "nationId": 54,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     76,
-     86,
-     85
+     79,
+     82,
+     83
     ],
     "chem": 3,
     "eff": [
+     81,
+     84,
+     85
+    ],
+    "tiebreak": 250
+   },
+   {
+    "slot": "CM",
+    "id": "id50583417",
+    "name": "Calò",
+    "rating": 85,
+    "color": "seriea_potm",
+    "position": "CDM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 111657,
+    "card": [
      78,
-     88,
+     84,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     80,
+     89,
      87
     ],
-    "tiebreak": 253
+    "tiebreak": 252
+   },
+   {
+    "slot": "CAM",
+    "id": "id84150468",
+    "name": "Moleiro",
+    "rating": 85,
+    "color": "thunderstruck",
+    "position": "LM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 483,
+    "card": [
+     86,
+     84,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     87,
+     61
+    ],
+    "tiebreak": 234
    },
    {
     "slot": "CAM",
@@ -221,50 +244,27 @@
     "tiebreak": 252
    },
    {
-    "slot": "CAM",
-    "id": "id67193279",
-    "name": "Riise",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "CM",
-    "nationId": 36,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     83,
-     84,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     85,
-     86,
-     71
-    ],
-    "tiebreak": 242
-   },
-   {
     "slot": "ST",
-    "id": "id189362",
-    "name": "Hulk",
+    "id": "id67362886",
+    "name": "Woltemade",
     "rating": 85,
-    "color": "hall_of_fut",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 308,
-    "clubId": 132794,
+    "color": "halloween",
+    "position": "CAM",
+    "nationId": 21,
+    "leagueId": 31,
+    "clubId": 45,
     "card": [
+     84,
      85,
-     82,
-     51
+     52
     ],
     "chem": 3,
     "eff": [
+     86,
      87,
-     84,
-     53
+     54
     ],
-    "tiebreak": 224
+    "tiebreak": 227
    }
   ]
  },
@@ -302,18 +302,18 @@
  },
  "base_ids": [
   "id16254",
-  "evo_Can_85",
-  "id50608873",
   "id67229397",
-  "id84150468",
-  "id67116627",
+  "id50608873",
+  "evo_Can_85",
+  "id67359754",
   "id67335759",
+  "id67116627",
   "evo_Gerso_84",
-  "id67193279",
   "id50412322",
+  "id84150468",
   "id67314295"
  ],
- "built": "2026-11-23 03:52 UTC",
+ "built": "2026-11-24 09:05 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-23 03:52 UTC"
+ "changed": "2026-11-24 09:05 UTC"
 }
