@@ -20,7 +20,8 @@
     "ctl": 0,
     "def": 2
    }
-  ]
+  ],
+  "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "teams": [
   {
@@ -43,33 +44,11 @@
      ],
      "chem": 3,
      "eff": [
+      51,
       50,
-      49,
       95
      ],
      "slot": "GK"
-    },
-    {
-     "id": "ltm_comuzzo90",
-     "name": "Comuzzo",
-     "rating": 90,
-     "color": "ltm",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 54,
-     "card": [
-      68,
-      78,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      80,
-      95
-     ],
-     "slot": "CB"
     },
     {
      "id": "evx_id243599_7_8_15",
@@ -121,6 +100,28 @@
      "slot": "CB"
     },
     {
+     "id": "ltm_comuzzo90",
+     "name": "Comuzzo",
+     "rating": 90,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      68,
+      78,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      80,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "id029",
      "name": "Grimaldo",
      "rating": 90,
@@ -141,6 +142,28 @@
       88
      ],
      "slot": "LM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      93,
+      71
+     ],
+     "slot": "CM"
     },
     {
      "id": "evx_id207439_6_12",
@@ -165,28 +188,6 @@
      "evos": [
       "Midfielder Attack Upgrade",
       "Albiceleste Upgrade"
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id7763",
-     "name": "Pirlo",
-     "rating": 90,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      85,
-      90,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      92,
-      71
      ],
      "slot": "CM"
     },
@@ -228,8 +229,311 @@
      ],
      "chem": 3,
      "eff": [
-      91,
       92,
+      93,
+      54
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id67330026",
+     "name": "Batistuta",
+     "rating": 90,
+     "color": "thunderstruck_icon",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      77,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      80,
+      50
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id202126",
+     "name": "Kane",
+     "rating": 90,
+     "color": "rare_gold",
+     "position": "ST",
+     "nationId": 14,
+     "leagueId": 19,
+     "clubId": 21,
+     "card": [
+      90,
+      81,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      83,
+      58
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.536,
+    "control": 93.0,
+    "attack": 91.82,
+    "defence": 95.25,
+    "net": 0.0481,
+    "vs_reddit": null,
+    "control_cards": [
+     93,
+     93,
+     93,
+     93,
+     93
+    ],
+    "attack_cards": [
+     93,
+     92,
+     92,
+     91,
+     90,
+     88,
+     88
+    ],
+    "defence_cards": [
+     96,
+     95,
+     95,
+     95
+    ],
+    "p_att": 0.0829,
+    "p_def": 1.0,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": true,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 256.2,
+    "att_total": 237.95,
+    "def_total": 235.25,
+    "swaps_checked": 59810,
+    "round_robin": {
+     "wins": 0.5,
+     "margin": 0.3139
+    }
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id5479",
+     "name": "Casillas",
+     "rating": 90,
+     "color": "icon",
+     "position": "GK",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      48,
+      47,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      50,
+      95
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "evx_id243599_7_8_15",
+     "name": "Ouaneh",
+     "rating": 90,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 330,
+     "clubId": 110750,
+     "card": [
+      71,
+      77,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      73,
+      79,
+      96
+     ],
+     "evos": [
+      "Romanian Superliga Silver",
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id030",
+     "name": "Konsa",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      72,
+      81,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      83,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo90",
+     "name": "Comuzzo",
+     "rating": 90,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      68,
+      78,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      80,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id029",
+     "name": "Grimaldo",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "LB",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 240,
+     "card": [
+      88,
+      91,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      93,
+      88
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      93,
+      71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id207439_6_12",
+     "name": "Paredes",
+     "rating": 90,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 1877,
+     "card": [
+      86,
+      91,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      93,
+      88
+     ],
+     "evos": [
+      "Midfielder Attack Upgrade",
+      "Albiceleste Upgrade"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id025",
+     "name": "Thauvin",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 64,
+     "card": [
+      89,
+      91,
+      62
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      93,
+      66
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id191190",
+     "name": "Rivellino",
+     "rating": 90,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 54,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      90,
+      50
+     ],
+     "chem": 3,
+     "eff": [
+      92,
+      93,
       54
      ],
      "slot": "CAM"
@@ -250,8 +554,8 @@
      ],
      "chem": 3,
      "eff": [
-      91,
-      82,
+      92,
+      83,
       57
      ],
      "slot": "ST"
@@ -281,27 +585,27 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5173,
-    "control": 92.6,
-    "attack": 91.07,
+    "ctrl_win": 0.536,
+    "control": 93.0,
+    "attack": 91.52,
     "defence": 95.25,
-    "net": 0.0309,
+    "net": 0.0204,
     "vs_reddit": null,
     "control_cards": [
      93,
      93,
      93,
-     92,
-     92
+     93,
+     93
     ],
     "attack_cards": [
      92,
-     91,
-     91,
+     92,
+     92,
      91,
      90,
      88,
-     87
+     88
     ],
     "defence_cards": [
      96,
@@ -309,26 +613,21 @@
      95,
      95
     ],
-    "p_att": 0.0531,
+    "p_att": 0.0351,
     "p_def": 1.0,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": true,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 255.4,
-    "att_total": 239.84,
-    "def_total": 234.75,
-    "swaps_checked": 59203,
-    "round_robin": {
-     "wins": 1.0,
-     "margin": 0.0428
-    }
+    "ctrl_total": 256.2,
+    "att_total": 240.72,
+    "def_total": 235.25
    }
   },
   {
    "formation": "3-4-1-2",
-   "chem": 31,
+   "chem": 33,
    "players": [
     {
      "id": "id5479",
@@ -346,306 +645,8 @@
      ],
      "chem": 3,
      "eff": [
+      51,
       50,
-      49,
-      95
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "ltm_comuzzo90",
-     "name": "Comuzzo",
-     "rating": 90,
-     "color": "ltm",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 54,
-     "card": [
-      68,
-      78,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      80,
-      95
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "evx_id243599_7_8_15",
-     "name": "Ouaneh",
-     "rating": 90,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 330,
-     "clubId": 110750,
-     "card": [
-      71,
-      77,
-      92
-     ],
-     "chem": 3,
-     "eff": [
-      73,
-      79,
-      96
-     ],
-     "evos": [
-      "Romanian Superliga Silver",
-      "Defender Control Upgrade",
-      "Les Bleus Defender"
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id030",
-     "name": "Konsa",
-     "rating": 90,
-     "color": "world_potm_nominee",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      72,
-      81,
-      91
-     ],
-     "chem": 2,
-     "eff": [
-      73,
-      82,
-      94
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id029",
-     "name": "Grimaldo",
-     "rating": 90,
-     "color": "world_potm_nominee",
-     "position": "LB",
-     "nationId": 45,
-     "leagueId": 53,
-     "clubId": 240,
-     "card": [
-      88,
-      91,
-      84
-     ],
-     "chem": 3,
-     "eff": [
-      90,
-      93,
-      88
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "evx_id207439_6_12",
-     "name": "Paredes",
-     "rating": 90,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 1877,
-     "card": [
-      86,
-      91,
-      84
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      93,
-      88
-     ],
-     "evos": [
-      "Midfielder Attack Upgrade",
-      "Albiceleste Upgrade"
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id7763",
-     "name": "Pirlo",
-     "rating": 90,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      85,
-      90,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      92,
-      71
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id025",
-     "name": "Thauvin",
-     "rating": 90,
-     "color": "world_potm_nominee",
-     "position": "CAM",
-     "nationId": 18,
-     "leagueId": 16,
-     "clubId": 64,
-     "card": [
-      89,
-      91,
-      62
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      93,
-      66
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id191190",
-     "name": "Rivellino",
-     "rating": 90,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      90,
-      50
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      92,
-      54
-     ],
-     "slot": "CAM"
-    },
-    {
-     "id": "id82092",
-     "name": "Kempes",
-     "rating": 88,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      80,
-      53
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      82,
-      57
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id50573494",
-     "name": "Pajor",
-     "rating": 90,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 37,
-     "leagueId": 2222,
-     "clubId": 241,
-     "card": [
-      91,
-      76,
-      31
-     ],
-     "chem": 2,
-     "eff": [
-      92,
-      77,
-      34
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "h2h": null,
-    "ctrl_win": 0.5173,
-    "control": 92.6,
-    "attack": 91.07,
-    "defence": 95.0,
-    "net": 0.0246,
-    "vs_reddit": null,
-    "control_cards": [
-     93,
-     93,
-     93,
-     92,
-     92
-    ],
-    "attack_cards": [
-     92,
-     91,
-     91,
-     91,
-     90,
-     88,
-     87
-    ],
-    "defence_cards": [
-     96,
-     95,
-     95,
-     94
-    ],
-    "p_att": 0.0423,
-    "p_def": 1.0,
-    "chem": 31,
-    "ctrl_not_full": 0,
-    "def_unbeatable": true,
-    "weak_attackers": [],
-    "attack_short": 0,
-    "ctrl_total": 255.4,
-    "att_total": 230.59,
-    "def_total": 234.0
-   }
-  },
-  {
-   "formation": "3-4-1-2",
-   "chem": 31,
-   "players": [
-    {
-     "id": "id5479",
-     "name": "Casillas",
-     "rating": 90,
-     "color": "icon",
-     "position": "GK",
-     "nationId": 45,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      48,
-      47,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      50,
-      49,
       95
      ],
      "slot": "GK"
@@ -691,11 +692,11 @@
       81,
       91
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
-      73,
-      82,
-      94
+      74,
+      83,
+      95
      ],
      "slot": "CB"
     },
@@ -759,8 +760,8 @@
      ],
      "chem": 3,
      "eff": [
-      87,
-      92,
+      88,
+      93,
       71
      ],
      "slot": "CM"
@@ -829,97 +830,97 @@
      ],
      "chem": 3,
      "eff": [
-      91,
       92,
+      93,
       54
      ],
      "slot": "CAM"
     },
     {
-     "id": "id221162",
+     "id": "id67330026",
      "name": "Batistuta",
-     "rating": 89,
-     "color": "icon",
+     "rating": 90,
+     "color": "thunderstruck_icon",
      "position": "ST",
      "nationId": 52,
      "leagueId": 2118,
      "clubId": 112658,
      "card": [
-      89,
-      76,
-      45
+      90,
+      77,
+      46
      ],
      "chem": 3,
      "eff": [
-      91,
-      78,
-      49
+      93,
+      80,
+      50
      ],
      "slot": "ST"
     },
     {
-     "id": "id50573494",
-     "name": "Pajor",
+     "id": "id202126",
+     "name": "Kane",
      "rating": 90,
-     "color": "totw_gold",
+     "color": "rare_gold",
      "position": "ST",
-     "nationId": 37,
-     "leagueId": 2222,
-     "clubId": 241,
+     "nationId": 14,
+     "leagueId": 19,
+     "clubId": 21,
      "card": [
-      91,
-      76,
-      31
+      90,
+      81,
+      54
      ],
-     "chem": 2,
+     "chem": 3,
      "eff": [
       92,
-      77,
-      34
+      83,
+      58
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5173,
-    "control": 92.6,
-    "attack": 91.07,
-    "defence": 95.0,
-    "net": 0.0246,
+    "ctrl_win": 0.536,
+    "control": 93.0,
+    "attack": 91.82,
+    "defence": 95.25,
+    "net": 0.0481,
     "vs_reddit": null,
     "control_cards": [
      93,
      93,
      93,
-     92,
-     92
+     93,
+     93
     ],
     "attack_cards": [
+     93,
      92,
-     91,
-     91,
+     92,
      91,
      90,
      88,
-     87
+     88
     ],
     "defence_cards": [
      96,
      95,
      95,
-     94
+     95
     ],
-    "p_att": 0.0423,
+    "p_att": 0.0829,
     "p_def": 1.0,
-    "chem": 31,
+    "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": true,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 255.4,
-    "att_total": 226.89,
-    "def_total": 234.0
+    "ctrl_total": 256.2,
+    "att_total": 237.95,
+    "def_total": 235.25
    }
   }
  ],
@@ -948,9 +949,11 @@
   "Scottish Premiership Bronze",
   "Scottish Premiership Silver",
   "Silver Goalie #1",
-  "Silver Maestro"
+  "Silver Maestro",
+  "Squad Foundations Upgrade",
+  "Swiss Super League Silver"
  ],
- "built": "2026-11-21 20:13 UTC",
+ "built": "2026-11-24 05:10 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-21 20:13 UTC"
+ "changed": "2026-11-24 05:10 UTC"
 }
