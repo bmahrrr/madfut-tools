@@ -278,11 +278,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.51,
+    "ctrl_win": 0.495,
     "control": 91.2,
     "attack": 89.78,
     "defence": 91.25,
-    "net": 0.1207,
+    "net": 0.1163,
     "vs_reddit": null,
     "control_cards": [
      92,
@@ -305,8 +305,8 @@
      91,
      91
     ],
-    "p_att": 0.4326,
-    "p_def": 0.6576,
+    "p_att": 0.422,
+    "p_def": 0.6809,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -317,8 +317,8 @@
     "def_total": 223.5,
     "swaps_checked": 50057,
     "round_robin": {
-     "wins": 8.0,
-     "margin": 0.8514
+     "wins": 9.0,
+     "margin": 0.9361
     }
    }
   },
@@ -347,6 +347,28 @@
       91
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id243715",
+     "name": "Saliba",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 18,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      63,
+      70,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      74,
+      91
+     ],
+     "slot": "CB"
     },
     {
      "id": "id012",
@@ -393,28 +415,6 @@
      "slot": "CB"
     },
     {
-     "id": "id243715",
-     "name": "Saliba",
-     "rating": 88,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 18,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      63,
-      70,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      65,
-      74,
-      91
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id274750",
      "name": "Sneijder",
      "rating": 88,
@@ -435,6 +435,28 @@
       58
      ],
      "slot": "LM"
+    },
+    {
+     "id": "id50554313",
+     "name": "Ødegaard",
+     "rating": 87,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      84,
+      88,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      92,
+      68
+     ],
+     "slot": "CM"
     },
     {
      "id": "evo_Groß_88",
@@ -458,28 +480,6 @@
      ],
      "evos": [
       "Midfielder Attack Upgrade"
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id50554313",
-     "name": "Ødegaard",
-     "rating": 87,
-     "color": "totw_gold",
-     "position": "CM",
-     "nationId": 36,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      84,
-      88,
-      65
-     ],
-     "chem": 3,
-     "eff": [
-      86,
-      92,
-      68
      ],
      "slot": "CM"
     },
@@ -532,28 +532,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id120274",
-     "name": "Di Natale",
-     "rating": 88,
-     "color": "hero",
-     "position": "ST",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 114605,
-     "card": [
-      89,
-      85,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      87,
-      50
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id262112",
      "name": "van Persie",
      "rating": 88,
@@ -574,15 +552,37 @@
       51
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id120274",
+     "name": "Di Natale",
+     "rating": 88,
+     "color": "hero",
+     "position": "ST",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 114605,
+     "card": [
+      89,
+      85,
+      48
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      87,
+      50
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5133,
+    "ctrl_win": 0.505,
     "control": 91.2,
     "attack": 89.78,
     "defence": 91.25,
-    "net": 0.1017,
+    "net": 0.0982,
     "vs_reddit": null,
     "control_cards": [
      92,
@@ -605,8 +605,8 @@
      91,
      91
     ],
-    "p_att": 0.4008,
-    "p_def": 0.6576,
+    "p_att": 0.3912,
+    "p_def": 0.6809,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -688,23 +688,23 @@
      "slot": "CB"
     },
     {
-     "id": "id50578905",
-     "name": "Ibañez",
+     "id": "id140601",
+     "name": "Vidić",
      "rating": 88,
-     "color": "thunderstruck",
+     "color": "icon",
      "position": "CB",
-     "nationId": 54,
-     "leagueId": 350,
-     "clubId": 112387,
+     "nationId": 51,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      70,
-      72,
-      87
+      61,
+      62,
+      89
      ],
      "chem": 3,
      "eff": [
-      74,
-      76,
+      63,
+      64,
       91
      ],
      "slot": "CB"
@@ -827,6 +827,28 @@
      "slot": "CAM"
     },
     {
+     "id": "id50603811",
+     "name": "Elena Julve",
+     "rating": 88,
+     "color": "thunderstruck",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 131125,
+     "card": [
+      87,
+      85,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      89,
+      71
+     ],
+     "slot": "ST"
+    },
+    {
      "id": "id262112",
      "name": "van Persie",
      "rating": 88,
@@ -847,37 +869,15 @@
       51
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id82092",
-     "name": "Kempes",
-     "rating": 88,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      80,
-      53
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      82,
-      55
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.52,
+    "ctrl_win": 0.5083,
     "control": 91.2,
     "attack": 89.9,
     "defence": 91.25,
-    "net": 0.0942,
+    "net": 0.0902,
     "vs_reddit": null,
     "control_cards": [
      92,
@@ -900,21 +900,21 @@
      91,
      91
     ],
-    "p_att": 0.3883,
-    "p_def": 0.6576,
+    "p_att": 0.422,
+    "p_def": 0.6177,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 251.8,
-    "att_total": 236.18,
-    "def_total": 226.25
+    "att_total": 243.27,
+    "def_total": 220.5
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-24 05:04 UTC",
+ "built": "2026-11-25 03:37 UTC",
  "week": "2026-11-23",
  "changed": "2026-11-21 20:01 UTC"
 }
