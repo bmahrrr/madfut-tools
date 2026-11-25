@@ -27,23 +27,23 @@
    "chem": 33,
    "players": [
     {
-     "id": "id220901",
-     "name": "David Raya",
+     "id": "id48940",
+     "name": "Čech",
      "rating": 88,
-     "color": "rare_gold",
+     "color": "icon",
      "position": "GK",
-     "nationId": 45,
-     "leagueId": 13,
-     "clubId": 1,
+     "nationId": 12,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      46,
-      48,
-      88
+      40,
+      35,
+      89
      ],
      "chem": 3,
      "eff": [
-      48,
-      52,
+      42,
+      37,
       91
      ],
      "slot": "GK"
@@ -71,23 +71,23 @@
      "slot": "CB"
     },
     {
-     "id": "id243715",
-     "name": "Saliba",
+     "id": "id50578905",
+     "name": "Ibañez",
      "rating": 88,
-     "color": "rare_gold",
+     "color": "thunderstruck",
      "position": "CB",
-     "nationId": 18,
-     "leagueId": 13,
-     "clubId": 1,
+     "nationId": 54,
+     "leagueId": 350,
+     "clubId": 112387,
      "card": [
-      63,
       70,
-      88
+      72,
+      87
      ],
      "chem": 3,
      "eff": [
-      65,
       74,
+      76,
       91
      ],
      "slot": "CB"
@@ -115,51 +115,26 @@
      "slot": "CB"
     },
     {
-     "id": "id222000",
-     "name": "Laudrup",
+     "id": "id50565310",
+     "name": "Karchaoui",
      "rating": 88,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 13,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "color": "uwcl_rttk",
+     "position": "RM",
+     "nationId": 18,
+     "leagueId": 2218,
+     "clubId": 73,
      "card": [
-      85,
+      86,
       88,
-      43
+      79
      ],
      "chem": 3,
      "eff": [
-      87,
+      88,
       90,
-      45
+      81
      ],
      "slot": "LM"
-    },
-    {
-     "id": "evo_Groß_88",
-     "name": "Groß",
-     "rating": 88,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 1808,
-     "card": [
-      87,
-      89,
-      82
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      91,
-      84
-     ],
-     "evos": [
-      "Midfielder Attack Upgrade"
-     ],
-     "slot": "CM"
     },
     {
      "id": "id50554313",
@@ -180,6 +155,28 @@
       86,
       92,
       68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id117638293",
+     "name": "Isco",
+     "rating": 87,
+     "color": "thunderstruck",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      86,
+      88,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      92,
+      67
      ],
      "slot": "CM"
     },
@@ -278,26 +275,26 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.495,
-    "control": 91.2,
-    "attack": 89.78,
+    "ctrl_win": 0.4933,
+    "control": 91.4,
+    "attack": 90.03,
     "defence": 91.25,
-    "net": 0.1163,
+    "net": 0.1102,
     "vs_reddit": null,
     "control_cards": [
      92,
      92,
-     91,
+     92,
      91,
      90
     ],
     "attack_cards": [
      91,
      91,
+     90,
      89,
      88,
-     87,
-     86
+     88
     ],
     "defence_cards": [
      92,
@@ -305,20 +302,20 @@
      91,
      91
     ],
-    "p_att": 0.422,
-    "p_def": 0.6809,
+    "p_att": 0.4681,
+    "p_def": 0.6421,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 244.4,
-    "att_total": 238.96,
-    "def_total": 223.5,
-    "swaps_checked": 50057,
+    "ctrl_total": 248.8,
+    "att_total": 243.37,
+    "def_total": 221.0,
+    "swaps_checked": 50153,
     "round_robin": {
-     "wins": 9.0,
-     "margin": 0.9361
+     "wins": 7.0,
+     "margin": 0.7717
     }
    }
   },
@@ -459,27 +456,24 @@
      "slot": "CM"
     },
     {
-     "id": "evo_Groß_88",
-     "name": "Groß",
-     "rating": 88,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 1808,
+     "id": "id117638293",
+     "name": "Isco",
+     "rating": 87,
+     "color": "thunderstruck",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
      "card": [
-      87,
-      89,
-      82
+      86,
+      88,
+      63
      ],
      "chem": 3,
      "eff": [
-      89,
-      91,
-      84
-     ],
-     "evos": [
-      "Midfielder Attack Upgrade"
+      90,
+      92,
+      67
      ],
      "slot": "CM"
     },
@@ -554,50 +548,50 @@
      "slot": "ST"
     },
     {
-     "id": "id120274",
-     "name": "Di Natale",
+     "id": "id50603811",
+     "name": "Elena Julve",
      "rating": 88,
-     "color": "hero",
-     "position": "ST",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 114605,
+     "color": "thunderstruck",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 131125,
      "card": [
-      89,
+      87,
       85,
-      48
+      67
      ],
      "chem": 3,
      "eff": [
       91,
-      87,
-      50
+      89,
+      71
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.505,
-    "control": 91.2,
-    "attack": 89.78,
+    "ctrl_win": 0.4889,
+    "control": 91.4,
+    "attack": 89.92,
     "defence": 91.25,
-    "net": 0.0982,
+    "net": 0.1102,
     "vs_reddit": null,
     "control_cards": [
      92,
      92,
-     91,
+     92,
      91,
      90
     ],
     "attack_cards": [
      91,
      91,
+     90,
      89,
      88,
-     87,
-     86
+     87
     ],
     "defence_cards": [
      92,
@@ -605,15 +599,15 @@
      91,
      91
     ],
-    "p_att": 0.3912,
-    "p_def": 0.6809,
+    "p_att": 0.4681,
+    "p_def": 0.6421,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 247.0,
-    "att_total": 233.38,
+    "ctrl_total": 244.0,
+    "att_total": 240.57,
     "def_total": 218.25
    }
   },
@@ -622,45 +616,45 @@
    "chem": 33,
    "players": [
     {
-     "id": "id220901",
-     "name": "David Raya",
+     "id": "id48940",
+     "name": "Čech",
      "rating": 88,
-     "color": "rare_gold",
+     "color": "icon",
      "position": "GK",
-     "nationId": 45,
-     "leagueId": 13,
-     "clubId": 1,
+     "nationId": 12,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      46,
-      48,
-      88
+      40,
+      35,
+      89
      ],
      "chem": 3,
      "eff": [
-      48,
-      52,
+      42,
+      37,
       91
      ],
      "slot": "GK"
     },
     {
-     "id": "id012",
-     "name": "David Luiz",
-     "rating": 87,
-     "color": "evo",
+     "id": "id50578905",
+     "name": "Ibañez",
+     "rating": 88,
+     "color": "thunderstruck",
      "position": "CB",
      "nationId": 54,
-     "leagueId": 13,
-     "clubId": 1,
+     "leagueId": 350,
+     "clubId": 112387,
      "card": [
-      74,
-      80,
-      88
+      70,
+      72,
+      87
      ],
      "chem": 3,
      "eff": [
+      74,
       76,
-      84,
       91
      ],
      "slot": "CB"
@@ -688,73 +682,48 @@
      "slot": "CB"
     },
     {
-     "id": "id140601",
-     "name": "Vidić",
-     "rating": 88,
-     "color": "icon",
+     "id": "id012",
+     "name": "David Luiz",
+     "rating": 87,
+     "color": "evo",
      "position": "CB",
-     "nationId": 51,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
      "card": [
-      61,
-      62,
-      89
+      74,
+      80,
+      88
      ],
      "chem": 3,
      "eff": [
-      63,
-      64,
+      76,
+      84,
       91
      ],
      "slot": "CB"
     },
     {
-     "id": "id50565310",
-     "name": "Karchaoui",
-     "rating": 88,
-     "color": "uwcl_rttk",
-     "position": "RM",
+     "id": "id226362",
+     "name": "Necib",
+     "rating": 87,
+     "color": "hero",
+     "position": "LM",
      "nationId": 18,
      "leagueId": 2218,
-     "clubId": 73,
+     "clubId": 114605,
      "card": [
       86,
       88,
-      79
+      47
      ],
      "chem": 3,
      "eff": [
       88,
       90,
-      81
+      49
      ],
      "slot": "LM"
-    },
-    {
-     "id": "evo_Groß_88",
-     "name": "Groß",
-     "rating": 88,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 1808,
-     "card": [
-      87,
-      89,
-      82
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      91,
-      84
-     ],
-     "evos": [
-      "Midfielder Attack Upgrade"
-     ],
-     "slot": "CM"
     },
     {
      "id": "id50554313",
@@ -775,6 +744,28 @@
       86,
       92,
       68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id117638293",
+     "name": "Isco",
+     "rating": 87,
+     "color": "thunderstruck",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
+     "card": [
+      86,
+      88,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      90,
+      92,
+      67
      ],
      "slot": "CM"
     },
@@ -827,28 +818,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id50603811",
-     "name": "Elena Julve",
-     "rating": 88,
-     "color": "thunderstruck",
-     "position": "RW",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 131125,
-     "card": [
-      87,
-      85,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      89,
-      71
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id262112",
      "name": "van Persie",
      "rating": 88,
@@ -869,30 +838,52 @@
       51
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id50603811",
+     "name": "Elena Julve",
+     "rating": 88,
+     "color": "thunderstruck",
+     "position": "RW",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 131125,
+     "card": [
+      87,
+      85,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      89,
+      71
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5083,
-    "control": 91.2,
-    "attack": 89.9,
+    "ctrl_win": 0.4904,
+    "control": 91.4,
+    "attack": 90.03,
     "defence": 91.25,
-    "net": 0.0902,
+    "net": 0.1102,
     "vs_reddit": null,
     "control_cards": [
      92,
      92,
-     91,
+     92,
      91,
      90
     ],
     "attack_cards": [
      91,
      91,
+     90,
      89,
      88,
-     88,
-     86
+     88
     ],
     "defence_cards": [
      92,
@@ -900,21 +891,21 @@
      91,
      91
     ],
-    "p_att": 0.422,
-    "p_def": 0.6177,
+    "p_att": 0.4681,
+    "p_def": 0.6421,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 251.8,
-    "att_total": 243.27,
-    "def_total": 220.5
+    "ctrl_total": 242.4,
+    "att_total": 239.64,
+    "def_total": 221.0
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-25 03:37 UTC",
+ "built": "2026-11-25 22:47 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-21 20:01 UTC"
+ "changed": "2026-11-25 22:47 UTC"
 }
