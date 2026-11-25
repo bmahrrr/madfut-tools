@@ -100,24 +100,27 @@
      "slot": "CB"
     },
     {
-     "id": "ltm_comuzzo90",
-     "name": "Comuzzo",
+     "id": "evx_id50402614_20",
+     "name": "Jacobo Ramón",
      "rating": 90,
-     "color": "ltm",
+     "color": "future_stars",
      "position": "CB",
-     "nationId": 27,
+     "nationId": 45,
      "leagueId": 31,
-     "clubId": 54,
+     "clubId": 1745,
      "card": [
-      68,
-      78,
-      91
+      69,
+      70,
+      92
      ],
      "chem": 3,
      "eff": [
-      70,
-      80,
-      95
+      71,
+      72,
+      96
+     ],
+     "evos": [
+      "Future Stars Upgrade"
      ],
      "slot": "CB"
     },
@@ -236,28 +239,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id67330026",
-     "name": "Batistuta",
-     "rating": 90,
-     "color": "thunderstruck_icon",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      90,
-      77,
-      46
-     ],
-     "chem": 3,
-     "eff": [
-      93,
-      80,
-      50
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id202126",
      "name": "Kane",
      "rating": 90,
@@ -278,15 +259,37 @@
       58
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id67330026",
+     "name": "Batistuta",
+     "rating": 90,
+     "color": "thunderstruck_icon",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      77,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      80,
+      50
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.536,
+    "ctrl_win": 0.552,
     "control": 93.0,
     "attack": 91.82,
-    "defence": 95.25,
-    "net": 0.0481,
+    "defence": 95.5,
+    "net": 0.0704,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -306,11 +309,11 @@
     ],
     "defence_cards": [
      96,
-     95,
+     96,
      95,
      95
     ],
-    "p_att": 0.0829,
+    "p_att": 0.1214,
     "p_def": 1.0,
     "chem": 33,
     "ctrl_not_full": 0,
@@ -319,8 +322,8 @@
     "attack_short": 0,
     "ctrl_total": 256.2,
     "att_total": 237.95,
-    "def_total": 235.25,
-    "swaps_checked": 59810,
+    "def_total": 233.75,
+    "swaps_checked": 60157,
     "round_robin": {
      "wins": 0.5,
      "margin": 0.3139
@@ -539,28 +542,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id82092",
-     "name": "Kempes",
-     "rating": 88,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      80,
-      53
-     ],
-     "chem": 3,
-     "eff": [
-      92,
-      83,
-      57
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id202126",
      "name": "Kane",
      "rating": 90,
@@ -581,15 +562,37 @@
       58
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id67330026",
+     "name": "Batistuta",
+     "rating": 90,
+     "color": "thunderstruck_icon",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      77,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      80,
+      50
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.536,
+    "ctrl_win": 0.552,
     "control": 93.0,
-    "attack": 91.52,
+    "attack": 91.82,
     "defence": 95.25,
-    "net": 0.0204,
+    "net": 0.0704,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -599,7 +602,7 @@
      93
     ],
     "attack_cards": [
-     92,
+     93,
      92,
      92,
      91,
@@ -613,7 +616,7 @@
      95,
      95
     ],
-    "p_att": 0.0351,
+    "p_att": 0.1214,
     "p_def": 1.0,
     "chem": 33,
     "ctrl_not_full": 0,
@@ -621,7 +624,7 @@
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 256.2,
-    "att_total": 240.72,
+    "att_total": 237.95,
     "def_total": 235.25
    }
   },
@@ -652,6 +655,53 @@
      "slot": "GK"
     },
     {
+     "id": "id030",
+     "name": "Konsa",
+     "rating": 90,
+     "color": "world_potm_nominee",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 1,
+     "card": [
+      72,
+      81,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      74,
+      83,
+      95
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id50402614_20",
+     "name": "Jacobo Ramón",
+     "rating": 90,
+     "color": "future_stars",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 31,
+     "clubId": 1745,
+     "card": [
+      69,
+      70,
+      92
+     ],
+     "chem": 3,
+     "eff": [
+      71,
+      72,
+      96
+     ],
+     "evos": [
+      "Future Stars Upgrade"
+     ],
+     "slot": "CB"
+    },
+    {
      "id": "evx_id243599_7_8_15",
      "name": "Ouaneh",
      "rating": 90,
@@ -679,50 +729,6 @@
      "slot": "CB"
     },
     {
-     "id": "id030",
-     "name": "Konsa",
-     "rating": 90,
-     "color": "world_potm_nominee",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      72,
-      81,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      74,
-      83,
-      95
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "ltm_comuzzo90",
-     "name": "Comuzzo",
-     "rating": 90,
-     "color": "ltm",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 54,
-     "card": [
-      68,
-      78,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      80,
-      95
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id029",
      "name": "Grimaldo",
      "rating": 90,
@@ -743,28 +749,6 @@
       88
      ],
      "slot": "LM"
-    },
-    {
-     "id": "id7763",
-     "name": "Pirlo",
-     "rating": 90,
-     "color": "icon",
-     "position": "CM",
-     "nationId": 27,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      85,
-      90,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      93,
-      71
-     ],
-     "slot": "CM"
     },
     {
      "id": "evx_id207439_6_12",
@@ -789,6 +773,28 @@
      "evos": [
       "Midfielder Attack Upgrade",
       "Albiceleste Upgrade"
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id7763",
+     "name": "Pirlo",
+     "rating": 90,
+     "color": "icon",
+     "position": "CM",
+     "nationId": 27,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      85,
+      90,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      88,
+      93,
+      71
      ],
      "slot": "CM"
     },
@@ -837,28 +843,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id67330026",
-     "name": "Batistuta",
-     "rating": 90,
-     "color": "thunderstruck_icon",
-     "position": "ST",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      90,
-      77,
-      46
-     ],
-     "chem": 3,
-     "eff": [
-      93,
-      80,
-      50
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id202126",
      "name": "Kane",
      "rating": 90,
@@ -879,15 +863,37 @@
       58
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id67330026",
+     "name": "Batistuta",
+     "rating": 90,
+     "color": "thunderstruck_icon",
+     "position": "ST",
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      90,
+      77,
+      46
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      80,
+      50
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.536,
+    "ctrl_win": 0.552,
     "control": 93.0,
     "attack": 91.82,
-    "defence": 95.25,
-    "net": 0.0481,
+    "defence": 95.5,
+    "net": 0.0704,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -907,11 +913,11 @@
     ],
     "defence_cards": [
      96,
-     95,
+     96,
      95,
      95
     ],
-    "p_att": 0.0829,
+    "p_att": 0.1214,
     "p_def": 1.0,
     "chem": 33,
     "ctrl_not_full": 0,
@@ -920,7 +926,7 @@
     "attack_short": 0,
     "ctrl_total": 256.2,
     "att_total": 237.95,
-    "def_total": 235.25
+    "def_total": 233.75
    }
   }
  ],
@@ -937,6 +943,8 @@
   "Austrian Bundesliga Silver",
   "Bronze Master-Shooter",
   "Defender Control Upgrade",
+  "Destined for Glory Upgrade",
+  "Future Stars Upgrade",
   "German Defender",
   "K League 1 Bronze",
   "K League 1 Silver",
@@ -953,7 +961,7 @@
   "Squad Foundations Upgrade",
   "Swiss Super League Silver"
  ],
- "built": "2026-11-24 05:10 UTC",
+ "built": "2026-11-25 22:53 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-24 05:10 UTC"
+ "changed": "2026-11-25 22:53 UTC"
 }
