@@ -49,46 +49,46 @@
      "slot": "GK"
     },
     {
-     "id": "id50610428",
-     "name": "Jeltsch",
-     "rating": 85,
-     "color": "future_stars",
+     "id": "id229476",
+     "name": "Anton",
+     "rating": 84,
+     "color": "rare_gold",
      "position": "CB",
      "nationId": 21,
      "leagueId": 19,
-     "clubId": 36,
+     "clubId": 22,
      "card": [
-      68,
-      72,
-      85
+      62,
+      67,
+      84
      ],
      "chem": 3,
      "eff": [
+      65,
       70,
-      74,
       87
      ],
      "slot": "CB"
     },
     {
-     "id": "id212419",
-     "name": "Mings",
-     "rating": 77,
-     "color": "rare_gold",
+     "id": "id269233",
+     "name": "Fredricson",
+     "rating": 65,
+     "color": "rare_silver",
      "position": "CB",
      "nationId": 14,
-     "leagueId": 13,
-     "clubId": 2,
+     "leagueId": 189,
+     "clubId": 1862,
      "card": [
-      54,
-      64,
-      77
+      50,
+      52,
+      65
      ],
      "chem": 3,
      "eff": [
-      56,
-      66,
-      79
+      52,
+      54,
+      67
      ],
      "slot": "CB"
     },
@@ -203,498 +203,235 @@
      "slot": "CM"
     },
     {
-     "id": "ltm_karetsas85",
-     "name": "Karetsas",
+     "id": "evo_Mollet_85",
+     "name": "Mollet",
      "rating": 85,
-     "color": "ltm",
+     "color": "evo",
      "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      82,
-      85,
-      50
-     ],
-     "chem": 3,
-     "eff": [
-      85,
-      88,
-      53
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id67314295",
-     "name": "Füllkrug",
-     "rating": 85,
-     "color": "bundesliga_potm",
-     "position": "ST",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 38,
+     "nationId": 18,
+     "leagueId": 189,
+     "clubId": 1862,
      "card": [
       87,
-      80,
-      63
+      88,
+      69
      ],
      "chem": 3,
      "eff": [
       89,
-      82,
-      65
+      90,
+      71
+     ],
+     "evos": [
+      "Swiss Super League Silver",
+      "Midfielder Attack Upgrade"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50577285",
+     "name": "Rutter",
+     "rating": 85,
+     "color": "thunderstruck",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      84,
+      84,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      86,
+      72
      ],
      "slot": "ST"
     },
     {
-     "id": "id134476925",
-     "name": "Jackson",
+     "id": "id50583458",
+     "name": "Brobbey",
      "rating": 85,
-     "color": "epl_potm",
+     "color": "europa_rttk",
      "position": "ST",
-     "nationId": 136,
+     "nationId": 34,
      "leagueId": 13,
-     "clubId": 2,
+     "clubId": 106,
      "card": [
-      86,
-      78,
-      52
+      85,
+      74,
+      45
      ],
      "chem": 3,
      "eff": [
-      88,
-      80,
-      54
+      87,
+      76,
+      47
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.52,
-    "control": 88.4,
-    "attack": 87.67,
-    "defence": 84.8,
-    "net": 0.1553,
+    "ctrl_win": 0.5413,
+    "control": 88.8,
+    "attack": 86.87,
+    "defence": 82.4,
+    "net": 0.0801,
     "vs_reddit": null,
     "control_cards": [
+     90,
      89,
      89,
-     88,
      88,
      88
     ],
     "attack_cards": [
      89,
      88,
-     88,
+     87,
      87,
      86,
-     85
+     86
     ],
     "defence_cards": [
      87,
      87,
      87,
      84,
-     79
+     67
     ],
-    "p_att": 0.7944,
-    "p_def": 0.1641,
+    "p_att": 0.6047,
+    "p_def": 0.2167,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 237.4,
-    "att_total": 228.4,
-    "def_total": 212.2,
+    "ctrl_total": 242.2,
+    "att_total": 230.1,
+    "def_total": 204.8,
     "round_robin": {
-     "wins": 27.5,
-     "margin": 2.5459
+     "wins": 18.0,
+     "margin": 2.0035
     }
    }
   },
   {
-   "formation": "3-1-4-2",
-   "chem": 32,
-   "players": [
-    {
-     "id": "id50574527",
-     "name": "Vandevoordt",
-     "rating": 85,
-     "color": "star_performer",
-     "position": "GK",
-     "nationId": 7,
-     "leagueId": 19,
-     "clubId": 112172,
-     "card": [
-      40,
-      43,
-      86
-     ],
-     "chem": 2,
-     "eff": [
-      41,
-      44,
-      87
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id67229397",
-     "name": "Pepe",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      59,
-      61,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      61,
-      63,
-      87
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id267371",
-     "name": "Nielsen",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 95,
-     "leagueId": 2221,
-     "clubId": 698,
-     "card": [
-      60,
-      61,
-      79
-     ],
-     "chem": 3,
-     "eff": [
-      62,
-      63,
-      81
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id212419",
-     "name": "Mings",
-     "rating": 77,
-     "color": "rare_gold",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 2,
-     "card": [
-      54,
-      64,
-      77
-     ],
-     "chem": 3,
-     "eff": [
-      56,
-      66,
-      79
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "evo_Can_85",
-     "name": "Can",
-     "rating": 85,
-     "color": "evo",
-     "position": "CDM",
-     "nationId": 21,
-     "leagueId": 13,
-     "clubId": 9,
-     "card": [
-      76,
-      86,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      78,
-      88,
-      87
-     ],
-     "slot": "CDM"
-    },
-    {
-     "id": "id50414682",
-     "name": "Rader",
-     "rating": 84,
-     "color": "future_stars",
-     "position": "CAM",
-     "nationId": 95,
-     "leagueId": 2221,
-     "clubId": 698,
-     "card": [
-      84,
-      86,
-      36
-     ],
-     "chem": 3,
-     "eff": [
-      86,
-      88,
-      38
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id50584757",
-     "name": "Veerman",
-     "rating": 85,
-     "color": "destined_for_glory",
-     "position": "CM",
-     "nationId": 34,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      84,
-      86,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      89,
-      72
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "id50402434",
-     "name": "King",
-     "rating": 85,
-     "color": "future_stars",
-     "position": "CAM",
-     "nationId": 14,
-     "leagueId": 13,
-     "clubId": 144,
-     "card": [
-      86,
-      87,
-      69
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      89,
-      71
-     ],
-     "slot": "CM"
-    },
-    {
-     "id": "ltm_karetsas85",
-     "name": "Karetsas",
-     "rating": 85,
-     "color": "ltm",
-     "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      82,
-      85,
-      50
-     ],
-     "chem": 3,
-     "eff": [
-      85,
-      88,
-      53
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id134476925",
-     "name": "Jackson",
-     "rating": 85,
-     "color": "epl_potm",
-     "position": "ST",
-     "nationId": 136,
-     "leagueId": 13,
-     "clubId": 2,
-     "card": [
-      86,
-      78,
-      52
-     ],
-     "chem": 3,
-     "eff": [
-      88,
-      80,
-      54
-     ],
-     "slot": "ST"
-    },
-    {
-     "id": "id67314295",
-     "name": "Füllkrug",
-     "rating": 85,
-     "color": "bundesliga_potm",
-     "position": "ST",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 38,
-     "card": [
-      87,
-      80,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      89,
-      82,
-      65
-     ],
-     "slot": "ST"
-    }
-   ],
-   "metrics": {
-    "h2h": null,
-    "ctrl_win": 0.52,
-    "control": 88.4,
-    "attack": 87.67,
-    "defence": 84.2,
-    "net": 0.1487,
-    "vs_reddit": null,
-    "control_cards": [
-     89,
-     89,
-     88,
-     88,
-     88
-    ],
-    "attack_cards": [
-     89,
-     88,
-     88,
-     87,
-     86,
-     85
-    ],
-    "defence_cards": [
-     87,
-     87,
-     87,
-     81,
-     79
-    ],
-    "p_att": 0.7944,
-    "p_def": 0.1472,
-    "chem": 32,
-    "ctrl_not_full": 0,
-    "def_unbeatable": false,
-    "weak_attackers": [],
-    "attack_short": 0,
-    "ctrl_total": 237.4,
-    "att_total": 228.4,
-    "def_total": 208.6
-   }
-  },
-  {
-   "formation": "3-1-4-2",
+   "formation": "3-5-2",
    "chem": 33,
    "players": [
     {
-     "id": "id247796",
-     "name": "Roebuck",
-     "rating": 75,
+     "id": "id238212",
+     "name": "Campbell",
+     "rating": 81,
      "color": "rare_gold",
      "position": "GK",
-     "nationId": 14,
-     "leagueId": 2216,
-     "clubId": 2,
-     "card": [
-      38,
-      29,
-      76
-     ],
-     "chem": 3,
-     "eff": [
-      40,
-      31,
-      78
-     ],
-     "slot": "GK"
-    },
-    {
-     "id": "id67229397",
-     "name": "Pepe",
-     "rating": 85,
-     "color": "debut_icon",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      59,
-      61,
-      85
-     ],
-     "chem": 3,
-     "eff": [
-      61,
-      63,
-      87
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id267371",
-     "name": "Nielsen",
-     "rating": 78,
-     "color": "rare_gold",
-     "position": "CB",
      "nationId": 95,
      "leagueId": 2221,
      "clubId": 698,
      "card": [
-      60,
-      61,
-      79
+      38,
+      39,
+      82
      ],
      "chem": 3,
      "eff": [
-      62,
-      63,
-      81
+      40,
+      41,
+      84
      ],
-     "slot": "CB"
+     "slot": "GK"
     },
     {
-     "id": "id67375554",
-     "name": "Lúcio",
-     "rating": 85,
-     "color": "debut_icon",
+     "id": "id229476",
+     "name": "Anton",
+     "rating": 84,
+     "color": "rare_gold",
      "position": "CB",
-     "nationId": 54,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
      "card": [
-      71,
-      71,
+      62,
+      67,
       84
      ],
      "chem": 3,
      "eff": [
-      73,
-      73,
-      86
+      65,
+      70,
+      87
      ],
      "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id269233",
+     "name": "Fredricson",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 189,
+     "clubId": 1862,
+     "card": [
+      50,
+      52,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      52,
+      54,
+      67
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50584757",
+     "name": "Veerman",
+     "rating": 85,
+     "color": "destined_for_glory",
+     "position": "CM",
+     "nationId": 34,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      84,
+      86,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      89,
+      72
+     ],
+     "slot": "CDM"
     },
     {
      "id": "evo_Can_85",
@@ -760,6 +497,256 @@
       89,
       71
      ],
+     "slot": "CAM"
+    },
+    {
+     "id": "evo_Mollet_85",
+     "name": "Mollet",
+     "rating": 85,
+     "color": "evo",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 189,
+     "clubId": 1862,
+     "card": [
+      87,
+      88,
+      69
+     ],
+     "chem": 3,
+     "eff": [
+      89,
+      90,
+      71
+     ],
+     "evos": [
+      "Swiss Super League Silver",
+      "Midfielder Attack Upgrade"
+     ],
+     "slot": "RM"
+    },
+    {
+     "id": "id50577285",
+     "name": "Rutter",
+     "rating": 85,
+     "color": "thunderstruck",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      84,
+      84,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      86,
+      72
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50583458",
+     "name": "Brobbey",
+     "rating": 85,
+     "color": "europa_rttk",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 106,
+     "card": [
+      85,
+      74,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      76,
+      47
+     ],
+     "slot": "ST"
+    }
+   ],
+   "metrics": {
+    "h2h": null,
+    "ctrl_win": 0.5413,
+    "control": 88.8,
+    "attack": 86.92,
+    "defence": 80.67,
+    "net": 0.0796,
+    "vs_reddit": null,
+    "control_cards": [
+     90,
+     89,
+     89,
+     88,
+     88
+    ],
+    "attack_cards": [
+     89,
+     88,
+     87,
+     87,
+     86,
+     86
+    ],
+    "defence_cards": [
+     87,
+     87,
+     87,
+     84,
+     72,
+     67
+    ],
+    "p_att": 0.6259,
+    "p_def": 0.1806,
+    "chem": 33,
+    "ctrl_not_full": 0,
+    "def_unbeatable": false,
+    "weak_attackers": [],
+    "attack_short": 0,
+    "ctrl_total": 242.2,
+    "att_total": 231.08,
+    "def_total": 212.0
+   }
+  },
+  {
+   "formation": "3-4-1-2",
+   "chem": 33,
+   "players": [
+    {
+     "id": "id238212",
+     "name": "Campbell",
+     "rating": 81,
+     "color": "rare_gold",
+     "position": "GK",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      38,
+      39,
+      82
+     ],
+     "chem": 3,
+     "eff": [
+      40,
+      41,
+      84
+     ],
+     "slot": "GK"
+    },
+    {
+     "id": "id229476",
+     "name": "Anton",
+     "rating": 84,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 21,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      62,
+      67,
+      84
+     ],
+     "chem": 3,
+     "eff": [
+      65,
+      70,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id67229397",
+     "name": "Pepe",
+     "rating": 85,
+     "color": "debut_icon",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      59,
+      61,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      61,
+      63,
+      87
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id269233",
+     "name": "Fredricson",
+     "rating": 65,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 14,
+     "leagueId": 189,
+     "clubId": 1862,
+     "card": [
+      50,
+      52,
+      65
+     ],
+     "chem": 3,
+     "eff": [
+      52,
+      54,
+      67
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id50414682",
+     "name": "Rader",
+     "rating": 84,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 95,
+     "leagueId": 2221,
+     "clubId": 698,
+     "card": [
+      84,
+      86,
+      36
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      88,
+      38
+     ],
+     "slot": "LM"
+    },
+    {
+     "id": "evo_Can_85",
+     "name": "Can",
+     "rating": 85,
+     "color": "evo",
+     "position": "CDM",
+     "nationId": 21,
+     "leagueId": 13,
+     "clubId": 9,
+     "card": [
+      76,
+      86,
+      85
+     ],
+     "chem": 3,
+     "eff": [
+      78,
+      88,
+      87
+     ],
      "slot": "CM"
     },
     {
@@ -785,117 +772,142 @@
      "slot": "CM"
     },
     {
-     "id": "ltm_karetsas85",
-     "name": "Karetsas",
+     "id": "evo_Mollet_85",
+     "name": "Mollet",
      "rating": 85,
-     "color": "ltm",
+     "color": "evo",
      "position": "CAM",
-     "nationId": 22,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      82,
-      85,
-      50
-     ],
-     "chem": 3,
-     "eff": [
-      85,
-      88,
-      53
-     ],
-     "slot": "RM"
-    },
-    {
-     "id": "id67314295",
-     "name": "Füllkrug",
-     "rating": 85,
-     "color": "bundesliga_potm",
-     "position": "ST",
-     "nationId": 21,
-     "leagueId": 19,
-     "clubId": 38,
+     "nationId": 18,
+     "leagueId": 189,
+     "clubId": 1862,
      "card": [
       87,
-      80,
-      63
+      88,
+      69
      ],
      "chem": 3,
      "eff": [
       89,
-      82,
-      65
+      90,
+      71
      ],
-     "slot": "ST"
+     "evos": [
+      "Swiss Super League Silver",
+      "Midfielder Attack Upgrade"
+     ],
+     "slot": "RM"
     },
     {
-     "id": "id134476925",
-     "name": "Jackson",
+     "id": "id50402434",
+     "name": "King",
      "rating": 85,
-     "color": "epl_potm",
-     "position": "ST",
-     "nationId": 136,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
      "leagueId": 13,
-     "clubId": 2,
+     "clubId": 144,
      "card": [
       86,
-      78,
-      52
+      87,
+      69
      ],
      "chem": 3,
      "eff": [
       88,
-      80,
-      54
+      89,
+      71
+     ],
+     "slot": "CAM"
+    },
+    {
+     "id": "id50583458",
+     "name": "Brobbey",
+     "rating": 85,
+     "color": "europa_rttk",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 13,
+     "clubId": 106,
+     "card": [
+      85,
+      74,
+      45
+     ],
+     "chem": 3,
+     "eff": [
+      87,
+      76,
+      47
+     ],
+     "slot": "ST"
+    },
+    {
+     "id": "id50577285",
+     "name": "Rutter",
+     "rating": 85,
+     "color": "thunderstruck",
+     "position": "ST",
+     "nationId": 18,
+     "leagueId": 13,
+     "clubId": 1808,
+     "card": [
+      84,
+      84,
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      86,
+      86,
+      72
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.52,
-    "control": 88.4,
-    "attack": 87.67,
-    "defence": 83.8,
-    "net": 0.1459,
+    "ctrl_win": 0.5413,
+    "control": 88.8,
+    "attack": 86.92,
+    "defence": 81.25,
+    "net": 0.0725,
     "vs_reddit": null,
     "control_cards": [
+     90,
      89,
      89,
-     88,
      88,
      88
     ],
     "attack_cards": [
      89,
      88,
-     88,
+     87,
      87,
      86,
-     85
+     86
     ],
     "defence_cards": [
      87,
      87,
-     86,
-     81,
-     78
+     84,
+     67
     ],
-    "p_att": 0.7944,
-    "p_def": 0.14,
+    "p_att": 0.6259,
+    "p_def": 0.1618,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 237.4,
-    "att_total": 228.4,
-    "def_total": 210.2
+    "ctrl_total": 242.2,
+    "att_total": 231.08,
+    "def_total": 192.75
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-25 03:37 UTC",
+ "built": "2026-11-25 22:48 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-23 00:35 UTC"
+ "changed": "2026-11-25 22:48 UTC"
 }
