@@ -52,28 +52,6 @@
      "slot": "GK"
     },
     {
-     "id": "id012",
-     "name": "David Luiz",
-     "rating": 87,
-     "color": "evo",
-     "position": "CB",
-     "nationId": 54,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      74,
-      80,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      76,
-      84,
-      91
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id138956",
      "name": "Chiellini",
      "rating": 88,
@@ -96,46 +74,72 @@
      "slot": "CB"
     },
     {
-     "id": "id243029",
-     "name": "Campbell",
-     "rating": 88,
-     "color": "icon",
+     "id": "id012",
+     "name": "David Luiz",
+     "rating": 87,
+     "color": "evo",
      "position": "CB",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 54,
+     "leagueId": 13,
+     "clubId": 1,
      "card": [
-      60,
-      60,
+      74,
+      80,
       88
      ],
      "chem": 3,
      "eff": [
-      62,
-      62,
+      76,
+      84,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id161840",
+     "name": "Fernando Hierro",
+     "rating": 88,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      73,
+      72,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      75,
+      74,
       90
      ],
      "slot": "CB"
     },
     {
-     "id": "id50565310",
-     "name": "Karchaoui",
+     "id": "evx_id261616_8_15",
+     "name": "Merlin",
      "rating": 88,
-     "color": "uwcl_rttk",
-     "position": "RM",
+     "color": "rare_gold",
+     "position": "LB",
      "nationId": 18,
-     "leagueId": 2218,
-     "clubId": 73,
+     "leagueId": 16,
+     "clubId": 74,
      "card": [
-      86,
-      88,
-      79
+      83,
+      90,
+      87
      ],
      "chem": 3,
      "eff": [
-      88,
-      90,
-      81
+      85,
+      92,
+      89
+     ],
+     "evos": [
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
      ],
      "slot": "LM"
     },
@@ -188,77 +192,54 @@
      "slot": "CM"
     },
     {
-     "id": "evo_Clauss_88",
-     "name": "Clauss",
+     "id": "evx_id50596510_21",
+     "name": "Akliouche",
      "rating": 88,
-     "color": "evo",
-     "position": "RB",
+     "color": "destined_for_glory",
+     "position": "CAM",
      "nationId": 18,
      "leagueId": 16,
-     "clubId": 72,
+     "clubId": 73,
      "card": [
-      87,
+      89,
       90,
-      87
+      60
      ],
      "chem": 3,
      "eff": [
-      89,
+      91,
       92,
-      89
+      62
      ],
      "evos": [
-      "Defender Control Upgrade",
-      "Les Bleus Defender"
+      "Destined for Glory Upgrade"
      ],
      "slot": "RM"
     },
     {
-     "id": "evx_id244399_18",
-     "name": "Cognat",
+     "id": "evx_id50402434_20",
+     "name": "King",
      "rating": 88,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 18,
-     "leagueId": 189,
-     "clubId": 324,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
      "card": [
-      88,
       89,
-      80
+      90,
+      73
      ],
      "chem": 3,
      "eff": [
-      90,
       91,
-      82
+      92,
+      75
      ],
      "evos": [
-      "Swiss Super League Silver"
+      "Future Stars Upgrade"
      ],
      "slot": "CAM"
-    },
-    {
-     "id": "id262112",
-     "name": "van Persie",
-     "rating": 88,
-     "color": "icon",
-     "position": "ST",
-     "nationId": 34,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      89,
-      84,
-      49
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      86,
-      51
-     ],
-     "slot": "ST"
     },
     {
      "id": "id82092",
@@ -281,30 +262,52 @@
       55
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id262112",
+     "name": "van Persie",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      86,
+      51
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.643,
-    "control": 91.4,
+    "ctrl_win": 0.6286,
+    "control": 92.0,
     "attack": 90.12,
     "defence": 91.25,
-    "net": 0.1455,
+    "net": 0.1878,
     "vs_reddit": null,
     "control_cards": [
      92,
      92,
      92,
-     91,
-     90
+     92,
+     92
     ],
     "attack_cards": [
      91,
      91,
-     90,
-     89,
-     88,
+     91,
+     91,
      86,
+     85,
      85
     ],
     "defence_cards": [
@@ -313,19 +316,21 @@
      91,
      90
     ],
-    "p_att": 0.3224,
-    "p_def": 0.802,
+    "p_att": 0.4229,
+    "p_def": 0.6747,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
-    "weak_attackers": [],
-    "attack_short": 0,
-    "ctrl_total": 259.6,
-    "att_total": 241.43,
-    "def_total": 218.0,
+    "weak_attackers": [
+     "Merlin"
+    ],
+    "attack_short": 0.233,
+    "ctrl_total": 255.0,
+    "att_total": 238.75,
+    "def_total": 224.25,
     "round_robin": {
-     "wins": 16.0,
-     "margin": 2.0681
+     "wins": 23.0,
+     "margin": 3.6222
     }
    }
   },
@@ -359,50 +364,6 @@
      "slot": "GK"
     },
     {
-     "id": "id012",
-     "name": "David Luiz",
-     "rating": 87,
-     "color": "evo",
-     "position": "CB",
-     "nationId": 54,
-     "leagueId": 13,
-     "clubId": 1,
-     "card": [
-      74,
-      80,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      76,
-      84,
-      91
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id243029",
-     "name": "Campbell",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      60,
-      60,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      62,
-      62,
-      90
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id138956",
      "name": "Chiellini",
      "rating": 88,
@@ -425,46 +386,94 @@
      "slot": "CB"
     },
     {
-     "id": "id50565310",
-     "name": "Karchaoui",
+     "id": "id161840",
+     "name": "Fernando Hierro",
      "rating": 88,
-     "color": "uwcl_rttk",
-     "position": "RM",
-     "nationId": 18,
-     "leagueId": 2218,
-     "clubId": 73,
+     "color": "icon",
+     "position": "CB",
+     "nationId": 45,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
-      86,
-      88,
-      79
+      73,
+      72,
+      88
      ],
      "chem": 3,
      "eff": [
-      88,
+      75,
+      74,
+      90
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo88",
+     "name": "Comuzzo",
+     "rating": 88,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      66,
+      75,
+      89
+     ],
+     "chem": 3,
+     "eff": [
+      68,
+      77,
+      91
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id261616_8_15",
+     "name": "Merlin",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 74,
+     "card": [
+      83,
       90,
-      81
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      92,
+      89
+     ],
+     "evos": [
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
      ],
      "slot": "LM"
     },
     {
-     "id": "id50554313",
-     "name": "Ødegaard",
+     "id": "id117638293",
+     "name": "Isco",
      "rating": 87,
-     "color": "totw_gold",
-     "position": "CM",
-     "nationId": 36,
-     "leagueId": 13,
-     "clubId": 1,
+     "color": "thunderstruck",
+     "position": "CAM",
+     "nationId": 45,
+     "leagueId": 53,
+     "clubId": 449,
      "card": [
-      84,
+      86,
       88,
-      65
+      63
      ],
      "chem": 3,
      "eff": [
-      86,
+      90,
       92,
-      68
+      67
      ],
      "slot": "CM"
     },
@@ -495,50 +504,52 @@
      "slot": "CM"
     },
     {
-     "id": "evo_Clauss_88",
-     "name": "Clauss",
+     "id": "evx_id50596510_21",
+     "name": "Akliouche",
      "rating": 88,
-     "color": "evo",
-     "position": "RB",
+     "color": "destined_for_glory",
+     "position": "CAM",
      "nationId": 18,
      "leagueId": 16,
-     "clubId": 72,
+     "clubId": 73,
      "card": [
-      87,
+      89,
       90,
-      87
+      60
      ],
      "chem": 3,
      "eff": [
-      89,
+      91,
       92,
-      89
+      62
      ],
      "evos": [
-      "Defender Control Upgrade",
-      "Les Bleus Defender"
+      "Destined for Glory Upgrade"
      ],
      "slot": "RM"
     },
     {
-     "id": "id23174",
-     "name": "Riquelme",
+     "id": "evx_id50402434_20",
+     "name": "King",
      "rating": 88,
-     "color": "icon",
+     "color": "future_stars",
      "position": "CAM",
-     "nationId": 52,
-     "leagueId": 2118,
-     "clubId": 112658,
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
      "card": [
-      86,
       89,
-      39
+      90,
+      73
      ],
      "chem": 3,
      "eff": [
-      88,
       91,
-      41
+      92,
+      75
+     ],
+     "evos": [
+      "Future Stars Upgrade"
      ],
      "slot": "CAM"
     },
@@ -565,50 +576,49 @@
      "slot": "ST"
     },
     {
-     "id": "id120274",
-     "name": "Di Natale",
+     "id": "id82092",
+     "name": "Kempes",
      "rating": 88,
-     "color": "hero",
+     "color": "icon",
      "position": "ST",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 114605,
+     "nationId": 52,
+     "leagueId": 2118,
+     "clubId": 112658,
      "card": [
       89,
-      85,
-      48
+      80,
+      53
      ],
      "chem": 3,
      "eff": [
       91,
-      87,
-      50
+      82,
+      55
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6104,
-    "control": 91.4,
-    "attack": 89.88,
+    "ctrl_win": 0.6495,
+    "control": 92.0,
+    "attack": 90.27,
     "defence": 91.25,
-    "net": 0.1456,
+    "net": 0.1753,
     "vs_reddit": null,
     "control_cards": [
      92,
      92,
      92,
-     91,
-     90
+     92,
+     92
     ],
     "attack_cards": [
      91,
      91,
-     89,
-     88,
-     88,
-     86,
+     91,
+     91,
+     90,
      85
     ],
     "defence_cards": [
@@ -617,22 +627,23 @@
      91,
      90
     ],
-    "p_att": 0.3226,
-    "p_def": 0.802,
+    "p_att": 0.4278,
+    "p_def": 0.6246,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
-    "weak_attackers": [],
-    "attack_short": 0,
-    "ctrl_total": 251.0,
-    "att_total": 236.42,
-    "def_total": 218.0,
-    "swaps_checked": 59308
+    "weak_attackers": [
+     "Merlin"
+    ],
+    "attack_short": 0.233,
+    "ctrl_total": 255.6,
+    "att_total": 238.62,
+    "def_total": 220.5
    }
   },
   {
    "formation": "3-4-1-2",
-   "chem": 33,
+   "chem": 32,
    "players": [
     {
      "id": "evx_id50537723_11",
@@ -648,11 +659,11 @@
       43,
       90
      ],
-     "chem": 3,
+     "chem": 2,
      "eff": [
-      48,
-      45,
-      92
+      47,
+      44,
+      91
      ],
      "evos": [
       "Scottish Premiership Silver"
@@ -660,46 +671,24 @@
      "slot": "GK"
     },
     {
-     "id": "id012",
-     "name": "David Luiz",
-     "rating": 87,
-     "color": "evo",
+     "id": "id243715",
+     "name": "Saliba",
+     "rating": 88,
+     "color": "rare_gold",
      "position": "CB",
-     "nationId": 54,
+     "nationId": 18,
      "leagueId": 13,
      "clubId": 1,
      "card": [
+      63,
+      70,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      65,
       74,
-      80,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      76,
-      84,
       91
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id243029",
-     "name": "Campbell",
-     "rating": 88,
-     "color": "icon",
-     "position": "CB",
-     "nationId": 14,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      60,
-      60,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      62,
-      62,
-      90
      ],
      "slot": "CB"
     },
@@ -726,48 +715,52 @@
      "slot": "CB"
     },
     {
-     "id": "id222000",
-     "name": "Laudrup",
-     "rating": 88,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 13,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      85,
-      88,
-      43
-     ],
-     "chem": 3,
-     "eff": [
-      87,
-      90,
-      45
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id50554313",
-     "name": "Ødegaard",
+     "id": "id012",
+     "name": "David Luiz",
      "rating": 87,
-     "color": "totw_gold",
-     "position": "CM",
-     "nationId": 36,
+     "color": "evo",
+     "position": "CB",
+     "nationId": 54,
      "leagueId": 13,
      "clubId": 1,
      "card": [
-      84,
-      88,
-      65
+      74,
+      80,
+      88
      ],
      "chem": 3,
      "eff": [
-      86,
-      92,
-      68
+      76,
+      84,
+      91
      ],
-     "slot": "CM"
+     "slot": "CB"
+    },
+    {
+     "id": "evx_id261616_8_15",
+     "name": "Merlin",
+     "rating": 88,
+     "color": "rare_gold",
+     "position": "LB",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 74,
+     "card": [
+      83,
+      90,
+      87
+     ],
+     "chem": 3,
+     "eff": [
+      85,
+      92,
+      89
+     ],
+     "evos": [
+      "Defender Control Upgrade",
+      "Les Bleus Defender"
+     ],
+     "slot": "LM"
     },
     {
      "id": "evx_id263370_12_6",
@@ -796,55 +789,98 @@
      "slot": "CM"
     },
     {
-     "id": "evo_Clauss_88",
-     "name": "Clauss",
-     "rating": 88,
-     "color": "evo",
-     "position": "RB",
-     "nationId": 18,
-     "leagueId": 16,
-     "clubId": 72,
+     "id": "id50554313",
+     "name": "Ødegaard",
+     "rating": 87,
+     "color": "totw_gold",
+     "position": "CM",
+     "nationId": 36,
+     "leagueId": 13,
+     "clubId": 1,
      "card": [
-      87,
-      90,
-      87
+      84,
+      88,
+      65
      ],
      "chem": 3,
      "eff": [
-      89,
+      86,
       92,
-      89
+      68
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "evx_id50596510_21",
+     "name": "Akliouche",
+     "rating": 88,
+     "color": "destined_for_glory",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 16,
+     "clubId": 73,
+     "card": [
+      89,
+      90,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      92,
+      62
      ],
      "evos": [
-      "Defender Control Upgrade",
-      "Les Bleus Defender"
+      "Destined for Glory Upgrade"
      ],
      "slot": "RM"
     },
     {
-     "id": "evx_id244399_18",
-     "name": "Cognat",
+     "id": "evx_id50402434_20",
+     "name": "King",
      "rating": 88,
-     "color": "rare_silver",
-     "position": "CM",
-     "nationId": 18,
-     "leagueId": 189,
-     "clubId": 324,
+     "color": "future_stars",
+     "position": "CAM",
+     "nationId": 14,
+     "leagueId": 13,
+     "clubId": 144,
      "card": [
-      88,
       89,
-      80
+      90,
+      73
      ],
      "chem": 3,
      "eff": [
-      90,
       91,
-      82
+      92,
+      75
      ],
      "evos": [
-      "Swiss Super League Silver"
+      "Future Stars Upgrade"
      ],
      "slot": "CAM"
+    },
+    {
+     "id": "id262112",
+     "name": "van Persie",
+     "rating": 88,
+     "color": "icon",
+     "position": "ST",
+     "nationId": 34,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      89,
+      84,
+      49
+     ],
+     "chem": 3,
+     "eff": [
+      91,
+      86,
+      51
+     ],
+     "slot": "ST"
     },
     {
      "id": "id82092",
@@ -867,70 +903,50 @@
       55
      ],
      "slot": "ST"
-    },
-    {
-     "id": "id120274",
-     "name": "Di Natale",
-     "rating": 88,
-     "color": "hero",
-     "position": "ST",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 114605,
-     "card": [
-      89,
-      85,
-      48
-     ],
-     "chem": 3,
-     "eff": [
-      91,
-      87,
-      50
-     ],
-     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.6207,
-    "control": 91.4,
-    "attack": 90.0,
+    "ctrl_win": 0.6286,
+    "control": 92.0,
+    "attack": 90.12,
     "defence": 91.25,
-    "net": 0.1455,
+    "net": 0.1628,
     "vs_reddit": null,
     "control_cards": [
      92,
      92,
      92,
-     91,
-     90
+     92,
+     92
     ],
     "attack_cards": [
      91,
      91,
-     90,
-     89,
-     87,
+     91,
+     91,
      86,
+     85,
      85
     ],
     "defence_cards": [
      92,
-     92,
      91,
-     90
+     91,
+     91
     ],
-    "p_att": 0.3224,
-    "p_def": 0.802,
-    "chem": 33,
+    "p_att": 0.4229,
+    "p_def": 0.5954,
+    "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
-    "weak_attackers": [],
-    "attack_short": 0,
-    "ctrl_total": 252.2,
-    "att_total": 237.12,
-    "def_total": 218.0
+    "weak_attackers": [
+     "Merlin"
+    ],
+    "attack_short": 0.233,
+    "ctrl_total": 255.0,
+    "att_total": 238.75,
+    "def_total": 221.25
    }
   }
  ],
@@ -947,6 +963,8 @@
   "Austrian Bundesliga Silver",
   "Bronze Master-Shooter",
   "Defender Control Upgrade",
+  "Destined for Glory Upgrade",
+  "Future Stars Upgrade",
   "German Defender",
   "K League 1 Bronze",
   "K League 1 Silver",
@@ -963,7 +981,7 @@
   "Squad Foundations Upgrade",
   "Swiss Super League Silver"
  ],
- "built": "2026-11-24 05:09 UTC",
+ "built": "2026-11-25 22:52 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-24 05:09 UTC"
+ "changed": "2026-11-25 22:52 UTC"
 }
