@@ -561,11 +561,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4517,
+    "ctrl_win": 0.4563,
     "control": 96.6,
     "attack": 96.95,
     "defence": 93.2,
-    "net": 0.0621,
+    "net": 0.067,
     "vs_reddit": null,
     "control_cards": [
      98,
@@ -589,8 +589,8 @@
      91,
      82
     ],
-    "p_att": 0.6355,
-    "p_def": 0.4023,
+    "p_att": 0.6382,
+    "p_def": 0.4024,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -602,7 +602,7 @@
     "swaps_checked": 51520,
     "round_robin": {
      "wins": 12.0,
-     "margin": 0.8303
+     "margin": 0.8993
     }
    }
   },
@@ -633,28 +633,6 @@
      "slot": "GK"
     },
     {
-     "id": "id83751",
-     "name": "Reggiani",
-     "rating": 67,
-     "color": "rare_silver",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 19,
-     "clubId": 22,
-     "card": [
-      49,
-      52,
-      67
-     ],
-     "chem": 3,
-     "eff": [
-      51,
-      54,
-      69
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id031",
      "name": "Konsa",
      "rating": 94,
@@ -673,6 +651,28 @@
       80,
       87,
       98
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "id83751",
+     "name": "Reggiani",
+     "rating": 67,
+     "color": "rare_silver",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 19,
+     "clubId": 22,
+     "card": [
+      49,
+      52,
+      67
+     ],
+     "chem": 3,
+     "eff": [
+      51,
+      54,
+      69
      ],
      "slot": "CB"
     },
@@ -743,28 +743,6 @@
      "slot": "LM"
     },
     {
-     "id": "id1397",
-     "name": "Zidane",
-     "rating": 94,
-     "color": "icon",
-     "position": "CAM",
-     "nationId": 18,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      91,
-      93,
-      74
-     ],
-     "chem": 3,
-     "eff": [
-      93,
-      95,
-      76
-     ],
-     "slot": "CM"
-    },
-    {
      "id": "id027",
      "name": "Nico Paz",
      "rating": 94,
@@ -783,6 +761,28 @@
       97,
       98,
       71
+     ],
+     "slot": "CM"
+    },
+    {
+     "id": "id1397",
+     "name": "Zidane",
+     "rating": 94,
+     "color": "icon",
+     "position": "CAM",
+     "nationId": 18,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      91,
+      93,
+      74
+     ],
+     "chem": 3,
+     "eff": [
+      93,
+      95,
+      76
      ],
      "slot": "CM"
     },
@@ -809,28 +809,6 @@
      "slot": "RM"
     },
     {
-     "id": "id84161323",
-     "name": "Hamm",
-     "rating": 94,
-     "color": "thunderstruck_icon",
-     "position": "ST",
-     "nationId": 95,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      93,
-      89,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      97,
-      93,
-      64
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id022",
      "name": "Kane",
      "rating": 97,
@@ -851,15 +829,37 @@
       74
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id84161323",
+     "name": "Hamm",
+     "rating": 94,
+     "color": "thunderstruck_icon",
+     "position": "ST",
+     "nationId": 95,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      89,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      93,
+      64
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4517,
+    "ctrl_win": 0.4563,
     "control": 96.6,
     "attack": 96.95,
     "defence": 90.0,
-    "net": 0.0617,
+    "net": 0.0666,
     "vs_reddit": null,
     "control_cards": [
      98,
@@ -883,8 +883,8 @@
      88,
      69
     ],
-    "p_att": 0.6355,
-    "p_def": 0.4015,
+    "p_att": 0.6382,
+    "p_def": 0.4017,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -897,7 +897,7 @@
   }
  ],
  "not_owned": [],
- "built": "2026-11-24 05:04 UTC",
+ "built": "2026-11-25 03:37 UTC",
  "week": "2026-11-23",
  "changed": "2026-11-21 20:01 UTC"
 }
