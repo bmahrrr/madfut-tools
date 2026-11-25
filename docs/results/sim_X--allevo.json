@@ -561,11 +561,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4517,
+    "ctrl_win": 0.4563,
     "control": 96.6,
     "attack": 96.95,
     "defence": 93.2,
-    "net": 0.0621,
+    "net": 0.067,
     "vs_reddit": null,
     "control_cards": [
      98,
@@ -589,8 +589,8 @@
      91,
      82
     ],
-    "p_att": 0.6355,
-    "p_def": 0.4023,
+    "p_att": 0.6382,
+    "p_def": 0.4024,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -599,10 +599,10 @@
     "ctrl_total": 268.4,
     "att_total": 263.05,
     "def_total": 234.4,
-    "swaps_checked": 51515,
+    "swaps_checked": 51520,
     "round_robin": {
-     "wins": 13.0,
-     "margin": 0.885
+     "wins": 12.0,
+     "margin": 0.8993
     }
    }
   },
@@ -631,28 +631,6 @@
       88
      ],
      "slot": "GK"
-    },
-    {
-     "id": "ltm_comuzzo96",
-     "name": "Comuzzo",
-     "rating": 96,
-     "color": "ltm",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 54,
-     "card": [
-      74,
-      86,
-      97
-     ],
-     "chem": 2,
-     "eff": [
-      75,
-      87,
-      98
-     ],
-     "slot": "CB"
     },
     {
      "id": "id031",
@@ -695,6 +673,28 @@
       51,
       54,
       69
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo96",
+     "name": "Comuzzo",
+     "rating": 96,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      74,
+      86,
+      97
+     ],
+     "chem": 2,
+     "eff": [
+      75,
+      87,
+      98
      ],
      "slot": "CB"
     },
@@ -809,28 +809,6 @@
      "slot": "RM"
     },
     {
-     "id": "id84161323",
-     "name": "Hamm",
-     "rating": 94,
-     "color": "thunderstruck_icon",
-     "position": "ST",
-     "nationId": 95,
-     "leagueId": 2118,
-     "clubId": 112658,
-     "card": [
-      93,
-      89,
-      60
-     ],
-     "chem": 3,
-     "eff": [
-      97,
-      93,
-      64
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id022",
      "name": "Kane",
      "rating": 97,
@@ -851,15 +829,37 @@
       74
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id84161323",
+     "name": "Hamm",
+     "rating": 94,
+     "color": "thunderstruck_icon",
+     "position": "ST",
+     "nationId": 95,
+     "leagueId": 2118,
+     "clubId": 112658,
+     "card": [
+      93,
+      89,
+      60
+     ],
+     "chem": 3,
+     "eff": [
+      97,
+      93,
+      64
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4517,
+    "ctrl_win": 0.4563,
     "control": 96.6,
     "attack": 96.95,
     "defence": 90.0,
-    "net": 0.0617,
+    "net": 0.0666,
     "vs_reddit": null,
     "control_cards": [
      98,
@@ -883,8 +883,8 @@
      88,
      69
     ],
-    "p_att": 0.6355,
-    "p_def": 0.4015,
+    "p_att": 0.6382,
+    "p_def": 0.4017,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -909,6 +909,8 @@
   "Austrian Bundesliga Silver",
   "Bronze Master-Shooter",
   "Defender Control Upgrade",
+  "Destined for Glory Upgrade",
+  "Future Stars Upgrade",
   "German Defender",
   "K League 1 Bronze",
   "K League 1 Silver",
@@ -926,7 +928,7 @@
   "Swiss Super League Silver"
  ],
  "same_as_full": true,
- "built": "2026-11-24 05:09 UTC",
+ "built": "2026-11-25 22:52 UTC",
  "week": "2026-11-23",
  "changed": "2026-11-24 05:09 UTC"
 }
