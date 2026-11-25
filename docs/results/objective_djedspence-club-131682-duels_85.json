@@ -3,12 +3,12 @@
  "obj_ids": [
   "id224987"
  ],
- "strength": 101.2,
+ "strength": 101.5,
  "group_cards": 1,
  "reddit": [],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 32,
+  "formation": "4-3-2-1",
+  "chem": 31,
   "players": [
    {
     "slot": "GK",
@@ -35,26 +35,26 @@
    },
    {
     "slot": "LB",
-    "id": "id67359754",
-    "name": "Zambrotta",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "RB",
-    "nationId": 27,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "id": "id033",
+    "name": "Digne",
+    "rating": 84,
+    "color": "evo",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 53,
+    "clubId": 241,
     "card": [
-     75,
-     77,
+     79,
+     82,
      84
     ],
     "chem": 3,
     "eff": [
-     77,
      82,
+     85,
      87
     ],
-    "tiebreak": 242
+    "tiebreak": 251
    },
    {
     "slot": "CB",
@@ -104,29 +104,52 @@
    },
    {
     "slot": "RB",
-    "id": "id226161",
-    "name": "Marcos Llorente",
-    "rating": 85,
-    "color": "rare_gold",
+    "id": "id50542162",
+    "name": "João Cancelo",
+    "rating": 84,
+    "color": "totw_gold",
     "position": "RB",
-    "nationId": 45,
+    "nationId": 38,
     "leagueId": 53,
-    "clubId": 240,
+    "clubId": 241,
     "card": [
      82,
-     80,
+     84,
      83
     ],
     "chem": 3,
     "eff": [
      85,
-     83,
+     87,
      86
     ],
-    "tiebreak": 251
+    "tiebreak": 255
    },
    {
-    "slot": "CDM",
+    "slot": "CM",
+    "id": "id67116627",
+    "name": "Pirlo",
+    "rating": 85,
+    "color": "debut_icon",
+    "position": "CM",
+    "nationId": 27,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     81,
+     85,
+     68
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     90,
+     71
+    ],
+    "tiebreak": 240
+   },
+   {
+    "slot": "CM",
     "id": "id50583417",
     "name": "Calò",
     "rating": 85,
@@ -149,119 +172,96 @@
     "tiebreak": 252
    },
    {
-    "slot": "CDM",
-    "id": "id67335759",
-    "name": "Formiga",
+    "slot": "CM",
+    "id": "id226161",
+    "name": "Marcos Llorente",
     "rating": 85,
-    "color": "debut_icon",
-    "position": "CDM",
-    "nationId": 54,
-    "leagueId": 2118,
-    "clubId": 112658,
+    "color": "rare_gold",
+    "position": "RB",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 240,
     "card": [
-     79,
      82,
+     80,
      83
     ],
     "chem": 3,
     "eff": [
-     81,
-     84,
-     85
+     85,
+     83,
+     86
     ],
-    "tiebreak": 250
+    "tiebreak": 251
    },
    {
     "slot": "CAM",
-    "id": "id84150468",
-    "name": "Moleiro",
+    "id": "id67193279",
+    "name": "Riise",
     "rating": 85,
-    "color": "thunderstruck",
-    "position": "LM",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 483,
+    "color": "debut_icon",
+    "position": "CM",
+    "nationId": 36,
+    "leagueId": 2118,
+    "clubId": 112658,
     "card": [
-     86,
+     83,
      84,
-     58
+     69
     ],
     "chem": 3,
     "eff": [
-     89,
-     87,
+     85,
+     86,
+     71
+    ],
+    "tiebreak": 242
+   },
+   {
+    "slot": "CAM",
+    "id": "id50609974",
+    "name": "Cissè",
+    "rating": 85,
+    "color": "star_performer",
+    "position": "CAM",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 131681,
+    "card": [
+     85,
+     84,
      61
     ],
-    "tiebreak": 234
-   },
-   {
-    "slot": "CAM",
-    "id": "id50412322",
-    "name": "Dro Fernández",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     85,
-     86,
-     75
-    ],
     "chem": 3,
     "eff": [
      87,
-     88,
-     77
+     89,
+     64
     ],
-    "tiebreak": 252
-   },
-   {
-    "slot": "CAM",
-    "id": "id50590377",
-    "name": "Gabri Veiga",
-    "rating": 85,
-    "color": "ucl_rttk",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 308,
-    "clubId": 236,
-    "card": [
-     85,
-     85,
-     76
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     87,
-     78
-    ],
-    "tiebreak": 252
+    "tiebreak": 236
    },
    {
     "slot": "ST",
-    "id": "id67362886",
-    "name": "Woltemade",
+    "id": "id67314295",
+    "name": "Füllkrug",
     "rating": 85,
-    "color": "halloween",
-    "position": "CAM",
+    "color": "bundesliga_potm",
+    "position": "ST",
     "nationId": 21,
-    "leagueId": 31,
-    "clubId": 45,
+    "leagueId": 19,
+    "clubId": 38,
     "card": [
-     84,
-     85,
-     52
-    ],
-    "chem": 3,
-    "eff": [
-     86,
      87,
-     54
+     80,
+     63
     ],
-    "tiebreak": 227
+    "chem": 2,
+    "eff": [
+     88,
+     81,
+     64
+    ],
+    "tiebreak": 233
    }
   ]
  },
@@ -299,17 +299,17 @@
  "base_ids": [
   "id16254",
   "id67229397",
-  "id50608873",
   "evo_Can_85",
-  "id67359754",
-  "id67335759",
-  "id67116627",
+  "id50608873",
   "evo_Gerso_84",
-  "id50412322",
+  "id50583417",
+  "id67116627",
+  "id67359754",
   "id84150468",
+  "id67193279",
   "id67314295"
  ],
- "built": "2026-11-24 09:05 UTC",
+ "built": "2026-11-25 06:38 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-24 09:05 UTC"
+ "changed": "2026-11-25 06:38 UTC"
 }
