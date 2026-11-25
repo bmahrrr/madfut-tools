@@ -87,6 +87,8 @@ def load_cards(owned_only=False):
     for e in ex:
         if e.get("from_week") and wk and e["from_week"] > wk:
             continue
+        if e.get("until_week") and wk and e["until_week"] <= wk:      # used up (its Evo went to another card)
+            continue
         e = dict(e)
         e.setdefault("specialChem", "")
         e.setdefault("altPositions", "")

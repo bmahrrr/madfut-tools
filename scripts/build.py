@@ -355,7 +355,9 @@ def main():
                   open(os.path.join(RES, "index.json"), "w"), indent=1)
         json.dump(w, open(os.path.join(RES, "week.json"), "w"), indent=1, ensure_ascii=False)
         ex = json.load(open(os.path.join(ROOT, "config", "extras.json")))
-        json.dump({"cards": ex.get("cards", [])}, open(os.path.join(RES, "extras.json"), "w"), indent=1, ensure_ascii=False)
+        wk = w.get("week") or ""
+        json.dump({"cards": [c for c in ex.get("cards", []) if not (c.get("until_week") and wk and c["until_week"] <= wk)]},     # used-up Evos leave the site too
+                  open(os.path.join(RES, "extras.json"), "w"), indent=1, ensure_ascii=False)
         return
     allc = load_cards()
     NO = not_owned()

@@ -1,5 +1,5 @@
 {
- "_help": "Extra cards not in the madfutdata file: Evo, Elite Evo and LTM cards (one entry per rating/level). owned=true means YOU have it; owned=false means only opponents may use it. None of these can be used in SBCs. specialChem \"solo\": always full chem but adds nothing to other cards' chem. from_week (regular Evos only): the week it was added; older seasons' rebuilds leave it out. LTM, Elite Evo and other hand-added cards count in every season.",
+ "_help": "Extra cards not in the madfutdata file: Evo, Elite Evo and LTM cards (one entry per rating/level). owned=true means YOU have it; owned=false means only opponents may use it. None of these can be used in SBCs. specialChem \"solo\": always full chem but adds nothing to other cards' chem. from_week (regular Evos only): the week it was added; older seasons' rebuilds leave it out. until_week: the week it was used up (e.g. its Evo went to another card); from then on it's left out. LTM, Elite Evo and other hand-added cards count in every season.",
  "cards": [
   {
    "id": "evo_Rogers_86",
@@ -1427,7 +1427,8 @@
    "from_week": "2026-10-19",
    "evos": [
     "Midfielder Attack Upgrade"
-   ]
+   ],
+   "until_week": "2026-11-23"
   },
   {
    "id": "evo_Bruno Costa_81",
@@ -2052,6 +2053,48 @@
    "from_week": "2026-11-16",
    "evos": [
     "Bronze Master-Shooter"
+   ]
+  },
+  {
+   "id": "evo_Mollet_85",
+   "name": "Mollet",
+   "rating": 85,
+   "color": "evo",
+   "position": "CAM",
+   "altPositions": "CDM,RM,CM,RW",
+   "attack": 87,
+   "control": 88,
+   "defense": 69,
+   "nationId": 18,
+   "leagueId": 189,
+   "clubId": 1862,
+   "baseId": 209288,
+   "owned": true,
+   "from_week": "2026-11-23",
+   "evos": [
+    "Swiss Super League Silver",
+    "Midfielder Attack Upgrade"
+   ]
+  },
+  {
+   "id": "evo_Moi Gómez_87",
+   "name": "Moi Gómez",
+   "rating": 87,
+   "color": "evo",
+   "position": "CM",
+   "altPositions": "CDM",
+   "attack": 85,
+   "control": 88,
+   "defense": 75,
+   "nationId": 45,
+   "leagueId": 53,
+   "clubId": 479,
+   "specialChem": "league2",
+   "baseId": 206590,
+   "owned": true,
+   "from_week": "2026-11-23",
+   "evos": [
+    "Squad Foundations Upgrade"
    ]
   }
  ]
