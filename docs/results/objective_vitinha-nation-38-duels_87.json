@@ -1,12 +1,14 @@
 {
- "g": 3,
+ "g": 5,
  "obj_ids": [
   "id239818",
+  "id1025",
+  "id117682956",
   "id83906855",
-  "id1025"
+  "id50593503"
  ],
- "strength": 100.2,
- "group_cards": 6,
+ "strength": 99.9,
+ "group_cards": 7,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -14,8 +16,8 @@
   }
  ],
  "team": {
-  "formation": "3-4-2-1",
-  "chem": 31,
+  "formation": "4-1-2-1-2",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -41,27 +43,27 @@
     "tiebreak": 239
    },
    {
-    "slot": "CB",
-    "id": "id229558",
-    "name": "Upamecano",
-    "rating": 87,
+    "slot": "LB",
+    "id": "id265674",
+    "name": "Bacha",
+    "rating": 86,
     "color": "rare_gold",
-    "position": "CB",
+    "position": "LB",
     "nationId": 18,
-    "leagueId": 19,
-    "clubId": 21,
+    "leagueId": 2218,
+    "clubId": 66,
     "card": [
-     66,
-     69,
-     86
+     82,
+     83,
+     84
     ],
     "chem": 3,
     "eff": [
-     69,
-     71,
-     90
+     85,
+     85,
+     88
     ],
-    "tiebreak": 227
+    "tiebreak": 255
    },
    {
     "slot": "CB",
@@ -110,6 +112,52 @@
     "tiebreak": 220
    },
    {
+    "slot": "RB",
+    "id": "id50535199",
+    "name": "Florenzi",
+    "rating": 87,
+    "color": "hall_of_fut_upgraded",
+    "position": "RB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 132794,
+    "card": [
+     85,
+     83,
+     86
+    ],
+    "chem": 3,
+    "eff": [
+     87,
+     85,
+     88
+    ],
+    "tiebreak": 260
+   },
+   {
+    "slot": "CDM",
+    "id": "id84105763",
+    "name": "Tolisso",
+    "rating": 86,
+    "color": "halloween",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 66,
+    "card": [
+     86,
+     85,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     87,
+     86
+    ],
+    "tiebreak": 259
+   },
+   {
     "slot": "LM",
     "id": "id83906855",
     "name": "Quaresma",
@@ -133,7 +181,30 @@
     "tiebreak": 217
    },
    {
-    "slot": "CM",
+    "slot": "RM",
+    "id": "id67230808",
+    "name": "Schweinsteiger",
+    "rating": 86,
+    "color": "debut_icon",
+    "position": "CM",
+    "nationId": 21,
+    "leagueId": 2118,
+    "clubId": 112658,
+    "card": [
+     81,
+     80,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     83,
+     82,
+     86
+    ],
+    "tiebreak": 251
+   },
+   {
+    "slot": "CAM",
     "id": "id1025",
     "name": "Rui Costa",
     "rating": 87,
@@ -156,98 +227,6 @@
     "tiebreak": 224
    },
    {
-    "slot": "CM",
-    "id": "id84095738",
-    "name": "Goretzka",
-    "rating": 86,
-    "color": "heritage",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 2,
-    "card": [
-     84,
-     84,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     86,
-     86
-    ],
-    "tiebreak": 258
-   },
-   {
-    "slot": "RM",
-    "id": "id50569340",
-    "name": "Foden",
-    "rating": 87,
-    "color": "star_performer",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 10,
-    "card": [
-     88,
-     87,
-     58
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     89,
-     60
-    ],
-    "tiebreak": 239
-   },
-   {
-    "slot": "CAM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
-    "card": [
-     85,
-     88,
-     81
-    ],
-    "chem": 3,
-    "eff": [
-     87,
-     90,
-     83
-    ],
-    "tiebreak": 260
-   },
-   {
-    "slot": "CAM",
-    "id": "id50595413",
-    "name": "Bischof",
-    "rating": 86,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 21,
-    "card": [
-     87,
-     88,
-     78
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     90,
-     80
-    ],
-    "tiebreak": 259
-   },
-   {
     "slot": "ST",
     "id": "id50593503",
     "name": "Kika Nazareth",
@@ -262,13 +241,36 @@
      85,
      66
     ],
-    "chem": 1,
+    "chem": 3,
     "eff": [
-     86,
-     85,
-     66
+     88,
+     87,
+     68
     ],
-    "tiebreak": 237
+    "tiebreak": 243
+   },
+   {
+    "slot": "ST",
+    "id": "id117682956",
+    "name": "João Félix",
+    "rating": 87,
+    "color": "thunderstruck",
+    "position": "ST",
+    "nationId": 38,
+    "leagueId": 350,
+    "clubId": 112139,
+    "card": [
+     86,
+     84,
+     55
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     86,
+     57
+    ],
+    "tiebreak": 231
    }
   ]
  },
@@ -308,15 +310,15 @@
   "id227315",
   "id67310399",
   "id229558",
-  "id50603069",
+  "evo_Oxlade-Chamberlain_87",
   "id50595413",
   "id50592947",
-  "id67380671",
-  "evo_Oxlade-Chamberlain_87",
+  "evo_Mollet_85",
   "id50569340",
+  "id67380671",
   "id67336134"
  ],
- "built": "2026-11-24 09:05 UTC",
+ "built": "2026-11-26 03:11 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-24 09:05 UTC"
+ "changed": "2026-11-26 03:11 UTC"
 }

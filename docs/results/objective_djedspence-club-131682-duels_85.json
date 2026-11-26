@@ -3,11 +3,11 @@
  "obj_ids": [
   "id224987"
  ],
- "strength": 101.5,
+ "strength": 101.2,
  "group_cards": 1,
  "reddit": [],
  "team": {
-  "formation": "4-3-2-1",
+  "formation": "4-1-4-1",
   "chem": 31,
   "players": [
    {
@@ -81,26 +81,26 @@
    },
    {
     "slot": "CB",
-    "id": "evo_Can_85",
-    "name": "Can",
+    "id": "ltm_comuzzo85",
+    "name": "Comuzzo",
     "rating": 85,
-    "color": "evo",
-    "position": "CDM",
-    "nationId": 21,
-    "leagueId": 13,
-    "clubId": 9,
+    "color": "ltm",
+    "position": "CB",
+    "nationId": 27,
+    "leagueId": 31,
+    "clubId": 54,
     "card": [
-     76,
-     86,
-     85
-    ],
-    "chem": 2,
-    "eff": [
-     77,
-     87,
+     63,
+     71,
      86
     ],
-    "tiebreak": 250
+    "chem": 3,
+    "eff": [
+     65,
+     76,
+     89
+    ],
+    "tiebreak": 226
    },
    {
     "slot": "RB",
@@ -126,30 +126,7 @@
     "tiebreak": 255
    },
    {
-    "slot": "CM",
-    "id": "id67116627",
-    "name": "Pirlo",
-    "rating": 85,
-    "color": "debut_icon",
-    "position": "CM",
-    "nationId": 27,
-    "leagueId": 2118,
-    "clubId": 112658,
-    "card": [
-     81,
-     85,
-     68
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     90,
-     71
-    ],
-    "tiebreak": 240
-   },
-   {
-    "slot": "CM",
+    "slot": "CDM",
     "id": "id50583417",
     "name": "Calò",
     "rating": 85,
@@ -172,53 +149,53 @@
     "tiebreak": 252
    },
    {
-    "slot": "CM",
-    "id": "id226161",
-    "name": "Marcos Llorente",
-    "rating": 85,
-    "color": "rare_gold",
-    "position": "RB",
-    "nationId": 45,
-    "leagueId": 53,
-    "clubId": 240,
-    "card": [
-     82,
-     80,
-     83
-    ],
-    "chem": 3,
-    "eff": [
-     85,
-     83,
-     86
-    ],
-    "tiebreak": 251
-   },
-   {
-    "slot": "CAM",
-    "id": "id67193279",
-    "name": "Riise",
+    "slot": "LM",
+    "id": "id67359754",
+    "name": "Zambrotta",
     "rating": 85,
     "color": "debut_icon",
-    "position": "CM",
-    "nationId": 36,
+    "position": "RB",
+    "nationId": 27,
     "leagueId": 2118,
     "clubId": 112658,
     "card": [
-     83,
-     84,
-     69
+     75,
+     77,
+     84
     ],
     "chem": 3,
     "eff": [
-     85,
-     86,
-     71
+     77,
+     82,
+     87
     ],
     "tiebreak": 242
    },
    {
-    "slot": "CAM",
+    "slot": "CM",
+    "id": "id84150468",
+    "name": "Moleiro",
+    "rating": 85,
+    "color": "thunderstruck",
+    "position": "LM",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 483,
+    "card": [
+     86,
+     84,
+     58
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     87,
+     61
+    ],
+    "tiebreak": 234
+   },
+   {
+    "slot": "CM",
     "id": "id50609974",
     "name": "Cissè",
     "rating": 85,
@@ -241,27 +218,54 @@
     "tiebreak": 236
    },
    {
-    "slot": "ST",
-    "id": "id67314295",
-    "name": "Füllkrug",
+    "slot": "RM",
+    "id": "evo_Mollet_85",
+    "name": "Mollet",
     "rating": 85,
-    "color": "bundesliga_potm",
-    "position": "ST",
-    "nationId": 21,
-    "leagueId": 19,
-    "clubId": 38,
+    "color": "evo",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 189,
+    "clubId": 1862,
     "card": [
      87,
-     80,
-     63
+     88,
+     69
     ],
-    "chem": 2,
+    "chem": 1,
+    "eff": [
+     87,
+     88,
+     69
+    ],
+    "tiebreak": 244,
+    "evos": [
+     "Swiss Super League Silver",
+     "Midfielder Attack Upgrade"
+    ]
+   },
+   {
+    "slot": "ST",
+    "id": "id50561790",
+    "name": "Oyarzabal",
+    "rating": 85,
+    "color": "totw_gold",
+    "position": "ST",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 457,
+    "card": [
+     85,
+     83,
+     50
+    ],
+    "chem": 3,
     "eff": [
      88,
-     81,
-     64
+     86,
+     53
     ],
-    "tiebreak": 233
+    "tiebreak": 224
    }
   ]
  },
@@ -297,19 +301,19 @@
   "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "base_ids": [
-  "id16254",
+  "id50524728",
+  "id033",
   "id67229397",
   "evo_Can_85",
-  "id50608873",
-  "evo_Gerso_84",
-  "id50583417",
-  "id67116627",
   "id67359754",
+  "evo_Mollet_85",
   "id84150468",
-  "id67193279",
+  "id67335759",
+  "id67116627",
+  "evo_Gerso_84",
   "id67314295"
  ],
- "built": "2026-11-25 06:38 UTC",
+ "built": "2026-11-26 03:12 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-25 06:38 UTC"
+ "changed": "2026-11-26 03:12 UTC"
 }
