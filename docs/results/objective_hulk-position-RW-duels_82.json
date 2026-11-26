@@ -1,13 +1,10 @@
 {
- "g": 4,
+ "g": 1,
  "obj_ids": [
-  "id204970",
-  "id84137646",
-  "id50609600",
-  "id222737"
+  "id50609600"
  ],
- "strength": 99.8,
- "group_cards": 21,
+ "strength": 100.4,
+ "group_cards": 8,
  "reddit": [
   {
    "you_lead_first": "LOSS",
@@ -15,100 +12,103 @@
   }
  ],
  "team": {
-  "formation": "4-1-3-2",
-  "chem": 30,
+  "formation": "4-1-2-1-2",
+  "chem": 20,
   "players": [
    {
     "slot": "GK",
-    "id": "id227204",
-    "name": "Lola Gallardo",
+    "id": "id209981",
+    "name": "Bounou",
     "rating": 82,
     "color": "rare_gold",
     "position": "GK",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 240,
+    "nationId": 129,
+    "leagueId": 350,
+    "clubId": 605,
     "card": [
-     35,
-     25,
+     33,
+     33,
      83
     ],
-    "chem": 3,
+    "chem": 1,
     "eff": [
-     37,
-     27,
+     33,
+     33,
      85
     ],
     "tiebreak": 149
    },
    {
     "slot": "LB",
-    "id": "id50603848",
-    "name": "Cecilia Marcos",
-    "rating": 80,
-    "color": "totw_gold",
+    "id": "evo_Acuña_81",
+    "name": "Acuña",
+    "rating": 81,
+    "color": "evo",
     "position": "LB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 457,
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 1876,
     "card": [
-     82,
-     81,
-     77
-    ],
-    "chem": 3,
-    "eff": [
-     84,
+     80,
      83,
-     79
+     81
     ],
-    "tiebreak": 246
+    "chem": 1,
+    "eff": [
+     80,
+     83,
+     83
+    ],
+    "tiebreak": 244,
+    "evos": [
+     "Albiceleste Upgrade"
+    ]
    },
    {
     "slot": "CB",
-    "id": "id200888",
-    "name": "Danilo Pereira",
+    "id": "id233756",
+    "name": "Janssen",
     "rating": 82,
     "color": "rare_gold",
     "position": "CB",
-    "nationId": 38,
-    "leagueId": 350,
-    "clubId": 607,
+    "nationId": 34,
+    "leagueId": 2216,
+    "clubId": 11,
     "card": [
-     68,
-     68,
-     81
+     69,
+     73,
+     82
     ],
     "chem": 2,
     "eff": [
      70,
-     70,
-     83
+     74,
+     85
     ],
-    "tiebreak": 220
+    "tiebreak": 227
    },
    {
     "slot": "CB",
-    "id": "id50406968",
-    "name": "Ganiou",
+    "id": "id233747",
+    "name": "Spitse",
     "rating": 82,
-    "color": "squad_foundations",
+    "color": "rare_gold",
     "position": "CB",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
+    "nationId": 34,
+    "leagueId": 2229,
+    "clubId": 245,
     "card": [
-     69,
-     68,
-     81
+     72,
+     76,
+     82
     ],
     "chem": 3,
     "eff": [
-     71,
-     70,
-     83
+     74,
+     78,
+     86
     ],
-    "tiebreak": 224
+    "tiebreak": 236
    },
    {
     "slot": "RB",
@@ -125,36 +125,36 @@
      78,
      81
     ],
+    "chem": 2,
+    "eff": [
+     82,
+     79,
+     84
+    ],
+    "tiebreak": 243
+   },
+   {
+    "slot": "CDM",
+    "id": "id50535131",
+    "name": "Klaassen",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "CM",
+    "nationId": 34,
+    "leagueId": 10,
+    "clubId": 245,
+    "card": [
+     81,
+     78,
+     77
+    ],
     "chem": 3,
     "eff": [
      83,
      80,
-     83
+     81
     ],
-    "tiebreak": 246
-   },
-   {
-    "slot": "CDM",
-    "id": "id256302",
-    "name": "Ainhoa Moraza",
-    "rating": 81,
-    "color": "rare_gold",
-    "position": "CB",
-    "nationId": 45,
-    "leagueId": 2222,
-    "clubId": 457,
-    "card": [
-     64,
-     64,
-     80
-    ],
-    "chem": 3,
-    "eff": [
-     66,
-     66,
-     82
-    ],
-    "tiebreak": 214
+    "tiebreak": 242
    },
    {
     "slot": "LM",
@@ -175,104 +175,101 @@
     "eff": [
      85,
      83,
-     49
+     51
     ],
     "tiebreak": 217
    },
    {
-    "slot": "CM",
-    "id": "evo_Bruno Costa_81",
-    "name": "Bruno Costa",
-    "rating": 81,
-    "color": "evo",
-    "position": "CM",
-    "nationId": 38,
-    "leagueId": 330,
-    "clubId": 114385,
+    "slot": "RM",
+    "id": "id50401665",
+    "name": "Yassine",
+    "rating": 80,
+    "color": "totw_gold",
+    "position": "RW",
+    "nationId": 129,
+    "leagueId": 16,
+    "clubId": 76,
     "card": [
+     82,
      83,
-     83,
-     73
+     53
     ],
     "chem": 1,
     "eff": [
-     84,
-     84,
-     74
-    ],
-    "tiebreak": 239,
-    "evos": [
-     "Romanian Superliga Silver"
-    ]
-   },
-   {
-    "slot": "RM",
-    "id": "id84137646",
-    "name": "Gabriel Martinelli",
-    "rating": 82,
-    "color": "totw_gold",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 350,
-    "clubId": 605,
-    "card": [
      82,
-     79,
-     52
-    ],
-    "chem": 3,
-    "eff": [
-     84,
-     81,
-     54
-    ],
-    "tiebreak": 219
-   },
-   {
-    "slot": "ST",
-    "id": "id222737",
-    "name": "Malcom",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 54,
-    "leagueId": 350,
-    "clubId": 605,
-    "card": [
-     82,
-     81,
-     45
-    ],
-    "chem": 3,
-    "eff": [
-     84,
      83,
-     47
-    ],
-    "tiebreak": 214
-   },
-   {
-    "slot": "ST",
-    "id": "id204970",
-    "name": "Thauvin",
-    "rating": 82,
-    "color": "rare_gold",
-    "position": "RW",
-    "nationId": 18,
-    "leagueId": 16,
-    "clubId": 64,
-    "card": [
-     81,
-     82,
-     49
-    ],
-    "chem": 3,
-    "eff": [
-     83,
-     84,
-     51
+     55
     ],
     "tiebreak": 218
+   },
+   {
+    "slot": "CAM",
+    "id": "id50407849",
+    "name": "Peddemors",
+    "rating": 82,
+    "color": "totw_gold",
+    "position": "CAM",
+    "nationId": 34,
+    "leagueId": 2215,
+    "clubId": 175,
+    "card": [
+     80,
+     81,
+     77
+    ],
+    "chem": 2,
+    "eff": [
+     81,
+     82,
+     80
+    ],
+    "tiebreak": 241
+   },
+   {
+    "slot": "ST",
+    "id": "id192629",
+    "name": "Iago Aspas",
+    "rating": 81,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 45,
+    "leagueId": 53,
+    "clubId": 450,
+    "card": [
+     82,
+     80,
+     41
+    ],
+    "chem": 1,
+    "eff": [
+     82,
+     80,
+     43
+    ],
+    "tiebreak": 203
+   },
+   {
+    "slot": "ST",
+    "id": "id183898",
+    "name": "Di María",
+    "rating": 82,
+    "color": "rare_gold",
+    "position": "RW",
+    "nationId": 52,
+    "leagueId": 353,
+    "clubId": 110580,
+    "card": [
+     81,
+     83,
+     46
+    ],
+    "chem": 1,
+    "eff": [
+     81,
+     83,
+     48
+    ],
+    "tiebreak": 210
    }
   ]
  },
@@ -310,19 +307,19 @@
   "rebuilt": "2026-11-22: Icon chem, Icons boost and full-chem Evo fixes"
  },
  "base_ids": [
-  "id261848",
-  "id50603848",
-  "id200888",
-  "id261843",
-  "id264725",
-  "id210411",
-  "id67349814",
+  "id258498",
+  "id233747",
+  "id233756",
+  "id198176",
+  "id50407849",
+  "id268470",
   "evo_Bruno Costa_81",
   "id50561039",
-  "id213516",
-  "id50416920"
+  "id50609600",
+  "id233751",
+  "id50555337"
  ],
- "built": "2026-11-26 03:11 UTC",
+ "built": "2026-11-26 07:22 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-26 03:11 UTC"
+ "changed": "2026-11-26 07:22 UTC"
 }

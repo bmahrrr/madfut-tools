@@ -1,10 +1,10 @@
 {
  "g": 2,
  "obj_ids": [
-  "id67316992",
-  "id231478"
+  "id231478",
+  "id67316992"
  ],
- "strength": 100.7,
+ "strength": 100.4,
  "group_cards": 2,
  "reddit": [
   {
@@ -13,8 +13,8 @@
   }
  ],
  "team": {
-  "formation": "4-1-4-1",
-  "chem": 32,
+  "formation": "4-2-3-1",
+  "chem": 33,
   "players": [
    {
     "slot": "GK",
@@ -64,26 +64,26 @@
    },
    {
     "slot": "CB",
-    "id": "id50501369",
-    "name": "Richards",
+    "id": "id227315",
+    "name": "Georges",
     "rating": 87,
-    "color": "hall_of_fut_upgraded",
+    "color": "hero",
     "position": "CB",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 132794,
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 114605,
     "card": [
-     75,
-     77,
-     86
+     65,
+     66,
+     87
     ],
     "chem": 3,
     "eff": [
-     77,
-     79,
-     88
+     68,
+     68,
+     91
     ],
-    "tiebreak": 244
+    "tiebreak": 224
    },
    {
     "slot": "CB",
@@ -133,55 +133,98 @@
    },
    {
     "slot": "CDM",
-    "id": "id50592947",
-    "name": "Scott",
-    "rating": 86,
-    "color": "future_stars",
+    "id": "id233662",
+    "name": "Karchaoui",
+    "rating": 87,
+    "color": "rare_gold",
     "position": "CM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 1943,
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 73,
     "card": [
      85,
-     88,
-     81
+     87,
+     77
     ],
     "chem": 3,
     "eff": [
-     87,
+     89,
      90,
-     83
+     82
     ],
-    "tiebreak": 260
+    "tiebreak": 255
    },
    {
-    "slot": "LM",
-    "id": "evo_Oxlade-Chamberlain_87",
-    "name": "Oxlade-Chamberlain",
+    "slot": "CDM",
+    "id": "id50557919",
+    "name": "Fabián Ruiz",
     "rating": 87,
-    "color": "evo",
+    "color": "star_performer",
     "position": "CM",
-    "nationId": 14,
-    "leagueId": 50,
-    "clubId": 78,
+    "nationId": 45,
+    "leagueId": 16,
+    "clubId": 73,
     "card": [
-     88,
-     88,
-     81
+     86,
+     86,
+     80
     ],
-    "chem": 2,
+    "chem": 3,
     "eff": [
      89,
      89,
-     82
+     83
     ],
-    "tiebreak": 260,
-    "evos": [
-     "Scottish Premiership Silver"
-    ]
+    "tiebreak": 258
    },
    {
-    "slot": "CM",
+    "slot": "CAM",
+    "id": "id50412322",
+    "name": "Dro Fernández",
+    "rating": 85,
+    "color": "future_stars",
+    "position": "CM",
+    "nationId": 45,
+    "leagueId": 16,
+    "clubId": 73,
+    "card": [
+     85,
+     86,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     89,
+     78
+    ],
+    "tiebreak": 252
+   },
+   {
+    "slot": "CAM",
+    "id": "id84105763",
+    "name": "Tolisso",
+    "rating": 86,
+    "color": "halloween",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 16,
+    "clubId": 66,
+    "card": [
+     86,
+     85,
+     82
+    ],
+    "chem": 3,
+    "eff": [
+     89,
+     87,
+     86
+    ],
+    "tiebreak": 259
+   },
+   {
+    "slot": "CAM",
     "id": "id67316992",
     "name": "Çalhanoğlu",
     "rating": 86,
@@ -202,52 +245,6 @@
      82
     ],
     "tiebreak": 258
-   },
-   {
-    "slot": "CM",
-    "id": "id50402434",
-    "name": "King",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CAM",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 144,
-    "card": [
-     86,
-     87,
-     69
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     71
-    ],
-    "tiebreak": 248
-   },
-   {
-    "slot": "RM",
-    "id": "id50569340",
-    "name": "Foden",
-    "rating": 87,
-    "color": "star_performer",
-    "position": "RW",
-    "nationId": 14,
-    "leagueId": 13,
-    "clubId": 10,
-    "card": [
-     88,
-     87,
-     58
-    ],
-    "chem": 3,
-    "eff": [
-     90,
-     89,
-     60
-    ],
-    "tiebreak": 239
    },
    {
     "slot": "ST",
@@ -309,16 +306,16 @@
   "id215698",
   "id227315",
   "id67310399",
-  "id229558",
+  "id012",
+  "id233662",
   "evo_Oxlade-Chamberlain_87",
-  "id50595413",
+  "id50575052",
+  "id50569340",
   "id50592947",
   "evo_Mollet_85",
-  "id50569340",
-  "id67380671",
   "id67336134"
  ],
- "built": "2026-11-26 03:10 UTC",
+ "built": "2026-11-26 07:22 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-26 03:10 UTC"
+ "changed": "2026-11-26 07:22 UTC"
 }
