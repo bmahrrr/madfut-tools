@@ -203,6 +203,9 @@ def main():
         # cards in the Heroes club that aren't Heroes (SBC Premium Sara, Dobrin): automatically full chem in the game
         if p.get("clubId") == HEROES_CLUB and p.get("color") not in ("hero", "hall_of_fut", "icon", "debut_icon") and not p.get("specialChem"):
             p["specialChem"] = "auto"
+        # Draft League cards (checked in game): +2 to their club, league and nation, if the source doesn't say so itself
+        if "draft" in str(p.get("color") or "").lower() and not p.get("specialChem"):
+            p["specialChem"] = "club2,league2,nation2"
     # a card already hand-added in config/extras.json (e.g. an Elite Evo added before the source had it) isn't imported
     # again, so it never shows up twice
     try:

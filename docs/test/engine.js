@@ -13,7 +13,7 @@ function cardType(c) { return c.evos && c.evos.length ? "evo" : String(c.color).
 
 const SOLO = x => x.specialChem === "solo";      // full-chem Evos (e.g. Jerdea, Kanté): always full chem, and still count for their nation, league and club like a normal card
 const AUTOX = x => AUTO.has(x.color) || x.specialChem === "auto";   // also Heroes-club cards that aren't Heroes (SBC Premium Sara): full chem, +1 nation, +1 league
-const W2 = (x, k) => (String(x.specialChem || "").split(",").includes(k + "2") ? 2 : 1);   // "league2" Squad Foundations, "club2,nation2" World POTM
+const W2 = (x, k) => (String(x.specialChem || "").split(",").includes(k + "2") ? 2 : 1);   // "league2" Squad Foundations, "club2,nation2" World POTM, "club2,league2,nation2" Draft League
 function chem(team) {
   const nat = new Map(), lg = new Map(), club = new Map();
   let icons = 0;

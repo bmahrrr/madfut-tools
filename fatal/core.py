@@ -138,7 +138,7 @@ def full_chem(x):
 
 
 def w2(x, k):
-    """+2 instead of +1 towards a group: "league2" (Squad Foundations), "club2,nation2" (World POTM)."""
+    """+2 instead of +1 towards a group: "league2" (Squad Foundations), "club2,nation2" (World POTM), "club2,league2,nation2" (Draft League)."""
     return 2 if k + "2" in str(x.get("specialChem") or "").split(",") else 1
 
 

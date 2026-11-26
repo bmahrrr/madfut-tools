@@ -54,7 +54,7 @@ function teamRatingOf(rs) {        // EA / FUTBIN squad rating
 
 // SBC chemistry. Icons: +1 to their nation, +1 to every league. Heroes: +1 nation, +1 to their league (checked in game).
 // Squad Foundations: +2 to their league. Icons and heroes are always on full chem.
-// Special chem from the card data: "league2" (Squad Foundations), "club2,nation2" (World POTM) count +2 there
+// Special chem from the card data: "league2" (Squad Foundations), "club2,nation2" (World POTM), "club2,league2,nation2" (Draft League) count +2 there
 const SC2 = (c, k) => String(c.specialChem || "").split(",").includes(k + "2");
 const natW = c => (SC2(c, "nation") ? 2 : 1);
 const lgW = c => (SC2(c, "league") ? 2 : 1);
