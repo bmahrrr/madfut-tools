@@ -13,77 +13,54 @@
   }
  ],
  "team": {
-  "formation": "4-2-3-1",
-  "chem": 33,
+  "formation": "4-1-4-1",
+  "chem": 32,
   "players": [
    {
     "slot": "GK",
-    "id": "id215698",
-    "name": "Maignan",
+    "id": "id191694",
+    "name": "Campos",
     "rating": 87,
-    "color": "rare_gold",
+    "color": "hero",
     "position": "GK",
-    "nationId": 18,
-    "leagueId": 31,
-    "clubId": 131681,
+    "nationId": 83,
+    "leagueId": 341,
+    "clubId": 114605,
     "card": [
-     46,
-     45,
-     87
+     77,
+     68,
+     88
     ],
     "chem": 3,
     "eff": [
-     49,
-     47,
-     91
+     79,
+     70,
+     90
     ],
-    "tiebreak": 184
+    "tiebreak": 239
    },
    {
     "slot": "LB",
-    "id": "id275092",
-    "name": "Bompastor",
-    "rating": 86,
-    "color": "hero",
-    "position": "LB",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 114605,
-    "card": [
-     83,
-     84,
-     84
-    ],
-    "chem": 3,
-    "eff": [
-     86,
-     86,
-     88
-    ],
-    "tiebreak": 257
-   },
-   {
-    "slot": "CB",
-    "id": "id227315",
-    "name": "Georges",
+    "id": "id233662",
+    "name": "Karchaoui",
     "rating": 87,
-    "color": "hero",
-    "position": "CB",
+    "color": "rare_gold",
+    "position": "CM",
     "nationId": 18,
     "leagueId": 2218,
-    "clubId": 114605,
+    "clubId": 73,
     "card": [
-     65,
-     66,
-     87
+     85,
+     87,
+     77
     ],
     "chem": 3,
     "eff": [
-     68,
-     68,
-     91
+     89,
+     90,
+     82
     ],
-    "tiebreak": 224
+    "tiebreak": 255
    },
    {
     "slot": "CB",
@@ -107,6 +84,29 @@
      90
     ],
     "tiebreak": 233
+   },
+   {
+    "slot": "CB",
+    "id": "id227315",
+    "name": "Georges",
+    "rating": 87,
+    "color": "hero",
+    "position": "CB",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 114605,
+    "card": [
+     65,
+     66,
+     87
+    ],
+    "chem": 3,
+    "eff": [
+     68,
+     68,
+     91
+    ],
+    "tiebreak": 224
    },
    {
     "slot": "RB",
@@ -133,75 +133,6 @@
    },
    {
     "slot": "CDM",
-    "id": "id233662",
-    "name": "Karchaoui",
-    "rating": 87,
-    "color": "rare_gold",
-    "position": "CM",
-    "nationId": 18,
-    "leagueId": 2218,
-    "clubId": 73,
-    "card": [
-     85,
-     87,
-     77
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     90,
-     82
-    ],
-    "tiebreak": 255
-   },
-   {
-    "slot": "CDM",
-    "id": "id50557919",
-    "name": "Fabián Ruiz",
-    "rating": 87,
-    "color": "star_performer",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     86,
-     86,
-     80
-    ],
-    "chem": 3,
-    "eff": [
-     89,
-     89,
-     83
-    ],
-    "tiebreak": 258
-   },
-   {
-    "slot": "CAM",
-    "id": "id50412322",
-    "name": "Dro Fernández",
-    "rating": 85,
-    "color": "future_stars",
-    "position": "CM",
-    "nationId": 45,
-    "leagueId": 16,
-    "clubId": 73,
-    "card": [
-     85,
-     86,
-     75
-    ],
-    "chem": 3,
-    "eff": [
-     88,
-     89,
-     78
-    ],
-    "tiebreak": 252
-   },
-   {
-    "slot": "CAM",
     "id": "id84105763",
     "name": "Tolisso",
     "rating": 86,
@@ -224,7 +155,30 @@
     "tiebreak": 259
    },
    {
-    "slot": "CAM",
+    "slot": "LM",
+    "id": "id265674",
+    "name": "Bacha",
+    "rating": 86,
+    "color": "rare_gold",
+    "position": "LB",
+    "nationId": 18,
+    "leagueId": 2218,
+    "clubId": 66,
+    "card": [
+     82,
+     83,
+     84
+    ],
+    "chem": 3,
+    "eff": [
+     85,
+     85,
+     88
+    ],
+    "tiebreak": 255
+   },
+   {
+    "slot": "CM",
     "id": "id67316992",
     "name": "Çalhanoğlu",
     "rating": 86,
@@ -245,6 +199,56 @@
      82
     ],
     "tiebreak": 258
+   },
+   {
+    "slot": "CM",
+    "id": "id171877",
+    "name": "Hamšík",
+    "rating": 87,
+    "color": "hero",
+    "position": "CAM",
+    "nationId": 43,
+    "leagueId": 31,
+    "clubId": 114605,
+    "card": [
+     86,
+     86,
+     75
+    ],
+    "chem": 3,
+    "eff": [
+     88,
+     88,
+     77
+    ],
+    "tiebreak": 253
+   },
+   {
+    "slot": "RM",
+    "id": "evo_Mollet_85",
+    "name": "Mollet",
+    "rating": 85,
+    "color": "evo",
+    "position": "CAM",
+    "nationId": 18,
+    "leagueId": 189,
+    "clubId": 1862,
+    "card": [
+     87,
+     88,
+     69
+    ],
+    "chem": 2,
+    "eff": [
+     89,
+     89,
+     72
+    ],
+    "tiebreak": 247,
+    "evos": [
+     "Swiss Super League Silver",
+     "Midfielder Attack Upgrade"
+    ]
    },
    {
     "slot": "ST",
@@ -315,7 +319,7 @@
   "evo_Mollet_85",
   "id67336134"
  ],
- "built": "2026-11-26 07:22 UTC",
+ "built": "2026-11-26 07:24 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-26 07:22 UTC"
+ "changed": "2026-11-26 07:24 UTC"
 }
