@@ -566,7 +566,7 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.4947,
+    "ctrl_win": 0.4973,
     "control": 84.6,
     "attack": 84.6,
     "defence": 79.2,
@@ -606,34 +606,34 @@
     "att_total": 225.38,
     "def_total": 204.8,
     "round_robin": {
-     "wins": 29.5,
-     "margin": 2.283
+     "wins": 30.5,
+     "margin": 2.2697
     }
    }
   },
   {
-   "formation": "3-1-4-2",
-   "chem": 30,
+   "formation": "3-5-2",
+   "chem": 31,
    "players": [
     {
-     "id": "id50547170",
-     "name": "Schlager",
-     "rating": 80,
-     "color": "totw_gold",
+     "id": "id258485",
+     "name": "Jörgensen",
+     "rating": 77,
+     "color": "rare_gold",
      "position": "GK",
-     "nationId": 4,
-     "leagueId": 19,
-     "clubId": 38,
+     "nationId": 13,
+     "leagueId": 16,
+     "clubId": 76,
      "card": [
-      34,
-      26,
-      81
-     ],
-     "chem": 2,
-     "eff": [
       36,
-      28,
-      83
+      36,
+      78
+     ],
+     "chem": 3,
+     "eff": [
+      38,
+      38,
+      80
      ],
      "slot": "GK"
     },
@@ -660,46 +660,46 @@
      "slot": "CB"
     },
     {
-     "id": "id272081",
-     "name": "Ana González",
-     "rating": 74,
-     "color": "rare_silver",
-     "position": "CDM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 116334,
+     "id": "id236804",
+     "name": "Medina",
+     "rating": 79,
+     "color": "rare_gold",
+     "position": "CB",
+     "nationId": 52,
+     "leagueId": 19,
+     "clubId": 32,
      "card": [
-      68,
-      70,
-      72
+      64,
+      71,
+      79
      ],
      "chem": 3,
      "eff": [
-      72,
-      72,
-      75
+      67,
+      74,
+      82
      ],
      "slot": "CB"
     },
     {
-     "id": "id276377",
-     "name": "Høgsberg",
-     "rating": 74,
-     "color": "rare_silver",
+     "id": "id272082",
+     "name": "Villafañe",
+     "rating": 76,
+     "color": "rare_gold",
      "position": "CB",
-     "nationId": 13,
-     "leagueId": 16,
-     "clubId": 76,
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
      "card": [
-      55,
-      62,
-      73
+      49,
+      58,
+      76
      ],
      "chem": 3,
      "eff": [
-      57,
-      64,
-      75
+      53,
+      60,
+      79
      ],
      "slot": "CB"
     },
@@ -722,6 +722,28 @@
       83,
       84,
       74
+     ],
+     "slot": "CDM"
+    },
+    {
+     "id": "id246287",
+     "name": "Ángela Sosa",
+     "rating": 80,
+     "color": "rare_gold",
+     "position": "CM",
+     "nationId": 45,
+     "leagueId": 2222,
+     "clubId": 116334,
+     "card": [
+      79,
+      82,
+      63
+     ],
+     "chem": 3,
+     "eff": [
+      83,
+      84,
+      66
      ],
      "slot": "CDM"
     },
@@ -767,29 +789,7 @@
       84,
       43
      ],
-     "slot": "CM"
-    },
-    {
-     "id": "id246287",
-     "name": "Ángela Sosa",
-     "rating": 80,
-     "color": "rare_gold",
-     "position": "CM",
-     "nationId": 45,
-     "leagueId": 2222,
-     "clubId": 116334,
-     "card": [
-      79,
-      82,
-      63
-     ],
-     "chem": 3,
-     "eff": [
-      83,
-      84,
-      66
-     ],
-     "slot": "CM"
+     "slot": "CAM"
     },
     {
      "id": "evo_Lucas Vázquez_80",
@@ -863,11 +863,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.508,
+    "ctrl_win": 0.5067,
     "control": 84.6,
-    "attack": 84.63,
-    "defence": 77.6,
-    "net": 0.15,
+    "attack": 84.62,
+    "defence": 77.0,
+    "net": 0.1507,
     "vs_reddit": null,
     "control_cards": [
      86,
@@ -885,27 +885,28 @@
      83
     ],
     "defence_cards": [
-     83,
+     82,
      81,
-     75,
-     75,
-     74
+     80,
+     79,
+     74,
+     66
     ],
-    "p_att": 0.9606,
-    "p_def": 0.0027,
-    "chem": 30,
+    "p_att": 0.9612,
+    "p_def": 0.0033,
+    "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
     "ctrl_total": 232.8,
-    "att_total": 224.68,
-    "def_total": 203.0
+    "att_total": 222.97,
+    "def_total": 209.5
    }
   }
  ],
  "not_owned": [],
- "built": "2026-11-26 04:09 UTC",
+ "built": "2026-11-27 02:50 UTC",
  "week": "2026-11-23",
  "changed": "2026-11-21 20:01 UTC"
 }
