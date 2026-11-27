@@ -83,7 +83,8 @@ def apply_variant(variant, owned, allc, by_id):
         owned, allc = owned + ext, allc + ext
         by_id.update({c["id"]: c for c in ext})
     rules = variant.get("exclude") or []
-    hit = lambda c: any(all(c.get(f) == val for f, val in rule.items()) for rule in rules)
+    same = lambda c, f, val: val.lower() in str(c.get(f[:-4]) or "").lower() if f.endswith("_has") else c.get(f) == val   # "color_has": part of the name
+    hit = lambda c: any(all(same(c, f, val) for f, val in rule.items()) for rule in rules)
     gone = [c for c in owned if hit(c)]
     return [c for c in owned if not hit(c)], allc, hit, gone
 

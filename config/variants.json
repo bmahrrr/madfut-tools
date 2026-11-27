@@ -1,5 +1,5 @@
 {
- "_about": "Extra public versions of each series' Best Team (built ONCE per season, after the main teams; never rebuilt nightly). 'exclude': without those cards (every level of an LTM / regular Evo; Elite Evos stay in); if the main team already has none of them it is reused. 'include': with extra cards ('evos_all' = every possible standard Evo card of the game year, one card per Evo). '*' = every series.",
+ "_about": "Extra public versions of each series' Best Team (built ONCE per season, after the main teams; never rebuilt nightly). 'exclude': without those cards (every level of an LTM / regular Evo; Elite Evos stay in); if the main team already has none of them it is reused. 'include': with extra cards ('evos_all' = every possible standard Evo card of the game year, one card per Evo). '*' = every series. A rule field ending in '_has' matches part of the value ({'color_has': 'draft'} = any Draft League card).",
  "myclub": {
   "*": [
    {
@@ -9,13 +9,16 @@
    },
    {
     "id": "noltmevo",
-    "label": "No LTMs or Evos",
+    "label": "No LTMs, Evos or Draft League",
     "exclude": [
      {
       "color": "ltm"
      },
      {
       "color": "evo"
+     },
+     {
+      "color_has": "draft"
      }
     ]
    }
@@ -30,13 +33,16 @@
    },
    {
     "id": "noltmevo",
-    "label": "No LTMs or Evos",
+    "label": "No LTMs, Evos or Draft League",
     "exclude": [
      {
       "color": "ltm"
      },
      {
       "color": "evo"
+     },
+     {
+      "color_has": "draft"
      }
     ]
    }

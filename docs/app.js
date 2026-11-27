@@ -87,7 +87,7 @@ const APPDIR = window.APPDIR || "";
 const PREVIEW = !!APPDIR;      // features still being tried out show on the preview only      // "beta/" on the private preview: its own scripts and version, the main site's data
 const EVOS = true;          // the Evo team versions, Evo names and My Evos: live
 async function getJSON(p) { const r = await fetch(p + (p.includes("?") ? "&" : "?") + "t=" + Date.now()); if (!r.ok) throw new Error(p); return r.json(); }
-const APP_V = "20261127a";
+const APP_V = "20261128a";
 async function selfUpdate() {         // a saved old copy of the site reloads itself when a newer version is live
   // the page itself (index.html) can be an old cached copy even when this script is new: reload it fresh
   const htmlV = (document.querySelector('meta[name="app-version"]') || {}).content;
@@ -734,7 +734,8 @@ function planHtml(p) {
 const wdl = (R, k) => `<b class="w">${R.filter(v => v[k] === "WIN").length}W</b> <b class="d">${R.filter(v => v[k] === "DRAW").length}D</b> <b class="l">${R.filter(v => v[k] === "LOSS").length}L</b>`;
 
 // ---------- Teams tab ----------
-const VARIANT_EXCLUDE = { noltmevo: [{ color: "ltm" }, { color: "evo" }] };   // config/variants.json
+const VARIANT_EXCLUDE = { noltmevo: [{ color: "ltm" }, { color: "evo" }, { color_has: "draft" }] };   // config/variants.json
+const ruleHit = (p, rule) => Object.entries(rule).every(([f, v]) => { const x = p[f.replace(/_has$/, "")] ?? (BYID.get(p.id) || {})[f.replace(/_has$/, "")]; return f.endsWith("_has") ? String(x || "").toLowerCase().includes(String(v).toLowerCase()) : x === v; });   // "color_has": part of the name
 // Each series is a folded strip (like the game): number, formation and results; tap to open the full team.
 let TSEL = (() => { try { return JSON.parse(localStorage.getItem("teamSel")) || {}; } catch (e) { return {}; } })();   // { mode: "myclub"|"sim", myclub: "86", sim: "89" }
 if (!TSEL.mode) TSEL.mode = "myclub";
@@ -846,7 +847,7 @@ async function renderTeams() {
   const mc = files.filter(f => f.startsWith("myclub_") && !f.includes("--")), sim = files.filter(f => f.startsWith("sim_") && !f.includes("--"));
   const vfiles = files.filter(f => (f.startsWith("myclub_") || f.startsWith("sim_")) && f.includes("--"));
   // each series: All Evos / Recommended Evos (the main team) / No LTM & Evos, one at a time (only the ones built so far)
-  const VORDER = ["allevo", "", "noltmevo", "myevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM & Evos", myevo: "My Evos" };
+  const VORDER = ["allevo", "", "noltmevo", "myevo"], VNAME = { allevo: "All Evos", "": "Recommended Evos", noltmevo: "No LTM, Evos & Draft", myevo: "My Evos" };
   const ME = !V && EVOS && myEvos().length ? ["myevo"] : [], mePanel = sid => ME.length ? vpanel("myevo", `<div data-myevo="${esc(sid)}"><p class="small muted">Building your team…</p></div>`, "", "<b>My Evos</b><small>Built on this phone</small>") : "";
   const vswitch = (sid, have) => have.length < 2 ? "" : `<div class="vsw" data-vsw="${esc(sid)}">${VORDER.filter(v => have.includes(v)).map(v => `<button class="${v === "" ? "on" : ""}" data-v="${v}">${VNAME[v]}</button>`).join("")}</div>`;
   // each version carries its own header result (Unbeatable, or when it last changed): the header follows the version shown
@@ -894,7 +895,7 @@ async function renderTeams() {
         try {
           let vd = await getJSON(base + vf), vt = vd.team; const vid = vf.replace(/\.json$/, "").split("--")[1];
           const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
-          if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
+          if ((vex.length && !t.players.some(p => vex.some(rule => ruleHit(p, rule))))
               || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
             vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;    // the main team has none of those cards / no extra Evo used
           }
@@ -914,7 +915,7 @@ async function renderTeams() {
         try {
           let vd = await getJSON(base + vf), vt = vd.team; const lab = (vd.variant && vd.variant.label) || "Alternative";
           const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vd.variant && vd.variant.id] || [];
-          if (vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v)))) {
+          if (vex.length && !t.players.some(p => vex.some(rule => ruleHit(p, rule)))) {
             vd = Object.assign({}, vd, { team: t, built: d.built, same_as_full: true }); vt = t;
           }
           let vw = null;
@@ -946,7 +947,7 @@ async function renderTeams() {
           let vd = await getJSON(base + vf); const vid = vf.replace(/\.json$/, "").split("--")[1];
           let vt = vd.teams && vd.teams[0]; if (!vt) continue;
           const vex = (vd.variant && vd.variant.exclude) || VARIANT_EXCLUDE[vid] || [];
-          if ((vex.length && !t.players.some(p => vex.some(rule => Object.entries(rule).every(([f, v]) => (p[f] ?? (BYID.get(p.id) || {})[f]) === v))))
+          if ((vex.length && !t.players.some(p => vex.some(rule => ruleHit(p, rule))))
               || (vid === "allevo" && !vt.players.some(p => String(p.id).startsWith("evx_")))) {
             vd = Object.assign({}, vd, { built: d.built, same_as_full: true }); vt = t;
           }
@@ -1410,7 +1411,7 @@ async function showPV(A, B, TA, TB, first) {
 // ---- key cards: which single cards decide the result ----
 let pool = [];
 function poolAsk(k, msg) {
-  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261127a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
+  if (!pool.length) for (let n = 0; n < Math.min(4, navigator.hardwareConcurrency || 2); n++) { const w = new Worker(APPDIR + "worker.js?v=20261128a"), P = new Map(); w.onmessage = e => { const p = P.get(e.data.id); if (p) { P.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; pool.push({ w, P }); }
   const W = pool[k % pool.length]; return new Promise((res, rej) => { const id = ++reqId; W.P.set(id, { res, rej }); W.w.postMessage(Object.assign({ id }, msg)); });
 }
 async function keyCards(A, B, TA, TB, lv) {
@@ -1436,7 +1437,7 @@ async function keyCards(A, B, TA, TB, lv) {
 }
 let worker = null, reqId = 0; const pending = new Map();
 function ask(msg) {
-  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261127a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
+  if (!worker) { worker = new Worker(APPDIR + "worker.js?v=20261128a"); worker.onmessage = e => { const p = pending.get(e.data.id); if (p) { pending.delete(e.data.id); e.data.ok ? p.res(e.data.result) : p.rej(e.data.error); } }; }
   return new Promise((res, rej) => { const id = ++reqId; pending.set(id, { res, rej }); worker.postMessage(Object.assign({ id }, msg)); });
 }
 
@@ -2270,7 +2271,7 @@ function loadSBC() {
 }
 let sbcWorker = null, sbcReq = 0;
 function sbcSolve(req, timeLimit, onProgress, onPartial) {
-  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261127a");
+  if (!sbcWorker) sbcWorker = new Worker(APPDIR + "sbcworker.js?v=20261128a");
   const id = ++sbcReq;
   return new Promise((res, rej) => {
     sbcWorker.onmessage = e => {
@@ -2430,7 +2431,7 @@ async function setupUsage() {
   let shown = 25;
   const fmt = d => { const r = Math.round(d); return r ? String(r) : "<1"; };
   const f1 = d => { const r = Math.round(d * 10) / 10; return (r || "<0.1") + (r === 1 ? " day" : " days"); };
-  const label = s => { const [k, v] = s.split("_")[1].split("--"); return (s.startsWith("myclub") ? "My Club " : "Sim ") + k + (v === "noltmevo" ? " (No LTM & Evos)" : v === "allevo" ? " (All Evos)" : v ? " (" + v + ")" : ""); };
+  const label = s => { const [k, v] = s.split("_")[1].split("--"); return (s.startsWith("myclub") ? "My Club " : "Sim ") + k + (v === "noltmevo" ? " (No LTM, Evos & Draft)" : v === "allevo" ? " (All Evos)" : v ? " (" + v + ")" : ""); };
   const draw = () => {
     const wk = $("uSeason").value, md = $("uMode").value, q = norm($("uFind").value.trim());
     const L = U.cards.map(c => {
