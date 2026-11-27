@@ -24,25 +24,26 @@
  "teams": [
   {
    "formation": "3-4-1-2",
+   "chem": 31,
    "players": [
     {
-     "id": "id220624",
-     "name": "Acosta",
+     "id": "id276829",
+     "name": "Iacovich",
      "rating": 70,
      "color": "rare_silver",
      "position": "GK",
      "nationId": 52,
      "leagueId": 353,
-     "clubId": 111707,
+     "clubId": 101083,
      "card": [
       35,
-      23,
+      31,
       71
      ],
      "chem": 3,
      "eff": [
       37,
-      25,
+      33,
       73
      ],
      "slot": "GK"
@@ -70,48 +71,70 @@
      "slot": "CB"
     },
     {
-     "id": "id213855",
-     "name": "Flis",
-     "rating": 64,
-     "color": "rare_bronze",
+     "id": "id273767",
+     "name": "Meriano",
+     "rating": 70,
+     "color": "rare_silver",
      "position": "CB",
-     "nationId": 37,
-     "leagueId": 66,
-     "clubId": 1569,
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 110404,
      "card": [
-      57,
-      54,
-      63
+      48,
+      50,
+      71
      ],
      "chem": 3,
      "eff": [
-      59,
-      56,
-      65
+      50,
+      52,
+      73
      ],
      "slot": "CB"
     },
     {
-     "id": "id85618",
-     "name": "Baouf",
-     "rating": 69,
+     "id": "id244576",
+     "name": "Illanes",
+     "rating": 70,
      "color": "rare_silver",
      "position": "CB",
-     "nationId": 129,
-     "leagueId": 10,
-     "clubId": 647,
+     "nationId": 52,
+     "leagueId": 32,
+     "clubId": 110907,
      "card": [
-      49,
-      50,
-      68
-     ],
-     "chem": 2,
-     "eff": [
       50,
       51,
-      69
+      70
+     ],
+     "chem": 3,
+     "eff": [
+      52,
+      53,
+      72
      ],
      "slot": "CB"
+    },
+    {
+     "id": "id275343",
+     "name": "Rodríguez",
+     "rating": 70,
+     "color": "rare_silver",
+     "position": "CM",
+     "nationId": 52,
+     "leagueId": 353,
+     "clubId": 101083,
+     "card": [
+      70,
+      71,
+      54
+     ],
+     "chem": 3,
+     "eff": [
+      72,
+      73,
+      56
+     ],
+     "slot": "LM"
     },
     {
      "id": "id184144",
@@ -132,28 +155,6 @@
       71,
       74,
       51
-     ],
-     "slot": "LM"
-    },
-    {
-     "id": "id188554",
-     "name": "Dani Pacheco",
-     "rating": 70,
-     "color": "rare_silver",
-     "position": "CDM",
-     "nationId": 45,
-     "leagueId": 66,
-     "clubId": 1569,
-     "card": [
-      68,
-      72,
-      66
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      74,
-      68
      ],
      "slot": "CM"
     },
@@ -205,79 +206,79 @@
      "slot": "RM"
     },
     {
-     "id": "id220912",
-     "name": "Jagiełło",
+     "id": "id271575",
+     "name": "Pafundi",
      "rating": 70,
      "color": "rare_silver",
-     "position": "CM",
-     "nationId": 37,
-     "leagueId": 66,
-     "clubId": 873,
+     "position": "CAM",
+     "nationId": 27,
+     "leagueId": 32,
+     "clubId": 110908,
      "card": [
-      70,
       71,
-      57
+      72,
+      47
      ],
      "chem": 3,
      "eff": [
-      72,
       73,
-      59
+      74,
+      49
      ],
      "slot": "CAM"
     },
     {
-     "id": "id253908",
-     "name": "Luna Diale",
-     "rating": 70,
+     "id": "id275418",
+     "name": "Taha",
+     "rating": 68,
      "color": "rare_silver",
-     "position": "CM",
-     "nationId": 52,
-     "leagueId": 353,
-     "clubId": 111716,
+     "position": "CAM",
+     "nationId": 129,
+     "leagueId": 10,
+     "clubId": 1908,
      "card": [
-      73,
-      68,
-      63
+      71,
+      67,
+      39
      ],
      "chem": 2,
      "eff": [
-      74,
-      69,
-      64
+      72,
+      68,
+      40
      ],
      "slot": "ST"
     },
     {
-     "id": "id259105",
-     "name": "Pablo Rodríguez",
-     "rating": 69,
+     "id": "id276035",
+     "name": "Buso",
+     "rating": 67,
      "color": "rare_silver",
      "position": "CAM",
-     "nationId": 45,
-     "leagueId": 66,
-     "clubId": 873,
+     "nationId": 27,
+     "leagueId": 32,
+     "clubId": 110908,
      "card": [
-      70,
-      67,
-      44
+      69,
+      64,
+      36
      ],
      "chem": 3,
      "eff": [
-      72,
-      69,
-      46
+      71,
+      66,
+      38
      ],
      "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": null,
+    "ctrl_win": 0.532,
     "control": 74.0,
-    "attack": 72.27,
-    "defence": 69.25,
-    "net": null,
+    "attack": 71.56,
+    "defence": 72.0,
+    "net": 0.0782,
     "vs_reddit": null,
     "control_cards": [
      75,
@@ -287,31 +288,35 @@
      73
     ],
     "attack_cards": [
-     74,
+     73,
      72,
      72,
      72,
+     71,
      71,
      70
     ],
     "defence_cards": [
      73,
-     70,
-     69,
-     65
+     73,
+     72,
+     70
     ],
-    "p_att": null,
-    "p_def": null,
-    "chem": 30,
+    "p_att": 0.604,
+    "p_def": 0.2558,
+    "chem": 31,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
     "weak_attackers": [],
     "attack_short": 0,
-    "ctrl_total": 197.6,
-    "att_total": 195.77,
-    "def_total": 167.75
-   },
-   "source": "Previous Best"
+    "ctrl_total": 193.8,
+    "att_total": 183.41,
+    "def_total": 170.25,
+    "round_robin": {
+     "wins": 11.0,
+     "margin": 1.1537
+    }
+   }
   },
   {
    "formation": "3-4-1-2",
@@ -565,11 +570,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5507,
+    "ctrl_win": 0.5493,
     "control": 74.0,
     "attack": 72.27,
     "defence": 69.25,
-    "net": 0.0699,
+    "net": 0.0714,
     "vs_reddit": null,
     "control_cards": [
      75,
@@ -592,8 +597,8 @@
      69,
      65
     ],
-    "p_att": 0.7053,
-    "p_def": 0.1006,
+    "p_att": 0.7183,
+    "p_def": 0.0929,
     "chem": 30,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -603,8 +608,8 @@
     "att_total": 195.77,
     "def_total": 167.75,
     "round_robin": {
-     "wins": 11.0,
-     "margin": 1.1818
+     "wins": 12.0,
+     "margin": 1.203
     }
    }
   },
@@ -860,11 +865,11 @@
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5507,
+    "ctrl_win": 0.5493,
     "control": 74.0,
     "attack": 72.28,
     "defence": 69.0,
-    "net": 0.0633,
+    "net": 0.0649,
     "vs_reddit": null,
     "control_cards": [
      75,
@@ -888,8 +893,8 @@
      68,
      65
     ],
-    "p_att": 0.7072,
-    "p_def": 0.0812,
+    "p_att": 0.7194,
+    "p_def": 0.075,
     "chem": 30,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -902,7 +907,7 @@
   }
  ],
  "not_owned": [],
- "built": "2026-11-26 04:09 UTC",
+ "built": "2026-11-27 02:50 UTC",
  "week": "2026-11-23",
- "changed": "2026-11-24 05:04 UTC"
+ "changed": "2026-11-27 02:50 UTC"
 }
