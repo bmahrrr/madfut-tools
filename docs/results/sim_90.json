@@ -341,28 +341,6 @@
      "slot": "GK"
     },
     {
-     "id": "ltm_comuzzo90",
-     "name": "Comuzzo",
-     "rating": 90,
-     "color": "ltm",
-     "position": "CB",
-     "nationId": 27,
-     "leagueId": 31,
-     "clubId": 54,
-     "card": [
-      68,
-      78,
-      91
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      80,
-      95
-     ],
-     "slot": "CB"
-    },
-    {
      "id": "id50561206",
      "name": "Upamecano",
      "rating": 89,
@@ -381,6 +359,28 @@
       70,
       73,
       92
+     ],
+     "slot": "CB"
+    },
+    {
+     "id": "ltm_comuzzo90",
+     "name": "Comuzzo",
+     "rating": 90,
+     "color": "ltm",
+     "position": "CB",
+     "nationId": 27,
+     "leagueId": 31,
+     "clubId": 54,
+     "card": [
+      68,
+      78,
+      91
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      80,
+      95
      ],
      "slot": "CB"
     },
@@ -567,7 +567,7 @@
     "control": 92.8,
     "attack": 92.44,
     "defence": 92.5,
-    "net": 0.1078,
+    "net": 0.0886,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -591,8 +591,8 @@
      92,
      88
     ],
-    "p_att": 0.5132,
-    "p_def": 0.5703,
+    "p_att": 0.4784,
+    "p_def": 0.5718,
     "chem": 33,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -602,8 +602,8 @@
     "att_total": 243.53,
     "def_total": 221.75,
     "round_robin": {
-     "wins": 18.0,
-     "margin": 3.0066
+     "wins": 15.0,
+     "margin": 1.9873
     }
    }
   },
@@ -632,6 +632,28 @@
       94
      ],
      "slot": "GK"
+    },
+    {
+     "id": "id3622",
+     "name": "Ricardo Carvalho",
+     "rating": 88,
+     "color": "hero",
+     "position": "CB",
+     "nationId": 38,
+     "leagueId": 308,
+     "clubId": 114605,
+     "card": [
+      68,
+      71,
+      88
+     ],
+     "chem": 3,
+     "eff": [
+      70,
+      73,
+      92
+     ],
+     "slot": "CB"
     },
     {
      "id": "id261593",
@@ -674,28 +696,6 @@
       70,
       80,
       95
-     ],
-     "slot": "CB"
-    },
-    {
-     "id": "id3622",
-     "name": "Ricardo Carvalho",
-     "rating": 88,
-     "color": "hero",
-     "position": "CB",
-     "nationId": 38,
-     "leagueId": 308,
-     "clubId": 114605,
-     "card": [
-      68,
-      71,
-      88
-     ],
-     "chem": 3,
-     "eff": [
-      70,
-      73,
-      92
      ],
      "slot": "CB"
     },
@@ -810,28 +810,6 @@
      "slot": "CAM"
     },
     {
-     "id": "id50573494",
-     "name": "Pajor",
-     "rating": 90,
-     "color": "totw_gold",
-     "position": "ST",
-     "nationId": 37,
-     "leagueId": 2222,
-     "clubId": 241,
-     "card": [
-      91,
-      76,
-      31
-     ],
-     "chem": 2,
-     "eff": [
-      92,
-      77,
-      34
-     ],
-     "slot": "ST"
-    },
-    {
      "id": "id243075",
      "name": "Rummenigge",
      "rating": 90,
@@ -852,15 +830,37 @@
       63
      ],
      "slot": "ST"
+    },
+    {
+     "id": "id50573494",
+     "name": "Pajor",
+     "rating": 90,
+     "color": "totw_gold",
+     "position": "ST",
+     "nationId": 37,
+     "leagueId": 2222,
+     "clubId": 241,
+     "card": [
+      91,
+      76,
+      31
+     ],
+     "chem": 2,
+     "eff": [
+      92,
+      77,
+      34
+     ],
+     "slot": "ST"
     }
    ],
    "metrics": {
     "h2h": null,
-    "ctrl_win": 0.5613,
+    "ctrl_win": 0.556,
     "control": 92.8,
     "attack": 92.18,
     "defence": 93.75,
-    "net": 0.0848,
+    "net": 0.0807,
     "vs_reddit": null,
     "control_cards": [
      93,
@@ -884,8 +884,8 @@
      94,
      92
     ],
-    "p_att": 0.3871,
-    "p_def": 0.6841,
+    "p_att": 0.3788,
+    "p_def": 0.6855,
     "chem": 32,
     "ctrl_not_full": 0,
     "def_unbeatable": false,
@@ -898,7 +898,7 @@
   }
  ],
  "not_owned": [],
- "built": "2026-11-27 02:50 UTC",
+ "built": "2026-11-28 02:31 UTC",
  "week": "2026-11-23",
  "changed": "2026-11-22 05:52 UTC"
 }
